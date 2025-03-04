@@ -1236,47 +1236,47 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="241"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="242"/>
         <source>Reply to Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="246"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="247"/>
         <source>Edit Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="250"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="252"/>
         <source>Select Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="255"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="257"/>
         <source>Copy Message to Clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="260"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="262"/>
         <source>Forward Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="265"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="267"/>
         <source>Delete Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="283"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="285"/>
         <source>More Options...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="497"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="499"/>
         <source>You</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="614"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="616"/>
         <source>Forwarded Message</source>
         <translation type="unfinished"></translation>
     </message>

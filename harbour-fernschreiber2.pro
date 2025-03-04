@@ -149,24 +149,23 @@ DISTFILES += qml/harbour-fernschreiber2.qml \
     qml/pages/VideoPage.qml \
     rpm/harbour-fernschreiber2.changes \
     rpm/harbour-fernschreiber2.spec \
-    rpm/harbour-fernschreiber2.yaml \
     translations/*.ts \
     harbour-fernschreiber2.desktop
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172 256x256
 
-TRANSLATIONS += translations/harbour-fernschreiber-de.ts \
-                translations/harbour-fernschreiber-es.ts \
-                translations/harbour-fernschreiber-fi.ts \
-                translations/harbour-fernschreiber-fr.ts \
-                translations/harbour-fernschreiber-hu.ts \
-                translations/harbour-fernschreiber-it.ts \
-                translations/harbour-fernschreiber-pl.ts \
-                translations/harbour-fernschreiber-ru.ts \
-                translations/harbour-fernschreiber-sv.ts \
-                translations/harbour-fernschreiber-sk.ts \
-                translations/harbour-fernschreiber-en.ts \
-                translations/harbour-fernschreiber-zh_CN.ts
+TRANSLATIONS += translations/harbour-fernschreiber2-de.ts \
+                translations/harbour-fernschreiber2-es.ts \
+                translations/harbour-fernschreiber2-fi.ts \
+                translations/harbour-fernschreiber2-fr.ts \
+                translations/harbour-fernschreiber2-hu.ts \
+                translations/harbour-fernschreiber2-it.ts \
+                translations/harbour-fernschreiber2-pl.ts \
+                translations/harbour-fernschreiber2-ru.ts \
+                translations/harbour-fernschreiber2-sv.ts \
+                translations/harbour-fernschreiber2-sk.ts \
+                translations/harbour-fernschreiber2-en.ts \
+                translations/harbour-fernschreiber2-zh_CN.ts
 
 equals(QT_ARCH, arm) {
     message(Building ARM)
