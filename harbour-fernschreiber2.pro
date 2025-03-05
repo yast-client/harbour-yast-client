@@ -146,7 +146,6 @@ DISTFILES += qml/harbour-fernschreiber2.qml \
     qml/pages/PollResultsPage.qml \
     qml/pages/SearchChatsPage.qml \
     qml/pages/SettingsPage.qml \
-    qml/pages/VideoPage.qml \
     rpm/harbour-fernschreiber2.changes \
     rpm/harbour-fernschreiber2.spec \
     translations/*.ts \
