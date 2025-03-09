@@ -32,29 +32,29 @@ Page {
     allowedOrientations: Orientation.All
     backNavigation: !stickerPickerLoader.active
 
-    property bool loading: true;
-    property bool isInitialized: false;
-    readonly property int myUserId: tdLibWrapper.getUserInformation().id;
-    property var chatInformation;
-    property var secretChatDetails;
+    property bool loading: true
+    property bool isInitialized: false
+    readonly property int myUserId: tdLibWrapper.getUserInformation().id
+    property var chatInformation
+    property var secretChatDetails
     property alias chatPicture: chatPictureThumbnail.photoData
-    property bool isPrivateChat: false;
-    property bool isSecretChat: false;
-    property bool isSecretChatReady: false;
-    property bool isBasicGroup: false;
-    property bool isSuperGroup: false;
-    property bool isChannel: false;
-    property bool isDeletedUser: false;
-    property bool containsSponsoredMessages: false;
-    property var chatPartnerInformation;
-    property var botInformation;
-    property var chatGroupInformation;
-    property int chatOnlineMemberCount: 0;
-    property var emojiProposals;
-    property bool iterativeInitialization: false;
-    property var messageToShow;
-    property string messageIdToShow;
-    property string messageIdToScrollTo;
+    property bool isPrivateChat: false
+    property bool isSecretChat: false
+    property bool isSecretChatReady: false
+    property bool isBasicGroup: false
+    property bool isSuperGroup: false
+    property bool isChannel: false
+    property bool isDeletedUser: false
+    property bool containsSponsoredMessages: false
+    property var chatPartnerInformation
+    property var botInformation
+    property var chatGroupInformation
+    property int chatOnlineMemberCount: 0
+    property var emojiProposals
+    property bool iterativeInitialization: false
+    property var messageToShow
+    property string messageIdToShow
+    property string messageIdToScrollTo
     readonly property bool userIsMember: ((isPrivateChat || isSecretChat) && chatInformation["@type"]) || // should be optimized
                                 (isBasicGroup || isSuperGroup) && (
                                     (chatGroupInformation.status["@type"] === "chatMemberStatusMember")
@@ -93,44 +93,39 @@ Page {
     ]
 
     function toggleMessageSelection(message) {
-        var selectionArray = selectedMessages;
+        var selectionArray = selectedMessages
         var foundIndex = -1
         if(selectionArray.length > 0) {
             for(var i = 0; i < selectionArray.length; i += 1) {
                 if(selectionArray[i].id === message.id) {
-                    foundIndex = i;
-                    continue;
+                    foundIndex = i
+                    continue
                 }
             }
         }
-        if(foundIndex > -1) {
-            selectionArray.splice(foundIndex, 1);
-        } else {
-            selectionArray.push(message);
-        }
-        selectedMessages = selectionArray;
+        if(foundIndex > -1)
+            selectionArray.splice(foundIndex, 1)
+        else
+            selectionArray.push(message)
+        selectedMessages = selectionArray
     }
 
     function updateChatPartnerStatusText() {
-        if (chatPage.isSelecting) {
+        if (chatPage.isSelecting)
             return
-        }
-        var statusText = Functions.getChatPartnerStatusText(chatPartnerInformation.status['@type'], chatPartnerInformation.status.was_online);
+        var statusText = Functions.getChatPartnerStatusText(chatPartnerInformation.status['@type'], chatPartnerInformation.status.was_online)
         if (chatPage.secretChatDetails) {
-            var secretChatStatus = Functions.getSecretChatStatus(chatPage.secretChatDetails);
-            if (statusText && secretChatStatus) {
-                statusText += " - ";
-            }
-            if (secretChatStatus) {
-                statusText += secretChatStatus;
-            }
+            var secretChatStatus = Functions.getSecretChatStatus(chatPage.secretChatDetails)
+            if (statusText && secretChatStatus)
+                statusText += " - "
+            if (secretChatStatus)
+                statusText += secretChatStatus
         }
-        if (statusText) {
-            chatStatusText.text = statusText;
-        }
+        if (statusText)
+            chatStatusText.text = statusText
         if (chatPartnerInformation.type['@type'] === "userTypeDeleted") {
-            chatNameText.text = qsTr("Deleted User");
-            chatPage.isDeletedUser = true;
+            chatNameText.text = qsTr("Deleted User")
+            chatPage.isDeletedUser = true
         }
     }
 
@@ -143,102 +138,90 @@ Page {
                 .arg(qsTr("%1 members", "", chatGroupInformation.member_count)
                     .arg(Functions.getShortenedCount(chatGroupInformation.member_count)))
                 .arg(qsTr("%1 online", "", chatOnlineMemberCount)
-                    .arg(Functions.getShortenedCount(chatOnlineMemberCount)));
-        } else {
-            if (isChannel) {
-                chatStatusText.text = qsTr("%1 subscribers", "", chatGroupInformation.member_count).arg(Functions.getShortenedCount(chatGroupInformation.member_count));
-            } else {
-                chatStatusText.text = qsTr("%1 members", "", chatGroupInformation.member_count).arg(Functions.getShortenedCount(chatGroupInformation.member_count));
-            }
-        }
-        joinLeaveChatMenuItem.text = chatPage.userIsMember ? qsTr("Leave Chat") : qsTr("Join Chat");
+                    .arg(Functions.getShortenedCount(chatOnlineMemberCount)))
+        } else
+            chatStatusText = (isChannel ? qsTr("%1 subscribers", "", chatGroupInformation.member_count) : qsTr("%1 members", "", chatGroupInformation.member_count))
+                .arg(Functions.getShortenedCount(chatGroupInformation.member_count))
+        joinLeaveChatMenuItem.text = chatPage.userIsMember ? qsTr("Leave Chat") : qsTr("Join Chat")
     }
 
     function initializePage() {
-        Debug.log("[ChatPage] Initializing chat page...");
-        chatView.currentIndex = -1;
-        chatView.lastReadSentIndex = -1;
-        var chatType = chatInformation.type['@type'];
-        isPrivateChat = chatType === "chatTypePrivate";
-        isSecretChat = chatType === "chatTypeSecret";
-        isBasicGroup = ( chatType === "chatTypeBasicGroup" );
-        isSuperGroup = ( chatType === "chatTypeSupergroup" );
+        Debug.log("[ChatPage] Initializing chat page...")
+        chatView.currentIndex = -1
+        chatView.lastReadSentIndex = -1
+        var chatType = chatInformation.type['@type']
+        isPrivateChat = chatType === "chatTypePrivate"
+        isSecretChat = chatType === "chatTypeSecret"
+        isBasicGroup = ( chatType === "chatTypeBasicGroup" )
+        isSuperGroup = ( chatType === "chatTypeSupergroup" )
         if (isPrivateChat || isSecretChat) {
-            chatPartnerInformation = tdLibWrapper.getUserInformation(chatInformation.type.user_id);
-            updateChatPartnerStatusText();
-            if (isSecretChat) {
-                tdLibWrapper.getSecretChat(chatInformation.type.secret_chat_id);
-            }
-            if(chatPartnerInformation.type["@type"] === "userTypeBot") {
+            chatPartnerInformation = tdLibWrapper.getUserInformation(chatInformation.type.user_id)
+            updateChatPartnerStatusText()
+            if (isSecretChat)
+                tdLibWrapper.getSecretChat(chatInformation.type.secret_chat_id)
+            if(chatPartnerInformation.type["@type"] === "userTypeBot")
                 tdLibWrapper.getUserFullInfo(chatPartnerInformation.id)
-            }
         }
         else if (isBasicGroup) {
-            chatGroupInformation = tdLibWrapper.getBasicGroup(chatInformation.type.basic_group_id);
-            updateGroupStatusText();
+            chatGroupInformation = tdLibWrapper.getBasicGroup(chatInformation.type.basic_group_id)
+            updateGroupStatusText()
         }
         else if (isSuperGroup) {
-            chatGroupInformation = tdLibWrapper.getSuperGroup(chatInformation.type.supergroup_id);
-            isChannel = chatGroupInformation.is_channel;
-            updateGroupStatusText();
+            chatGroupInformation = tdLibWrapper.getSuperGroup(chatInformation.type.supergroup_id)
+            isChannel = chatGroupInformation.is_channel
+            updateGroupStatusText()
         }
         if (stickerManager.needsReload()) {
-            Debug.log("[ChatPage] Recent stickers will be reloaded!");
-            tdLibWrapper.getRecentStickers();
-            stickerManager.setNeedsReload(false);
+            Debug.log("[ChatPage] Recent stickers will be reloaded!")
+            tdLibWrapper.getRecentStickers()
+            stickerManager.setNeedsReload(false)
         }
-        tdLibWrapper.getChatPinnedMessage(chatInformation.id);
-        tdLibWrapper.toggleChatIsMarkedAsUnread(chatInformation.id, false);
-        availableReactions = tdLibWrapper.getChatReactions(chatInformation.id);
+        tdLibWrapper.getChatPinnedMessage(chatInformation.id)
+        tdLibWrapper.toggleChatIsMarkedAsUnread(chatInformation.id, false)
+        availableReactions = tdLibWrapper.getChatReactions(chatInformation.id)
     }
 
     function getMessageStatusText(message, listItemIndex, lastReadSentIndex, useElapsed) {
-        Debug.log("Last read sent index: " + lastReadSentIndex);
-        var messageStatusSuffix = "";
-        if(!message) {
-            return "";
-        }
+        Debug.log("Last read sent index: " + lastReadSentIndex)
+        var messageStatusSuffix = ""
 
-        if (message['@type'] === "sponsoredMessage") {
-            return qsTr("Sponsored Message");
-        }
+        if(!message) return ""
+        if (message['@type'] === "sponsoredMessage")
+            return qsTr("Sponsored Message")
 
-        if (message.edit_date > 0) {
-            messageStatusSuffix += " - " + qsTr("edited");
-        }
+        if (message.edit_date > 0)
+            messageStatusSuffix += " - " + qsTr("edited")
 
         if (chatPage.myUserId === message.sender_id.user_id) {
             messageStatusSuffix += "&nbsp;&nbsp;"
             if (listItemIndex <= lastReadSentIndex) {
                 // Read by other party
-                messageStatusSuffix += Emoji.emojify("✅", Theme.fontSizeTiny);
+                messageStatusSuffix += Emoji.emojify("✅", Theme.fontSizeTiny)
             } else {
                 // Not yet read by other party
                 if (message.sending_state) {
-                    if (message.sending_state['@type'] === "messageSendingStatePending") {
-                        messageStatusSuffix += Emoji.emojify("🕙", Theme.fontSizeTiny);
-                    } else {
+                    if (message.sending_state['@type'] === "messageSendingStatePending")
+                        messageStatusSuffix += Emoji.emojify("🕙", Theme.fontSizeTiny)
+                    else
                         // Sending failed...
-                        messageStatusSuffix += Emoji.emojify("❌", Theme.fontSizeTiny);
-                    }
-                } else {
-                    messageStatusSuffix += Emoji.emojify("☑️", Theme.fontSizeTiny);
-                }
+                        messageStatusSuffix += Emoji.emojify("❌", Theme.fontSizeTiny)
+                } else
+                    messageStatusSuffix += Emoji.emojify("☑️", Theme.fontSizeTiny)
             }
         }
-        return ( useElapsed ? Functions.getDateTimeElapsed(message.date) : Functions.getDateTimeTranslated(message.date) ) + messageStatusSuffix;
+        return ( useElapsed ? Functions.getDateTimeElapsed(message.date) : Functions.getDateTimeTranslated(message.date) ) + messageStatusSuffix
     }
 
     function clearAttachmentPreviewRow() {
-        attachmentPreviewRow.isPicture = false;
-        attachmentPreviewRow.isVideo = false;
-        attachmentPreviewRow.isDocument = false;
-        attachmentPreviewRow.isVoiceNote = false;
-        attachmentPreviewRow.isLocation = false;
-        attachmentPreviewRow.fileProperties = null;
-        attachmentPreviewRow.locationData = null;
-        attachmentPreviewRow.attachmentDescription = "";
-        fernschreiberUtils.stopGeoLocationUpdates();
+        attachmentPreviewRow.isPicture = false
+        attachmentPreviewRow.isVideo = false
+        attachmentPreviewRow.isDocument = false
+        attachmentPreviewRow.isVoiceNote = false
+        attachmentPreviewRow.isLocation = false
+        attachmentPreviewRow.fileProperties = null
+        attachmentPreviewRow.locationData = null
+        attachmentPreviewRow.attachmentDescription = ""
+        fernschreiberUtils.stopGeoLocationUpdates()
     }
 
     function controlSendButton() {
@@ -252,117 +235,102 @@ Page {
     }
 
     function sendMessage() {
-        if (newMessageColumn.editMessageId !== "0") {
-            tdLibWrapper.editMessageText(chatInformation.id, newMessageColumn.editMessageId, newMessageTextField.text);
-        } else {
+        if (newMessageColumn.editMessageId !== "0")
+            tdLibWrapper.editMessageText(chatInformation.id, newMessageColumn.editMessageId, newMessageTextField.text)
+        else {
             if (attachmentPreviewRow.visible) {
-                if (attachmentPreviewRow.isPicture) {
-                    tdLibWrapper.sendPhotoMessage(chatInformation.id, attachmentPreviewRow.fileProperties.filePath, newMessageTextField.text, newMessageColumn.replyToMessageId);
-                }
-                if (attachmentPreviewRow.isVideo) {
-                    tdLibWrapper.sendVideoMessage(chatInformation.id, attachmentPreviewRow.fileProperties.filePath, newMessageTextField.text, newMessageColumn.replyToMessageId);
-                }
-                if (attachmentPreviewRow.isDocument) {
-                    tdLibWrapper.sendDocumentMessage(chatInformation.id, attachmentPreviewRow.fileProperties.filePath, newMessageTextField.text, newMessageColumn.replyToMessageId);
-                }
-                if (attachmentPreviewRow.isVoiceNote) {
-                    tdLibWrapper.sendVoiceNoteMessage(chatInformation.id, fernschreiberUtils.voiceNotePath(), newMessageTextField.text, newMessageColumn.replyToMessageId);
-                }
-                if (attachmentPreviewRow.isLocation) {
-                    tdLibWrapper.sendLocationMessage(chatInformation.id, attachmentPreviewRow.locationData.latitude, attachmentPreviewRow.locationData.longitude, attachmentPreviewRow.locationData.horizontalAccuracy, newMessageColumn.replyToMessageId);
-                }
-                clearAttachmentPreviewRow();
-            } else {
-                tdLibWrapper.sendTextMessage(chatInformation.id, newMessageTextField.text, newMessageColumn.replyToMessageId);
-            }
+                var basecall = function(f){ f(chatInformation.id, attachmentPreviewRow.fileProperties.filePath, newMessageTextField.text, newMessageColumn.replyToMessageId) }
+                if (attachmentPreviewRow.isPicture) basecall(tdLibWrapper.sendPhotoMessage)
+                if (attachmentPreviewRow.isVideo) basecall(tdLibWrapper.sendVideoMessage)
+                if (attachmentPreviewRow.isDocument) basecall(tdLibWrapper.sendDocumentMessage)
+                if (attachmentPreviewRow.isVoiceNote)
+                    tdLibWrapper.sendVoiceNoteMessage(chatInformation.id, fernschreiberUtils.voiceNotePath(), newMessageTextField.text, newMessageColumn.replyToMessageId)
+                if (attachmentPreviewRow.isLocation)
+                    tdLibWrapper.sendLocationMessage(chatInformation.id, attachmentPreviewRow.locationData.latitude, attachmentPreviewRow.locationData.longitude, attachmentPreviewRow.locationData.horizontalAccuracy, newMessageColumn.replyToMessageId)
+                clearAttachmentPreviewRow()
+            } else
+                tdLibWrapper.sendTextMessage(chatInformation.id, newMessageTextField.text, newMessageColumn.replyToMessageId)
 
-            if(appSettings.focusTextAreaAfterSend) {
-                lostFocusTimer.start();
-            }
+            if(appSettings.focusTextAreaAfterSend)
+                lostFocusTimer.start()
         }
-        controlSendButton();
-        newMessageInReplyToRow.inReplyToMessage = null;
-        newMessageColumn.editMessageId = "0";
-        fernschreiberUtils.stopGeoLocationUpdates();
+        controlSendButton()
+        newMessageInReplyToRow.inReplyToMessage = null
+        newMessageColumn.editMessageId = "0"
+        fernschreiberUtils.stopGeoLocationUpdates()
     }
 
     function getWordBoundaries(text, cursorPosition) {
-        var wordBoundaries = { beginIndex : 0, endIndex : text.length};
-        var currentIndex = 0;
+        var wordBoundaries = { beginIndex : 0, endIndex : text.length}
+        var currentIndex = 0
         for (currentIndex = (cursorPosition - 1); currentIndex > 0; currentIndex--) {
             if (text.charAt(currentIndex) === ' ') {
-                wordBoundaries.beginIndex = currentIndex + 1;
-                break;
+                wordBoundaries.beginIndex = currentIndex + 1
+                break
             }
         }
         for (currentIndex = cursorPosition; currentIndex < text.length; currentIndex++) {
             if (text.charAt(currentIndex) === ' ') {
-                wordBoundaries.endIndex = currentIndex;
-                break;
+                wordBoundaries.endIndex = currentIndex
+                break
             }
         }
-        return wordBoundaries;
+        return wordBoundaries
     }
 
     function handleMessageTextReplacement(text, cursorPosition) {
-        if(!newMessageTextField.focus) {
-            return;
-        }
+        if(!newMessageTextField.focus) return
 
-        var wordBoundaries = getWordBoundaries(text, cursorPosition);
+        var wordBoundaries = getWordBoundaries(text, cursorPosition)
 
-        var currentWord = text.substring(wordBoundaries.beginIndex, wordBoundaries.endIndex);
-        if (currentWord.length > 1 && currentWord.charAt(0) === ':') {
-            tdLibWrapper.searchEmoji(currentWord.substring(1));
-        } else {
-            chatPage.emojiProposals = null;
-        }
+        var currentWord = text.substring(wordBoundaries.beginIndex, wordBoundaries.endIndex)
+        if (currentWord.length > 1 && currentWord.charAt(0) === ':')
+            tdLibWrapper.searchEmoji(currentWord.substring(1))
+        else
+            chatPage.emojiProposals = null
         if (currentWord.length > 1 && currentWord.charAt(0) === '@') {
-            knownUsersRepeater.model = knownUsersProxyModel;
-            knownUsersProxyModel.setFilterWildcard("*" + currentWord.substring(1) + "*");
-        } else {
-            knownUsersRepeater.model = undefined;
-        }
-
+            knownUsersRepeater.model = knownUsersProxyModel
+            knownUsersProxyModel.setFilterWildcard("*" + currentWord.substring(1) + "*")
+        } else
+            knownUsersRepeater.model = undefined
     }
 
     function replaceMessageText(text, cursorPosition, newText) {
-        var wordBoundaries = getWordBoundaries(text, cursorPosition);
-        var newCompleteText = text.substring(0, wordBoundaries.beginIndex) + newText + " " + text.substring(wordBoundaries.endIndex);
-        var newIndex = wordBoundaries.beginIndex + newText.length + 1;
-        newMessageTextField.text = newCompleteText;
-        newMessageTextField.cursorPosition = newIndex;
-        lostFocusTimer.start();
+        var wordBoundaries = getWordBoundaries(text, cursorPosition)
+        var newCompleteText = text.substring(0, wordBoundaries.beginIndex) + newText + " " + text.substring(wordBoundaries.endIndex)
+        var newIndex = wordBoundaries.beginIndex + newText.length + 1
+        newMessageTextField.text = newCompleteText
+        newMessageTextField.cursorPosition = newIndex
+        lostFocusTimer.start()
     }
 
     function setMessageText(text, doSend) {
-        if(doSend) {
-            tdLibWrapper.sendTextMessage(chatInformation.id, text, "0");
-        }
+        if(doSend)
+            tdLibWrapper.sendTextMessage(chatInformation.id, text, "0")
         else {
             newMessageTextField.text = text
             newMessageTextField.cursorPosition = text.length
-            lostFocusTimer.start();
+            lostFocusTimer.start()
         }
 
     }
 
     function startForwardingMessages(messages) {
-        var ids = Functions.getMessagesArrayIds(messages);
-        var neededPermissions = Functions.getMessagesNeededForwardPermissions(messages);
-        var chatId = chatInformation.id;
+        var ids = Functions.getMessagesArrayIds(messages)
+        var neededPermissions = Functions.getMessagesNeededForwardPermissions(messages)
+        var chatId = chatInformation.id
         pageStack.push(Qt.resolvedUrl("../pages/ChatSelectionPage.qml"), {
             myUserId: chatPage.myUserId,
             headerDescription: qsTr("Forward %Ln messages", "dialog header", ids.length),
             payload: {fromChatId: chatId, messageIds:ids, neededPermissions: neededPermissions},
             state: "forwardMessages"
-        });
+        })
     }
 
     function forwardMessages(fromChatId, messageIds) {
-        forwardMessagesTimer.fromChatId = fromChatId;
-        forwardMessagesTimer.messageIds = messageIds;
-        forwardMessagesTimer.start();
+        forwardMessagesTimer.fromChatId = fromChatId
+        forwardMessagesTimer.messageIds = messageIds
+        forwardMessagesTimer.start()
     }
     function hasSendPrivilege(privilege) {
         var groupStatus = chatGroupInformation ? chatGroupInformation.status : null
@@ -375,37 +343,36 @@ Page {
                     || (chatPage.isSecretChat && chatPage.isSecretChatReady)
     }
     function canPinMessages() {
-        Debug.log("Can we pin messages?");
+        Debug.log("Can we pin messages?")
         if (chatPage.isPrivateChat || chatPage.isSecretChat) {
-            Debug.log("Private/Secret Chat: No!");
-            return false;
+            Debug.log("Private/Secret Chat: No!")
+            return false
         }
         if (chatPage.chatGroupInformation.status["@type"] === "chatMemberStatusCreator") {
-            Debug.log("Creator of this chat: Yes!");
-            return true;
+            Debug.log("Creator of this chat: Yes!")
+            return true
         }
         if (chatPage.chatInformation.permissions.can_pin_messages) {
-            Debug.log("All people can pin: Yes!");
-            return true;
+            Debug.log("All people can pin: Yes!")
+            return true
         }
         if (chatPage.chatGroupInformation.status["@type"] === "chatMemberStatusAdministrator") {
-            Debug.log("Admin with privileges? ", chatPage.chatGroupInformation.status.can_pin_messages);
-            return chatPage.chatGroupInformation.status.can_pin_messages;
+            Debug.log("Admin with privileges? ", chatPage.chatGroupInformation.status.can_pin_messages)
+            return chatPage.chatGroupInformation.status.can_pin_messages
         }
         if (chatPage.chatGroupInformation.status["@type"] === "chatMemberStatusRestricted") {
-            Debug.log("Restricted, but can pin messages? ", chatPage.chatGroupInformation.status.permissions.can_pin_messages);
-            return chatPage.chatGroupInformation.status.permissions.can_pin_messages;
+            Debug.log("Restricted, but can pin messages? ", chatPage.chatGroupInformation.status.permissions.can_pin_messages)
+            return chatPage.chatGroupInformation.status.permissions.can_pin_messages
         }
-        Debug.log("Something else: No!");
-        return false;
+        Debug.log("Something else: No!")
+        return false
     }
 
     function resetFocus() {
-        if (searchInChatField.text === "") {
-            chatOverviewItem.visible = true;
-        }
-        searchInChatField.focus = false;
-        chatPage.focus = true;
+        if (searchInChatField.text === "")
+            chatOverviewItem.visible = true
+        searchInChatField.focus = false
+        chatPage.focus = true
     }
 
     function showMessage(messageId, initialRun) {
@@ -414,15 +381,14 @@ Page {
             chatPage.messageIdToScrollTo = messageId
         }
         if (chatPage.messageIdToScrollTo && chatPage.messageIdToScrollTo != "") {
-            var index = chatModel.getMessageIndex(chatPage.messageIdToScrollTo);
+            var index = chatModel.getMessageIndex(chatPage.messageIdToScrollTo)
             if(index !== -1) {
-                chatPage.messageIdToScrollTo = "";
-                chatView.scrollToIndex(index);
-                navigatedTo(index);
-            } else if(initialRun) {
+                chatPage.messageIdToScrollTo = ""
+                chatView.scrollToIndex(index)
+                navigatedTo(index)
+            } else if(initialRun)
                 // we only want to do this once.
                 chatModel.triggerLoadHistoryForMessage(chatPage.messageIdToScrollTo)
-            }
         }
     }
 
@@ -433,11 +399,11 @@ Page {
         property string fromChatId
         property var messageIds
         onTriggered: {
-            if(chatPage.loading) {
+            if(chatPage.loading)
                 forwardMessagesTimer.start()
-            } else {
-                var forwardedToSecretChat = chatInformation.type["@type"] === "chatTypeSecret";
-                tdLibWrapper.forwardMessages(chatInformation.id, fromChatId, messageIds, forwardedToSecretChat, false);
+            else {
+                var forwardedToSecretChat = chatInformation.type["@type"] === "chatTypeSecret"
+                tdLibWrapper.forwardMessages(chatInformation.id, fromChatId, messageIds, forwardedToSecretChat, false)
             }
         }
     }
@@ -448,62 +414,60 @@ Page {
         running: false
         repeat: false
         onTriggered: {
-            Debug.log("Searching for '" + searchInChatField.text + "'");
-            chatModel.setSearchQuery(searchInChatField.text);
+            Debug.log("Searching for '" + searchInChatField.text + "'")
+            chatModel.setSearchQuery(searchInChatField.text)
         }
     }
 
-    Component.onCompleted: {
-        initializePage();
-    }
+    Component.onCompleted:
+        initializePage()
 
     Component.onDestruction: {
-        if (chatPage.canSendMessages && !chatPage.isDeletedUser) {
+        if (chatPage.canSendMessages && !chatPage.isDeletedUser)
             tdLibWrapper.setChatDraftMessage(chatInformation.id, 0, newMessageColumn.replyToMessageId, newMessageTextField.text,
-                newMessageInReplyToRow.inReplyToMessage ? newMessageInReplyToRow.inReplyToMessage.id : 0);
-        }
-        fernschreiberUtils.stopGeoLocationUpdates();
-        tdLibWrapper.closeChat(chatInformation.id);
+                newMessageInReplyToRow.inReplyToMessage ? newMessageInReplyToRow.inReplyToMessage.id : 0)
+
+        fernschreiberUtils.stopGeoLocationUpdates()
+        tdLibWrapper.closeChat(chatInformation.id)
     }
 
     onStatusChanged: {
         switch(status) {
         case PageStatus.Activating:
-            tdLibWrapper.openChat(chatInformation.id);
+            tdLibWrapper.openChat(chatInformation.id)
             if(!chatPage.isInitialized) {
                 if(chatInformation.draft_message) {
                     if(chatInformation.draft_message && chatInformation.draft_message.input_message_text) {
-                        newMessageTextField.text = chatInformation.draft_message.input_message_text.text.text;
+                        newMessageTextField.text = chatInformation.draft_message.input_message_text.text.text
                         if(chatInformation.draft_message.reply_to_message_id) {
-                            tdLibWrapper.getMessage(chatInformation.id, chatInformation.draft_message.reply_to_message_id);
+                            tdLibWrapper.getMessage(chatInformation.id, chatInformation.draft_message.reply_to_message_id)
                         }
                     }
                 }
             }
-            break;
+            break
         case PageStatus.Deactivating:
             messageOptionsDrawer.open = false
-            break;
+            break
         case PageStatus.Active:
             if (!chatPage.isInitialized) {
-                chatModel.initialize(chatInformation);
-
-                pageStack.pushAttached(Qt.resolvedUrl("ChatInformationPage.qml"), { "chatInformation" : chatInformation, "privateChatUserInformation": chatPartnerInformation, "groupInformation": chatGroupInformation, "chatOnlineMemberCount": chatOnlineMemberCount});
-
-                if(doSendBotStartMessage) {
+                chatModel.initialize(chatInformation)
+                pageStack.pushAttached(Qt.resolvedUrl("ChatInformationPage.qml"), {
+                                           chatInformation: chatInformation,
+                                           privateChatUserInformation: chatPartnerInformation,
+                                           groupInformation: chatGroupInformation,
+                                           chatOnlineMemberCount: chatOnlineMemberCount,
+                                       })
+                if(doSendBotStartMessage)
                     tdLibWrapper.sendBotStartMessage(chatInformation.id, chatInformation.id, sendBotStartMessageParameter, "")
-                }
             }
-            break;
+            break
         case PageStatus.Inactive:
-            if (pageStack.depth === 1) {
+            if (pageStack.depth === 1)
                 // Only clear chat model if navigated back to overview page. In other cases we keep the information...
-                chatModel.clear();
-            } else {
-                resetElements();
-            }
-
-            break;
+                chatModel.clear()
+            else resetElements()
+            break
         }
     }
 
@@ -511,130 +475,123 @@ Page {
         target: tdLibWrapper
         onUserUpdated: {
             if ((isPrivateChat || isSecretChat) && chatPartnerInformation.id.toString() === userId ) {
-                chatPartnerInformation = userInformation;
-                updateChatPartnerStatusText();
+                chatPartnerInformation = userInformation
+                updateChatPartnerStatusText()
             }
         }
         onBasicGroupUpdated: {
             if (isBasicGroup && chatGroupInformation.id.toString() === groupId ) {
-                chatGroupInformation = groupInformation;
-                updateGroupStatusText();
+                chatGroupInformation = groupInformation
+                updateGroupStatusText()
             }
         }
         onSuperGroupUpdated: {
             if (isSuperGroup && chatGroupInformation.id.toString() === groupId ) {
-                chatGroupInformation = groupInformation;
-                updateGroupStatusText();
+                chatGroupInformation = groupInformation
+                updateGroupStatusText()
             }
         }
         onChatOnlineMemberCountUpdated: {
             Debug.log(isSuperGroup, "/", isBasicGroup, "/", chatInformation.id.toString(), "/", chatId);
             if ((isSuperGroup || isBasicGroup) && chatInformation.id.toString() === chatId) {
-                chatOnlineMemberCount = onlineMemberCount;
-                updateGroupStatusText();
+                chatOnlineMemberCount = onlineMemberCount
+                updateGroupStatusText()
             }
         }
         onFileUpdated: {
-            uploadStatusRow.visible = fileInformation.remote.is_uploading_active;
+            uploadStatusRow.visible = fileInformation.remote.is_uploading_active
             if (uploadStatusRow.visible) {
-                uploadingProgressBar.maximumValue = fileInformation.size;
-                uploadingProgressBar.value = fileInformation.remote.uploaded_size;
+                uploadingProgressBar.maximumValue = fileInformation.size
+                uploadingProgressBar.value = fileInformation.remote.uploaded_size
             }
         }
-        onEmojiSearchSuccessful: {
-            chatPage.emojiProposals = result;
-        }
-        onErrorReceived: {
-            Functions.handleErrorMessage(code, message);
-        }
+        onEmojiSearchSuccessful:
+            chatPage.emojiProposals = result
+        onErrorReceived:
+            Functions.handleErrorMessage(code, message)
         onReceivedMessage: {
             if (message.is_pinned) {
-                Debug.log("[ChatPage] Received pinned message");
-                pinnedMessageItem.pinnedMessage = message;
+                Debug.log("[ChatPage] Received pinned message")
+                pinnedMessageItem.pinnedMessage = message
             }
             if (chatInformation.draft_message && messageId === chatInformation.draft_message.reply_to_message_id) {
-                newMessageInReplyToRow.inReplyToMessage = message;
+                newMessageInReplyToRow.inReplyToMessage = message
             }
             Debug.log("Received message ID: " + messageId + ", message ID to show: " + chatPage.messageIdToShow)
             if (chatPage.messageIdToShow && chatPage.messageIdToShow === String(messageId)) {
-                messageOverlayLoader.overlayMessage = message;
-                messageOverlayLoader.active = true;
+                messageOverlayLoader.overlayMessage = message
+                messageOverlayLoader.active = true
             }
         }
         onSecretChatReceived: {
             if (secretChatId === chatInformation.type.secret_chat_id) {
-                Debug.log("[ChatPage] Received detailed information about this secret chat");
-                chatPage.secretChatDetails = secretChat;
-                updateChatPartnerStatusText();
-                chatPage.isSecretChatReady = chatPage.secretChatDetails.state["@type"] === "secretChatStateReady";
+                Debug.log("[ChatPage] Received detailed information about this secret chat")
+                chatPage.secretChatDetails = secretChat
+                updateChatPartnerStatusText()
+                chatPage.isSecretChatReady = chatPage.secretChatDetails.state["@type"] === "secretChatStateReady"
             }
         }
         onSecretChatUpdated: {
             if (secretChatId.toString() === chatInformation.type.secret_chat_id.toString()) {
-                Debug.log("[ChatPage] Detailed information about this secret chat was updated");
-                chatPage.secretChatDetails = secretChat;
-                updateChatPartnerStatusText();
-                chatPage.isSecretChatReady = chatPage.secretChatDetails.state["@type"] === "secretChatStateReady";
+                Debug.log("[ChatPage] Detailed information about this secret chat was updated")
+                chatPage.secretChatDetails = secretChat
+                updateChatPartnerStatusText()
+                chatPage.isSecretChatReady = chatPage.secretChatDetails.state["@type"] === "secretChatStateReady"
             }
         }
         onCallbackQueryAnswer: {
             if(text.length > 0) { // ignore bool "alert", just show as notification:
-                appNotification.show(Emoji.emojify(text, Theme.fontSizeSmall));
+                appNotification.show(Emoji.emojify(text, Theme.fontSizeSmall))
             }
             if(url.length > 0) {
-                Functions.handleLink(url);
+                Functions.handleLink(url)
             }
         }
         onUserFullInfoReceived: {
-            if ((isPrivateChat || isSecretChat) && userFullInfo["@extra"] === chatPartnerInformation.id.toString()) {
-                chatPage.botInformation = userFullInfo;
-            }
+            if ((isPrivateChat || isSecretChat) && userFullInfo["@extra"] === chatPartnerInformation.id.toString())
+                chatPage.botInformation = userFullInfo
         }
         onUserFullInfoUpdated: {
-            if ((isPrivateChat || isSecretChat) && userId === chatPartnerInformation.id) {
-                chatPage.botInformation = userFullInfo;
-            }
+            if ((isPrivateChat || isSecretChat) && userId === chatPartnerInformation.id)
+                chatPage.botInformation = userFullInfo
         }
-        onSponsoredMessageReceived: {
-            chatPage.containsSponsoredMessages = true;
-        }
-        onReactionsUpdated: {
-            availableReactions = tdLibWrapper.getChatReactions(chatInformation.id);
-        }
+        onSponsoredMessageReceived:
+            chatPage.containsSponsoredMessages = true
+        onReactionsUpdated:
+            availableReactions = tdLibWrapper.getChatReactions(chatInformation.id)
     }
 
     Connections {
         target: chatModel
         onMessagesReceived: {
-            var proxyIndex = chatProxyModel.mapRowFromSource(modelIndex, -1);
-            Debug.log("[ChatPage] Messages received, view has ", chatView.count, " messages, last known message index ", proxyIndex, "("+modelIndex+"), own messages were read before index ", lastReadSentIndex);
+            var proxyIndex = chatProxyModel.mapRowFromSource(modelIndex, -1)
+            Debug.log("[ChatPage] Messages received, view has ", chatView.count, " messages, last known message index ", proxyIndex, "("+modelIndex+"), own messages were read before index ", lastReadSentIndex)
             if (totalCount === 0) {
                 if (chatPage.iterativeInitialization) {
-                    chatPage.iterativeInitialization = false;
-                    Debug.log("[ChatPage] actually, skipping that: No Messages in Chat.");
-                    chatView.positionViewAtEnd();
-                    chatPage.loading = false;
-                    return;
-                } else {
-                    chatPage.iterativeInitialization = true;
-                }
+                    chatPage.iterativeInitialization = false
+                    Debug.log("[ChatPage] actually, skipping that: No Messages in Chat.")
+                    chatView.positionViewAtEnd()
+                    chatPage.loading = false
+                    return
+                } else
+                    chatPage.iterativeInitialization = true
             }
 
-            chatView.lastReadSentIndex = lastReadSentIndex;
-            chatView.scrollToIndex(proxyIndex);
-            chatPage.loading = false;
+            chatView.lastReadSentIndex = lastReadSentIndex
+            chatView.scrollToIndex(proxyIndex)
+            chatPage.loading = false
             if (chatOverviewItem.visible && proxyIndex >= (chatView.count - 10)) {
-                chatView.inCooldown = true;
-                chatModel.triggerLoadMoreFuture();
+                chatView.inCooldown = true
+                chatModel.triggerLoadMoreFuture()
             }
 
             if (chatView.height > chatView.contentHeight) {
-                Debug.log("[ChatPage] Chat content quite small...");
-                viewMessageTimer.queueViewMessage(chatView.count - 1);
+                Debug.log("[ChatPage] Chat content quite small...")
+                viewMessageTimer.queueViewMessage(chatView.count - 1)
             }
 
-            chatViewCooldownTimer.restart();
-            chatViewStartupReadTimer.restart();
+            chatViewCooldownTimer.restart()
+            chatViewStartupReadTimer.restart()
 
             /*
             // Double-tap for reactions is currently disabled, let's see if we'll ever need it again
@@ -651,59 +608,52 @@ Page {
         }
         onNewMessageReceived: {
             if (( chatView.manuallyScrolledToBottom && Qt.application.state === Qt.ApplicationActive ) || message.sender_id.user_id === chatPage.myUserId) {
-                Debug.log("[ChatPage] Own message received or was scrolled to bottom, scrolling down to see it...");
-                chatView.scrollToIndex(chatView.count - 1);
-                viewMessageTimer.queueViewMessage(chatView.count - 1);
+                Debug.log("[ChatPage] Own message received or was scrolled to bottom, scrolling down to see it...")
+                chatView.scrollToIndex(chatView.count - 1)
+                viewMessageTimer.queueViewMessage(chatView.count - 1)
             }
         }
         onUnreadCountUpdated: {
-            Debug.log("[ChatPage] Unread count updated, new count: ", unreadCount);
-            chatInformation.unread_count = unreadCount;
-            chatUnreadMessagesItem.visible = ( !chatPage.loading && unreadCount > 0 && chatOverviewItem.visible );
+            Debug.log("[ChatPage] Unread count updated, new count: ", unreadCount)
+            chatInformation.unread_count = unreadCount
+            chatUnreadMessagesItem.visible = ( !chatPage.loading && unreadCount > 0 && chatOverviewItem.visible )
             chatUnreadMessagesCount.text = Functions.formatUnreadCount(unreadCount)
         }
         onLastReadSentMessageUpdated: {
-            Debug.log("[ChatPage] Updating last read sent index, new index: ", lastReadSentIndex);
-            chatView.lastReadSentIndex = lastReadSentIndex;
+            Debug.log("[ChatPage] Updating last read sent index, new index: ", lastReadSentIndex)
+            chatView.lastReadSentIndex = lastReadSentIndex
         }
         onMessagesIncrementalUpdate: {
-            var proxyIndex = chatProxyModel.mapRowFromSource(modelIndex, -1);
-            Debug.log("Incremental update received. View now has ", chatView.count, " messages, view is on index ", proxyIndex, "("+modelIndex+"), own messages were read before index ", lastReadSentIndex);
-            chatView.lastReadSentIndex = lastReadSentIndex;
-            if (!chatPage.isInitialized) {
-                if (proxyIndex > -1) {
-                    chatView.scrollToIndex(proxyIndex);
-                }
-            }
+            var proxyIndex = chatProxyModel.mapRowFromSource(modelIndex, -1)
+            Debug.log("Incremental update received. View now has ", chatView.count, " messages, view is on index ", proxyIndex, "("+modelIndex+"), own messages were read before index ", lastReadSentIndex)
+            chatView.lastReadSentIndex = lastReadSentIndex
+            if ((!chatPage.isInitialized) && (proxyIndex > -1))
+                chatView.scrollToIndex(proxyIndex)
             if (chatView.height > chatView.contentHeight) {
-                Debug.log("[ChatPage] Chat content quite small...");
-                viewMessageTimer.queueViewMessage(chatView.count - 1);
-            } else if (chatPage.messageIdToScrollTo && chatPage.messageIdToScrollTo != "") {
+                Debug.log("[ChatPage] Chat content quite small...")
+                viewMessageTimer.queueViewMessage(chatView.count - 1)
+            } else if (chatPage.messageIdToScrollTo && chatPage.messageIdToScrollTo != "")
                 showMessage(chatPage.messageIdToScrollTo, false)
-            }
-            chatViewCooldownTimer.restart();
-            chatViewStartupReadTimer.restart();
+            chatViewCooldownTimer.restart()
+            chatViewStartupReadTimer.restart()
         }
         onNotificationSettingsUpdated: {
-            chatInformation = chatModel.getChatInformation();
-            muteChatMenuItem.text = chatInformation.notification_settings.mute_for > 0 ? qsTr("Unmute Chat") : qsTr("Mute Chat");
+            chatInformation = chatModel.getChatInformation()
+            muteChatMenuItem.text = chatInformation.notification_settings.mute_for > 0 ? qsTr("Unmute Chat") : qsTr("Mute Chat")
         }
         onPinnedMessageChanged: {
-            chatInformation = chatModel.getChatInformation();
+            chatInformation = chatModel.getChatInformation()
             if (chatInformation.pinned_message_id.toString() !== "0") {
-                Debug.log("[ChatPage] Loading pinned message ", chatInformation.pinned_message_id);
-                tdLibWrapper.getMessage(chatInformation.id, chatInformation.pinned_message_id);
-            } else {
-                pinnedMessageItem.pinnedMessage = undefined;
-            }
+                Debug.log("[ChatPage] Loading pinned message ", chatInformation.pinned_message_id)
+                tdLibWrapper.getMessage(chatInformation.id, chatInformation.pinned_message_id)
+            } else pinnedMessageItem.pinnedMessage = undefined
         }
     }
 
     Connections {
         target: chatListModel
-        onChatJoined: {
-            appNotification.show(qsTr("You joined the chat %1").arg(chatTitle));
-        }
+        onChatJoined:
+            appNotification.show(qsTr("You joined the chat %1").arg(chatTitle))
     }
 
     Timer {
@@ -711,9 +661,8 @@ Page {
         interval: 200
         running: false
         repeat: false
-        onTriggered: {
-            newMessageTextField.forceActiveFocus();
-        }
+        onTriggered:
+            newMessageTextField.forceActiveFocus()
     }
 
     Timer {
@@ -721,9 +670,8 @@ Page {
         interval: 600
         running: false
         repeat: false
-        onTriggered: {
-            handleMessageTextReplacement(newMessageTextField.text, newMessageTextField.cursorPosition);
-        }
+        onTriggered:
+            handleMessageTextReplacement(newMessageTextField.text, newMessageTextField.cursorPosition)
     }
 
     Timer {
@@ -731,9 +679,8 @@ Page {
         interval: 60000
         running: isPrivateChat || isSecretChat
         repeat: true
-        onTriggered: {
-            updateChatPartnerStatusText();
-        }
+        onTriggered:
+            updateChatPartnerStatusText()
     }
     Timer {
         id: viewMessageTimer
@@ -741,40 +688,39 @@ Page {
         property int lastQueuedIndex: -1
         function queueViewMessage(index) {
             if (index > lastQueuedIndex) {
-                lastQueuedIndex = index;
-                start();
+                lastQueuedIndex = index
+                start()
             }
         }
 
         onTriggered: {
-            Debug.log("scroll position changed, message index: ", lastQueuedIndex);
-            Debug.log("unread count: ", chatInformation.unread_count);
-            var modelIndex = chatProxyModel.mapRowToSource(lastQueuedIndex);
-            var messageToRead = chatModel.getMessage(modelIndex);
+            Debug.log("scroll position changed, message index: ", lastQueuedIndex)
+            Debug.log("unread count: ", chatInformation.unread_count)
+            var modelIndex = chatProxyModel.mapRowToSource(lastQueuedIndex)
+            var messageToRead = chatModel.getMessage(modelIndex)
             if (messageToRead['@type'] === "sponsoredMessage") {
-                Debug.log("sponsored message to read: ", messageToRead.id);
-                tdLibWrapper.viewMessage(chatInformation.id, messageToRead.message_id, false);
+                Debug.log("sponsored message to read: ", messageToRead.id)
+                tdLibWrapper.viewMessage(chatInformation.id, messageToRead.message_id, false)
             } else if (chatInformation.unread_count > 0 && lastQueuedIndex > -1) {
                 if (messageToRead) {
-                    Debug.log("message to read: ", messageToRead.id);
-                    var messageId = messageToRead.id;
-                    var type = messageToRead.content["@type"];
+                    Debug.log("message to read: ", messageToRead.id)
+                    var messageId = messageToRead.id
+                    var type = messageToRead.content["@type"]
                     if (messageToRead.media_album_id !== '0') {
-                        var albumIds = chatModel.getMessageIdsForAlbum(messageToRead.media_album_id);
+                        var albumIds = chatModel.getMessageIdsForAlbum(messageToRead.media_album_id)
                         if (albumIds.length > 0) {
-                            messageId = albumIds[albumIds.length - 1];
-                            Debug.log("message to read last album message id: ", messageId);
+                            messageId = albumIds[albumIds.length - 1]
+                            Debug.log("message to read last album message id: ", messageId)
                         }
                     }
-                    if (messageId) {
-                        tdLibWrapper.viewMessage(chatInformation.id, messageId, false);
-                    }
+                    if (messageId)
+                        tdLibWrapper.viewMessage(chatInformation.id, messageId, false)
                 }
                 lastQueuedIndex = -1
             }
             if (chatInformation.unread_count === 0) {
-                tdLibWrapper.readAllChatMentions(chatInformation.id);
-                tdLibWrapper.readAllChatReactions(chatInformation.id);
+                tdLibWrapper.readAllChatMentions(chatInformation.id)
+                tdLibWrapper.readAllChatReactions(chatInformation.id)
             }
         }
     }
@@ -811,12 +757,10 @@ Page {
                 visible: !!canPinMessages()
                 name: messageOptionsDrawer.myMessage.is_pinned ? qsTr("Unpin Message") : qsTr("Pin Message")
                 action: function () {
-                    if (messageOptionsDrawer.myMessage.is_pinned) {
-                        Remorse.popupAction(page, qsTr("Message unpinned"), function() { tdLibWrapper.unpinMessage(chatPage.chatInformation.id, messageOptionsDrawer.myMessage.id);
-                                                                                         pinnedMessageItem.requestCloseMessage(); } );
-                    } else {
-                        tdLibWrapper.pinMessage(chatPage.chatInformation.id, messageOptionsDrawer.myMessage.id);
-                    }
+                    if (messageOptionsDrawer.myMessage.is_pinned)
+                        Remorse.popupAction(page, qsTr("Message unpinned"), function() { tdLibWrapper.unpinMessage(chatPage.chatInformation.id, messageOptionsDrawer.myMessage.id)
+                                                                                         pinnedMessageItem.requestCloseMessage() } )
+                    else tdLibWrapper.pinMessage(chatPage.chatInformation.id, messageOptionsDrawer.myMessage.id)
                 }
             },
             NamedAction {
@@ -830,19 +774,16 @@ Page {
             }
         ]
 
-        onOpenChanged: {
-            if (open) {
-                var jointModel = [];
-                for (var j = 0; j < additionalItemsModel.length; j++) {
-                    jointModel.push(additionalItemsModel[j]);
-                }
-                for (var i = 0; i < messageOptionsModel.length; i++) {
-                    var item = messageOptionsModel[i]
-                    if (item.visible) jointModel.push(item)
-                }
-                drawerListView.model = jointModel;
-                focus = true // Take the focus away from the text field
+        onOpenChanged: if (open) {
+            var jointModel = []
+            for (var j = 0; j < additionalItemsModel.length; j++)
+                jointModel.push(additionalItemsModel[j])
+            for (var i = 0; i < messageOptionsModel.length; i++) {
+                var item = messageOptionsModel[i]
+                if (item.visible) jointModel.push(item)
             }
+            drawerListView.model = jointModel
+            focus = true // Take the focus away from the text field
         }
 
         anchors.fill: parent
@@ -877,9 +818,7 @@ Page {
                     id: closeMessageOptionsButton
                     icon.source: "image://theme/icon-m-clear"
                     anchors.verticalCenter: parent.verticalCenter
-                    onClicked: {
-                        messageOptionsDrawer.open = false
-                    }
+                    onClicked: messageOptionsDrawer.open = false
                 }
             }
 
@@ -892,7 +831,7 @@ Page {
                     horizontalAlignment: Text.AlignHCenter
                 }
                 onClicked: {
-                    modelData.action();
+                    modelData.action()
                     messageOptionsDrawer.open = false
                 }
                 hidden: !modelData.visible
@@ -902,15 +841,12 @@ Page {
         SilicaFlickable {
             id: chatContainer
 
-            onContentYChanged: {
+            onContentYChanged:
                 // For some strange reason contentY sometimes is > 0 which doesn't make sense without a PushUpMenu (?)
                 // That leads to the problem that the whole flickable is moved slightly (or sometimes considerably) up
                 // which creates UX issues... As a workaround we are setting it to 0 in such cases.
                 // Better solutions are highly appreciated, contributions always welcome! ;)
-                if (contentY > 0) {
-                    contentY = 0;
-                }
-            }
+                if (contentY > 0) contentY = 0
 
             anchors.fill: parent
             contentHeight: height
@@ -923,11 +859,11 @@ Page {
                     id: deleteChatMenuItem
                     visible: chatPage.isPrivateChat
                     onClicked: {
-                        var privateChatId = chatInformation.id;
+                        var privateChatId = chatInformation.id
                         Remorse.popupAction(chatPage, qsTr("Deleting chat"), function() {
-                            tdLibWrapper.deleteChat(privateChatId);
-                            pageStack.pop(pageStack.find( function(page){ return(page._depth === 0)} ));
-                        }, 10000);
+                            tdLibWrapper.deleteChat(privateChatId)
+                            pageStack.pop(pageStack.find(function(page){ return(page._depth === 0)}))
+                        }, 10000)
                     }
                     text: qsTr("Delete Chat")
                 }
@@ -936,8 +872,8 @@ Page {
                     id: closeSecretChatMenuItem
                     visible: chatPage.isSecretChat && chatPage.secretChatDetails.state["@type"] !== "secretChatStateClosed"
                     onClicked: {
-                        var secretChatId = chatPage.secretChatDetails.id;
-                        Remorse.popupAction(chatPage, qsTr("Closing chat"), function() { tdLibWrapper.closeSecretChat(secretChatId) });
+                        var secretChatId = chatPage.secretChatDetails.id
+                        Remorse.popupAction(chatPage, qsTr("Closing chat"), function(){ tdLibWrapper.closeSecretChat(secretChatId) })
                     }
                     text: qsTr("Close Chat")
                 }
@@ -947,15 +883,14 @@ Page {
                     visible: (chatPage.isSuperGroup || chatPage.isBasicGroup) && chatGroupInformation && chatGroupInformation.status["@type"] !== "chatMemberStatusBanned"
                     onClicked: {
                         if (chatPage.userIsMember) {
-                            var chatId = chatInformation.id;
+                            var chatId = chatInformation.id
                             Remorse.popupAction(chatPage, qsTr("Leaving chat"), function() {
-                                tdLibWrapper.leaveChat(chatId);
+                                tdLibWrapper.leaveChat(chatId)
                                 // this does not care about the response (ideally type "ok" without further reference) for now
-                                pageStack.pop(pageStack.find( function(page){ return(page._depth === 0)} ));
-                            });
-                        } else {
-                            tdLibWrapper.joinChat(chatInformation.id);
-                        }
+                                pageStack.pop(pageStack.find( function(page){ return(page._depth === 0)} ))
+                            })
+                        } else
+                            tdLibWrapper.joinChat(chatInformation.id)
                     }
                     text: chatPage.userIsMember ? qsTr("Leave Chat") : qsTr("Join Chat")
                 }
@@ -964,14 +899,13 @@ Page {
                     id: muteChatMenuItem
                     visible: chatPage.userIsMember
                     onClicked: {
-                        var newNotificationSettings = chatInformation.notification_settings;
-                        if (newNotificationSettings.mute_for > 0) {
-                            newNotificationSettings.mute_for = 0;
-                        } else {
-                            newNotificationSettings.mute_for = 6666666;
-                        }
-                        newNotificationSettings.use_default_mute_for = false;
-                        tdLibWrapper.setChatNotificationSettings(chatInformation.id, newNotificationSettings);
+                        var newNotificationSettings = chatInformation.notification_settings
+                        if (newNotificationSettings.mute_for > 0)
+                            newNotificationSettings.mute_for = 0
+                        else
+                            newNotificationSettings.mute_for = 6666666
+                        newNotificationSettings.use_default_mute_for = false
+                        tdLibWrapper.setChatNotificationSettings(chatInformation.id, newNotificationSettings)
                     }
                     text: chatInformation.notification_settings.mute_for > 0 ? qsTr("Unmute Chat") : qsTr("Mute Chat")
                 }
@@ -981,8 +915,8 @@ Page {
                     visible: !chatPage.isSecretChat && chatOverviewItem.visible
                     onClicked: {
                         // This automatically shows the search field as well
-                        chatOverviewItem.visible = false;
-                        searchInChatField.focus = true;
+                        chatOverviewItem.visible = false
+                        searchInChatField.focus = true
                     }
                     text: qsTr("Search in Chat")
                 }
@@ -993,11 +927,9 @@ Page {
                 height: headerRow.height
                 width: parent.width
                 onClicked: {
-                    if (chatPage.isSelecting) {
-                        chatPage.selectedMessages = [];
-                    } else {
-                        pageStack.navigateForward();
-                    }
+                    if (chatPage.isSelecting)
+                        chatPage.selectedMessages = []
+                    else pageStack.navigateForward()
                 }
             }
 
@@ -1034,9 +966,8 @@ Page {
                             // when the ChatModel indicates a change. This also avoids flickering when the page is loaded...
                             Connections {
                                 target: chatModel
-                                onSmallPhotoChanged: {
-                                    chatPictureThumbnail.photoData = chatModel.smallPhoto;
-                                }
+                                onSmallPhotoChanged:
+                                    chatPictureThumbnail.photoData = chatModel.smallPhoto
                             }
                         }
 
@@ -1116,18 +1047,11 @@ Page {
                             active: searchInChatItem.visible
                             canHide: text === ""
 
-                            onTextChanged: {
-                                searchInChatTimer.restart();
-                            }
-
-                            onHideClicked: {
-                                resetFocus();
-                            }
+                            onTextChanged: searchInChatTimer.restart()
+                            onHideClicked: resetFocus()
 
                             EnterKey.iconSource: "image://theme/icon-m-enter-close"
-                            EnterKey.onClicked: {
-                                resetFocus();
-                            }
+                            EnterKey.onClicked: resetFocus()
                         }
                     }
                 }
@@ -1136,12 +1060,12 @@ Page {
                 PinnedMessageItem {
                     id: pinnedMessageItem
                     onRequestShowMessage: {
-                        messageOverlayLoader.overlayMessage = pinnedMessageItem.pinnedMessage;
-                        messageOverlayLoader.active = true;
+                        messageOverlayLoader.overlayMessage = pinnedMessageItem.pinnedMessage
+                        messageOverlayLoader.active = true
                     }
                     onRequestCloseMessage: {
-                        messageOverlayLoader.overlayMessage = undefined;
-                        messageOverlayLoader.active = false;
+                        messageOverlayLoader.overlayMessage = undefined
+                        messageOverlayLoader.active = false
                     }
                 }
 
@@ -1150,20 +1074,18 @@ Page {
                     width: parent.width
                     height: parent.height - headerRow.height - pinnedMessageItem.height - newMessageColumn.height - selectedMessagesActions.height
 
-                    property int previousHeight;
+                    property int previousHeight
 
-                    Component.onCompleted: {
-                        previousHeight = height;
-                    }
+                    Component.onCompleted:
+                        previousHeight = height
 
                     onHeightChanged: {
                         if (previousHeight > height) {
-                            var deltaHeight = previousHeight - height;
-                            chatView.contentY = chatView.contentY + deltaHeight;
-                        } else {
-                            chatView.handleScrollPositionChanged();
-                        }
-                        previousHeight = height;
+                            var deltaHeight = previousHeight - height
+                            chatView.contentY = chatView.contentY + deltaHeight
+                        } else
+                            chatView.handleScrollPositionChanged()
+                        previousHeight = height
                     }
 
                     Timer {
@@ -1172,13 +1094,13 @@ Page {
                         repeat: false
                         running: false
                         onTriggered: {
-                            Debug.log("[ChatPage] Cooldown completed...");
-                            chatView.inCooldown = false;
+                            Debug.log("[ChatPage] Cooldown completed...")
+                            chatView.inCooldown = false
 
                             if (!chatPage.isInitialized) {
-                                Debug.log("Page is initialized!");
-                                chatPage.isInitialized = true;
-                                chatView.handleScrollPositionChanged();
+                                Debug.log("Page is initialized!")
+                                chatPage.isInitialized = true
+                                chatView.handleScrollPositionChanged()
                             }
                         }
                     }
@@ -1190,19 +1112,17 @@ Page {
                         running: false
                         onTriggered: {
                             if (!chatPage.isInitialized) {
-                                Debug.log("Page is initialized!");
-                                chatPage.isInitialized = true;
-                                chatView.handleScrollPositionChanged();
-                                if (chatPage.isChannel) {
-                                    tdLibWrapper.getChatSponsoredMessage(chatInformation.id);
-                                }
+                                Debug.log("Page is initialized!")
+                                chatPage.isInitialized = true
+                                chatView.handleScrollPositionChanged()
+                                if (chatPage.isChannel)
+                                    tdLibWrapper.getChatSponsoredMessage(chatInformation.id)
                                 if (typeof chatPage.messageToShow !== "undefined" && chatPage.messageToShow !== {}) {
-                                    messageOverlayLoader.overlayMessage = chatPage.messageToShow;
-                                    messageOverlayLoader.active = true;
+                                    messageOverlayLoader.overlayMessage = chatPage.messageToShow
+                                    messageOverlayLoader.active = true
                                 }
-                                if (chatPage.messageIdToShow) {
-                                    tdLibWrapper.getMessage(chatPage.chatInformation.id, chatPage.messageIdToShow);
-                                }
+                                if (chatPage.messageIdToShow)
+                                    tdLibWrapper.getMessage(chatPage.chatInformation.id, chatPage.messageIdToShow)
                             }
                         }
                     }
@@ -1245,22 +1165,21 @@ Page {
                             readonly property int backgroundWidth: page.isChannel ? textItemWidth : textItemWidth - pageMarginDouble
                             readonly property int backgroundRadius: textItemWidth/50
                             readonly property int textColumnWidth: backgroundWidth - Theme.horizontalPageMargin
-                            readonly property int messageInReplyToHeight: Theme.fontSizeExtraSmall * 2.571428571 + Theme.paddingSmall;
+                            readonly property int messageInReplyToHeight: Theme.fontSizeExtraSmall * 2.571428571 + Theme.paddingSmall
                             readonly property int webPagePreviewHeight: ( (textColumnWidth * 2 / 3) + (6 * Theme.fontSizeExtraSmall) + ( 7 * Theme.paddingSmall) )
                             readonly property bool pageIsSelecting: chatPage.isSelecting
                         }
 
                         function handleScrollPositionChanged() {
-                            Debug.log("Current position: ", chatView.contentY);
-                            Debug.log("Contains sponsored messages?", chatPage.containsSponsoredMessages);
+                            Debug.log("Current position: ", chatView.contentY)
+                            Debug.log("Contains sponsored messages?", chatPage.containsSponsoredMessages)
                             if (chatOverviewItem.visible && ( chatInformation.unread_count > 0 || chatPage.containsSponsoredMessages ) ) {
-                                var bottomIndex = chatView.indexAt(chatView.contentX, ( chatView.contentY + chatView.height - Theme.horizontalPageMargin ));
-                                if (bottomIndex > -1) {
+                                var bottomIndex = chatView.indexAt(chatView.contentX, ( chatView.contentY + chatView.height - Theme.horizontalPageMargin ))
+                                if (bottomIndex > -1)
                                     viewMessageTimer.queueViewMessage(bottomIndex)
-                                }
                             } else {
-                                tdLibWrapper.readAllChatMentions(chatInformation.id);
-                                tdLibWrapper.readAllChatReactions(chatInformation.id);
+                                tdLibWrapper.readAllChatMentions(chatInformation.id)
+                                tdLibWrapper.readAllChatReactions(chatInformation.id)
                             }
                             manuallyScrolledToBottom = chatView.atYEnd
                         }
@@ -1269,10 +1188,9 @@ Page {
                             if(index > 0 && index < chatView.count) {
                                 positionViewAtIndex(index, (mode === undefined) ? ListView.Contain : mode)
                                 if(index === chatView.count - 1) {
-                                    manuallyScrolledToBottom = true;
-                                    if(!chatView.atYEnd) {
-                                        chatView.positionViewAtEnd();
-                                    }
+                                    manuallyScrolledToBottom = true
+                                    if(!chatView.atYEnd)
+                                        chatView.positionViewAtEnd()
                                 }
                             }
                         }
@@ -1280,24 +1198,23 @@ Page {
                         onContentYChanged: {
                             if (!chatPage.loading && !chatView.inCooldown) {
                                 if (chatView.indexAt(chatView.contentX, chatView.contentY) < 10) {
-                                    Debug.log("[ChatPage] Trying to get older history items...");
-                                    chatView.inCooldown = true;
-                                    chatModel.triggerLoadMoreHistory();
+                                    Debug.log("[ChatPage] Trying to get older history items...")
+                                    chatView.inCooldown = true
+                                    chatModel.triggerLoadMoreHistory()
                                 } else if (chatOverviewItem.visible && chatView.indexAt(chatView.contentX, chatView.contentY) > ( count - 10)) {
-                                    Debug.log("[ChatPage] Trying to get newer history items...");
-                                    chatView.inCooldown = true;
-                                    chatModel.triggerLoadMoreFuture();
+                                    Debug.log("[ChatPage] Trying to get newer history items...")
+                                    chatView.inCooldown = true
+                                    chatModel.triggerLoadMoreFuture()
                                 }
                             }
                         }
 
-                        onMovementEnded: {
-                            handleScrollPositionChanged();
-                        }
+                        onMovementEnded:
+                            handleScrollPositionChanged()
 
                         onQuickScrollAnimatingChanged: {
                             if (!quickScrollAnimating) {
-                                handleScrollPositionChanged();
+                                handleScrollPositionChanged()
                                 if(atYEnd) { // handle some false guesses from quick scroll
                                     chatView.scrollToIndex(chatView.count - 2)
                                     chatView.scrollToIndex(chatView.count - 1)
@@ -1332,10 +1249,9 @@ Page {
                                         textFormat: Text.StyledText
                                         horizontalAlignment: Text.AlignHCenter
                                         onLinkActivated: {
-                                            var chatCommand = Functions.handleLink(link);
-                                            if(chatCommand) {
-                                                tdLibWrapper.sendTextMessage(chatInformation.id, chatCommand);
-                                            }
+                                            var chatCommand = Functions.handleLink(link)
+                                            if(chatCommand)
+                                                tdLibWrapper.sendTextMessage(chatInformation.id, chatCommand)
                                         }
                                         linkColor: Theme.primaryColor
                                         visible: (text !== "")
@@ -1345,39 +1261,39 @@ Page {
                         }
 
                         function getContentComponentHeight(contentType, content, parentWidth, albumEntries) {
-                            var unit;
+                            var unit
                             switch(contentType) {
                             case "messageAnimatedEmoji":
-                                return content.animated_emoji.sticker.height;
+                                return content.animated_emoji.sticker.height
                             case "messageAnimation":
-                                return Functions.getVideoHeight(parentWidth, content.animation);
+                                return Functions.getVideoHeight(parentWidth, content.animation)
                             case "messageAudio":
                             case "messageVoiceNote":
                             case "messageDocument":
-                                return Theme.itemSizeLarge;
+                                return Theme.itemSizeLarge
                             case "messageGame":
-                                return parentWidth * 0.66666666 + Theme.itemSizeLarge; // 2 / 3;
+                                return parentWidth * 0.66666666 + Theme.itemSizeLarge // 2 / 3;
                             case "messageLocation":
                             case "messageVenue":
-                                return parentWidth * 0.66666666; // 2 / 3;
+                                return parentWidth * 0.66666666 // 2 / 3;
                             case "messagePhoto":
                                 if(albumEntries > 0) {
                                     unit = (parentWidth * 0.66666666)
                                     return (albumEntries % 2 !== 0 ? unit * 0.75 : 0) + unit * albumEntries * 0.25
                                 }
-                                var biggest = content.photo.sizes[content.photo.sizes.length - 1];
-                                var aspectRatio = biggest.width/biggest.height;
-                                return Math.max(Theme.itemSizeExtraSmall, Math.min(parentWidth * 0.66666666, parentWidth / aspectRatio));
+                                var biggest = content.photo.sizes[content.photo.sizes.length - 1]
+                                var aspectRatio = biggest.width/biggest.height
+                                return Math.max(Theme.itemSizeExtraSmall, Math.min(parentWidth * 0.66666666, parentWidth / aspectRatio))
                             case "messagePoll":
-                                return Theme.itemSizeSmall * (4 + content.poll.options);
+                                return Theme.itemSizeSmall * (4 + content.poll.options)
                             case "messageSticker":
-                                return content.sticker.height;
+                                return content.sticker.height
                             case "messageVideo":
                                 if(albumEntries > 0) {
                                     unit = (parentWidth * 0.66666666)
                                     return (albumEntries % 2 !== 0 ? unit * 0.75 : 0) + unit * albumEntries * 0.25
                                 }
-                                return Functions.getVideoHeight(parentWidth, content.video);
+                                return Functions.getVideoHeight(parentWidth, content.video)
                             case "messageVideoNote":
                                 return parentWidth
                             }
@@ -1549,20 +1465,20 @@ Page {
                     Connections {
                         target: stickerPickerLoader.item
                         onStickerPicked: {
-                            Debug.log("Sticker picked: " + stickerId);
-                            stickerManager.setNeedsReload(true);
-                            tdLibWrapper.sendStickerMessage(chatInformation.id, stickerId, newMessageColumn.replyToMessageId);
-                            stickerPickerLoader.active = false;
-                            attachmentOptionsFlickable.isNeeded = false;
-                            newMessageInReplyToRow.inReplyToMessage = null;
-                            newMessageColumn.editMessageId = "0";
+                            Debug.log("Sticker picked: " + stickerId)
+                            stickerManager.setNeedsReload(true)
+                            tdLibWrapper.sendStickerMessage(chatInformation.id, stickerId, newMessageColumn.replyToMessageId)
+                            stickerPickerLoader.active = false
+                            attachmentOptionsFlickable.isNeeded = false
+                            newMessageInReplyToRow.inReplyToMessage = null
+                            newMessageColumn.editMessageId = "0"
                         }
                     }
 
                     Loader {
                         id: messageOverlayLoader
 
-                        property var overlayMessage;
+                        property var overlayMessage
 
                         active: false
                         asynchronous: true
@@ -1572,9 +1488,8 @@ Page {
                             MessageOverlayFlickable {
                                 overlayMessage: messageOverlayLoader.overlayMessage
                                 showHeader: !chatPage.isChannel
-                                onRequestClose: {
-                                    messageOverlayLoader.active = false;
-                                }
+                                onRequestClose:
+                                    messageOverlayLoader.active = false
                             }
                         }
                     }
@@ -1586,17 +1501,14 @@ Page {
                         width: parent.width
                         height: active ? parent.height : 0
                         source: "../components/VoiceNoteOverlay.qml"
-                        onActiveChanged: {
-                            if (!active) {
-                                fernschreiberUtils.stopRecordingVoiceNote();
-                            }
-                        }
+                        onActiveChanged: if (!active)
+                            fernschreiberUtils.stopRecordingVoiceNote()
                     }
 
                     Loader {
                         id: stickerSetOverlayLoader
 
-                        property string stickerSetId;
+                        property string stickerSetId
 
                         active: false
                         asynchronous: true
@@ -1605,17 +1517,13 @@ Page {
                         sourceComponent: Component {
                             StickerSetOverlay {
                                 stickerSetId: stickerSetOverlayLoader.stickerSetId
-                                onRequestClose: {
-                                    stickerSetOverlayLoader.active = false;
-                                }
+                                onRequestClose:
+                                    stickerSetOverlayLoader.active = false
                             }
                         }
 
-                        onActiveChanged: {
-                            if (active) {
-                                attachmentOptionsFlickable.isNeeded = false;
-                            }
-                        }
+                        onActiveChanged: if (active)
+                            attachmentOptionsFlickable.isNeeded = false
                     }
 
                     InlineQuery {
@@ -1636,25 +1544,23 @@ Page {
                     Behavior on height { SmoothedAnimation { duration: 200 } }
 
                     readonly property bool isNeeded: !chatPage.isSelecting && chatPage.canSendMessages
-                    property string replyToMessageId: "0";
-                    property string editMessageId: "0";
+                    property string replyToMessageId: "0"
+                    property string editMessageId: "0"
 
                     InReplyToRow {
-                        onInReplyToMessageChanged: {
+                        onInReplyToMessageChanged:
                             if (inReplyToMessage) {
                                 newMessageColumn.replyToMessageId = newMessageInReplyToRow.inReplyToMessage.id.toString()
-                                newMessageInReplyToRow.visible = true;
+                                newMessageInReplyToRow.visible = true
                             } else {
-                                newMessageInReplyToRow.visible = false;
-                                newMessageColumn.replyToMessageId = "0";
+                                newMessageInReplyToRow.visible = false
+                                newMessageColumn.replyToMessageId = "0"
                             }
-                        }
 
                         editable: true
 
-                        onClearRequested: {
-                            newMessageInReplyToRow.inReplyToMessage = null;
-                        }
+                        onClearRequested:
+                            newMessageInReplyToRow.inReplyToMessage = null
 
                         id: newMessageInReplyToRow
                         myUserId: chatPage.myUserId
@@ -1703,11 +1609,11 @@ Page {
                                         allowedOrientations: chatPage.allowedOrientations
                                     })
                                     picker.selectedContentPropertiesChanged.connect(function(){
-                                        attachmentOptionsFlickable.isNeeded = false;
-                                        Debug.log("Selected document: ", picker.selectedContentProperties.filePath );
-                                        attachmentPreviewRow.fileProperties = picker.selectedContentProperties;
-                                        attachmentPreviewRow.isPicture = true;
-                                        controlSendButton();
+                                        attachmentOptionsFlickable.isNeeded = false
+                                        Debug.log("Selected document: ", picker.selectedContentProperties.filePath )
+                                        attachmentPreviewRow.fileProperties = picker.selectedContentProperties
+                                        attachmentPreviewRow.isPicture = true
+                                        controlSendButton()
                                     })
                                 }
                             }
@@ -1719,11 +1625,11 @@ Page {
                                         allowedOrientations: chatPage.allowedOrientations
                                     })
                                     picker.selectedContentPropertiesChanged.connect(function(){
-                                        attachmentOptionsFlickable.isNeeded = false;
-                                        Debug.log("Selected video: ", picker.selectedContentProperties.filePath );
-                                        attachmentPreviewRow.fileProperties = picker.selectedContentProperties;
-                                        attachmentPreviewRow.isVideo = true;
-                                        controlSendButton();
+                                        attachmentOptionsFlickable.isNeeded = false
+                                        Debug.log("Selected video: ", picker.selectedContentProperties.filePath )
+                                        attachmentPreviewRow.fileProperties = picker.selectedContentProperties
+                                        attachmentPreviewRow.isVideo = true
+                                        controlSendButton()
                                     })
                                 }
                             }
@@ -1736,8 +1642,8 @@ Page {
                                 }
                                 highlighted: down || voiceNoteOverlayLoader.active
                                 onClicked: {
-                                    voiceNoteOverlayLoader.active = !voiceNoteOverlayLoader.active;
-                                    stickerPickerLoader.active = false;
+                                    voiceNoteOverlayLoader.active = !voiceNoteOverlayLoader.active
+                                    stickerPickerLoader.active = false
                                 }
                             }
                             IconButton {
@@ -1748,11 +1654,11 @@ Page {
                                         allowedOrientations: chatPage.allowedOrientations
                                     })
                                     picker.selectedContentPropertiesChanged.connect(function(){
-                                        attachmentOptionsFlickable.isNeeded = false;
-                                        Debug.log("Selected document: ", picker.selectedContentProperties.filePath );
-                                        attachmentPreviewRow.fileProperties = picker.selectedContentProperties;
-                                        attachmentPreviewRow.isDocument = true;
-                                        controlSendButton();
+                                        attachmentOptionsFlickable.isNeeded = false
+                                        Debug.log("Selected document: ", picker.selectedContentProperties.filePath)
+                                        attachmentPreviewRow.fileProperties = picker.selectedContentProperties
+                                        attachmentPreviewRow.isDocument = true
+                                        controlSendButton()
                                     })
                                 }
                             }
@@ -1765,16 +1671,19 @@ Page {
                                 }
                                 highlighted: down || stickerPickerLoader.active
                                 onClicked: {
-                                    stickerPickerLoader.active = !stickerPickerLoader.active;
-                                    voiceNoteOverlayLoader.active = false;
+                                    stickerPickerLoader.active = !stickerPickerLoader.active
+                                    voiceNoteOverlayLoader.active = false
                                 }
                             }
                             IconButton {
                                 visible: !(chatPage.isPrivateChat || chatPage.isSecretChat) && chatPage.hasSendPrivilege("can_send_polls")
                                 icon.source: "image://theme/icon-m-question"
                                 onClicked: {
-                                    pageStack.push(Qt.resolvedUrl("../pages/PollCreationPage.qml"), { "chatId" : chatInformation.id, groupName: chatInformation.title});
-                                    attachmentOptionsFlickable.isNeeded = false;
+                                    pageStack.push(Qt.resolvedUrl("../pages/PollCreationPage.qml"), {
+                                                       chatId: chatInformation.id,
+                                                       groupName: chatInformation.title,
+                                                   })
+                                    attachmentOptionsFlickable.isNeeded = false
                                 }
                             }
                             IconButton {
@@ -1785,11 +1694,11 @@ Page {
                                     height: Theme.iconSizeMedium
                                 }
                                 onClicked: {
-                                    fernschreiberUtils.startGeoLocationUpdates();
-                                    attachmentOptionsFlickable.isNeeded = false;
-                                    attachmentPreviewRow.isLocation = true;
-                                    attachmentPreviewRow.attachmentDescription = qsTr("Location: Obtaining position...");
-                                    controlSendButton();
+                                    fernschreiberUtils.startGeoLocationUpdates()
+                                    attachmentOptionsFlickable.isNeeded = false
+                                    attachmentPreviewRow.isLocation = true
+                                    attachmentPreviewRow.attachmentDescription = qsTr("Location: Obtaining position...")
+                                    controlSendButton()
                                 }
                             }
                         }
@@ -1805,35 +1714,33 @@ Page {
                         layoutDirection: Qt.RightToLeft
                         anchors.right: parent.right
 
-                        property bool isPicture: false;
-                        property bool isVideo: false;
-                        property bool isDocument: false;
-                        property bool isVoiceNote: false;
-                        property bool isLocation: false;
-                        property var locationData: null;
+                        property bool isPicture: false
+                        property bool isVideo: false
+                        property bool isDocument: false
+                        property bool isVoiceNote: false
+                        property bool isLocation: false
+                        property var locationData: null
                         property var geocodedAddress: qsTr("Unknown address")
-                        property var fileProperties: null;
-                        property string attachmentDescription: "";
+                        property var fileProperties: null
+                        property string attachmentDescription: ""
 
                         function getLocationDescription() {
                             return qsTr("Location (%1/%2)").arg(attachmentPreviewRow.locationData.latitude).arg(attachmentPreviewRow.locationData.longitude) + " | "
                                     + qsTr("Accuracy: %1m").arg(attachmentPreviewRow.locationData.horizontalAccuracy) + "\n"
-                                    + attachmentPreviewRow.geocodedAddress;
+                                    + attachmentPreviewRow.geocodedAddress
                         }
 
                         Connections {
                             target: fernschreiberUtils
                             onNewPositionInformation: {
-                                attachmentPreviewRow.locationData = positionInformation;
-                                if (attachmentPreviewRow.isLocation) {
-                                    attachmentPreviewRow.attachmentDescription = attachmentPreviewRow.getLocationDescription();
-                                }
+                                attachmentPreviewRow.locationData = positionInformation
+                                if (attachmentPreviewRow.isLocation)
+                                    attachmentPreviewRow.attachmentDescription = attachmentPreviewRow.getLocationDescription()
                             }
                             onNewGeocodedAddress: {
-                                attachmentPreviewRow.geocodedAddress = geocodedAddress;
-                                if (attachmentPreviewRow.isLocation) {
-                                    attachmentPreviewRow.attachmentDescription = attachmentPreviewRow.getLocationDescription();
-                                }
+                                attachmentPreviewRow.geocodedAddress = geocodedAddress
+                                if (attachmentPreviewRow.isLocation)
+                                    attachmentPreviewRow.attachmentDescription = attachmentPreviewRow.getLocationDescription()
                             }
                         }
 
@@ -1841,8 +1748,8 @@ Page {
                             id: removeAttachmentsIconButton
                             icon.source: "image://theme/icon-m-clear"
                             onClicked: {
-                                clearAttachmentPreviewRow();
-                                controlSendButton();
+                                clearAttachmentPreviewRow()
+                                controlSendButton()
                             }
                         }
 
@@ -1862,7 +1769,7 @@ Page {
                         Label {
                             id: attachmentPreviewText
                             font.pixelSize: Theme.fontSizeSmall
-                            text: ( attachmentPreviewRow.isVoiceNote || attachmentPreviewRow.isLocation ) ? attachmentPreviewRow.attachmentDescription : ( !!attachmentPreviewRow.fileProperties ? attachmentPreviewRow.fileProperties.fileName || "" : "" );
+                            text: ( attachmentPreviewRow.isVoiceNote || attachmentPreviewRow.isLocation ) ? attachmentPreviewRow.attachmentDescription : ( !!attachmentPreviewRow.fileProperties ? attachmentPreviewRow.fileProperties.fileName || "" : "" )
                             anchors.verticalCenter: parent.verticalCenter
 
                             width: parent.width - removeAttachmentsIconButton.width - Theme.paddingMedium
@@ -1942,8 +1849,8 @@ Page {
                                         MouseArea {
                                             anchors.fill: parent
                                             onClicked: {
-                                                replaceMessageText(newMessageTextField.text, newMessageTextField.cursorPosition, modelData.emoji);
-                                                emojiProposals = null;
+                                                replaceMessageText(newMessageTextField.text, newMessageTextField.cursorPosition, modelData.emoji)
+                                                emojiProposals = null
                                             }
                                         }
                                     }
@@ -1981,7 +1888,7 @@ Page {
                                         height: singleAtMentionRow.height
                                         width: singleAtMentionRow.width
 
-                                        property string atMentionText: "@" + (user_name ? user_name : user_id + "(" + title + ")");
+                                        property string atMentionText: "@" + (user_name ? user_name : user_id + "(" + title + ")")
 
                                         Row {
                                             id: singleAtMentionRow
@@ -2053,8 +1960,8 @@ Page {
                             id: removeEditMessageIconButton
                             icon.source: "image://theme/icon-m-clear"
                             onClicked: {
-                                newMessageColumn.editMessageId = "0";
-                                newMessageTextField.text = "";
+                                newMessageColumn.editMessageId = "0"
+                                newMessageTextField.text = ""
                             }
                         }
                     }
@@ -2106,12 +2013,11 @@ Page {
                             visible: !inlineQuery.userNameIsValid
                             onClicked: {
                                 if (attachmentOptionsFlickable.isNeeded) {
-                                    attachmentOptionsFlickable.isNeeded = false;
-                                    stickerPickerLoader.active = false;
-                                    voiceNoteOverlayLoader.active = false;
-                                } else {
-                                    attachmentOptionsFlickable.isNeeded = true;
-                                }
+                                    attachmentOptionsFlickable.isNeeded = false
+                                    stickerPickerLoader.active = false
+                                    voiceNoteOverlayLoader.active = false
+                                } else
+                                    attachmentOptionsFlickable.isNeeded = true
                             }
                         }
 
@@ -2123,11 +2029,10 @@ Page {
                             visible: !inlineQuery.userNameIsValid && (!appSettings.sendByEnter || (!appSettings.sendAttachmentByEnter && attachmentPreviewRow.visible))
                             enabled: false
                             onClicked: {
-                                sendMessage();
-                                newMessageTextField.text = "";
-                                if(!appSettings.focusTextAreaAfterSend) {
-                                    newMessageTextField.focus = false;
-                                }
+                                sendMessage()
+                                newMessageTextField.text = ""
+                                if(!appSettings.focusTextAreaAfterSend)
+                                    newMessageTextField.focus = false
                             }
                         }
 
@@ -2148,14 +2053,11 @@ Page {
                                     if(inlineQuery.query !== "") {
                                         newMessageTextField.text = "@" + inlineQuery.userName + " "
                                         newMessageTextField.cursorPosition = newMessageTextField.text.length
-                                        lostFocusTimer.start();
-                                    } else {
-                                        newMessageTextField.text = ""
-                                    }
+                                        lostFocusTimer.start()
+                                    } else newMessageTextField.text = ""
                                 }
-                                onPressAndHold: {
+                                onPressAndHold:
                                     newMessageTextField.text = ""
-                                }
                             }
 
                             BusyIndicator {
@@ -2195,9 +2097,8 @@ Page {
                         verticalCenter: parent.verticalCenter
                     }
                     icon.source: "image://theme/icon-m-cancel"
-                    onClicked: {
-                        chatPage.selectedMessages = [];
-                    }
+                    onClicked:
+                        chatPage.selectedMessages = []
                 }
 
                 Row {
@@ -2212,9 +2113,9 @@ Page {
                         icon.source: "../../images/icon-m-copy.svg"
                         icon.sourceSize: Qt.size(Theme.iconSizeMedium, Theme.iconSizeMedium)
                         onClicked: {
-                            Clipboard.text = Functions.getMessagesArrayText(chatPage.selectedMessages);
-                            appNotification.show(qsTr("%Ln messages have been copied", "", selectedMessages.length));
-                            chatPage.selectedMessages = [];
+                            Clipboard.text = Functions.getMessagesArrayText(chatPage.selectedMessages)
+                            appNotification.show(qsTr("%Ln messages have been copied", "", selectedMessages.length))
+                            chatPage.selectedMessages = []
                         }
                     }
 
@@ -2224,9 +2125,8 @@ Page {
                         })
                         icon.sourceSize: Qt.size(Theme.iconSizeMedium, Theme.iconSizeMedium)
                         icon.source: "image://theme/icon-m-forward"
-                        onClicked: {
-                            startForwardingMessages(chatPage.selectedMessages);
-                        }
+                        onClicked:
+                            startForwardingMessages(chatPage.selectedMessages)
 
                     }
                     IconButton {
@@ -2236,13 +2136,13 @@ Page {
                         })
                         icon.sourceSize: Qt.size(Theme.iconSizeMedium, Theme.iconSizeMedium)
                         onClicked: {
-                            var ids = Functions.getMessagesArrayIds(selectedMessages);
+                            var ids = Functions.getMessagesArrayIds(selectedMessages)
                             var chatId = chatInformation.id
-                            var wrapper = tdLibWrapper;
+                            var wrapper = tdLibWrapper
                             Remorse.popupAction(chatPage, qsTr("%Ln Messages deleted", "", ids.length), function() {
-                                wrapper.deleteMessages(chatId, ids);
-                            });
-                            chatPage.selectedMessages = [];
+                                wrapper.deleteMessages(chatId, ids)
+                            })
+                            chatPage.selectedMessages = []
                         }
                     }
                 }
@@ -2257,8 +2157,8 @@ Page {
         repeat: false
         interval: 6000
         onTriggered: {
-            tapHint.visible = false;
-            tapHintLabel.visible = false;
+            tapHint.visible = false
+            tapHintLabel.visible = false
         }
     }
 

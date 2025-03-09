@@ -273,15 +273,15 @@ ListItem {
                                  (deleteMessageIsOnlyExtraOption && !haveSpaceForDeleteMessageMenuItem)
                              )
                     onClicked: {
-                        messageOptionsDrawer.myMessage = myMessage;
-                        messageOptionsDrawer.userInformation = userInformation;
+                        messageOptionsDrawer.myMessage = myMessage
+                        messageOptionsDrawer.userInformation = userInformation
                         messageOptionsDrawer.sourceItem = messageListItem
                         messageOptionsDrawer.additionalItemsModel = additionalItemsModel
                         messageOptionsDrawer.showCopyMessageToClipboardMenuItem = !showCopyMessageToClipboardMenuItem
                         messageOptionsDrawer.showForwardMessageMenuItem = !showForwardMessageMenuItem
                         messageOptionsDrawer.showDeleteMessageMenuItem = canDeleteMessage && !haveSpaceForDeleteMessageMenuItem
-                        messageListItem.additionalOptionsOpened = true;
-                        messageOptionsDrawer.open = true;
+                        messageListItem.additionalOptionsOpened = true
+                        messageOptionsDrawer.open = true
                     }
                     text: qsTr("More Options...")
                 }
