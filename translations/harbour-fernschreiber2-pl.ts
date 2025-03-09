@@ -1687,6 +1687,14 @@
         <source>Animate stickers</source>
         <translation>Animowane naklejki</translation>
     </message>
+    <message>
+        <source>Compact message context menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Organize some of the context menu items in a row</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsBehavior</name>
@@ -1792,14 +1800,6 @@
     </message>
     <message>
         <source>When tapping a quoted message, open it in chat instead of showing it in an overlay.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Compact message context menu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Organize some of the context menu items in a row</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

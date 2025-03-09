@@ -1657,6 +1657,14 @@
         <source>Animate stickers</source>
         <translation>Animera dekaler</translation>
     </message>
+    <message>
+        <source>Compact message context menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Organize some of the context menu items in a row</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsBehavior</name>
@@ -1763,14 +1771,6 @@
     <message>
         <source>When tapping a quoted message, open it in chat instead of showing it in an overlay.</source>
         <translation>Vid tryck på ett citerat meddelande öppnas det i chatten istället för att visas i ett överlägg.</translation>
-    </message>
-    <message>
-        <source>Compact message context menu</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Organize some of the context menu items in a row</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -84,6 +84,15 @@ AccordionItem {
                 opacity: visible ? 1 : 0
                 Behavior on opacity { FadeAnimation  { } }
             }
+
+            TextSwitch {
+                width: parent.columnWidth
+                checked: appSettings.compactMessageMenu
+                text: qsTr("Compact message context menu")
+                description: qsTr("Organize some of the context menu items in a row")
+                automaticCheck: false
+                onClicked: appSettings.compactMessageMenu = !checked
+            }
         }
     }
 }
