@@ -131,7 +131,7 @@ Item {
             text: Emoji.emojify(Functions.enhanceMessageText(message.content.caption, false), Theme.fontSizeExtraSmall)
             onTextChanged: expanded = false
             font.pixelSize: Theme.fontSizeExtraSmall
-            wrapMode: Text.WrapAnywhere
+            wrapMode: Text.Wrap
             bottomPadding: expanded ? Theme.paddingLarge : 0
             anchors {
                 left: parent.left
