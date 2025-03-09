@@ -194,6 +194,7 @@ void TDLibWrapper::initializeTDLibReceiver() {
     connect(this->tdLibReceiver, SIGNAL(chatUnreadMentionCountUpdated(qlonglong, int)), this, SIGNAL(chatUnreadMentionCountUpdated(qlonglong, int)));
     connect(this->tdLibReceiver, SIGNAL(chatUnreadReactionCountUpdated(qlonglong, int)), this, SIGNAL(chatUnreadReactionCountUpdated(qlonglong, int)));
     connect(this->tdLibReceiver, SIGNAL(activeEmojiReactionsUpdated(QStringList)), this, SLOT(handleActiveEmojiReactionsUpdated(QStringList)));
+    connect(this->tdLibReceiver, SIGNAL(messagePropertiesReceived(qlonglong, QVariantMap)), this, SIGNAL(messagePropertiesReceived(qlonglong, QVariantMap)));
 
     this->tdLibReceiver->start();
 }
@@ -2436,4 +2437,14 @@ TDLibWrapper::ChatMemberStatus TDLibWrapper::Group::chatMemberStatus() const
 {
     const QString statusType(groupInfo.value(STATUS).toMap().value(_TYPE).toString());
     return statusType.isEmpty() ? ChatMemberStatusUnknown : chatMemberStatusFromString(statusType);
+}
+
+void TDLibWrapper::getMessageProperties(qlonglong chatId, qlonglong messageId) {
+    LOG("Retrieving message properties" << chatId << messageId);
+    QVariantMap requestObject;
+    requestObject.insert(_TYPE, "getMessageProperties");
+    requestObject.insert(CHAT_ID, chatId);
+    requestObject.insert(MESSAGE_ID, messageId);
+    requestObject.insert(_EXTRA, messageId);
+    this->sendRequest(requestObject);
 }

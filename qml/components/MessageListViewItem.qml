@@ -46,7 +46,7 @@ ListItem {
         return existingMessage.id === messageId
     });
     readonly property bool isOwnMessage: page.myUserId === myMessage.sender_id.user_id
-    readonly property bool canDeleteMessage: myMessage.can_be_deleted_for_all_users || (myMessage.can_be_deleted_only_for_self && myMessage.chat_id === page.myUserId)
+    readonly property bool canDeleteMessage: messageProperties.can_be_deleted_for_all_users || (messageProperties.can_be_deleted_only_for_self && myMessage.chat_id === page.myUserId)
     property bool hasContentComponent
     property bool additionalOptionsOpened
     property bool wasNavigatedTo: false
@@ -62,13 +62,14 @@ ListItem {
 
     readonly property int maxContextMenuItemCount: page.isPortrait ? 5 : 4
     readonly property int baseContextMenuItemCount: (canReplyToMessage ? 1 : 0) +
-        (myMessage.can_be_edited ? 1 : 0) + 2 /* "Select Message" and "More Options..." */
+        (messageProperties.can_be_edited ? 1 : 0) + 2 /* "Select Message" and "More Options..." */
     readonly property bool showCopyMessageToClipboardMenuItem: (baseContextMenuItemCount + 1) <= maxContextMenuItemCount
     readonly property bool showForwardMessageMenuItem: (baseContextMenuItemCount + 2) <= maxContextMenuItemCount
     // And don't count "More Options..." for "Delete Message" if "Delete Message" is the only extra option
     readonly property bool haveSpaceForDeleteMessageMenuItem: (baseContextMenuItemCount + 3 - (deleteMessageIsOnlyExtraOption ? 1 : 0)) <= maxContextMenuItemCount
     property var chatReactions
     property var messageReactions
+    property var messageProperties: ({can_be_deleted_for_all_users: false, can_be_deleted_only_for_self: false, can_be_edited: false, isStub: true})
 
     highlighted: (down || (isSelected && messageAlbumMessageIds.length === 0) || additionalOptionsOpened || wasNavigatedTo) && !menuOpen
     openMenuOnPressAndHold: !messageListItem.precalculatedValues.pageIsSelecting
@@ -90,6 +91,8 @@ ListItem {
     }
 
     function openContextMenu() {
+        if (messageProperties.isStub)
+            tdLibWrapper.getMessageProperties(chatId, messageId)
         messageOptionsDrawer.open = false
         if (menu) openMenu()
         else contextMenuLoader.active = true
@@ -157,9 +160,7 @@ ListItem {
         }
     }
 
-    onDoubleClicked: {
-        openReactions();
-    }
+    onDoubleClicked: openReactions()
 
     onPressAndHold: {
         if (openMenuOnPressAndHold) {
@@ -223,7 +224,7 @@ ListItem {
                         onClicked: copyMessageToClipboard()
                     }
                     FancyMenuIcon {
-                        visible: typeof myMessage.can_be_edited !== "undefined" && myMessage.can_be_edited
+                        visible: typeof messageProperties.can_be_edited !== "undefined" && messageProperties.can_be_edited
                         icon.source: "image://theme/icon-m-edit"
                         onClicked: editMessage()
                     }
@@ -242,7 +243,7 @@ ListItem {
                     text: qsTr("Reply to Message")
                 }
                 MenuItem {
-                    visible: !appSettings.compactMessageMenu && typeof myMessage.can_be_edited !== "undefined" && myMessage.can_be_edited
+                    visible: !appSettings.compactMessageMenu && typeof messageProperties.can_be_edited !== "undefined" && messageProperties.can_be_edited
                     onClicked: editMessage()
                     text: qsTr("Edit Message")
                 }
@@ -334,6 +335,9 @@ ListItem {
         onReactionsUpdated: {
             chatReactions = tdLibWrapper.getChatReactions(page.chatInformation.id);
         }
+        onMessagePropertiesReceived:
+            if (messageListItem.messageId === messageId)
+                messageListItem.messageProperties = messageProperties
     }
 
     Timer {
@@ -558,11 +562,8 @@ ListItem {
                                         }
                                     }
                                 }
-                                onPressAndHold: {
-                                    if (openMenuOnPressAndHold) {
-                                        openContextMenu()
-                                    }
-                                }
+                                onPressAndHold:
+                                    if (openMenuOnPressAndHold) openContextMenu()
                             }
                         }
                     }

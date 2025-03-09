@@ -253,6 +253,7 @@ public:
     Q_INVOKABLE void removeMessageReaction(qlonglong chatId, qlonglong messageId, const QString &reaction);
     Q_INVOKABLE void setNetworkType(NetworkType networkType);
     Q_INVOKABLE void setInactiveSessionTtl(int days);
+    Q_INVOKABLE void getMessageProperties(qlonglong chatId, qlonglong messageId);
 
     // Others (candidates for extraction ;))
     Q_INVOKABLE void searchEmoji(const QString &queryString);
@@ -342,6 +343,7 @@ signals:
     void chatUnreadReactionCountUpdated(qlonglong chatId, int unreadReactionCount);
     void tgUrlFound(const QString &tgUrl);
     void reactionsUpdated();
+    void messagePropertiesReceived(qlonglong messageId, const QVariantMap &messageProperties);
 
 public slots:
     void handleVersionDetected(const QString &version);
