@@ -26,7 +26,7 @@ import "../modules/Opal/FancyMenus"
 
 ListItem {
     id: messageListItem
-    contentHeight: messageBackground.height + Theme.paddingMedium + ( reactionsColumn.visible ? reactionsColumn.height : 0 )
+    contentHeight: messageBackground.height + Theme.paddingMedium + (reactionsColumn.visible ? reactionsColumn.height : 0)
     Behavior on contentHeight { NumberAnimation { duration: 200 } }
     property var chatId
     property var messageId
@@ -44,7 +44,7 @@ ListItem {
     readonly property Page page: precalculatedValues.page
     readonly property bool isSelected: messageListItem.precalculatedValues.pageIsSelecting && page.selectedMessages.some(function(existingMessage) {
         return existingMessage.id === messageId
-    });
+    })
     readonly property bool isOwnMessage: page.myUserId === myMessage.sender_id.user_id
     readonly property bool canDeleteMessage: messageProperties.can_be_deleted_for_all_users || (messageProperties.can_be_deleted_only_for_self && myMessage.chat_id === page.myUserId)
     property bool hasContentComponent
@@ -82,7 +82,7 @@ ListItem {
         var chatId = page.chatInformation.id
         var messageId = myMessage.id
         Remorse.itemAction(messageListItem, qsTr("Message deleted"), function() {
-            tdLibWrapper.deleteMessages(chatId, [ messageId ]);
+            tdLibWrapper.deleteMessages(chatId, [ messageId ])
         })
     }
 
@@ -99,15 +99,15 @@ ListItem {
     }
 
     function getInteractionText(viewCount, reactions, size, highlightColor) {
-        var interactionText = "";
+        var interactionText = ""
         if (viewCount > 0) {
-            interactionText = Emoji.emojify("👁️ ", size) + Functions.getShortenedCount(viewCount);
+            interactionText = Emoji.emojify("👁️ ", size) + Functions.getShortenedCount(viewCount)
         }
         for (var i = 0; i < reactions.length; i++) {
             var reaction = reactions[i]
             var reactionText = reaction.reaction ? reaction.reaction : (reaction.type && reaction.type.emoji) ? reaction.type.emoji : ""
             if (reactionText) {
-                interactionText += ( "&nbsp;" + Emoji.emojify(reactionText, size) );
+                interactionText += ( "&nbsp;" + Emoji.emojify(reactionText, size) )
                 if (!chatPage.isPrivateChat) {
                     var count = Functions.getShortenedCount(reaction.total_count)
                     interactionText += " "
@@ -115,20 +115,20 @@ ListItem {
                 }
             }
         }
-        return interactionText;
+        return interactionText
     }
 
     function openReactions() {
         if (messageListItem.chatReactions) {
             Debug.log("Using chat reactions")
             messageListItem.messageReactions = chatReactions
-            showItemCompletelyTimer.requestedIndex = index;
-            showItemCompletelyTimer.start();
+            showItemCompletelyTimer.requestedIndex = index
+            showItemCompletelyTimer.start()
         } else {
             Debug.log("Obtaining message reactions")
-            tdLibWrapper.getMessageAvailableReactions(messageListItem.chatId, messageListItem.messageId);
+            tdLibWrapper.getMessageAvailableReactions(messageListItem.chatId, messageListItem.messageId)
         }
-        selectReactionBubble.visible = false;
+        selectReactionBubble.visible = false
     }
 
     function getContentWidthMultiplier() {
@@ -137,7 +137,7 @@ ListItem {
 
     onClicked: {
         if (messageListItem.precalculatedValues.pageIsSelecting) {
-            page.toggleMessageSelection(myMessage);
+            page.toggleMessageSelection(myMessage)
         } else {
             if (messageOptionsDrawer.sourceItem !== messageListItem) {
                 messageOptionsDrawer.open = false
@@ -151,11 +151,11 @@ ListItem {
             }
 
             if (messageListItem.messageReactions) {
-                messageListItem.messageReactions = null;
-                selectReactionBubble.visible = false;
+                messageListItem.messageReactions = null
+                selectReactionBubble.visible = false
             } else {
-                selectReactionBubble.visible = !selectReactionBubble.visible;
-                elementSelected(index);
+                selectReactionBubble.visible = !selectReactionBubble.visible
+                elementSelected(index)
             }
         }
     }
@@ -173,7 +173,7 @@ ListItem {
 
     onMenuOpenChanged: {
         // When opening/closing the context menu, we no longer scroll automatically
-        chatView.manuallyScrolledToBottom = false;
+        chatView.manuallyScrolledToBottom = false
     }
 
     Connections {
@@ -188,20 +188,18 @@ ListItem {
     Connections {
         target: chatPage
         onResetElements: {
-            messageListItem.messageReactions = null;
-            selectReactionBubble.visible = false;
+            messageListItem.messageReactions = null
+            selectReactionBubble.visible = false
         }
-        onElementSelected: {
+        onElementSelected:
             if (elementIndex !== index) {
-                selectReactionBubble.visible = false;
+                selectReactionBubble.visible = false
             }
-        }
-        onNavigatedTo: {
+        onNavigatedTo:
             if (targetIndex === index) {
-                messageListItem.wasNavigatedTo = true;
-                restoreNormalityTimer.start();
+                messageListItem.wasNavigatedTo = true
+                restoreNormalityTimer.start()
             }
-        }
     }
 
     Loader {
@@ -289,52 +287,40 @@ ListItem {
         }
     }
 
+    function updateIsUnread() {
+        messageBackground.isUnread = messageIndex > chatModel.getLastReadMessageIndex() && myMessage['@type'] !== "sponsoredMessage"
+    }
     Connections {
         target: chatModel
-        onMessagesReceived: {
-            messageBackground.isUnread = messageIndex > chatModel.getLastReadMessageIndex() && myMessage['@type'] !== "sponsoredMessage";
-        }
-        onMessagesIncrementalUpdate: {
-            messageBackground.isUnread = messageIndex > chatModel.getLastReadMessageIndex() && myMessage['@type'] !== "sponsoredMessage";
-        }
-        onNewMessageReceived: {
-            messageBackground.isUnread = messageIndex > chatModel.getLastReadMessageIndex() && myMessage['@type'] !== "sponsoredMessage";
-        }
-        onUnreadCountUpdated: {
-            messageBackground.isUnread = messageIndex > chatModel.getLastReadMessageIndex() && myMessage['@type'] !== "sponsoredMessage";
-        }
+        onMessagesReceived: updateIsUnread()
+        onMessagesIncrementalUpdate: updateIsUnread()
+        onNewMessageReceived: updateIsUnread()
+        onUnreadCountUpdated: updateIsUnread()
         onLastReadSentMessageUpdated: {
-            Debug.log("[ChatModel] Messages in this chat were read, new last read: ", lastReadSentIndex, ", updating description for index ", index, ", status: ", (messageIndex <= lastReadSentIndex));
-            messageDateText.text = getMessageStatusText(myMessage, messageIndex, lastReadSentIndex, messageDateText.useElapsed);
+            Debug.log("[ChatModel] Messages in this chat were read, new last read: ", lastReadSentIndex, ", updating description for index ", index, ", status: ", (messageIndex <= lastReadSentIndex))
+            messageDateText.text = getMessageStatusText(myMessage, messageIndex, lastReadSentIndex, messageDateText.useElapsed)
         }
     }
 
     Connections {
         target: tdLibWrapper
-        onReceivedMessage: {
-            if (messageId === myMessage.reply_to_message_id) {
-                messageInReplyToLoader.inReplyToMessage = message;
-            }
-        }
-        onMessageNotFound: {
-            if (messageId === myMessage.reply_to_message_id) {
-                messageInReplyToLoader.inReplyToMessageDeleted = true;
-            }
-        }
+        onReceivedMessage:
+            if (messageId === myMessage.reply_to_message_id)
+                messageInReplyToLoader.inReplyToMessage = message
+        onMessageNotFound:
+            if (messageId === myMessage.reply_to_message_id)
+                messageInReplyToLoader.inReplyToMessageDeleted = true
         onAvailableReactionsReceived: {
             if (messageListItem.messageId === messageId &&
                     pageStack.currentPage === chatPage) {
-                Debug.log("Available reactions for this message: " + reactions);
-                messageListItem.messageReactions = reactions;
-                showItemCompletelyTimer.requestedIndex = messageIndex;
-                showItemCompletelyTimer.start();
-            } else {
-                messageListItem.messageReactions = null;
-            }
+                Debug.log("Available reactions for this message: " + reactions)
+                messageListItem.messageReactions = reactions
+                showItemCompletelyTimer.requestedIndex = messageIndex
+                showItemCompletelyTimer.start()
+            } else messageListItem.messageReactions = null
         }
-        onReactionsUpdated: {
-            chatReactions = tdLibWrapper.getChatReactions(page.chatInformation.id);
-        }
+        onReactionsUpdated:
+            chatReactions = tdLibWrapper.getChatReactions(page.chatInformation.id)
         onMessagePropertiesReceived:
             if (messageListItem.messageId === messageId)
                 messageListItem.messageProperties = messageProperties
@@ -351,11 +337,11 @@ ListItem {
         triggeredOnStart: false
         onTriggered: {
             if (requestedIndex === messageIndex) {
-                chatView.highlightMoveDuration = -1;
-                chatView.highlightResizeDuration = -1;
-                chatView.scrollToIndex(requestedIndex);
-                chatView.highlightMoveDuration = 0;
-                chatView.highlightResizeDuration = 0;
+                chatView.highlightMoveDuration = -1
+                chatView.highlightResizeDuration = -1
+                chatView.scrollToIndex(requestedIndex)
+                chatView.highlightMoveDuration = 0
+                chatView.highlightResizeDuration = 0
             }
             Debug.log("Show item completely timer triggered, requested index: " + requestedIndex + ", current index: " + index)
             if (requestedIndex === index) {
@@ -380,26 +366,24 @@ ListItem {
         interval: 1000
         triggeredOnStart: false
         onTriggered: {
-            Debug.log("Restore normality for index " + index);
-            messageListItem.wasNavigatedTo = false;
+            Debug.log("Restore normality for index " + index)
+            messageListItem.wasNavigatedTo = false
         }
     }
 
     Component.onCompleted: {
-        delegateComponentLoadingTimer.start();
-        if (myMessage.reply_to_message_id) {
+        delegateComponentLoadingTimer.start()
+        if (myMessage.reply_to_message_id)
             tdLibWrapper.getMessage(myMessage.reply_in_chat_id ? myMessage.reply_in_chat_id : page.chatInformation.id,
                 myMessage.reply_to_message_id)
-        }
     }
 
     onMyMessageChanged: {
-        Debug.log("[ChatModel] This message was updated, index", messageIndex, ", updating content...");
-        messageDateText.text = getMessageStatusText(myMessage, messageIndex, chatView.lastReadSentIndex, messageDateText.useElapsed);
-        messageText.text = Emoji.emojify(Functions.getMessageText(myMessage, false, page.myUserId, false), Theme.fontSizeSmall);
-        if (webPagePreviewLoader.item) {
-            webPagePreviewLoader.item.webPageData = myMessage.content.web_page;
-        }
+        Debug.log("[ChatModel] This message was updated, index", messageIndex, ", updating content...")
+        messageDateText.text = getMessageStatusText(myMessage, messageIndex, chatView.lastReadSentIndex, messageDateText.useElapsed)
+        messageText.text = Emoji.emojify(Functions.getMessageText(myMessage, false, page.myUserId, false), Theme.fontSizeSmall)
+        if (webPagePreviewLoader.item)
+            webPagePreviewLoader.item.webPageData = myMessage.content.web_page
     }
 
     Timer {
@@ -409,18 +393,14 @@ ListItem {
         running: false
         onTriggered: {
             if (messageListItem.hasContentComponent) {
-                var type = myMessage.content["@type"];
-                var albumComponentPart = (myMessage.media_album_id !== "0" && ['messagePhoto', 'messageVideo'].indexOf(type) !== -1) ? 'Album' : '';
+                var type = myMessage.content["@type"]
+                var albumComponentPart = (myMessage.media_album_id !== "0" && ['messagePhoto', 'messageVideo'].indexOf(type) !== -1) ? 'Album' : ''
                 extraContentLoader.setSource(
                             "../components/messageContent/" + type.charAt(0).toUpperCase() + type.substring(1) + albumComponentPart + ".qml",
-                            {
-                                messageListItem: messageListItem
-                            })
-            } else {
-                if (typeof myMessage.content.web_page !== "undefined") { // only in messageText
-                    webPagePreviewLoader.active = true;
-                }
-            }
+                            { messageListItem: messageListItem })
+            } else
+                if (typeof myMessage.content.web_page !== "undefined") // only in messageText
+                    webPagePreviewLoader.active = true
         }
     }
 
@@ -452,9 +432,8 @@ ListItem {
                     MouseArea {
                         anchors.fill: parent
                         enabled: !(messageListItem.precalculatedValues.pageIsSelecting || messageListItem.isAnonymous)
-                        onClicked: {
-                            tdLibWrapper.createPrivateChat(messageListItem.userInformation.id, "openDirectly");
-                        }
+                        onClicked:
+                            tdLibWrapper.createPrivateChat(messageListItem.userInformation.id, "openDirectly")
                     }
                 }
             }
@@ -516,9 +495,8 @@ ListItem {
                     MouseArea {
                         anchors.fill: parent
                         enabled: !(messageListItem.precalculatedValues.pageIsSelecting || messageListItem.isAnonymous)
-                        onClicked: {
-                            tdLibWrapper.createPrivateChat(messageListItem.userInformation.id, "openDirectly");
-                        }
+                        onClicked:
+                            tdLibWrapper.createPrivateChat(messageListItem.userInformation.id, "openDirectly")
                     }
                 }
 
@@ -532,8 +510,8 @@ ListItem {
                     width: parent.width
                     // text height ~= 1,28*font.pixelSize
                     height: active ? precalculatedValues.messageInReplyToHeight : 0
-                    property var inReplyToMessage;
-                    property bool inReplyToMessageDeleted: false;
+                    property var inReplyToMessage
+                    property bool inReplyToMessageDeleted: false
                     sourceComponent: Component {
                         Item {
                             width: messageInReplyToRow.width
@@ -584,16 +562,16 @@ ListItem {
                             Component.onCompleted: {
                                 var originType = myMessage.forward_info.origin["@type"]
                                 if (originType === "messageOriginChannel" || originType === "messageForwardOriginChannel") {
-                                    var otherChatInformation = tdLibWrapper.getChat(myMessage.forward_info.origin.chat_id);
-                                    forwardedThumbnail.photoData = (typeof otherChatInformation.photo !== "undefined") ? otherChatInformation.photo.small : {};
-                                    forwardedChannelText.text = Emoji.emojify(otherChatInformation.title, Theme.fontSizeExtraSmall);
+                                    var otherChatInformation = tdLibWrapper.getChat(myMessage.forward_info.origin.chat_id)
+                                    forwardedThumbnail.photoData = (typeof otherChatInformation.photo !== "undefined") ? otherChatInformation.photo.small : {}
+                                    forwardedChannelText.text = Emoji.emojify(otherChatInformation.title, Theme.fontSizeExtraSmall)
                                 } else if (originType === "messageOriginUser" || originType === "messageForwardOriginUser") {
-                                    var otherUserInformation = tdLibWrapper.getUserInformation(myMessage.forward_info.origin.sender_user_id);
-                                    forwardedThumbnail.photoData = (typeof otherUserInformation.profile_photo !== "undefined") ? otherUserInformation.profile_photo.small : {};
-                                    forwardedChannelText.text = Emoji.emojify(Functions.getUserName(otherUserInformation), Theme.fontSizeExtraSmall);
+                                    var otherUserInformation = tdLibWrapper.getUserInformation(myMessage.forward_info.origin.sender_user_id)
+                                    forwardedThumbnail.photoData = (typeof otherUserInformation.profile_photo !== "undefined") ? otherUserInformation.profile_photo.small : {}
+                                    forwardedChannelText.text = Emoji.emojify(Functions.getUserName(otherUserInformation), Theme.fontSizeExtraSmall)
                                 } else {
-                                    forwardedChannelText.text = Emoji.emojify(myMessage.forward_info.origin.sender_name, Theme.fontSizeExtraSmall);
-                                    forwardedThumbnail.photoData = {};
+                                    forwardedChannelText.text = Emoji.emojify(myMessage.forward_info.origin.sender_name, Theme.fontSizeExtraSmall)
+                                    forwardedThumbnail.photoData = {}
                                 }
                             }
 
@@ -639,10 +617,8 @@ ListItem {
                     wrapMode: Text.Wrap
                     textFormat: Text.StyledText
                     onLinkActivated: {
-                        var chatCommand = Functions.handleLink(link);
-                        if(chatCommand) {
-                            tdLibWrapper.sendTextMessage(chatInformation.id, chatCommand);
-                        }
+                        var chatCommand = Functions.handleLink(link)
+                        if(chatCommand) tdLibWrapper.sendTextMessage(chatInformation.id, chatCommand)
                     }
                     horizontalAlignment: messageListItem.textAlign
                     linkColor: Theme.highlightColor
@@ -709,9 +685,8 @@ ListItem {
                     interval: 60000
                     running: true
                     repeat: true
-                    onTriggered: {
-                        messageDateText.text = getMessageStatusText(myMessage, messageIndex, chatView.lastReadSentIndex, messageDateText.useElapsed);
-                    }
+                    onTriggered:
+                        messageDateText.text = getMessageStatusText(myMessage, messageIndex, chatView.lastReadSentIndex, messageDateText.useElapsed)
                 }
 
                 Text {
@@ -728,8 +703,8 @@ ListItem {
                         anchors.fill: parent
                         enabled: !messageListItem.precalculatedValues.pageIsSelecting
                         onClicked: {
-                            messageDateText.useElapsed = !messageDateText.useElapsed;
-                            messageDateText.text = getMessageStatusText(myMessage, messageIndex, chatView.lastReadSentIndex, messageDateText.useElapsed);
+                            messageDateText.useElapsed = !messageDateText.useElapsed
+                            messageDateText.text = getMessageStatusText(myMessage, messageIndex, chatView.lastReadSentIndex, messageDateText.useElapsed)
                         }
                     }
                 }
@@ -754,10 +729,10 @@ ListItem {
                                 anchors.fill: parent
                                 onClicked: {
                                     if (messageListItem.messageReactions) {
-                                        messageListItem.messageReactions = null;
-                                        selectReactionBubble.visible = false;
+                                        messageListItem.messageReactions = null
+                                        selectReactionBubble.visible = false
                                     } else {
-                                        openReactions();
+                                        openReactions()
                                     }
                                 }
                             }
@@ -789,13 +764,9 @@ ListItem {
                 Behavior on opacity { NumberAnimation {} }
                 icon.source: "image://theme/icon-s-favorite"
                 anchors.centerIn: selectReactionBubble
-                onClicked: {
-                    openReactions();
-                }
+                onClicked: openReactions()
             }
-
         }
-
     }
 
     Column {
