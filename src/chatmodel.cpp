@@ -124,7 +124,7 @@ ChatModel::MessageData::MessageData(const QVariantMap &data, qlonglong msgid) :
     messageType(data.value(_TYPE).toString()),
     messageContentType(data.value(CONTENT).toMap().value(_TYPE).toString()),
     viewCount(data.value(INTERACTION_INFO).toMap().value(VIEW_COUNT).toInt()),
-    reactions(data.value(INTERACTION_INFO).toMap().value(REACTIONS).toList()),
+    reactions(data.value(INTERACTION_INFO).toMap().value(REACTIONS).toMap().value(REACTIONS).toList()),
     albumEntryFilter(false),
     albumMessageIds(QVariantList())
 {
@@ -259,7 +259,7 @@ uint ChatModel::MessageData::updateReactions(const QVariantMap &interactionInfo)
 {
     LOG("Updating reactions...");
     const QVariantList oldReactions = reactions;
-    reactions = interactionInfo.value(REACTIONS).toList();
+    reactions = interactionInfo.value(REACTIONS).toMap().value(REACTIONS).toList();
     return (reactions == oldReactions) ? 0 : RoleFlagMessageReactions;
 }
 

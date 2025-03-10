@@ -99,10 +99,7 @@ ListItem {
     }
 
     function getInteractionText(viewCount, reactions, size, highlightColor) {
-        var interactionText = ""
-        if (viewCount > 0) {
-            interactionText = Emoji.emojify("👁️ ", size) + Functions.getShortenedCount(viewCount)
-        }
+        var interactionText = viewCount > 0 ? (Emoji.emojify("👁️ ", size) + Functions.getShortenedCount(viewCount)) : ''
         for (var i = 0; i < reactions.length; i++) {
             var reaction = reactions[i]
             var reactionText = reaction.reaction ? reaction.reaction : (reaction.type && reaction.type.emoji) ? reaction.type.emoji : ""
@@ -311,8 +308,7 @@ ListItem {
             if (messageId === myMessage.reply_to_message_id)
                 messageInReplyToLoader.inReplyToMessageDeleted = true
         onAvailableReactionsReceived: {
-            if (messageListItem.messageId === messageId &&
-                    pageStack.currentPage === chatPage) {
+            if (messageListItem.messageId === messageId && pageStack.currentPage === chatPage) {
                 Debug.log("Available reactions for this message: " + reactions)
                 messageListItem.messageReactions = reactions
                 showItemCompletelyTimer.requestedIndex = messageIndex
@@ -731,9 +727,7 @@ ListItem {
                                     if (messageListItem.messageReactions) {
                                         messageListItem.messageReactions = null
                                         selectReactionBubble.visible = false
-                                    } else {
-                                        openReactions()
-                                    }
+                                    } else openReactions()
                                 }
                             }
                         }
