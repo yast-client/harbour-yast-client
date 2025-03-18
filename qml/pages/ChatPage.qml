@@ -389,10 +389,11 @@ Page {
         }
         if (chatPage.messageIdToScrollTo && chatPage.messageIdToScrollTo != "") {
             var index = chatModel.getMessageIndex(chatPage.messageIdToScrollTo)
-            if(index !== -1) {
+            var proxyIndex = chatProxyModel.mapRowFromSource(index, -1)
+            if(proxyIndex !== -1) {
                 chatPage.messageIdToScrollTo = ""
-                chatView.scrollToIndex(index)
-                navigatedTo(index)
+                chatView.scrollToIndex(proxyIndex)
+                navigatedTo(proxyIndex)
             } else if(initialRun)
                 // we only want to do this once.
                 chatModel.triggerLoadHistoryForMessage(chatPage.messageIdToScrollTo)
