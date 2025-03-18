@@ -674,6 +674,7 @@ void ChatModel::handleMessageReceived(qlonglong chatId, qlonglong messageId, con
         LOG("Message was updated at index" << position);
         const QModelIndex messageIndex(index(position));
         emit dataChanged(messageIndex, messageIndex, changedRoles);
+        setMessagesProperties(messages.at(position));
     }
 }
 
@@ -717,6 +718,7 @@ void ChatModel::handleMessageSendSucceeded(qlonglong messageId, qlonglong oldMes
         emit dataChanged(messageIndex, messageIndex, changedRoles);
         emit lastReadSentMessageUpdated(calculateLastReadSentMessageId());
         tdLibWrapper->viewMessage(this->chatId, messageId, false);
+        setMessagesProperties(newMessage);
     }
 }
 

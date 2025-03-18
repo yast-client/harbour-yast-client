@@ -87,3 +87,7 @@ Not yet finished (by the state of TDLib 1.8.46):
 - messageVideoChatStarted
 - messageWebAppDataReceived
 - messageWebAppDataSent
+
+## Some notes
+
+- setMessageProperties could probably be implemented better. Currently it is hardcoded in several places, including new message success callback. It is also not same as other set* chat list functions, others simply scrap data from the message, but this one sends a tdlib request. Not sure if this should also be added to handleMessageContentUpdated, handleMessageEditedUpdated or anything similar. Probably not, but who knows
