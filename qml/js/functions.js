@@ -281,6 +281,7 @@ function messageInsertionSorter(a, b) {
 }
 
 function enhanceMessageText(formattedText, ignoreEntities) {
+    if (typeof formattedText === 'undefined') return '';
 
     var messageInsertions = [];
     var messageText = formattedText.text;

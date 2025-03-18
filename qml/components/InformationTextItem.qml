@@ -28,6 +28,7 @@ Column {
     property alias headerText: headerItem.text
     property string text
     property bool isLinkedLabel // for telephone number
+    property bool highlight
     width: parent.width
     visible: !!text
     SectionHeader {
@@ -50,9 +51,9 @@ Column {
             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
             font.pixelSize: Theme.fontSizeMedium
             textFormat: Text.StyledText
-            color: Theme.primaryColor
+            color: highlight && highlighted ? Theme.highlightColor : Theme.primaryColor
             text: Emoji.emojify( Functions.replaceUrlsWithLinks(textItem.text).replace(/\n/g, "<br>"), Theme.fontSizeExtraSmall)
-            linkColor: Theme.highlightColor
+            linkColor: highlighted ? Theme.primaryColor : Theme.highlightColor
             visible: text !== ""
             onLinkActivated: {
                 Functions.handleLink(link);
@@ -68,9 +69,7 @@ Column {
             color: Theme.highlightColor
             plainText: textItem.text
             visible: textItem.text !== ""
-            onLinkActivated: {
-                Functions.handleLink(link);
-            }
+            onLinkActivated: Functions.handleLink(link)
         }
     }
 }

@@ -69,7 +69,7 @@ SilicaFlickable {
             break;
         }
         Debug.log("is set up", chatInformationPage.isPrivateChat, chatInformationPage.isSecretChat, chatInformationPage.isBasicGroup, chatInformationPage.isSuperGroup, chatInformationPage.chatPartnerGroupId)
-        if(!(chatInformationPage.isPrivateChat || chatInformationPage.isSecretChat)) {
+        if(!chatInformationPage.isPrivateOrSecretChat) {
             updateGroupStatusText()
         }
 
@@ -148,18 +148,18 @@ SilicaFlickable {
         onBasicGroupFullInfoUpdated: handleBasicGroupFullInfo(groupFullInfo, groupId)
 
         onUserFullInfoReceived: {
-            if((chatInformationPage.isPrivateChat || chatInformationPage.isSecretChat) && userFullInfo["@extra"] === chatInformationPage.chatPartnerGroupId) {
+            if(chatInformationPage.isPrivateOrSecretChat && userFullInfo["@extra"] === chatInformationPage.chatPartnerGroupId) {
                 chatInformationPage.chatPartnerFullInformation = userFullInfo
             }
         }
         onUserFullInfoUpdated: {
-            if((chatInformationPage.isPrivateChat || chatInformationPage.isSecretChat) && userId === chatInformationPage.chatPartnerGroupId) {
+            if(chatInformationPage.isPrivateOrSecretChat && userId === chatInformationPage.chatPartnerGroupId) {
                 chatInformationPage.chatPartnerFullInformation = userFullInfo
             }
         }
 
         onUserProfilePhotosReceived: {
-            if((chatInformationPage.isPrivateChat || chatInformationPage.isSecretChat) && extra === chatInformationPage.chatPartnerGroupId) {
+            if(chatInformationPage.isPrivateOrSecretChat && extra === chatInformationPage.chatPartnerGroupId) {
                 chatInformationPage.chatPartnerProfilePhotos = photos
             }
         }
@@ -283,15 +283,24 @@ SilicaFlickable {
                 active: imageContainer.hasImage
                 asynchronous: true
                 anchors.fill: chatPictureThumbnail
-                source: ( chatInformationPage.isPrivateChat || chatInformationPage.isSecretChat)
+                source: chatInformationPage.isPrivateOrSecretChat
                         ? "../ProfilePictureList.qml"
                         : "ChatInformationProfilePicture.qml"
             }
         }
         leftMargin: imageContainer.getEased((imageContainer.minDimension + Theme.paddingMedium), 0, imageContainer.tweenFactor) + Theme.horizontalPageMargin
         title: chatInformationPage.chatInformation.title !== "" ? Emoji.emojify(chatInformationPage.chatInformation.title, Theme.fontSizeLarge) : qsTr("Unknown")
-        description: ((chatInformationPage.isPrivateChat || chatInformationPage.isSecretChat) && chatInformationPage.privateChatUserInformation.usernames.editable_username)
-            ? ("@"+chatInformationPage.privateChatUserInformation.usernames.editable_username) : ""
+        description: chatInformationPage.username
+
+        MouseArea {
+            parent: headerItem._descriptionLabel
+            anchors.fill: parent
+            enabled: !!headerItem.description && headerItem.description === chatInformationPage.username
+            onClicked: {
+                Clipboard.text = chatInformationPage.username
+                appNotification.show(qsTr("Username has been copied to the clipboard"))
+            }
+        }
     }
 
     SilicaFlickable {
@@ -377,7 +386,7 @@ SilicaFlickable {
 
             InformationEditArea {
                 visible: canEdit
-                canEdit: !(chatInformationPage.isPrivateChat || chatInformationPage.isSecretChat) && chatInformationPage.groupInformation.status && (chatInformationPage.groupInformation.status.can_change_info  || chatInformationPage.groupInformation.status["@type"] === "chatMemberStatusCreator")
+                canEdit: !chatInformationPage.isPrivateOrSecretChat && chatInformationPage.groupInformation.status && (chatInformationPage.groupInformation.status.can_change_info  || chatInformationPage.groupInformation.status["@type"] === "chatMemberStatusCreator")
                 headerText: qsTr("Chat Title", "group title header")
                 text: chatInformationPage.chatInformation.title
 
@@ -402,24 +411,42 @@ SilicaFlickable {
                 }
             }
             InformationEditArea {
-                canEdit: ((chatInformationPage.isPrivateChat || chatInformationPage.isSecretChat) && chatInformationPage.privateChatUserInformation.id === chatInformationPage.myUserId) || ((chatInformationPage.isBasicGroup || chatInformationPage.isSuperGroup) && chatInformationPage.groupInformation && (chatInformationPage.groupInformation.status.can_change_info || chatInformationPage.groupInformation.status["@type"] === "chatMemberStatusCreator"))
+                canEdit: (chatInformationPage.isPrivateOrSecretChat && chatInformationPage.privateChatUserInformation.id === chatInformationPage.myUserId) || ((chatInformationPage.isBasicGroup || chatInformationPage.isSuperGroup) && chatInformationPage.groupInformation && (chatInformationPage.groupInformation.status.can_change_info || chatInformationPage.groupInformation.status["@type"] === "chatMemberStatusCreator"))
                 emptyPlaceholderText: qsTr("There is no information text available, yet.")
                 headerText: qsTr("Info", "group or user infotext header")
                 multiLine: true
-                text: ((chatInformationPage.isPrivateChat || chatInformationPage.isSecretChat) ? chatInformationPage.chatPartnerFullInformation.bio : chatInformationPage.groupFullInformation.description) || ""
+                text: (chatInformationPage.isPrivateOrSecretChat ? Functions.enhanceMessageText(chatInformationPage.chatPartnerFullInformation.bio, false) : chatInformationPage.groupFullInformation.description) || ""
                 onSaveButtonClicked: {
-                    if ((chatInformationPage.isPrivateChat || chatInformationPage.isSecretChat)) { // own bio
-                        tdLibWrapper.setBio(textValue);
+                    if (chatInformationPage.isPrivateOrSecretChat) { // own bio
+                        tdLibWrapper.setBio(textValue)
                     } else { // group info
-                        tdLibWrapper.setChatDescription(chatInformationPage.chatInformation.id, textValue);
+                        tdLibWrapper.setChatDescription(chatInformationPage.chatInformation.id, textValue)
                     }
                 }
             }
 
             InformationTextItem {
                 headerText: qsTr("Phone Number", "user phone number header")
-                text: ((chatInformationPage.isPrivateChat || chatInformationPage.isSecretChat) && chatInformationPage.privateChatUserInformation.phone_number ? "+"+chatInformationPage.privateChatUserInformation.phone_number : "") || ""
+                text: (chatInformationPage.isPrivateOrSecretChat && chatInformationPage.privateChatUserInformation.phone_number ? "+"+chatInformationPage.privateChatUserInformation.phone_number : "") || ""
                 isLinkedLabel: true
+            }
+
+            BackgroundItem {
+                height: contentHeight
+                contentHeight: usernameItem.height
+                visible: !!usernameItem.text
+                _showPress: false
+
+                InformationTextItem {
+                    id: usernameItem
+                    highlight: true
+                    headerText: qsTr("Username", "header")
+                    text: headerItem.description != chatInformationPage.username ? chatInformationPage.username : ""
+                }
+                onClicked: {
+                    Clipboard.text = usernameItem.text
+                    appNotification.show(qsTr("Username has been copied to the clipboard"))
+                }
             }
 
             SectionHeader {
@@ -435,7 +462,7 @@ SilicaFlickable {
                 visible: !!inviteLinkItem.text
                 InformationTextItem {
                     id: inviteLinkItem
-                    text: !(chatInformationPage.isPrivateChat || chatInformationPage.isSecretChat) ? chatInformationPage.groupFullInformation.invite_link.invite_link : ""
+                    text: !chatInformationPage.isPrivateOrSecretChat ? chatInformationPage.groupFullInformation.invite_link.invite_link : ""
                     width: parent.width - inviteLinkButton.width
                 }
                 IconButton {

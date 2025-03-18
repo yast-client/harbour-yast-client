@@ -42,7 +42,8 @@ Page {
 
     property string chatPartnerGroupId
 
-    property bool userIsMember: ((isPrivateChat || isSecretChat ) && chatInformation["@type"]) || // should be optimized
+    property bool isPrivateOrSecretChat: isPrivateChat || isSecretChat
+    property bool userIsMember: (isPrivateOrSecretChat && chatInformation["@type"]) || // should be optimized
                                 (isBasicGroup || isSuperGroup) && (
                                     (groupInformation.status["@type"] === "chatMemberStatusMember")
                                     || (groupInformation.status["@type"] === "chatMemberStatusAdministrator")
@@ -50,12 +51,17 @@ Page {
                                     || (groupInformation.status["@type"] === "chatMemberStatusCreator" && groupInformation.status.is_member)
                                     )
 
-    property var chatInformation:({});
-    property var privateChatUserInformation:({});
-    property var chatPartnerFullInformation:({});
-    property var chatPartnerProfilePhotos:([]);
-    property var groupInformation: ({});
-    property var groupFullInformation: ({});
+    property var chatInformation:({})
+    property var privateChatUserInformation:({})
+    property var chatPartnerFullInformation:({})
+    property var chatPartnerProfilePhotos:([])
+    property var groupInformation: ({})
+    property var groupFullInformation: ({})
+
+    readonly property string username: isPrivateOrSecretChat ?
+                                  (privateChatUserInformation.usernames.editable_username ? "@"+privateChatUserInformation.usernames.editable_username : "")
+                                : ((groupInformation && groupInformation.usernames && groupInformation.usernames.editable_username)
+                                   ? "@"+groupInformation.usernames.editable_username : "")
 
 //    property alias membersList: membersList
 

@@ -219,6 +219,15 @@
         <source>ID has been copied to the clipboard.</source>
         <translation>ID har kopierats till urklipp.</translation>
     </message>
+    <message>
+        <source>Username has been copied to the clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Username</source>
+        <comment>header</comment>
+        <translation type="unfinished">Användarnamn</translation>
+    </message>
 </context>
 <context>
     <name>ChatInformationTabItemMembersGroups</name>
