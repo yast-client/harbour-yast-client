@@ -16,7 +16,7 @@ PhotoTextsListItem {
     property string previewText: showDraft ? draft_message_text : last_message_text
 
     // chat title
-    primaryText.text: title ? Emoji.emojify(title, Theme.fontSizeMedium) : qsTr("Unknown")
+    primaryText.text: title ? Functions.textFixReserved(Emoji.emojify(title, Theme.fontSizeMedium)) : qsTr("Unknown")
     // last user
     prologSecondaryText.text: showDraft ? "<i>"+qsTr("Draft")+"</i>" : (is_channel ? "" : ( last_message_sender_id ? ( last_message_sender_id !== ownUserId ? Emoji.emojify(Functions.getUserName(tdLibWrapper.getUserInformation(last_message_sender_id)), Theme.fontSizeExtraSmall) : qsTr("You") ) : "" ))
     // last message

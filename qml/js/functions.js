@@ -280,18 +280,20 @@ function messageInsertionSorter(a, b) {
     return b.offset - a.offset;
 }
 
+function textFixReserved(text) {
+    return text.replace(ampRegExp, "&amp;").replace(ltRegExp, "&lt;").replace(gtRegExp, "&gt;").replace(rawNewLineRegExp, "<br>");
+}
+
 function enhanceMessageText(formattedText, ignoreEntities) {
-    if (typeof formattedText === 'undefined') return '';
+    if (typeof formattedText === 'undefined') return ''
 
     var messageInsertions = [];
     var messageText = formattedText.text;
     var entity;
-    if (ignoreEntities) {
-        return messageText;
-    }
-    if(formattedText.entities.length === 0) {
-        return messageText.replace(ampRegExp, "&amp;").replace(ltRegExp, "&lt;").replace(gtRegExp, "&gt;").replace(rawNewLineRegExp, "<br>");
-    }
+    if (ignoreEntities) return messageText
+
+    if(formattedText.entities.length === 0)
+        return textFixReserved(messageText)
 
     for (var i = 0; i < formattedText.entities.length; i++) {
         entity = formattedText.entities[i];
@@ -387,9 +389,8 @@ function enhanceMessageText(formattedText, ignoreEntities) {
         }
     }
 
-    if(messageInsertions.length === 0) {
-        return messageText.replace(ampRegExp, "&amp;").replace(ltRegExp, "&lt;").replace(gtRegExp, "&gt;").replace(rawNewLineRegExp, "<br>");
-    }
+    if(messageInsertions.length === 0)
+        return textFixReserved(messageText)
 
     handleHtmlEntity(messageText, messageInsertions, "&", "&amp;");
     handleHtmlEntity(messageText, messageInsertions, "<", "&lt;");
@@ -403,7 +404,7 @@ function enhanceMessageText(formattedText, ignoreEntities) {
     }
 
     messageText = messageText.replace(rawNewLineRegExp, "<br>");
-
+    
     return messageText;
 }
 

@@ -1017,7 +1017,7 @@ Page {
                             id: chatNameText
                             width: Math.min(implicitWidth, parent.width)
                             anchors.right: parent.right
-                            text: chatInformation.title !== "" ? Emoji.emojify(chatInformation.title, font.pixelSize) : qsTr("Unknown")
+                            text: chatInformation.title !== "" ? Functions.textFixReserved(Emoji.emojify(chatInformation.title, font.pixelSize)) : qsTr("Unknown")
                             textFormat: Text.StyledText
                             font.pixelSize: chatPage.isPortrait ? Theme.fontSizeLarge : Theme.fontSizeMedium
                             font.family: Theme.fontFamilyHeading
