@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="it">
+<TS version="2.1" language="it_IT">
 <context>
     <name>AboutPage</name>
     <message>
@@ -221,24 +221,24 @@
     </message>
     <message>
         <source>Username has been copied to the clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Il nome utente è stato copiato negli appunti</translation>
     </message>
     <message>
         <source>Username</source>
         <comment>header</comment>
-        <translation type="unfinished">Nome utente</translation>
+        <translation>Nome utente</translation>
     </message>
     <message>
         <source>Private Chat</source>
-        <translation type="unfinished">Chat privata</translation>
+        <translation>Chat privata</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation type="unfinished">Gruppo</translation>
+        <translation>Gruppo</translation>
     </message>
     <message>
         <source>Channel</source>
-        <translation type="unfinished">Canale</translation>
+        <translation>Canale</translation>
     </message>
 </context>
 <context>
@@ -958,72 +958,72 @@
     <message>
         <source>sent a self-destructing voice note that is expired</source>
         <comment>myself</comment>
-        <translation type="unfinished"></translation>
+        <translation>ha inviato una nota vocale che si è autodistrutta</translation>
     </message>
     <message>
         <source>sent a self-destructing voice note that is expired</source>
-        <translation type="unfinished"></translation>
+        <translation>ha inviato una nota vocale che si è autodistrutta</translation>
     </message>
     <message>
         <source>sent a self-destructing video note that is expired</source>
         <comment>myself</comment>
-        <translation type="unfinished"></translation>
+        <translation>ha inviato una nota video che si è autodistrutta</translation>
     </message>
     <message>
         <source>sent a self-destructing video note that is expired</source>
-        <translation type="unfinished"></translation>
+        <translation>ha inviato una nota video che si è autodistrutta</translation>
     </message>
     <message>
         <source>you allowed this bot to message you when you added it to your attachment menu</source>
-        <translation type="unfinished"></translation>
+        <translation>hai permesso a questo bot di scriverti quando l&apos;hai aggiunto al menu degli allegati</translation>
     </message>
     <message>
         <source>you allowed this bot to message you when you logged in on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>hai permesso a questo bot di scriverti quando sei entrato su %1</translation>
     </message>
     <message>
         <source>you allowed this bot to message you in its web-app</source>
-        <translation type="unfinished"></translation>
+        <translation>hai permesso a questo bot di scriverti nella sua applicazione web</translation>
     </message>
     <message>
         <source>you allowed this bot to message you</source>
-        <translation type="unfinished"></translation>
+        <translation>hai permesso a questo bot di scriverti</translation>
     </message>
     <message>
         <source>boosted this chat %Ln times</source>
         <comment>myself</comment>
-        <translation type="unfinished"></translation>
+        <translation>ho potenziato questa chat %Ln volte</translation>
     </message>
     <message>
         <source>boosted this chat %Ln times</source>
-        <translation type="unfinished"></translation>
+        <translation>ha potenziato questa chat %Ln volte</translation>
     </message>
     <message>
         <source>sent a gift</source>
         <comment>myself</comment>
-        <translation type="unfinished"></translation>
+        <translation>ho inviato un regalo</translation>
     </message>
     <message>
         <source>sent a gift</source>
-        <translation type="unfinished"></translation>
+        <translation>ha inviato un regalo</translation>
     </message>
     <message>
         <source>started a giveaway</source>
         <comment>myself</comment>
-        <translation type="unfinished"></translation>
+        <translation>ho iniziato un concorso a premi</translation>
     </message>
     <message>
         <source>started a giveaway</source>
-        <translation type="unfinished"></translation>
+        <translation>ha iniziato un concorso a premi</translation>
     </message>
     <message>
         <source>a giveaway was completed</source>
         <comment>myself</comment>
-        <translation type="unfinished"></translation>
+        <translation>ho completato un concorso a premi</translation>
     </message>
     <message>
         <source>a giveaway was completed</source>
-        <translation type="unfinished"></translation>
+        <translation>ha completato un concorso a premi</translation>
     </message>
 </context>
 <context>
@@ -1186,12 +1186,12 @@
     <message>
         <source>Edit</source>
         <comment>message</comment>
-        <translation type="unfinished"></translation>
+        <translation>Modifica</translation>
     </message>
     <message>
         <source>Delete</source>
         <comment>message</comment>
-        <translation type="unfinished"></translation>
+        <translation>Elimina</translation>
     </message>
 </context>
 <context>
@@ -1784,11 +1784,11 @@
     </message>
     <message>
         <source>Super compact message context menu</source>
-        <translation type="unfinished"></translation>
+        <translation>Menu contestuale messaggi super compatto</translation>
     </message>
     <message>
         <source>Organize all items in one row</source>
-        <translation type="unfinished"></translation>
+        <translation>Organizza tutti i pulsanti in una singola fila</translation>
     </message>
 </context>
 <context>
@@ -1887,7 +1887,7 @@
     </message>
     <message>
         <source>Hide content in notifications</source>
-        <translation>Nascondi contenuto nelle notifiche</translation>
+        <translation>Nascondi contenuto delle notifiche</translation>
     </message>
     <message>
         <source>Go to quoted message</source>
@@ -1903,23 +1903,23 @@
     </message>
     <message>
         <source>Sponsored messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Messaggi sponsorizzati</translation>
     </message>
     <message>
         <source>Enable or disable sponsored messages. Note that they will always be disabled for Premium subscribers.</source>
-        <translation type="unfinished"></translation>
+        <translation>Abilita o disabilita i messaggi sponsorizzati. Nota che saranno sempre disabilitati per gli utenti premium</translation>
     </message>
     <message>
         <source>Enable</source>
-        <translation type="unfinished"></translation>
+        <translation>Abilita</translation>
     </message>
     <message>
         <source>Auto view</source>
-        <translation type="unfinished"></translation>
+        <translation>Vedi automaticamente</translation>
     </message>
     <message>
         <source>Ignore</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignora</translation>
     </message>
 </context>
 <context>
@@ -1997,11 +1997,11 @@
     </message>
     <message>
         <source>Allow sending Location to inline bots</source>
-        <translation>Consenti di inviare la posizione a inline bot</translation>
+        <translation>Consenti di inviare la posizione a bot in linea</translation>
     </message>
     <message>
         <source>Some inline bots request location data when using them</source>
-        <translation>Alcuni inline bot richiedono la tua posizione mentre li usi</translation>
+        <translation>Alcuni bot in linea richiedono la tua posizione mentre li usi</translation>
     </message>
 </context>
 <context>
@@ -2651,55 +2651,55 @@
     </message>
     <message>
         <source>you allowed this bot to message you when you added it to your attachment menu</source>
-        <translation type="unfinished"></translation>
+        <translation>hai permesso a questo bot di scriverti quando l&apos;hai aggiunto al menu degli allegati</translation>
     </message>
     <message>
         <source>you allowed this bot to message you when you logged in on %1</source>
-        <translation type="unfinished"></translation>
+        <translation>hai permesso a questo bot di scriverti quando sei entrato su %1</translation>
     </message>
     <message>
         <source>you allowed this bot to message you in its web-app</source>
-        <translation type="unfinished"></translation>
+        <translation>hai permesso a questo bot di scriverti nella sua applicazione web</translation>
     </message>
     <message>
         <source>you allowed this bot to message you</source>
-        <translation type="unfinished"></translation>
+        <translation>hai permesso a questo bot di scriverti</translation>
     </message>
     <message>
         <source>boosted this chat %Ln times</source>
         <comment>myself</comment>
-        <translation type="unfinished"></translation>
+        <translation>ho potenziato questa chat %Ln volte</translation>
     </message>
     <message>
         <source>boosted this chat %Ln times</source>
-        <translation type="unfinished"></translation>
+        <translation>ha potenziato questa chat %Ln volte</translation>
     </message>
     <message>
         <source>sent a gift</source>
         <comment>myself</comment>
-        <translation type="unfinished"></translation>
+        <translation>ho inviato un regalo</translation>
     </message>
     <message>
         <source>sent a gift</source>
-        <translation type="unfinished"></translation>
+        <translation>ha inviato un regalo</translation>
     </message>
     <message>
         <source>started a giveaway</source>
         <comment>myself</comment>
-        <translation type="unfinished"></translation>
+        <translation>ho iniziato un concorso a premi</translation>
     </message>
     <message>
         <source>started a giveaway</source>
-        <translation type="unfinished"></translation>
+        <translation>ha iniziato un concorso a premi</translation>
     </message>
     <message>
         <source>a giveaway was completed</source>
         <comment>myself</comment>
-        <translation type="unfinished"></translation>
+        <translation>ho completato un concorso a premi</translation>
     </message>
     <message>
         <source>a giveaway was completed</source>
-        <translation type="unfinished"></translation>
+        <translation>ha completato un concorso a premi</translation>
     </message>
 </context>
 </TS>
