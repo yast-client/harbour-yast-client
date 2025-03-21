@@ -270,7 +270,7 @@ AccordionItem {
                 }
             }
 
-            Slider {
+            /*Slider {
                 width: parent.width
                 label: qsTr("Voice note volume")
                 minimumValue: 1
@@ -279,6 +279,15 @@ AccordionItem {
                 value: appSettings.voiceNoteVolume
                 valueText: value
                 onValueChanged: appSettings.voiceNoteVolume = sliderValue
+            }*/
+
+            TextField {
+                width: parent.width
+                label: qsTr("Voice note volume")
+                validator: RegExpValidator { regExp: /^((?:\d|[1-9]\d+)(?:\.\d+)?)$/ }
+                text: appSettings.voiceNoteVolume
+                onTextChanged: if (acceptableInput) appSettings.voiceNoteVolume = text
+                onAcceptableInputChanged: if (acceptableInput) appSettings.voiceNoteVolume = text
             }
         }
     }
