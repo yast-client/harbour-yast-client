@@ -605,3 +605,10 @@ function getMessagesNeededForwardPermissions(messages) {
 function isWidescreen(appWindow) {
     return (appWindow.deviceOrientation & Silica.Orientation.LandscapeMask) || Silica.Screen.sizeCategory === Silica.Screen.Large || Silica.Screen.sizeCategory === Silica.Screen.ExtraLarge
 }
+
+function rrggbb(color) {
+    return Qt.rgba(((color >> 16) & 0xFF)/255, ((color >> 8) & 0xFF)/255, ((color >> 0) & 0xFF)/255,
+                   // ((color >> 24) & 0xFF)/255
+                   1
+                   )
+}

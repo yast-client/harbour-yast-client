@@ -7,6 +7,7 @@ Dialog {
     id: dialog
     property var backgrounds: []
     property var selected
+    allowedOrientations: Orientation.All
 
     Connections {
         target: tdLibWrapper
@@ -25,6 +26,8 @@ Dialog {
         }
         contentHeight: flow.height
         clip: !atYBeginning
+        VerticalScrollDecorator {}
+
         Flow {
             id: flow
             width: parent.width
@@ -34,16 +37,15 @@ Dialog {
 
             Repeater {
                 model: dialog.backgrounds
-                delegate: BackgroundItem {
-                    id: gridItem
+                BackgroundItem {
+                    id: flowItem
                     width: flow.cellWidth
                     height: flow.cellHeight
 
-                    TDLibPhoto {
+                    Wallpaper {
                         anchors.fill: parent
-                        highlighted: gridItem.highlighted
-                        minithumbnail: modelData.document && modelData.document.minithumbnail ? modelData.document.minithumbnail : null
-                        image.fileInformation: modelData.document && modelData.document.document ? modelData.document.document : {}
+                        highlighted: flowItem.highlighted
+                        background: modelData
                     }
                 }
             }

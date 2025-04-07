@@ -28,6 +28,7 @@ Item {
     readonly property alias fileInformation: tdLibImage.fileInformation
     readonly property alias image: tdLibImage
     property alias minithumbnail: minithumbnailLoader.minithumbnail
+    property bool showPlaceholder: true
 
     onWidthChanged: setImageFile()
     onPhotoChanged: setImageFile()
@@ -55,7 +56,7 @@ Item {
     }
 
     BackgroundImage {
-        visible: !tdLibImage.visible && !(minithumbnailLoader.item && minithumbnailLoader.item.visible)
+        visible: showPlaceholder && !tdLibImage.visible && !(minithumbnailLoader.item && minithumbnailLoader.item.visible)
     }
 
     TDLibImage {
