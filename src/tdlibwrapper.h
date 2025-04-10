@@ -260,6 +260,8 @@ public:
     Q_INVOKABLE void getMessageProperties(qlonglong chatId, qlonglong messageId);
     Q_INVOKABLE void getCustomEmojiStickers(QStringList ids);
     Q_INVOKABLE void getCustomEmojiStickers(QString id);
+    Q_INVOKABLE void getStorageStatisticsFast();
+    Q_INVOKABLE void optimizeStorage(bool entire = false);
 
     // Others (candidates for extraction ;))
     Q_INVOKABLE void searchEmoji(const QString &queryString);
@@ -350,6 +352,8 @@ signals:
     void tgUrlFound(const QString &tgUrl);
     void reactionsUpdated();
     void messagePropertiesReceived(qlonglong chatId, qlonglong messageId, const QVariantMap &messageProperties);
+    void storageStatisticsFastReceived(const QVariantMap &statistics);
+    void storageStatisticsReceived(const QVariantMap &statistics);
 
 public slots:
     void handleVersionDetected(const QString &version);

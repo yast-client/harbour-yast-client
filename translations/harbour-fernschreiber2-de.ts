@@ -2088,6 +2088,34 @@
         <source>Enable storage optimizer</source>
         <translation>Speicheroptimierer einschalten</translation>
     </message>
+    <message>
+        <source>%1 &lt;b&gt;files&lt;/b&gt;, &lt;b&gt;totalling&lt;/b&gt; %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Local database size&lt;/b&gt;: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;TDLib log size&lt;/b&gt;: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;TDLib language pack database size&lt;/b&gt;: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Optimize storage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear all cache</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clearing all cache is not recommended, unless issues occur.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsUserProfile</name>

@@ -183,6 +183,8 @@ TDLibReceiver::TDLibReceiver(void *tdLibClient, QObject *parent) : QThread(paren
     handlers.insert("updateChatUnreadReactionCount", &TDLibReceiver::processUpdateChatUnreadReactionCount);
     handlers.insert("updateActiveEmojiReactions", &TDLibReceiver::processUpdateActiveEmojiReactions);
     handlers.insert("messageProperties", &TDLibReceiver::processMessageProperties); // TdLib >= 1.8.45 (maybe even earlier)
+    handlers.insert("storageStatisticsFast", &TDLibReceiver::processStorageStatisticsFast);
+    handlers.insert("storageStatistics", &TDLibReceiver::processStorageStatistics);
 }
 
 void TDLibReceiver::setActive(bool active)
@@ -946,4 +948,14 @@ void TDLibReceiver::processMessageProperties(const QVariantMap &receivedInformat
     const qlonglong messageId = extra.value(MESSAGE_ID).toLongLong();
     LOG("Received message properties" << messageId << receivedInformation);
     emit messagePropertiesReceived(chatId, messageId, receivedInformation);
+}
+
+void TDLibReceiver::processStorageStatisticsFast(const QVariantMap &receivedInformation) {
+    LOG("Received storageStatisticsFast");
+    emit storageStatisticsFastReceived(receivedInformation);
+}
+
+void TDLibReceiver::processStorageStatistics(const QVariantMap &receivedInformation) {
+    LOG("Received storageStatistics");
+    emit storageStatisticsReceived(receivedInformation);
 }

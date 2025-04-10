@@ -46,6 +46,79 @@ AccordionItem {
                     appSettings.storageOptimizer = !checked
                 }
             }
+
+            Loader {
+                id: statisticsLoader
+                width: parent.columnWidth
+                property var statistics
+                property var fullStatistics
+                sourceComponent: statistics||fullStatistics ? loadedComponent : loadingComponent
+                onStatusChanged: if (status == Loader.Ready) {
+
+                                     //height = item.height
+                                     console.log(item.height, height)
+                                 }
+                height: item.height
+
+                Component {
+                    id: loadedComponent
+                    Column {
+                        width: parent.width
+                        height: childrenRect.height
+                        spacing: Theme.paddingLarge
+
+                        Label {
+                            x: Theme.horizontalPageMargin
+                            width: parent.width-2*x
+                            text: qsTr("%1 <b>files</b>, <b>totalling</b> %2")
+                                        .arg(statisticsLoader.fullStatistics ? statisticsLoader.fullStatistics.count : statisticsLoader.statistics.file_count)
+                                        .arg(Format.formatFileSize(statisticsLoader.fullStatistics ? statisticsLoader.fullStatistics.count : statisticsLoader.statistics.files_size))
+                                  + '<br>' + qsTr("<b>Local database size</b>: %1").arg(Format.formatFileSize(statisticsLoader.statistics.database_size))
+                                  + '<br>' + qsTr("<b>TDLib log size</b>: %1").arg(Format.formatFileSize(statisticsLoader.statistics.log_size))
+                                  + '<br>' + qsTr("<b>TDLib language pack database size</b>: %1").arg(Format.formatFileSize(statisticsLoader.statistics.language_pack_database_size))
+                            wrapMode: Text.Wrap
+                            Component.onCompleted: console.log("A",height)
+                        }
+                        ButtonLayout {
+                            Button {
+                                text: qsTr("Optimize storage")
+                                onClicked: tdLibWrapper.optimizeStorage()
+                            }
+                            Button {
+                                text: qsTr("Clear all cache")
+                                color: Theme.errorColor
+                                onClicked: tdLibWrapper.optimizeStorage(true)
+                            }
+                            Component.onCompleted: console.log("B",height)
+                        }
+                        Label {
+                            x: Theme.horizontalPageMargin
+                            width: parent.width-2*x
+                            font.pixelSize: Theme.fontSizeSmall
+                            text: qsTr("Clearing all cache is not recommended, unless issues occur.")
+                            color: Theme.secondaryColor
+                            wrapMode: Text.Wrap
+                            Component.onCompleted: console.log("C",height)
+                        }
+                        Component.onCompleted: console.log(height)
+                    }
+                }
+
+                Component {
+                    id: loadingComponent
+                    BusyIndicator {
+                        size: BusyIndicatorSize.Medium
+                        anchors.horizontalCenter: parent ? parent.horizontalCenter : null
+                    }
+                }
+
+                Connections {
+                    target: tdLibWrapper
+                    onStorageStatisticsFastReceived: statisticsLoader.statistics = statistics
+                    onStorageStatisticsReceived: statisticsLoader.fullStatistics = statistics // After cache is cleared
+                }
+                Component.onCompleted: tdLibWrapper.getStorageStatisticsFast()
+            }
         }
     }
 }

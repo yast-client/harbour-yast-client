@@ -67,6 +67,31 @@ namespace {
     const QString EMOJI("emoji");
     const QString TYPE_MESSAGE_REPLY_TO_MESSAGE("messageReplyToMessage");
     const QString TYPE_INPUT_MESSAGE_REPLY_TO_MESSAGE("inputMessageReplyToMessage");
+    const QStringList ALL_FILE_TYPES(QStringList()
+                                     << "fileTypeAnimation"
+                                     << "fileTypeAudio"
+                                     << "fileTypeDocument"
+                                     << "fileTypeNone"
+                                     << "fileTypeNotificationSound"
+                                     << "fileTypePhoto"
+                                     << "fileTypePhotoStory"
+                                     << "fileTypeProfilePhoto"
+                                     << "fileTypeSecret"
+                                     << "fileTypeSecretThumbnail"
+                                     << "fileTypeSecure"
+                                     << "fileTypeSelfDestructingPhoto"
+                                     << "fileTypeSelfDestructingVideo"
+                                     << "fileTypeSelfDestructingVideoNote"
+                                     << "fileTypeSelfDestructingVoiceNote"
+                                     << "fileTypeSticker"
+                                     << "fileTypeThumbnail"
+                                     << "fileTypeUnknown"
+                                     << "fileTypeVideo"
+                                     << "fileTypeVideoNote"
+                                     << "fileTypeVideoStory"
+                                     << "fileTypeVoiceNote"
+                                     << "fileTypeWallpaper"
+    );
 }
 
 TDLibWrapper::TDLibWrapper(AppSettings *settings, MceInterface *mce, QObject *parent)
@@ -195,6 +220,8 @@ void TDLibWrapper::initializeTDLibReceiver() {
     connect(this->tdLibReceiver, SIGNAL(chatUnreadReactionCountUpdated(qlonglong, int)), this, SIGNAL(chatUnreadReactionCountUpdated(qlonglong, int)));
     connect(this->tdLibReceiver, SIGNAL(activeEmojiReactionsUpdated(QStringList)), this, SLOT(handleActiveEmojiReactionsUpdated(QStringList)));
     connect(this->tdLibReceiver, SIGNAL(messagePropertiesReceived(qlonglong, qlonglong, QVariantMap)), this, SIGNAL(messagePropertiesReceived(qlonglong, qlonglong, QVariantMap)));
+    connect(this->tdLibReceiver, SIGNAL(storageStatisticsFastReceived(QVariantMap)), this, SIGNAL(storageStatisticsFastReceived(QVariantMap)));
+    connect(this->tdLibReceiver, SIGNAL(storageStatisticsReceived(QVariantMap)), this, SIGNAL(storageStatisticsReceived(QVariantMap)));
 
     this->tdLibReceiver->start();
 }
@@ -2483,4 +2510,26 @@ void TDLibWrapper::getCustomEmojiStickers(QString id) {
     QStringList ids;
     ids.append(id);
     getCustomEmojiStickers(ids);
+}
+
+void TDLibWrapper::getStorageStatisticsFast() {
+    QVariantMap requestObject;
+    requestObject.insert(_TYPE, "getStorageStatisticsFast");
+    this->sendRequest(requestObject);
+}
+
+void TDLibWrapper::optimizeStorage(bool entire) {
+    QVariantMap requestObject;
+    requestObject.insert(_TYPE, "optimizeStorage");
+    if (entire) {
+        requestObject.insert("size", 0);
+        QVariantList fileTypesObject;
+        for (QString type : ALL_FILE_TYPES) {
+            QVariantMap fileType;
+            fileType.insert(_TYPE, type);
+            fileTypesObject.append(fileType);
+        }
+        requestObject.insert("file_types", fileTypesObject);
+    }
+    this->sendRequest(requestObject);
 }
