@@ -2086,6 +2086,14 @@
         <source>Clearing all cache is not recommended, unless issues occur.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Network statistics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last reset: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsUserProfile</name>

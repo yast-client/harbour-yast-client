@@ -102,7 +102,7 @@ AccordionItem {
                         width: implicitWidth
                         running: true
                         size: BusyIndicatorSize.Medium
-                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.horizontalCenter: parent ? parent.horizontalCenter : null
                     }
                 }
 
@@ -112,6 +112,128 @@ AccordionItem {
                     onStorageStatisticsReceived: statisticsLoader.fullStatistics = statistics // After cache is cleared
                 }
                 Component.onCompleted: tdLibWrapper.getStorageStatisticsFast()
+            }
+
+            /*Loader {
+                id: networkStatisticsLoader
+                width: parent.columnWidth
+                property var statistics
+                sourceComponent: statistics ? loadedComponent : loadingComponent
+                height: item ? item.height : 0
+
+                Component {
+                    id: loadedComponent
+                    /*Column {
+                        width: parent.width
+                        height: childrenRect.height
+                        spacing: Theme.paddingLarge
+
+                        Label {
+                            x: Theme.horizontalPageMargin
+                            width: parent.width-2*x
+                            text: qsTr("Last reset: %1".arg())
+                            wrapMode: Text.Wrap
+                        }
+                        ButtonLayout {
+                            Button {
+                                text: qsTr("Reset statistics")
+                                onClicked: tdLibWrapper.optimizeStorage()
+                            }
+                            Button {
+                                text: qsTr("Clear all cache")
+                                color: Theme.errorColor
+                                onClicked: tdLibWrapper.optimizeStorage(true)
+                            }
+                        }
+                        Label {
+                            x: Theme.horizontalPageMargin
+                            width: parent.width-2*x
+                            font.pixelSize: Theme.fontSizeSmall
+                            text: qsTr("Clearing all cache is not recommended, unless issues occur.")
+                            color: Theme.secondaryColor
+                            wrapMode: Text.Wrap
+                        }
+                    }/
+                    SilicaListView {
+                        model:
+                    }
+                }
+
+                Component {
+                    id: loadingComponent
+                    BusyIndicator {
+                        height: implicitHeight
+                        width: implicitWidth
+                        running: true
+                        size: BusyIndicatorSize.Medium
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+                }
+
+                Connections {
+                    target: tdLibWrapper
+                    onNetworkStatisticsReceived: networkStatisticsLoader.statistics = statistics
+                }
+                Component.onCompleted: tdLibWrapper.getNetworkStatistics()
+            }*/
+
+            SilicaListView {
+                id: networkStatisticsList
+                width: parent.columnWidth
+                property var statistics
+                model: statistics ? statistics.entries : null
+
+                header: Column {
+                    width: parent.width
+                    SectionHeader {
+                        text: qsTr("Network statistics")
+                    }
+                    Label {
+                        x: Theme.horizontalPageMargin
+                        width: parent.width-2*x
+                        visible: !!networkStatisticsList.statistics
+                        text: qsTr("Last reset: %1").arg(Format.formatDate(new Date(networkStatisticsList.statistics.since_date*1000)))
+                    }
+                }
+
+                delegate: Row {
+                    width: parent.width
+                    Component.onCompleted: console.log(model.network_type, JSON.stringify(networkStatisticsList.statistics))
+                    Icon {
+                        source: switch(network_type['@type']) {
+                                     case "networkTypeMobile":
+                                         return "image://theme/icon-m-mobile-network"
+                                     case "networkTypeWiFi":
+                                         return "image://theme/icon-m-wlan"
+                                     default:
+                                         return "image://theme/icon-m-question"
+                                     }
+                    }
+
+                    Icon {
+                        source: "image://theme/icon-m-data-upload"
+                    }
+                    Label {
+                        text: Format.formatFileSize(sent_bytes)
+                    }
+
+                    Icon {
+                        source: "image://theme/icon-m-data-download"
+                    }
+                    Label {
+                        text: Format.formatFileSize(received_bytes)
+                    }
+
+                    Label {
+
+                    }
+                }
+
+                Connections {
+                    target: tdLibWrapper
+                    onNetworkStatisticsReceived: networkStatisticsList.statistics = statistics
+                }
+                Component.onCompleted: tdLibWrapper.getNetworkStatistics()
             }
         }
     }
