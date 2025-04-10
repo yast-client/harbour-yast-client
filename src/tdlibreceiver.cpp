@@ -185,6 +185,7 @@ TDLibReceiver::TDLibReceiver(void *tdLibClient, QObject *parent) : QThread(paren
     handlers.insert("messageProperties", &TDLibReceiver::processMessageProperties); // TdLib >= 1.8.45 (maybe even earlier)
     handlers.insert("storageStatisticsFast", &TDLibReceiver::processStorageStatisticsFast);
     handlers.insert("storageStatistics", &TDLibReceiver::processStorageStatistics);
+    handlers.insert("networkStatistics", &TDLibReceiver::processNetworkStatistics);
 }
 
 void TDLibReceiver::setActive(bool active)
@@ -958,4 +959,9 @@ void TDLibReceiver::processStorageStatisticsFast(const QVariantMap &receivedInfo
 void TDLibReceiver::processStorageStatistics(const QVariantMap &receivedInformation) {
     LOG("Received storageStatistics");
     emit storageStatisticsReceived(receivedInformation);
+}
+
+void TDLibReceiver::processNetworkStatistics(const QVariantMap &receivedInformation) {
+    LOG("Received networkStatistics");
+    emit networkStatisticsReceived(receivedInformation);
 }

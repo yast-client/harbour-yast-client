@@ -222,6 +222,7 @@ void TDLibWrapper::initializeTDLibReceiver() {
     connect(this->tdLibReceiver, SIGNAL(messagePropertiesReceived(qlonglong, qlonglong, QVariantMap)), this, SIGNAL(messagePropertiesReceived(qlonglong, qlonglong, QVariantMap)));
     connect(this->tdLibReceiver, SIGNAL(storageStatisticsFastReceived(QVariantMap)), this, SIGNAL(storageStatisticsFastReceived(QVariantMap)));
     connect(this->tdLibReceiver, SIGNAL(storageStatisticsReceived(QVariantMap)), this, SIGNAL(storageStatisticsReceived(QVariantMap)));
+    connect(this->tdLibReceiver, SIGNAL(networkStatisticsReceived(QVariantMap)), this, SIGNAL(networkStatisticsReceived(QVariantMap)));
 
     this->tdLibReceiver->start();
 }
@@ -2531,5 +2532,18 @@ void TDLibWrapper::optimizeStorage(bool entire) {
         }
         requestObject.insert("file_types", fileTypesObject);
     }
+    this->sendRequest(requestObject);
+}
+
+void TDLibWrapper::getNetworkStatistics(bool onlyCurrent) {
+    QVariantMap requestObject;
+    requestObject.insert(_TYPE, "getNetworkStatistics");
+    requestObject.insert("only_current", onlyCurrent);
+    this->sendRequest(requestObject);
+}
+
+void TDLibWrapper::resetNetworkStatistics() {
+    QVariantMap requestObject;
+    requestObject.insert(_TYPE, "resetNetworkStatistics");
     this->sendRequest(requestObject);
 }
