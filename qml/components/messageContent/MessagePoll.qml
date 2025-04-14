@@ -31,7 +31,7 @@ MessageContentBase {
     readonly property string chatId: rawMessage.chat_id
     readonly property bool isOwnMessage: messageListItem ? messageListItem.isOwnMessage : overlayFlickable.isOwnMessage
     readonly property string messageId: rawMessage.id
-    readonly property bool canEdit: rawMessage.can_be_edited
+    readonly property bool canEdit: rawMessage.properties.can_be_edited
     readonly property var pollData: rawMessage.content.poll
     property var chosenPollData:({})
     property var chosenIndexes: []

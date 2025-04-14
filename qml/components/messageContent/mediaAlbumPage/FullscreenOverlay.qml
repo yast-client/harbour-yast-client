@@ -289,7 +289,7 @@ Item {
         }
 
         IconButton {
-            enabled: message.can_be_forwarded
+            enabled: message.properties.can_be_forwarded
             opacity: enabled ? 1.0 : 0.2
             icon.source: "image://theme/icon-m-share?" + (pressed
                       ? Theme.highlightColor
