@@ -34,13 +34,13 @@ Video {
 
     Binding {
         target: overlay
-        property: "speedSliderVisible"
-        value: speedSlider.visible
+        property: "videoControlsVisible"
+        value: controlsRow.visible
     }
 
     Connections {
         target: overlay
-        onSpeedButtonClicked: speedSlider.visible = !speedSlider.visible
+        onSpeedButtonClicked: controlsRow.visible = !controlsRow.visible
     }
 
     TDLibThumbnail {
@@ -135,39 +135,58 @@ Video {
         opacity: active ? 1 : 0
         Behavior on opacity { FadeAnimator {} }
 
-        Slider {
-            id: speedSlider
+        Row {
+            id: controlsRow
             anchors {
                 bottom: slider.top
-                bottomMargin: Theme.paddingLarge
+                //bottomMargin: Theme.paddingLarge
             }
-            width: parent.width
-            leftMargin: Theme.horizontalPageMargin
-            rightMargin: Theme.horizontalPageMargin
-
+            x: Theme.horizontalPageMargin
+            width: parent.width - 2*x
             visible: false
-            enabled: parent.active
-            property real previousValue
-            Component.onCompleted: previousValue = sliderValue
-            onSliderValueChanged: {
-                if (!down) {
-                    previousValue = sliderValue
-                    visible = false
+            spacing: Theme.paddingLarge
+
+            Slider {
+                anchors.verticalCenter: parent.verticalCenter
+                width: parent.width - (muteButton.width) - parent.spacing*1
+                leftMargin: 0
+                rightMargin: 0
+
+                enabled: videoUI.active
+                property real previousValue
+                Component.onCompleted: previousValue = sliderValue
+                onSliderValueChanged: {
+                    if (!down) {
+                        previousValue = sliderValue
+                        parent.visible = false
+                    }
+                    video.playbackRate = sliderValue
                 }
-                video.playbackRate = sliderValue
-            }
-            onDownChanged: {
-                if (!down && previousValue != sliderValue) {
-                    previousValue = sliderValue
-                    visible = false
+                onDownChanged: {
+                    if (!down && previousValue != sliderValue) {
+                        previousValue = sliderValue
+                        parent.visible = false
+                    }
                 }
+
+                value: video.playbackRate
+                minimumValue: 0.25
+                maximumValue: 2.5
+                stepSize: 0.25
+                valueText: sliderValue+'x'
             }
 
-            value: video.playbackRate
-            minimumValue: 0.25
-            maximumValue: 2.5
-            stepSize: 0.25
-            valueText: sliderValue+'x'
+            IconButton {
+                id: muteButton
+                anchors.verticalCenter: parent.verticalCenter
+                icon.source: "image://theme/icon-m-speaker-mute"
+                enabled: videoUI.active
+                highlighted: down || video.muted
+                onClicked: {
+                    video.muted = !video.muted
+                    parent.visible = false
+                }
+            }
         }
 
         Slider {

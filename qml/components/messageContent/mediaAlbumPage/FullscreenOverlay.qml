@@ -35,7 +35,7 @@ Item {
     property var message
     property real videoSpeed
     signal speedButtonClicked
-    property bool speedSliderVisible
+    property bool videoControlsVisible
     readonly property color gradientColor: '#bb000000'
     readonly property int gradientPadding: Theme.itemSizeMedium
     // signal declarations
@@ -308,8 +308,8 @@ Item {
         }
         visible: !!text
         font.pixelSize: Theme.fontSizeExtraLarge
-        text: typeof videoSpeed !== 'undefined' ? videoSpeed+'x' : ''
-        color: videoSpeedMouseArea.pressed || speedSliderVisible ? Theme.highlightColor : Theme.primaryColor
+        text: videoSpeed ? videoSpeed+'x' : ''
+        color: videoSpeedMouseArea.pressed || videoControlsVisible ? Theme.highlightColor : Theme.primaryColor
         MouseArea {
             id: videoSpeedMouseArea
             anchors.fill: parent
