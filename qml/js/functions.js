@@ -395,7 +395,7 @@ function enhanceMessageText(formattedText, ignoreEntities, emojiSize, reloader) 
                     { offset: (entity.offset + entity.length), insertionString: "</a>", removeLength: 0 }
                 );
             break;
-            case 'textEntityTypeCustomEmoji':
+            /*case 'textEntityTypeCustomEmoji': // disabled for now
                 // FIXME as it works terribly; maybe do a global TDLibFile object?; maybe in StickerManager even though it was not created for exactly this?
                 // + this doesn't work at all with online only mode
                 var emoji = entity.type.custom_emoji_id
@@ -419,7 +419,7 @@ function enhanceMessageText(formattedText, ignoreEntities, emojiSize, reloader) 
                             if (emojiId == emoji) reloader(true)
                         })
                 }
-            break
+            break*/
         }
     }
 
