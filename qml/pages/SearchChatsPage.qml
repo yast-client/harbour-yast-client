@@ -137,7 +137,7 @@ Page {
                                 case "chatTypePrivate":
                                     relatedInformation = tdLibWrapper.getUserInformation(foundChatInformation.type.user_id);
                                     foundChatListItem.prologSecondaryText.text = qsTr("Private Chat");
-                                    foundChatListItem.secondaryText.text = "@" + ( relatedInformation.username !== "" ? relatedInformation.username : relatedInformation.user_id );
+                                    foundChatListItem.secondaryText.text = "@" + (relatedInformation.username !== "" ? relatedInformation.usernames.editable_username : relatedInformation.id);
                                     tdLibWrapper.getUserFullInfo(foundChatInformation.type.user_id);
                                     isPrivateChat = true;
                                     break;
@@ -164,12 +164,12 @@ Page {
                                 target: tdLibWrapper
                                 onUserFullInfoUpdated: {
                                     if (foundChatListDelegate.isPrivateChat && userId.toString() === foundChatListDelegate.foundChatInformation.type.user_id.toString()) {
-                                        foundChatListItem.tertiaryText.text = Emoji.emojify(userFullInfo.bio, foundChatListItem.tertiaryText.font.pixelSize, "../js/emoji/");
+                                        foundChatListItem.tertiaryText.text = Emoji.emojify(Functions.enhanceMessageText(userFullInfo.bio), foundChatListItem.tertiaryText.font.pixelSize, "../js/emoji/");
                                     }
                                 }
                                 onUserFullInfoReceived: {
                                     if (foundChatListDelegate.isPrivateChat && userFullInfo["@extra"].toString() === foundChatListDelegate.foundChatInformation.type.user_id.toString()) {
-                                        foundChatListItem.tertiaryText.text = Emoji.emojify(userFullInfo.bio, foundChatListItem.tertiaryText.font.pixelSize, "../js/emoji/");
+                                        foundChatListItem.tertiaryText.text = Emoji.emojify(Functions.enhanceMessageText(userFullInfo.bio), foundChatListItem.tertiaryText.font.pixelSize, "../js/emoji/");
                                     }
                                 }
 
