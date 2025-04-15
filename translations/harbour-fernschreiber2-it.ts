@@ -540,6 +540,10 @@
         <source>Double-tap on a message to choose a reaction</source>
         <translation>Doppio tap su di un messaggio per scegliere una reazione</translation>
     </message>
+    <message>
+        <source>Recommended Message</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatSelectionPage</name>
@@ -1834,10 +1838,6 @@
         <translation>Integrazione menù Apri con</translation>
     </message>
     <message>
-        <source>Integrate Fernschreiber into open-with menu of Sailfish OS</source>
-        <translation>Aggiungi Fernschreiber al menù Apri con di Sailfish OS</translation>
-    </message>
-    <message>
         <source>Notification feedback</source>
         <translation>Feedback notifiche</translation>
     </message>
@@ -1924,6 +1924,10 @@
     <message>
         <source>Voice note volume</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Integrate Ferniegram into open-with menu of Sailfish OS</source>
+        <translation>Aggiungi Fernschreiber al menù Apri con di Sailfish OS</translation>
     </message>
 </context>
 <context>
@@ -2185,21 +2189,6 @@
     <message>
         <source>Synchronize Contacts with Telegram</source>
         <translation>Sincronizza contatti con Telegram</translation>
-    </message>
-</context>
-<context>
-    <name>SponsoredMessage</name>
-    <message>
-        <source>Go to Channel</source>
-        <translation>Vai al Canale</translation>
-    </message>
-    <message>
-        <source>Go to Message</source>
-        <translation>Vai al Messaggio</translation>
-    </message>
-    <message>
-        <source>Start Bot</source>
-        <translation>Avvia Bot</translation>
     </message>
 </context>
 <context>

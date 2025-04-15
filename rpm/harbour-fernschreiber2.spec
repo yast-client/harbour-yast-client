@@ -4,7 +4,7 @@ Name:       harbour-fernschreiber2
 %define __requires_exclude ^libtdjson.*$
 %define _binary_payload w6.xzdio
 
-Summary:    Fernschreiber is a Telegram client for Sailfish OS
+Summary:    Ferniegram is a Telegram client for Sailfish OS
 Version:    0.1
 Release:    12
 Group:      Qt/Qt
@@ -29,7 +29,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires: make
 
 %description
-Fernschreiber is a Telegram client for Sailfish OS
+Ferniegram is a Telegram client for Sailfish OS
 
 %prep
 %setup -q -n %{name}-%{version}

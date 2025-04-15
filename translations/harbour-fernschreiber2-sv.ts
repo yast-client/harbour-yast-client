@@ -540,6 +540,10 @@
         <source>Double-tap on a message to choose a reaction</source>
         <translation>Dubbeltryck på ett meddelande för att välja en reaktion</translation>
     </message>
+    <message>
+        <source>Recommended Message</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatSelectionPage</name>
@@ -1834,10 +1838,6 @@
         <translation>Integrering av menyn &quot;Öppna med&quot;</translation>
     </message>
     <message>
-        <source>Integrate Fernschreiber into open-with menu of Sailfish OS</source>
-        <translation>Integrera Fernschreiber med menyn &quot;Öppna med&quot;, i Sailfish OS</translation>
-    </message>
-    <message>
         <source>Notification feedback</source>
         <translation>Aviseringsåterkoppling</translation>
     </message>
@@ -1924,6 +1924,10 @@
     <message>
         <source>Voice note volume</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Integrate Ferniegram into open-with menu of Sailfish OS</source>
+        <translation>Integrera Fernschreiber med menyn &quot;Öppna med&quot;, i Sailfish OS</translation>
     </message>
 </context>
 <context>
@@ -2185,21 +2189,6 @@
     <message>
         <source>Synchronize Contacts with Telegram</source>
         <translation>Synkronisera kontakter med Telegram</translation>
-    </message>
-</context>
-<context>
-    <name>SponsoredMessage</name>
-    <message>
-        <source>Go to Channel</source>
-        <translation>Gå till kanal</translation>
-    </message>
-    <message>
-        <source>Go to Message</source>
-        <translation>Gå till meddelande</translation>
-    </message>
-    <message>
-        <source>Start Bot</source>
-        <translation>Starta robot</translation>
     </message>
 </context>
 <context>

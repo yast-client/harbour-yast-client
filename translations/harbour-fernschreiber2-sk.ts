@@ -550,6 +550,10 @@
         <source>Double-tap on a message to choose a reaction</source>
         <translation>Dvojitým klepnutím na správu vybrať reakciu</translation>
     </message>
+    <message>
+        <source>Recommended Message</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatSelectionPage</name>
@@ -1864,10 +1868,6 @@
         <translation>Zaradiť do ponuky &quot;otvoriť pomocou&quot;</translation>
     </message>
     <message>
-        <source>Integrate Fernschreiber into open-with menu of Sailfish OS</source>
-        <translation>Fernschreiber zaradiť do ponuky Sailfish OS &quot;otvoriť pomocou&quot;</translation>
-    </message>
-    <message>
         <source>Notification feedback</source>
         <translation>Reakcia oznámenia</translation>
     </message>
@@ -1954,6 +1954,10 @@
     <message>
         <source>Voice note volume</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Integrate Ferniegram into open-with menu of Sailfish OS</source>
+        <translation>Ferniegram zaradiť do ponuky Sailfish OS &quot;otvoriť pomocou&quot;</translation>
     </message>
 </context>
 <context>
@@ -2216,21 +2220,6 @@
     <message>
         <source>Synchronize Contacts with Telegram</source>
         <translation>Synchronizovať kontakty s Telegramom</translation>
-    </message>
-</context>
-<context>
-    <name>SponsoredMessage</name>
-    <message>
-        <source>Go to Channel</source>
-        <translation>Prejsť na kanál</translation>
-    </message>
-    <message>
-        <source>Go to Message</source>
-        <translation>Prejsť na správu</translation>
-    </message>
-    <message>
-        <source>Start Bot</source>
-        <translation>Spustiť robota</translation>
     </message>
 </context>
 <context>

@@ -53,7 +53,7 @@ namespace {
     const QString CHAT_TYPE_BASIC_GROUP("chatTypeBasicGroup");
     const QString CHAT_TYPE_SUPERGROUP("chatTypeSupergroup");
 
-    const QString APP_NAME("Fernschreiber");
+    const QString APP_NAME("Ferniegram");
 
     // Notification hints
     const QString HINT_GROUP_ID("x-fernschreiber2.group_id");        // int

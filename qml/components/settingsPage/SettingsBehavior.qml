@@ -92,7 +92,7 @@ AccordionItem {
                 width: parent.columnWidth
                 checked: appSettings.useOpenWith
                 text: qsTr("Open-with menu integration")
-                description: qsTr("Integrate Fernschreiber into open-with menu of Sailfish OS")
+                description: qsTr("Integrate Ferniegram into open-with menu of Sailfish OS")
                 automaticCheck: false
                 onClicked: {
                     appSettings.useOpenWith = !checked

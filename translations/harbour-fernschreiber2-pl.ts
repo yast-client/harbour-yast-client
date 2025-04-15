@@ -550,6 +550,10 @@
         <source>Double-tap on a message to choose a reaction</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Recommended Message</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatSelectionPage</name>
@@ -1864,10 +1868,6 @@
         <translation>Integracja z menu &quot;otwórz za pomocą&quot;</translation>
     </message>
     <message>
-        <source>Integrate Fernschreiber into open-with menu of Sailfish OS</source>
-        <translation>Zintegruj Fernschreiber z menu &quot;otwórz za pomocą&quot; w SailfishOS</translation>
-    </message>
-    <message>
         <source>Notification feedback</source>
         <translation>Rodzaj powiadomienia</translation>
     </message>
@@ -1954,6 +1954,10 @@
     <message>
         <source>Voice note volume</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Integrate Ferniegram into open-with menu of Sailfish OS</source>
+        <translation>Zintegruj Ferniegram z menu &quot;otwórz za pomocą&quot; w SailfishOS</translation>
     </message>
 </context>
 <context>
@@ -2216,21 +2220,6 @@
     <message>
         <source>Synchronize Contacts with Telegram</source>
         <translation>Synchronizuj kontakty z Telegramem</translation>
-    </message>
-</context>
-<context>
-    <name>SponsoredMessage</name>
-    <message>
-        <source>Go to Channel</source>
-        <translation>Przejdź do Kanału</translation>
-    </message>
-    <message>
-        <source>Go to Message</source>
-        <translation>Przejdź do Wiadomości</translation>
-    </message>
-    <message>
-        <source>Start Bot</source>
-        <translation>Uruchom Bota</translation>
     </message>
 </context>
 <context>

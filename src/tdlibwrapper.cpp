@@ -1490,7 +1490,7 @@ void TDLibWrapper::getPageSource(const QString &address)
     QUrl url = QUrl(address);
     QNetworkRequest request(url);
     request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
-    request.setHeader(QNetworkRequest::UserAgentHeader, "Fernschreiber Bot (Sailfish OS)");
+    request.setHeader(QNetworkRequest::UserAgentHeader, "Ferniegram Bot (Sailfish OS)");
     request.setRawHeader(QByteArray("Accept"), QByteArray("text/html,application/xhtml+xml"));
     request.setRawHeader(QByteArray("Accept-Charset"), QByteArray("utf-8"));
     request.setRawHeader(QByteArray("Connection"), QByteArray("close"));
@@ -2383,7 +2383,7 @@ void TDLibWrapper::initializeOpenWith()
         fileOut.setCodec("UTF-8");
         fileOut << QString("[Desktop Entry]").toUtf8() << "\n";
         fileOut << QString("Type=Application").toUtf8() << "\n";
-        fileOut << QString("Name=Fernschreiber").toUtf8() << "\n";
+        fileOut << QString("Name=Ferniegram").toUtf8() << "\n";
         fileOut << QString("Icon=harbour-fernschreiber2").toUtf8() << "\n";
         fileOut << QString("NotShowIn=X-MeeGo;").toUtf8() << "\n";
         if (sailfishOSMajorVersion < 4 || ( sailfishOSMajorVersion == 4 && sailfishOSMinorVersion < 1 )) {

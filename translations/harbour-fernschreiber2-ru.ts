@@ -550,6 +550,10 @@
         <source>Double-tap on a message to choose a reaction</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Recommended Message</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatSelectionPage</name>
@@ -1867,10 +1871,6 @@
         <translation>Меню &quot;открыть с помощью&quot;</translation>
     </message>
     <message>
-        <source>Integrate Fernschreiber into open-with menu of Sailfish OS</source>
-        <translation>Встроить Fernschreiber в системное меню &quot;открыть с помощью&quot;</translation>
-    </message>
-    <message>
         <source>Notification feedback</source>
         <translation>Уведомления</translation>
     </message>
@@ -1957,6 +1957,10 @@
     <message>
         <source>Voice note volume</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Integrate Ferniegram into open-with menu of Sailfish OS</source>
+        <translation>Встроить Ferniegram в системное меню &quot;открыть с помощью&quot;</translation>
     </message>
 </context>
 <context>
@@ -2219,21 +2223,6 @@
     <message>
         <source>Synchronize Contacts with Telegram</source>
         <translation>Синхронизировать с Телеграм</translation>
-    </message>
-</context>
-<context>
-    <name>SponsoredMessage</name>
-    <message>
-        <source>Go to Channel</source>
-        <translation>ОТКРЫТЬ КАНАЛ</translation>
-    </message>
-    <message>
-        <source>Go to Message</source>
-        <translation>ОТКРЫТЬ СООБЩЕНИЕ</translation>
-    </message>
-    <message>
-        <source>Start Bot</source>
-        <translation>ЗАПУСТИТЬ БОТА</translation>
     </message>
 </context>
 <context>
