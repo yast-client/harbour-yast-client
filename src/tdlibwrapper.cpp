@@ -2418,7 +2418,7 @@ void TDLibWrapper::initializeOpenWith()
         fileOut.setCodec("UTF-8");
         fileOut << QString("[D-BUS Service]").toUtf8() << "\n";
         fileOut << QString("Name=io.github.roundedrectangle.fernschreiber2").toUtf8() << "\n";
-        fileOut << QString("Exec=sailjail -- /usr/bin/harbour-fernschreiber2").toUtf8() << "\n";
+        fileOut << QString("Exec=/usr/bin/sailjail -- /usr/bin/harbour-fernschreiber2").toUtf8() << "\n";
         fileOut.flush();
         dbusServiceFile.close();
     }

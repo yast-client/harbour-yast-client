@@ -76,6 +76,7 @@ Page {
                 titleInteractionHint.opacity = 1.0;
                 appSettings.remainingInteractionHints = remainingInteractionHints - 1;
             }
+            processUrlToOpen()
         }
     }
 
@@ -142,15 +143,19 @@ Page {
         }
     }
 
-    function openUrl(url) {
-        if(url && url.length > 0) {
-            urlToOpen = url;
-        }
+    function processUrlToOpen() {
         if(chatListCreated && urlToOpen && urlToOpen.length > 1) {
             Debug.log("[OverviewPage] Opening URL: ", urlToOpen);
             Functions.handleLink(urlToOpen);
             urlToOpen = "";
         }
+    }
+
+    function openUrl(url) {
+        if(url && url.length > 0) {
+            urlToOpen = url;
+        }
+        processUrlToOpen()
     }
 
     function setPageStatus() {
