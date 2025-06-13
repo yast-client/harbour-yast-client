@@ -1,11 +1,7 @@
 [Desktop Entry]
 Type=Application
-X-Nemo-Application-Type=generic
-Icon=harbour-fernschreiber2
-Exec=harbour-fernschreiber2
-Name=Ferniegram
-
-[X-Sailjail]
-Permissions=Audio;Contacts;Documents;Downloads;Internet;Location;MediaIndexing;Microphone;Music;Pictures;Privileged;PublicDir;RemovableMedia;UserDirs;Videos
-OrganizationName=io.github.roundedrectangle
-ApplicationName=fernschreiber2
+Categories=Applications;
+Exec=harbour-fernschreiber
+Icon=ios-pulse-outline
+X-Asteroid-Center-Color=#b04d1c
+X-Asteroid-Outer-Color=#421c0a
