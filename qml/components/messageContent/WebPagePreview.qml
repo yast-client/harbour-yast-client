@@ -19,6 +19,7 @@
 import QtQuick 2.6
 import QtGraphicalEffects 1.0
 import Sailfish.Silica 1.0
+import Sailfish.WebView 1.0
 import WerkWolf.Fernschreiber 1.0
 import ".."
 import "../../js/functions.js" as Functions
@@ -103,15 +104,28 @@ Item {
             case 'linkPreviewTypeApp':
             case 'linkPreviewTypeArticle':
             case 'linkPreviewTypeWebApp':
-            case 'linkPreviewTypeChat': // chatPhoto is compatible with photo
+
+            // chatPhoto (compatible with photo):
+            case 'linkPreviewTypeChat':
+            case 'linkPreviewTypeUser':
+            case 'linkPreviewTypeChannelBoost':
+            case 'linkPreviewTypeSupergroupBoost':
                 return photoComponent
+
+            case 'linkPreviewTypeEmbeddedAudioPlayer':
+            case 'linkPreviewTypeEmbeddedAnimationPlayer':
+            case 'linkPreviewTypeEmbeddedVideoPlayer':
+                return embeddedPlayerComponent
+
             case 'linkPreviewTypeVideo':
                 return linkPreviewData.type.cover ? videoCoverComponent
                                                   : (linkPreviewData.type.video.thumbnail || linkPreviewData.type.video.minithumbnail
                                                      ? videoThumbnailComponent : undefined)
+
             case 'linkPreviewTypeSticker':
             case 'linkPreviewTypeStickerSet': // not really compatible
                 return stickerComponent
+
             default: return undefined
             }
 
@@ -123,6 +137,70 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: pageStack.push(Qt.resolvedUrl("../../pages/ImagePage.qml"), {photoData: photo})
+                }
+            }
+        }
+
+        Component {
+            id: embeddedPlayerComponent
+            TDLibPhoto {
+                anchors.fill: parent
+                photo: linkPreviewData.type.thumbnail
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: pageStack.push(embeddedPlayerPageComponent)
+
+                    Component {
+                        id: embeddedPlayerPageComponent
+                        FullscreenContentPage {
+                            MouseArea {
+                                width: parent.width
+                                anchors.bottom: webView.top
+                                onClicked: closeButton.enabled = !closeButton.enabled
+                            }
+
+                            WebView {
+                                id: webView
+                                url: linkPreviewData.type.url
+                                width: parent.width
+                                height: width / (linkPreviewData.type.width / linkPreviewData.type.height)
+                                anchors.verticalCenter: parent.verticalCenter
+                            }
+
+                            MouseArea {
+                                width: parent.width
+                                anchors {
+                                    top: webView.bottom
+                                    bottom: parent.bottom
+                                }
+                                onClicked: closeButton.enabled = !closeButton.enabled
+                            }
+
+                            IconButton {
+                               id: closeButton
+                               icon.source: "image://theme/icon-m-cancel?" + (pressed
+                                            ? Theme.highlightColor
+                                            : Theme.lightPrimaryColor)
+                               onClicked: pageStack.pop()
+                               anchors {
+                                   right: parent.right
+                                   top: parent.top
+                                   margins: Theme.horizontalPageMargin
+                               }
+                               opacity: enabled ? 1 : 0
+                               Behavior on opacity { FadeAnimator {} }
+                               onEnabledChanged: if (enabled) hideCloseButtonTimer.start()
+                                                 else hideCloseButtonTimer.stop()
+                            }
+
+                            Timer {
+                                id: hideCloseButtonTimer
+                                running: true
+                                interval: 3000
+                                onTriggered: closeButton.enabled = false
+                            }
+                        }
+                    }
                 }
             }
         }
