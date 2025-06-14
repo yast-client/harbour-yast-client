@@ -24,7 +24,7 @@ import ".."
 import "../../js/functions.js" as Functions
 
 Item {
-    id: webPagePreviewColumn
+    id: webPagePreviewItem
 
     property var linkPreviewData
     property bool largerFontSize
@@ -32,8 +32,8 @@ Item {
     readonly property int fontSize: largerFontSize ? Theme.fontSizeSmall : Theme.fontSizeExtraSmall
 
     implicitHeight: linkPreviewData.show_large_media
-            ? infoColumn.height + mediaItem.height
-            : Math.max(infoColumn.height, mediaItem.height)
+            ? infoColumn.height + mediaItem.height + mediaItem.anchors.topMargin + mediaItem.anchors.bottomMargin
+            : Math.max(infoColumn.height, mediaItem.height + mediaItem.anchors.topMargin + mediaItem.anchors.bottomMargin)
 
     function clicked() {
         descriptionText.toggleMaxLineCount()
@@ -42,7 +42,7 @@ Item {
     Column {
         id: infoColumn
         spacing: Theme.paddingSmall
-        width: linkPreviewData.show_large_media ? parent.width : parent.width - mediaItem.width - mediaItem.anchors.leftMargin
+        width: linkPreviewData.show_large_media ? parent.width : parent.width - (mediaItem.width + mediaItem.anchors.leftMargin + mediaItem.anchors.rightMargin)
         visible: !!visibleChildren.length
 
         MultilineEmojiLabel {
@@ -50,7 +50,7 @@ Item {
 
             width: parent.width
             rawText: linkPreviewData.site_name || ""
-            font.pixelSize: webPagePreviewColumn.fontSize
+            font.pixelSize: webPagePreviewItem.fontSize
             font.bold: true
             color: Theme.secondaryHighlightColor
             visible: !!rawText
@@ -62,7 +62,7 @@ Item {
 
             width: parent.width
             rawText: linkPreviewData.title || ""
-            font.pixelSize: webPagePreviewColumn.fontSize
+            font.pixelSize: webPagePreviewItem.fontSize
             font.bold: true
             maxLineCount: 2
         }
@@ -72,7 +72,7 @@ Item {
 
             width: parent.width
             rawText: linkPreviewData.description ? Functions.enhanceMessageText(linkPreviewData.description) : ""
-            font.pixelSize: webPagePreviewColumn.fontSize
+            font.pixelSize: webPagePreviewItem.fontSize
             readonly property int defaultMaxLineCount: 3
             maxLineCount: defaultMaxLineCount
             linkColor: Theme.highlightColor
@@ -92,10 +92,10 @@ Item {
             left: !sourceComponent || linkPreviewData.show_large_media ? undefined : infoColumn.right
             topMargin: !sourceComponent ? undefined : (Theme.paddingSmall + linkPreviewData.show_large_media ? Theme.paddingMedium : 0)
             leftMargin: !sourceComponent ? undefined : (Theme.paddingSmall + linkPreviewData.show_large_media ? 0 : Theme.paddingMedium)
-            margins: sourceComponent ? Theme.paddingSmall : undefined
+            margins: sourceComponent ? Theme.paddingSmall : 0
         }
 
-        readonly property alias highlighted: parent.highlighted
+        readonly property bool highlighted: parent.highlighted
 
         sourceComponent:
             switch(linkPreviewData.type['@type']) {
@@ -106,7 +106,6 @@ Item {
 
             case 'linkPreviewTypeChat':
                 return photoComponent
-
             default: return undefined
             }
 
@@ -126,7 +125,7 @@ Item {
     Label {
         width: parent.width
         text: qsTr("Preview not supported for this link...")
-        font.pixelSize: webPagePreviewColumn.largerFontSize ? Theme.fontSizeExtraSmall : Theme.fontSizeTiny
+        font.pixelSize: webPagePreviewItem.largerFontSize ? Theme.fontSizeExtraSmall : Theme.fontSizeTiny
         font.italic: true
         color: Theme.secondaryColor
         truncationMode: TruncationMode.Fade
