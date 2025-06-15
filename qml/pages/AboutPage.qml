@@ -174,8 +174,12 @@ AboutPageBase {
     MouseArea {
         parent: _iconItem
         anchors.fill: parent
-        enabled: !DebugLog.enabled
         onClicked: {
+            if (DebugLog.enabled) {
+                appNotification.show(qsTr("Not needed, debug mode is already enabled."))
+                return
+            }
+
             iconClicks++
             resetIconClicksTimer.restart()
             if (iconClicks >= 3)
@@ -183,7 +187,7 @@ AboutPageBase {
 
             if (iconClicks == 7) {
                 DebugLog.enabled = true
-                appNotification.show(qsTr("Debug mode enabled!"))
+                appNotification.show(qsTr("Debug mode is now enabled!"))
             }
         }
     }
