@@ -67,6 +67,8 @@ namespace {
     const QString EMOJI("emoji");
     const QString TYPE_MESSAGE_REPLY_TO_MESSAGE("messageReplyToMessage");
     const QString TYPE_INPUT_MESSAGE_REPLY_TO_MESSAGE("inputMessageReplyToMessage");
+    const QString TEXT("text");
+    const QString TRANSLATION("translation");
     const QStringList ALL_FILE_TYPES(QStringList()
                                      << "fileTypeAnimation"
                                      << "fileTypeAudio"
@@ -222,6 +224,7 @@ void TDLibWrapper::initializeTDLibReceiver() {
     connect(this->tdLibReceiver, SIGNAL(messagePropertiesReceived(qlonglong, qlonglong, QVariantMap)), this, SIGNAL(messagePropertiesReceived(qlonglong, qlonglong, QVariantMap)));
     connect(this->tdLibReceiver, SIGNAL(storageStatisticsFastReceived(QVariantMap)), this, SIGNAL(storageStatisticsFastReceived(QVariantMap)));
     connect(this->tdLibReceiver, SIGNAL(storageStatisticsReceived(QVariantMap)), this, SIGNAL(storageStatisticsReceived(QVariantMap)));
+    connect(this->tdLibReceiver, SIGNAL(translationResultReceived(qlonglong, QVariantMap)), this, SIGNAL(translationResultReceived(qlonglong, QVariantMap)));
 
     this->tdLibReceiver->start();
 }
@@ -2531,5 +2534,14 @@ void TDLibWrapper::optimizeStorage(bool entire) {
         }
         requestObject.insert("file_types", fileTypesObject);
     }
+    this->sendRequest(requestObject);
+}
+
+void TDLibWrapper::translateText(const QVariantMap &text, const QString &languageCode, qlonglong extraId) {
+    QVariantMap requestObject;
+    requestObject.insert(_TYPE, "translateText");
+    requestObject.insert(TEXT, text);
+    requestObject.insert("to_language_code", languageCode);
+    requestObject.insert(_EXTRA, TRANSLATION + QString::number(extraId));
     this->sendRequest(requestObject);
 }

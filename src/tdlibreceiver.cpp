@@ -66,6 +66,7 @@ namespace {
     const QString REPLY_IN_CHAT_ID("reply_in_chat_id");
     const QString REPLY_TO_MESSAGE_ID("reply_to_message_id");
     const QString DRAFT_MESSAGE("draft_message");
+    const QString TRANSLATION("translation");
 
     const QString _TYPE("@type");
     const QString _EXTRA("@extra");
@@ -185,6 +186,7 @@ TDLibReceiver::TDLibReceiver(void *tdLibClient, QObject *parent) : QThread(paren
     handlers.insert("messageProperties", &TDLibReceiver::processMessageProperties); // TdLib >= 1.8.34
     handlers.insert("storageStatisticsFast", &TDLibReceiver::processStorageStatisticsFast);
     handlers.insert("storageStatistics", &TDLibReceiver::processStorageStatistics);
+    handlers.insert("formattedText", &TDLibReceiver::processFormattedText);
 }
 
 void TDLibReceiver::setActive(bool active)
@@ -958,4 +960,12 @@ void TDLibReceiver::processStorageStatisticsFast(const QVariantMap &receivedInfo
 void TDLibReceiver::processStorageStatistics(const QVariantMap &receivedInformation) {
     LOG("Received storageStatistics");
     emit storageStatisticsReceived(receivedInformation);
+}
+
+void TDLibReceiver::processFormattedText(const QVariantMap &receivedInformation) {
+    const QString extra = receivedInformation.value(_EXTRA).toString();
+    if (extra.indexOf(TRANSLATION) == 0) {
+        LOG("Received translation result as formattedText");
+        emit translationResultReceived(extra.mid(11).toLongLong(), receivedInformation);
+    } else LOG("Received unknown formattedText, ignoring");
 }
