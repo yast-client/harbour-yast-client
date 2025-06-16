@@ -247,6 +247,11 @@ ListItem {
                         onClicked: editMessage()
                     }
                 }
+                FancyAloneMenuItem {
+                    visible: appSettings.showTranslateOption
+                    text: qsTr("Translate")
+                    onClicked: pageStack.push(Qt.resolvedUrl("../pages/TranslatePage.qml"), {messageId: messageId, text: /*~~messageText~~ ...*/''})
+                }
             }
         }
     }
