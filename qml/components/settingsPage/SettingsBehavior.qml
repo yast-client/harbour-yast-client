@@ -289,6 +289,14 @@ AccordionItem {
                 onTextChanged: if (acceptableInput) appSettings.voiceNoteVolume = text
                 onAcceptableInputChanged: if (acceptableInput) appSettings.voiceNoteVolume = text
             }
+
+            TextSwitch {
+                checked: appSettings.showTranslateOption
+                text: qsTr("Show translate option for messages")
+                //description: qsTr("For messages and ...")
+                automaticCheck: false
+                onClicked: appSettings.showTranslateOption = !checked
+            }
         }
     }
 }

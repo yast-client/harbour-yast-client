@@ -45,6 +45,7 @@ namespace {
     const QString KEY_SEND_ATTACHMENT_BY_ENTER("sendAttachmentByEnter");
     const QString KEY_SUPER_COMPACT_MESSAGE_MENU("superCompactMessageMenu");
     const QString KEY_VOICE_NOTE_VOLUME("voiceNoteVolumne");
+    const QString SHOW_TRANSLATE_OPTION("showTranslateOption");
 }
 
 AppSettings::AppSettings(QObject *parent) : QObject(parent), settings(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/io.github.roundedrectangle/fernschreiber2/settings.conf", QSettings::NativeFormat)
@@ -378,5 +379,16 @@ void AppSettings::setVoiceNoteVolume(qreal value) {
         LOG(KEY_VOICE_NOTE_VOLUME << value);
         settings.setValue(KEY_VOICE_NOTE_VOLUME, value);
         emit voiceNoteVolumeChanged();
+    }
+}
+
+bool AppSettings::showTranslateOption() const {
+    return settings.value(SHOW_TRANSLATE_OPTION).toBool();
+}
+void AppSettings::setShowTranslateOption(bool value) {
+    if (voiceNoteVolume() != value) {
+        LOG(SHOW_TRANSLATE_OPTION << value);
+        settings.setValue(SHOW_TRANSLATE_OPTION, value);
+        emit showTranslateOptionChanged();
     }
 }

@@ -48,6 +48,7 @@ class AppSettings : public QObject {
     Q_PROPERTY(bool sendAttachmentByEnter READ sendAttachmentByEnter WRITE setSendAttachmentByEnter NOTIFY sendAttachmentByEnterChanged)
     Q_PROPERTY(bool superCompactMessageMenu READ superCompactMessageMenu WRITE setSuperCompactMessageMenu NOTIFY superCompactMessageMenuChanged)
     Q_PROPERTY(qreal voiceNoteVolume READ voiceNoteVolume WRITE setVoiceNoteVolume NOTIFY voiceNoteVolumeChanged)
+    Q_PROPERTY(bool showTranslateOption READ showTranslateOption WRITE setShowTranslateOption NOTIFY showTranslateOptionChanged)
 public:
     enum SponsoredMess {
         SponsoredMessHandle,
@@ -138,6 +139,9 @@ public:
     qreal voiceNoteVolume() const;
     void setVoiceNoteVolume(qreal value);
 
+    bool showTranslateOption() const;
+    void setShowTranslateOption(bool value);
+
 signals:
     void sendByEnterChanged();
     void focusTextAreaAfterSendChanged();
@@ -163,6 +167,7 @@ signals:
     void sendAttachmentByEnterChanged();
     void superCompactMessageMenuChanged();
     void voiceNoteVolumeChanged();
+    void showTranslateOptionChanged();
 
 private:
     QSettings settings;
