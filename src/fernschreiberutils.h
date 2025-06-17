@@ -44,8 +44,19 @@ public:
     };
     Q_ENUM(VoiceNoteRecordingState)
 
-    Q_INVOKABLE QString getMessageShortText(const QVariantMap &messageContent, const bool isChannel, const QVariantMap &messageSender);
+    enum MessageTextType {
+        Default,
+        Simple,
+    };
+    Q_ENUM(MessageTextType)
+
     static QString getUserName(const QVariantMap &userInformation);
+    
+    Q_INVOKABLE QString fixReservedHtmlCharacters(const QString &text);
+    Q_INVOKABLE void handleHtmlEntity(const QString &messageText, QList<QVariantMap> &messageInsertions, const QString &originalString, const QString &replacementString);
+    Q_INVOKABLE QString enhanceMessageText(const QVariantMap &formattedText, const bool ignoreEntities);
+    Q_INVOKABLE QString getMessageText(const QVariantMap &message, const MessageTextType type = MessageTextType::Default, const bool ignoreEntities = false);
+    Q_INVOKABLE inline QString getMessageText(const QVariantMap &message, const bool simple = false, const bool ignoreEntities = false);
 
     Q_INVOKABLE void startRecordingVoiceNote();
     Q_INVOKABLE void stopRecordingVoiceNote();
@@ -56,11 +67,6 @@ public:
     Q_INVOKABLE bool supportsGeoLocation();
     Q_INVOKABLE QString getSailfishOSVersion();
     Q_INVOKABLE void initiateReverseGeocode(double latitude, double longitude);
-
-    Q_INVOKABLE QString fixReservedHtmlCharacters(const QString &text);
-    Q_INVOKABLE void handleHtmlEntity(const QString &messageText, QList<QVariantMap> &messageInsertions, const QString &originalString, const QString &replacementString);
-    Q_INVOKABLE QString enhanceMessageText(const QVariantMap &formattedText, const bool ignoreEntities);
-    Q_INVOKABLE QString getMessageText(const QVariantMap &message, const bool simple, const bool ignoreEntities);
 
 signals:
     void voiceNoteDurationChanged(qlonglong duration);

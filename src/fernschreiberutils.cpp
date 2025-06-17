@@ -269,11 +269,12 @@ QString FernschreiberUtils::enhanceMessageText(const QVariantMap &formattedText,
     return messageText;
 }
 
-QString FernschreiberUtils::getMessageText(const QVariantMap &message, const bool simple, const bool ignoreEntities) {
+QString FernschreiberUtils::getMessageText(const QVariantMap &message, const MessageTextType type, const bool ignoreEntities) {
     const qlonglong messageSenderUserId = message.value(SENDER_ID).toMap().value(USER_ID).toLongLong();
     const QVariantMap messageContent = message.value(CONTENT).toMap();
     const QString contentType = messageContent.value(_TYPE).toString();
     const QString messageSenderType = message.value(SENDER_ID).toMap().value(_TYPE).toString();
+    const bool simple = type == MessageTextType::Simple;
 
     const bool myself = message.value(_TYPE).toString() != SPONSORED_MESSAGE
             && messageSenderType == MESSAGE_SENDER_USER
@@ -427,6 +428,10 @@ QString FernschreiberUtils::getMessageText(const QVariantMap &message, const boo
     return myself
             ? tr("sent an unsupported message: %1", "myself; %1 is message type").arg(contentType.mid(7))
             : tr("sent an unsupported message: %1", "%1 is message type").arg(contentType.mid(7));
+}
+
+inline QString FernschreiberUtils::getMessageText(const QVariantMap &message, const bool simple, const bool ignoreEntities) {
+    return getMessageText(message, simple ? MessageTextType::Simple : MessageTextType::Default, ignoreEntities);
 }
 
 QString FernschreiberUtils::getMessageShortText(const QVariantMap &messageContent, const bool isChannel, const QVariantMap &messageSender)
