@@ -34,7 +34,6 @@ public:
     explicit FernschreiberUtils(AppSettings *settings = nullptr, TDLibWrapper *tdLibWrapper = nullptr, QObject *parent = nullptr);
     ~FernschreiberUtils();
 
-    Q_INVOKABLE QString getMessageShortText(const QVariantMap &messageContent, const bool isChannel, const QVariantMap &messageSender);
     enum VoiceNoteRecordingState {
         Unavailable,
         Ready,
