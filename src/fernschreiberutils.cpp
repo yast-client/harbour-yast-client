@@ -274,13 +274,15 @@ QString FernschreiberUtils::getMessageText(const QVariantMap &message, const Mes
     const QVariantMap messageContent = message.value(CONTENT).toMap();
     const QString contentType = messageContent.value(_TYPE).toString();
     const QString messageSenderType = message.value(SENDER_ID).toMap().value(_TYPE).toString();
-    const bool simple = type == MessageTextType::Simple;
+    const bool verySimple = type == MessageTextType::VerySimple;
+    const bool simple = type == MessageTextType::Simple || verySimple;
 
     const bool myself = message.value(_TYPE).toString() != SPONSORED_MESSAGE
             && messageSenderType == MESSAGE_SENDER_USER
             && messageSenderUserId == this->tdLibWrapper->getUserInformation().value(ID).toLongLong();
 
     auto getCaption = [&](QString text) -> const QString {
+        if (verySimple) return QString();
         return simple ? text.arg(messageContent.value(CAPTION).toMap().value(TEXT).toString())
                       : enhanceMessageText(messageContent.value(CAPTION).toMap(), ignoreEntities);
     };
@@ -354,11 +356,14 @@ QString FernschreiberUtils::getMessageText(const QVariantMap &message, const Mes
             return myself ? tr("have removed %1 from the chat", "myself").arg(getUserName(this->tdLibWrapper->getUserInformation(messageContent.value("user_id").toString()))) : tr("has removed %1 from the chat").arg(getUserName(this->tdLibWrapper->getUserInformation(messageContent.value("user_id").toString())));
         }
     }
-    if (contentType == "messageChatChangeTitle")
+    if (contentType == "messageChatChangeTitle") {
+        if (verySimple)
+            return myself ? tr("changed the chat title", "myself") : tr("changed the chat title");
         return myself ? tr("changed the chat title to %1", "myself").arg(messageContent.value(TITLE).toString()) : tr("changed the chat title to %1").arg(messageContent.value(TITLE).toString());
+    }
     if (contentType == "messagePoll") {
         const QVariantMap poll = messageContent.value("poll").toMap();
-        const bool anonymnous = poll.value("is_anonymous").toBool();
+        const bool anonymnous = !verySimple && poll.value("is_anonymous").toBool();
         if (poll.value(TYPE).toMap().value(_TYPE).toString() == "pollTypeQuiz") {
             if (anonymnous)
                 return simple ? (myself ? tr("sent an anonymous quiz", "myself") : tr("sent an anonymous quiz")) : ("<b>" + tr("Anonymous Quiz") + "</b>");
