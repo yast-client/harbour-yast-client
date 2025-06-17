@@ -59,6 +59,7 @@ public:
     Q_INVOKABLE QString fixReservedHtmlCharacters(const QString &text);
     Q_INVOKABLE void handleHtmlEntity(const QString &messageText, QList<QVariantMap> &messageInsertions, const QString &originalString, const QString &replacementString);
     Q_INVOKABLE QString enhanceMessageText(const QVariantMap &formattedText, const bool ignoreEntities);
+    Q_INVOKABLE QString getMessageText(const QVariantMap &message, const bool simple, const bool ignoreEntities);
 
 signals:
     void voiceNoteDurationChanged(qlonglong duration);

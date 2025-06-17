@@ -69,6 +69,16 @@ namespace {
     const QString URL("url");
     const QString REMOVE_LENGTH("removeLength");
     const QString INSERTION_STRING("insertionString");
+    const QString SCORE("score");
+
+    const QString SPONSORED_MESSAGE("sponsoredMessage");
+    const QString MESSAGE_SENDER_USER("messageSenderUser");
+    const QString SENDER_ID("sender_id");
+    const QString CONTENT("content");
+    const QString CAPTION("caption");
+    const QString VENUE("venue");
+    const QString TITLE("title");
+    const QString ADDRESS("address");
 
     const QRegularExpression RAW_NEW_LINE_RE("\r?\n");
     const QRegularExpression AMP_RE("&");
@@ -136,14 +146,7 @@ void FernschreiberUtils::handleHtmlEntity(const QString &messageText, QList<QVar
 }
 
 bool messageInsertionSorter(const QVariantMap &a, const QVariantMap &b) {
-    /*const uint
-            aOffset = a.value(OFFSET).toUInt(),
-            aRemove = a.value(REMOVE_LENGTH).toInt(),
-            bOffset = b.value(OFFSET).toUInt(),
-            bRemove = b.value(REMOVE_LENGTH).toInt();
-    if (bOffset + bRemove == aOffset + aRemove)
-        return bOffset < aOffset;
-    return bOffset + bRemove > aOffset + aRemove; // ok so yeah it is < i realized it now*/
+    // Sort in reverse order (so offset indexes are valid)
     return b.value(OFFSET).toUInt() + b.value(REMOVE_LENGTH).toInt() < a.value(OFFSET).toUInt() + a.value(REMOVE_LENGTH).toInt();
 }
 
@@ -266,9 +269,156 @@ QString FernschreiberUtils::enhanceMessageText(const QVariantMap &formattedText,
     return messageText;
 }
 
-/*QString FernschreiberUtils::getMessageText(const QVariantMap &message, const bool myself) {
+QString FernschreiberUtils::getMessageText(const QVariantMap &message, const bool simple, const bool ignoreEntities) {
+    const qlonglong messageSenderUserId = message.value(SENDER_ID).toMap().value(USER_ID).toLongLong();
+    const QVariantMap messageContent = message.value(CONTENT).toMap();
+    const QString contentType = messageContent.value(_TYPE).toString();
+    const QString messageSenderType = message.value(SENDER_ID).toMap().value(_TYPE).toString();
 
-}*/
+    const bool myself = message.value(_TYPE).toString() != SPONSORED_MESSAGE
+            && messageSenderType == MESSAGE_SENDER_USER
+            && messageSenderUserId == this->tdLibWrapper->getUserInformation().value(ID).toLongLong();
+
+    auto getCaption = [&](QString text) -> const QString {
+        return simple ? text.arg(messageContent.value(CAPTION).toMap().value(TEXT).toString())
+                      : enhanceMessageText(messageContent.value(CAPTION).toMap(), ignoreEntities);
+    };
+
+    if (contentType == MESSAGE_CONTENT_TYPE_TEXT)
+        return simple ? messageContent.value(TEXT).toMap().value(TEXT).toString()
+                      : enhanceMessageText(messageContent.value(TEXT).toMap(), ignoreEntities);
+    if (contentType == MESSAGE_CONTENT_TYPE_STICKER)
+        return simple ? messageContent.value(STICKER).toMap().value(EMOJI).toString() : "";
+    if (contentType == MESSAGE_CONTENT_TYPE_ANIMATED_EMOJI)
+        return simple ? messageContent.value(ANIMATED_EMOJI).toMap().value(STICKER).toMap().value(EMOJI).toString() : "";
+    if (contentType == MESSAGE_CONTENT_TYPE_PHOTO) {
+        if (const QString caption = getCaption(tr("Picture: %1")); caption.isEmpty())
+            return caption;
+        else return simple ? (myself ? tr("sent a picture", "myself") : tr("sent a picture")) : "";
+    }
+    if (contentType == MESSAGE_CONTENT_TYPE_VIDEO) {
+        if (const QString caption = getCaption(tr("Video: %1")); caption.isEmpty())
+            return caption;
+        else return simple ? (myself ? tr("sent a video", "myself") : tr("sent a video")) : "";
+    }
+    if (contentType == MESSAGE_CONTENT_TYPE_VIDEO_NOTE)
+        return simple ? (myself ? tr("sent a video message", "myself") : tr("sent a video message")) : "";
+    if (contentType == MESSAGE_CONTENT_TYPE_ANIMATION) {
+        if (const QString caption = getCaption(tr("Animation: %1")); caption.isEmpty())
+            return caption;
+        else return simple ? (myself ? tr("sent a animation", "myself") : tr("sent a animation")) : "";
+    }
+    if (contentType == MESSAGE_CONTENT_TYPE_AUDIO) {
+        if (const QString caption = getCaption(tr("Audio: %1")); caption.isEmpty())
+            return caption;
+        else return simple ? (myself ? tr("sent an audio", "myself") : tr("sent an audio")) : "";
+    }
+    if (contentType == MESSAGE_CONTENT_TYPE_VOICE_NOTE) {
+        if (const QString caption = getCaption(tr("Voice message: %1")); caption.isEmpty())
+            return caption;
+        else return simple ? (myself ? tr("sent a voice message", "myself") : tr("sent a voice message")) : "";
+    }
+    if (contentType == MESSAGE_CONTENT_TYPE_VOICE_NOTE) {
+        if (const QString caption = getCaption(tr("Document: %1")); caption.isEmpty())
+            return caption;
+        else return simple ? (myself ? tr("sent a document", "myself") : tr("sent a document")) : "";
+    }
+    if (contentType == MESSAGE_CONTENT_TYPE_LOCATION)
+        return simple ? (myself ? tr("sent a location", "myself") : tr("sent a location")) : "";
+    if (contentType == MESSAGE_CONTENT_TYPE_VENUE)
+        return simple ? (myself ? tr("sent a venue", "myself") : tr("sent a venue")) : ("<b>" + messageContent.value(VENUE).toMap().value(TITLE).toString() + "</b>, " + messageContent.value(VENUE).toMap().value(ADDRESS).toString());
+    if (contentType == "messageContactRegistered")
+        return myself ? tr("have registered with Telegram", "myself") : tr("has registered with Telegram");
+    if (contentType == "messageChatJoinByLink")
+        return myself ? tr("joined this chat", "myself") : tr("joined this chat");
+    if (contentType == "messageChatAddMembers") {
+        if (messageSenderType == MESSAGE_SENDER_TYPE_USER && messageSenderUserId == messageContent.value("member_user_ids").toList().at(0).toLongLong()) {
+            return myself ? tr("were added to this chat", "myself") : tr("was added to this chat");
+        } else {
+            QVariantList memberUserIds = messageContent.value("member_user_ids").toList();
+            QString addedUserNames;
+            for (int i = 0; i < memberUserIds.size(); i++) {
+                if (i > 0) {
+                    addedUserNames += ", ";
+                }
+                addedUserNames += getUserName(this->tdLibWrapper->getUserInformation(memberUserIds.at(i).toString()));
+            }
+            return myself ? tr("have added %1 to the chat", "myself").arg(addedUserNames) : tr("has added %1 to the chat").arg(addedUserNames);
+        }
+    }
+    if (contentType == "messageChatDeleteMember") {
+        if (messageSenderType == MESSAGE_SENDER_TYPE_USER && messageSenderUserId == messageContent.value(USER_ID).toLongLong()) {
+            return myself ? tr("left this chat", "myself") : tr("left this chat");
+        } else {
+            return myself ? tr("have removed %1 from the chat", "myself").arg(getUserName(this->tdLibWrapper->getUserInformation(messageContent.value("user_id").toString()))) : tr("has removed %1 from the chat").arg(getUserName(this->tdLibWrapper->getUserInformation(messageContent.value("user_id").toString())));
+        }
+    }
+    if (contentType == "messageChatChangeTitle")
+        return myself ? tr("changed the chat title to %1", "myself").arg(messageContent.value(TITLE).toString()) : tr("changed the chat title to %1").arg(messageContent.value(TITLE).toString());
+    if (contentType == "messagePoll") {
+        const QVariantMap poll = messageContent.value("poll").toMap();
+        const bool anonymnous = poll.value("is_anonymous").toBool();
+        if (poll.value(TYPE).toMap().value(_TYPE).toString() == "pollTypeQuiz") {
+            if (anonymnous)
+                return simple ? (myself ? tr("sent an anonymous quiz", "myself") : tr("sent an anonymous quiz")) : ("<b>" + tr("Anonymous Quiz") + "</b>");
+            return simple ? (myself ? tr("sent a quiz", "myself") : tr("sent a quiz")) : ("<b>" + tr("Quiz") + "</b>");
+        }
+        if (anonymnous)
+            return simple ? (myself ? tr("sent an anonymous poll", "myself") : tr("sent an anonymous poll")) : ("<b>" + tr("Anonymous Poll") + "</b>");
+        return simple ? (myself ? tr("sent a poll", "myself") : tr("sent a poll")) : ("<b>" + tr("Poll") + "</b>");
+    }
+    if (contentType == "messageBasicGroupChatCreate" || contentType == "messageSupergroupChatCreate")
+        return myself ? tr("created this group", "myself") : tr("created this group");
+    if (contentType == "messageChatChangePhoto")
+        return myself ? tr("changed the chat photo", "myself") : tr("changed the chat photo");
+    if (contentType == "messageChatDeletePhoto")
+        return myself ? tr("deleted the chat photo", "myself") : tr("deleted the chat photo");
+    if (contentType == "messageChatSetTtl" || contentType == "messageChatSetMessageAutoDeleteTime")
+        // TODO: removed & actual auto delete time/period/duration...
+        return myself ? tr("changed the secret chat TTL setting", "myself; TTL = Time To Live") : tr("changed the secret chat TTL setting", "TTL = Time To Live");
+    if (contentType == "messageChatUpgradeFrom" || contentType == "messageChatUpgradeTo")
+        return myself ? tr("upgraded this group to a supergroup", "myself") : tr("upgraded this group to a supergroup");
+    if (contentType == "messageCustomServiceAction")
+        return messageContent.value(TEXT).toString();
+    if (contentType == "messagePinMessage")
+        // TODO: show actual pinned message (and go to it when clicked); requires proper message jumping implementation
+        return myself ? tr("pinned a message", "myself") : tr("pinned a message");
+    if (contentType == "messageExpiredPhoto")
+        return myself ? tr("sent a self-destructing photo that is expired", "myself") : tr("sent a self-destructing photo that is expired");
+    if (contentType == "messageExpiredVideo")
+        return myself ? tr("sent a self-destructing video that is expired", "myself") : tr("sent a self-destructing video that is expired");
+    if (contentType == "messageScreenshotTaken")
+        return myself ? tr("created a screenshot in this chat", "myself") : tr("created a screenshot in this chat");
+    if (contentType == "messageGame")
+        return simple ? (myself ? tr("sent a game", "myself") : tr("sent a game")) : "";
+    if (contentType == "messageGameScore")
+        return myself ? tr("scored %Ln points", "myself", messageContent.value(SCORE).toInt()) : tr("scored %Ln points", "myself", messageContent.value(SCORE).toInt());
+    if (contentType == "messageUnsupported")
+        return myself ? tr("sent an unsupported message", "myself") : tr("sent an unsupported message");
+    if (contentType == "messageBotWriteAccessAllowed") {
+        QVariantMap reason = messageContent.value("reason").toMap();
+        QString reasonType = reason.value(_TYPE).toString();
+        if (reasonType == "botWriteAccessAllowReasonAddedToAttachmentMenu")
+            return tr("you allowed this bot to message you when you added it to your attachment menu");
+        if (reasonType == "botWriteAccessAllowReasonConnectedWebsite")
+            return tr("you allowed this bot to message you when you logged in on %1").arg(reason.value("domain_name").toString());
+        if (reasonType == "botWriteAccessAllowReasonLaunchedWebApp")
+            return tr("you allowed this bot to message you in its web-app");
+        return tr("you allowed this bot to message you"); // botWriteAccessAllowReasonAcceptedRequest
+    }
+    if (contentType == "messageChatBoost")
+        return (myself ? tr("boosted this chat %Ln times", "myself") : tr("boosted this chat %Ln times")).arg(messageContent.value("boost_count").toInt());
+    if (contentType == "messageGift")
+        // TODO: make this only for simple and add an actual message for gift
+        return myself ? tr("sent a gift", "myself") : tr("sent a gift");
+    if (contentType == "messageGiveawayCreated")
+        // TODO: same as for gift
+        return myself ? tr("started a giveaway", "myself") : tr("started a giveaway");
+
+    return myself
+            ? tr("sent an unsupported message: %1", "myself; %1 is message type").arg(messageContent.value(_TYPE).toString().remove(0, 7))
+            : tr("sent an unsupported message: %1", "%1 is message type").arg(messageContent.value(_TYPE).toString().remove(0, 7));
+}
 
 QString FernschreiberUtils::getMessageShortText(const QVariantMap &messageContent, const bool isChannel, const QVariantMap &messageSender)
 {
@@ -298,7 +448,7 @@ QString FernschreiberUtils::getMessageShortText(const QVariantMap &messageConten
         return myself ? tr("sent a video", "myself") : tr("sent a video");
     }
     if (contentType == MESSAGE_CONTENT_TYPE_VIDEO_NOTE) {
-        return myself ? tr("sent a video note", "myself") : tr("sent a video note");
+        return myself ? tr("sent a video message", "myself") : tr("sent a video message");
     }
     if (contentType == MESSAGE_CONTENT_TYPE_ANIMATION) {
         return myself ? tr("sent an animation", "myself") : tr("sent an animation");
