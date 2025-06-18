@@ -286,9 +286,15 @@ QVariant FernschreiberUtils::getMaybeFormattedMessageText(const QVariantMap &mes
 
     auto getCaption = [&](QString text) -> const QVariant {
         // should we convert it to string/map and then back to qvariant?
-        return simple ? text.arg(messageContent.value(CAPTION).toMap().value(TEXT).toString())
-                      : messageContent.value(CAPTION);
+        const QVariantMap caption = messageContent.value(CAPTION).toMap();
+        const QString captionText = caption.value(TEXT).toString();
+        if (captionText.isEmpty() && caption.value(ENTITIES).toList().isEmpty())
+            return QVariant();
+
+        if (simple) return text.arg(captionText);
+        return caption;
     };
+    LOG(messageContent.value(CAPTION).toMap() << getCaption("hi %1") << getCaption("hi %1").isValid() << QVariant().isValid());
 
     if (contentType == MESSAGE_CONTENT_TYPE_TEXT)
         return simple ? messageContent.value(TEXT).toMap().value(TEXT)
@@ -298,39 +304,39 @@ QVariant FernschreiberUtils::getMaybeFormattedMessageText(const QVariantMap &mes
     if (contentType == MESSAGE_CONTENT_TYPE_ANIMATED_EMOJI)
         return simple ? messageContent.value(ANIMATED_EMOJI).toMap().value(STICKER).toMap().value(EMOJI).toString() : "";
     if (contentType == MESSAGE_CONTENT_TYPE_PHOTO) {
-        if (const QVariant caption = getCaption(tr("Picture: %1")); !caption.toString().isEmpty() || !caption.toMap().isEmpty())
+        if (const QVariant caption = getCaption(tr("Picture: %1")); caption.isValid())
             return caption;
         else return simple ? (myself ? tr("sent a picture", "myself") : tr("sent a picture")) : "";
     }
     if (contentType == MESSAGE_CONTENT_TYPE_VIDEO) {
-        if (const QVariant caption = getCaption(tr("Video: %1")); !caption.toString().isEmpty() || !caption.toMap().isEmpty())
+        if (const QVariant caption = getCaption(tr("Video: %1")); caption.isValid())
             return caption;
         else return simple ? (myself ? tr("sent a video", "myself") : tr("sent a video")) : "";
     }
     if (contentType == MESSAGE_CONTENT_TYPE_VIDEO_NOTE)
         return simple ? (myself ? tr("sent a video message", "myself") : tr("sent a video message")) : "";
     if (contentType == MESSAGE_CONTENT_TYPE_ANIMATION) {
-        if (const QVariant caption = getCaption(tr("Animation: %1")); !caption.toString().isEmpty() || !caption.toMap().isEmpty())
+        if (const QVariant caption = getCaption(tr("Animation: %1")); caption.isValid())
             return caption;
         else return simple ? (myself ? tr("sent an animation", "myself") : tr("sent an animation")) : "";
     }
     if (contentType == MESSAGE_CONTENT_TYPE_AUDIO) {
-        if (const QVariant caption = getCaption(tr("Audio: %1")); !caption.toString().isEmpty() || !caption.toMap().isEmpty())
+        if (const QVariant caption = getCaption(tr("Audio: %1")); caption.isValid())
             return caption;
         else return simple ? (myself ? tr("sent an audio", "myself") : tr("sent an audio")) : "";
     }
     if (contentType == MESSAGE_CONTENT_TYPE_DOCUMENT) {
-        if (const QVariant caption = getCaption(tr("Document: %1")); !caption.toString().isEmpty() || !caption.toMap().isEmpty())
+        if (const QVariant caption = getCaption(tr("Document: %1")); caption.isValid())
             return caption;
         else return simple ? (myself ? tr("sent a document", "myself") : tr("sent a document")) : "";
     }
     if (contentType == MESSAGE_CONTENT_TYPE_VOICE_NOTE) {
-        if (const QVariant caption = getCaption(tr("Voice message: %1")); !caption.toString().isEmpty() || !caption.toMap().isEmpty())
+        if (const QVariant caption = getCaption(tr("Voice message: %1")); caption.isValid())
             return caption;
         else return simple ? (myself ? tr("sent a voice message", "myself") : tr("sent a voice message")) : "";
     }
     if (contentType == MESSAGE_CONTENT_TYPE_VOICE_NOTE) {
-        if (const QVariant caption = getCaption(tr("Document: %1")); !caption.toString().isEmpty() || !caption.toMap().isEmpty())
+        if (const QVariant caption = getCaption(tr("Document: %1")); caption.isValid())
             return caption;
         else return simple ? (myself ? tr("sent a document", "myself") : tr("sent a document")) : "";
     }
