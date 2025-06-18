@@ -1334,25 +1334,30 @@ Page {
                             "messageVoiceNote"
                         ]
 
-                        readonly property var simpleDelegateMessages: ["messageBasicGroupChatCreate",
-                                                                       "messageChatAddMembers",
-                                                                       "messageChatChangePhoto",
-                                                                       "messageChatChangeTitle",
-                                                                       "messageChatDeleteMember",
-                                                                       "messageChatDeletePhoto",
-                                                                       "messageChatJoinByLink",
-                                                                       "messageChatSetTtl",
-                                                                       "messageChatSetMessageAutoDeleteTime",
-                                                                       "messageChatUpgradeFrom",
-                                                                       "messageContactRegistered",
-                                                                       // "messageExpiredPhoto", "messageExpiredVideo","messageWebsiteConnected"
-                                                                       "messageGameScore",
-                                                                       "messageChatUpgradeTo",
-                                                                       "messageCustomServiceAction",
-                                                                       "messagePinMessage",
-                                                                       "messageScreenshotTaken",
-                                                                       "messageSupergroupChatCreate",
-                                                                       "messageUnsupported"]
+                        readonly property var simpleDelegateMessages: [
+                            "messageBasicGroupChatCreate",
+                            "messageChatAddMembers",
+                            "messageChatChangePhoto",
+                            "messageChatChangeTitle",
+                            "messageChatDeleteMember",
+                            "messageChatDeletePhoto",
+                            "messageChatJoinByLink",
+                            "messageChatSetTtl", "messageChatSetMessageAutoDeleteTime",
+                            "messageChatUpgradeFrom", "messageChatUpgradeTo",
+                            "messageContactRegistered",
+                            // "messageExpiredPhoto", "messageExpiredVideo","messageWebsiteConnected", "messageExpiredVoiceNote", "messageExpiredVideoNote",
+                            "messageGameScore",
+                            "messageCustomServiceAction",
+                            "messagePinMessage",
+                            "messageScreenshotTaken",
+                            "messageSupergroupChatCreate",
+                            "messageBotWriteAccessAllowed",
+                            "messageChatBoost",
+                            "messageGift", // TODO
+                            "messageGiveawayCreated", // TODO
+                            "messageGiveawayCompleted",
+                            "messageUnsupported",
+                        ]
                         delegate: Loader {
                             width: chatView.width
                             Component {

@@ -416,8 +416,6 @@ QVariant FernschreiberUtils::getMaybeFormattedMessageText(const QVariantMap &mes
         qint32 score = messageContent.value("score").toInt();
         return myself ? tr("scored %Ln points", "myself", score) : tr("scored %Ln points", "", score);
     }
-    if (contentType == "messageUnsupported")
-        return myself ? tr("sent an unsupported message", "myself") : tr("sent an unsupported message");
     if (contentType == "messageBotWriteAccessAllowed") {
         QVariantMap reason = messageContent.value("reason").toMap();
         QString reasonType = reason.value(_TYPE).toString();
@@ -440,6 +438,8 @@ QVariant FernschreiberUtils::getMaybeFormattedMessageText(const QVariantMap &mes
         return myself ? tr("started a giveaway", "myself") : tr("started a giveaway");
     if (contentType == "messageGiveawayCompleted")
         return myself ? tr("a giveaway was completed", "myself") : tr("a giveaway was completed");
+    if (contentType == "messageUnsupported")
+        return myself ? tr("sent an unsupported message", "myself") : tr("sent an unsupported message");
 
     return myself
             ? tr("sent an unsupported message: %1", "myself; %1 is message type").arg(contentType.mid(7))
