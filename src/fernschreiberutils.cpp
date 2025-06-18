@@ -147,7 +147,7 @@ void FernschreiberUtils::handleHtmlEntity(const QString &messageText, QList<QVar
 
 bool messageInsertionSorter(const QVariantMap &a, const QVariantMap &b) {
     // Sort in reverse order (so offset indexes are valid)
-    return b.value(OFFSET).toUInt() + b.value(REMOVE_LENGTH).toInt() < a.value(OFFSET).toUInt() + a.value(REMOVE_LENGTH).toInt();
+    return b.value(OFFSET).toInt() + b.value(REMOVE_LENGTH).toInt() < a.value(OFFSET).toInt() + a.value(REMOVE_LENGTH).toInt();
 }
 
 QVariantMap FernschreiberUtils::makeDummyFormattedText(const QString &text) {
@@ -181,13 +181,13 @@ QString FernschreiberUtils::enhanceMessageText(const QVariantMap &formattedText,
             start = "<b>";
             end = "</b>";
         } else if (entityType == "textEntityTypeUrl") {
-            start = "<a href=\"" + QString(messageText).section(entity.value(OFFSET).toUInt(), entity.value(OFFSET).toUInt() + entity.value(LENGTH).toUInt()) + "\">";
+            start = "<a href=\"" + messageText.mid(entity.value(OFFSET).toInt(), entity.value(LENGTH).toInt()) + "\">";
             end = "</a>";
         } else if (entityType == "textEntityTypeCode") {
             start = "<pre>";
             end = "</pre>";
         } else if (entityType == "textEntityTypeEmailAddress") {
-            start = "<a href=\"mailto:" + QString(messageText).section(entity.value(OFFSET).toUInt(), entity.value(OFFSET).toUInt() + entity.value(LENGTH).toUInt()) + "\">";
+            start = "<a href=\"mailto:" + messageText.mid(entity.value(OFFSET).toInt(), entity.value(LENGTH).toInt()) + "\">";
             end = "</a>";
         } else if (entityType == "textEntityTypeItalic") {
             start = "<i>";
@@ -196,13 +196,13 @@ QString FernschreiberUtils::enhanceMessageText(const QVariantMap &formattedText,
             start = "<s>";
             end = "</s>";
         } else if (entityType == "textEntityTypeMention") {
-            start = "<a href=\"user://" + QString(messageText).section(entity.value(OFFSET).toUInt(), entity.value(OFFSET).toUInt() + entity.value(LENGTH).toUInt()) + "\">";
+            start = "<a href=\"user://" + messageText.mid(entity.value(OFFSET).toInt(), entity.value(LENGTH).toInt()) + "\">";
             end = "</a>";
         } else if (entityType == "textEntityTypeMentionName") {
             start = "<a href=\"userId://" + entity.value(TYPE).toMap().value(USER_ID).toString() + "\">";
             end = "</a>";
         } else if (entityType == "textEntityTypePhoneNumber") {
-            start = "<a href=\"tel:" + QString(messageText).section(entity.value(OFFSET).toUInt(), entity.value(OFFSET).toUInt() + entity.value(LENGTH).toUInt()) + "\">";
+            start = "<a href=\"tel:" + messageText.mid(entity.value(OFFSET).toInt(), entity.value(LENGTH).toInt()) + "\">";
             end = "</a>";
         } else if (entityType == "textEntityTypePre" || entityType == "textEntityTypePreCode") {
             start = "<pre>";
@@ -214,7 +214,7 @@ QString FernschreiberUtils::enhanceMessageText(const QVariantMap &formattedText,
             start = "<u>";
             end = "</u>";
         } else if (entityType == "textEntityTypeBotCommand") {
-            start = "<a href=\"botCommand://" + QString(messageText).section(entity.value(OFFSET).toUInt(), entity.value(OFFSET).toUInt() + entity.value(LENGTH).toUInt()) + "\">";
+            start = "<a href=\"botCommand://" + messageText.mid(entity.value(OFFSET).toInt(), entity.value(LENGTH).toInt()) + "\">";
             end = "</a>";
         }
 
@@ -245,12 +245,12 @@ QString FernschreiberUtils::enhanceMessageText(const QVariantMap &formattedText,
         break*/
 
         const QVariantMap entityResultStart{
-            {OFFSET, entity.value(OFFSET).toUInt()},
+            {OFFSET, entity.value(OFFSET).toInt()},
             {INSERTION_STRING, start},
             {REMOVE_LENGTH, 0}, // startRemove
         };
         const QVariantMap entityResultEnd{
-            {OFFSET, entity.value(OFFSET).toUInt() + entity.value(LENGTH).toUInt()},
+            {OFFSET, entity.value(OFFSET).toInt() + entity.value(LENGTH).toInt()},
             {INSERTION_STRING, end},
             {REMOVE_LENGTH, 0}, // endRemove
         };
@@ -267,7 +267,7 @@ QString FernschreiberUtils::enhanceMessageText(const QVariantMap &formattedText,
     std::sort(messageInsertions.begin(), messageInsertions.end(), messageInsertionSorter);
 
     for (QVariantMap insertion : messageInsertions)
-        messageText.replace(insertion.value(OFFSET).toUInt(), insertion.value(REMOVE_LENGTH).toInt(), insertion.value(INSERTION_STRING).toString());
+        messageText.replace(insertion.value(OFFSET).toInt(), insertion.value(REMOVE_LENGTH).toInt(), insertion.value(INSERTION_STRING).toString());
 
     messageText.replace(RAW_NEW_LINE_RE, "<br>");
 
