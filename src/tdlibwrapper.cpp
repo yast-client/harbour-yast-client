@@ -1767,15 +1767,6 @@ void TDLibWrapper::openFileOnDevice(const QString &filePath)
     emit openFileExternally(filePath);
 }
 
-void TDLibWrapper::controlScreenSaver(bool enabled)
-{
-    if (enabled) {
-        mceInterface->displayCancelBlankingPause();
-    } else {
-        mceInterface->displayBlankingPause();
-    }
-}
-
 bool TDLibWrapper::getJoinChatRequested()
 {
     return this->joinChatRequested;

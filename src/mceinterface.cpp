@@ -40,15 +40,3 @@ void MceInterface::ledPatternDeactivate(const QString &pattern)
     LOG("Deactivating pattern" << pattern);
     call(QStringLiteral("req_led_pattern_deactivate"), pattern);
 }
-
-void MceInterface::displayCancelBlankingPause()
-{
-    LOG("Enabling display blanking");
-    call(QStringLiteral("req_display_cancel_blanking_pause"));
-}
-
-void MceInterface::displayBlankingPause()
-{
-    LOG("Disabling display blanking");
-    call(QStringLiteral("req_display_blanking_pause"));
-}

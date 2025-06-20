@@ -29,8 +29,6 @@ public:
 
     void ledPatternActivate(const QString &pattern);
     void ledPatternDeactivate(const QString &pattern);
-    void displayCancelBlankingPause();
-    void displayBlankingPause();
 };
 
 #endif // MCE_INTERFACE_H
