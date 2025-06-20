@@ -18,11 +18,20 @@ RadialGradient {
     property alias button: button
     property alias down: button.down
     property alias icon: button.icon
+    property alias highlighted: button.highlighted
     signal clicked
 
     IconButton {
         id: button
         anchors.fill: parent
         onClicked: buttonBg.clicked()
+
+        icon {
+            asynchronous: true
+            sourceSize {
+                width: buttonBg.width
+                height: buttonBg.height
+            }
+        }
     }
 }
