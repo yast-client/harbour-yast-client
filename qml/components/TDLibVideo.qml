@@ -4,7 +4,7 @@ import WerkWolf.Fernschreiber 1.0
 import QtMultimedia 5.6
 import QtGraphicalEffects 1.0
 
-Item {
+Video {
     property var messageContent: ({})
     property var videoData: {
         switch (messageContent['@type']) {
@@ -24,12 +24,12 @@ Item {
 
     property alias file: file
     property alias thumbnail: thumbnail
-    property alias video: video
     property alias downloadingCompleted: file.isDownloadingCompleted
 
     readonly property string videoType: videoData['@type'] === "videoNote" ? "video" : videoData['@type']
     readonly property bool isPlaying: video.playbackState === MediaPlayer.PlayingState
 
+    source: downloadingCompleted ? file.path : ''
     onShouldPlayChanged: if (shouldPlay) file.load()
                          else file.cancel()
     function toggle() {
@@ -71,11 +71,5 @@ Item {
                 }
             }
         }
-    }
-
-    Video {
-        id: video
-        anchors.fill: parent
-        source: downloadingCompleted ? file.path : ''
     }
 }
