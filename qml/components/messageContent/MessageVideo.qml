@@ -151,6 +151,13 @@ MessageContentBase {
                     highlighted: videoMessageComponent.highlighted || down
                     onClicked: video.toggle()
                 }
+
+                BusyIndicator {
+                    running: video.file.isDownloadingActive
+                    visible: running
+                    anchors.centerIn: parent
+                    size: BusyIndicatorSize.Large
+                }
             }
             Item {
                 id: fullscreenItem
