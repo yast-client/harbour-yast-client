@@ -30,7 +30,7 @@ MessageContentBase {
     property bool isVideoNote
     property bool fullscreen
 
-    height: isVideoNote ? width : Functions.getVideoHeight(width, video.videoData)
+    height: isVideoNote ? width : Functions.getVideoHeight(width, videoItem.videoData)
 
     DisplayBlanking {
         id: displayBlanking
@@ -55,29 +55,34 @@ MessageContentBase {
     }
 
     TDLibVideo {
-        id: video
+        id: videoItem
         anchors.fill: parent
         messageContent: rawMessage.content
-
-        onPlaying: {
-            preventBlanking()
-            timeLeftTimer.start()
-        }
 
         function handlePause() {
             disablePreventBlanking()
             timeLeftTimer.stop()
             timeLeftItem.visible = true
         }
-        onPaused: handlePause()
-        onStopped: handlePause()
+        Connections {
+            target: video
+
+            onPlaying: {
+                preventBlanking()
+                timeLeftTimer.start()
+            }
+
+            onPaused: handlePause()
+            onStopped: handlePause()
+        }
     }
+    property alias video: videoItem.video
 
     Rectangle {
         width: parent.width
         height: parent.height
         color: "lightgrey"
-        visible: video.thumbnail.status === Image.Error
+        visible: videoItem.thumbnail.status === Image.Error
         opacity: 0.3
     }
 
@@ -104,7 +109,7 @@ MessageContentBase {
 
     MouseArea {
         anchors.fill: parent
-        onClicked: video.toggle()
+        onClicked: videoItem.toggle()
     }
 
     Timer {
@@ -147,9 +152,9 @@ MessageContentBase {
                 OpaqueButton {
                     id: playButton
                     anchors.centerIn: parent
-                    icon.source: "image://theme/icon-l-" + (video.file.isDownloadingActive ? "clear" : "play") + "?white"
+                    icon.source: "image://theme/icon-l-" + (videoItem.file.isDownloadingActive ? "clear" : "play") + "?white"
                     highlighted: videoMessageComponent.highlighted || down
-                    onClicked: video.toggle()
+                    onClicked: videoItem.toggle()
                 }
             }
             Item {
@@ -181,17 +186,17 @@ MessageContentBase {
 
             states: [
                 State {
-                    when: video.file.isDownloadingActive
+                    when: videoItem.file.isDownloadingActive
                     PropertyChanges {
                         target: messageVideoSlider
                         handleVisible: false
                         visible: true
-                        maximumValue: video.file.size > 0 ? video.file.size : 0.1
-                        value: video.file.downloadedSize
+                        maximumValue: videoItem.file.size > 0 ? videoItem.file.size : 0.1
+                        value: videoItem.file.downloadedSize
                     }
                 },
                 State {
-                    when: !video.file.isDownloadingActive
+                    when: !videoItem.file.isDownloadingActive
                     PropertyChanges {
                         target: messageVideoSlider
                         valueText: Format.formatDuration(Math.round((video.duration - messageVideoSlider.value) / 1000))

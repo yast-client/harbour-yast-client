@@ -6,10 +6,10 @@ import QtGraphicalEffects 1.0
 import "../.."
 
 TDLibVideo {
-    id: video
+    id: videoComponent
     messageContent: model.modelData.content
     readonly property bool isCurrent: index === page.index
-    onIsCurrentChanged: if(!isCurrent) pause()
+    onIsCurrentChanged: if(!isCurrent) video.pause()
 
     onStatusChanged: {
         if(status === MediaPlayer.EndOfMedia) {
@@ -43,7 +43,7 @@ TDLibVideo {
         id: delayedOverlayHide
         interval: 500
         onTriggered: {
-            if(video.isPlaying) {
+            if(videoComponent.isPlaying) {
                 page.overlayActive = false
             }
         }
@@ -56,7 +56,7 @@ TDLibVideo {
         opacity: enabled ? 1 : 0
         Behavior on opacity { FadeAnimator {} }
 
-        icon.source: "image://theme/icon-l-"+(video.isPlaying || video.shouldPlay ? 'pause' : 'play')
+        icon.source: "image://theme/icon-l-"+(videoComponent.isPlaying || videoComponent.shouldPlay ? 'pause' : 'play')
         onClicked: toggle()
     }
 
@@ -160,8 +160,8 @@ TDLibVideo {
                 font.pixelSize: Theme.fontSizeExtraSmall
                 text: file.isDownloadingCompleted
                       ? Format.formatDuration((parent.maximumValue - parent.value)/1000)
-                      : (video.videoData.duration
-                        ? Format.formatDuration(video.videoData.duration, Formatter.Duration) + ', '
+                      : (videoComponent.videoData.duration
+                        ? Format.formatDuration(videoComponent.videoData.duration, Formatter.Duration) + ', '
                         : '') + Format.formatFileSize(file.size || file.expectedSize)
                 color: Theme.secondaryColor
             }
