@@ -297,6 +297,14 @@ AccordionItem {
                 automaticCheck: false
                 onClicked: appSettings.showTranslateOption = !checked
             }
+
+            TextSwitch {
+                checked: appSettings.videoStickers
+                text: qsTr("Enable video stickers")
+                description: qsTr("Otherwise render as empty messages. Animated stickers option doesn't affect this. Might make the app hang in current implementation, thus the option.")
+                automaticCheck: false
+                onClicked: appSettings.videoStickers = !checked
+            }
         }
     }
 }

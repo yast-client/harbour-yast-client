@@ -46,6 +46,7 @@ namespace {
     const QString KEY_SUPER_COMPACT_MESSAGE_MENU("superCompactMessageMenu");
     const QString KEY_VOICE_NOTE_VOLUME("voiceNoteVolumne");
     const QString SHOW_TRANSLATE_OPTION("showTranslateOption");
+    const QString VIDEO_STICKERS("videoStickers");
 }
 
 AppSettings::AppSettings(QObject *parent) : QObject(parent), settings(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/io.github.roundedrectangle/fernschreiber2/settings.conf", QSettings::NativeFormat)
@@ -386,9 +387,20 @@ bool AppSettings::showTranslateOption() const {
     return settings.value(SHOW_TRANSLATE_OPTION).toBool();
 }
 void AppSettings::setShowTranslateOption(bool value) {
-    if (voiceNoteVolume() != value) {
+    if (showTranslateOption() != value) {
         LOG(SHOW_TRANSLATE_OPTION << value);
         settings.setValue(SHOW_TRANSLATE_OPTION, value);
         emit showTranslateOptionChanged();
+    }
+}
+
+bool AppSettings::videoStickers() const {
+    return settings.value(VIDEO_STICKERS).toBool();
+}
+void AppSettings::setVideoStickers(bool value) {
+    if (videoStickers() != value) {
+        LOG(VIDEO_STICKERS << value);
+        settings.setValue(VIDEO_STICKERS, value);
+        emit videoStickersChanged();
     }
 }
