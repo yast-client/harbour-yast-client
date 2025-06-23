@@ -87,6 +87,16 @@ AccordionItem {
 
             TextSwitch {
                 width: parent.columnWidth
+                checked: appSettings.videoStickers
+                visible: !appSettings.showStickersAsEmojis
+                text: qsTr("Enable video stickers")
+                //description: qsTr("Animated stickers option doesn't affect this")
+                automaticCheck: false
+                onClicked: appSettings.videoStickers = !checked
+            }
+
+            TextSwitch {
+                width: parent.columnWidth
                 checked: appSettings.superCompactMessageMenu
                 text: qsTr("Super compact message context menu")
                 description: qsTr("Organize all items in one row")

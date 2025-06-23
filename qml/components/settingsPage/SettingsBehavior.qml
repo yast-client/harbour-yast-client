@@ -282,7 +282,7 @@ AccordionItem {
             }*/
 
             TextField {
-                width: parent.width
+                width: parent.columnWidth
                 label: qsTr("Voice note volume")
                 validator: RegExpValidator { regExp: /^((?:\d|[1-9]\d+)(?:\.\d+)?)$/ }
                 text: appSettings.voiceNoteVolume
@@ -291,6 +291,7 @@ AccordionItem {
             }
 
             TextSwitch {
+                width: parent.columnWidth
                 checked: appSettings.showTranslateOption
                 text: qsTr("Show translate option for messages")
                 //description: qsTr("For messages and ...")
@@ -299,19 +300,12 @@ AccordionItem {
             }
 
             TextSwitch {
+                width: parent.columnWidth
                 checked: appSettings.formattedTranslate
                 text: qsTr("Trnslate formatted text")
                 description: qsTr("Without Telegram Premium")
                 automaticCheck: false
                 onClicked: appSettings.formattedTranslate = !checked
-            }
-
-            TextSwitch {
-                checked: appSettings.videoStickers
-                text: qsTr("Enable video stickers")
-                description: qsTr("Otherwise render as empty messages. Animated stickers option doesn't affect this. Might make the app hang in current implementation, thus the option.")
-                automaticCheck: false
-                onClicked: appSettings.videoStickers = !checked
             }
         }
     }
