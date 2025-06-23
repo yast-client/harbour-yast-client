@@ -50,13 +50,12 @@ ListItem {
     readonly property bool canDeleteMessage: !!messageProperties.can_be_deleted_for_all_users || (!!messageProperties.can_be_deleted_only_for_self && myMessage.chat_id === page.myUserId)
     property bool hasContentComponent
     property bool fullWidthWidescreenContent
-    property bool additionalOptionsOpened
     property bool wasNavigatedTo: false
 
     property var chatReactions
     property var messageReactions
 
-    highlighted: (down || (isSelected && messageAlbumMessageIds.length === 0) || additionalOptionsOpened || wasNavigatedTo) && !menuOpen
+    highlighted: (down || (isSelected && messageAlbumMessageIds.length === 0) || wasNavigatedTo) && !menuOpen
     openMenuOnPressAndHold: !messageListItem.precalculatedValues.pageIsSelecting
 
     onMessagePropertiesChanged: myMessage.properties = messageProperties
@@ -94,7 +93,6 @@ ListItem {
     }
 
     function openContextMenu() {
-        messageOptionsDrawer.open = false
         if (menu) openMenu()
         else contextMenuLoader.active = true
     }
@@ -137,9 +135,6 @@ ListItem {
         if (messageListItem.precalculatedValues.pageIsSelecting) {
             page.toggleMessageSelection(myMessage)
         } else {
-            if (messageOptionsDrawer.sourceItem !== messageListItem) {
-                messageOptionsDrawer.open = false
-            }
             // Allow extra context to react to click
             var extraContent = extraContentLoader.item
             if (extraContent && extraContentLoader.contains(mapToItem(extraContentLoader, mouse.x, mouse.y))) {
@@ -172,15 +167,6 @@ ListItem {
     onMenuOpenChanged: {
         // When opening/closing the context menu, we no longer scroll automatically
         chatView.manuallyScrolledToBottom = false
-    }
-
-    Connections {
-        target: additionalOptionsOpened ? messageOptionsDrawer : null
-        onOpenChanged: {
-            if (!messageOptionsDrawer.open) {
-                additionalOptionsOpened = false
-            }
-        }
     }
 
     Connections {
@@ -573,7 +559,6 @@ ListItem {
                                     if (precalculatedValues.pageIsSelecting) {
                                         page.toggleMessageSelection(myMessage)
                                     } else {
-                                        messageOptionsDrawer.open = false
                                         if(appSettings.goToQuotedMessage) {
                                             chatPage.showMessage(messageInReplyToRow.inReplyToMessage.id, true)
                                         } else {
