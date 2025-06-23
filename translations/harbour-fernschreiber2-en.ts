@@ -1272,17 +1272,35 @@ messages</numerusform>
         <translation>Delete Message</translation>
     </message>
     <message>
-        <source>Edit</source>
-        <comment>message</comment>
+        <source>Message unpinned</source>
+        <translation type="unfinished">Message unpinned</translation>
+    </message>
+    <message>
+        <source>Unpin Message</source>
+        <translation type="unfinished">Unpin Message</translation>
+    </message>
+    <message>
+        <source>Pin Message</source>
+        <translation type="unfinished">Pin Message</translation>
+    </message>
+    <message>
+        <source>Forward</source>
+        <comment>Short version for &quot;Forward Message&quot;</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reply</source>
+        <comment>Short version for &quot;Reply to Message&quot;</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Delete</source>
-        <comment>message</comment>
+        <comment>Short version for &quot;Delete Message&quot;</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Translate</source>
+        <source>Edit</source>
+        <comment>Short version for &quot;Edit Message&quot;</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1889,6 +1907,10 @@ messages</numerusform>
         <source>Organize all items in one row</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Enable video stickers</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsBehavior</name>
@@ -2026,6 +2048,14 @@ messages</numerusform>
     </message>
     <message>
         <source>Show translate option for messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Trnslate formatted text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Without Telegram Premium</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
