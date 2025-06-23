@@ -1331,7 +1331,11 @@ Page {
                             "messageVenue",
                             "messageVideo",
                             "messageVideoNote",
-                            "messageVoiceNote"
+                            "messageVoiceNote",
+                        ]
+                        property var fullWidthWidescreenContentMessages: [
+                            "messageDocument",
+                            "messageAudio",
                         ]
 
                         readonly property var simpleDelegateMessages: [
@@ -1374,6 +1378,7 @@ Page {
                                     chatReactions: availableReactions
                                     messageIndex: chatProxyModel.mapRowToSource(model.index)
                                     hasContentComponent: !!myMessage.content && chatView.delegateMessagesContent.indexOf(model.content_type) > -1
+                                    fullWidthWidescreenContent: !!myMessage.content && chatView.fullWidthWidescreenContentMessages.indexOf(model.content_type) > -1
                                     canReplyToMessage: chatPage.canSendMessages
                                     onReplyToMessage: {
                                         newMessageInReplyToRow.inReplyToMessage = myMessage

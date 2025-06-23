@@ -49,6 +49,7 @@ ListItem {
     readonly property bool isOwnMessage: page.myUserId === myMessage.sender_id.user_id
     readonly property bool canDeleteMessage: !!messageProperties.can_be_deleted_for_all_users || (!!messageProperties.can_be_deleted_only_for_self && myMessage.chat_id === page.myUserId)
     property bool hasContentComponent
+    property bool fullWidthWidescreenContent
     property bool additionalOptionsOpened
     property bool wasNavigatedTo: false
 
@@ -129,7 +130,7 @@ ListItem {
     }
 
     function getContentWidthMultiplier() {
-        return Functions.isWidescreen(appWindow) ? 0.4 : 1.0
+        return !fullWidthWidescreenContent && Functions.isWidescreen(appWindow) ? 0.4 : 1.0
     }
 
     onClicked: {
