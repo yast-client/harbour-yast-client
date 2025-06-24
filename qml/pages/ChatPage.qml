@@ -95,13 +95,28 @@ Page {
     function toggleMessageSelection(message) {
         for (var i = 0; i < selectedMessages.length; i++) {
             if(selectedMessages[i].id === message.id) {
+                delete selectedMessages[i].properties
                 selectedMessages.splice(i, 1)
                 selectedMessagesChanged()
                 return
             }
         }
+        message.properties = {}
         selectedMessages.push(message)
+        tdLibWrapper.getMessageProperties(message.chat_id, message.id)
         selectedMessagesChanged()
+    }
+    Connections {
+        target: tdLibWrapper
+        onMessagePropertiesReceived: {
+            for (var i = 0; i < selectedMessages.length; i++) {
+                if (selectedMessages[i].id === messageId) {
+                    selectedMessages[i].properties = messageProperties
+                    selectedMessagesChanged()
+                    break
+                }
+            }
+        }
     }
 
     function updateChatPartnerStatusText() {
@@ -2089,7 +2104,7 @@ Page {
                     }
 
                     IconButton {
-                        visible: !chatPage.isSecretChat && selectedMessages.every(function(message){
+                        visible: !chatPage.isSecretChat && selectedMessages.every(function(message) {
                             return message.properties.can_be_forwarded
                         })
                         icon.sourceSize: Qt.size(Theme.iconSizeMedium, Theme.iconSizeMedium)
@@ -2100,7 +2115,7 @@ Page {
                     }
                     IconButton {
                         icon.source: "image://theme/icon-m-delete"
-                        visible: chatInformation.id === chatPage.myUserId || selectedMessages.every(function(message){
+                        visible: chatInformation.id === chatPage.myUserId || selectedMessages.every(function(message) {
                             return message.properties.can_be_deleted_for_all_users
                         })
                         icon.sourceSize: Qt.size(Theme.iconSizeMedium, Theme.iconSizeMedium)
