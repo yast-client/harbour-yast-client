@@ -9,6 +9,7 @@ QtObject {
     property bool autoLoad: true
 
     property var properties: ({stub: true})
+    readonly property bool loaded: !properties.stub
 
     property bool _messagePropertiesLoading
     property var __c1: Connections {
@@ -20,7 +21,7 @@ QtObject {
     }
 
     function load() {
-        if (_messagePropertiesLoading || !properties.stub) return
+        if (_messagePropertiesLoading || loaded) return
         tdLibWrapper.getMessageProperties(loader.chatId, loader.messageId)
         _messagePropertiesLoading = true
     }
