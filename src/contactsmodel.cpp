@@ -27,8 +27,8 @@ namespace {
     const QString STATUS("status");
     const QString ID("id");
     const QString TYPE("type");
-    const QString LAST_NAME("last_name");
     const QString FIRST_NAME("first_name");
+    const QString LAST_NAME("last_name");
     const QString USERNAME("username");
     const QString _TYPE("@type");
     const QString _EXTRA("@extra");
@@ -147,12 +147,16 @@ void ContactsModel::startImportingContacts()
     this->deviceContacts.clear();
 }
 
-void ContactsModel::stopImportingContacts()
-{
+void ContactsModel::stopImportingContacts(bool singleContact) {
     if (!deviceContacts.isEmpty()) {
         LOG("Importing found contacts" << deviceContacts.size());
-        this->tdLibWrapper->importContacts(deviceContacts);
+        this->tdLibWrapper->importContacts(deviceContacts, singleContact ? "single" : "");
     }
+}
+
+void ContactsModel::importContact(const QString &firstName, const QString &lastName, const QString &phoneNumber) {
+    deviceContacts.append(QVariantMap{{FIRST_NAME, firstName}, {LAST_NAME, lastName}, {"phone_number", phoneNumber}});
+    LOG("Found contact" << firstName << lastName << phoneNumber);
 }
 
 void ContactsModel::importContact(const QVariantMap &singlePerson)
@@ -161,12 +165,7 @@ void ContactsModel::importContact(const QVariantMap &singlePerson)
     QVariantList phoneNumbers = singlePerson.value("phoneNumbers").toList();
     if (!firstName.isEmpty() && !phoneNumbers.isEmpty()) {
         for (const QVariant &phoneNumber : phoneNumbers) {
-            QVariantMap singleContact;
-            singleContact.insert("first_name", firstName);
-            singleContact.insert("last_name", singlePerson.value("lastName").toString());
-            singleContact.insert("phone_number", phoneNumber.toString());
-            deviceContacts.append(singleContact);
-            LOG("Found contact" << singleContact.value("first_name").toString() << singleContact.value("last_name").toString() << singleContact.value("phone_number").toString());
+            importContact(firstName, singlePerson.value("lastName").toString(), phoneNumber.toString());
         }
     }
 }

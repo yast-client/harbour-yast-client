@@ -48,7 +48,8 @@ public:
     virtual QVariant data(const QModelIndex &index, int role) const override;
 
     Q_INVOKABLE void startImportingContacts();
-    Q_INVOKABLE void stopImportingContacts();
+    Q_INVOKABLE void stopImportingContacts(bool singleContact = false);
+    Q_INVOKABLE void importContact(const QString &firstName, const QString &lastName, const QString &phoneNumber);
     Q_INVOKABLE void importContact(const QVariantMap &singlePerson);
 
 public slots:
