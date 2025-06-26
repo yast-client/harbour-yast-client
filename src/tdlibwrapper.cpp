@@ -72,6 +72,7 @@ namespace {
     const QString TRANSLATION("translation");
     const QString CONTACT("contact");
     const QString PHONE_NUMBER("phone_number");
+    const QString REMOVE_CONTACTS("removeContacts");
     const QStringList ALL_FILE_TYPES(QStringList()
                                      << "fileTypeAnimation"
                                      << "fileTypeAudio"
@@ -1130,11 +1131,28 @@ void TDLibWrapper::importContacts(const QVariantList &contacts, bool single) {
     this->sendRequest(QVariantMap{{_TYPE, "importContacts"}, {"contacts", contacts}, {_EXTRA, single}});
 }
 
-void TDLibWrapper::addContact(const QString &phone, const QString &firstName, const QString &lastName, qlonglong userId, bool sharePhoneNumber) {
-    LOG("Adding contact");
-    QVariantMap contact{{_TYPE, CONTACT}, {PHONE_NUMBER, phone}, {FIRST_NAME, firstName}, {LAST_NAME, lastName}, {USER_ID, userId}};
-    QVariantMap requestObject{{_TYPE, "addContact"}, {CONTACT, contact}, {"share_phone_number", sharePhoneNumber}};
-    this->sendRequest(requestObject);
+void TDLibWrapper::addContact(qlonglong userId, const QString &firstName, const QString &lastName, const QString &phone, bool sharePhoneNumber) {
+    LOG("Adding contact" << userId << firstName);
+    sendRequest(QVariantMap{
+                          {_TYPE, "addContact"},
+                          {CONTACT, QVariantMap{
+                               {_TYPE, CONTACT},
+                               {PHONE_NUMBER, phone},
+                               {FIRST_NAME, firstName},
+                               {LAST_NAME, lastName},
+                               {USER_ID, userId}
+                           }},
+                          {"share_phone_number", sharePhoneNumber}
+                      });
+}
+
+void TDLibWrapper::removeContacts(QStringList userIds) {
+    sendRequest(QVariantMap{{_TYPE, REMOVE_CONTACTS}, {"user_ids", userIds}});
+}
+
+void TDLibWrapper::removeContact(QString userId) {
+    LOG("Removing contact" << userId);
+    removeContacts(QStringList{userId});
 }
 
 void TDLibWrapper::searchChatMessages(qlonglong chatId, const QString &query, qlonglong fromMessageId)
