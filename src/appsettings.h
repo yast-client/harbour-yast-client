@@ -38,8 +38,8 @@ class AppSettings : public QObject {
     Q_PROPERTY(bool goToQuotedMessage READ goToQuotedMessage WRITE setGoToQuotedMessage NOTIFY goToQuotedMessageChanged)
     Q_PROPERTY(bool storageOptimizer READ storageOptimizer WRITE setStorageOptimizer NOTIFY storageOptimizerChanged)
     Q_PROPERTY(bool allowInlineBotLocationAccess READ allowInlineBotLocationAccess WRITE setAllowInlineBotLocationAccess NOTIFY allowInlineBotLocationAccessChanged)
-    Q_PROPERTY(int remainingInteractionHints READ remainingInteractionHints WRITE setRemainingInteractionHints NOTIFY remainingInteractionHintsChanged)
-    Q_PROPERTY(int remainingDoubleTapHints READ remainingDoubleTapHints WRITE setRemainingDoubleTapHints NOTIFY remainingDoubleTapHintsChanged)
+    Q_PROPERTY(int remainingInteractionHints READ remainingInteractionHints WRITE setRemainingInteractionHints NOTIFY remainingInteractionHintsChanged) // "Tap on the title bar to filter your chats"
+    Q_PROPERTY(int remainingDoubleTapHints READ remainingDoubleTapHints WRITE setRemainingDoubleTapHints NOTIFY remainingDoubleTapHintsChanged) // "Double-tap on a message to choose a reaction" (currently disabled)
     Q_PROPERTY(bool onlineOnlyMode READ onlineOnlyMode WRITE setOnlineOnlyMode NOTIFY onlineOnlyModeChanged)
     Q_PROPERTY(bool delayMessageRead READ delayMessageRead WRITE setDelayMessageRead NOTIFY delayMessageReadChanged)
     Q_PROPERTY(bool focusTextAreaOnChatOpen READ getFocusTextAreaOnChatOpen WRITE setFocusTextAreaOnChatOpen NOTIFY focusTextAreaOnChatOpenChanged)
