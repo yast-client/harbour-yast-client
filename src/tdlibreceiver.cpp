@@ -669,7 +669,7 @@ void TDLibReceiver::ok(const QVariantMap &receivedInformation) {
         LOG(extra.userType());
         if (extra.userType() == QMetaType::QVariantMap) {
             QVariantMap map = extra.toMap();
-            emit okMapReceived(map.take(_TYPE).toString();, map);
+            emit okMapReceived(map.take(_TYPE).toString(), map);
         } else
             emit okReceived(extra.toString());
     }
