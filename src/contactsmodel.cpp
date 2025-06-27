@@ -40,6 +40,8 @@ ContactsModel::ContactsModel(TDLibWrapper *tdLibWrapper, QObject *parent)
     this->tdLibWrapper = tdLibWrapper;
     connect(this->tdLibWrapper, &TDLibWrapper::usersReceived, this, &ContactsModel::handleUsersReceived);
     connect(this->tdLibWrapper, &TDLibWrapper::userUpdated, this, &ContactsModel::handleUserUpdated);
+    connect(this->tdLibWrapper, &TDLibWrapper::contactsImported, this, &ContactsModel::handleContactsImported);
+    connect(this->tdLibWrapper, &TDLibWrapper::okMapReceived, this, &ContactsModel::handleOkMapReceived);
 }
 
 QHash<int, QByteArray> ContactsModel::roleNames() const {
@@ -76,18 +78,21 @@ QVariant ContactsModel::data(const QModelIndex &index, int role) const {
     return QVariant();
 }
 
+void ContactsModel::addUser(const QString &userId) {
+    if (!this->tdLibWrapper->hasUserInformation(userId)) {
+        this->tdLibWrapper->getUserFullInfo(userId);
+    }
+    this->contactIds.append(userId);
+}
+
 void ContactsModel::handleUsersReceived(const QString &extra, const QVariantList &userIds, int totalUsers)
 {
     if (extra == "contactsRequested") {
         LOG("Received contacts list..." << totalUsers);
         this->contactIds.clear();
-        for (const QVariant &userIdVariant : userIds) {
-            const QString userId = userIdVariant.toString();
-            if (!this->tdLibWrapper->hasUserInformation(userId)) {
-                this->tdLibWrapper->getUserFullInfo(userId);
-            }
-            this->contactIds.append(userId);
-        }
+        for (const QVariant &userIdVariant : userIds)
+            addUser(userIdVariant.toString());
+
         std::sort(this->contactIds.begin(), this->contactIds.end(),
                   [this](const QString &a, const QString &b) { return compareUsers(a, b); }
         );
@@ -96,11 +101,10 @@ void ContactsModel::handleUsersReceived(const QString &extra, const QVariantList
 
 void ContactsModel::handleUserUpdated(const QString &userId) {
     int i = contactIds.indexOf(userId);
-    LOG("User" << userId << "updated, checking if we have it in " << contactIds << (i > -1));
     if (i > -1) {
         const QModelIndex modelIndex = index(i);
         emit dataChanged(modelIndex, modelIndex);
-        LOG("Updating user" << userId << data(modelIndex, ContactRole::RoleUserStatus));
+        LOG("Updated user" << userId << data(modelIndex, ContactRole::RoleUserStatus));
 
 
         //auto newIndex = std::upper_bound(contactIds.begin(), contactIds.end(), i);//, [this](const QString &a, const QString &b) { return compareUsers(a, b); });
@@ -108,6 +112,34 @@ void ContactsModel::handleUserUpdated(const QString &userId) {
         //QModelIndex parent;
         //beginMoveRows(parent, a, b, parent, c);
         // todo: sort, and somehow notify the model about this...
+    }
+}
+
+void ContactsModel::handleContactsImported(const QVariantList &/*importerCount*/, const QVariantList &userIds, bool /*single*/) {
+    LOG("Imported" << userIds.size() << "contacts");
+    for (const QVariant &userIdVariant : userIds) {
+        beginInsertRows(QModelIndex(), contactIds.size(), contactIds.size());
+        addUser(userIdVariant.toString());
+        endInsertRows();
+    }
+    // todo: sort
+}
+
+void ContactsModel::handleOkMapReceived(const QString &type, const QVariantMap &extra) {
+    if (type == "removeContacts") {
+        QStringList list = extra["user_ids"].toStringList();
+        LOG("Removed" << list.size() << "contacts");
+        if (list.isEmpty()) return;
+
+        for (QString userId : list) {
+            int i = contactIds.indexOf(userId);
+            if (i < 0) return;
+            beginRemoveRows(QModelIndex(), i, i);
+            contactIds.removeAt(i);
+            endRemoveRows();
+            // here no need to sort
+        }
+        contactsRemoved(list.size() == 1);
     }
 }
 

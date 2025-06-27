@@ -52,9 +52,14 @@ public:
     Q_INVOKABLE void importContact(const QString &firstName, const QString &lastName, const QString &phoneNumber);
     Q_INVOKABLE void importContact(const QVariantMap &singlePerson);
 
+signals:
+    void contactsRemoved(bool single);
+
 public slots:
     void handleUsersReceived(const QString &extra, const QVariantList &userIds, int totalUsers);
     void handleUserUpdated(const QString &userId);
+    void handleContactsImported(const QVariantList &importerCount, const QVariantList &userIds, bool single);
+    void handleOkMapReceived(const QString &type, const QVariantMap &extra);
 
 private:
     TDLibWrapper *tdLibWrapper;
@@ -62,6 +67,7 @@ private:
     QString filter;
     QVariantList deviceContacts;
 
+    void addUser(const QString &userId);
     bool compareUsers(const QString &userId1, const QString &userId2);
 };
 
