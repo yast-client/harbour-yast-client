@@ -138,6 +138,7 @@ TDLibWrapper::TDLibWrapper(AppSettings *settings, MceInterface *mce, QObject *pa
 
     this->setLogVerbosityLevel();
     this->setOptionInteger("notification_group_count_max", 5);
+    this->handleStorageOptimizerChanged(); // set the initial optimizer state
 }
 
 TDLibWrapper::~TDLibWrapper()
@@ -2297,7 +2298,6 @@ QVariantMap& TDLibWrapper::fillTdlibParameters(QVariantMap& parameters)
     parameters.insert("device_model", hardwareSettings.value("NAME", "Unknown Mobile Device").toString());
     parameters.insert("system_version", QSysInfo::prettyProductName());
     parameters.insert("application_version", "0.17");
-    parameters.insert("enable_storage_optimizer", appSettings->storageOptimizer());
     // parameters.insert("use_test_dc", true);
     return parameters;
 }
