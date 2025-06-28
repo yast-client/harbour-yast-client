@@ -302,7 +302,7 @@ AccordionItem {
             TextSwitch {
                 width: parent.columnWidth
                 checked: appSettings.formattedTranslate
-                text: qsTr("Trnslate formatted text")
+                text: qsTr("Translate formatted text")
                 description: qsTr("Without Telegram Premium")
                 automaticCheck: false
                 onClicked: appSettings.formattedTranslate = !checked
