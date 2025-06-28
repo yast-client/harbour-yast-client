@@ -81,7 +81,9 @@ void ContactsListModel::addUser(const QString &userId) {
     if (!this->tdLibWrapper->hasUserInformation(userId)) {
         this->tdLibWrapper->getUserFullInfo(userId);
     }
+    beginInsertRows(QModelIndex(), contactIds.size(), contactIds.size());
     this->contactIds.append(userId);
+    endInsertRows();
 }
 
 void ContactsListModel::handleUsersReceived(const QString &extra, const QVariantList &userIds, int totalUsers)
@@ -115,9 +117,7 @@ void ContactsListModel::handleContactsImported(const QVariantList &/*importerCou
     for (const QVariant &userIdVariant : userIds) {
         const QString userId = userIdVariant.toString();
         if (userId == "0") continue;
-        beginInsertRows(QModelIndex(), contactIds.size(), contactIds.size());
         addUser(userId);
-        endInsertRows();
     }
     if (single) {
         QString userId = userIds.value(0).toString();
@@ -143,20 +143,20 @@ void ContactsListModel::handleOkMapReceived(const QString &type, const QVariantM
 }
 
 bool ContactsListModel::compareUsersByName(const QVariantMap &user1, const QVariantMap &user2) const {
-    const int lastName1 = user1.value(LAST_NAME).toString().size();
-    const int lastName2 = user2.value(LAST_NAME).toString().size();
-    if (lastName1 && lastName1 != lastName2)
-        return lastName1 < lastName2;
-
-    const int firstName1 = user1.value(FIRST_NAME).toString().size();
-    const int firstName2 = user2.value(FIRST_NAME).toString().size();
+    const QString firstName1 = user1.value(FIRST_NAME).toString();
+    const QString firstName2 = user2.value(FIRST_NAME).toString();
     if (firstName1 != firstName2)
         return firstName1 < firstName2;
 
-    const int userName1 = user1.value(USERNAME).toString().size();
-    const int userName2 = user2.value(USERNAME).toString().size();
-    if (userName1 && userName1 != userName2)
-        return userName1 < userName2;
+    const QString lastName1 = user1.value(LAST_NAME).toString();
+    const QString lastName2 = user2.value(LAST_NAME).toString();
+    if (!lastName1.isEmpty() && lastName1 != lastName2)
+        return lastName1 < lastName2;
+
+    const QString username1 = user1.value(USERNAME).toString();
+    const QString username2 = user2.value(USERNAME).toString();
+    if (!username1.isEmpty())
+        return username1 < username2;
 
     return user1.value(ID).toLongLong() < user2.value(ID).toLongLong();
 }
@@ -182,6 +182,7 @@ ContactsModel::ContactsModel(TDLibWrapper *tdLibWrapper, QObject *parent)
     setFilterRole(ContactsListModel::RoleFilter);
     setFilterCaseSensitivity(Qt::CaseInsensitive);
     setDynamicSortFilter(true);
+    sort(0); // initial sort
 
     connect(&contactsListModel, &ContactsListModel::contactsImported, this, &ContactsModel::contactsImported);
     connect(&contactsListModel, &ContactsListModel::singleContactAdded, this, &ContactsModel::singleContactAdded);
