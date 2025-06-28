@@ -133,12 +133,15 @@ TDLibWrapper::TDLibWrapper(AppSettings *settings, MceInterface *mce, QObject *pa
 
     connect(appSettings, &AppSettings::useOpenWithChanged, this, &TDLibWrapper::handleOpenWithChanged);
     connect(appSettings, &AppSettings::storageOptimizerChanged, this, &TDLibWrapper::handleStorageOptimizerChanged);
+    connect(appSettings, &AppSettings::sendMarkdownChanged, this, &TDLibWrapper::handleSendMarkdownChanged);
 
     connect(networkConfigurationManager, &QNetworkConfigurationManager::configurationChanged, this, &TDLibWrapper::handleNetworkConfigurationChanged);
 
     this->setLogVerbosityLevel();
     this->setOptionInteger("notification_group_count_max", 5);
-    this->handleStorageOptimizerChanged(); // set the initial optimizer state
+    // set initial option states
+    this->handleStorageOptimizerChanged();
+    this->handleSendMarkdownChanged();
 }
 
 TDLibWrapper::~TDLibWrapper()
@@ -2087,9 +2090,11 @@ void TDLibWrapper::handleSecretChatUpdated(qlonglong secretChatId, const QVarian
     emit secretChatUpdated(secretChatId, secretChat);
 }
 
-void TDLibWrapper::handleStorageOptimizerChanged()
-{
+void TDLibWrapper::handleStorageOptimizerChanged() {
     setOptionBoolean("use_storage_optimizer", appSettings->storageOptimizer());
+}
+void TDLibWrapper::handleSendMarkdownChanged() {
+    setOptionBoolean("always_parse_markdown", appSettings->sendMarkdown());
 }
 
 void TDLibWrapper::handleErrorReceived(int code, const QString &message, const QVariant &extra) {

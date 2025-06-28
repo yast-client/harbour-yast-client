@@ -48,6 +48,7 @@ namespace {
     const QString KEY_VOICE_NOTE_VOLUME("voiceNoteVolumne");
     const QString SHOW_TRANSLATE_OPTION("showTranslateOption");
     const QString FORMATTED_TRANSLATE("formattedTranslate");
+    const QString SEND_MARKDOWN("sendMarkdown");
 }
 
 AppSettings::AppSettings(QObject *parent) : QObject(parent), settings(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/io.github.roundedrectangle/fernschreiber2/settings.conf", QSettings::NativeFormat)
@@ -414,5 +415,16 @@ void AppSettings::setFormattedTranslate(bool value) {
         LOG(FORMATTED_TRANSLATE << value);
         settings.setValue(FORMATTED_TRANSLATE, value);
         emit formattedTranslateChanged();
+    }
+}
+
+bool AppSettings::sendMarkdown() const {
+    return settings.value(SEND_MARKDOWN, true).toBool();
+}
+void AppSettings::setSendMarkdown(bool value) {
+    if (sendMarkdown() != value) {
+        LOG(SEND_MARKDOWN << value);
+        settings.setValue(SEND_MARKDOWN, value);
+        emit sendMarkdownChanged();
     }
 }

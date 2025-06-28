@@ -307,6 +307,14 @@ AccordionItem {
                 automaticCheck: false
                 onClicked: appSettings.formattedTranslate = !checked
             }
+
+            TextSwitch {
+                width: parent.columnWidth
+                checked: appSettings.sendMarkdown
+                text: qsTr("Parse markdown in messages")
+                automaticCheck: false
+                onClicked: appSettings.sendMarkdown = !checked
+            }
         }
     }
 }

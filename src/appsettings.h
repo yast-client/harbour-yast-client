@@ -51,6 +51,7 @@ class AppSettings : public QObject {
     Q_PROPERTY(bool showTranslateOption READ showTranslateOption WRITE setShowTranslateOption NOTIFY showTranslateOptionChanged)
     Q_PROPERTY(bool formattedTranslate READ formattedTranslate WRITE setFormattedTranslate NOTIFY formattedTranslateChanged)
     Q_PROPERTY(bool videoStickers READ videoStickers WRITE setVideoStickers NOTIFY videoStickersChanged)
+    Q_PROPERTY(bool sendMarkdown READ sendMarkdown WRITE setSendMarkdown NOTIFY sendMarkdownChanged)
 public:
     enum SponsoredMess {
         SponsoredMessHandle,
@@ -150,6 +151,9 @@ public:
     bool videoStickers() const;
     void setVideoStickers(bool value);
 
+    bool sendMarkdown() const;
+    void setSendMarkdown(bool value);
+
 signals:
     void sendByEnterChanged();
     void focusTextAreaAfterSendChanged();
@@ -178,6 +182,7 @@ signals:
     void showTranslateOptionChanged();
     void videoStickersChanged();
     void formattedTranslateChanged();
+    void sendMarkdownChanged();
 
 private:
     QSettings settings;

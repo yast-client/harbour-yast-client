@@ -362,6 +362,11 @@ signals:
     void translationResultReceived(qlonglong extraId, const QVariantMap &formattedText);
 
 public slots:
+    // appSettings
+    void handleOpenWithChanged();
+    void handleStorageOptimizerChanged();
+    void handleSendMarkdownChanged();
+
     void handleVersionDetected(const QString &version);
     void handleAuthorizationStateChanged(const QString &authorizationState, const QVariantMap authorizationStateData);
     void handleOptionUpdated(const QString &optionName, const QVariant &optionValue);
@@ -378,10 +383,8 @@ public slots:
     void handleSuperGroupUpdated(qlonglong groupId, const QVariantMap &groupInformation);
     void handleStickerSets(const QVariantList &stickerSets);
     void handleEmojiSearchCompleted(const QString &queryString, const QVariantList &resultList);
-    void handleOpenWithChanged();
     void handleSecretChatReceived(qlonglong secretChatId, const QVariantMap &secretChat);
     void handleSecretChatUpdated(qlonglong secretChatId, const QVariantMap &secretChat);
-    void handleStorageOptimizerChanged();
     void handleErrorReceived(int code, const QString &message, const QVariant &extra);
     void handleMessageInformation(qlonglong chatId, qlonglong messageId, const QVariantMap &receivedInformation);
     void handleMessageIsPinnedUpdated(qlonglong chatId, qlonglong messageId, bool isPinned);
