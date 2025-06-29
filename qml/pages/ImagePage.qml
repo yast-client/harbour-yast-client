@@ -64,7 +64,7 @@ Page {
     Connections {
         target: tdLibWrapper
         onCopyToDownloadsSuccessful: {
-            appNotification.show(qsTr("Download of %1 successful.").arg(fileName), filePath);
+            appNotification.show(qsTr("Download of %1 successful.").arg(fileName), tdLibWrapper.openFileOnDevice(filePath));
         }
 
         onCopyToDownloadsError: {

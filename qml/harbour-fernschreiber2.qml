@@ -45,7 +45,7 @@ ApplicationWindow {
 
     AppNotification {
         id: appNotification
-        parent: pageStack.currentPage
+        parent: contentItem
     }
 
     Component {
