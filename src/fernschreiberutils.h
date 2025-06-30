@@ -68,6 +68,8 @@ public:
     Q_INVOKABLE inline bool supportsGeoLocation() const { return this->geoPositionInfoSource; }
     Q_INVOKABLE void initiateReverseGeocode(double latitude, double longitude);
 
+    Q_INVOKABLE QVariantList decodeWaveform(QString encodedData);
+
 signals:
     void voiceNoteDurationChanged();
     void voiceNoteRecordingStateChanged();

@@ -598,3 +598,15 @@ QString FernschreiberUtils::getTemporaryDirectoryPath()
 {
     return QStandardPaths::writableLocation(QStandardPaths::TempLocation) +  + "/harbour-fernschreiber2";
 }
+
+QVariantList FernschreiberUtils::decodeWaveform(QString encodedData) {
+    QByteArray waveform = QByteArray::fromBase64(encodedData.toUtf8());
+
+    QVariantList result;
+    for (int i=0; i < (waveform.length() * 8 / 5); i++) {
+        int j = (i * 5) / 8, shift = (i * 5) % 8;
+        result.insert(i, ((waveform[j] | ((j + 1 < waveform.size() ? waveform[j + 1] : 0) << 8)) >> shift & 0x1F) / 31.0);
+    }
+
+    return result;
+}
