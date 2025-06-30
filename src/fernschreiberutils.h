@@ -68,8 +68,8 @@ public:
     Q_INVOKABLE inline bool supportsGeoLocation() const { return this->geoPositionInfoSource; }
     Q_INVOKABLE void initiateReverseGeocode(double latitude, double longitude);
 
-    Q_INVOKABLE QVariantList decodeWaveform(QString encodedData);
     Q_INVOKABLE QString encodeWaveform(QVariantList waveform);
+    Q_INVOKABLE QVariantList getWaveformData(QString encodedData, int count);
 
 signals:
     void voiceNoteDurationChanged();
@@ -94,6 +94,8 @@ private:
 
     QVariant getMaybeFormattedMessageText(const QVariantMap &messageContent, const QString &messageSenderType, qlonglong messageSenderUserId, bool isSponsored, bool simple) const;
     QVariant inline getMaybeFormattedMessageText(const QVariantMap &message, bool simple = false) const;
+
+    QVariantList decodeWaveform(QString encodedData);
 };
 
 #endif // FERNSCHREIBERUTILS_H

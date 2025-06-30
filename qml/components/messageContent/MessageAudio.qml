@@ -37,6 +37,8 @@ MessageContentFileInfoBase {
     tertiaryLabel.visible: (duration || (audioPlayer.duration/1000)) > 0
     tertiaryText: (audioPlayer.position > 0 || audioPlayer.playbackState === Audio.PlayingState ? (Format.formatDuration(audioPlayer.position/1000, Formatter.DurationShort)+" / ") : "") + Format.formatDuration(contentItem.duration > 0 ? contentItem.duration : (audioPlayer.duration/1000), Formatter.DurationShort)
 
+    property alias slider: slider
+
     leftButton {
         icon.source: audioPlayer.playbackState === Audio.PlayingState || (file.isDownloadingActive && audioPlayer.autoPlay) ? "image://theme/icon-m-pause": "image://theme/icon-m-play"
         onClicked: {
@@ -67,6 +69,7 @@ MessageContentFileInfoBase {
     }
 
     Slider {
+        id: slider
         width: parent.width
         anchors {
             left: parent.left

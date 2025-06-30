@@ -632,3 +632,18 @@ QString FernschreiberUtils::encodeWaveform(QVariantList waveform) {
 
     return QString::fromUtf8(result.toBase64());
 }
+
+QVariantList FernschreiberUtils::getWaveformData(QString encodedData, int count) {
+    QVariantList waveform = decodeWaveform(encodedData);
+    if (waveform.size() <= count) return waveform;
+
+    QVariantList result;
+    const double chunk = waveform.size() / count;
+
+    for (int i = 0; i < count; i++) {
+        const double sum = std::accumulate(waveform.begin() + i*chunk, waveform.begin() + (i+1)*chunk, 0.0, [](double a, const QVariant &b) { return a + b.toDouble(); });
+        result.append(((sum / chunk) + 0.06) / 1.06); // make 0 visible
+    }
+
+    return result;
+}
