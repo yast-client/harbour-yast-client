@@ -90,7 +90,7 @@ Page {
                                           })
             }
 
-            SectionHeader { text: qsTr("Options") }
+            SectionHeader { text: "Options" }
             Label {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2*x

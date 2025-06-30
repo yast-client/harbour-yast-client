@@ -639,13 +639,6 @@
     </message>
 </context>
 <context>
-    <name>DebugPage</name>
-    <message>
-        <source>Options</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>EditGroupChatPermissionsColumn</name>
     <message>
         <source>Group Member Permissions</source>
