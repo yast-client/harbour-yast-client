@@ -127,9 +127,17 @@ FernschreiberUtils::FernschreiberUtils(AppSettings *settings, TDLibWrapper *tdLi
     }
 }
 
-FernschreiberUtils::~FernschreiberUtils()
-{
-    this->cleanUp();
+FernschreiberUtils::~FernschreiberUtils() {
+    if (this->geoPositionInfoSource)
+        this->geoPositionInfoSource->stopUpdates();
+    QString temporaryDirectoryPath = this->getTemporaryDirectoryPath();
+    QDirIterator temporaryDirectoryIterator(temporaryDirectoryPath, QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks, QDirIterator::Subdirectories);
+    while (temporaryDirectoryIterator.hasNext()) {
+        QString nextFilePath = temporaryDirectoryIterator.next();
+        if (QFile::remove(nextFilePath))
+            LOG("Temporary file removed " << nextFilePath);
+        else LOG("Error removing temporary file " << nextFilePath);
+    }
 }
 
 QString FernschreiberUtils::fixReservedHtmlCharacters(const QString &text) {
@@ -155,8 +163,7 @@ bool messageInsertionSorter(const QVariantMap &a, const QVariantMap &b) {
 }
 
 QVariantMap FernschreiberUtils::makeDummyFormattedText(const QString &text) {
-    const QVariantMap formattedText{{_TYPE, "formattedText"}, {TEXT, text}};
-    return formattedText;
+    return QVariantMap{{_TYPE, "formattedText"}, {TEXT, text}};
 }
 
 QString FernschreiberUtils::enhanceMessageText(const QVariantMap &formattedText, bool ignoreEntities, bool escapeReserved) {
@@ -281,7 +288,7 @@ QString FernschreiberUtils::enhanceMessageText(const QVariantMap &formattedText,
     return messageText;
 }
 
-QVariant FernschreiberUtils::getMaybeFormattedMessageText(const QVariantMap &message, bool simple) {
+QVariant FernschreiberUtils::getMaybeFormattedMessageText(const QVariantMap &message, bool simple) const {
     const qlonglong messageSenderUserId = message.value(SENDER_ID).toMap().value(USER_ID).toLongLong();
     const QVariantMap messageContent = message.value(CONTENT).toMap();
     const QString contentType = messageContent.value(_TYPE).toString();
@@ -466,24 +473,20 @@ QVariantMap FernschreiberUtils::getFormattedMessageText(const QVariantMap &messa
     return text.toMap();
 }
 
-QString FernschreiberUtils::getUserName(const QVariantMap &userInformation)
-{
+QString FernschreiberUtils::getUserName(const QVariantMap &userInformation) {
     const QString firstName = userInformation.value("first_name").toString();
     const QString lastName = userInformation.value("last_name").toString();
     return QString(firstName + " " + lastName).trimmed();
 }
 
-void FernschreiberUtils::startRecordingVoiceNote()
-{
+void FernschreiberUtils::startRecordingVoiceNote() {
     LOG("Start recording voice note...");
-    QDateTime thisIsNow = QDateTime::currentDateTime();
-    this->audioRecorder.setOutputLocation(QUrl::fromLocalFile(this->getTemporaryDirectoryPath() + "/voicenote-" + thisIsNow.toString("yyyy-MM-dd-HH-mm-ss") + ".ogg"));
+    this->audioRecorder.setOutputLocation(QUrl::fromLocalFile(this->getTemporaryDirectoryPath() + "/voicenote-" + QDateTime::currentDateTime().toString("yyyy-MM-dd-HH-mm-ss") + ".ogg"));
     this->audioRecorder.setVolume(appSettings->voiceNoteVolume());
     this->audioRecorder.record();
 }
 
-void FernschreiberUtils::stopRecordingVoiceNote()
-{
+void FernschreiberUtils::stopRecordingVoiceNote() {
     LOG("Stop recording voice note...");
     this->audioRecorder.stop();
 }
@@ -498,18 +501,14 @@ FernschreiberUtils::VoiceNoteRecordingState FernschreiberUtils::getVoiceNoteReco
     return this->voiceNoteRecordingState;
 }
 
-void FernschreiberUtils::startGeoLocationUpdates()
-{
-    if (this->geoPositionInfoSource) {
+void FernschreiberUtils::startGeoLocationUpdates() {
+    if (this->geoPositionInfoSource)
         this->geoPositionInfoSource->startUpdates();
-    }
 }
 
-void FernschreiberUtils::stopGeoLocationUpdates()
-{
-    if (this->geoPositionInfoSource) {
+void FernschreiberUtils::stopGeoLocationUpdates() {
+    if (this->geoPositionInfoSource)
         this->geoPositionInfoSource->stopUpdates();
-    }
 }
 
 bool FernschreiberUtils::supportsGeoLocation()
@@ -533,10 +532,10 @@ void FernschreiberUtils::initiateReverseGeocode(double latitude, double longitud
     url.setQuery(urlQuery);
     QNetworkRequest request(url);
     request.setHeader(QNetworkRequest::UserAgentHeader, "Fernschreiber (Sailfish OS)");
-    request.setRawHeader(QByteArray("Accept"), QByteArray("application/json"));
-    request.setRawHeader(QByteArray("Accept-Charset"), QByteArray("utf-8"));
-    request.setRawHeader(QByteArray("Connection"), QByteArray("close"));
-    request.setRawHeader(QByteArray("Cache-Control"), QByteArray("max-age=0"));
+    request.setRawHeader("Accept", "application/json");
+    request.setRawHeader("Accept-Charset", "utf-8");
+    request.setRawHeader("Connection", "close");
+    request.setRawHeader("Cache-Control", "max-age=0");
     QNetworkReply *reply = manager->get(request);
     connect(reply, SIGNAL(finished()), this, SLOT(handleReverseGeocodeFinished()));
 }
@@ -604,23 +603,6 @@ void FernschreiberUtils::handleReverseGeocodeFinished()
     if (jsonDocument.isObject()) {
         QJsonObject responseObject = jsonDocument.object();
         emit newGeocodedAddress(responseObject.value("display_name").toString());
-    }
-}
-
-void FernschreiberUtils::cleanUp()
-{
-    if (this->geoPositionInfoSource) {
-        this->geoPositionInfoSource->stopUpdates();
-    }
-    QString temporaryDirectoryPath = this->getTemporaryDirectoryPath();
-    QDirIterator temporaryDirectoryIterator(temporaryDirectoryPath, QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks, QDirIterator::Subdirectories);
-    while (temporaryDirectoryIterator.hasNext()) {
-        QString nextFilePath = temporaryDirectoryIterator.next();
-        if (QFile::remove(nextFilePath)) {
-            LOG("Temporary file removed " << nextFilePath);
-        } else {
-            LOG("Error removing temporary file " << nextFilePath);
-        }
     }
 }
 
