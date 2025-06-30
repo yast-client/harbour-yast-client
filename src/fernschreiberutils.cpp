@@ -301,7 +301,6 @@ QVariant FernschreiberUtils::getMaybeFormattedMessageText(const QVariantMap &mes
         if (simple) return text.arg(captionText);
         return caption;
     };
-    LOG(messageContent.value(CAPTION).toMap() << getCaption("hi %1") << getCaption("hi %1").isValid() << QVariant().isValid());
 
     if (contentType == MESSAGE_CONTENT_TYPE_TEXT)
         return simple ? messageContent.value(TEXT).toMap().value(TEXT)
