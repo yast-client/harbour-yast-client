@@ -14,6 +14,7 @@ Page {
     property var sourceText
     property bool translating
     property string translated
+    property string plainTranslated
 
     property string language: {
         var l = Qt.locale().name.slice(0, 2) // for locales like ru_RU and en_US
@@ -51,6 +52,7 @@ Page {
     Connections {
         target: tdLibWrapper
         onTranslationResultReceived: if (extraId == messageId) {
+                                         plainTranslated = utilities.enhanceMessageText(formattedText, true);
                                          translated = Emoji.emojify(utilities.enhanceMessageText(formattedText, false, !appSettings.formattedTranslate))
                                          translating = false
                                      }
@@ -125,6 +127,11 @@ Page {
                 text: qsTr("Change language")
                 onClicked: pageStack.push(languageSelectorComponent)
             }
+            MenuItem {
+                text: qsTr("Copy")
+                visible: !translating && !!plainTranslated // FIXME: should we use enabled or visible here?
+                onClicked: Clipboard.text = plainTranslated
+            }
         }
 
         Column {
@@ -152,4 +159,8 @@ Page {
             }
         }
     }
+
+    /*PageBusyIndicator {
+        running: translating
+    }*/
 }
