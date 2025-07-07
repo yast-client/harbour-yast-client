@@ -403,7 +403,7 @@ Page {
                 ownUserId: overviewPage.ownUserId
                 isVerified: !!verification_status.is_verified
                 scam: !!verification_status.is_scam
-                fake: verification_status.is_fake
+                fake: !!verification_status.is_fake
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("../pages/ChatPage.qml"), {
                         chatInformation : display,
