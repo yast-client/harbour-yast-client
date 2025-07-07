@@ -152,7 +152,7 @@ Item {
                 photo: linkPreviewData.type.thumbnail
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: pageStack.push(Qt.resolvedUrl("../../pages/EmbeddedPlayerPage.qml", {linkPreviewType: linkPreviewData.type}))
+                    onClicked: pageStack.push(Qt.resolvedUrl("../../pages/EmbeddedPlayerPage.qml"), {linkPreviewType: linkPreviewData.type})
                 }
             }
         }
