@@ -51,7 +51,7 @@ public:
         RoleLastMessageStatus,
         RoleChatMemberStatus,
         RoleSecretChatState,
-        RoleIsVerified,
+        RoleVerificationStatus,
         RoleIsChannel,
         RoleIsMarkedAsUnread,
         RoleIsPinned,

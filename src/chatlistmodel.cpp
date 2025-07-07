@@ -49,7 +49,7 @@ namespace {
     const QString LAST_READ_OUTBOX_MESSAGE_ID("last_read_outbox_message_id");
     const QString SENDING_STATE("sending_state");
     const QString IS_CHANNEL("is_channel");
-    const QString IS_VERIFIED("is_verified");
+    const QString VERIFICATION_STATUS("verification_status");
     const QString IS_MARKED_AS_UNREAD("is_marked_as_unread");
     const QString IS_PINNED("is_pinned");
     const QString PINNED_MESSAGE_ID("pinned_message_id");
@@ -99,7 +99,7 @@ public:
     qlonglong chatId;
     qlonglong order;
     qlonglong groupId;
-    bool verified;
+    QVariantMap verificationStatus;
     TDLibWrapper::ChatType chatType;
     TDLibWrapper::ChatMemberStatus memberStatus;
     TDLibWrapper::SecretChatState secretChatState;
@@ -113,7 +113,6 @@ ChatListModel::ChatData::ChatData(TDLibWrapper *tdLibWrapper, Utilities *utiliti
     chatId(data.value(ID).toLongLong()),
     order(data.value(ORDER).toLongLong()),
     groupId(0),
-    verified(false),
     memberStatus(TDLibWrapper::ChatMemberStatusUnknown),
     secretChatState(TDLibWrapper::SecretChatStateUnknown)
 {
@@ -359,17 +358,15 @@ QVector<int> ChatListModel::ChatData::updateGroup(const TDLibWrapper::Group *gro
     QVector<int> changedRoles;
 
     if (group && groupId == group->groupId) {
-        const TDLibWrapper::ChatMemberStatus groupMemberStatus = group->chatMemberStatus();
-        if (memberStatus != groupMemberStatus) {
-            memberStatus = groupMemberStatus;
+        const TDLibWrapper::ChatMemberStatus memberStatus = group->chatMemberStatus();
+        if (this->memberStatus != memberStatus) {
+            this->memberStatus = memberStatus;
             changedRoles.append(RoleChatMemberStatus);
         }
-        // There's no "is_verified" in "basic_group" but that's ok since
-        // it naturally becomes false
-        const bool groupIsVerified = group->groupInfo.value(IS_VERIFIED).toBool();
-        if (verified != groupIsVerified) {
-            verified = groupIsVerified;
-            changedRoles.append(RoleIsVerified);
+        const QVariantMap verificationStatus = group->groupInfo.value(VERIFICATION_STATUS).toMap();
+        if (this->verificationStatus != verificationStatus) {
+            this->verificationStatus = verificationStatus;
+            changedRoles.append(RoleVerificationStatus);
         }
     }
     return changedRoles;
@@ -456,7 +453,7 @@ QHash<int,QByteArray> ChatListModel::roleNames() const
     roles.insert(ChatListModel::RoleLastMessageStatus, "last_message_status");
     roles.insert(ChatListModel::RoleChatMemberStatus, "chat_member_status");
     roles.insert(ChatListModel::RoleSecretChatState, "secret_chat_state");
-    roles.insert(ChatListModel::RoleIsVerified, "is_verified");
+    roles.insert(ChatListModel::RoleVerificationStatus, "verification_status");
     roles.insert(ChatListModel::RoleIsChannel, "is_channel");
     roles.insert(ChatListModel::RoleIsMarkedAsUnread, "is_marked_as_unread");
     roles.insert(ChatListModel::RoleIsPinned, "is_pinned");
@@ -494,7 +491,7 @@ QVariant ChatListModel::data(const QModelIndex &index, int role) const
         case ChatListModel::RoleLastMessageStatus: return data->senderMessageStatus();
         case ChatListModel::RoleChatMemberStatus: return data->memberStatus;
         case ChatListModel::RoleSecretChatState: return data->secretChatState;
-        case ChatListModel::RoleIsVerified: return data->verified;
+        case ChatListModel::RoleVerificationStatus: return data->verificationStatus;
         case ChatListModel::RoleIsChannel: return data->isChannel();
         case ChatListModel::RoleIsMarkedAsUnread: return data->isMarkedAsUnread();
         case ChatListModel::RoleIsPinned: return data->isPinned();
