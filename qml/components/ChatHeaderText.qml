@@ -2,24 +2,27 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 Item {
-    id: primaryTextRow
-    implicitWidth: primaryText.width + primaryText.anchors.rightMargin + badgesRow.width
-    height: Math.max(primaryText.height, badgesRow.height)
+    property real maxWidth: parent.width
+    width: text.width + badgesRow.width + badgesRow.anchors.leftMargin
+    height: Math.max(text.height, badgesRow.height)
 
-    property alias textItem: primaryText
-    property alias text: primaryText.text
-    property alias font: primaryText.font
-    property alias color: primaryText.color
+    property var verificationStatus: ({})
+    property alias showBadges: badgesRow.visible
 
-    property bool verified
+    property alias textItem: text
+    property alias text: text.text
+    property alias font: text.font
+    property alias color: text.color
+
+    property bool verified: !!verificationStatus.is_verified
+    property bool scam: !!verificationStatus.is_scam
+    property bool fake: !!verificationStatus.is_fake
     property bool muted
-    property bool scam
-    property bool fake
 
     Label {
-        id: primaryText
+        id: text
         anchors.verticalCenter: parent.verticalCenter
-        width: Math.min(contentColumn.width - badgesRow.width - badgesRow.anchors.leftMargin, implicitWidth)
+        width: Math.min(maxWidth - badgesRow.width - badgesRow.anchors.leftMargin, implicitWidth)
 
         textFormat: Text.StyledText
         font.pixelSize: Theme.fontSizeMedium
@@ -30,8 +33,9 @@ Item {
     Row {
         id: badgesRow
         anchors {
-            left: primaryText.right
+            left: text.right
             leftMargin: Theme.paddingSmall
+            verticalCenter: parent.verticalCenter
         }
         spacing: Theme.paddingMedium
 

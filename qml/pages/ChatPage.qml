@@ -893,18 +893,20 @@ Page {
                     height: chatNameText.height + chatStatusText.height
                     anchors.bottom: parent.bottom
                     anchors.bottomMargin: chatPage.isPortrait ? Theme.paddingMedium : Theme.paddingSmall
-                    Label {
+                    ChatHeaderText {
                         id: chatNameText
-                        width: Math.min(implicitWidth, parent.width)
                         anchors.right: parent.right
+
+                        verificationStatus: chatGroupInformation.verification_status
+                        // do not show muted badge
+
                         text: chatInformation.title !== "" ? Emoji.emojify(Functions.textFixReserved(chatInformation.title), font.pixelSize) : qsTr("Unknown")
-                        textFormat: Text.StyledText
                         font.pixelSize: chatPage.isPortrait ? Theme.fontSizeLarge : Theme.fontSizeMedium
                         font.family: Theme.fontFamilyHeading
                         color: Theme.highlightColor
-                        truncationMode: TruncationMode.Fade
-                        maximumLineCount: 1
+                        textItem.maximumLineCount: 1
                     }
+
                     Label {
                         id: chatStatusText
                         width: Math.min(implicitWidth, parent.width)
