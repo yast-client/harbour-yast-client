@@ -19,7 +19,6 @@
 import QtQuick 2.6
 import QtGraphicalEffects 1.0
 import Sailfish.Silica 1.0
-import Sailfish.WebView 1.0
 import WerkWolf.Fernschreiber 1.0
 import ".."
 import "../../js/functions.js" as Functions
@@ -153,59 +152,7 @@ Item {
                 photo: linkPreviewData.type.thumbnail
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: pageStack.push(embeddedPlayerPageComponent)
-
-                    Component {
-                        id: embeddedPlayerPageComponent
-                        FullscreenContentPage {
-                            MouseArea {
-                                width: parent.width
-                                anchors.bottom: webView.top
-                                onClicked: closeButton.enabled = !closeButton.enabled
-                            }
-
-                            WebView {
-                                id: webView
-                                url: linkPreviewData.type.url
-                                width: parent.width
-                                height: width / (linkPreviewData.type.width / linkPreviewData.type.height)
-                                anchors.verticalCenter: parent.verticalCenter
-                            }
-
-                            MouseArea {
-                                width: parent.width
-                                anchors {
-                                    top: webView.bottom
-                                    bottom: parent.bottom
-                                }
-                                onClicked: closeButton.enabled = !closeButton.enabled
-                            }
-
-                            IconButton {
-                               id: closeButton
-                               icon.source: "image://theme/icon-m-cancel?" + (pressed
-                                            ? Theme.highlightColor
-                                            : Theme.lightPrimaryColor)
-                               onClicked: pageStack.pop()
-                               anchors {
-                                   right: parent.right
-                                   top: parent.top
-                                   margins: Theme.horizontalPageMargin
-                               }
-                               opacity: enabled ? 1 : 0
-                               Behavior on opacity { FadeAnimator {} }
-                               onEnabledChanged: if (enabled) hideCloseButtonTimer.start()
-                                                 else hideCloseButtonTimer.stop()
-                            }
-
-                            Timer {
-                                id: hideCloseButtonTimer
-                                running: true
-                                interval: 3000
-                                onTriggered: closeButton.enabled = false
-                            }
-                        }
-                    }
+                    onClicked: pageStack.push(Qt.resolvedUrl("../../pages/EmbeddedPlayerPage.qml", {linkPreviewType: linkPreviewData.type}))
                 }
             }
         }
