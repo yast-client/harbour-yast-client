@@ -174,6 +174,17 @@
     </message>
 </context>
 <context>
+    <name>ChatHeaderText</name>
+    <message>
+        <source>SCAM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>FAKE</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ChatInformationPageContent</name>
     <message numerus="yes">
         <source>%1 subscribers</source>
@@ -285,6 +296,14 @@
     <message>
         <source>Channel</source>
         <translation type="unfinished">Channel</translation>
+    </message>
+    <message>
+        <source>View discussion</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View linked channel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

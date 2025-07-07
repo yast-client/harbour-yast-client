@@ -6,7 +6,7 @@ import "../js/functions.js" as Functions
 ListItem {
     id: chatListViewItem
 
-    property alias primaryText: primaryText //usually chat name
+    property alias primaryText: primaryTextRow.textItem //usually chat name
     property alias prologSecondaryText: prologSecondaryText //usually last sender name
     property alias secondaryText: secondaryText //usually last message
     property alias tertiaryText: tertiaryText //usually last message date
@@ -15,11 +15,13 @@ ListItem {
     property int unreadCount: 0
     property int unreadMentionCount: 0
     property int unreadReactionCount: 0
-    property bool isSecret: false
-    property bool isVerified: false
-    property bool isMarkedAsUnread: false
-    property bool isPinned: false
-    property bool isMuted: false
+    property bool isSecret
+    property bool isVerified
+    property bool scam
+    property bool fake
+    property bool isMarkedAsUnread
+    property bool isPinned
+    property bool isMuted
     property alias pictureThumbnail: pictureThumbnail
 
     contentHeight: Theme.itemSizeExtraLarge
@@ -152,41 +154,19 @@ ListItem {
         }
         spacing: Theme.paddingSmall / 2
 
-        Row {
+        ChatHeaderText {
             id: primaryTextRow
-            spacing: Theme.paddingMedium
+            width: parent.width
 
-            Label {
-                id: primaryText
-                textFormat: Text.StyledText
-                font.pixelSize: Theme.fontSizeMedium
-                truncationMode: TruncationMode.Fade
-                anchors.verticalCenter: parent.verticalCenter
-                width: Math.min(contentColumn.width - (verifiedImage.visible ? (verifiedImage.width + primaryTextRow.spacing) :  0) - (mutedImage.visible ? (mutedImage.width + primaryTextRow.spacing) :  0), implicitWidth)
-                font.bold: appSettings.highlightUnreadConversations && ( !chatListViewItem.isMuted && (chatListViewItem.unreadCount > 0 || chatListViewItem.isMarkedAsUnread) )
-                font.italic: appSettings.highlightUnreadConversations  && (chatListViewItem.unreadReactionCount > 0)
-                color: (appSettings.highlightUnreadConversations && (chatListViewItem.unreadCount > 0)) ? Theme.highlightColor : Theme.primaryColor
-            }
+            font.pixelSize: Theme.fontSizeMedium
+            font.bold: appSettings.highlightUnreadConversations && ( !chatListViewItem.isMuted && (chatListViewItem.unreadCount > 0 || chatListViewItem.isMarkedAsUnread) )
+            font.italic: appSettings.highlightUnreadConversations  && (chatListViewItem.unreadReactionCount > 0)
+            color: (appSettings.highlightUnreadConversations && (chatListViewItem.unreadCount > 0)) ? Theme.highlightColor : Theme.primaryColor
 
-            Image {
-                id: verifiedImage
-                anchors.verticalCenter: parent.verticalCenter
-                source: chatListViewItem.isVerified ? "../../images/icon-verified.svg" : ""
-                sourceSize: Qt.size(Theme.iconSizeExtraSmall, Theme.iconSizeExtraSmall)
-                width: Theme.iconSizeSmall
-                height: Theme.iconSizeSmall
-                visible: status === Image.Ready
-            }
-
-            Image {
-                id: mutedImage
-                anchors.verticalCenter: parent.verticalCenter
-                source: chatListViewItem.isMuted ? "../js/emoji/1f507.svg" : ""
-                sourceSize: Qt.size(Theme.iconSizeExtraSmall, Theme.iconSizeExtraSmall)
-                width: Theme.iconSizeSmall
-                height: Theme.iconSizeSmall
-                visible: status === Image.Ready
-            }
+            verified: chatListViewItem.isVerified
+            muted: chatListViewItem.isMuted
+            scam: chatListViewItem.scam
+            fake: chatListViewItem.fake
         }
 
         Row {

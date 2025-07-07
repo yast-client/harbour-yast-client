@@ -46,6 +46,7 @@ SOURCES += src/harbour-fernschreiber2.cpp \
 DISTFILES += qml/harbour-fernschreiber2.qml \
     qml/components/AudioPreview.qml \
     qml/components/BackgroundImage.qml \
+    qml/components/ChatHeaderText.qml \
     qml/components/ChatListViewItem.qml \
     qml/components/ContactSync.qml \
     qml/components/DocumentPreview.qml \
@@ -77,6 +78,7 @@ DISTFILES += qml/harbour-fernschreiber2.qml \
     qml/components/TDLibSticker.qml \
     qml/components/TDLibThumbnail.qml \
     qml/components/TDLibVideo.qml \
+    qml/components/TextBadge.qml \
     qml/components/VoiceNoteOverlay.qml \
     qml/components/chatInformationPage/ChatInformationPageContent.qml \
     qml/components/chatInformationPage/ChatInformationProfilePicture.qml \
