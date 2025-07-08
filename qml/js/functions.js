@@ -130,16 +130,6 @@ var ltRegExp = /</g;
 var gtRegExp = />/g;
 
 
-function messageInsertionSorter(a, b) {
-    if ((b.offset + b.removeLength) > (a.offset + a.removeLength)) {
-        return 1;
-    }
-    if ((b.offset + b.removeLength) < (a.offset + a.removeLength)) {
-        return -1;
-    }
-    return b.offset - a.offset;
-}
-
 function enhanceMessageText(formattedText, ignoreEntities, emojiSize, reloader) {
     if (typeof formattedText === 'undefined') return ''
     return utilities.enhanceMessageText(formattedText, ignoreEntities)
