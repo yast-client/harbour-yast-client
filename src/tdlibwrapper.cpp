@@ -48,6 +48,7 @@ namespace {
     const QString MESSAGE_ID("message_id");
     const QString MESSAGE_IDS("message_ids");
     const QString TYPE("type");
+    const QString CAPTION("caption");
     const QString LAST_NAME("last_name");
     const QString FIRST_NAME("first_name");
     const QString USERNAME("username");
@@ -419,7 +420,7 @@ void TDLibWrapper::sendFileMessage(const QString &messageType, const QString &fi
     QVariantMap requestObject(newSendMessageRequest(chatId, replyToMessageId));
     requestObject.insert(INPUT_MESSAGE_CONTENT, QVariantMap{
                              {_TYPE, messageType},
-                             {"caption", Utilities::newFormattedText(message)},
+                             {CAPTION, Utilities::enhanceInputText(message)},
                              {fileType, QVariantMap{{_TYPE, TYPE_INPUT_FILE_LOCAL}, {PATH, filePath}}}
                          });
     this->sendRequest(requestObject);
@@ -611,7 +612,7 @@ void TDLibWrapper::editMessageText(const QString &chatId, const QString &message
         {MESSAGE_ID, messageId},
         {INPUT_MESSAGE_CONTENT, QVariantMap{
             {_TYPE, "inputMessageText"},
-            {TEXT, QVariantMap{{TEXT, message}}}
+            {TEXT, Utilities::enhanceInputText(message)}
         }}
     });
 }
@@ -622,7 +623,7 @@ void TDLibWrapper::editMessageCaption(const QString &chatId, const QString &mess
         {_TYPE, "editMessageCaption"},
         {CHAT_ID, chatId},
         {MESSAGE_ID, messageId},
-        {"caption", Utilities::newFormattedText(caption)}
+        {CAPTION, Utilities::enhanceInputText(caption)}
     });
 }
 
