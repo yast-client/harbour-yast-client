@@ -129,9 +129,6 @@ var ampRegExp = /&/g;
 var ltRegExp = /</g;
 var gtRegExp = />/g;
 
-function enhanceHtmlEntities(simpleText) {
-    return simpleText.replace(ampRegExp, "&amp;").replace(ltRegExp, "&lt;").replace(gtRegExp, "&gt;");//.replace(rawNewLineRegExp, "<br>");
-}
 
 function messageInsertionSorter(a, b) {
     if ((b.offset + b.removeLength) > (a.offset + a.removeLength)) {
@@ -141,10 +138,6 @@ function messageInsertionSorter(a, b) {
         return -1;
     }
     return b.offset - a.offset;
-}
-
-function textFixReserved(text) {
-    return text.replace(ampRegExp, "&amp;").replace(ltRegExp, "&lt;").replace(gtRegExp, "&gt;").replace(rawNewLineRegExp, "<br>");
 }
 
 function enhanceMessageText(formattedText, ignoreEntities, emojiSize, reloader) {

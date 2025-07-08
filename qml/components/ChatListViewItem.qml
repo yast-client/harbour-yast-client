@@ -16,11 +16,11 @@ PhotoTextsListItem {
     property string previewText: showDraft ? draft_message_text : last_message_text
 
     // chat title
-    primaryText.text: title ? Emoji.emojify(Functions.textFixReserved(title), Theme.fontSizeMedium) : qsTr("Unknown")
+    primaryText.text: title ? Emoji.emojify(utilities.fixReservedHtmlCharacters(title), Theme.fontSizeMedium) : qsTr("Unknown")
     // last user
     prologSecondaryText.text: showDraft ? "<i>"+qsTr("Draft")+"</i>" : (is_channel ? "" : ( last_message_sender_id ? ( last_message_sender_id !== ownUserId ? Emoji.emojify(Functions.getUserName(tdLibWrapper.getUserInformation(last_message_sender_id)), Theme.fontSizeExtraSmall) : qsTr("You") ) : "" ))
     // last message
-    secondaryText.text: previewText ? Emoji.emojify(Functions.enhanceHtmlEntities(previewText), Theme.fontSizeExtraSmall) : "<i>" + qsTr("No message in this chat.") + "</i>"
+    secondaryText.text: previewText ? Emoji.emojify(utilities.fixReservedHtmlCharacters(previewText), Theme.fontSizeExtraSmall) : "<i>" + qsTr("No message in this chat.") + "</i>"
     // message date
     tertiaryText.text: showDraft ? Functions.getDateTimeElapsed(draft_message_date) : (last_message_date ? (last_message_date.length === 0 ? "" : Functions.getDateTimeElapsed(last_message_date) + Emoji.emojify(last_message_status, tertiaryText.font.pixelSize)) : "")
     unreadCount: unread_count

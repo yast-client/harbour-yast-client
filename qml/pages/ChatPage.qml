@@ -889,7 +889,7 @@ Page {
                         verificationStatus: chatGroupInformation ? chatGroupInformation.verification_status : null
                         // do not show muted badge
 
-                        text: chatInformation.title !== "" ? Emoji.emojify(Functions.textFixReserved(chatInformation.title), font.pixelSize) : qsTr("Unknown")
+                        text: chatInformation.title !== "" ? Emoji.emojify(utilities.fixReservedHtmlCharacters(chatInformation.title), font.pixelSize) : qsTr("Unknown")
                         font.pixelSize: chatPage.isPortrait ? Theme.fontSizeLarge : Theme.fontSizeMedium
                         font.family: Theme.fontFamilyHeading
                         color: Theme.highlightColor
