@@ -9,26 +9,17 @@ FullscreenContentPage {
 
     MouseArea {
         width: parent.width
-        anchors.bottom: webView.top
+        anchors.fill: parent
         onClicked: closeButton.enabled = !closeButton.enabled
     }
 
     WebView {
         id: webView
-        anchors.centerIn: parent
         url: linkPreviewType.url
 
+        anchors.centerIn: parent
         width: parent.width > parent.height ? (parent.height / (linkPreviewType.height / linkPreviewType.width)) : parent.width
         height: parent.width <= parent.height ? (parent.width / (linkPreviewType.width / linkPreviewType.height)) : parent.height
-    }
-
-    MouseArea {
-        width: parent.width
-        anchors {
-            top: webView.bottom
-            bottom: parent.bottom
-        }
-        onClicked: closeButton.enabled = !closeButton.enabled
     }
 
     IconButton {
