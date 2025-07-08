@@ -36,7 +36,10 @@
 class TDLibWrapper : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(AuthorizationState authorizationState READ getAuthorizationState NOTIFY authorizationStateChanged)
+    Q_PROPERTY(AuthorizationState authorizationState MEMBER authorizationState NOTIFY authorizationStateChanged)
+    Q_PROPERTY(QVariantMap authorizationStateData MEMBER authorizationStateData NOTIFY authorizationStateChanged)
+    Q_PROPERTY(QString version MEMBER versionString)
+    Q_PROPERTY(ConnectionState connectionState MEMBER connectionState NOTIFY connectionStateChanged)
     Q_PROPERTY(QVariantMap userInformation READ getUserInformation NOTIFY ownUserUpdated)
     Q_PROPERTY(QVariantMap options MEMBER options NOTIFY optionUpdated)
 
@@ -134,10 +137,6 @@ public:
         QVariantMap groupInfo;
     };
 
-    Q_INVOKABLE QString getVersion();
-    Q_INVOKABLE TDLibWrapper::AuthorizationState getAuthorizationState();
-    Q_INVOKABLE QVariantMap getAuthorizationStateData();
-    Q_INVOKABLE TDLibWrapper::ConnectionState getConnectionState();
     Q_INVOKABLE QVariantMap getUserInformation();
     Q_INVOKABLE QVariantMap getUserInformation(const QString &userId);
     Q_INVOKABLE bool hasUserInformation(const QString &userId);

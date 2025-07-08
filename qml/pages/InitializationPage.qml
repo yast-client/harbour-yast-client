@@ -26,10 +26,8 @@ Page {
     backNavigation: false
 
     property bool loading: true
-    property var authorizationStateData: null
 
     Component.onCompleted: {
-        initializationPage.authorizationStateData = tdLibWrapper.getAuthorizationStateData();
         initializationPage.loading = false;
 
         switch (tdLibWrapper.authorizationState) {
@@ -92,7 +90,6 @@ Page {
             default:
                 // Nothing ;)
             }
-            initializationPage.authorizationStateData = authorizationStateData;
         }
     }
 
@@ -348,8 +345,8 @@ Page {
                     textFormat: Text.StyledText
                     horizontalAlignment: Text.AlignLeft
                     linkColor: Theme.primaryColor
-                    property var stateText: initializationPage.authorizationStateData.authorization_state && initializationPage.authorizationStateData.authorization_state.terms_of_service ?
-                                                   initializationPage.authorizationStateData.authorization_state.terms_of_service.text :
+                    property var stateText: tdLibWrapper.authorizationStateData && tdLibWrapper.authorizationStateData.terms_of_service ?
+                                                   tdLibWrapper.authorizationStateData.terms_of_service.text :
                                                    null
                     visible: !!stateText && !acknowledged
                     text: {

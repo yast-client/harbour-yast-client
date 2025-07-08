@@ -251,26 +251,6 @@ void TDLibWrapper::sendRequest(const QVariantMap &requestObject)
     td_json_client_send(this->tdLibClient, requestDocument.toJson().constData());
 }
 
-QString TDLibWrapper::getVersion()
-{
-    return this->versionString;
-}
-
-TDLibWrapper::AuthorizationState TDLibWrapper::getAuthorizationState()
-{
-    return this->authorizationState;
-}
-
-QVariantMap TDLibWrapper::getAuthorizationStateData()
-{
-    return this->authorizationStateData;
-}
-
-TDLibWrapper::ConnectionState TDLibWrapper::getConnectionState()
-{
-    return this->connectionState;
-}
-
 void TDLibWrapper::setAuthenticationPhoneNumber(const QString &phoneNumber)
 {
     LOG("Set authentication phone number " << phoneNumber);

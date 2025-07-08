@@ -29,55 +29,19 @@ CoverBackground {
     property int unreadMessages: 0
     property int unreadChats: 0
     readonly property bool authenticated: tdLibWrapper.authorizationState === TelegramAPI.AuthorizationReady
-    property int connectionState: TelegramAPI.WaitingForNetwork
-
-    function setUnreadInfoText() {
-
-        unreadMessagesText.text = qsTr("unread messages", "", coverPage.unreadMessages);
-        unreadChatsText.text = qsTr("chats", "", coverPage.unreadChats)
-
-        switch (coverPage.connectionState) {
-        case TelegramAPI.WaitingForNetwork:
-            connectionStateText.text = qsTr("Waiting for network...");
-            break;
-        case TelegramAPI.Connecting:
-            connectionStateText.text = qsTr("Connecting to network...");
-            break;
-        case TelegramAPI.ConnectingToProxy:
-            connectionStateText.text = qsTr("Connecting to proxy...");
-            break;
-        case TelegramAPI.ConnectionReady:
-            connectionStateText.text = qsTr("Connected");
-            break;
-        case TelegramAPI.Updating:
-            connectionStateText.text = qsTr("Updating content...");
-            break;
-        }
-    }
 
     Component.onCompleted: {
-        coverPage.connectionState = tdLibWrapper.getConnectionState();
         coverPage.unreadMessages = tdLibWrapper.getUnreadMessageInformation().unread_count || 0;
         coverPage.unreadChats = tdLibWrapper.getUnreadChatInformation().unread_count || 0;
-        setUnreadInfoText();
     }
 
     Connections {
         target: tdLibWrapper
         onUnreadMessageCountUpdated: {
             coverPage.unreadMessages = messageCountInformation.unread_count;
-            setUnreadInfoText();
         }
         onUnreadChatCountUpdated: {
             coverPage.unreadChats = chatCountInformation.unread_count;
-            setUnreadInfoText();
-        }
-        onAuthorizationStateChanged: {
-            setUnreadInfoText();
-        }
-        onConnectionStateChanged: {
-            coverPage.connectionState = connectionState;
-            setUnreadInfoText();
         }
     }
 
@@ -86,7 +50,6 @@ CoverBackground {
         onUnreadStateChanged: {
             coverPage.unreadMessages = unreadMessagesCount;
             coverPage.unreadChats = unreadChatsCount;
-            setUnreadInfoText();
         }
     }
 
@@ -120,7 +83,7 @@ CoverBackground {
                 text: Functions.getShortenedCount(coverPage.unreadMessages)
             }
             Label {
-                id: unreadMessagesText
+                text: qsTr("unread messages", "", coverPage.unreadMessages)
                 font.pixelSize: Theme.fontSizeExtraSmall
                 width: parent.width - unreadMessagesCountText.width - Theme.paddingMedium
                 wrapMode: Text.Wrap
@@ -148,7 +111,7 @@ CoverBackground {
                 text: Functions.getShortenedCount(coverPage.unreadChats)
             }
             Text {
-                id: unreadChatsText
+                text: qsTr("chats", "", coverPage.unreadChats)
                 font.pixelSize: Theme.fontSizeExtraSmall
                 color: Theme.primaryColor
                 width: parent.width - unreadChatsCountText.width - inText.width - ( 2 * Theme.paddingMedium )
@@ -159,6 +122,18 @@ CoverBackground {
 
         Text {
             id: connectionStateText
+            text: switch (tdLibWrapper.connectionState) {
+            case TelegramAPI.WaitingForNetwork:
+                return qsTr("Waiting for network...")
+            case TelegramAPI.Connecting:
+                return qsTr("Connecting to network...")
+            case TelegramAPI.ConnectingToProxy:
+                return qsTr("Connecting to proxy...")
+            case TelegramAPI.ConnectionReady:
+                return qsTr("Connected")
+            case TelegramAPI.Updating:
+                return qsTr("Updating content...")
+            }
             font.pixelSize: Theme.fontSizeLarge
             color: Theme.highlightColor
             visible: coverPage.authenticated

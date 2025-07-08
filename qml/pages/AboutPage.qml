@@ -165,7 +165,7 @@ AboutPageBase {
             ]
         },
         InfoSection {
-            text: qsTr("TDLib version %1").arg(tdLibWrapper.getVersion())
+            text: qsTr("TDLib version %1").arg(tdLibWrapper.version)
         }
 
     ]

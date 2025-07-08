@@ -32,7 +32,6 @@ Page {
     property bool initializationCompleted: false;
     property bool loading: true;
     property bool logoutLoading: false;
-    property int connectionState: TelegramAPI.WaitingForNetwork
     property int ownUserId;
     property bool chatListCreated: false;
 
@@ -158,39 +157,12 @@ Page {
         processUrlToOpen()
     }
 
-    function setPageStatus() {
-        switch (overviewPage.connectionState) {
-        case TelegramAPI.WaitingForNetwork:
-            pageStatus.color = "red";
-            pageHeader.title = qsTr("Waiting for network...");
-            break;
-        case TelegramAPI.Connecting:
-            pageStatus.color = "gold";
-            pageHeader.title = qsTr("Connecting to network...");
-            break;
-        case TelegramAPI.ConnectingToProxy:
-            pageStatus.color = "gold";
-            pageHeader.title = qsTr("Connecting to proxy...");
-            break;
-        case TelegramAPI.ConnectionReady:
-            pageStatus.color = "green";
-            pageHeader.title = "Ferniegram"
-            break;
-        case TelegramAPI.Updating:
-            pageStatus.color = "lightblue";
-            pageHeader.title = qsTr("Updating content...");
-            break;
-        }
-    }
-
     function updateContent() {
         tdLibWrapper.getChats();
     }
 
     function initializePage() {
         overviewPage.handleAuthorizationState(true);
-        overviewPage.connectionState = tdLibWrapper.getConnectionState();
-        overviewPage.setPageStatus();
     }
 
     function handleAuthorizationState(isOnInitialization) {
@@ -246,10 +218,6 @@ Page {
         target: tdLibWrapper
         onAuthorizationStateChanged: {
             handleAuthorizationState(false);
-        }
-        onConnectionStateChanged: {
-            overviewPage.connectionState = connectionState;
-            setPageStatus();
         }
         onOwnUserIdFound: {
             overviewPage.ownUserId = ownUserId;
@@ -355,6 +323,39 @@ Page {
                 cache: false
                 anchors.bottom: parent.bottom
             }
+
+            states: [
+                State {
+                    name: "WaitingForNetwork"
+                    when: tdLibWrapper.connectionState == TelegramAPI.WaitingForNetwork
+                    PropertyChanges { target: pageStatus; color: "red" }
+                    PropertyChanges { target: pageHeader; title: qsTr("Waiting for network...") }
+                },
+                State {
+                    name: "Connecting"
+                    when: tdLibWrapper.connectionState == TelegramAPI.Connecting
+                    PropertyChanges { target: pageStatus; color: "gold" }
+                    PropertyChanges { target: pageHeader; title: qsTr("Connecting for network...") }
+                },
+                State {
+                    name: "ConnectingToProxy"
+                    when: tdLibWrapper.connectionState == TelegramAPI.ConnectingToProxy
+                    PropertyChanges { target: pageStatus; color: "gold" }
+                    PropertyChanges { target: pageHeader; title: qsTr("Connecting to proxy...") }
+                },
+                State {
+                    name: "ConnectionReady"
+                    when: tdLibWrapper.connectionState == TelegramAPI.ConnectionReady
+                    PropertyChanges { target: pageStatus; color: "green" }
+                    PropertyChanges { target: pageHeader; title: "Ferniegram" }
+                },
+                State {
+                    name: "Updating"
+                    when: tdLibWrapper.connectionState == TelegramAPI.Updating
+                    PropertyChanges { target: pageStatus; color: "lightblue" }
+                    PropertyChanges { target: pageHeader; title: "Updating content..." }
+                }
+            ]
 
             MouseArea {
                 anchors.fill: parent
