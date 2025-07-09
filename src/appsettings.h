@@ -46,7 +46,6 @@ class AppSettings : public QObject {
     Q_PROPERTY(SponsoredMess sponsoredMess READ getSponsoredMess WRITE setSponsoredMess NOTIFY sponsoredMessChanged)
     Q_PROPERTY(bool highlightUnreadConversations READ highlightUnreadConversations WRITE setHighlightUnreadConversations NOTIFY highlightUnreadConversationsChanged)
     Q_PROPERTY(bool sendAttachmentByEnter READ sendAttachmentByEnter WRITE setSendAttachmentByEnter NOTIFY sendAttachmentByEnterChanged)
-    Q_PROPERTY(bool superCompactMessageMenu READ superCompactMessageMenu WRITE setSuperCompactMessageMenu NOTIFY superCompactMessageMenuChanged)
     Q_PROPERTY(qreal voiceNoteVolume READ voiceNoteVolume WRITE setVoiceNoteVolume NOTIFY voiceNoteVolumeChanged)
     Q_PROPERTY(bool showTranslateOption READ showTranslateOption WRITE setShowTranslateOption NOTIFY showTranslateOptionChanged)
     Q_PROPERTY(bool formattedTranslate READ formattedTranslate WRITE setFormattedTranslate NOTIFY formattedTranslateChanged)
@@ -136,9 +135,6 @@ public:
     bool sendAttachmentByEnter() const;
     void setSendAttachmentByEnter(bool enable);
 
-    bool superCompactMessageMenu() const;
-    void setSuperCompactMessageMenu(bool enable);
-
     qreal voiceNoteVolume() const;
     void setVoiceNoteVolume(qreal value);
 
@@ -177,7 +173,6 @@ signals:
     void sponsoredMessChanged();
     void highlightUnreadConversationsChanged();
     void sendAttachmentByEnterChanged();
-    void superCompactMessageMenuChanged();
     void voiceNoteVolumeChanged();
     void showTranslateOptionChanged();
     void videoStickersChanged();

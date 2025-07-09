@@ -44,7 +44,6 @@ namespace {
     const QString KEY_SPONSORED_MESS("sponsoredMess");
     const QString KEY_HIGHLIGHT_UNREADCONVS("highlightUnreadConversations");
     const QString KEY_SEND_ATTACHMENT_BY_ENTER("sendAttachmentByEnter");
-    const QString KEY_SUPER_COMPACT_MESSAGE_MENU("superCompactMessageMenu");
     const QString KEY_VOICE_NOTE_VOLUME("voiceNoteVolumne");
     const QString SHOW_TRANSLATE_OPTION("showTranslateOption");
     const QString FORMATTED_TRANSLATE("formattedTranslate");
@@ -371,17 +370,6 @@ void AppSettings::setSendAttachmentByEnter(bool enable) {
         LOG(KEY_SEND_ATTACHMENT_BY_ENTER << enable);
         settings.setValue(KEY_SEND_ATTACHMENT_BY_ENTER, enable);
         emit sendAttachmentByEnterChanged();
-    }
-}
-
-bool AppSettings::superCompactMessageMenu() const {
-    return settings.value(KEY_SUPER_COMPACT_MESSAGE_MENU).toBool();
-}
-void AppSettings::setSuperCompactMessageMenu(bool enable) {
-    if (superCompactMessageMenu() != enable) {
-        LOG(KEY_SUPER_COMPACT_MESSAGE_MENU << enable);
-        settings.setValue(KEY_SUPER_COMPACT_MESSAGE_MENU, enable);
-        emit superCompactMessageMenuChanged();
     }
 }
 

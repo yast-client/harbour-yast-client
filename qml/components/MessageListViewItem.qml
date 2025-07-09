@@ -206,10 +206,7 @@ ListItem {
                 propertiesLoader.reset()
         }
 
-        sourceComponent: appSettings.superCompactMessageMenu ? compactContextMenuComponent : contextMenuComponent
-
-        Component {
-            id: contextMenuComponent
+        sourceComponent: Component {
             FancyContextMenu {
                 listItem: messageListItem
                 onActiveChanged: if (active) propertiesLoader.load()
@@ -287,63 +284,6 @@ ListItem {
                         if (extraContentLoader.item.extraContextMenuItems[i].processProperties)
                             extraContentLoader.item.extraContextMenuItems[i].processProperties({})
                         extraContentLoader.item.extraContextMenuItems[i].parent = null
-                    }
-                }
-            }
-        }
-
-        Component {
-            id: compactContextMenuComponent
-            FancyContextMenu {
-                listItem: messageListItem
-                onActiveChanged: if (active) propertiesLoader.load()
-                onClosed: propertiesLoader.reset()
-                FancyMenuRow {
-                    // NOTE: We should generally use `enabled` instead of `visible` in places like this so people can rely spatial memory.
-                    // Things which can be disabled in settings should use `visible` because that is not changed that often and instead waste space.
-                    // See `contextMenuComponent` (the top row)
-
-                    // in general, FIXME: should this be simply removed?
-                    IconRowMenuItem {
-                        enabled: canDeleteMessage
-                        icon.source: "image://theme/icon-m-delete"
-                        onClicked: deleteMessage()
-                    }
-                    IconRowMenuItem {
-                        icon.source: "image://theme/icon-m-select-all"
-                        onClicked: page.toggleMessageSelection(myMessage)
-                    }
-                    IconRowMenuItem {
-                        enabled: !!messageProperties.can_be_pinned
-                        icon.source: "../../images/icon-m-" + (myMessage.is_pinned ? 'un' : '') + "pin.svg"
-                        onClicked: togglePinned()
-                    }
-
-                    IconRowMenuItem {
-                        enabled: !!messageProperties.can_be_replied
-                        icon.source: "image://theme/icon-m-message-reply"
-                        onClicked: replyToMessage()
-                    }
-                    IconRowMenuItem {
-                        enabled: !!messageProperties.can_be_edited
-                        icon.source: "image://theme/icon-m-edit"
-                        onClicked: editMessage()
-                    }
-
-                    IconRowMenuItem {
-                        enabled: messageProperties.can_be_forwarded
-                        icon.source: "image://theme/icon-m-message-forward"
-                        onClicked: forwardMessage()
-                    }
-                    IconRowMenuItem {
-                        icon.source: "image://theme/icon-m-clipboard"
-                        onClicked: copyMessageToClipboard()
-                    }
-                    IconRowMenuItem {
-                        visible: appSettings.showTranslateOption
-                        enabled: !!messageText.text
-                        icon.source: "image://theme/icon-m-region"
-                        onClicked: translate()
                     }
                 }
             }

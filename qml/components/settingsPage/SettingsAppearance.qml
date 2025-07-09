@@ -94,15 +94,6 @@ AccordionItem {
                 automaticCheck: false
                 onClicked: appSettings.videoStickers = !checked
             }
-
-            TextSwitch {
-                width: parent.columnWidth
-                checked: appSettings.superCompactMessageMenu
-                text: qsTr("Super compact message context menu")
-                description: qsTr("Organize all items in one row")
-                automaticCheck: false
-                onClicked: appSettings.superCompactMessageMenu = !checked
-            }
         }
     }
 }
