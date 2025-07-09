@@ -335,7 +335,7 @@ Page {
                     name: "Connecting"
                     when: tdLibWrapper.connectionState == TelegramAPI.Connecting
                     PropertyChanges { target: pageStatus; color: "gold" }
-                    PropertyChanges { target: pageHeader; title: qsTr("Connecting for network...") }
+                    PropertyChanges { target: pageHeader; title: qsTr("Connecting to network...") }
                 },
                 State {
                     name: "ConnectingToProxy"
@@ -353,7 +353,7 @@ Page {
                     name: "Updating"
                     when: tdLibWrapper.connectionState == TelegramAPI.Updating
                     PropertyChanges { target: pageStatus; color: "lightblue" }
-                    PropertyChanges { target: pageHeader; title: "Updating content..." }
+                    PropertyChanges { target: pageHeader; title: qsTr("Updating content...") }
                 }
             ]
 
