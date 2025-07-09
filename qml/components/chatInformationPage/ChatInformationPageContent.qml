@@ -461,6 +461,18 @@ SilicaFlickable {
                     }
                 }
 
+                InformationTextItem {
+                    headerText: qsTr("Date of birth")
+                    property var birthdate: chatInformationPage.isPrivateOrSecretChat && !!chatInformationPage.chatPartnerFullInformation.birthdate ?
+                                                new Date(
+                                                    chatInformationPage.chatPartnerFullInformation.birthdate.year,
+                                                    chatInformationPage.chatPartnerFullInformation.birthdate.month-1, // 0-11 months index in js, 1-12 in tdlib
+                                                    chatInformationPage.chatPartnerFullInformation.birthdate.day
+                                                    ) : null
+                    text: birthdate ? Format.formatDate(birthdate, chatInformationPage.chatPartnerFullInformation.birthdate.year ? Formatter.DateMedium : Formatter.DateMediumWithoutYear) : ''
+                    // TODO: edit
+                }
+
                 SectionHeader {
                     font.pixelSize: Theme.fontSizeExtraSmall
                     visible: !!inviteLinkItem.text
