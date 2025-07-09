@@ -501,6 +501,7 @@ void TDLibWrapper::sendPollMessage(qlonglong chatId, const QString &question, co
         pollType.insert(_TYPE, "pollTypeRegular");
         pollType.insert("allow_multiple_answers", multiple);
     }
+    inputMessageContent.insert(TYPE, pollType);
 
     requestObject.insert(INPUT_MESSAGE_CONTENT, inputMessageContent);
     this->sendRequest(requestObject);
