@@ -51,25 +51,6 @@ public:
     Q_INVOKABLE int getLastReadMessageIndex();
     Q_INVOKABLE void setSearchQuery(const QString newSearchQuery);
 
-    enum ChatAction {
-        ChatActionCancel,
-        ChatActionChoosingContact,
-        ChatActionChoosingLocation,
-        ChatActionChoosingSticker,
-        ChatActionRecordingVideo,
-        ChatActionRecordingVideoNote,
-        ChatActionRecordingVoiceNote,
-        ChatActionStartPlayingGame,
-        ChatActionTyping,
-        ChatActionUploadingDocument,
-        ChatActionUploadingPhoto,
-        ChatActionUploadingVideo,
-        ChatActionUploadingVideoNote,
-        ChatActionUploadingVoiceNote,
-        ChatActionWatchingAnimations
-    };
-    Q_ENUM(ChatAction)
-
     Q_INVOKABLE int getMessageIndex(qlonglong messageId);
     QVariantMap smallPhoto() const;
     qlonglong getChatId() const;
@@ -119,7 +100,6 @@ private:
     int calculateLastReadSentMessageId();
     int calculateScrollPosition(int listInboxPosition);
     bool isMostRecentMessageLoaded();
-    ChatAction getChatAction(const QVariantMap &action);
 
 private:
     TDLibWrapper *tdLibWrapper;
@@ -133,8 +113,8 @@ private:
     bool searchModeActive;
     QString searchQuery;
 
-    QVariantMap chatActionsByUsers; // QMap<qlonglong, ChatAction>
-    QVariantMap chatActionsByChats; //QMap<qlonglong, ChatAction>
+    QVariantMap chatActionsByUsers; // QMap<qlonglong, QString>
+    QVariantMap chatActionsByChats; //QMap<qlonglong, QString>
 };
 
 #endif // CHATMODEL_H

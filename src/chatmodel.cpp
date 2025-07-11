@@ -1084,58 +1084,20 @@ bool ChatModel::isMostRecentMessageLoaded()
     return this->getLastReadMessageIndex() >= this->messages.size() - 25;
 }
 
-ChatModel::ChatAction ChatModel::getChatAction(const QVariantMap &action) {
-    const QString actionType = action.value(_TYPE).toString();
-
-    if (actionType == "chatActionCancel")
-        return ChatAction::ChatActionCancel;
-    if (actionType == "chatActionTyping")
-        return ChatAction::ChatActionTyping;
-    if (actionType == "chatActionChoosingContact")
-        return ChatAction::ChatActionChoosingContact;
-    if (actionType == "chatActionChoosingLocation")
-        return ChatAction::ChatActionChoosingLocation;
-    if (actionType == "chatActionChoosingSticker")
-        return ChatAction::ChatActionChoosingSticker;
-    if (actionType == "chatActionRecordingVideo")
-        return ChatAction::ChatActionRecordingVideo;
-    if (actionType == "chatActionRecordingVideoNote")
-        return ChatAction::ChatActionRecordingVideoNote;
-    if (actionType == "chatActionRecordingVoiceNote")
-        return ChatAction::ChatActionRecordingVoiceNote;
-    if (actionType == "chatActionStartPlayingGame")
-        return ChatAction::ChatActionStartPlayingGame;
-    if (actionType == "chatActionUploadingDocument")
-        return ChatAction::ChatActionUploadingDocument;
-    if (actionType == "chatActionUploadingPhoto")
-        return ChatAction::ChatActionUploadingPhoto;
-    if (actionType == "chatActionUploadingVideo")
-        return ChatAction::ChatActionUploadingVideo;
-    if (actionType == "chatActionUploadingVideoNote")
-        return ChatAction::ChatActionUploadingVideoNote;
-    if (actionType == "chatActionUploadingVoiceNote")
-        return ChatAction::ChatActionUploadingVoiceNote;
-    if (actionType == "chatActionWatchingAnimations")
-        return ChatAction::ChatActionWatchingAnimations;
-
-    return ChatAction::ChatActionCancel;
-}
-
 void ChatModel::handleChatActionUpdated(qlonglong chatId, const QVariantMap &sender, const QVariantMap &action, qlonglong messageThreadId) {
+    const QString actionType = action.value(_TYPE).toString();
     if (messageThreadId == 0 && chatId == this->chatId) {
         LOG("Chat action updated");
         if (sender.value(_TYPE).toString() == "messageSenderChat") {
             const QString senderChatId = sender.value(CHAT_ID).toString();
-            const ChatAction chatAction = getChatAction(action);
-            if (chatAction == ChatAction::ChatActionCancel)
+            if (actionType == "chatActionCancel")
                 chatActionsByChats.remove(senderChatId);
-            else chatActionsByChats.insert(senderChatId, chatAction);
+            else chatActionsByChats.insert(senderChatId, actionType);
         } else {
             const QString senderUserId = sender.value(USER_ID).toString();
-            const ChatAction chatAction = getChatAction(action);
-            if (chatAction == ChatAction::ChatActionCancel)
+            if (actionType == "chatActionCancel")
                 chatActionsByUsers.remove(senderUserId);
-            else chatActionsByUsers.insert(senderUserId, chatAction);
+            else chatActionsByUsers.insert(senderUserId, actionType);
         }
         LOG(chatActionsByChats << chatActionsByUsers << chatId << sender << action);
         emit chatActionsChanged();

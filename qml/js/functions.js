@@ -93,34 +93,34 @@ function getChatMemberStatusText(statusType) {
 }
 
 function getChatActionText(action, single) {
-    switch (Number(action)) {
-    case Fernschreiber.ChatModel.ChatActionTyping:
+    switch (action) {
+    case "chatActionTyping":
         return single ? qsTr("%1 is typing") : qsTr("%1 are typing")
-    case Fernschreiber.ChatModel.ChatActionChoosingContact:
+    case "chatActionChoosingContact":
         return single ? qsTr("%1 is choosing a contact") : qsTr("%1 are choosing a contact")
-    case Fernschreiber.ChatModel.ChatActionChoosingLocation:
+    case "chatActionChoosingLocation":
         return single ? qsTr("%1 is choosing a location") : qsTr("%1 are choosing a location")
-    case Fernschreiber.ChatModel.ChatActionChoosingSticker:
+    case "chatActionChoosingSticker":
         return single ? qsTr("%1 is choosing a sticker") : qsTr("%1 are choosing a sticker")
-    case Fernschreiber.ChatModel.ChatActionRecordingVideo:
+    case "chatActionRecordingVideo":
         return single ? qsTr("%1 is recording a video") : qsTr("%1 are recording a video")
-    case Fernschreiber.ChatModel.ChatActionRecordingVideoNote:
+    case "chatActionRecordingVideoNote":
         return single ? qsTr("%1 is recording a video message") : qsTr("%1 are recording a video message")
-    case Fernschreiber.ChatModel.ChatActionRecordingVoiceNote:
+    case "chatActionRecordingVoiceNote":
         return single ? qsTr("%1 is recording a voice message") : qsTr("%1 are recording a voice message")
-    case Fernschreiber.ChatModel.ChatActionStartPlayingGame:
+    case "chatActionStartPlayingGame":
         return single ? qsTr("%1 is playing a game") : qsTr("%1 are playing a game")
-    case Fernschreiber.ChatModel.ChatActionUploadingDocument:
+    case "chatActionUploadingDocument":
         return single ? qsTr("%1 is sending a file") : qsTr("%1 are sending a file")
-    case Fernschreiber.ChatModel.ChatActionUploadingPhoto:
+    case "chatActionUploadingPhoto":
         return single ? qsTr("%1 is sending a photo") : qsTr("%1 are sending a photo")
-    case Fernschreiber.ChatModel.ChatActionUploadingVideo:
+    case "chatActionUploadingVideo":
         return single ? qsTr("%1 is sending a video") : qsTr("%1 are is sending a video")
-    case Fernschreiber.ChatModel.ChatActionUploadingVideoNote:
+    case "chatActionUploadingVideoNote":
         return single ? qsTr("%1 is sending a video note") : qsTr("%1 are sending a video note")
-    case Fernschreiber.ChatModel.ChatActionUploadingVoiceNote:
+    case "chatActionUploadingVoiceNote":
         return single ? qsTr("%1 is sending a voice note") : qsTr("%1 are sending a voice note")
-    //case Fernschreiber.ChatModel.ChatActionWatchingAnimations:
+    //case "chatActionWatchingAnimations":
     //    return single ? qsTr("%1 is watching animations") : qsTr("%1 are watching animations")
     }
     return ''
