@@ -46,7 +46,7 @@ SOURCES += src/harbour-fernschreiber2.cpp \
 DISTFILES += qml/harbour-fernschreiber2.qml \
     qml/components/AudioPreview.qml \
     qml/components/BackgroundImage.qml \
-    qml/components/ChatHeaderText.qml \
+    qml/components/ChatBadges.qml \
     qml/components/ChatListViewItem.qml \
     qml/components/ContactSync.qml \
     qml/components/DocumentPreview.qml \

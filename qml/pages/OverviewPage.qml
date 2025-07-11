@@ -402,9 +402,7 @@ Page {
             model: chatListProxyModel.sourceModel ? chatListProxyModel : chatListModel
             delegate: ChatListViewItem {
                 ownUserId: overviewPage.ownUserId
-                isVerified: !!verification_status.is_verified
-                scam: !!verification_status.is_scam
-                fake: !!verification_status.is_fake
+                verificationStatus: verification_status
                 onClicked: {
                     pageStack.push(Qt.resolvedUrl("../pages/ChatPage.qml"), {
                         chatInformation : display,

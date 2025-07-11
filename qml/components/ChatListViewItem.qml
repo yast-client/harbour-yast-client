@@ -29,7 +29,7 @@ PhotoTextsListItem {
     isSecret: chat_type === TelegramAPI.ChatTypeSecret
     isMarkedAsUnread: is_marked_as_unread
     isPinned: is_pinned
-    isMuted: display.notification_settings.mute_for > 0
+    muted: display.notification_settings.mute_for > 0
 
     openMenuOnPressAndHold: true//chat_id != overviewPage.ownUserId
     onPressAndHold: contextMenuLoader.active = true

@@ -881,21 +881,33 @@ Page {
                     opacity: visible ? 1 : 0
                     Behavior on opacity { FadeAnimation {} }
                     width: parent.width - chatPictureThumbnail.width - Theme.paddingMedium
-                    height: chatNameText.height + chatStatusText.height
+                    height: chatNameRow.height + chatStatusText.height
                     anchors.bottom: parent.bottom
                     anchors.bottomMargin: chatPage.isPortrait ? Theme.paddingMedium : Theme.paddingSmall
-                    ChatHeaderText {
-                        id: chatNameText
+
+                    Row {
+                        id: chatNameRow
                         anchors.right: parent.right
+                        spacing: Theme.paddingMedium
 
-                        verificationStatus: chatGroupInformation ? chatGroupInformation.verification_status : null
-                        // do not show muted badge
+                        Label {
+                            id: chatNameText
+                            anchors.verticalCenter: parent.verticalCenter
+                            width: Math.min(implicitWidth, chatOverviewItem.width - chatBadges.width - parent.spacing)
+                            text: chatInformation.title !== "" ? Emoji.emojify(utilities.fixReservedHtmlCharacters(chatInformation.title), font.pixelSize) : qsTr("Unknown")
+                            textFormat: Text.StyledText
+                            font.pixelSize: chatPage.isPortrait ? Theme.fontSizeLarge : Theme.fontSizeMedium
+                            font.family: Theme.fontFamilyHeading
+                            color: Theme.highlightColor
+                            truncationMode: TruncationMode.Fade
+                            maximumLineCount: 1
+                        }
 
-                        text: chatInformation.title !== "" ? Emoji.emojify(utilities.fixReservedHtmlCharacters(chatInformation.title), font.pixelSize) : qsTr("Unknown")
-                        font.pixelSize: chatPage.isPortrait ? Theme.fontSizeLarge : Theme.fontSizeMedium
-                        font.family: Theme.fontFamilyHeading
-                        color: Theme.highlightColor
-                        textItem.maximumLineCount: 1
+                        ChatBadges {
+                            id: chatBadges
+                            anchors.verticalCenter: parent.verticalCenter
+                            verificationStatus: chatGroupInformation ? chatGroupInformation.verification_status : null
+                        }
                     }
 
                     Label {

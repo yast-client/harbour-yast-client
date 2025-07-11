@@ -6,7 +6,7 @@ import "../js/functions.js" as Functions
 ListItem {
     id: chatListViewItem
 
-    property alias primaryText: primaryTextRow.textItem //usually chat name
+    property alias primaryText: primaryText //usually chat name
     property alias prologSecondaryText: prologSecondaryText //usually last sender name
     property alias secondaryText: secondaryText //usually last message
     property alias tertiaryText: tertiaryText //usually last message date
@@ -16,17 +16,14 @@ ListItem {
     property int unreadMentionCount: 0
     property int unreadReactionCount: 0
     property bool isSecret
-    property bool isVerified
-    property bool scam
-    property bool fake
+    property alias verificationStatus: chatBadges.verificationStatus
     property bool isMarkedAsUnread
     property bool isPinned
-    property bool isMuted
+    property alias muted: chatBadges.muted
     property alias pictureThumbnail: pictureThumbnail
 
     contentHeight: Theme.itemSizeExtraLarge
     contentWidth: parent.width
-
 
     ShaderEffectSource {
         id: pictureItem
@@ -90,7 +87,7 @@ ListItem {
 
             Rectangle {
                 id: chatUnreadMessagesCountBackground
-                color: isMuted ? ((Theme.colorScheme === Theme.DarkOnLight) ? "lightgray" : "dimgray") : Theme.highlightBackgroundColor
+                color: muted ? ((Theme.colorScheme === Theme.DarkOnLight) ? "lightgray" : "dimgray") : Theme.highlightBackgroundColor
                 width: Theme.fontSizeLarge
                 height: Theme.fontSizeLarge
                 anchors.right: parent.right
@@ -106,12 +103,12 @@ ListItem {
                 color: Theme.primaryColor
                 anchors.centerIn: chatUnreadMessagesCountBackground
                 visible: chatListViewItem.unreadCount > 0
-                opacity: isMuted ? Theme.opacityHigh : 1.0
+                opacity: muted ? Theme.opacityHigh : 1.0
                 text: Functions.formatUnreadCount(chatListViewItem.unreadCount)
             }
 
             Rectangle {
-                color: isMuted ? ((Theme.colorScheme === Theme.DarkOnLight) ? "lightgray" : "dimgray") : Theme.highlightBackgroundColor
+                color: muted ? ((Theme.colorScheme === Theme.DarkOnLight) ? "lightgray" : "dimgray") : Theme.highlightBackgroundColor
                 width: Theme.fontSizeLarge
                 height: Theme.fontSizeLarge
                 anchors.right: parent.right
@@ -136,7 +133,7 @@ ListItem {
                     color: Theme.primaryColor
                     anchors.centerIn: parent
                     visible: chatListViewItem.unreadMentionCount > 0
-                    opacity: isMuted ? Theme.opacityHigh : 1.0
+                    opacity: muted ? Theme.opacityHigh : 1.0
                     text: "@"
                 }
             }
@@ -154,19 +151,26 @@ ListItem {
         }
         spacing: Theme.paddingSmall / 2
 
-        ChatHeaderText {
+        Row {
             id: primaryTextRow
-            width: parent.width
+            spacing: Theme.paddingMedium
 
-            font.pixelSize: Theme.fontSizeMedium
-            font.bold: appSettings.highlightUnreadConversations && ( !chatListViewItem.isMuted && (chatListViewItem.unreadCount > 0 || chatListViewItem.isMarkedAsUnread) )
-            font.italic: appSettings.highlightUnreadConversations  && (chatListViewItem.unreadReactionCount > 0)
-            color: (appSettings.highlightUnreadConversations && (chatListViewItem.unreadCount > 0)) ? Theme.highlightColor : Theme.primaryColor
+            Label {
+                id: primaryText
+                textFormat: Text.StyledText
+                font.pixelSize: Theme.fontSizeMedium
+                truncationMode: TruncationMode.Fade
+                anchors.verticalCenter: parent.verticalCenter
+                width: Math.min(contentColumn.width - chatBadges.width - parent.spacing, implicitWidth)
+                font.bold: appSettings.highlightUnreadConversations && ( !chatListViewItem.muted && (chatListViewItem.unreadCount > 0 || chatListViewItem.isMarkedAsUnread) )
+                font.italic: appSettings.highlightUnreadConversations  && (chatListViewItem.unreadReactionCount > 0)
+                color: (appSettings.highlightUnreadConversations && (chatListViewItem.unreadCount > 0)) ? Theme.highlightColor : Theme.primaryColor
+            }
 
-            verified: chatListViewItem.isVerified
-            muted: chatListViewItem.isMuted
-            scam: chatListViewItem.scam
-            fake: chatListViewItem.fake
+            ChatBadges {
+                id: chatBadges
+                anchors.verticalCenter: parent.verticalCenter
+            }
         }
 
         Row {
