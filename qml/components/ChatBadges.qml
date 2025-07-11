@@ -35,12 +35,12 @@ Row {
     TextBadge {
         anchors.verticalCenter: parent.verticalCenter
         visible: scam
-        text: qsTr("SCAM")
+        text: qsTr("SCAM", "string for a user text badge, should not be too long. Badge shows that this user was reported by many users as a fake or scam user: you should careful when interacting with them.")
     }
 
     TextBadge {
         anchors.verticalCenter: parent.verticalCenter
         visible: fake
-        text: qsTr("FAKE")
+        text: qsTr("FAKE", "string for a user text badge, should not be too long. Badge shows that this may be a scam user.")
     }
 }
