@@ -114,6 +114,7 @@ signals:
     void storageStatisticsFastReceived(const QVariantMap &statistics);
     void storageStatisticsReceived(const QVariantMap &statistics);
     void translationResultReceived(qlonglong extraId, const QVariantMap &formattedText);
+    void chatActionUpdated(qlonglong chatId, const QVariantMap &sender, const QVariantMap &action, qlonglong messageThreadId);
 
 private:
     typedef void (TDLibReceiver::*Handler)(const QVariantMap &);
@@ -205,6 +206,7 @@ private:
     void processStorageStatisticsFast(const QVariantMap &receivedInformation);
     void processStorageStatistics(const QVariantMap &receivedInformation);
     void processFormattedText(const QVariantMap &receivedInformation);
+    void processUpdateChatAction(const QVariantMap &receivedInformation);
 };
 
 #endif // TDLIBRECEIVER_H

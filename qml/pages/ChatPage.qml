@@ -122,7 +122,11 @@ Page {
     function updateChatPartnerStatusText() {
         if (chatPage.isSelecting)
             return
-        var statusText = Functions.getChatPartnerStatusText(chatPartnerInformation.status['@type'], chatPartnerInformation.status.was_online, chatPartnerInformation.is_support, timepointStatus)
+
+        var statusText = Functions.getChatActionsText(chatModel.chatActionsByChats, chatModel.chatActionsByUsers)
+        if (!statusText)
+            statusText = Functions.getChatPartnerStatusText(chatPartnerInformation.status['@type'], chatPartnerInformation.status.was_online, chatPartnerInformation.is_support, timepointStatus)
+
         if (chatPage.secretChatDetails) {
             var secretChatStatus = Functions.getSecretChatStatus(chatPage.secretChatDetails)
             if (statusText && secretChatStatus)
@@ -546,10 +550,8 @@ Page {
             if ((isPrivateChat || isSecretChat) && userId === chatPartnerInformation.id)
                 chatPage.botInformation = userFullInfo
         }
-        onSponsoredMessageReceived:
-            chatPage.containsSponsoredMessages = true
-        onReactionsUpdated:
-            availableReactions = tdLibWrapper.getChatReactions(chatInformation.id)
+        onSponsoredMessageReceived: chatPage.containsSponsoredMessages = true
+        onReactionsUpdated: availableReactions = tdLibWrapper.getChatReactions(chatInformation.id)
     }
 
     Connections {
@@ -639,6 +641,7 @@ Page {
                 tdLibWrapper.getMessage(chatInformation.id, chatInformation.pinned_message_id)
             } else pinnedMessageItem.pinnedMessage = undefined
         }
+        onChatActionsChanged: updateChatPartnerStatusText()
     }
 
     Connections {

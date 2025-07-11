@@ -92,6 +92,71 @@ function getChatMemberStatusText(statusType) {
     return statusType || "";
 }
 
+function getChatActionText(action, single) {
+    switch (Number(action)) {
+    case Fernschreiber.ChatModel.ChatActionTyping:
+        return single ? qsTr("%1 is typing") : qsTr("%1 are typing")
+    case Fernschreiber.ChatModel.ChatActionChoosingContact:
+        return single ? qsTr("%1 is choosing a contact") : qsTr("%1 are choosing a contact")
+    case Fernschreiber.ChatModel.ChatActionChoosingLocation:
+        return single ? qsTr("%1 is choosing a location") : qsTr("%1 are choosing a location")
+    case Fernschreiber.ChatModel.ChatActionChoosingSticker:
+        return single ? qsTr("%1 is choosing a sticker") : qsTr("%1 are choosing a sticker")
+    case Fernschreiber.ChatModel.ChatActionRecordingVideo:
+        return single ? qsTr("%1 is recording a video") : qsTr("%1 are recording a video")
+    case Fernschreiber.ChatModel.ChatActionRecordingVideoNote:
+        return single ? qsTr("%1 is recording a video message") : qsTr("%1 are recording a video message")
+    case Fernschreiber.ChatModel.ChatActionRecordingVoiceNote:
+        return single ? qsTr("%1 is recording a voice message") : qsTr("%1 are recording a voice message")
+    case Fernschreiber.ChatModel.ChatActionStartPlayingGame:
+        return single ? qsTr("%1 is playing a game") : qsTr("%1 are playing a game")
+    case Fernschreiber.ChatModel.ChatActionUploadingDocument:
+        return single ? qsTr("%1 is sending a file") : qsTr("%1 are sending a file")
+    case Fernschreiber.ChatModel.ChatActionUploadingPhoto:
+        return single ? qsTr("%1 is sending a photo") : qsTr("%1 are sending a photo")
+    case Fernschreiber.ChatModel.ChatActionUploadingVideo:
+        return single ? qsTr("%1 is sending a video") : qsTr("%1 are is sending a video")
+    case Fernschreiber.ChatModel.ChatActionUploadingVideoNote:
+        return single ? qsTr("%1 is sending a video note") : qsTr("%1 are sending a video note")
+    case Fernschreiber.ChatModel.ChatActionUploadingVoiceNote:
+        return single ? qsTr("%1 is sending a voice note") : qsTr("%1 are sending a voice note")
+    //case Fernschreiber.ChatModel.ChatActionWatchingAnimations:
+    //    return single ? qsTr("%1 is watching animations") : qsTr("%1 are watching animations")
+    }
+    return ''
+}
+
+function getChatActionsObject(chatActionsByChats, chatActionsByUsers) {
+    var result = {}
+    for (var chatId in chatActionsByChats) {
+        if (!(chatActionsByChats[chatId] in result))
+            result[chatActionsByChats[chatId]] = []
+        result[chatActionsByChats[chatId]].push(tdLibWrapper.getChat(chatId)['title']);
+    }
+    for (var userId in chatActionsByUsers) {
+        if (!(chatActionsByUsers[userId] in result))
+            result[chatActionsByUsers[userId]] = []
+        result[chatActionsByUsers[userId]].push(getUserName(tdLibWrapper.getUserInformation(userId)))
+    }
+
+    return result
+}
+
+function getChatActionsText(chatActionsByChats, chatActionsByUsers) {
+    var result = ''
+    var actions = getChatActionsObject(chatActionsByChats, chatActionsByUsers)
+    for (var action in actions) {
+        var senders = ''
+        for (var i=0; i < actions[action].length; i++)
+            senders += actions[action][i] + ', '
+        senders = senders.slice(0, -2)
+        var text = getChatActionText(action, actions[action].length <= 1)
+        if (text) result += text.arg(senders)
+    }
+
+    return result
+}
+
 function getShortenedCount(count) {
     if (count >= 1000000) {
         return qsTr("%1M").arg((count / 1000000).toLocaleString(Qt.locale(), 'f', 0));

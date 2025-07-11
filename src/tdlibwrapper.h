@@ -360,6 +360,7 @@ signals:
     void storageStatisticsFastReceived(const QVariantMap &statistics);
     void storageStatisticsReceived(const QVariantMap &statistics);
     void translationResultReceived(qlonglong extraId, const QVariantMap &formattedText);
+    void chatActionUpdated(qlonglong chatId, const QVariantMap &sender, const QVariantMap &action, qlonglong messageThreadId);
 
 public slots:
     // appSettings

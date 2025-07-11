@@ -156,6 +156,7 @@ int main(int argc, char *argv[])
 
     ChatModel chatModel(tdLibWrapper);
     context->setContextProperty("chatModel", &chatModel);
+    qmlRegisterUncreatableType<ChatModel>(uri, 1, 0, "ChatModel", QString());
 
     NotificationManager notificationManager(tdLibWrapper, appSettings, mceInterface, &chatModel, utilities);
     context->setContextProperty("notificationManager", &notificationManager);

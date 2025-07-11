@@ -28,6 +28,8 @@ class ChatModel : public QAbstractListModel
     Q_OBJECT
     Q_PROPERTY(qlonglong chatId READ getChatId NOTIFY chatIdChanged)
     Q_PROPERTY(QVariantMap smallPhoto READ smallPhoto NOTIFY smallPhotoChanged)
+    Q_PROPERTY(QVariantMap chatActionsByUsers MEMBER chatActionsByUsers NOTIFY chatActionsChanged)
+    Q_PROPERTY(QVariantMap chatActionsByChats MEMBER chatActionsByChats NOTIFY chatActionsChanged)
 
 public:
     ChatModel(TDLibWrapper *tdLibWrapper);
@@ -49,6 +51,25 @@ public:
     Q_INVOKABLE int getLastReadMessageIndex();
     Q_INVOKABLE void setSearchQuery(const QString newSearchQuery);
 
+    enum ChatAction {
+        ChatActionCancel,
+        ChatActionChoosingContact,
+        ChatActionChoosingLocation,
+        ChatActionChoosingSticker,
+        ChatActionRecordingVideo,
+        ChatActionRecordingVideoNote,
+        ChatActionRecordingVoiceNote,
+        ChatActionStartPlayingGame,
+        ChatActionTyping,
+        ChatActionUploadingDocument,
+        ChatActionUploadingPhoto,
+        ChatActionUploadingVideo,
+        ChatActionUploadingVideoNote,
+        ChatActionUploadingVoiceNote,
+        ChatActionWatchingAnimations
+    };
+    Q_ENUM(ChatAction)
+
     Q_INVOKABLE int getMessageIndex(qlonglong messageId);
     QVariantMap smallPhoto() const;
     qlonglong getChatId() const;
@@ -64,6 +85,7 @@ signals:
     void smallPhotoChanged();
     void chatIdChanged();
     void pinnedMessageChanged();
+    void chatActionsChanged();
 
 private slots:
     void handleMessagesReceived(const QVariantList &messages, int totalCount);
@@ -80,6 +102,7 @@ private slots:
     void handleMessageEditedUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &replyMarkup);
     void handleMessageInteractionInfoUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &updatedInfo);
     void handleMessagesDeleted(qlonglong chatId, const QList<qlonglong> &messageIds);
+    void handleChatActionUpdated(qlonglong chatId, const QVariantMap &sender, const QVariantMap &chatAction, qlonglong messageThreadId);
 
 private:
     class MessageData;
@@ -96,6 +119,7 @@ private:
     int calculateLastReadSentMessageId();
     int calculateScrollPosition(int listInboxPosition);
     bool isMostRecentMessageLoaded();
+    ChatAction getChatAction(const QVariantMap &action);
 
 private:
     TDLibWrapper *tdLibWrapper;
@@ -108,6 +132,9 @@ private:
     bool inIncrementalUpdate;
     bool searchModeActive;
     QString searchQuery;
+
+    QVariantMap chatActionsByUsers; // QMap<qlonglong, ChatAction>
+    QVariantMap chatActionsByChats; //QMap<qlonglong, ChatAction>
 };
 
 #endif // CHATMODEL_H
