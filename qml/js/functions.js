@@ -92,34 +92,34 @@ function getChatMemberStatusText(statusType) {
     return statusType || "";
 }
 
-function getChatActionText(action, single) {
+function getChatActionText(action, privateOrSecretChat, single) {
     switch (action) {
     case "chatActionTyping":
-        return single ? qsTr("%1 is typing") : qsTr("%1 are typing")
+        return privateOrSecretChat ? qsTr("typing") : (single ? qsTr("%1 is typing") : qsTr("%1 are typing"))
     case "chatActionChoosingContact":
-        return single ? qsTr("%1 is choosing a contact") : qsTr("%1 are choosing a contact")
+        return privateOrSecretChat ? qsTr("choosing a contact") : (single ? qsTr("%1 is choosing a contact") : qsTr("%1 are choosing a contact"))
     case "chatActionChoosingLocation":
-        return single ? qsTr("%1 is choosing a location") : qsTr("%1 are choosing a location")
+        return privateOrSecretChat ? qsTr("choosing a location") : (single ? qsTr("%1 is choosing a location") : qsTr("%1 are choosing a location"))
     case "chatActionChoosingSticker":
-        return single ? qsTr("%1 is choosing a sticker") : qsTr("%1 are choosing a sticker")
+        return privateOrSecretChat ? qsTr("choosing a sticker") : (single ? qsTr("%1 is choosing a sticker") : qsTr("%1 are choosing a sticker"))
     case "chatActionRecordingVideo":
-        return single ? qsTr("%1 is recording a video") : qsTr("%1 are recording a video")
+        return privateOrSecretChat ? qsTr("recording a video") : (single ? qsTr("%1 is recording a video") : qsTr("%1 are recording a video"))
     case "chatActionRecordingVideoNote":
-        return single ? qsTr("%1 is recording a video message") : qsTr("%1 are recording a video message")
+        return privateOrSecretChat ? qsTr("recording a video message") : (single ? qsTr("%1 is recording a video message") : qsTr("%1 are recording a video message"))
     case "chatActionRecordingVoiceNote":
-        return single ? qsTr("%1 is recording a voice message") : qsTr("%1 are recording a voice message")
+        return privateOrSecretChat ? qsTr("recording a voice message") : (single ? qsTr("%1 is recording a voice message") : qsTr("%1 are recording a voice message"))
     case "chatActionStartPlayingGame":
-        return single ? qsTr("%1 is playing a game") : qsTr("%1 are playing a game")
+        return privateOrSecretChat ? qsTr("playing a game") : (single ? qsTr("%1 is playing a game") : qsTr("%1 are playing a game"))
     case "chatActionUploadingDocument":
-        return single ? qsTr("%1 is sending a file") : qsTr("%1 are sending a file")
+        return privateOrSecretChat ? qsTr("sending a file") : (single ? qsTr("%1 is sending a file") : qsTr("%1 are sending a file"))
     case "chatActionUploadingPhoto":
-        return single ? qsTr("%1 is sending a photo") : qsTr("%1 are sending a photo")
+        return privateOrSecretChat ? qsTr("sending a photo") : (single ? qsTr("%1 is sending a photo") : qsTr("%1 are sending a photo"))
     case "chatActionUploadingVideo":
-        return single ? qsTr("%1 is sending a video") : qsTr("%1 are is sending a video")
+        return privateOrSecretChat ? qsTr("sending a video") : (single ? qsTr("%1 is sending a video") : qsTr("%1 are is sending a video"))
     case "chatActionUploadingVideoNote":
-        return single ? qsTr("%1 is sending a video note") : qsTr("%1 are sending a video note")
+        return privateOrSecretChat ? qsTr("sending a video note") : (single ? qsTr("%1 is sending a video note") : qsTr("%1 are sending a video note"))
     case "chatActionUploadingVoiceNote":
-        return single ? qsTr("%1 is sending a voice note") : qsTr("%1 are sending a voice note")
+        return privateOrSecretChat ? qsTr("sending a voice note") : (single ? qsTr("%1 is sending a voice note") : qsTr("%1 are sending a voice note"))
     //case "chatActionWatchingAnimations":
     //    return single ? qsTr("%1 is watching animations") : qsTr("%1 are watching animations")
     }
@@ -142,7 +142,7 @@ function getChatActionsObject(chatActionsByChats, chatActionsByUsers) {
     return result
 }
 
-function getChatActionsText(chatActionsByChats, chatActionsByUsers) {
+function getChatActionsText(chatActionsByChats, chatActionsByUsers, privateOrSecretChat) {
     var result = ''
     var actions = getChatActionsObject(chatActionsByChats, chatActionsByUsers)
     for (var action in actions) {
@@ -150,7 +150,7 @@ function getChatActionsText(chatActionsByChats, chatActionsByUsers) {
         for (var i=0; i < actions[action].length; i++)
             senders += actions[action][i] + ', '
         senders = senders.slice(0, -2)
-        var text = getChatActionText(action, actions[action].length <= 1)
+        var text = getChatActionText(action, privateOrSecretChat, actions[action].length <= 1)
         if (text) result += text.arg(senders)
     }
 

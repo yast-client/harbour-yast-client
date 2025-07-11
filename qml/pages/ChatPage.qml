@@ -123,9 +123,8 @@ Page {
         if (chatPage.isSelecting)
             return
 
-        var statusText = Functions.getChatActionsText(chatModel.chatActionsByChats, chatModel.chatActionsByUsers)
-        if (!statusText)
-            statusText = Functions.getChatPartnerStatusText(chatPartnerInformation.status['@type'], chatPartnerInformation.status.was_online, chatPartnerInformation.is_support, timepointStatus)
+        var statusText = Functions.getChatActionsText(chatModel.chatActionsByChats, chatModel.chatActionsByUsers, isPrivateChat || isSecretChat)
+                || Functions.getChatPartnerStatusText(chatPartnerInformation.status['@type'], chatPartnerInformation.status.was_online, chatPartnerInformation.is_support, timepointStatus)
 
         if (chatPage.secretChatDetails) {
             var secretChatStatus = Functions.getSecretChatStatus(chatPage.secretChatDetails)
