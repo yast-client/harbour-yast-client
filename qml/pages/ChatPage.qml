@@ -44,7 +44,7 @@ Page {
     property bool isBasicGroup: chatInformation.type['@type'] === "chatTypeBasicGroup"
     property bool isSuperGroup: chatInformation.type['@type'] === "chatTypeSupergroup"
     property bool isChannel: false
-    property bool isDeletedUser: false
+    property bool isDeletedUser: chatPartnerInformation.type['@type'] === "userTypeDeleted"
     property bool containsSponsoredMessages: false
     property var chatPartnerInformation
     property var botInformation
@@ -140,14 +140,6 @@ Page {
         }
 
         if (status) chatStatusText.text = status
-
-        if (isBasicGroup || isSuperGroup)
-        {}//joinLeaveChatMenuItem.text = chatPage.userIsMember ? qsTr("Leave Chat") : qsTr("Join Chat")
-        else
-            if (chatPartnerInformation.type['@type'] === "userTypeDeleted") {
-                chatNameText.text = qsTr("Deleted User")
-                chatPage.isDeletedUser = true
-            }
     }
 
     function getMessageStatusText(message, listItemIndex, lastReadSentIndex, useElapsed) {
@@ -892,7 +884,10 @@ Page {
                             id: chatNameText
                             anchors.verticalCenter: parent.verticalCenter
                             width: Math.min(implicitWidth, chatOverviewItem.width - chatBadges.width - parent.spacing)
-                            text: chatInformation.title !== "" ? Emoji.emojify(utilities.fixReservedHtmlCharacters(chatInformation.title), font.pixelSize) : qsTr("Unknown")
+                            text: chatPage.isDeletedUser ? qsTr("Deleted User") :
+                                                  chatInformation.title !== "" ?
+                                                      Emoji.emojify(utilities.fixReservedHtmlCharacters(chatInformation.title), font.pixelSize)
+                                                    : qsTr("Unknown")
                             textFormat: Text.StyledText
                             font.pixelSize: chatPage.isPortrait ? Theme.fontSizeLarge : Theme.fontSizeMedium
                             font.family: Theme.fontFamilyHeading
