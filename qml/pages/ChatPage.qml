@@ -460,20 +460,20 @@ Page {
     Connections {
         target: tdLibWrapper
         onUserUpdated: {
-            if ((isPrivateChat || isSecretChat) && chatPartnerInformation.id.toString() === userId ) {
+            if ((isPrivateChat || isSecretChat) && chatPartnerInformation.id.toString() === userId) {
                 chatPartnerInformation = userInformation
                 updateStatusText()
             }
         }
         onBasicGroupUpdated: {
-            if (isBasicGroup && chatGroupInformation.id.toString() === groupId ) {
-                chatGroupInformation = groupInformation
+            if (isBasicGroup && chatGroupInformation.id === groupId) {
+                chatGroupInformation = tdLibWrapper.getBasicGroup(groupId)
                 updateStatusText()
             }
         }
         onSuperGroupUpdated: {
-            if (isSuperGroup && chatGroupInformation.id.toString() === groupId ) {
-                chatGroupInformation = groupInformation
+            if (isSuperGroup && chatGroupInformation.id === groupId) {
+                chatGroupInformation = tdLibWrapper.getSuperGroup(groupId)
                 updateStatusText()
             }
         }
