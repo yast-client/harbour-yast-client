@@ -78,6 +78,22 @@ SilicaFlickable {
     Connections {
         target: tdLibWrapper
 
+        onUserUpdated: {
+            if ((chatInformationPage.isPrivateChat || chatInformationPage.isSecretChat) && chatInformationPage.privateChatUserInformation.id.toString() === userId) {
+                chatInformationPage.privateChatUserInformation = userInformation
+            }
+        }
+        onBasicGroupUpdated: {
+            if (chatInformationPage.isBasicGroup && chatInformationPage.groupInformation.id === groupId) {
+                chatInformationPage.groupInformation = tdLibWrapper.getBasicGroup(groupId)
+            }
+        }
+        onSuperGroupUpdated: {
+            if (chatInformationPage.isSuperGroup && chatInformationPage.groupInformation.id === groupId) {
+                chatInformationPage.groupInformation = tdLibWrapper.getSuperGroup(groupId)
+            }
+        }
+
         onChatOnlineMemberCountUpdated: {
             if ((chatInformationPage.isSuperGroup || chatInformationPage.isBasicGroup) && chatInformationPage.chatInformation.id.toString() === chatId) {
                 chatInformationPage.chatOnlineMemberCount = onlineMemberCount;
