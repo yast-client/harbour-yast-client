@@ -27,10 +27,7 @@ import "../../js/functions.js" as Functions
 MessageContentBase {
     id: videoMessageComponent
 
-    property bool isVideoNote
-    property bool fullscreen
-
-    height: isVideoNote ? width : Functions.getVideoHeight(width, video.videoData)
+    height: Functions.getVideoHeight(width, video.videoData)
 
     DisplayBlanking {
         id: displayBlanking
