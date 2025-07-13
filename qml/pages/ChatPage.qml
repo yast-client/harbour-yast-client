@@ -239,7 +239,7 @@ Page {
 
     function setMessageText(text, doSend) {
         if(doSend)
-            tdLibWrapper.sendTextMessage(chatInformation.id, text, "0")
+            tdLibWrapper.sendTextMessage(chatInformation.id, text, 0)
         else {
             newMessageTextField.text = text
             newMessageTextField.cursorPosition = text.length
