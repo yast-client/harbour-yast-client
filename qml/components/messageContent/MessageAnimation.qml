@@ -18,4 +18,6 @@
 */
 import QtQuick 2.0
 
-MessageVideo {}
+MessageVideo {
+    loop: true
+}

@@ -27,9 +27,12 @@ import "../../js/functions.js" as Functions
 MessageContentBase {
     id: videoMessageComponent
 
+    property bool loop
+
     height: Functions.getVideoHeight(width, video.videoData)
 
     DisplayBlanking {
+        // will automatically reset on destruction
         id: displayBlanking
     }
 
@@ -58,7 +61,8 @@ MessageContentBase {
 
         onPlaying: {
             preventBlanking()
-            timeLeftTimer.start()
+            timeLeftItem.visible = true
+            timeLeftTimer.restart()
         }
 
         function handlePause() {
@@ -67,7 +71,10 @@ MessageContentBase {
             timeLeftItem.visible = true
         }
         onPaused: handlePause()
-        onStopped: handlePause()
+        onStopped: {
+            if (loop && status == MediaPlayer.EndOfMedia) play()
+            else handlePause()
+        }
     }
 
     Rectangle {
@@ -106,7 +113,6 @@ MessageContentBase {
 
     Timer {
         id: timeLeftTimer
-        repeat: false
         interval: 2000
         onTriggered: timeLeftItem.visible = false
     }
