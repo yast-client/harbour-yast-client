@@ -256,7 +256,7 @@ Page {
             }
         }
         onCopyToDownloadsSuccessful: {
-            appNotification.show(qsTr("Download of %1 successful.").arg(fileName), tdLibWrapper.openFileOnDevice(filePath));
+            appNotification.show(qsTr("Download of %1 successful.").arg(fileName), function() { tdLibWrapper.openFileOnDevice(filePath) }, qsTr("Open", "Button to open downloaded file, shown in an in-app notification"));
         }
 
         onCopyToDownloadsError: {

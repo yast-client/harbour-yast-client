@@ -61,17 +61,6 @@ Page {
         }
     }
 
-    Connections {
-        target: tdLibWrapper
-        onCopyToDownloadsSuccessful: {
-            appNotification.show(qsTr("Download of %1 successful.").arg(fileName), tdLibWrapper.openFileOnDevice(filePath));
-        }
-
-        onCopyToDownloadsError: {
-            appNotification.show(qsTr("Download failed."));
-        }
-    }
-
     SilicaFlickable {
         anchors.fill: parent
         flickableDirection: Flickable.VerticalFlick
