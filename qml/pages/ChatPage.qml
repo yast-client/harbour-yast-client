@@ -499,11 +499,11 @@ Page {
         }
         onUserFullInfoReceived: {
             if ((isPrivateChat || isSecretChat) && userFullInfo["@extra"] === chatPartnerInformation.id.toString())
-                chatPage.botInformation = userFullInfo
+                chatPage.botInformation = userFullInfo.bot_info
         }
         onUserFullInfoUpdated: {
             if ((isPrivateChat || isSecretChat) && userId === chatPartnerInformation.id)
-                chatPage.botInformation = userFullInfo
+                chatPage.botInformation = userFullInfo.bot_info
         }
         onSponsoredMessageReceived: chatPage.containsSponsoredMessages = true
         onReactionsUpdated: availableReactions = tdLibWrapper.getChatReactions(chatInformation.id)
@@ -1102,8 +1102,7 @@ Page {
                     model: chatProxyModel
                     header: Component {
                         Loader {
-                            active: !!chatPage.botInformation
-                                    && !!chatPage.botInformation.bot_info && chatPage.botInformation.bot_info.description.length > 0
+                            active: !!chatPage.botInformation && chatPage.botInformation.description.length > 0
                             asynchronous: true
                             width: chatView.width
                             sourceComponent: Component {
@@ -1113,7 +1112,7 @@ Page {
                                     bottomPadding: Theme.paddingLarge
                                     leftPadding: Theme.horizontalPageMargin
                                     rightPadding: Theme.horizontalPageMargin
-                                    text: Emoji.emojify(chatPage.botInformation.bot_info.description, font.pixelSize)
+                                    text: Emoji.emojify(chatPage.botInformation.description, font.pixelSize)
                                     font.pixelSize: Theme.fontSizeSmall
                                     color: Theme.highlightColor
                                     wrapMode: Text.Wrap
@@ -1501,8 +1500,7 @@ Page {
                             width: parent.width
                             Repeater {
                                 id: botCommandsRepeater
-                                model: !botCommandsColumn.hidden && botInformation && botInformation.bot_info
-                                        ? botInformation.bot_info.commands : undefined
+                                model: !botCommandsColumn.hidden && botInformation ? botInformation.commands : undefined
 
                                 BackgroundItem {
                                     width: parent.width
@@ -1676,7 +1674,7 @@ Page {
                             }
                         }
                         IconButton {
-                            visible: !!botInformation && !!botInformation.bot_info && botInformation.bot_info.commands.length > 0
+                            visible: !!botInformation && botInformation.commands.length > 0
                             highlighted: down || !botCommandsColumn.hidden
                             icon.source: "image://theme/icon-m-menu"
                             onClicked: {
