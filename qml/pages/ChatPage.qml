@@ -119,10 +119,6 @@ Page {
         }
     }
 
-    function updateStatusText() {
-        chatStatusText.reload = !chatStatusText.reload
-    }
-
     function getMessageStatusText(message, listItemIndex, lastReadSentIndex, useElapsed) {
         Debug.log("Last read sent index: " + lastReadSentIndex)
         var messageStatusSuffix = ""
@@ -637,8 +633,7 @@ Page {
         interval: 60000
         running: isPrivateChat || isSecretChat
         repeat: true
-        onTriggered:
-            updateStatusText()
+        onTriggered: chatStatusText.update()
     }
     Timer {
         id: viewMessageTimer
@@ -882,10 +877,11 @@ Page {
                             right: parent.right
                             bottom: parent.bottom
                         }
-                        property bool reload
+                        property bool _reload
+                        function update() { _reload = !_reload }
                         text: {
                             // https://stackoverflow.com/questions/48325115/qml-programmatically-update-binding
-                            if (reload && !reload) return ''
+                            if (_reload && !_reload) return ''
 
                             var status = Functions.getChatActionsText(chatModel.chatActionsByChats, chatModel.chatActionsByUsers, isPrivateChat || isSecretChat)
                             if (status) return status
