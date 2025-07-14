@@ -331,7 +331,7 @@ function getMessagesArrayText(messages) {
 
 function handleErrorMessage(code, message, extra) {
     // if code is 406, next updateServiceNotification will replace this message; in case it will not be received this message will not be replaced and will be shown
-    Debug.log("An error received from tdlib", code, message, JSON.stringify(extra))
+    Debug.log("TDLib Error:", code, message, JSON.stringify(extra))
     if (code === 404 ||
             (code === 400 &&
              (message === "USERNAME_INVALID" || message === "USERNAME_NOT_OCCUPIED" || (extra === "getInstalledStickerSets" && message === "File not found")))) {
