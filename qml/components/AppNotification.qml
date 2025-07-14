@@ -5,9 +5,10 @@ import "../js/debug.js" as Debug
 Rectangle {
     id: notification
     anchors.centerIn: parent
-    width: Math.min(parent.width - 2 * Theme.horizontalPageMargin, text.implicitWidth)
+    width: Math.min((orientation & Orientation.LandscapeMask ? parent.height : parent.width) - 2 * Theme.horizontalPageMargin, text.implicitWidth + buttonWidth)
     height: Math.min(text.height + buttonHeight, Theme.itemSizeLarge*3)
-    onHeightChanged: console.log(height, text.height, buttonHeight)
+
+    onWidthChanged: button.calculateState()
 
     opacity: 0
     Behavior on opacity { FadeAnimator { id: fadeAnimator } }
@@ -28,6 +29,7 @@ Rectangle {
         text.text = message
         clickedAction = onClicked
         button.text = buttonText || ''
+        button.calculateState()
         opacity = 1
         resetTimer.restart() // for some reason text.height == height here, so we use signals to stop timer
     }
@@ -45,6 +47,7 @@ Rectangle {
     }
 
     readonly property real buttonHeight: button.visible && button.state == 'bottom' ? button.height + button.anchors.bottomMargin : 0
+    readonly property real buttonWidth: button.visible && button.state == 'right' ? button.width + button.anchors.rightMargin : 0
     readonly property real maximumTextHeight: height - buttonHeight
     clip: text.height > maximumTextHeight
     onClipChanged: if (clip) resetTimer.stop() // see show()
@@ -52,8 +55,9 @@ Rectangle {
     Text {
         id: text
         padding: Theme.paddingLarge
+        rightPadding: buttonWidth > 0 ? Theme.paddingMedium : Theme.paddingLarge
         bottomPadding: buttonHeight > 0 ? Theme.paddingMedium : Theme.paddingLarge
-        width: parent.width - (button.visible && button.state == 'right' ? button.width + button.anchors.leftMargin : 0)
+        width: parent.width - buttonWidth
 
         color: Theme.primaryColor
         font.pixelSize: Theme.fontSizeSmall //Theme.fontSizeExtraSmall
@@ -94,11 +98,16 @@ Rectangle {
         id: button
 
         visible: !!clickedAction && !!text
+        state: 'right'
+        function calculateState() {
+            state = 'right'
+            // If it doesn't fit after adding the button to the right
+            state = text.lineCount > 1 ? 'bottom' : 'right'
+        }
 
         states: [
             State {
                 name: 'bottom'
-                when: text.lineCount > 1
                 PropertyChanges {
                     target: button
                     // topMargin is managed by text.bottomPadding
@@ -114,10 +123,10 @@ Rectangle {
             },
             State {
                 name: 'right'
-                when:  text.lineCount <= 1
                 PropertyChanges {
                     target: button
-                    anchors.leftMargin: Theme.paddingMedium
+                    // leftMargin is managed by text.rightPadding
+                    anchors.rightMargin: Theme.paddingLarge
                 }
                 AnchorChanges {
                     target: button
