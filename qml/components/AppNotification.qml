@@ -5,10 +5,12 @@ import "../js/debug.js" as Debug
 Rectangle {
     id: notification
     anchors.centerIn: parent
-    width: Math.min((orientation & Orientation.LandscapeMask ? parent.height : parent.width) - 2 * Theme.horizontalPageMargin, text.implicitWidth + buttonWidth)
-    height: Math.min(text.height + buttonHeight, Theme.itemSizeLarge*3)
 
-    onWidthChanged: button.calculateState()
+    property real layoutMaxWidth
+    readonly property real maxWidth: layoutMaxWidth - 2 * Theme.horizontalPageMargin
+
+    width: Math.min(maxWidth, text.implicitWidth + buttonWidth)
+    height: Math.min(text.height + buttonHeight, Theme.itemSizeLarge*3)
 
     opacity: 0
     Behavior on opacity { FadeAnimator { id: fadeAnimator } }
@@ -29,7 +31,6 @@ Rectangle {
         text.text = message
         clickedAction = onClicked
         button.text = buttonText || ''
-        button.calculateState()
         opacity = 1
         resetTimer.restart() // for some reason text.height == height here, so we use signals to stop timer
     }
@@ -51,6 +52,25 @@ Rectangle {
     readonly property real maximumTextHeight: height - buttonHeight
     clip: text.height > maximumTextHeight
     onClipChanged: if (clip) resetTimer.stop() // see show()
+
+    property alias textItem: text
+
+    Loader {
+        id: textMetricsLoader
+        active: button.visible
+        sourceComponent: Component {
+            TextMetrics {
+                font.pixelSize: textItem.font.pixelSize
+                text: textItem.text
+                // For some reason using text(Item).implicitWidth in notification.width expression causes a binding loop, so we use this
+                readonly property bool rightButtonFits: (width
+                                                    - (Theme.paddingLarge + Theme.paddingMedium) // text.leftPadding + text.rightPadding
+                                                    + (button.width + Theme.paddingLarge) // buttonWidth
+                                                    ) <= notification.maxWidth
+            }
+        }
+        readonly property bool rightButtonFits: !!item && item.rightButtonFits
+    }
 
     Text {
         id: text
@@ -96,18 +116,13 @@ Rectangle {
 
     SecondaryButton {
         id: button
-
         visible: !!clickedAction && !!text
-        state: 'right'
-        function calculateState() {
-            state = 'right'
-            // If it doesn't fit after adding the button to the right
-            state = text.lineCount > 1 ? 'bottom' : 'right'
-        }
+        preferredWidth: Theme.buttonWidthExtraSmall
 
         states: [
             State {
                 name: 'bottom'
+                when: !textMetricsLoader.rightButtonFits
                 PropertyChanges {
                     target: button
                     // topMargin is managed by text.bottomPadding
@@ -123,6 +138,7 @@ Rectangle {
             },
             State {
                 name: 'right'
+                when: textMetricsLoader.rightButtonFits
                 PropertyChanges {
                     target: button
                     // leftMargin is managed by text.rightPadding
@@ -138,8 +154,6 @@ Rectangle {
             }
 
         ]
-
-        preferredWidth: Theme.buttonWidthExtraSmall
 
         onClicked: {
             reset()
