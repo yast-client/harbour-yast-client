@@ -23,8 +23,8 @@
 class BoolFilterModel : public QSortFilterProxyModel
 {
     Q_OBJECT
-    Q_PROPERTY(QString filterRoleName READ getFilterRoleName WRITE setFilterRoleName NOTIFY filterRoleNameChanged)
-    Q_PROPERTY(bool filterValue READ getFilterValue WRITE setFilterValue NOTIFY filterValueChanged)
+    Q_PROPERTY(QString filterRoleName MEMBER filterRoleName WRITE setFilterRoleName NOTIFY filterRoleNameChanged)
+    Q_PROPERTY(bool filterValue MEMBER filterValue WRITE setFilterValue NOTIFY filterValueChanged)
     Q_PROPERTY(QObject* sourceModel READ sourceModel WRITE setSource NOTIFY sourceChanged)
 
 public:
@@ -33,12 +33,9 @@ public:
     void setSource(QObject* model);
     void setSourceModel(QAbstractItemModel *model) Q_DECL_OVERRIDE;
 
-
-    QString getFilterRoleName() const;
     void setFilterRoleName(QString role);
-
-    bool getFilterValue() const;
     void setFilterValue(bool value);
+
     Q_INVOKABLE int mapRowFromSource(int i, int fallbackDirection);
     Q_INVOKABLE int mapRowToSource(int i);
 

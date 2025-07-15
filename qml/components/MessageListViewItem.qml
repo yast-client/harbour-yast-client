@@ -294,7 +294,7 @@ ListItem {
     property bool __otherTranslations: qsTr("Copy Message to Clipboard") + qsTr("Select Message") + qsTr("More Options...") + qsTr("Unpin Message") + qsTr("Pin Message")
 
     function updateIsUnread() {
-        messageBackground.isUnread = messageIndex > chatModel.getLastReadMessageIndex() && myMessage['@type'] !== "sponsoredMessage"
+        messageBackground.isUnread = Qt.binding(function() { return messageIndex > chatModel.getLastReadMessageIndex() && myMessage['@type'] !== "sponsoredMessage" })
     }
     Connections {
         target: chatModel

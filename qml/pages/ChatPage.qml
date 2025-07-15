@@ -1235,7 +1235,15 @@ Page {
                                 messageViewCount: model.view_count
                                 reactions: model.reactions
                                 chatReactions: availableReactions
-                                messageIndex: chatProxyModel.mapRowToSource(model.index)
+                                readonly property int originalIndex: model.index
+                                messageIndex: chatProxyModel.mapRowToSource(originalIndex)
+                                onOriginalIndexChanged: messageIndexTimer.start()
+                                Timer {
+                                    // FIXME: find a better way to fix this
+                                    id: messageIndexTimer
+                                    interval: 0
+                                    onTriggered: messageIndex = Qt.binding(function() { return chatProxyModel.mapRowToSource(originalIndex) })
+                                }
                                 hasContentComponent: !!myMessage.content && chatView.delegateMessagesContent.indexOf(model.content_type) > -1
                                 fullWidthWidescreenContent: !!myMessage.content && chatView.fullWidthWidescreenContentMessages.indexOf(model.content_type) > -1
                                 onReplyToMessage: {

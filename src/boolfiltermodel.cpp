@@ -43,11 +43,6 @@ void BoolFilterModel::setSourceModel(QAbstractItemModel *model)
     }
 }
 
-QString BoolFilterModel::getFilterRoleName() const
-{
-    return filterRoleName;
-}
-
 void BoolFilterModel::setFilterRoleName(QString role)
 {
     if (filterRoleName != role) {
@@ -56,11 +51,6 @@ void BoolFilterModel::setFilterRoleName(QString role)
         updateFilterRole();
         emit filterRoleNameChanged();
     }
-}
-
-bool BoolFilterModel::getFilterValue() const
-{
-    return filterValue;
 }
 
 void BoolFilterModel::setFilterValue(bool value)
