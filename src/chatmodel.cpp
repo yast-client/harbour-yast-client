@@ -1021,23 +1021,28 @@ QVariantMap ChatModel::enhanceMessage(const QVariantMap &message)
     return enhancedMessage;
 }
 
+int ChatModel::findLastSentMessageIndex() {
+    const int myUserId = tdLibWrapper->getUserInformation().value(ID).toInt();
+    for (int i = (messages.size() - 1); i >= 0; i--) // find last own message in list
+        if (messages.at(i)->senderUserId() == myUserId)
+            return i;
+    return -1;
+}
+
 int ChatModel::calculateLastKnownMessageId(bool classic) {
     // classic: fallback to last message instead of returning -1 for incoming messages, get last loaded own message for outgoing ones
     LOG("calculateLastKnownMessageId classic:" << classic);
     const qlonglong lastKnownMessageId = this->chatInformation.value(LAST_READ_INBOX_MESSAGE_ID).toLongLong();
     LOG("lastKnownMessageId" << lastKnownMessageId);
+
     qlonglong lastOwnMessageId = 0;
     if (classic) {
-        const int myUserId = tdLibWrapper->getUserInformation().value(ID).toInt();
-        for (int i = (messages.size() - 1); i >= 0; i--) { // find last own message in list
-            MessageData *currentMessage = messages.at(i);
-            if (currentMessage->senderUserId() == myUserId) {
-                lastOwnMessageId = currentMessage->messageId;
-                break;
-            }
-        }
+        const int lastOwnMessageIndex = findLastSentMessageIndex();
+        if (lastOwnMessageIndex > -1)
+            lastOwnMessageId = messages.at(lastOwnMessageIndex)->messageId;
     } else
         lastOwnMessageId = this->chatInformation.value(LAST_READ_OUTBOX_MESSAGE_ID).toLongLong();
+
     LOG("size messageIndexMap" << messageIndexMap.size());
     LOG("contains last read ID?" << messageIndexMap.contains(lastKnownMessageId));
     LOG("contains last own ID?" << messageIndexMap.contains(lastOwnMessageId));

@@ -99,6 +99,7 @@ private:
     int calculateLastKnownMessageId(bool classic = true);
     int calculateLastReadSentMessageId();
     int calculateScrollPosition(int listInboxPosition);
+    int findLastSentMessageIndex();
     bool isMostRecentMessageLoaded();
 
 private:
