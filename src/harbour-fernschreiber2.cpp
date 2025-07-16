@@ -44,7 +44,6 @@
 #include "chatpermissionfiltermodel.h"
 #include "chatlistmodel.h"
 #include "chatmodel.h"
-#include "namedaction.h"
 #include "notificationmanager.h"
 #include "mceinterface.h"
 #include "dbusadaptor.h"
@@ -129,7 +128,6 @@ int main(int argc, char *argv[])
 
     const char *uri = "WerkWolf.Fernschreiber";
     qmlRegisterType<TDLibFile>(uri, 1, 0, "TDLibFile");
-    qmlRegisterType<NamedAction>(uri, 1, 0, "NamedAction");
     qmlRegisterType<TextFilterModel>(uri, 1, 0, "TextFilterModel");
     qmlRegisterType<BoolFilterModel>(uri, 1, 0, "BoolFilterModel");
     qmlRegisterType<ChatPermissionFilterModel>(uri, 1, 0, "ChatPermissionFilterModel");

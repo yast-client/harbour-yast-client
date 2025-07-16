@@ -191,6 +191,7 @@ TDLibReceiver::TDLibReceiver(void *tdLibClient, QObject *parent) : QThread(paren
     handlers.insert("storageStatistics", &TDLibReceiver::processStorageStatistics);
     handlers.insert("formattedText", &TDLibReceiver::processFormattedText);
     handlers.insert("updateChatAction", &TDLibReceiver::processUpdateChatAction);
+    handlers.insert("emojiKeywords", &TDLibReceiver::processEmojiKeywords);
 }
 
 void TDLibReceiver::setActive(bool active)
@@ -990,4 +991,15 @@ void TDLibReceiver::processUpdateChatAction(const QVariantMap &receivedInformati
             messageThreadId = receivedInformation.value(MESSAGE_THREAD_ID).toLongLong();
     LOG("Received updateChatAction" << chatId << messageThreadId);
     emit chatActionUpdated(chatId, receivedInformation.value(SENDER_ID).toMap(), receivedInformation.value("action").toMap(), messageThreadId);
+}
+
+void TDLibReceiver::processEmojiKeywords(const QVariantMap &receivedInformation) {
+    LOG("Received emojiKeywords");
+    QVariantList emojis;
+    for (QVariant emojiKeyword : receivedInformation.value("emoji_keywords").toList()) {
+        QString emoji = emojiKeyword.toMap().value("emoji").toString();
+        if (!emoji.isEmpty()) emojis.append(emoji);
+    }
+    //if (!emojis.isEmpty())
+    emit emojiKeywordsReceived(receivedInformation.value(_EXTRA).toString(), emojis);
 }

@@ -51,6 +51,7 @@ Page {
     property var chatGroupInformation
     property int chatOnlineMemberCount: 0
     property var emojiProposals
+    property string emojiProposalsKeyword
     property bool iterativeInitialization: false
     property var messageToShow
     property string messageIdToShow
@@ -218,9 +219,11 @@ Page {
 
         var currentWord = text.substring(wordBoundaries.beginIndex, wordBoundaries.endIndex)
         if (currentWord.length > 1 && currentWord.charAt(0) === ':')
-            tdLibWrapper.searchEmoji(currentWord.substring(1))
-        else
+            tdLibWrapper.searchEmojis(currentWord.substring(1))
+        else {
             chatPage.emojiProposals = null
+            chatPage.emojiProposalsKeyword = ''
+        }
         if (currentWord.length > 1 && currentWord.charAt(0) === '@') {
             knownUsersRepeater.model = knownUsersProxyModel
             knownUsersProxyModel.setFilterWildcard("*" + currentWord.substring(1) + "*")
@@ -460,7 +463,10 @@ Page {
                 uploadingProgressBar.value = fileInformation.remote.uploaded_size
             }
         }
-        onEmojiSearchSuccessful: chatPage.emojiProposals = result
+        onEmojiKeywordsReceived: {
+            chatPage.emojiProposalsKeyword = text
+            chatPage.emojiProposals = emojis
+        }
         onReceivedMessage: {
             if (message.is_pinned) {
                 Debug.log("[ChatPage] Received pinned message")
@@ -1797,8 +1803,8 @@ Page {
                     id: emojiColumn
                     width: parent.width
                     anchors.horizontalCenter: parent.horizontalCenter
-                    visible: emojiProposals ? ( emojiProposals.length > 0 ? true : false ) : false
-                    opacity: emojiProposals ? ( emojiProposals.length > 0 ? 1 : 0 ) : 0
+                    visible: opacity > 0
+                    opacity: emojiProposals && emojiProposals.length > 0 ? 1 : 0
                     Behavior on opacity { NumberAnimation {} }
                     spacing: Theme.paddingMedium
 
@@ -1813,29 +1819,18 @@ Page {
                             spacing: Theme.paddingMedium
                             Repeater {
                                 model: emojiProposals
-
-                                Item {
-                                    height: singleEmojiRow.height
-                                    width: singleEmojiRow.width
-
-                                    Row {
-                                        id: singleEmojiRow
-                                        spacing: Theme.paddingSmall
-
-                                        Image {
-                                            id: emojiPicture
-                                            source: "../js/emoji/" + modelData.file_name +".svg"
-                                            width: Theme.fontSizeLarge
-                                            height: Theme.fontSizeLarge
-                                        }
-
-                                    }
+                                Image {
+                                    id: emojiPicture
+                                    source: Emoji.getEmojiPath(modelData)
+                                    width: Theme.fontSizeLarge
+                                    height: Theme.fontSizeLarge
 
                                     MouseArea {
                                         anchors.fill: parent
                                         onClicked: {
-                                            replaceMessageText(newMessageTextField.text, newMessageTextField.cursorPosition, modelData.emoji)
+                                            replaceMessageText(emojiProposalsKeyword, newMessageTextField.cursorPosition, modelData)
                                             emojiProposals = null
+                                            emojiProposalsKeyword = ''
                                         }
                                     }
                                 }

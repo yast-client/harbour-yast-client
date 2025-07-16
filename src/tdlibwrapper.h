@@ -29,7 +29,6 @@
 #include "tdlibreceiver.h"
 #include "dbusadaptor.h"
 #include "dbusinterface.h"
-#include "emojisearchworker.h"
 #include "appsettings.h"
 #include "mceinterface.h"
 
@@ -266,9 +265,9 @@ public:
     Q_INVOKABLE void optimizeStorage(bool entire = false);
     Q_INVOKABLE void translateText(const QVariantMap &text, const QString &languageCode, qlonglong extraId);
     Q_INVOKABLE void sendChatAction(qlonglong chatId, const QString &chatActionType);
+    Q_INVOKABLE void searchEmojis(const QString &text);
 
     // Others (candidates for extraction ;))
-    Q_INVOKABLE void searchEmoji(const QString &queryString);
     Q_INVOKABLE void initializeOpenWith();
     Q_INVOKABLE void removeOpenWith();
 
@@ -323,7 +322,6 @@ signals:
     void installedStickerSetsUpdated(const QVariantList &stickerSetIds);
     void stickerSetsReceived(const QVariantList &stickerSets);
     void stickerSetReceived(const QVariantMap &stickerSet);
-    void emojiSearchSuccessful(const QVariantList &result);
     void chatMembersReceived(const QString &extra, const QVariantList &members, int totalMembers);
     void userFullInfoReceived(const QVariantMap &userFullInfo);
     void userFullInfoUpdated(const QString &userId, const QVariantMap &userFullInfo);
@@ -362,6 +360,7 @@ signals:
     void storageStatisticsReceived(const QVariantMap &statistics);
     void translationResultReceived(qlonglong extraId, const QVariantMap &formattedText);
     void chatActionUpdated(qlonglong chatId, const QVariantMap &sender, const QVariantMap &action, qlonglong messageThreadId);
+    void emojiKeywordsReceived(const QString &text, const QVariantList &emojis);
 
 public slots:
     // appSettings
@@ -384,7 +383,6 @@ public slots:
     void handleBasicGroupUpdated(qlonglong groupId, const QVariantMap &groupInformation);
     void handleSuperGroupUpdated(qlonglong groupId, const QVariantMap &groupInformation);
     void handleStickerSets(const QVariantList &stickerSets);
-    void handleEmojiSearchCompleted(const QString &queryString, const QVariantList &resultList);
     void handleSecretChatReceived(qlonglong secretChatId, const QVariantMap &secretChat);
     void handleSecretChatUpdated(qlonglong secretChatId, const QVariantMap &secretChat);
     void handleErrorReceived(int code, const QString &message, const QVariant &extra);
@@ -433,7 +431,6 @@ private:
     QHash<qlonglong,Group*> basicGroups;
     QHash<qlonglong,Group*> superGroups;
     QVariantMap superGroupsByName;
-    EmojiSearchWorker emojiSearchWorker;
     QStringList activeEmojiReactions;
 
     int versionNumber;

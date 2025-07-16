@@ -138,8 +138,6 @@ TDLibWrapper::TDLibWrapper(AppSettings *settings, MceInterface *mce, QObject *pa
         removeOpenWith();
     }
 
-    connect(&emojiSearchWorker, &EmojiSearchWorker::searchCompleted, this, &TDLibWrapper::handleEmojiSearchCompleted);
-
     connect(appSettings, &AppSettings::useOpenWithChanged, this, &TDLibWrapper::handleOpenWithChanged);
     connect(appSettings, &AppSettings::storageOptimizerChanged, this, &TDLibWrapper::handleStorageOptimizerChanged);
     connect(appSettings, &AppSettings::sendMarkdownChanged, this, &TDLibWrapper::handleSendMarkdownChanged);
@@ -245,6 +243,7 @@ void TDLibWrapper::initializeTDLibReceiver() {
     connect(this->tdLibReceiver, &TDLibReceiver::storageStatisticsReceived, this, &TDLibWrapper::storageStatisticsReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::translationResultReceived, this, &TDLibWrapper::translationResultReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::chatActionUpdated, this, &TDLibWrapper::chatActionUpdated);
+    connect(this->tdLibReceiver, &TDLibReceiver::emojiKeywordsReceived, this, &TDLibWrapper::emojiKeywordsReceived);
 
     this->tdLibReceiver->start();
 }
@@ -1260,16 +1259,6 @@ void TDLibWrapper::setInactiveSessionTtl(int days) {
     this->sendRequest(QVariantMap{{_TYPE, "setInactiveSessionTtl"}, {"inactive_session_ttl_days", days}});
 }
 
-void TDLibWrapper::searchEmoji(const QString &queryString) {
-    LOG("Searching emoji" << queryString);
-
-    while (this->emojiSearchWorker.isRunning())
-        this->emojiSearchWorker.requestInterruption();
-
-    this->emojiSearchWorker.setParameters(queryString);
-    this->emojiSearchWorker.start();
-}
-
 QVariantMap TDLibWrapper::getUserInformation() {
     return this->userInformation;
 }
@@ -1660,11 +1649,6 @@ void TDLibWrapper::handleStickerSets(const QVariantList &stickerSets) {
         this->getStickerSet(stickerSet.value(ID).toString());
     }
     emit this->stickerSetsReceived(stickerSets);
-}
-
-void TDLibWrapper::handleEmojiSearchCompleted(const QString &queryString, const QVariantList &resultList) {
-    LOG("Emoji search completed" << queryString);
-    emit emojiSearchSuccessful(resultList);
 }
 
 void TDLibWrapper::handleOpenWithChanged() {
@@ -2114,6 +2098,7 @@ void TDLibWrapper::optimizeStorage(bool entire) {
 }
 
 void TDLibWrapper::translateText(const QVariantMap &text, const QString &languageCode, qlonglong extraId) {
+    LOG("Translating text" << extraId);
     this->sendRequest(QVariantMap{
         {_TYPE, "translateText"},
     {TEXT, text},
@@ -2123,7 +2108,18 @@ void TDLibWrapper::translateText(const QVariantMap &text, const QString &languag
 }
 
 void TDLibWrapper::sendChatAction(qlonglong chatId, const QString &chatActionType) {
+    LOG("Sending chat action" << chatId);
     this->sendRequest(QVariantMap{{_TYPE, "sendChatAction"}, {CHAT_ID, chatId},
                                   {"action", QVariantMap{{_TYPE, chatActionType}}}
+                      });
+}
+
+void TDLibWrapper::searchEmojis(const QString &text) {
+    LOG("Searching emojis" << text);
+    this->sendRequest(QVariantMap{
+                          {_TYPE, "searchEmojis"},
+                          {TEXT, text},
+                          {_EXTRA, text},
+                          {"input_language_codes", QVariantList{{QLocale::system().name()}}}
                       });
 }

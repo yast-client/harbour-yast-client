@@ -523,21 +523,21 @@ QVariant Utilities::getMaybeFormattedMessageText(const QVariantMap &message, boo
                 );
 }
 
-QString Utilities::getMessageText(const QVariantMap &message, bool simple, bool ignoreEntities, bool escapeReserved) {
+QString Utilities::getMessageText(const QVariantMap &message, bool simple, bool ignoreEntities, bool escapeReserved) const {
     const QVariant text = getMaybeFormattedMessageText(message, simple);
     if (text.userType() == QMetaType::QVariantMap)
         return enhanceMessageText(text.toMap(), ignoreEntities, escapeReserved);
     return text.toString();
 }
 
-QVariantMap Utilities::getFormattedMessageText(const QVariantMap &message, bool simple) {
+QVariantMap Utilities::getFormattedMessageText(const QVariantMap &message, bool simple) const {
     const QVariant text = getMaybeFormattedMessageText(message, simple);
     if (text.userType() == QMetaType::QString)
         return newFormattedText(text.toString());
     return text.toMap();
 }
 
-QString Utilities::getMessageContentText(const QVariantMap messageContent, bool simple, bool ignoreEntities, bool escapeReserved) {
+QString Utilities::getMessageContentText(const QVariantMap messageContent, bool simple, bool ignoreEntities, bool escapeReserved) const {
     const QVariant text = getMaybeFormattedMessageText(
                 messageContent,
                 MESSAGE_SENDER_TYPE_CHAT, // Skips all user-related checks
