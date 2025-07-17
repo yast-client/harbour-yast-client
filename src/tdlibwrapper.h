@@ -57,9 +57,7 @@ public:
         WaitPassword,
         WaitPhoneNumber,
         WaitRegistration,
-        WaitTdlibParameters,
-        AuthorizationStateClosed,
-        AuthorizationStateLoggingOut
+        WaitTdlibParameters
     };
     Q_ENUM(AuthorizationState)
 
@@ -266,6 +264,7 @@ public:
     Q_INVOKABLE void translateText(const QVariantMap &text, const QString &languageCode, qlonglong extraId);
     Q_INVOKABLE void sendChatAction(qlonglong chatId, const QString &chatActionType);
     Q_INVOKABLE void searchEmojis(const QString &text);
+    void close();
 
     // Others (candidates for extraction ;))
     Q_INVOKABLE void initializeOpenWith();
@@ -408,7 +407,7 @@ private:
     void updateUserInformation(const QString &userId, const QVariantMap &userInformation);
 
 private:
-    void *tdLibClient;
+    int tdLibClientId;
     QNetworkAccessManager *manager;
     QNetworkConfigurationManager *networkConfigurationManager;
     AppSettings *appSettings;
@@ -437,7 +436,7 @@ private:
     QString activeChatSearchName;
     bool joinChatRequested;
     bool isLoggingOut;
-
+    bool closing;
 };
 
 #endif // TDLIBWRAPPER_H

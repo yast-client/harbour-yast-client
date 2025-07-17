@@ -171,7 +171,6 @@ Page {
         case TelegramAPI.WaitCode:
         case TelegramAPI.WaitPassword:
         case TelegramAPI.WaitRegistration:
-        case TelegramAPI.AuthorizationStateClosed:
             overviewPage.loading = false;
             overviewPage.logoutLoading = false;
             if(isOnInitialization) { // pageStack isn't ready on Component.onCompleted
@@ -186,7 +185,7 @@ Page {
             overviewPage.initializationCompleted = true;
             overviewPage.updateContent();
             break;
-        case TelegramAPI.AuthorizationStateLoggingOut:
+        case TelegramAPI.LoggingOut:
             if (logoutLoading) {
                 Debug.log("Resources cleared already");
                 return;

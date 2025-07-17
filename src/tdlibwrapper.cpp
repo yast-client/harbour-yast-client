@@ -111,7 +111,7 @@ namespace {
 
 TDLibWrapper::TDLibWrapper(AppSettings *settings, MceInterface *mce, QObject *parent)
     : QObject(parent)
-    , tdLibClient(td_json_client_create())
+    , tdLibClientId(td_create_client_id())
     , manager(new QNetworkAccessManager(this))
     , networkConfigurationManager(new QNetworkConfigurationManager(this))
     , appSettings(settings)
@@ -151,20 +151,22 @@ TDLibWrapper::TDLibWrapper(AppSettings *settings, MceInterface *mce, QObject *pa
     this->handleSendMarkdownChanged();
 }
 
-TDLibWrapper::~TDLibWrapper()
-{
-    LOG("Destroying TD Lib...");
+TDLibWrapper::~TDLibWrapper() {
+    LOG("Closing TDLib instance...");
+    this->close();
+    while (this->authorizationState != AuthorizationState::Closed) {
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 1000);
+    }
     this->tdLibReceiver->setActive(false);
     while (this->tdLibReceiver->isRunning()) {
         QCoreApplication::processEvents(QEventLoop::AllEvents, 1000);
     }
     qDeleteAll(basicGroups.values());
     qDeleteAll(superGroups.values());
-    td_json_client_destroy(this->tdLibClient);
 }
 
 void TDLibWrapper::initializeTDLibReceiver() {
-    this->tdLibReceiver = new TDLibReceiver(this->tdLibClient, this);
+    this->tdLibReceiver = new TDLibReceiver(this->tdLibClientId, this);
     connect(this->tdLibReceiver, &TDLibReceiver::versionDetected, this, &TDLibWrapper::handleVersionDetected);
     connect(this->tdLibReceiver, &TDLibReceiver::authorizationStateChanged, this, &TDLibWrapper::handleAuthorizationStateChanged);
     connect(this->tdLibReceiver, &TDLibReceiver::optionUpdated, this, &TDLibWrapper::handleOptionUpdated);
@@ -257,7 +259,7 @@ void TDLibWrapper::sendRequest(const QVariantMap &requestObject)
     LOG("Sending request to TD Lib, object type name:" << requestObject.value(_TYPE).toString());
     QJsonDocument requestDocument = QJsonDocument::fromVariant(requestObject);
     VERBOSE(requestDocument.toJson().constData());
-    td_json_client_send(this->tdLibClient, requestDocument.toJson().constData());
+    td_send(this->tdLibClientId, requestDocument.toJson().constData());
 }
 
 void TDLibWrapper::setAuthenticationPhoneNumber(const QString &phoneNumber) {
@@ -1481,28 +1483,6 @@ void TDLibWrapper::handleAuthorizationStateChanged(const QString &authorizationS
         this->setInitialParameters();
         this->authorizationState = AuthorizationState::WaitTdlibParameters;
     }
-    if (authorizationState == "authorizationStateLoggingOut") {
-        this->authorizationState = AuthorizationState::AuthorizationStateLoggingOut;
-    }
-    if (authorizationState == "authorizationStateClosed") {
-        this->authorizationState = AuthorizationState::AuthorizationStateClosed;
-        LOG("Reloading TD Lib...");
-        this->basicGroups.clear();
-        this->superGroups.clear();
-        this->usersById.clear();
-        this->usersByName.clear();
-        this->tdLibReceiver->setActive(false);
-        while (this->tdLibReceiver->isRunning()) {
-            QCoreApplication::processEvents(QEventLoop::AllEvents, 1000);
-        }
-        td_json_client_destroy(this->tdLibClient);
-        this->tdLibReceiver->terminate();
-        QDir appPath(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
-        appPath.removeRecursively();
-        this->tdLibClient = td_json_client_create();
-        initializeTDLibReceiver();
-        this->isLoggingOut = false;
-    }
     this->authorizationStateData = authorizationStateData;
     emit authorizationStateChanged(this->authorizationState, this->authorizationStateData);
 }
@@ -2122,4 +2102,8 @@ void TDLibWrapper::searchEmojis(const QString &text) {
                           {_EXTRA, text},
                           {"input_language_codes", QVariantList{{QLocale::system().name()}}}
                       });
+}
+
+void TDLibWrapper::close() {
+    sendRequest(QVariantMap{{_TYPE, "close"}});
 }
