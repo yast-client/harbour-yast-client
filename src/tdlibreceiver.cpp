@@ -18,6 +18,8 @@
 */
 #include "tdlibreceiver.h"
 
+#define WAIT_TIMEOUT 5.0
+
 #define DEBUG_MODULE TDLibReceiver
 #include "debuglog.h"
 
@@ -106,9 +108,8 @@ static QString findChatPositionOrder(const QVariantList &positions)
     return QString();
 }
 
-TDLibReceiver::TDLibReceiver(void *tdLibClient, QObject *parent) : QThread(parent)
-{
-    this->tdLibClient = tdLibClient;
+TDLibReceiver::TDLibReceiver(int tdLibClientId, QObject *parent) : QThread(parent) {
+    this->tdLibClientId = tdLibClientId;
     this->isActive = true;
 
     handlers.insert("updateOption", &TDLibReceiver::processUpdateOption);
@@ -205,9 +206,8 @@ void TDLibReceiver::setActive(bool active)
 void TDLibReceiver::receiverLoop()
 {
     LOG("Starting receiver loop");
-    const double WAIT_TIMEOUT = 5.0;
     while (this->isActive) {
-      const char *result = td_json_client_receive(this->tdLibClient, WAIT_TIMEOUT);
+      const char *result = td_receive(WAIT_TIMEOUT);
       if (result) {
           QJsonDocument receivedJsonDocument = QJsonDocument::fromJson(QByteArray(result));
           VERBOSE("Raw result:" << receivedJsonDocument.toJson(QJsonDocument::Indented).constData());

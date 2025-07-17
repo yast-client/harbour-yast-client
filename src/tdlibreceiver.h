@@ -33,7 +33,7 @@ class TDLibReceiver : public QThread
         receiverLoop();
     }
 public:
-    explicit TDLibReceiver(void *tdLibClient, QObject *parent = nullptr);
+    explicit TDLibReceiver(int tdLibClientId, QObject *parent = nullptr);
     void setActive(bool active);
 
 signals:
@@ -121,7 +121,7 @@ private:
     typedef void (TDLibReceiver::*Handler)(const QVariantMap &);
 
     QHash<QString, Handler> handlers;
-    void *tdLibClient;
+    int tdLibClientId;
     bool isActive;
 
 private:
