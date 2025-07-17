@@ -57,7 +57,6 @@ namespace {
     const QString STICKER("sticker");
     const QString STICKERS("stickers");
     const QString COVERS("covers");
-    const QString OUTLINE("outline");
     const QString CONTENT("content");
     const QString NEW_CONTENT("new_content");
     const QString SETS("sets");
@@ -787,19 +786,16 @@ void TDLibReceiver::processUpdateActiveEmojiReactions(const QVariantMap &receive
 
 // Recursively removes (some) unused entries from QVariantMaps to reduce
 // memory usage. QStrings allocated by QVariantMaps are the top consumers
-// of memory. The biggest saving is achieved by removing "outline" from
-// stickers.
+// of memory.
 const QVariantMap TDLibReceiver::cleanupMap(const QVariantMap& map, bool *updated)
 {
     const QString type(map.value(_TYPE).toString());
     if (type == TYPE_STICKER) {
         QVariantMap sticker(map);
-        if (sticker.remove(OUTLINE)) {
-            sticker.remove(_TYPE);
-            sticker.insert(_TYPE, TYPE_STICKER); // Replace with a shared value
-            if (updated) *updated = true;
-            return sticker;
-        }
+        sticker.remove(_TYPE);
+        sticker.insert(_TYPE, TYPE_STICKER); // Replace with a shared value
+        if (updated) *updated = true;
+        return sticker;
     } else if (type == TYPE_ANIMATED_EMOJI) {
         bool cleaned = false;
         const QVariantMap sticker(cleanupMap(map.value(STICKER).toMap(), &cleaned));
