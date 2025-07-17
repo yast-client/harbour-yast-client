@@ -44,8 +44,10 @@ public:
     Q_INVOKABLE void clear(bool contentOnly = false);
     Q_INVOKABLE void initialize(const QVariantMap &chatInformation, qlonglong fromMessageId = 0);
     Q_INVOKABLE void triggerLoadMoreHistory();
-    Q_INVOKABLE void triggerLoadHistoryForMessage(qlonglong messageId);
     Q_INVOKABLE void triggerLoadMoreFuture();
+    Q_INVOKABLE void triggerLoadHistoryForMessage(qlonglong messageId);
+    Q_INVOKABLE void loadEnd();
+    Q_INVOKABLE bool isMostRecentMessageLoaded();
     Q_INVOKABLE QVariantMap getChatInformation();
     Q_INVOKABLE QVariantMap getMessage(int index);
     Q_INVOKABLE QVariantList getMessageIdsForAlbum(qlonglong albumId);
@@ -102,7 +104,6 @@ private:
     int calculateLastReadSentMessageIndex();
     int calculateScrollPosition();
     int findLastSentMessageIndex();
-    bool isMostRecentMessageLoaded();
 
 private:
     TDLibWrapper *tdLibWrapper;

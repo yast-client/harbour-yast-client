@@ -450,6 +450,13 @@ void ChatModel::triggerLoadHistoryForMessage(qlonglong messageId)
     }
 }
 
+void ChatModel::loadEnd() {
+    if (!this->inIncrementalUpdate && !messages.isEmpty()) {
+        this->clear(true);
+        tdLibWrapper->getChatHistory(chatId, this->chatInformation.value(LAST_READ_INBOX_MESSAGE_ID).toLongLong());
+    }
+}
+
 void ChatModel::triggerLoadMoreHistory()
 {
     if (!this->inIncrementalUpdate && !messages.isEmpty()) {
