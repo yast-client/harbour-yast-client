@@ -301,19 +301,13 @@ QVector<int> ChatModel::MessageData::setInteractionInfo(const QVariantMap &info)
 }
 
 
-bool ChatModel::MessageData::lessThan(const MessageData *message1, const MessageData *message2)
-{
+bool ChatModel::MessageData::lessThan(const MessageData *message1, const MessageData *message2) {
     bool message1Sponsored = message1->messageType == TYPE_SPONSORED_MESSAGE;
     bool message2Sponsored = message2->messageType == TYPE_SPONSORED_MESSAGE;
-    if (message1Sponsored && message2Sponsored) {
-        return message1->messageId < message2->messageId;
-    }
-    if (message1Sponsored && !message2Sponsored) {
-        return false;
-    }
-    if (!message1Sponsored && message2Sponsored) {
-        return true;
-    }
+    if (message1Sponsored != message2Sponsored)
+        // sponsored messages are considered more than normal messages
+        return !message1Sponsored && message2Sponsored;
+
     return message1->messageId < message2->messageId;
 }
 
