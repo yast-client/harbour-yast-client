@@ -11,6 +11,7 @@ Row {
     property bool fake: !!(verificationStatus && verificationStatus.is_fake)
 
     property bool muted
+    property bool ad
 
     Image {
         id: verifiedImage
@@ -42,5 +43,12 @@ Row {
         anchors.verticalCenter: parent.verticalCenter
         visible: fake
         text: qsTr("FAKE", "string for a user text badge, should not be too long. Badge shows that this may be a scam user.")
+    }
+
+    TextBadge {
+        error: false
+        visible: ad
+        anchors.verticalCenter: parent.verticalCenter
+        text: qsTr("Ad", "chat badge, indicates that the search result is sponsored")
     }
 }

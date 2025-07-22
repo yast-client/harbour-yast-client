@@ -85,6 +85,7 @@ namespace {
     const QString TYPE_ANIMATED_EMOJI("animatedEmoji");
     const QString TYPE_INPUT_MESSAGE_REPLY_TO_MESSAGE("inputMessageReplyToMessage");
     const QString TYPE_DRAFT_MESSAGE("draftMessage");
+    const QString TYPE_SPONSORED_CHAT("sponsoredChat");
 }
 
 static QString getChatPositionOrder(const QVariantMap &position)
@@ -520,6 +521,10 @@ void TDLibReceiver::processChats(const QVariantMap &receivedInformation)
     emit chats(receivedInformation);
 }
 
+void TDLibReceiver::processSponsoredChats(const QVariantMap &receivedInformation) {
+    emit sponsoredChatsReceived(cleanupList(receivedInformation.value("chats").toList()));
+}
+
 void TDLibReceiver::processChat(const QVariantMap &receivedInformation)
 {
     emit chat(receivedInformation);
@@ -917,6 +922,12 @@ const QVariantMap TDLibReceiver::cleanupMap(const QVariantMap& map, bool *update
             if (updated) *updated = true;
             return stickerSet;
         }
+    } else if (type == TYPE_SPONSORED_CHAT) {
+        QVariantMap sponsoredChat(map);
+        sponsoredChat.remove(_TYPE); // only used in sponsoredChats, so this is not needed
+        sponsoredChat.remove("unique_id");
+        if (updated) *updated = true;
+        return sponsoredChat;
     }
     if (updated) *updated = false;
     return map;

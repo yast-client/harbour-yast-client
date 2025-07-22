@@ -6,21 +6,21 @@ Rectangle {
     width: text.width + border.width*2 + Theme.paddingSmall*2
     height: text.height + border.width*2 + Theme.paddingSmall*2
     radius: Theme.paddingSmall
-    color: 'transparent'
+    color: error ? 'transparent' : Theme.rgba(Theme.highlightBackgroundColor, Theme.highlightBackgroundOpacity)
     border {
-        width: Theme.paddingSmall
-        color: rectangle.badgeColor
+        width: error ? Theme.paddingSmall : 0
+        color: error ? Theme.errorColor : 'transparent'
     }
 
-    property color badgeColor: Theme.errorColor
     property alias text: text.text
+    property bool error: true
 
     Text {
         id: text
         anchors.centerIn: parent
-        color: rectangle.badgeColor
+        color: error ? rectangle.border.color : Theme.highlightColor
         font.pixelSize: Theme.fontSizeSmall
-        font.bold: true
-        font.capitalization: Font.AllUppercase
+        font.bold: error
+        font.capitalization: error ? Font.AllUppercase : Font.MixedCase
     }
 }

@@ -70,6 +70,7 @@ signals:
     void messageEditedUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &replyMarkup);
     void messagesDeleted(qlonglong chatId, const QList<qlonglong> &messageIds);
     void chats(const QVariantMap &chats);
+    void sponsoredChatsReceived(const QVariantList &chats);
     void chat(const QVariantMap &chats);
     void recentStickersUpdated(const QVariantList &stickerIds);
     void stickers(const QVariantList &stickers);
@@ -163,6 +164,7 @@ private:
     void processUpdateMessageContent(const QVariantMap &receivedInformation);
     void processUpdateDeleteMessages(const QVariantMap &receivedInformation);
     void processChats(const QVariantMap &receivedInformation);
+    void processSponsoredChats(const QVariantMap &receivedInformation);
     void processChat(const QVariantMap &receivedInformation);
     void processUpdateRecentStickers(const QVariantMap &receivedInformation);
     void processStickers(const QVariantMap &receivedInformation);

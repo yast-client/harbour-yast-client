@@ -20,6 +20,7 @@ ListItem {
     property bool isMarkedAsUnread
     property bool isPinned
     property alias muted: chatBadges.muted
+    property alias ad: chatBadges.ad
     property alias pictureThumbnail: pictureThumbnail
 
     contentHeight: Theme.itemSizeExtraLarge

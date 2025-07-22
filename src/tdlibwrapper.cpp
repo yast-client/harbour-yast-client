@@ -198,6 +198,7 @@ void TDLibWrapper::initializeTDLibReceiver() {
     connect(this->tdLibReceiver, &TDLibReceiver::messageContentUpdated, this, &TDLibWrapper::messageContentUpdated);
     connect(this->tdLibReceiver, &TDLibReceiver::messagesDeleted, this, &TDLibWrapper::messagesDeleted);
     connect(this->tdLibReceiver, &TDLibReceiver::chats, this, &TDLibWrapper::chatsReceived);
+    connect(this->tdLibReceiver, &TDLibReceiver::sponsoredChatsReceived, this, &TDLibWrapper::sponsoredChatsReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::chat, this, &TDLibWrapper::handleChatReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::secretChat, this, &TDLibWrapper::handleSecretChatReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::secretChatUpdated, this, &TDLibWrapper::handleSecretChatUpdated);
@@ -925,6 +926,14 @@ void TDLibWrapper::searchPublicChats(const QString &query) {
         {_TYPE, "searchPublicChats"},
         {"query", query},
         {_EXTRA, "searchPublicChats"}
+    });
+}
+
+void TDLibWrapper::getSearchSponsoredChats(const QString &query) {
+    LOG("Getting sponsored public chats for search" << query);
+    this->sendRequest(QVariantMap{
+        {_TYPE, "getSearchSponsoredChats"},
+        {"query", query}
     });
 }
 

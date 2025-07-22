@@ -39,26 +39,38 @@ Page {
         running: false
         repeat: false
         onTriggered: {
-            Debug.log("Searching for '" + publicChatsSearchField.text + "'");
-            tdLibWrapper.searchPublicChats(publicChatsSearchField.text);
-            searchChatsPage.isLoading = true;
+            Debug.log("Searching for '" + publicChatsSearchField.text + "'")
+            tdLibWrapper.searchPublicChats(publicChatsSearchField.text)
+            searchChatsPage.isLoading = true
         }
     }
 
     Connections {
         target: tdLibWrapper
         onChatsReceived: {
-            searchChatsPage.isLoading = false;
-            Debug.log(JSON.stringify(chats));
-            chatsFound = chats;
+            Debug.log(JSON.stringify(chats))
+            Array.prototype.push.apply(chatsFound, chats)
+
+            searchChatsPage.isLoading = false
+        }
+        onSponsoredChatsReceived: {
+            Debug.log(JSON.stringify(chats))
+            for (var i=0; i < chats.length; i++) {
+                var chatId = chats[i].chat_id
+                sponsoredChats[chatId] = chats[i]
+                chatsFound.unshift(chatId)
+            }
+
+            searchChatsPage.isLoading = false
         }
         onErrorReceived: {
-            searchChatsPage.isLoading = false;
+            searchChatsPage.isLoading = false
         }
     }
 
     property bool isLoading: false;
-    property var chatsFound;
+    property var chatsFound: []
+    property var sponsoredChats: ({})
     readonly property var ownUserId: tdLibWrapper.getUserInformation().id;
 
     SilicaFlickable {
@@ -126,6 +138,7 @@ Page {
                             height: foundChatListItem.height
 
                             property var foundChatInformation: tdLibWrapper.getChat(modelData);
+                            property var foundSponsorInformation: sponsoredChats[modelData]
                             property var relatedInformation;
                             property bool isPrivateChat: false;
                             property bool isBasicGroup: false;
@@ -217,6 +230,8 @@ Page {
 
                                 primaryText.text: Emoji.emojify(foundChatInformation.title, primaryText.font.pixelSize, "../js/emoji/")
                                 tertiaryText.maximumLineCount: 1
+
+                                ad: !!foundSponsorInformation
 
                                 onClicked: {
                                     pageStack.push(Qt.resolvedUrl("../pages/ChatPage.qml"), { "chatInformation" : foundChatInformation });

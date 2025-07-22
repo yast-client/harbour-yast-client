@@ -231,6 +231,7 @@ public:
     Q_INVOKABLE void removeContact(QString userId);
     Q_INVOKABLE void searchChatMessages(qlonglong chatId, const QString &query, qlonglong fromMessageId = 0);
     Q_INVOKABLE void searchPublicChats(const QString &query);
+    Q_INVOKABLE void getSearchSponsoredChats(const QString &query);
     Q_INVOKABLE void readAllChatMentions(qlonglong chatId);
     Q_INVOKABLE void readAllChatReactions(qlonglong chatId);
     Q_INVOKABLE void toggleChatIsMarkedAsUnread(qlonglong chatId, bool isMarkedAsUnread);
@@ -314,6 +315,7 @@ signals:
     void messageEditedUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &replyMarkup);
     void messagesDeleted(qlonglong chatId, const QList<qlonglong> &messageIds);
     void chatsReceived(const QVariantMap &chats);
+    void sponsoredChatsReceived(const QVariantList &chats);
     void chatReceived(const QVariantMap &chat);
     void secretChatReceived(qlonglong secretChatId, const QVariantMap &secretChat);
     void secretChatUpdated(qlonglong secretChatId, const QVariantMap &secretChat);
