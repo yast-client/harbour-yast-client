@@ -45,6 +45,7 @@ Page {
     property bool isSuperGroup: chatInformation.type['@type'] === "chatTypeSupergroup"
     property bool isChannel: chatGroupInformation && chatGroupInformation.is_channel
     property bool isDeletedUser: !!chatPartnerInformation && chatPartnerInformation.type['@type'] === "userTypeDeleted"
+    property int unreadCount: chatInformation.unread_count
     property bool containsSponsoredMessages: false
     property var chatPartnerInformation
     property var botInformation
@@ -566,8 +567,7 @@ Page {
         onUnreadCountUpdated: {
             Debug.log("[ChatPage] Unread count updated, new count: ", unreadCount)
             chatInformation.unread_count = unreadCount
-            chatUnreadMessagesItem.visible = ( !chatPage.loading && unreadCount > 0 && chatOverviewItem.visible )
-            chatUnreadMessagesCount.text = Functions.formatUnreadCount(unreadCount)
+            chatPage.unreadCount = chatInformation.unread_count
         }
         onMessagesIncrementalUpdate: {
             var proxyIndex = chatProxyModel.mapRowFromSource(scrollPosition, -1)
@@ -1307,33 +1307,32 @@ Page {
                     }
                 }
 
-                Item {
-                    id: chatUnreadMessagesItem
+                Rectangle {
                     width: Theme.fontSizeHuge
                     height: Theme.fontSizeHuge
-                    anchors.right: parent.right
-                    anchors.rightMargin: Theme.paddingMedium
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: Theme.paddingMedium
-                    visible: !chatPage.loading && chatInformation.unread_count > 0 && chatOverviewItem.visible
-                    Rectangle {
-                        id: chatUnreadMessagesCountBackground
-                        color: Theme.highlightBackgroundColor
-                        anchors.fill: parent
-                        radius: width / 2
-                        visible: chatUnreadMessagesItem.visible
+                    anchors {
+                        right: parent.right
+                        rightMargin: Theme.paddingMedium
+                        bottom: parent.bottom
+                        bottomMargin: Theme.paddingMedium
                     }
+                    visible: !chatPage.loading && chatOverviewItem.visible && (unreadCount > 0)
+                    property bool highlighted: chatUnreadMessagesMouseArea.containsPress
+
+                    // not ideal:
+                    color: Theme.rgba(Theme.highlightBackgroundColor, highlighted ? 1.0 : Theme.highlightBackgroundOpacity)
+                    radius: width / 2
 
                     Text {
-                        id: chatUnreadMessagesCount
                         font.pixelSize: Theme.fontSizeMedium
                         font.bold: true
-                        color: Theme.primaryColor
-                        anchors.centerIn: chatUnreadMessagesCountBackground
-                        visible: chatUnreadMessagesItem.visible
-                        text: Functions.formatUnreadCount(chatInformation.unread_count)
+                        color: parent.highlighted ? Theme.highlightColor : Theme.primaryColor
+                        anchors.centerIn: parent
+                        text: Functions.formatUnreadCount(unreadCount)
                     }
+
                     MouseArea {
+                        id: chatUnreadMessagesMouseArea
                         anchors.fill: parent
                         onClicked: {
                             // TODO: only run this if last unread message is loaded
