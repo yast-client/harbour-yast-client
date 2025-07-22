@@ -331,12 +331,13 @@ void NotificationManager::publishNotification(const NotificationGroup *notificat
     if (!messageMap.isEmpty()) {
         nemoNotification->setTimestamp(QDateTime::fromMSecsSinceEpoch(messageMap.value(DATE).toLongLong() * 1000));
 
-        QVariantList remoteActionArguments;
-        remoteActionArguments.append(QString::number(notificationGroup->chatId));
-        remoteActionArguments.append(messageMap.value(ID).toString());
-        nemoNotification->setRemoteAction(Notification::remoteAction("default", "openMessage",
+        const QVariantList remoteActionArguments{
+            QString::number(notificationGroup->chatId),
+            messageMap.value(ID).toString()
+        };
+        nemoNotification->setRemoteActions(QVariantList{Notification::remoteAction("default", "",
             "io.github.roundedrectangle.fernschreiber2", "/io/github/roundedrectangle/fernschreiber2", "io.github.roundedrectangle.fernschreiber2",
-            "openMessage", remoteActionArguments));
+            "openMessage", remoteActionArguments)});
     }
 
     QString notificationBody;

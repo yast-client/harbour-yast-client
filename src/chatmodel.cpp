@@ -340,6 +340,10 @@ ChatModel::ChatModel(TDLibWrapper *tdLibWrapper) :
     connect(this, &ChatModel::newMessageReceived, this, &ChatModel::lastReadMessageIndexChanged);
     connect(this, &ChatModel::unreadCountUpdated, this, &ChatModel::lastReadMessageIndexChanged);
 
+    // FIXME: can this be implemented better?
+    connect(this, &ChatModel::messagesIncrementalUpdate, this, &ChatModel::historyEndLoadedChanged);
+    connect(this, &ChatModel::messagesReceived, this, &ChatModel::historyEndLoadedChanged);
+
     connect(this->tdLibWrapper, &TDLibWrapper::chatActionUpdated, this, &ChatModel::handleChatActionUpdated);
 }
 
@@ -399,6 +403,7 @@ void ChatModel::clear(bool contentOnly) {
         messageIndexMap.clear();
         albumMessageMap.clear();
         endResetModel();
+        emit historyEndLoadedChanged();
     }
 
     if (!contentOnly) {
@@ -437,6 +442,7 @@ void ChatModel::initialize(const QVariantMap &chatInformation, qlonglong fromMes
     endResetModel();
     emit chatIdChanged();
     emit smallPhotoChanged();
+    emit historyEndLoadedChanged();
     tdLibWrapper->getChatHistory(chatId, fromMessageId != 0 ? fromMessageId : this->chatInformation.value(LAST_READ_INBOX_MESSAGE_ID).toLongLong());
 }
 
@@ -450,10 +456,14 @@ void ChatModel::triggerLoadHistoryForMessage(qlonglong messageId)
     }
 }
 
-void ChatModel::loadEnd() {
+void ChatModel::loadEnd(bool markAllAsRead) {
     if (!this->inIncrementalUpdate && !messages.isEmpty()) {
+        if (markAllAsRead) // FIXME: is this really needed?
+            this->tdLibWrapper->toggleChatIsMarkedAsUnread(this->chatId, false);
+
         this->clear(true);
-        tdLibWrapper->getChatHistory(chatId, this->chatInformation.value(LAST_READ_INBOX_MESSAGE_ID).toLongLong());
+        // TODO: fix markAllAsRead not properly working sometimes (maybe something is wrong about fromMessageId=0)
+        tdLibWrapper->getChatHistory(chatId, markAllAsRead ? 0 : this->chatInformation.value(LAST_READ_INBOX_MESSAGE_ID).toLongLong());
     }
 }
 
@@ -1032,34 +1042,43 @@ int ChatModel::findLastSentMessageIndex() {
     return -1;
 }
 
-int ChatModel::calculateLastReadMessageIndex(bool classic) {
-    // classic: fallback to last message instead of returning -1 for incoming messages, get last loaded own message for outgoing ones
-    // classic will probably get removed in the future. currently it's left for existing stuff not to break.
-    LOG("calculateLastReadMessageIndex classic:" << classic);
+int ChatModel::calculateLastReadMessageIndexInBounds() {
+    LOG("calculateLastReadMessageIndexInBounds");
     const qlonglong lastReadMessageId = this->chatInformation.value(LAST_READ_INBOX_MESSAGE_ID).toLongLong(); // last read incoming message id
 
-    qlonglong lastOwnMessageId = 0; // last sent (and read if not classic) message id
-    if (classic) {
-        const int lastOwnMessageIndex = findLastSentMessageIndex();
-        if (lastOwnMessageIndex > -1)
-            lastOwnMessageId = messages.at(lastOwnMessageIndex)->messageId;
-    } else
-        lastOwnMessageId = this->chatInformation.value(LAST_READ_OUTBOX_MESSAGE_ID).toLongLong();
+    qlonglong lastOwnMessageId = 0;
+    const int lastOwnMessageIndex = findLastSentMessageIndex();
+    if (lastOwnMessageIndex > -1)
+        lastOwnMessageId = messages.at(lastOwnMessageIndex)->messageId;
 
     LOG("lastReadMessageId" << lastReadMessageId << "lastOwnMessageId" << lastOwnMessageId);
     LOG("size messageIndexMap" << messageIndexMap.size()
         << "; contains last read ID?" << messageIndexMap.contains(lastReadMessageId)
         << "; contains last (read if not classic) sent ID?" << messageIndexMap.contains(lastOwnMessageId));
 
-    int listInboxPosition = messageIndexMap.value(lastReadMessageId, classic ? (messages.size() - 1) : -1);
+    int listInboxPosition = messageIndexMap.value(lastReadMessageId, messages.size() - 1);
     int listOwnPosition = messageIndexMap.value(lastOwnMessageId, -1);
 
     if (listInboxPosition > messages.size() - 1)
-        listInboxPosition = classic ? (messages.size() - 1) : -1;
+        listInboxPosition = messages.size() - 1;
     if (listOwnPosition > messages.size() - 1)
         listOwnPosition = -1;
 
     LOG("Last known message is at position" << listInboxPosition << "; last own message is at position" << listOwnPosition);
+
+    return qMax(listInboxPosition, listOwnPosition);
+}
+
+int ChatModel::calculateLastReadMessageIndex() {
+    LOG("calculateLastReadMessageIndex");
+
+    int listInboxPosition = messageIndexMap.value(this->chatInformation.value(LAST_READ_INBOX_MESSAGE_ID).toLongLong(), -1);
+    int listOwnPosition = messageIndexMap.value(this->chatInformation.value(LAST_READ_OUTBOX_MESSAGE_ID).toLongLong(), -1);
+
+    if (listInboxPosition > messages.size() - 1) listInboxPosition = -1;
+    if (listOwnPosition > messages.size() - 1) listOwnPosition = -1;
+
+    LOG("Last read received message is at position" << listInboxPosition << "; last read sent message is at position" << listOwnPosition);
 
     return qMax(listInboxPosition, listOwnPosition);
 }
@@ -1084,7 +1103,7 @@ int ChatModel::calculateLastReadSentMessageIndex() {
 int ChatModel::calculateScrollPosition() {
     int listInboxPosition = this->highlightedMessageId;
     if (listInboxPosition == 0)
-        listInboxPosition = this->calculateLastReadMessageIndex(false);
+        listInboxPosition = this->calculateLastReadMessageIndex();
 
     LOG("Calculating new scroll position, current:" << listInboxPosition << ", list size:" << this->messages.size());
     return qMin(listInboxPosition + 1, this->messages.size() - 1);
@@ -1093,7 +1112,7 @@ int ChatModel::calculateScrollPosition() {
 bool ChatModel::isMostRecentMessageLoaded() {
     // Need to check if we can actually add messages (only possible if the previously latest messages are loaded)
     // Trying with half of the size of an initial list to ensure that everything is there...
-    return this->calculateLastReadMessageIndex(false) >= this->messages.size() - 25;
+    return this->calculateLastReadMessageIndex() >= this->messages.size() - 25;
 }
 
 void ChatModel::handleChatActionUpdated(qlonglong chatId, const QVariantMap &sender, const QVariantMap &action, qlonglong messageThreadId) {

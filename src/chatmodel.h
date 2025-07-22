@@ -29,7 +29,9 @@ class ChatModel : public QAbstractListModel
     Q_PROPERTY(qlonglong chatId READ getChatId NOTIFY chatIdChanged)
     Q_PROPERTY(QVariantMap smallPhoto READ smallPhoto NOTIFY smallPhotoChanged)
     Q_PROPERTY(int lastReadSentMessageIndex READ calculateLastReadSentMessageIndex NOTIFY lastReadSentMessageUpdated)
+    Q_PROPERTY(int lastReadMessageIndexInBounds READ calculateLastReadMessageIndexInBounds NOTIFY lastReadMessageIndexChanged)
     Q_PROPERTY(int lastReadMessageIndex READ calculateLastReadMessageIndex NOTIFY lastReadMessageIndexChanged)
+    Q_PROPERTY(bool historyEndLoaded READ isMostRecentMessageLoaded NOTIFY historyEndLoadedChanged)
     Q_PROPERTY(QVariantMap chatActionsByUsers MEMBER chatActionsByUsers NOTIFY chatActionsChanged)
     Q_PROPERTY(QVariantMap chatActionsByChats MEMBER chatActionsByChats NOTIFY chatActionsChanged)
 
@@ -46,7 +48,7 @@ public:
     Q_INVOKABLE void triggerLoadMoreHistory();
     Q_INVOKABLE void triggerLoadMoreFuture();
     Q_INVOKABLE void triggerLoadHistoryForMessage(qlonglong messageId);
-    Q_INVOKABLE void loadEnd();
+    Q_INVOKABLE void loadEnd(bool markAllAsRead = false);
     Q_INVOKABLE bool isMostRecentMessageLoaded();
     Q_INVOKABLE QVariantMap getChatInformation();
     Q_INVOKABLE QVariantMap getMessage(int index);
@@ -65,6 +67,7 @@ signals:
     void unreadCountUpdated(int unreadCount, const QString &lastReadInboxMessageId);
     void lastReadMessageIndexChanged();
     void lastReadSentMessageUpdated();
+    void historyEndLoadedChanged();
     void notificationSettingsUpdated();
     void messageUpdated(int modelIndex);
     void smallPhotoChanged();
@@ -100,7 +103,8 @@ private:
     void setMessagesAlbum(const QList<MessageData*> newMessages);
     void setMessagesAlbum(MessageData *message);
     QVariantMap enhanceMessage(const QVariantMap &message);
-    int calculateLastReadMessageIndex(bool classic = true);
+    int calculateLastReadMessageIndexInBounds();
+    int calculateLastReadMessageIndex();
     int calculateLastReadSentMessageIndex();
     int calculateScrollPosition();
     int findLastSentMessageIndex();

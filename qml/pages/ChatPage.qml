@@ -1316,7 +1316,7 @@ Page {
                         bottom: parent.bottom
                         bottomMargin: Theme.paddingMedium
                     }
-                    visible: !chatPage.loading && chatOverviewItem.visible && (unreadCount > 0)
+                    visible: !chatPage.loading && chatOverviewItem.visible && (unreadCount > 0 || !chatModel.historyEndLoaded)
                     property bool highlighted: chatUnreadMessagesMouseArea.containsPress
 
                     // not ideal:
@@ -1324,19 +1324,33 @@ Page {
                     radius: width / 2
 
                     Text {
+                        visible: unreadCount > 0
                         font.pixelSize: Theme.fontSizeMedium
                         font.bold: true
                         color: parent.highlighted ? Theme.highlightColor : Theme.primaryColor
                         anchors.centerIn: parent
                         text: Functions.formatUnreadCount(unreadCount)
                     }
+                    Icon {
+                        visible: unreadCount <= 0
+                        anchors.centerIn: parent
+                        source: "image://theme/icon-m-page-down"
+                    }
 
                     MouseArea {
                         id: chatUnreadMessagesMouseArea
                         anchors.fill: parent
                         onClicked: {
-                            // TODO: only run this if last unread message is loaded
-                            chatView.scrollToIndex(chatView.count - 1 - chatInformation.unread_count)
+                            // probably not ideal
+                            var lastReadIndex = chatProxyModel.mapRowFromSource(chatModel.lastReadMessageIndex, -1)
+                            if (lastReadIndex > -1) {
+                                if (chatView.indexAt(chatView.contentX, chatView.contentY) >= lastReadIndex - 2
+                                        || chatView.indexAt(chatView.contentX + chatView.contentWidth, chatView.contentY + chatView.contentHeight) >= lastReadIndex - 2)
+                                    if (chatModel.historyEndLoaded) chatView.scrollToBottom()
+                                    else chatModel.loadEnd(true)
+                                else chatView.scrollToIndex(Math.min(lastReadIndex + 1, chatView.count))
+                            } else
+                                chatModel.loadEnd()
                         }
                     }
                 }
