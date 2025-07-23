@@ -42,6 +42,7 @@ namespace {
     const QString MESSAGE_ID("message_id");
     const QString PINNED_MESSAGE_ID("pinned_message_id");
     const QString REPLY_MARKUP("reply_markup");
+    const QString LAST_MESSAGE("last_message");
     const QString _TYPE("@type");
 
     // "interaction_info": {
@@ -327,6 +328,7 @@ ChatModel::ChatModel(TDLibWrapper *tdLibWrapper) :
     connect(this->tdLibWrapper, &TDLibWrapper::chatReadOutboxUpdated, this, &ChatModel::handleChatReadOutboxUpdated);
     connect(this->tdLibWrapper, &TDLibWrapper::messageSendSucceeded, this, &ChatModel::handleMessageSendSucceeded);
     connect(this->tdLibWrapper, &TDLibWrapper::chatNotificationSettingsUpdated, this, &ChatModel::handleChatNotificationSettingsUpdated);
+    connect(this->tdLibWrapper, &TDLibWrapper::chatLastMessageUpdated, this, &ChatModel::handleChatLastMessageUpdated);
     connect(this->tdLibWrapper, &TDLibWrapper::chatPhotoUpdated, this, &ChatModel::handleChatPhotoUpdated);
     connect(this->tdLibWrapper, &TDLibWrapper::chatPinnedMessageUpdated, this, &ChatModel::handleChatPinnedMessageUpdated);
     connect(this->tdLibWrapper, &TDLibWrapper::messageContentUpdated, this, &ChatModel::handleMessageContentUpdated);
@@ -729,6 +731,13 @@ void ChatModel::handleChatNotificationSettingsUpdated(const QString &id, const Q
     }
 }
 
+void ChatModel::handleChatLastMessageUpdated(const QString &id, const QString &/*order*/, const QVariantMap &lastMessage) {
+    if (id.toLongLong() == chatId) {
+        this->chatInformation.insert(LAST_MESSAGE, lastMessage);
+        LOG("Last message updated");
+    }
+}
+
 void ChatModel::handleChatPhotoUpdated(qlonglong id, const QVariantMap &photo)
 {
     if (id == chatId) {
@@ -1046,18 +1055,13 @@ int ChatModel::calculateLastReadMessageIndexInBounds() {
     LOG("calculateLastReadMessageIndexInBounds");
     const qlonglong lastReadMessageId = this->chatInformation.value(LAST_READ_INBOX_MESSAGE_ID).toLongLong(); // last read incoming message id
 
-    qlonglong lastOwnMessageId = 0;
-    const int lastOwnMessageIndex = findLastSentMessageIndex();
-    if (lastOwnMessageIndex > -1)
-        lastOwnMessageId = messages.at(lastOwnMessageIndex)->messageId;
-
-    LOG("lastReadMessageId" << lastReadMessageId << "lastOwnMessageId" << lastOwnMessageId);
+    LOG("lastReadMessageId" << lastReadMessageId);
     LOG("size messageIndexMap" << messageIndexMap.size()
         << "; contains last read ID?" << messageIndexMap.contains(lastReadMessageId)
-        << "; contains last (read if not classic) sent ID?" << messageIndexMap.contains(lastOwnMessageId));
+        );
 
     int listInboxPosition = messageIndexMap.value(lastReadMessageId, messages.size() - 1);
-    int listOwnPosition = messageIndexMap.value(lastOwnMessageId, -1);
+    int listOwnPosition = findLastSentMessageIndex();
 
     if (listInboxPosition > messages.size() - 1)
         listInboxPosition = messages.size() - 1;
@@ -1069,11 +1073,11 @@ int ChatModel::calculateLastReadMessageIndexInBounds() {
     return qMax(listInboxPosition, listOwnPosition);
 }
 
-int ChatModel::calculateLastReadMessageIndex() {
-    LOG("calculateLastReadMessageIndex");
+int ChatModel::calculateLastScrollMessageIndex() {
+    LOG("calculateLastScrollMessageIndex");
 
     int listInboxPosition = messageIndexMap.value(this->chatInformation.value(LAST_READ_INBOX_MESSAGE_ID).toLongLong(), -1);
-    int listOwnPosition = messageIndexMap.value(this->chatInformation.value(LAST_READ_OUTBOX_MESSAGE_ID).toLongLong(), -1);
+    int listOwnPosition = findLastSentMessageIndex();
 
     if (listInboxPosition > messages.size() - 1) listInboxPosition = -1;
     if (listOwnPosition > messages.size() - 1) listOwnPosition = -1;
@@ -1103,7 +1107,7 @@ int ChatModel::calculateLastReadSentMessageIndex() {
 int ChatModel::calculateScrollPosition() {
     int listInboxPosition = this->highlightedMessageId;
     if (listInboxPosition == 0)
-        listInboxPosition = this->calculateLastReadMessageIndex();
+        listInboxPosition = this->calculateLastScrollMessageIndex();
 
     LOG("Calculating new scroll position, current:" << listInboxPosition << ", list size:" << this->messages.size());
     return qMin(listInboxPosition + 1, this->messages.size() - 1);
@@ -1111,8 +1115,13 @@ int ChatModel::calculateScrollPosition() {
 
 bool ChatModel::isMostRecentMessageLoaded() {
     // Need to check if we can actually add messages (only possible if the previously latest messages are loaded)
-    // Trying with half of the size of an initial list to ensure that everything is there...
-    return this->calculateLastReadMessageIndex() >= this->messages.size() - 25;
+    // some other things also depend on this now
+    if (this->messages.size() == 0) return true; // fixme (required for the first chunk in handleMessagesReceived)
+
+    const qlonglong messageId = this->chatInformation.value(LAST_MESSAGE).toMap().value(ID).toLongLong();
+    const bool result = this->messageIndexMap.contains(messageId);
+    LOG("Checking if most recent message is loaded" << messageId << result << messageIndexMap);
+    return result;
 }
 
 void ChatModel::handleChatActionUpdated(qlonglong chatId, const QVariantMap &sender, const QVariantMap &action, qlonglong messageThreadId) {
