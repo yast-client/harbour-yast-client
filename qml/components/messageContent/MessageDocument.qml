@@ -26,7 +26,6 @@ MessageContentFileInfoBase {
     fileInformation: rawMessage.content.document.document
 
     primaryText: Emoji.emojify(rawMessage.content.document.file_name || "", primaryLabel.font.pixelSize)
-    secondaryText: Emoji.emojify(Functions.enhanceMessageText(rawMessage.content.caption) || "", secondaryLabel.font.pixelSize)
 
     minithumbnail: rawMessage.content.document.minithumbnail
     thumbnail: rawMessage.content.document.thumbnail
