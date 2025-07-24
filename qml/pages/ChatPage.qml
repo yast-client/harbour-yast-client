@@ -1261,6 +1261,7 @@ Page {
                                     newMessageColumn.editMessageId = messageId
                                     newMessageColumn.editIsCaption = !!myMessage && !!myMessage.content && !!myMessage.content.caption
                                     newMessageTextField.text = Functions.getMessageText(myMessage, false, chatPage.myUserId, true)
+                                    newMessageTextField.cursorPosition = newMessageTextField.text.length
                                     newMessageTextField.focus = true
                                 }
                                 onForwardMessage: {
