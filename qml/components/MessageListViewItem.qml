@@ -641,7 +641,7 @@ ListItem {
                 Loader {
                     id: extraContentLoader
                     width: parent.width * getContentWidthMultiplier()
-                    anchors.horizontalCenter: parent.horizontalCenter
+                    //anchors.horizontalCenter: parent.horizontalCenter
                     asynchronous: true
                     readonly property var defaultExtraContentHeight: messageListItem.hasContentComponent ? chatView.getContentComponentHeight(model.content_type, myMessage.content, width, model.album_message_ids.length) : 0
                     height: item ? item.height : defaultExtraContentHeight
