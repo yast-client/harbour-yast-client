@@ -123,7 +123,7 @@ Page {
                     prologSecondaryText.text: "@" + ( username !== "" ? username : user_id )
                     tertiaryText {
                         maximumLineCount: 1
-                        text: Functions.getChatPartnerStatusText(user_status, user_last_online, is_support);
+                        text: Functions.getChatPartnerStatusText(user_status, user_last_online, is_support, display.id);
                     }
 
                     onClicked: tdLibWrapper.createPrivateChat(display.id, "openDirectly")

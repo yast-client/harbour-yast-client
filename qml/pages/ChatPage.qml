@@ -884,7 +884,7 @@ Page {
                                 return Functions.getGroupStatusText(chatGroupInformation.member_count, chatOnlineMemberCount, isChannel)
 
 
-                            status = Functions.getChatPartnerStatusText(chatPartnerInformation.status['@type'], chatPartnerInformation.status.was_online, chatPartnerInformation.is_support, timepointStatus)
+                            status = Functions.getChatPartnerStatusText(chatPartnerInformation.status['@type'], chatPartnerInformation.status.was_online, chatPartnerInformation.is_support, chatInformation.id, timepointStatus)
                             if (chatPage.secretChatDetails) {
                                 var secretChatStatus = Functions.getSecretChatStatus(chatPage.secretChatDetails)
                                 if (status && secretChatStatus)

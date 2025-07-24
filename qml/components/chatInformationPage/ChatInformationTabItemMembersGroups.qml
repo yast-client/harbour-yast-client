@@ -88,7 +88,7 @@ ChatInformationTabItemBase {
             }
             tertiaryText {
                 maximumLineCount: 1
-                text: user.type["@type"] === "userTypeBot" ? (Emoji.emojify("🤖 "+bot_info.description, tertiaryText.font.pixelSize)) : Functions.getChatPartnerStatusText(user.status["@type"], user.status.was_online, user.is_support);
+                text: user.type["@type"] === "userTypeBot" ? (Emoji.emojify("🤖 "+bot_info.description, tertiaryText.font.pixelSize)) : Functions.getChatPartnerStatusText(user.status["@type"], user.status.was_online, user.is_support, member_id.user_id);
             }
 
             onClicked: {

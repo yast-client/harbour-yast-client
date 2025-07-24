@@ -299,7 +299,7 @@ SilicaFlickable {
                 return Functions.getGroupStatusText(chatInformationPage.groupInformation.member_count, chatInformationPage.chatOnlineMemberCount, isChannel)
 
 
-            var status = Functions.getChatPartnerStatusText(chatInformationPage.privateChatUserInformation.status['@type'], chatInformationPage.privateChatUserInformation.status.was_online, chatInformationPage.privateChatUserInformation.is_support)
+            var status = Functions.getChatPartnerStatusText(chatInformationPage.privateChatUserInformation.status['@type'], chatInformationPage.privateChatUserInformation.status.was_online, chatInformationPage.privateChatUserInformation.is_support, chatInformationPage.chatPartnerGroupId)
             /*if (chatInformationPage.secretChatDetails) { // TODO
                 var secretChatStatus = Functions.getSecretChatStatus(chatPage.secretChatDetails)
                 if (status && secretChatStatus)
