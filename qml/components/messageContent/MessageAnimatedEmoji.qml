@@ -23,5 +23,5 @@ import "../"
 import "../../js/twemoji.js" as Emoji
 
 MessageSticker {
-    stickerData: messageListItem ? messageListItem.myMessage.content.animated_emoji.sticker : overlayFlickable.overlayMessage.content.animated_emoji.sticker;
+    stickerData: rawMessage.content.animated_emoji.sticker
 }

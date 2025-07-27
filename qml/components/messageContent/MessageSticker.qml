@@ -25,7 +25,7 @@ import "../../js/twemoji.js" as Emoji
 MessageContentBase {
     id: stickerMessage
 
-    property var stickerData: messageListItem ? messageListItem.myMessage.content.sticker : overlayFlickable.overlayMessage.content.sticker
+    property var stickerData: rawMessage.content.sticker
     readonly property bool isOwnSticker: typeof messageListItem !== 'undefined' ? messageListItem.isOwnMessage : overlayFlickable.isOwnMessage
 
     implicitWidth: stickerData.width
