@@ -36,26 +36,25 @@ AboutPageBase {
     _iconItem.sourceSize.width: _iconItem.width
     _iconItem.sourceSize.height: _iconItem.height
     description: qsTr("A Telegram client for Sailfish OS")
-    sourcesUrl: "https://github.com/roundedrectangle/harbour-fernschreiber"
+    sourcesUrl: "https://github.com/roundedrectangle/harbour-fernschreiber2"
     autoAddOpalAttributions: true
     licenses: License{ spdxId: 'GPL-3.0-only' }
 
-    authors: ["roundedrectangle", "Sebastian J. Wolf"]
+    authors: ["roundedrectangle"]
     contributionSections: [
-        ContributionSection {
+        /*ContributionSection { // TODO: add this when necessary
             title: qsTr("Development")
-            groups: [
-                ContributionGroup {
-                    title: qsTr("Early testing")
-                    entries: "247"
-                }
-            ]
-        },
+        },*/
         ContributionSection {
             title: qsTr("Translations")
             groups: [
                 ContributionGroup {
                     title: qsTr("Italian")
+                    entries: "247"
+                },
+                ContributionGroup {
+                    title: qsTr("Russian")
+                    entries: "roundedrectangle"
                 }
 
             ]
