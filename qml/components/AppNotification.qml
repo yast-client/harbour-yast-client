@@ -1,6 +1,7 @@
 import QtQuick 2.6
 import Sailfish.Silica 1.0
 import "../js/debug.js" as Debug
+import "../js/twemoji.js" as Emoji
 
 Rectangle {
     id: notification
@@ -30,9 +31,9 @@ Rectangle {
     function show(message, onClicked, buttonText) {
         Debug.log("In-app notification", message)
         postAnimationResetTimer.stop()
-        text.text = message
+        text.text = Emoji.emojify(message, Theme.fontSizeExtraSmall)
         clickedAction = onClicked
-        button.text = buttonText || ''
+        button.text = buttonText ? Emoji.emojify(buttonText, Theme.fontSizeExtraSmall) : ''
         opacity = 1
         resetTimer.restart() // for some reason text.height == height here, so we use signals to stop timer
     }
