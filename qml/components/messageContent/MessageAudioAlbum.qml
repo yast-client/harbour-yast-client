@@ -10,12 +10,28 @@ AlbumMessageContentBase {
         width: parent.width
         Repeater {
             model: albumMessages
-            MessageAudio {
+            BackgroundItem {
+                id: messageBackgroundItem
                 width: parent.width
-                messageListItem: messageContent.messageListItem
-                overlayFlickable: messageContent.overlayFlickable
-                rawMessage: albumMessages[index]
-                highlighted: messageContent.highlighted
+                height: documentMessage.height
+
+                readonly property bool isSelected: messageListItem.precalculatedValues.pageIsSelecting && page.selectedMessages.some(function(existingMessage) {
+                    return existingMessage.id === albumMessages[index].id
+                })
+                highlighted: isSelected || down || messageContent.highlighted
+                onPressAndHold: page.toggleMessageSelection(albumMessages[index])
+                onClicked:
+                    if(messageListItem.precalculatedValues.pageIsSelecting)
+                        page.toggleMessageSelection(albumMessages[index])
+
+                MessageAudio {
+                    id: documentMessage
+                    width: parent.width
+                    messageListItem: messageContent.messageListItem
+                    overlayFlickable: messageContent.overlayFlickable
+                    rawMessage: albumMessages[index]
+                    highlighted: messageContent.highlighted
+                }
             }
         }
     }
