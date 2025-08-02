@@ -51,6 +51,7 @@ ListItem {
     readonly property bool isOwnMessage: page.myUserId === myMessage.sender_id.user_id
     property bool hasContentComponent
     property bool fullWidthWidescreenContent
+    property bool contentAboveMedia
     property bool wasNavigatedTo: false
 
     property var chatReactions
@@ -620,9 +621,7 @@ ListItem {
 
                 Item {
                     width: parent.width
-                    height: (messageText.visible ? messageText.implicitHeight : 0)
-                            + extraContentLoader.usedHeight
-                            + (state == '' ? 0 : Theme.paddingSmall)
+                    height: messageText.height + extraContentLoader.height + (messageText.height > 0 && extraContentLoader.height > 0 ? Theme.paddingSmall : 0)
                     Text {
                         id: messageText
                         width: parent.width
@@ -637,7 +636,7 @@ ListItem {
                         }
                         horizontalAlignment: messageListItem.textAlign
                         linkColor: Theme.highlightColor
-                        visible: text.length > 0
+                        height: text.length > 0 ? implicitHeight : 0
                     }
 
                     Loader {
@@ -646,20 +645,23 @@ ListItem {
                         //anchors.horizontalCenter: parent.horizontalCenter
                         asynchronous: true
                         readonly property var defaultExtraContentHeight: messageListItem.hasContentComponent ? chatView.getContentComponentHeight(model.content_type, myMessage.content, width, model.album_message_ids.length) : 0
-                        readonly property real usedHeight: item ? item.height : defaultExtraContentHeight
-                        height: usedHeight // anchors messes up height
+                        height: item ? item.height : defaultExtraContentHeight
                         visible: height > 0
                     }
 
                     states: [
-                        // empty state is also a state
+                        State {
+                            name: "default"
+                            when: (messageText.visible && !extraContentLoader.visible) || (!messageText.visible && extraContentLoader.visible)
+                        },
                         State {
                             name: "normal"
-                            when: extraContentLoader.visible && !myMessage.content.show_caption_above_media
+                            when: messageText.visible && extraContentLoader.visible &&
+                                  ((typeof myMessage.content.show_caption_above_media == 'undefined' && !contentAboveMedia)
+                                   || myMessage.content.show_caption_above_media === false)
                             AnchorChanges {
                                 target: messageText
                                 anchors.top: extraContentLoader.bottom
-                                anchors.bottom: extraContentLoader.bottom
                             }
                             PropertyChanges {
                                 target: messageText
@@ -668,11 +670,12 @@ ListItem {
                         },
                         State {
                             name: "inverted"
-                            when: extraContentLoader.visible && !!myMessage.content.show_caption_above_media
+                            when: messageText.visible && extraContentLoader.visible &&
+                                  ((typeof myMessage.content.show_caption_above_media == 'undefined' && contentAboveMedia)
+                                   || !!myMessage.content.show_caption_above_media)
                             AnchorChanges {
                                 target: extraContentLoader
                                 anchors.top: messageText.bottom
-                                anchors.bottom: messageContentItem.bottom
                             }
                             PropertyChanges {
                                 target: extraContentLoader

@@ -1238,17 +1238,21 @@ Page {
                         "messageVoiceNote",
                         "messageDice"
                     ]
-                    property var fullWidthWidescreenContentMessages: [
+                    readonly property var fullWidthWidescreenContentMessages: [
                         "messageDocument",
                         "messageAudio",
                         "messagePoll",
                         "messageVoiceNote",
                     ]
-                    property var albumMessages: [
+                    readonly property var albumMessages: [
                         'messagePhoto',
                         'messageVideo',
                         'messageDocument',
                         'messageAudio',
+                    ]
+                    readonly property var contentAboveMediaByDefaultMessages: [
+                        'messagePoll',
+                        'messageVenue'
                     ]
 
                     readonly property var simpleDelegateMessages: [
@@ -1300,6 +1304,7 @@ Page {
                                 }
                                 hasContentComponent: !!myMessage.content && chatView.delegateMessagesContent.indexOf(model.content_type) > -1
                                 fullWidthWidescreenContent: !!myMessage.content && chatView.fullWidthWidescreenContentMessages.indexOf(model.content_type) > -1
+                                contentAboveMedia: !!myMessage.content && chatView.contentAboveMediaByDefaultMessages.indexOf(model.content_type) > -1
                                 onReplyToMessage: {
                                     newMessageInReplyToRow.inReplyToMessage = myMessage
                                     newMessageTextField.focus = true
