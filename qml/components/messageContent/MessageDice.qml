@@ -78,8 +78,10 @@ MessageContentBase {
                          }*/
     }
 
-    onClicked:
+    onClicked: {
+        var canSend = hasSendPrivilege('can_send_other_messages')
         appNotification.show(qsTr("Send a %1 emoji to any chat to try your luck.", "in-app notification text").arg(emoji),
-                             function() { tdLibWrapper.sendDiceMessage(chatInformation.id, emoji) },
-                             qsTr("Send", 'in-app notification button for "Send a %1 emoji to any chat to try your luck."'))
+                             canSend ? function() { tdLibWrapper.sendDiceMessage(chatInformation.id, emoji) } : null,
+                             canSend ? qsTr("Send", 'in-app notification button for "Send a %1 emoji to any chat to try your luck."') : null)
+    }
 }

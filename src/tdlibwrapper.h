@@ -365,6 +365,7 @@ signals:
     void translationResultReceived(qlonglong extraId, const QVariantMap &formattedText);
     void chatActionUpdated(qlonglong chatId, const QVariantMap &sender, const QVariantMap &action, qlonglong messageThreadId);
     void emojiKeywordsReceived(const QString &text, const QVariantList &emojis);
+    void suggestedActionsUpdated(const QVariantList added, const QVariantList removed);
 
 public slots:
     // appSettings
