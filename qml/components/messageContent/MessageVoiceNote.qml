@@ -45,7 +45,10 @@ MessageAudio {
 
         readonly property real itemWidth: Theme.paddingSmall
         spacing: Theme.paddingSmall
-        property var waveform: utilities.getWaveformData(rawMessage.content.voice_note.waveform, (width + spacing) / (itemWidth + spacing))
+        property var waveform: waveformManager.getWaveformData(
+                                   rawMessage.content.voice_note.decoded_waveform, // comes from tdlibreceiver.cleanupMap
+                                   (width + spacing) / (itemWidth + spacing)
+                                   )
         Repeater {
             model: parent.waveform.length
             Rectangle {

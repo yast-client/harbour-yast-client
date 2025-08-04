@@ -79,6 +79,9 @@ namespace {
     const QString LEFT_REEL("left_reel");
     const QString CENTER_REEL("center_reel");
     const QString RIGHT_REEL("right_reel");
+    const QString VOICE_NOTE("voice_note");
+    const QString WAVEFORM("waveform");
+    const QString DECODED_WAVEFORM("decoded_waveform");
 
     const QString _TYPE("@type");
     const QString _EXTRA("@extra");
@@ -98,6 +101,8 @@ namespace {
     const QString TYPE_MESSAGE_DICE("messageDice");
     const QString TYPE_DICE_STICKERS_REGULAR("diceStickersRegular");
     const QString TYPE_DICE_STICKERS_SLOT_MACHINE("diceStickersSlotMachine");
+    const QString TYPE_MESSAGE_VOICE_NOTE("messageVoiceNote");
+    const QString TYPE_VOICE_NOTE("voiceNote");
 }
 
 static QString getChatPositionOrder(const QVariantMap &position)
@@ -1025,6 +1030,29 @@ const QVariantMap TDLibReceiver::cleanupMap(const QVariantMap& map, bool *update
             if (updated) *updated = true;
             return diceStickers;
         }
+    } else if (type == TYPE_MESSAGE_VOICE_NOTE) {
+        bool cleaned = false;
+        const QVariantMap voiceNote(cleanupMap(map.value(VOICE_NOTE).toMap(), &cleaned));
+        if (cleaned) {
+            QVariantMap content(map);
+            content.remove(VOICE_NOTE);
+            content.insert(VOICE_NOTE, voiceNote);
+            content.remove(_TYPE);
+            content.insert(_TYPE, TYPE_MESSAGE_VOICE_NOTE); // Replace with a shared value
+            if (updated) *updated = true;
+            return content;
+        }
+    } else if (type == TYPE_VOICE_NOTE) {
+        QVariantMap voiceNote(map);
+        voiceNote.remove(_TYPE);
+        voiceNote.insert(_TYPE, TYPE_VOICE_NOTE); // Replace with a shared value
+
+        const QVariantList decodedWaveform = WaveformManager::decodeWaveform(voiceNote.value(WAVEFORM).toString());
+        voiceNote.insert(DECODED_WAVEFORM, decodedWaveform);
+        voiceNote.remove(WAVEFORM);
+
+        if (updated) *updated = true;
+        return voiceNote;
     }
     if (updated) *updated = false;
     return map;

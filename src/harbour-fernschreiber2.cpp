@@ -55,6 +55,7 @@
 #include "utilities.h"
 #include "knownusersmodel.h"
 #include "contactsmodel.h"
+#include "waveformmanager.h"
 
 // The default filter can be overridden by QT_LOGGING_RULES envinronment variable, e.g.
 // QT_LOGGING_RULES="fernschreiber2.*=true" harbour-fernschreiber2
@@ -145,6 +146,9 @@ int main(int argc, char *argv[])
     Utilities *utilities = new Utilities(appSettings, tdLibWrapper, view.data());
     context->setContextProperty("utilities", utilities);
     qmlRegisterUncreatableType<Utilities>(uri, 1, 0, "Utilities", QString());
+
+    WaveformManager *waveformManager = new WaveformManager(view.data());
+    context->setContextProperty("waveformManager", waveformManager);
 
     DBusAdaptor *dBusAdaptor = tdLibWrapper->getDBusAdaptor();
     context->setContextProperty("dBusAdaptor", dBusAdaptor);

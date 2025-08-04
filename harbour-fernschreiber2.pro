@@ -40,7 +40,8 @@ SOURCES += src/harbour-fernschreiber2.cpp \
     src/tdlibreceiver.cpp \
     src/tdlibwrapper.cpp \
     src/textfiltermodel.cpp \
-    src/tgsplugin.cpp
+    src/tgsplugin.cpp \
+    src/waveformmanager.cpp
 
 DISTFILES += qml/harbour-fernschreiber2.qml \
     qml/components/AudioPreview.qml \
@@ -252,7 +253,8 @@ HEADERS += \
     src/tdlibsecrets.h \
     src/tdlibwrapper.h \
     src/textfiltermodel.h \
-    src/tgsplugin.h
+    src/tgsplugin.h \
+    src/waveformmanager.h
 
 # https://github.com/Samsung/rlottie.git
 

@@ -25,6 +25,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <td/telegram/td_json_client.h>
+#include "waveformmanager.h"
 
 class TDLibReceiver : public QThread
 {
