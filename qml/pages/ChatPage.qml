@@ -1392,6 +1392,7 @@ Page {
 
                     MouseArea {
                         id: chatUnreadMessagesMouseArea
+                        enabled: visible // not sure if it's really needed
                         anchors.fill: parent
                         onClicked: {
                             // probably not ideal
