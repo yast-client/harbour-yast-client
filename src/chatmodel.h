@@ -119,6 +119,7 @@ private:
     qlonglong highlightedMessageId;
     bool inReload;
     bool inIncrementalUpdate; // if we are waiting for messages after sending a request to load more of them
+    bool loadingFullEnd;
     bool searchModeActive;
     QString searchQuery;
 

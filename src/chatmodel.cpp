@@ -317,6 +317,7 @@ ChatModel::ChatModel(TDLibWrapper *tdLibWrapper) :
     highlightedMessageId(0),
     inReload(false),
     inIncrementalUpdate(false),
+    loadingFullEnd(false),
     searchModeActive(false)
 {
     this->tdLibWrapper = tdLibWrapper;
@@ -396,6 +397,7 @@ void ChatModel::clear(bool contentOnly) {
     inReload = false;
     inIncrementalUpdate = false;
     highlightedMessageId = 0;
+    loadingFullEnd = false;
     searchModeActive = false;
     searchQuery.clear();
     if (!messages.isEmpty()) {
@@ -437,6 +439,7 @@ void ChatModel::initialize(const QVariantMap &chatInformation, qlonglong fromMes
     this->chatInformation = chatInformation;
     this->chatId = chatId;
     this->highlightedMessageId = fromMessageId;
+    this->loadingFullEnd = false;
     this->messages.clear();
     this->messageIndexMap.clear();
     this->albumMessageMap.clear();
@@ -448,8 +451,7 @@ void ChatModel::initialize(const QVariantMap &chatInformation, qlonglong fromMes
     tdLibWrapper->getChatHistory(chatId, fromMessageId != 0 ? fromMessageId : this->chatInformation.value(LAST_READ_INBOX_MESSAGE_ID).toLongLong());
 }
 
-void ChatModel::triggerLoadHistoryForMessage(qlonglong messageId)
-{
+void ChatModel::triggerLoadHistoryForMessage(qlonglong messageId) {
     if (!this->inIncrementalUpdate && !messages.isEmpty()) {
         LOG("Trigger loading message with id..." << messageId);
         this->clear(true);
@@ -462,8 +464,9 @@ void ChatModel::loadEnd(bool markAllAsRead) {
     if (!this->inIncrementalUpdate && !messages.isEmpty()) {
         LOG("Loading end of the chat... markAllAsRead:" << markAllAsRead << (markAllAsRead ? 0 : this->chatInformation.value(LAST_READ_INBOX_MESSAGE_ID).toLongLong()) << chatId);
 
-        if (markAllAsRead) // FIXME: is this really needed?
-            this->tdLibWrapper->toggleChatIsMarkedAsUnread(this->chatId, false);
+        //if (markAllAsRead) // FIXME: is this really needed?
+        //    this->tdLibWrapper->toggleChatIsMarkedAsUnread(this->chatId, false);
+        this->loadingFullEnd = markAllAsRead;
 
         this->clear(true);
         // TODO: fix markAllAsRead not properly working sometimes (maybe something is wrong about fromMessageId=0)
@@ -1076,6 +1079,8 @@ int ChatModel::calculateLastReadSentMessageIndex() {
 }
 
 int ChatModel::calculateScrollPosition() {
+    if (loadingFullEnd) return this->messages.size() - 1;
+
     int listInboxPosition = this->messageIndexMap.value(this->highlightedMessageId, -1);
     if (listInboxPosition == -1)
         listInboxPosition = this->calculateLastScrollMessageIndex();
