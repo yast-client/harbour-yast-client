@@ -1047,18 +1047,10 @@ int ChatModel::calculateLastReadMessageIndexInBounds() {
     return qMax(listInboxPosition, listOwnPosition);
 }
 
-int ChatModel::calculateLastScrollMessageIndex() {
-    LOG("calculateLastScrollMessageIndex");
-
+int ChatModel::getLastReadMessageIndex() {
     int listInboxPosition = messageIndexMap.value(this->chatInformation.value(LAST_READ_INBOX_MESSAGE_ID).toLongLong(), -1);
-    int listOwnPosition = findLastSentMessageIndex();
-
     if (listInboxPosition > messages.size() - 1) listInboxPosition = -1;
-    if (listOwnPosition > messages.size() - 1) listOwnPosition = -1;
-
-    LOG("Last read received message is at position" << listInboxPosition << "; last read sent message is at position" << listOwnPosition);
-
-    return qMax(listInboxPosition, listOwnPosition);
+    return listInboxPosition;
 }
 
 int ChatModel::calculateLastReadSentMessageIndex() {
@@ -1081,12 +1073,23 @@ int ChatModel::calculateLastReadSentMessageIndex() {
 int ChatModel::calculateScrollPosition() {
     if (loadingFullEnd) return this->messages.size() - 1;
 
-    int listInboxPosition = this->messageIndexMap.value(this->highlightedMessageId, -1);
-    if (listInboxPosition == -1)
-        listInboxPosition = this->calculateLastScrollMessageIndex();
+    int scrollPosition = this->messageIndexMap.value(this->highlightedMessageId, -1);
+    if (scrollPosition == -1) {
+        LOG("calculateLastScrollMessageIndex");
 
-    LOG("Calculating new scroll position, current:" << listInboxPosition << ", list size:" << this->messages.size());
-    return qMin(listInboxPosition + 1, this->messages.size() - 1);
+        int listInboxPosition = messageIndexMap.value(this->chatInformation.value(LAST_READ_INBOX_MESSAGE_ID).toLongLong(), -1);
+        int listOwnPosition = findLastSentMessageIndex();
+
+        if (listInboxPosition > messages.size() - 1) listInboxPosition = -1;
+        if (listOwnPosition > messages.size() - 1) listOwnPosition = -1;
+
+        LOG("Last read received message is at position" << listInboxPosition << "; last read sent message is at position" << listOwnPosition);
+
+        scrollPosition = qMax(listInboxPosition, listOwnPosition);
+    }
+
+    LOG("Calculating new scroll position, current:" << scrollPosition << ", list size:" << this->messages.size());
+    return qMin(scrollPosition + 1, this->messages.size() - 1);
 }
 
 bool ChatModel::isMostRecentMessageLoaded() {

@@ -1396,7 +1396,7 @@ Page {
                         anchors.fill: parent
                         onClicked: {
                             // probably not ideal
-                            var lastReadIndex = chatProxyModel.mapRowFromSource(chatModel.lastScrollMessageIndex, -1)
+                            var lastReadIndex = chatProxyModel.mapRowFromSource(chatModel.lastReadIncomingMessageIndex, -1)
                             Debug.log("Scrolling to the bottom lastReadIndex:", lastReadIndex)
                             if (lastReadIndex > -1) {
                                 if (chatView.indexAt(chatView.contentX, chatView.contentY) >= lastReadIndex - 2

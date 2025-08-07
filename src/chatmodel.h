@@ -30,7 +30,7 @@ class ChatModel : public QAbstractListModel
     Q_PROPERTY(QVariantMap smallPhoto READ smallPhoto NOTIFY smallPhotoChanged)
     Q_PROPERTY(int lastReadSentMessageIndex READ calculateLastReadSentMessageIndex NOTIFY lastReadSentMessageUpdated)
     Q_PROPERTY(int lastReadMessageIndexInBounds READ calculateLastReadMessageIndexInBounds NOTIFY lastReadMessageIndexChanged)
-    Q_PROPERTY(int lastScrollMessageIndex READ calculateLastScrollMessageIndex NOTIFY lastReadMessageIndexChanged)
+    Q_PROPERTY(int lastReadIncomingMessageIndex READ getLastReadMessageIndex NOTIFY lastReadMessageIndexChanged)
     Q_PROPERTY(bool historyEndLoaded READ isMostRecentMessageLoaded NOTIFY historyEndLoadedChanged)
     Q_PROPERTY(QVariantMap chatActionsByUsers MEMBER chatActionsByUsers NOTIFY chatActionsChanged)
     Q_PROPERTY(QVariantMap chatActionsByChats MEMBER chatActionsByChats NOTIFY chatActionsChanged)
@@ -104,7 +104,7 @@ private:
     void setMessagesAlbum(const QList<MessageData*> newMessages);
     void setMessagesAlbum(MessageData *message);
     int calculateLastReadMessageIndexInBounds();
-    int calculateLastScrollMessageIndex();
+    int getLastReadMessageIndex();
     int calculateLastReadSentMessageIndex();
     int calculateScrollPosition();
     int findLastSentMessageIndex();
