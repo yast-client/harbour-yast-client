@@ -12,8 +12,10 @@ class ChatModel : public MessagesModel {
 public:
     ChatModel(TDLibWrapper *tdLibWrapper);
 
+    Q_INVOKABLE virtual void clear() override;
     Q_INVOKABLE virtual void reset() override;
     Q_INVOKABLE void initialize(const QVariantMap &chatInformation, qlonglong fromMessageId = 0);
+    Q_INVOKABLE void setSearchQuery(const QString newSearchQuery);
 
     QVariantMap smallPhoto() const;
 
@@ -29,7 +31,13 @@ private slots:
     void handleChatActionUpdated(qlonglong chatId, const QVariantMap &sender, const QVariantMap &chatAction, qlonglong messageThreadId);
     void handleChatNotificationSettingsUpdated(const QString &chatId, const QVariantMap &chatNotificationSettings);
 
+protected:
+    virtual void loadMessages(qlonglong fromMessageId, int offset = -1) override;
+    virtual inline bool canLoadMoreMessages() const override { return searchQuery.isEmpty(); }
+
 private:
+    QString searchQuery;
+
     QVariantMap chatActionsByUsers; // QMap<qlonglong, QString>
     QVariantMap chatActionsByChats; //QMap<qlonglong, QString>
 };

@@ -470,7 +470,7 @@ Page {
         case PageStatus.Inactive:
             if (pageStack.depth === 1)
                 // Only clear chat model if navigated back to overview page. In other cases we keep the information...
-                chatModel.clear()
+                chatModel.reset()
             else resetElements()
             break
         }

@@ -45,8 +45,7 @@ MessagesModel::MessagesModel(TDLibWrapper *tdLibWrapper) :
     highlightedMessageId(0),
     inReload(false),
     inIncrementalUpdate(false),
-    loadingFullEnd(false),
-    searchModeActive(false)
+    loadingFullEnd(false)
 {
     this->tdLibWrapper = tdLibWrapper;
     connect(this->tdLibWrapper, &TDLibWrapper::messagesReceived, this, &MessagesModel::handleMessagesReceived);
@@ -73,8 +72,7 @@ MessagesModel::MessagesModel(TDLibWrapper *tdLibWrapper) :
     connect(this, &MessagesModel::messagesReceived, this, &MessagesModel::historyEndLoadedChanged);
 }
 
-MessagesModel::~MessagesModel()
-{
+MessagesModel::~MessagesModel() {
     LOG("Destroying myself...");
     qDeleteAll(messages);
 }
@@ -121,8 +119,6 @@ void MessagesModel::clear() {
     inIncrementalUpdate = false;
     highlightedMessageId = 0;
     loadingFullEnd = false;
-    searchModeActive = false;
-    searchQuery.clear();
     if (!messages.isEmpty()) {
         beginResetModel();
         qDeleteAll(messages);
@@ -149,7 +145,7 @@ void MessagesModel::triggerLoadHistoryForMessage(qlonglong messageId) {
         LOG("Trigger loading message with id..." << messageId);
         this->clear();
         this->highlightedMessageId = messageId;
-        this->tdLibWrapper->getChatHistory(chatId, messageId);
+        this->loadMessages(messageId);
     }
 }
 
@@ -159,39 +155,30 @@ void MessagesModel::loadEnd(bool markAllAsRead) {
 
         //if (markAllAsRead) // FIXME: is this really needed?
         //    this->tdLibWrapper->toggleChatIsMarkedAsUnread(this->chatId, false);
-        this->loadingFullEnd = markAllAsRead;
+        this->loadingFullEnd = markAllAsRead; // doesn't seem to always work (also a similar issue with search)
 
         this->clear();
-        // TODO: fix markAllAsRead not properly working sometimes (maybe something is wrong about fromMessageId=0)
-        tdLibWrapper->getChatHistory(chatId, markAllAsRead ? 0 : this->chatInformation.value(LAST_READ_INBOX_MESSAGE_ID).toLongLong());
+        this->loadMessages(markAllAsRead ? 0 : this->chatInformation.value(LAST_READ_INBOX_MESSAGE_ID).toLongLong());
     }
 }
 
-void MessagesModel::triggerLoadMoreHistory()
-{
+void MessagesModel::triggerLoadMoreHistory() {
     if (!this->inIncrementalUpdate && !messages.isEmpty()) {
         this->inIncrementalUpdate = true;
-        if (searchModeActive) {
-            LOG("Trigger loading older found messages...");
-            this->tdLibWrapper->searchChatMessages(chatId, searchQuery, messages.first()->messageId);
-        } else {
-            LOG("Trigger loading older history...");
-            this->tdLibWrapper->getChatHistory(chatId, messages.first()->messageId);
-        }
+        LOG("Loading older history...");
+        this->loadMessages(messages.first()->messageId);
     }
 }
 
-void MessagesModel::triggerLoadMoreFuture()
-{
-    if (!this->inIncrementalUpdate && !messages.isEmpty() && !searchModeActive) {
+void MessagesModel::triggerLoadMoreFuture() {
+    if (canLoadMoreMessages() && !this->inIncrementalUpdate && !messages.isEmpty()) {
         LOG("Trigger loading newer future...");
         this->inIncrementalUpdate = true;
-        this->tdLibWrapper->getChatHistory(chatId, messages.last()->messageId, -49);
+        this->loadMessages(messages.last()->messageId, -49);
     }
 }
 
-QVariantMap MessagesModel::getChatInformation()
-{
+QVariantMap MessagesModel::getChatInformation() {
     return this->chatInformation;
 }
 
@@ -244,24 +231,8 @@ QVariantList MessagesModel::getMessagesForAlbum(qlonglong albumId, int startAt)
     return foundMessages;
 }
 
-void MessagesModel::setSearchQuery(const QString newSearchQuery)
-{
-    if (this->searchQuery != newSearchQuery) {
-        this->clear();
-        this->searchQuery = newSearchQuery;
-        this->searchModeActive = !this->searchQuery.isEmpty();
-        if (this->searchModeActive) {
-            this->tdLibWrapper->searchChatMessages(this->chatId, this->searchQuery);
-        } else {
-            this->tdLibWrapper->getChatHistory(chatId, this->chatInformation.value(LAST_READ_INBOX_MESSAGE_ID).toLongLong());
-        }
-    }
-}
-
-void MessagesModel::handleMessagesReceived(const QVariantList &messages, int totalCount)
-{
+void MessagesModel::handleMessagesReceived(const QVariantList &messages, int totalCount) {
     LOG("Receiving new messages :)" << messages.size());
-    LOG("Received while search mode is" << searchModeActive);
 
     if (messages.size() == 0) {
         LOG("No additional messages loaded, notifying chat UI...");
@@ -300,11 +271,7 @@ void MessagesModel::handleMessagesReceived(const QVariantList &messages, int tot
             if (!messagesToBeAdded.isEmpty() && (messagesToBeAdded.size() + messages.size()) < 10 && !inReload) {
                 LOG("Only a few messages received in first call, loading more...");
                 this->inReload = true;
-                if (this->searchModeActive) {
-                    this->tdLibWrapper->searchChatMessages(chatId, searchQuery, messagesToBeAdded.first()->messageId);
-                } else {
-                    this->tdLibWrapper->getChatHistory(chatId, messagesToBeAdded.first()->messageId, 0);
-                }
+                this->loadMessages(messagesToBeAdded.first()->messageId, 0); // (possibly) fixme
             } else {
                 LOG("Messages loaded, notifying chat UI...");
                 this->inReload = false;
@@ -327,8 +294,7 @@ void MessagesModel::handleMessagesReceived(const QVariantList &messages, int tot
 
 }
 
-void MessagesModel::handleSponsoredMessageReceived(qlonglong chatId, const QVariantMap &sponsoredMessage)
-{
+void MessagesModel::handleSponsoredMessageReceived(qlonglong chatId, const QVariantMap &sponsoredMessage) {
     LOG("Handling sponsored message" << chatId);
     QList<MessageData*> messagesToBeAdded;
     const qlonglong messageId = sponsoredMessage.value(MESSAGE_ID).toLongLong();
@@ -339,11 +305,10 @@ void MessagesModel::handleSponsoredMessageReceived(qlonglong chatId, const QVari
     appendMessages(messagesToBeAdded);
 }
 
-void MessagesModel::handleNewMessageReceived(qlonglong chatId, const QVariantMap &message)
-{
+void MessagesModel::handleNewMessageReceived(qlonglong chatId, const QVariantMap &message) {
     const qlonglong messageId = message.value(ID).toLongLong();
     if (chatId == this->chatId && !messageIndexMap.contains(messageId)) {
-        if (!this->searchModeActive && this->isMostRecentMessageLoaded()) {
+        if (canLoadMoreMessages() && this->isMostRecentMessageLoaded()) {
             LOG("New message received for this chat");
             QList<MessageData*> messagesToBeAdded;
             messagesToBeAdded.append(new MessageData(message, messageId));
@@ -356,8 +321,7 @@ void MessagesModel::handleNewMessageReceived(qlonglong chatId, const QVariantMap
     }
 }
 
-void MessagesModel::handleMessageReceived(qlonglong chatId, qlonglong messageId, const QVariantMap &message)
-{
+void MessagesModel::handleMessageReceived(qlonglong chatId, qlonglong messageId, const QVariantMap &message) {
     if (chatId == this->chatId && messageIndexMap.contains(messageId)) {
         LOG("Received a message that we already know, let's update it!");
         const int position = messageIndexMap.value(messageId);
@@ -368,8 +332,7 @@ void MessagesModel::handleMessageReceived(qlonglong chatId, qlonglong messageId,
     }
 }
 
-void MessagesModel::handleChatReadInboxUpdated(const QString &id, const QString &lastReadInboxMessageId, int unreadCount)
-{
+void MessagesModel::handleChatReadInboxUpdated(const QString &id, const QString &lastReadInboxMessageId, int unreadCount) {
     if (id.toLongLong() == chatId) {
         LOG("Updating chat unread count, unread messages" << unreadCount << ", last read message ID:" << lastReadInboxMessageId);
         this->chatInformation.insert("unread_count", unreadCount);
@@ -378,8 +341,7 @@ void MessagesModel::handleChatReadInboxUpdated(const QString &id, const QString 
     }
 }
 
-void MessagesModel::handleChatReadOutboxUpdated(const QString &id, const QString &lastReadOutboxMessageId)
-{
+void MessagesModel::handleChatReadOutboxUpdated(const QString &id, const QString &lastReadOutboxMessageId) {
     if (id.toLongLong() == chatId) {
         this->chatInformation.insert(LAST_READ_OUTBOX_MESSAGE_ID, lastReadOutboxMessageId);
         LOG("Updating sent message ID");
@@ -387,8 +349,7 @@ void MessagesModel::handleChatReadOutboxUpdated(const QString &id, const QString
     }
 }
 
-void MessagesModel::handleMessageSendSucceeded(qlonglong messageId, qlonglong oldMessageId, const QVariantMap &message)
-{
+void MessagesModel::handleMessageSendSucceeded(qlonglong messageId, qlonglong oldMessageId, const QVariantMap &message) {
     LOG("Message send succeeded, new message ID" << messageId << "old message ID" << oldMessageId << ", chat ID" << message.value(CHAT_ID).toString());
     LOG("index map:" << messageIndexMap.contains(oldMessageId) << ", index count:" << messageIndexMap.size() << ", message count:" << messages.size());
     if (this->messageIndexMap.contains(oldMessageId)) {
@@ -417,8 +378,7 @@ void MessagesModel::handleChatLastMessageUpdated(const QString &id, const QStrin
     }
 }
 
-void MessagesModel::handleMessageContentUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &newContent)
-{
+void MessagesModel::handleMessageContentUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &newContent) {
     LOG("Message content updated" << chatId << messageId);
     if (chatId == this->chatId && messageIndexMap.contains(messageId)) {
         LOG("We know the message that was updated" << messageId);
@@ -434,8 +394,7 @@ void MessagesModel::handleMessageContentUpdated(qlonglong chatId, qlonglong mess
     }
 }
 
-void MessagesModel::handleMessageInteractionInfoUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &updatedInfo)
-{
+void MessagesModel::handleMessageInteractionInfoUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &updatedInfo) {
     if (chatId == this->chatId && messageIndexMap.contains(messageId)) {
         const int pos = messageIndexMap.value(messageId, -1);
         if (pos >= 0) {

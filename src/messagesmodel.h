@@ -40,7 +40,7 @@ public:
     virtual int rowCount(const QModelIndex&) const override;
     virtual QVariant data(const QModelIndex &index, int role) const override;
 
-    Q_INVOKABLE void clear();
+    Q_INVOKABLE virtual void clear();
     Q_INVOKABLE virtual void reset();
     Q_INVOKABLE void triggerLoadMoreHistory();
     Q_INVOKABLE void triggerLoadMoreFuture();
@@ -51,7 +51,6 @@ public:
     Q_INVOKABLE QVariantMap getMessage(int index);
     Q_INVOKABLE QVariantList getMessageIdsForAlbum(qlonglong albumId);
     Q_INVOKABLE QVariantList getMessagesForAlbum(qlonglong albumId, int startAt);
-    Q_INVOKABLE void setSearchQuery(const QString newSearchQuery);
 
     Q_INVOKABLE int getMessageIndex(qlonglong messageId);
     inline qlonglong getChatId() const { return chatId; }
@@ -97,6 +96,10 @@ private:
     int findLastSentMessageIndex();
 
 protected:
+    virtual void loadMessages(qlonglong fromMessageId, int offset = -1) = 0;
+    virtual inline bool canLoadMoreMessages() const { return true; }
+
+protected:
     TDLibWrapper *tdLibWrapper;
     qlonglong chatId;
     QVariantMap chatInformation;
@@ -109,8 +112,6 @@ private:
     bool inReload;
     bool inIncrementalUpdate; // if we are waiting for messages after sending a request to load more of them
     bool loadingFullEnd;
-    bool searchModeActive;
-    QString searchQuery;
 };
 
 #endif // MESSAGESMODEL_H

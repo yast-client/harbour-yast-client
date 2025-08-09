@@ -14,7 +14,7 @@ namespace {
     const QString LAST_READ_INBOX_MESSAGE_ID("last_read_inbox_message_id");
 }
 
-ChatModel::ChatModel(TDLibWrapper *tdLibWrapper) : MessagesModel(tdLibWrapper) {
+ChatModel::ChatModel(TDLibWrapper *tdLibWrapper) : MessagesModel(tdLibWrapper), searchQuery() {
     connect(this->tdLibWrapper, &TDLibWrapper::chatPhotoUpdated, this, &ChatModel::handleChatPhotoUpdated);
     connect(this->tdLibWrapper, &TDLibWrapper::chatPinnedMessageUpdated, this, &ChatModel::handleChatPinnedMessageUpdated);
     connect(this->tdLibWrapper, &TDLibWrapper::chatActionUpdated, this, &ChatModel::handleChatActionUpdated);
@@ -71,6 +71,11 @@ void ChatModel::handleChatNotificationSettingsUpdated(const QString &id, const Q
 
 
 
+void ChatModel::clear() {
+    this->searchQuery.clear();
+    MessagesModel::clear();
+}
+
 void ChatModel::reset() {
     MessagesModel::reset();
 
@@ -101,4 +106,22 @@ void ChatModel::initialize(const QVariantMap &chatInformation, qlonglong fromMes
     emit historyEndLoadedChanged();
 
     tdLibWrapper->getChatHistory(chatId, fromMessageId != 0 ? fromMessageId : this->chatInformation.value(LAST_READ_INBOX_MESSAGE_ID).toLongLong());
+}
+
+void ChatModel::setSearchQuery(const QString newSearchQuery) {
+    if (this->searchQuery != newSearchQuery) {
+        this->clear();
+        this->searchQuery = newSearchQuery;
+        this->loadMessages(searchQuery.isEmpty() ? this->chatInformation.value(LAST_READ_INBOX_MESSAGE_ID).toLongLong() : 0); // fixme
+    }
+}
+
+
+
+void ChatModel::loadMessages(qlonglong fromMessageId, int offset) {
+    if (searchQuery.isEmpty())
+        this->tdLibWrapper->getChatHistory(chatId, fromMessageId, offset);
+    else
+        // ignore offset for now
+        this->tdLibWrapper->searchChatMessages(chatId, searchQuery, fromMessageId);
 }
