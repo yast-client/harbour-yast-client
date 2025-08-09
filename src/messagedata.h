@@ -1,0 +1,68 @@
+#ifndef MESSAGEDATA_H
+#define MESSAGEDATA_H
+
+#include <QObject>
+#include <QVariant>
+#include <QVector>
+
+struct MessageData {
+    enum Role {
+        RoleDisplay = Qt::DisplayRole,
+        RoleMessageId,
+        RoleMessageContentType,
+        RoleMessageViewCount,
+        RoleMessageReactions,
+        RoleMessageAlbumEntryFilter,
+        RoleMessageAlbumMessageIds,
+    };
+
+    enum RoleFlag {
+        RoleFlagDisplay = 0x01,
+        RoleFlagMessageId = 0x02,
+        RoleFlagMessageContentType = 0x04,
+        RoleFlagMessageViewCount = 0x08,
+        RoleFlagMessageReactions = 0x16,
+        RoleFlagMessageAlbumEntryFilter = 0x32,
+        RoleFlagMessageAlbumMessageIds = 0x64,
+    };
+
+    MessageData(const QVariantMap &data, qlonglong msgid);
+
+    static bool lessThan(const MessageData *message1, const MessageData *message2);
+    static QVector<int> flagsToRoles(uint flags);
+
+    uint updateMessageData(const QVariantMap &data);
+    uint updateContent(const QVariantMap &content);
+    uint updateContentType(const QVariantMap &content);
+    uint updateReplyMarkup(const QVariantMap &replyMarkup);
+    uint updateViewCount(const QVariantMap &interactionInfo);
+    uint updateInteractionInfo(const QVariantMap &interactionInfo);
+    uint updateReactions(const QVariantMap &interactionInfo);
+    uint updateAlbumEntryFilter(const bool isAlbumChild);
+    uint updateAlbumEntryMessageIds(const QVariantList &newAlbumMessageIds);
+
+    QVector<int> diff(const MessageData *message) const;
+    QVector<int> setMessageData(const QVariantMap &data);
+    QVector<int> setContent(const QVariantMap &content);
+    QVector<int> setReplyMarkup(const QVariantMap &replyMarkup);
+    QVector<int> setInteractionInfo(const QVariantMap &interactionInfo);
+    QVector<int> setAlbumEntryFilter(bool isAlbumChild);
+    QVector<int> setAlbumEntryMessageIds(const QVariantList &newAlbumMessageIds);
+
+    int senderUserId() const;
+    qlonglong senderChatId() const;
+    bool senderIsChat() const;
+
+
+
+    QVariantMap messageData;
+    const qlonglong messageId;
+    QString messageType;
+    QString messageContentType;
+    int viewCount;
+    QVariantList reactions;
+    bool albumEntryFilter;
+    QVariantList albumMessageIds;
+};
+
+#endif // MESSAGEDATA_H

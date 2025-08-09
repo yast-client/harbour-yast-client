@@ -22,6 +22,7 @@
 
 #include <QAbstractListModel>
 #include "tdlibwrapper.h"
+#include "messagedata.h"
 
 class MessagesModel : public QAbstractListModel
 {
@@ -94,7 +95,6 @@ private slots:
     void handleChatActionUpdated(qlonglong chatId, const QVariantMap &sender, const QVariantMap &chatAction, qlonglong messageThreadId);
 
 private:
-    class MessageData;
     void removeRange(int firstDeleted, int lastDeleted);
     void insertMessages(const QList<MessageData*> newMessages);
     void appendMessages(const QList<MessageData*> newMessages);
