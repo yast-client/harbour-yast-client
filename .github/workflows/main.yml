@@ -27,20 +27,20 @@ jobs:
 
     - name: Prepare
       run: mkdir output
-      
+
     - name: Fetch TDLib
       uses: dsaltares/fetch-gh-release-asset@master
-      with: 
+      with:
         repo: "roundedrectangle/td"
         file: "tdlib.zip"
         target: tdlib/tdlib.zip
         token: ${{ secrets.GITHUB_TOKEN }}
-        
+
     - name: Decompress TDLib
       uses: TonyBogdanov/zip@1.0
       with:
         args: unzip -qq ./tdlib/tdlib.zip -d ./tdlib
-        
+
     - name: Set Secrets
       uses: DamianReeves/write-file-action@master
       with:
@@ -58,7 +58,7 @@ jobs:
       uses: coderus/github-sfos-build@master
       with:
         release: ${{ env.RELEASE }}
-        
+
     # - name: Build i486
     #   id: build_i486
     #   uses: coderus/github-sfos-build@master
@@ -72,7 +72,7 @@ jobs:
       with:
         release: ${{ env.RELEASE }}
         arch: aarch64
-      
+
     - name: Upload build result
       uses: actions/upload-artifact@v4
       with:
@@ -88,10 +88,10 @@ jobs:
           assets+=("-a" "$asset")
         done
         tag_name="${GITHUB_REF##*/}"
-        gh release create "$tag_name" "${assets[@]}" 
+        gh release create "$tag_name" "${assets[@]}"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
+
     - name: Create prerelease
       if: contains(github.ref, 'pre')
       run: |
