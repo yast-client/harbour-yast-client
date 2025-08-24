@@ -43,7 +43,7 @@ jobs:
     - name: Decompress TDLib
       uses: TonyBogdanov/zip@1.0
       with:
-        args: unzip -qq ./tdlib/tdlib.zip -d ./tdlib
+        args: unzip -qq -n ./tdlib/tdlib.zip -d ./tdlib
 
     - name: Set Secrets
       uses: DamianReeves/write-file-action@master
