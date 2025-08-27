@@ -136,7 +136,6 @@ TDLibReceiver::TDLibReceiver(int tdLibClientId, QObject *parent) : QThread(paren
     handlers.insert("updateUnreadMessageCount", &TDLibReceiver::processUpdateUnreadMessageCount);
     handlers.insert("updateUnreadChatCount", &TDLibReceiver::processUpdateUnreadChatCount);
     handlers.insert("updateChatLastMessage", &TDLibReceiver::processUpdateChatLastMessage);
-    handlers.insert("updateChatOrder", &TDLibReceiver::processUpdateChatOrder);
     handlers.insert("updateChatPosition", &TDLibReceiver::processUpdateChatPosition);
     handlers.insert("updateChatReadInbox", &TDLibReceiver::processUpdateChatReadInbox);
     handlers.insert("updateChatReadOutbox", &TDLibReceiver::processUpdateChatReadOutbox);
@@ -344,14 +343,6 @@ void TDLibReceiver::processUpdateChatLastMessage(const QVariantMap &receivedInfo
     const QVariantMap lastMessage = receivedInformation.value(LAST_MESSAGE).toMap();
     LOG("Last message of chat" << chat_id << "updated, order" << order << "type" << lastMessage.value(_TYPE).toString());
     emit chatLastMessageUpdated(chat_id, order, cleanupMap(lastMessage));
-}
-
-void TDLibReceiver::processUpdateChatOrder(const QVariantMap &receivedInformation)
-{
-    const QString chat_id(receivedInformation.value(CHAT_ID).toString());
-    const QString order(receivedInformation.value(ORDER).toString());
-    LOG("Chat order updated for ID" << chat_id << "to" << order);
-    emit chatOrderUpdated(chat_id, order);
 }
 
 void TDLibReceiver::processUpdateChatPosition(const QVariantMap &receivedInformation)

@@ -144,7 +144,6 @@ private:
     void processUpdateUnreadMessageCount(const QVariantMap &receivedInformation);
     void processUpdateUnreadChatCount(const QVariantMap &receivedInformation);
     void processUpdateChatLastMessage(const QVariantMap &receivedInformation);
-    void processUpdateChatOrder(const QVariantMap &receivedInformation);
     void processUpdateChatPosition(const QVariantMap &receivedInformation);
     void processUpdateChatReadInbox(const QVariantMap &receivedInformation);
     void processUpdateChatReadOutbox(const QVariantMap &receivedInformation);
