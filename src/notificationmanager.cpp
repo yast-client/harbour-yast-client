@@ -134,11 +134,11 @@ NotificationManager::NotificationManager(TDLibWrapper *tdLibWrapper, AppSettings
 {
     LOG("Initializing...");
 
-    connect(this->tdLibWrapper, SIGNAL(activeNotificationsUpdated(QVariantList)), this, SLOT(handleUpdateActiveNotifications(QVariantList)));
-    connect(this->tdLibWrapper, SIGNAL(notificationGroupUpdated(QVariantMap)), this, SLOT(handleUpdateNotificationGroup(QVariantMap)));
-    connect(this->tdLibWrapper, SIGNAL(notificationUpdated(QVariantMap)), this, SLOT(handleUpdateNotification(QVariantMap)));
-    connect(this->tdLibWrapper, SIGNAL(newChatDiscovered(QString, QVariantMap)), this, SLOT(handleChatDiscovered(QString, QVariantMap)));
-    connect(this->tdLibWrapper, SIGNAL(chatTitleUpdated(QString, QString)), this, SLOT(handleChatTitleUpdated(QString, QString)));
+    connect(this->tdLibWrapper, &TDLibWrapper::activeNotificationsUpdated, this, &NotificationManager::handleUpdateActiveNotifications);
+    connect(this->tdLibWrapper, &TDLibWrapper::notificationGroupUpdated, this, &NotificationManager::handleUpdateNotificationGroup);
+    connect(this->tdLibWrapper, &TDLibWrapper::notificationUpdated, this, &NotificationManager::handleUpdateNotification);
+    connect(this->tdLibWrapper, &TDLibWrapper::newChatDiscovered, this, &NotificationManager::handleChatDiscovered);
+    connect(this->tdLibWrapper, &TDLibWrapper::chatTitleUpdated, this, &NotificationManager::handleChatTitleUpdated);
 
     this->controlLedNotification(false);
 
