@@ -299,7 +299,7 @@ void TDLibReceiver::processFile(const QVariantMap &receivedInformation)
 void TDLibReceiver::processUpdateNewChat(const QVariantMap &receivedInformation)
 {
     const QVariantMap chatInformation = receivedInformation.value("chat").toMap();
-    LOG("New chat discovered: " << chatInformation.value(ID).toString() << chatInformation.value(TITLE).toString());
+    LOG("New chat discovered: " << chatInformation.value(ID).toLongLong() << chatInformation.value(TITLE).toString());
     emit newChatDiscovered(chatInformation);
 }
 
