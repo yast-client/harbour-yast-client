@@ -51,7 +51,6 @@ namespace {
     const QString IS_CHANNEL("is_channel");
     const QString VERIFICATION_STATUS("verification_status");
     const QString IS_MARKED_AS_UNREAD("is_marked_as_unread");
-    const QString IS_PINNED("is_pinned");
     const QString PINNED_MESSAGE_ID("pinned_message_id");
     const QString _TYPE("@type");
     const QString SECRET_CHAT_ID("secret_chat_id");
@@ -85,7 +84,6 @@ public:
     QString draftMessageText() const;
     bool isChannel() const;
     bool isMarkedAsUnread() const;
-    bool isPinned() const;
     bool updateUnreadCount(int unreadCount);
     bool updateLastReadInboxMessageId(qlonglong messageId);
     QVector<int> updateLastMessage(const QVariantMap &message);
@@ -99,11 +97,11 @@ public:
     qlonglong chatId;
     qlonglong order;
     qlonglong groupId;
+    bool isPinned;
     QVariantMap verificationStatus;
     TDLibWrapper::ChatType chatType;
     TDLibWrapper::ChatMemberStatus memberStatus;
     TDLibWrapper::SecretChatState secretChatState;
-
 };
 
 ChatListModel::ChatData::ChatData(TDLibWrapper *tdLibWrapper, Utilities *utilities, const QVariantMap &data, qlonglong order, bool isPinned) :
@@ -113,6 +111,7 @@ ChatListModel::ChatData::ChatData(TDLibWrapper *tdLibWrapper, Utilities *utiliti
     chatId(data.value(ID).toLongLong()),
     order(order),
     groupId(0),
+    isPinned(isPinned),
     memberStatus(TDLibWrapper::ChatMemberStatusUnknown),
     secretChatState(TDLibWrapper::SecretChatStateUnknown)
 {
@@ -129,8 +128,6 @@ ChatListModel::ChatData::ChatData(TDLibWrapper *tdLibWrapper, Utilities *utiliti
     case TDLibWrapper::ChatTypeSecret:
         break;
     }
-
-    chatData.insert(IS_PINNED, isPinned);
 }
 
 int ChatListModel::ChatData::compareTo(const ChatData *other) const
@@ -272,11 +269,6 @@ bool ChatListModel::ChatData::isChannel() const
 bool ChatListModel::ChatData::isMarkedAsUnread() const
 {
     return chatData.value(IS_MARKED_AS_UNREAD).toBool();
-}
-
-bool ChatListModel::ChatData::isPinned() const
-{
-    return chatData.value(IS_PINNED).toBool();
 }
 
 bool ChatListModel::ChatData::updateUnreadCount(int count)
@@ -467,7 +459,7 @@ QVariant ChatListModel::data(const QModelIndex &index, int role) const
         case ChatListModel::RoleVerificationStatus: return data->verificationStatus;
         case ChatListModel::RoleIsChannel: return data->isChannel();
         case ChatListModel::RoleIsMarkedAsUnread: return data->isMarkedAsUnread();
-        case ChatListModel::RoleIsPinned: return data->isPinned();
+        case ChatListModel::RoleIsPinned: return data->isPinned;
         case ChatListModel::RoleFilter: return data->title() + " " + data->senderMessageText();
         case ChatListModel::RoleDraftMessageText: return data->draftMessageText();
         case ChatListModel::RoleDraftMessageDate: return data->draftMessageDate();
@@ -539,7 +531,7 @@ int ChatListModel::updateChatOrder(const int chatIndex) {
 void ChatListModel::updateChatIsPinned(const int chatIndex, const bool isPinned) {
     LOG("Updating chat is pinned at" << chatIndex << isPinned);
     ChatData *chat = chatList.at(chatIndex);
-    chat->chatData.insert(IS_PINNED, isPinned);
+    chat->isPinned = isPinned;
     QVector<int> changedRoles;
     changedRoles.append(ChatListModel::RoleIsPinned);
     const QModelIndex modelIndex(index(chatIndex));
@@ -784,19 +776,6 @@ void ChatListModel::handleChatTitleUpdated(qlonglong chatId, const QString &titl
         QVector<int> changedRoles;
         changedRoles.append(ChatListModel::RoleTitle);
         changedRoles.append(ChatListModel::RoleFilter);
-        const QModelIndex modelIndex(index(chatIndex));
-        emit dataChanged(modelIndex, modelIndex, changedRoles);
-    }
-}
-
-void ChatListModel::handleChatPinnedUpdated(qlonglong chatId, bool chatIsPinned) {
-    if (chatIndexMap.contains(chatId)) {
-        LOG("Updating chat is pinned for" << chatId << chatIsPinned);
-        const int chatIndex = chatIndexMap.value(chatId);
-        ChatData *chat = chatList.at(chatIndex);
-        chat->chatData.insert(IS_PINNED, chatIsPinned);
-        QVector<int> changedRoles;
-        changedRoles.append(ChatListModel::RoleIsPinned);
         const QModelIndex modelIndex(index(chatIndex));
         emit dataChanged(modelIndex, modelIndex, changedRoles);
     }

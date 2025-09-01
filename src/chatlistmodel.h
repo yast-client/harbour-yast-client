@@ -87,7 +87,6 @@ private slots:
     void handleGroupUpdated(qlonglong groupId);
     void handleSecretChatUpdated(qlonglong secretChatId, const QVariantMap &secretChat);
     void handleChatTitleUpdated(qlonglong chatId, const QString &title);
-    void handleChatPinnedUpdated(qlonglong chatId, bool chatIsPinned);
     void handleChatIsMarkedAsUnreadUpdated(qlonglong chatId, bool chatIsMarkedAsUnread);
     void handleChatDraftMessageUpdated(qlonglong chatId, const QVariantMap &draftMessage);
     void handleChatUnreadMentionCountUpdated(qlonglong chatId, int unreadMentionCount);
