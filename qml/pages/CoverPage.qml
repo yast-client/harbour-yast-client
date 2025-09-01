@@ -28,7 +28,7 @@ CoverBackground {
 
     property int unreadMessages: 0
     property int unreadChats: 0
-    readonly property bool authenticated: tdLibWrapper.authorizationState === TelegramAPI.AuthorizationReady
+    readonly property bool authenticated: tdLibWrapper.authorizationState === TDLibWrapper.AuthorizationReady
 
     Component.onCompleted: {
         coverPage.unreadMessages = tdLibWrapper.getUnreadMessageInformation().unread_count || 0;
@@ -123,15 +123,15 @@ CoverBackground {
         Text {
             id: connectionStateText
             text: switch (tdLibWrapper.connectionState) {
-            case TelegramAPI.WaitingForNetwork:
+            case TDLibWrapper.WaitingForNetwork:
                 return qsTr("Waiting for network...")
-            case TelegramAPI.Connecting:
+            case TDLibWrapper.Connecting:
                 return qsTr("Connecting to network...")
-            case TelegramAPI.ConnectingToProxy:
+            case TDLibWrapper.ConnectingToProxy:
                 return qsTr("Connecting to proxy...")
-            case TelegramAPI.ConnectionReady:
+            case TDLibWrapper.ConnectionReady:
                 return qsTr("Connected")
-            case TelegramAPI.Updating:
+            case TDLibWrapper.Updating:
                 return qsTr("Updating content...")
             default: return ''
             }

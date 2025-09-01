@@ -79,31 +79,31 @@ SilicaFlickable {
         states: [
             State {
                 name: "WaitingForNetwork"
-                when: tdLibWrapper.connectionState == TelegramAPI.WaitingForNetwork
+                when: tdLibWrapper.connectionState == TDLibWrapper.WaitingForNetwork
                 PropertyChanges { target: pageStatus; color: "red" }
                 PropertyChanges { target: pageHeader; title: qsTr("Waiting for network...") }
             },
             State {
                 name: "Connecting"
-                when: tdLibWrapper.connectionState == TelegramAPI.Connecting
+                when: tdLibWrapper.connectionState == TDLibWrapper.Connecting
                 PropertyChanges { target: pageStatus; color: "gold" }
                 PropertyChanges { target: pageHeader; title: qsTr("Connecting to network...") }
             },
             State {
                 name: "ConnectingToProxy"
-                when: tdLibWrapper.connectionState == TelegramAPI.ConnectingToProxy
+                when: tdLibWrapper.connectionState == TDLibWrapper.ConnectingToProxy
                 PropertyChanges { target: pageStatus; color: "gold" }
                 PropertyChanges { target: pageHeader; title: qsTr("Connecting to proxy...") }
             },
             State {
                 name: "ConnectionReady"
-                when: tdLibWrapper.connectionState == TelegramAPI.ConnectionReady
+                when: tdLibWrapper.connectionState == TDLibWrapper.ConnectionReady
                 PropertyChanges { target: pageStatus; color: "green" }
                 PropertyChanges { target: pageHeader; title: overviewContainer.headerText }
             },
             State {
                 name: "Updating"
-                when: tdLibWrapper.connectionState == TelegramAPI.Updating
+                when: tdLibWrapper.connectionState == TDLibWrapper.Updating
                 PropertyChanges { target: pageStatus; color: "lightblue" }
                 PropertyChanges { target: pageHeader; title: qsTr("Updating content...") }
             }

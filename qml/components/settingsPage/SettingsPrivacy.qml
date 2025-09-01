@@ -31,22 +31,22 @@ AccordionItem {
                 onUserPrivacySettingUpdated: {
                     Debug.log("Received updated privacy setting: " + setting + ":" + rule);
                     switch (setting) {
-                    case TelegramAPI.SettingAllowChatInvites:
+                    case TDLibWrapper.SettingAllowChatInvites:
                         allowChatInvitesComboBox.currentIndex = rule;
                         break;
-                    case TelegramAPI.SettingAllowFindingByPhoneNumber:
+                    case TDLibWrapper.SettingAllowFindingByPhoneNumber:
                         allowFindingByPhoneNumberComboBox.currentIndex = rule;
                         break;
-                    case TelegramAPI.SettingShowLinkInForwardedMessages:
+                    case TDLibWrapper.SettingShowLinkInForwardedMessages:
                         showLinkInForwardedMessagesComboBox.currentIndex = rule;
                         break;
-                    case TelegramAPI.SettingShowPhoneNumber:
+                    case TDLibWrapper.SettingShowPhoneNumber:
                         showPhoneNumberComboBox.currentIndex = rule;
                         break;
-                    case TelegramAPI.SettingShowProfilePhoto:
+                    case TDLibWrapper.SettingShowProfilePhoto:
                         showProfilePhotoComboBox.currentIndex = rule;
                         break;
-                    case TelegramAPI.SettingShowStatus:
+                    case TDLibWrapper.SettingShowStatus:
                         showStatusComboBox.currentIndex = rule;
                         break;
                     }
@@ -65,25 +65,25 @@ AccordionItem {
                         MenuItem {
                             text: qsTr("Yes")
                             onClicked: {
-                                tdLibWrapper.setUserPrivacySettingRule(TelegramAPI.SettingAllowChatInvites, TelegramAPI.RuleAllowAll);
+                                tdLibWrapper.setUserPrivacySettingRule(TDLibWrapper.SettingAllowChatInvites, TDLibWrapper.RuleAllowAll);
                             }
                         }
                         MenuItem {
                             text: qsTr("Your contacts only")
                             onClicked: {
-                                tdLibWrapper.setUserPrivacySettingRule(TelegramAPI.SettingAllowChatInvites, TelegramAPI.RuleAllowContacts);
+                                tdLibWrapper.setUserPrivacySettingRule(TDLibWrapper.SettingAllowChatInvites, TDLibWrapper.RuleAllowContacts);
                             }
                         }
                         MenuItem {
                             text: qsTr("No")
                             onClicked: {
-                                tdLibWrapper.setUserPrivacySettingRule(TelegramAPI.SettingAllowChatInvites, TelegramAPI.RuleRestrictAll);
+                                tdLibWrapper.setUserPrivacySettingRule(TDLibWrapper.SettingAllowChatInvites, TDLibWrapper.RuleRestrictAll);
                             }
                         }
                     }
 
                     Component.onCompleted: {
-                        currentIndex = tdLibWrapper.getUserPrivacySettingRule(TelegramAPI.SettingAllowChatInvites);
+                        currentIndex = tdLibWrapper.getUserPrivacySettingRule(TDLibWrapper.SettingAllowChatInvites);
                     }
                 }
 
@@ -99,19 +99,19 @@ AccordionItem {
                         MenuItem {
                             text: qsTr("Yes")
                             onClicked: {
-                                tdLibWrapper.setUserPrivacySettingRule(TelegramAPI.SettingAllowFindingByPhoneNumber, TelegramAPI.RuleAllowAll);
+                                tdLibWrapper.setUserPrivacySettingRule(TDLibWrapper.SettingAllowFindingByPhoneNumber, TDLibWrapper.RuleAllowAll);
                             }
                         }
                         MenuItem {
                             text: qsTr("Your contacts only")
                             onClicked: {
-                                tdLibWrapper.setUserPrivacySettingRule(TelegramAPI.SettingAllowFindingByPhoneNumber, TelegramAPI.RuleAllowContacts);
+                                tdLibWrapper.setUserPrivacySettingRule(TDLibWrapper.SettingAllowFindingByPhoneNumber, TDLibWrapper.RuleAllowContacts);
                             }
                         }
                     }
 
                     Component.onCompleted: {
-                        currentIndex = tdLibWrapper.getUserPrivacySettingRule(TelegramAPI.SettingAllowFindingByPhoneNumber);
+                        currentIndex = tdLibWrapper.getUserPrivacySettingRule(TDLibWrapper.SettingAllowFindingByPhoneNumber);
                     }
                 }
 
@@ -127,25 +127,25 @@ AccordionItem {
                         MenuItem {
                             text: qsTr("Yes")
                             onClicked: {
-                                tdLibWrapper.setUserPrivacySettingRule(TelegramAPI.SettingShowLinkInForwardedMessages, TelegramAPI.RuleAllowAll);
+                                tdLibWrapper.setUserPrivacySettingRule(TDLibWrapper.SettingShowLinkInForwardedMessages, TDLibWrapper.RuleAllowAll);
                             }
                         }
                         MenuItem {
                             text: qsTr("Your contacts only")
                             onClicked: {
-                                tdLibWrapper.setUserPrivacySettingRule(TelegramAPI.SettingShowLinkInForwardedMessages, TelegramAPI.RuleAllowContacts);
+                                tdLibWrapper.setUserPrivacySettingRule(TDLibWrapper.SettingShowLinkInForwardedMessages, TDLibWrapper.RuleAllowContacts);
                             }
                         }
                         MenuItem {
                             text: qsTr("No")
                             onClicked: {
-                                tdLibWrapper.setUserPrivacySettingRule(TelegramAPI.SettingShowLinkInForwardedMessages, TelegramAPI.RuleRestrictAll);
+                                tdLibWrapper.setUserPrivacySettingRule(TDLibWrapper.SettingShowLinkInForwardedMessages, TDLibWrapper.RuleRestrictAll);
                             }
                         }
                     }
 
                     Component.onCompleted: {
-                        currentIndex = tdLibWrapper.getUserPrivacySettingRule(TelegramAPI.SettingShowLinkInForwardedMessages);
+                        currentIndex = tdLibWrapper.getUserPrivacySettingRule(TDLibWrapper.SettingShowLinkInForwardedMessages);
                     }
                 }
 
@@ -161,25 +161,25 @@ AccordionItem {
                         MenuItem {
                             text: qsTr("Yes")
                             onClicked: {
-                                tdLibWrapper.setUserPrivacySettingRule(TelegramAPI.SettingShowPhoneNumber, TelegramAPI.RuleAllowAll);
+                                tdLibWrapper.setUserPrivacySettingRule(TDLibWrapper.SettingShowPhoneNumber, TDLibWrapper.RuleAllowAll);
                             }
                         }
                         MenuItem {
                             text: qsTr("Your contacts only")
                             onClicked: {
-                                tdLibWrapper.setUserPrivacySettingRule(TelegramAPI.SettingShowPhoneNumber, TelegramAPI.RuleAllowContacts);
+                                tdLibWrapper.setUserPrivacySettingRule(TDLibWrapper.SettingShowPhoneNumber, TDLibWrapper.RuleAllowContacts);
                             }
                         }
                         MenuItem {
                             text: qsTr("No")
                             onClicked: {
-                                tdLibWrapper.setUserPrivacySettingRule(TelegramAPI.SettingShowPhoneNumber, TelegramAPI.RuleRestrictAll);
+                                tdLibWrapper.setUserPrivacySettingRule(TDLibWrapper.SettingShowPhoneNumber, TDLibWrapper.RuleRestrictAll);
                             }
                         }
                     }
 
                     Component.onCompleted: {
-                        currentIndex = tdLibWrapper.getUserPrivacySettingRule(TelegramAPI.SettingShowPhoneNumber);
+                        currentIndex = tdLibWrapper.getUserPrivacySettingRule(TDLibWrapper.SettingShowPhoneNumber);
                     }
                 }
 
@@ -195,25 +195,25 @@ AccordionItem {
                         MenuItem {
                             text: qsTr("Yes")
                             onClicked: {
-                                tdLibWrapper.setUserPrivacySettingRule(TelegramAPI.SettingShowProfilePhoto, TelegramAPI.RuleAllowAll);
+                                tdLibWrapper.setUserPrivacySettingRule(TDLibWrapper.SettingShowProfilePhoto, TDLibWrapper.RuleAllowAll);
                             }
                         }
                         MenuItem {
                             text: qsTr("Your contacts only")
                             onClicked: {
-                                tdLibWrapper.setUserPrivacySettingRule(TelegramAPI.SettingShowProfilePhoto, TelegramAPI.RuleAllowContacts);
+                                tdLibWrapper.setUserPrivacySettingRule(TDLibWrapper.SettingShowProfilePhoto, TDLibWrapper.RuleAllowContacts);
                             }
                         }
                         MenuItem {
                             text: qsTr("No")
                             onClicked: {
-                                tdLibWrapper.setUserPrivacySettingRule(TelegramAPI.SettingShowProfilePhoto, TelegramAPI.RuleRestrictAll);
+                                tdLibWrapper.setUserPrivacySettingRule(TDLibWrapper.SettingShowProfilePhoto, TDLibWrapper.RuleRestrictAll);
                             }
                         }
                     }
 
                     Component.onCompleted: {
-                        currentIndex = tdLibWrapper.getUserPrivacySettingRule(TelegramAPI.SettingShowProfilePhoto);
+                        currentIndex = tdLibWrapper.getUserPrivacySettingRule(TDLibWrapper.SettingShowProfilePhoto);
                     }
                 }
 
@@ -229,25 +229,25 @@ AccordionItem {
                         MenuItem {
                             text: qsTr("Yes")
                             onClicked: {
-                                tdLibWrapper.setUserPrivacySettingRule(TelegramAPI.SettingShowStatus, TelegramAPI.RuleAllowAll);
+                                tdLibWrapper.setUserPrivacySettingRule(TDLibWrapper.SettingShowStatus, TDLibWrapper.RuleAllowAll);
                             }
                         }
                         MenuItem {
                             text: qsTr("Your contacts only")
                             onClicked: {
-                                tdLibWrapper.setUserPrivacySettingRule(TelegramAPI.SettingShowStatus, TelegramAPI.RuleAllowContacts);
+                                tdLibWrapper.setUserPrivacySettingRule(TDLibWrapper.SettingShowStatus, TDLibWrapper.RuleAllowContacts);
                             }
                         }
                         MenuItem {
                             text: qsTr("No")
                             onClicked: {
-                                tdLibWrapper.setUserPrivacySettingRule(TelegramAPI.SettingShowStatus, TelegramAPI.RuleRestrictAll);
+                                tdLibWrapper.setUserPrivacySettingRule(TDLibWrapper.SettingShowStatus, TDLibWrapper.RuleRestrictAll);
                             }
                         }
                     }
 
                     Component.onCompleted: {
-                        currentIndex = tdLibWrapper.getUserPrivacySettingRule(TelegramAPI.SettingShowStatus);
+                        currentIndex = tdLibWrapper.getUserPrivacySettingRule(TDLibWrapper.SettingShowStatus);
                     }
                 }
             }

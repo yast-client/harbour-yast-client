@@ -27,7 +27,7 @@ PhotoTextsListItem {
     unreadCount: unread_count
     unreadReactionCount: unread_reaction_count
     unreadMentionCount: unread_mention_count
-    isSecret: chat_type === TelegramAPI.ChatTypeSecret
+    isSecret: chat_type === TDLibWrapper.ChatTypeSecret
     isMarkedAsUnread: is_marked_as_unread
     isPinned: is_pinned
     muted: display.notification_settings.mute_for > 0

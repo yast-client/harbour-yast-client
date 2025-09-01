@@ -98,12 +98,12 @@ Page {
             tdLibWrapper.getRecentStickers()
             tdLibWrapper.getInstalledStickerSets()
             tdLibWrapper.getContacts()
-            tdLibWrapper.getUserPrivacySettingRules(TelegramAPI.SettingAllowChatInvites)
-            tdLibWrapper.getUserPrivacySettingRules(TelegramAPI.SettingAllowFindingByPhoneNumber)
-            tdLibWrapper.getUserPrivacySettingRules(TelegramAPI.SettingShowLinkInForwardedMessages)
-            tdLibWrapper.getUserPrivacySettingRules(TelegramAPI.SettingShowPhoneNumber)
-            tdLibWrapper.getUserPrivacySettingRules(TelegramAPI.SettingShowProfilePhoto)
-            tdLibWrapper.getUserPrivacySettingRules(TelegramAPI.SettingShowStatus)
+            tdLibWrapper.getUserPrivacySettingRules(TDLibWrapper.SettingAllowChatInvites)
+            tdLibWrapper.getUserPrivacySettingRules(TDLibWrapper.SettingAllowFindingByPhoneNumber)
+            tdLibWrapper.getUserPrivacySettingRules(TDLibWrapper.SettingShowLinkInForwardedMessages)
+            tdLibWrapper.getUserPrivacySettingRules(TDLibWrapper.SettingShowPhoneNumber)
+            tdLibWrapper.getUserPrivacySettingRules(TDLibWrapper.SettingShowProfilePhoto)
+            tdLibWrapper.getUserPrivacySettingRules(TDLibWrapper.SettingShowStatus)
         }
     }
 
@@ -162,10 +162,10 @@ Page {
 
     function handleAuthorizationState(isOnInitialization) {
         switch (tdLibWrapper.authorizationState) {
-        case TelegramAPI.WaitPhoneNumber:
-        case TelegramAPI.WaitCode:
-        case TelegramAPI.WaitPassword:
-        case TelegramAPI.WaitRegistration:
+        case TDLibWrapper.WaitPhoneNumber:
+        case TDLibWrapper.WaitCode:
+        case TDLibWrapper.WaitPassword:
+        case TDLibWrapper.WaitRegistration:
             overviewPage.loading = false;
             overviewPage.logoutLoading = false;
             if(isOnInitialization) // pageStack isn't ready on Component.onCompleted
@@ -173,13 +173,13 @@ Page {
             else
                 pageStack.push(Qt.resolvedUrl("../pages/InitializationPage.qml"))
             break;
-        case TelegramAPI.AuthorizationReady:
+        case TDLibWrapper.AuthorizationReady:
             loadingText = qsTr("Loading chat list...")
             overviewPage.loading = false
             overviewPage.initializationCompleted = true
             overviewPage.updateContent()
             break;
-        case TelegramAPI.LoggingOut:
+        case TDLibWrapper.LoggingOut:
             if (logoutLoading) {
                 Debug.log("Resources cleared already");
                 return;
