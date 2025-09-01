@@ -642,10 +642,10 @@ void ChatListModel::handleChatLastMessageUpdated(qlonglong chatId, const QVarian
 void ChatListModel::handleChatPositionUpdated(qlonglong chatId, qlonglong order, bool isPinned) {
     if (chatIndexMap.contains(chatId)) {
         LOG("Updating chat order of" << chatId << "to" << order);
-        const int chatIndex = chatIndexMap.value(chatId);
+        int chatIndex = chatIndexMap.value(chatId);
 
         chatList.at(chatIndex)->setOrder(order);
-        updateChatOrder(chatIndex);
+        chatIndex = updateChatOrder(chatIndex);
         updateChatIsPinned(chatIndex, isPinned);
     }
 }
