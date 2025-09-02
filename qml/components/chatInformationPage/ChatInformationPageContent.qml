@@ -64,7 +64,7 @@ SilicaFlickable {
         target: tdLibWrapper
 
         onUserUpdated: {
-            if ((chatInformationPage.isPrivateChat || chatInformationPage.isSecretChat) && chatInformationPage.privateChatUserInformation.id.toString() === userId) {
+            if ((chatInformationPage.isPrivateChat || chatInformationPage.isSecretChat) && chatInformationPage.privateChatUserInformation.id === userId) {
                 chatInformationPage.privateChatUserInformation = userInformation
             }
         }
@@ -80,7 +80,7 @@ SilicaFlickable {
         }
 
         onChatOnlineMemberCountUpdated: {
-            if ((chatInformationPage.isSuperGroup || chatInformationPage.isBasicGroup) && chatInformationPage.chatInformation.id.toString() === chatId) {
+            if ((chatInformationPage.isSuperGroup || chatInformationPage.isBasicGroup) && chatInformationPage.chatInformation.id === chatId) {
                 chatInformationPage.chatOnlineMemberCount = onlineMemberCount
             }
         }
@@ -151,7 +151,7 @@ SilicaFlickable {
         switch(chatInformation.type["@type"]) {
         case "chatTypePrivate":
             chatInformationPage.isPrivateChat = true;
-            chatInformationPage.chatPartnerGroupId = chatInformationPage.chatInformation.type.user_id.toString();
+            chatInformationPage.chatPartnerGroupId = chatInformationPage.chatInformation.type.user_id
             if(!chatInformationPage.privateChatUserInformation.id) {
                 chatInformationPage.privateChatUserInformation = tdLibWrapper.getUserInformation(chatInformationPage.chatPartnerGroupId);
             }
@@ -160,7 +160,7 @@ SilicaFlickable {
             break;
         case "chatTypeSecret":
             chatInformationPage.isSecretChat = true;
-            chatInformationPage.chatPartnerGroupId = chatInformationPage.chatInformation.type.user_id.toString();
+            chatInformationPage.chatPartnerGroupId = chatInformationPage.chatInformation.type.user_id
             if(!chatInformationPage.privateChatUserInformation.id) {
                 chatInformationPage.privateChatUserInformation = tdLibWrapper.getUserInformation(chatInformationPage.chatPartnerGroupId);
             }
@@ -177,7 +177,7 @@ SilicaFlickable {
             break;
         case "chatTypeSupergroup":
             chatInformationPage.isSuperGroup = true;
-            chatInformationPage.chatPartnerGroupId = chatInformation.type.supergroup_id.toString();
+            chatInformationPage.chatPartnerGroupId = chatInformation.type.supergroup_id
             if(!chatInformationPage.groupInformation.id) {
                 chatInformationPage.groupInformation = tdLibWrapper.getSuperGroup(chatInformationPage.chatPartnerGroupId);
             }
@@ -561,31 +561,31 @@ SilicaFlickable {
                     Connections {
                         target: tdLibWrapper
                         onUserFullInfoUpdated: {
-                            if (foundChatListDelegate.isPrivateChat && userId.toString() === foundChatListDelegate.foundChatInformation.type.user_id.toString()) {
+                            if (foundChatListDelegate.isPrivateChat && userId === foundChatListDelegate.foundChatInformation.type.user_id) {
                                 foundChatListItem.tertiaryText.text = Emoji.emojify(userFullInfo.bio, foundChatListItem.tertiaryText.font.pixelSize, "../js/emoji/");
                             }
                         }
                         onUserFullInfoReceived: {
-                            if (foundChatListDelegate.isPrivateChat && userFullInfo["@extra"].toString() === foundChatListDelegate.foundChatInformation.type.user_id.toString()) {
+                            if (foundChatListDelegate.isPrivateChat && userFullInfo["@extra"] === foundChatListDelegate.foundChatInformation.type.user_id) {
                                 foundChatListItem.tertiaryText.text = Emoji.emojify(userFullInfo.bio, foundChatListItem.tertiaryText.font.pixelSize, "../js/emoji/");
                             }
                         }
 
                         onBasicGroupFullInfoUpdated: {
-                            if (foundChatListDelegate.isBasicGroup && groupId.toString() === foundChatListDelegate.foundChatInformation.type.basic_group_id.toString()) {
+                            if (foundChatListDelegate.isBasicGroup && groupId === foundChatListDelegate.foundChatInformation.type.basic_group_id) {
                                 foundChatListItem.secondaryText.text = qsTr("%1 members", "", groupFullInfo.members.length).arg(Number(groupFullInfo.members.length).toLocaleString(Qt.locale(), "f", 0));
                                 foundChatListItem.tertiaryText.text = Emoji.emojify(groupFullInfo.description, foundChatListItem.tertiaryText.font.pixelSize, "../js/emoji/");
                             }
                         }
                         onBasicGroupFullInfoReceived: {
-                            if (foundChatListDelegate.isBasicGroup && groupId.toString() === foundChatListDelegate.foundChatInformation.type.basic_group_id.toString()) {
+                            if (foundChatListDelegate.isBasicGroup && groupId === foundChatListDelegate.foundChatInformation.type.basic_group_id) {
                                 foundChatListItem.secondaryText.text = qsTr("%1 members", "", groupFullInfo.members.length).arg(Number(groupFullInfo.members.length).toLocaleString(Qt.locale(), "f", 0));
                                 foundChatListItem.tertiaryText.text = Emoji.emojify(groupFullInfo.description, foundChatListItem.tertiaryText.font.pixelSize, "../js/emoji/");
                             }
                         }
 
                         onSupergroupFullInfoUpdated: {
-                            if (foundChatListDelegate.isSupergroup && groupId.toString() === foundChatListDelegate.foundChatInformation.type.supergroup_id.toString()) {
+                            if (foundChatListDelegate.isSupergroup && groupId === foundChatListDelegate.foundChatInformation.type.supergroup_id) {
                                 if (foundChatListDelegate.relatedInformation.is_channel) {
                                     foundChatListItem.secondaryText.text = qsTr("%1 subscribers", "", groupFullInfo.member_count).arg(Number(groupFullInfo.member_count).toLocaleString(Qt.locale(), "f", 0));
                                 } else {
@@ -595,7 +595,7 @@ SilicaFlickable {
                             }
                         }
                         onSupergroupFullInfoReceived: {
-                            if (foundChatListDelegate.isSupergroup && groupId.toString() === foundChatListDelegate.foundChatInformation.type.supergroup_id.toString()) {
+                            if (foundChatListDelegate.isSupergroup && groupId === foundChatListDelegate.foundChatInformation.type.supergroup_id) {
                                 if (foundChatListDelegate.relatedInformation.is_channel) {
                                     foundChatListItem.secondaryText.text = qsTr("%1 subscribers", "", groupFullInfo.member_count).arg(Number(groupFullInfo.member_count).toLocaleString(Qt.locale(), "f", 0));
                                 } else {

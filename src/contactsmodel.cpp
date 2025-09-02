@@ -89,7 +89,7 @@ QVariant ContactsListModel::data(const QModelIndex &index, int role) const {
     return QVariant();
 }
 
-void ContactsListModel::addUser(const QString &userId) {
+void ContactsListModel::addUser(qlonglong userId) {
     if (!this->tdLibWrapper->hasUserInformation(userId)) {
         this->tdLibWrapper->getUserFullInfo(userId);
     }
@@ -103,12 +103,12 @@ void ContactsListModel::handleUsersReceived(const QString &extra, const QVariant
     if (extra == "contactsRequested") {
         LOG("Received contacts list..." << totalUsers);
         this->contactIds.clear();
-        for (const QVariant &userIdVariant : userIds)
-            addUser(userIdVariant.toString());
+        for (const QVariant &userId : userIds)
+            addUser(userId.toLongLong());
     }
 }
 
-void ContactsListModel::handleUserUpdated(const QString &userId) {
+void ContactsListModel::handleUserUpdated(qlonglong userId) {
     int i = contactIds.indexOf(userId);
     if (i > -1) {
         const QModelIndex modelIndex = index(i);
@@ -127,13 +127,13 @@ void ContactsListModel::handleUserUpdated(const QString &userId) {
 void ContactsListModel::handleContactsImported(const QVariantList &/*importerCount*/, const QVariantList &userIds, bool single) {
     LOG("Imported" << userIds.size() << "contacts");
     for (const QVariant &userIdVariant : userIds) {
-        const QString userId = userIdVariant.toString();
-        if (userId == "0") continue;
-        addUser(userId);
+        const qlonglong userId = userIdVariant.toLongLong();
+        if (userId != 0)
+            addUser(userId);
     }
     if (single) {
-        QString userId = userIds.value(0).toString();
-        if (userId == "0")
+        qlonglong userId = userIds.value(0).toLongLong();
+        if (userId == 0)
             emit contactNotFound();
         else emit singleContactAdded(userId);
     } else emit contactsImported();
@@ -142,9 +142,9 @@ void ContactsListModel::handleContactsImported(const QVariantList &/*importerCou
 void ContactsListModel::handleOkMapReceived(const QString &type, const QVariantMap &extra) {
     if (type == "removeContacts") {
         LOG("Removing contacts");
-        for (QString userId : extra.value("user_ids").toStringList()) {
-            int i = contactIds.indexOf(userId);
-            if (i < 0) return;
+        for (QVariant userId : extra.value("user_ids").toList()) {
+            int i = contactIds.indexOf(userId.toLongLong());
+            if (i < 0) continue; // why did i put return here originally?
             beginRemoveRows(QModelIndex(), i, i);
             contactIds.removeAt(i);
             endRemoveRows();

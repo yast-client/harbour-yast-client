@@ -357,7 +357,7 @@ void NotificationManager::publishNotification(const NotificationGroup *notificat
             if (senderInformation.value(_TYPE).toString() == "messageSenderChat") {
                 fullName = tdLibWrapper->getChat(senderInformation.value(CHAT_ID).toLongLong()).value(TITLE).toString();
             } else {
-                fullName = Utilities::getUserName(tdLibWrapper->getUserInformation(senderInformation.value(USER_ID).toString()));
+                fullName = Utilities::getUserName(tdLibWrapper->getUserInformation(senderInformation.value(USER_ID).toLongLong()));
             }
             notificationBody += fullName.trimmed() + ": ";
         }

@@ -265,9 +265,9 @@ void TDLibReceiver::processUpdateUser(const QVariantMap &receivedInformation)
 
 void TDLibReceiver::processUpdateUserStatus(const QVariantMap &receivedInformation)
 {
-    const QString userId = receivedInformation.value(USER_ID).toString();
-    QVariantMap userStatusInformation = receivedInformation.value("status").toMap();
-    VERBOSE("User status was updated: " << receivedInformation.value(USER_ID).toString() << userStatusInformation.value(_TYPE).toString());
+    const qlonglong userId = receivedInformation.value(USER_ID).toLongLong();
+    const QVariantMap userStatusInformation = receivedInformation.value("status").toMap();
+    VERBOSE("User status was updated: " << userId << userStatusInformation.value(_TYPE).toString());
     emit userStatusUpdated(userId, userStatusInformation);
 }
 
@@ -500,17 +500,18 @@ void TDLibReceiver::processUpdateDeleteMessages(const QVariantMap &receivedInfor
     emit messagesDeleted(chatId, ids);
 }
 
-void TDLibReceiver::processChats(const QVariantMap &receivedInformation)
-{
+void TDLibReceiver::processChats(const QVariantMap &receivedInformation) {
+    LOG("Chats received");
     emit chats(receivedInformation);
 }
 
 void TDLibReceiver::processSponsoredChats(const QVariantMap &receivedInformation) {
+    LOG("Sponsored chats received");
     emit sponsoredChatsReceived(cleanupList(receivedInformation.value("chats").toList()));
 }
 
-void TDLibReceiver::processChat(const QVariantMap &receivedInformation)
-{
+void TDLibReceiver::processChat(const QVariantMap &receivedInformation) {
+    LOG("Chat received" << receivedInformation.value(ID).toLongLong());
     emit chat(receivedInformation);
 }
 
@@ -559,7 +560,7 @@ void TDLibReceiver::processUserFullInfo(const QVariantMap &receivedInformation)
 void TDLibReceiver::processUpdateUserFullInfo(const QVariantMap &receivedInformation)
 {
     LOG("Received UserFullInfoUpdate");
-    emit userFullInfoUpdated(receivedInformation.value(USER_ID).toString(), receivedInformation.value("user_full_info").toMap());
+    emit userFullInfoUpdated(receivedInformation.value(USER_ID).toLongLong(), receivedInformation.value("user_full_info").toMap());
 }
 
 void TDLibReceiver::processBasicGroupFullInfo(const QVariantMap &receivedInformation)

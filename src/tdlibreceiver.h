@@ -42,7 +42,7 @@ signals:
     void optionUpdated(const QString &optionName, const QVariant &optionValue);
     void connectionStateChanged(const QString &connectionState);
     void userUpdated(const QVariantMap &userInformation);
-    void userStatusUpdated(const QString &userId, const QVariantMap &userStatusInformation);
+    void userStatusUpdated(qlonglong userId, const QVariantMap &userStatusInformation);
     void fileUpdated(const QVariantMap &fileInformation);
     void newChatDiscovered(const QVariantMap &chatInformation);
     void chatAddedToList(const QVariantMap &chatList, qlonglong chatId);
@@ -80,7 +80,7 @@ signals:
     void stickerSet(const QVariantMap &stickerSet);
     void chatMembers(const QString &extra, const QVariantList &members, int totalMembers);
     void userFullInfo(const QVariantMap &userFullInfo);
-    void userFullInfoUpdated(const QString &userId, const QVariantMap &userFullInfo);
+    void userFullInfoUpdated(qlonglong userId, const QVariantMap &userFullInfo);
     void basicGroupFullInfo(const QString &groupId, const QVariantMap &groupFullInfo);
     void basicGroupFullInfoUpdated(const QString &groupId, const QVariantMap &groupFullInfo);
     void supergroupFullInfo(const QString &groupId, const QVariantMap &groupFullInfo);

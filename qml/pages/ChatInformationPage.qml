@@ -30,8 +30,8 @@ Page {
     allowedOrientations: Orientation.All
     property string searchString
 
-    property int chatOnlineMemberCount: 0;
-    property int myUserId: tdLibWrapper.getUserInformation().id;
+    property int chatOnlineMemberCount: 0
+    property var myUserId: tdLibWrapper.getUserInformation().id
 
     property bool isPrivateChat: false
     property bool isSecretChat: false
@@ -40,7 +40,7 @@ Page {
     property bool isChannel: false
     readonly property bool canGetMembers: ("can_get_members" in groupFullInformation) && groupFullInformation.can_get_members
 
-    property string chatPartnerGroupId
+    property var chatPartnerGroupId
 
     readonly property bool isPrivateOrSecretChat: isPrivateChat || isSecretChat
     readonly property bool isGroup: isBasicGroup || isSuperGroup

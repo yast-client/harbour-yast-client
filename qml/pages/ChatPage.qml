@@ -477,7 +477,7 @@ Page {
     Connections {
         target: tdLibWrapper
         onUserUpdated: {
-            if ((isPrivateChat || isSecretChat) && chatPartnerInformation.id.toString() === userId) {
+            if ((isPrivateChat || isSecretChat) && chatPartnerInformation.id === userId) {
                 chatPartnerInformation = userInformation
             }
         }
