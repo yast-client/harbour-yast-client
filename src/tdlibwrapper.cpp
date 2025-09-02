@@ -1486,7 +1486,7 @@ void TDLibWrapper::handleVersionDetected(const QString &version) {
 
 void TDLibWrapper::handleOptionUpdated(const QString &optionName, const QVariant &optionValue) {
     this->options.insert(optionName, optionValue);
-    emit optionUpdated(optionName, optionValue);
+    emit optionsUpdated();
     if (optionName == "my_id") {
         QString ownUserId = optionValue.toString();
         this->userInformation = this->getUserInformation(ownUserId);

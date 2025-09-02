@@ -40,7 +40,7 @@ class TDLibWrapper : public QObject {
     Q_PROPERTY(QString version MEMBER versionString)
     Q_PROPERTY(ConnectionState connectionState MEMBER connectionState NOTIFY connectionStateChanged)
     Q_PROPERTY(QVariantMap userInformation READ getUserInformation NOTIFY ownUserUpdated)
-    Q_PROPERTY(QVariantMap options MEMBER options NOTIFY optionUpdated)
+    Q_PROPERTY(QVariantMap options MEMBER options NOTIFY optionsUpdated)
 
 public:
     explicit TDLibWrapper(AppSettings *appSettings, MceInterface *mceInterface, QObject *parent = nullptr);
@@ -274,7 +274,7 @@ signals:
     void versionDetected(const QString &version);
     void ownUserIdFound(const QString &ownUserId);
     void authorizationStateChanged();
-    void optionUpdated(const QString &optionName, const QVariant &optionValue);
+    void optionsUpdated();
     void connectionStateChanged(const TDLibWrapper::ConnectionState &connectionState);
     void fileUpdated(int fileId, const QVariantMap &fileInformation);
     void newChatDiscovered(qlonglong chatId, const QVariantMap &chatInformation);
