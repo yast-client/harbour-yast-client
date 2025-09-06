@@ -23,35 +23,8 @@ import "../components"
 import "../js/functions.js" as Functions
 
 CoverBackground {
-
     id: coverPage
-
-    property int unreadMessages: 0
-    property int unreadChats: 0
     readonly property bool authenticated: tdLibWrapper.authorizationState === TelegramAPI.AuthorizationReady
-
-    Component.onCompleted: {
-        coverPage.unreadMessages = tdLibWrapper.getUnreadMessageInformation().unread_count || 0;
-        coverPage.unreadChats = tdLibWrapper.getUnreadChatInformation().unread_count || 0;
-    }
-
-    Connections {
-        target: tdLibWrapper
-        onUnreadMessageCountUpdated: {
-            coverPage.unreadMessages = messageCountInformation.unread_count;
-        }
-        onUnreadChatCountUpdated: {
-            coverPage.unreadChats = chatCountInformation.unread_count;
-        }
-    }
-
-    Connections {
-        target: chatListModel
-        onUnreadStateChanged: {
-            coverPage.unreadMessages = unreadMessagesCount;
-            coverPage.unreadChats = unreadChatsCount;
-        }
-    }
 
     BackgroundImage {
         id: backgroundImage
@@ -80,10 +53,10 @@ CoverBackground {
                 id: unreadMessagesCountText
                 font.pixelSize: Theme.fontSizeHuge
                 color: Theme.primaryColor
-                text: Functions.getShortenedCount(coverPage.unreadMessages)
+                text: Functions.getShortenedCount(chatListModel.unreadMessageCount)
             }
             Label {
-                text: qsTr("unread messages", "", coverPage.unreadMessages)
+                text: qsTr("unread messages", "", chatListModel.unreadMessageCount)
                 font.pixelSize: Theme.fontSizeExtraSmall
                 width: parent.width - unreadMessagesCountText.width - Theme.paddingMedium
                 wrapMode: Text.Wrap
@@ -96,7 +69,7 @@ CoverBackground {
         Row {
             width: parent.width
             spacing: Theme.paddingMedium
-            visible: coverPage.authenticated && coverPage.unreadMessages > 1
+            visible: coverPage.authenticated && chatListModel.unreadMessageCount > 1
             Text {
                 id: inText
                 font.pixelSize: Theme.fontSizeExtraSmall
@@ -108,10 +81,10 @@ CoverBackground {
                 id: unreadChatsCountText
                 font.pixelSize: Theme.fontSizeHuge
                 color: Theme.primaryColor
-                text: Functions.getShortenedCount(coverPage.unreadChats)
+                text: Functions.getShortenedCount(chatListModel.unreadChatCount)
             }
             Text {
-                text: qsTr("chats", "", coverPage.unreadChats)
+                text: qsTr("chats", "", chatListModel.unreadChatCount)
                 font.pixelSize: Theme.fontSizeExtraSmall
                 color: Theme.primaryColor
                 width: parent.width - unreadChatsCountText.width - inText.width - ( 2 * Theme.paddingMedium )

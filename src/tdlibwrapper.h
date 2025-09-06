@@ -142,8 +142,6 @@ public:
     Q_INVOKABLE bool hasSuperGroupNameInformation(const QString &name);
     Q_INVOKABLE QVariantMap getSupergroupInformationByName(const QString &name);
     Q_INVOKABLE UserPrivacySettingRule getUserPrivacySettingRule(UserPrivacySetting userPrivacySetting);
-    Q_INVOKABLE QVariantMap getUnreadMessageInformation();
-    Q_INVOKABLE QVariantMap getUnreadChatInformation();
     Q_INVOKABLE QVariantMap getBasicGroup(qlonglong groupId) const;
     Q_INVOKABLE QVariantMap getSuperGroup(qlonglong groupId) const;
     Q_INVOKABLE QVariantMap getChat(qlonglong chatId);
@@ -294,15 +292,18 @@ signals:
     void chatAddedToMainList(const QVariantMap &chatInformation, qlonglong order, bool isPinned);
     void chatRemovedFromMainList(qlonglong chatId);
     void mainChatListChatPositionUpdated(qlonglong chatId, qlonglong order, bool isPinned);
+    void mainChatListUnreadMessageCountUpdated(const QVariantMap &messageCountInformation);
+    void mainChatListUnreadChatCountUpdated(const QVariantMap &chatCountInformation);
 
     void chatAddedToArchiveList(const QVariantMap &chatInformation, qlonglong order, bool isPinned);
     void chatRemovedFromArchiveList(qlonglong chatId);
     void archiveChatListChatPositionUpdated(qlonglong chatId, qlonglong order, bool isPinned);
+    void archiveChatListUnreadMessageCountUpdated(const QVariantMap &messageCountInformation);
+    void archiveChatListUnreadChatCountUpdated(const QVariantMap &chatCountInformation);
 
+    void someChatPositionUpdated();
     void chatLastMessageUpdated(qlonglong chatId, const QVariantMap &lastMessage);
     void chatDraftMessageUpdated(qlonglong chatId, const QVariantMap &draftMessage);
-    void unreadMessageCountUpdated(const QVariantMap &messageCountInformation);
-    void unreadChatCountUpdated(const QVariantMap &chatCountInformation);
     void chatReadInboxUpdated(const QString &chatId, const QString &lastReadInboxMessageId, int unreadCount);
     void chatReadOutboxUpdated(const QString &chatId, const QString &lastReadOutboxMessageId);
     void chatAvailableReactionsUpdated(qlonglong chatId, const QVariantMap &availableReactions);
@@ -376,6 +377,10 @@ signals:
     void emojiKeywordsReceived(const QString &text, const QVariantList &emojis);
     void suggestedActionsUpdated(const QVariantList added, const QVariantList removed);
     void chatListsReceived(qlonglong chatId, const QVariantList &chatLists);
+
+    // Signals not directly used by TDLibWrapper
+    void chatListsReset();
+    void chatListsCalculateUnreadState();
 
 public slots:
     // appSettings

@@ -54,10 +54,10 @@ namespace {
     const QString PINNED_MESSAGE_ID("pinned_message_id");
     const QString _TYPE("@type");
     const QString SECRET_CHAT_ID("secret_chat_id");
+    const QString UNREAD_UNMUTED_COUNT("unread_unmuted_count");
 }
 
-class ChatListModel::ChatData
-{
+class ChatListModel::ChatData {
 public:
 
     ChatData(TDLibWrapper *tdLibWrapper, Utilities *utilities, const QVariantMap &data, qlonglong order, bool isPinned);
@@ -344,7 +344,13 @@ QVector<int> ChatListModel::ChatData::updateSecretChat(const QVariantMap &secret
     return changedRoles;
 }
 
-ChatListModel::ChatListModel(TDLibWrapper *tdLibWrapper, AppSettings *appSettings, Utilities *utilities, bool archive) {
+ChatListModel::ChatListModel(TDLibWrapper *tdLibWrapper, AppSettings *appSettings, Utilities *utilities, bool archive) :
+    archive(archive),
+    unreadChatCount(0),
+    unreadUnmutedChatCount(0),
+    unreadMessageCount(0),
+    unreadUnmutedMessageCount(0)
+{
     this->tdLibWrapper = tdLibWrapper;
     this->appSettings = appSettings;
     this->utilities = utilities;
@@ -353,10 +359,14 @@ ChatListModel::ChatListModel(TDLibWrapper *tdLibWrapper, AppSettings *appSetting
         connect(tdLibWrapper, &TDLibWrapper::chatAddedToMainList, this, &ChatListModel::handleChatAddedToList);
         connect(tdLibWrapper, &TDLibWrapper::chatRemovedFromMainList, this, &ChatListModel::handleChatRemovedFromList);
         connect(tdLibWrapper, &TDLibWrapper::mainChatListChatPositionUpdated, this, &ChatListModel::handleChatPositionUpdated);
+        connect(tdLibWrapper, &TDLibWrapper::mainChatListUnreadChatCountUpdated, this, &ChatListModel::handleUnreadChatCountUpdated);
+        connect(tdLibWrapper, &TDLibWrapper::mainChatListUnreadMessageCountUpdated, this, &ChatListModel::handleUnreadMessageCountUpdated);
     } else {
         connect(tdLibWrapper, &TDLibWrapper::chatAddedToArchiveList, this, &ChatListModel::handleChatAddedToList);
         connect(tdLibWrapper, &TDLibWrapper::chatRemovedFromArchiveList, this, &ChatListModel::handleChatRemovedFromList);
         connect(tdLibWrapper, &TDLibWrapper::archiveChatListChatPositionUpdated, this, &ChatListModel::handleChatPositionUpdated);
+        connect(tdLibWrapper, &TDLibWrapper::archiveChatListUnreadChatCountUpdated, this, &ChatListModel::handleUnreadChatCountUpdated);
+        connect(tdLibWrapper, &TDLibWrapper::archiveChatListUnreadMessageCountUpdated, this, &ChatListModel::handleUnreadMessageCountUpdated);
     }
 
     connect(tdLibWrapper, &TDLibWrapper::chatLastMessageUpdated, this, &ChatListModel::handleChatLastMessageUpdated);
@@ -377,14 +387,20 @@ ChatListModel::ChatListModel(TDLibWrapper *tdLibWrapper, AppSettings *appSetting
     connect(tdLibWrapper, &TDLibWrapper::chatUnreadReactionCountUpdated, this, &ChatListModel::handleChatUnreadReactionCountUpdated);
     connect(tdLibWrapper, &TDLibWrapper::chatAvailableReactionsUpdated, this, &ChatListModel::handleChatAvailableReactionsUpdated);
 
+    connect(tdLibWrapper, &TDLibWrapper::chatListsReset, this, &ChatListModel::reset);
+    connect(tdLibWrapper, &TDLibWrapper::chatListsCalculateUnreadState, this, &ChatListModel::calculateUnreadState);
+
+    connect(appSettings, &AppSettings::unreadCountIncludeMutedChanged, this, &ChatListModel::unreadChatCountChanged);
+    connect(appSettings, &AppSettings::unreadCountIncludeMutedChanged, this, &ChatListModel::unreadMessageCountChanged);
+
     // Don't start the timer until we have at least one chat
     relativeTimeRefreshTimer = new QTimer(this);
     relativeTimeRefreshTimer->setSingleShot(false);
     relativeTimeRefreshTimer->setInterval(30000);
-    connect(relativeTimeRefreshTimer, SIGNAL(timeout()), SLOT(handleRelativeTimeRefreshTimer()));
-    connect(this, SIGNAL(rowsInserted(QModelIndex,int,int)), SIGNAL(countChanged()));
-    connect(this, SIGNAL(rowsRemoved(QModelIndex,int,int)), SIGNAL(countChanged()));
-    connect(this, SIGNAL(modelReset()), SIGNAL(countChanged()));
+    connect(relativeTimeRefreshTimer, &QTimer::timeout, this, &ChatListModel::handleRelativeTimeRefreshTimer);
+    connect(this, &ChatListModel::rowsInserted, this, &ChatListModel::countChanged);
+    connect(this, &ChatListModel::rowsRemoved, this, &ChatListModel::countChanged);
+    connect(this, &ChatListModel::modelReset, this, &ChatListModel::countChanged);
 }
 
 ChatListModel::~ChatListModel()
@@ -859,4 +875,25 @@ void ChatListModel::handleRelativeTimeRefreshTimer()
     roles.append(ChatListModel::RoleLastMessageDate);
     roles.append(ChatListModel::RoleLastMessageStatus);
     emit dataChanged(index(0), index(chatList.size() - 1), roles);
+}
+
+
+void ChatListModel::handleUnreadChatCountUpdated(const QVariantMap &chatCountInformation) {
+    this->unreadChatCount = chatCountInformation.value(UNREAD_COUNT).toInt();
+    this->unreadUnmutedChatCount = chatCountInformation.value(UNREAD_UNMUTED_COUNT).toInt();
+    unreadChatCountChanged();
+}
+
+void ChatListModel::handleUnreadMessageCountUpdated(const QVariantMap &messageCountInformation) {
+    this->unreadMessageCount = messageCountInformation.value(UNREAD_COUNT).toInt();
+    this->unreadUnmutedMessageCount = messageCountInformation.value(UNREAD_UNMUTED_COUNT).toInt();
+    unreadMessageCountChanged();
+}
+
+int ChatListModel::getUnreadChatCount() const {
+    return archive || appSettings->unreadCountIncludeMuted() ? unreadChatCount : unreadUnmutedChatCount;
+}
+
+int ChatListModel::getUnreadMessageCount() const {
+    return archive || appSettings->unreadCountIncludeMuted() ? unreadMessageCount : unreadUnmutedMessageCount;
 }

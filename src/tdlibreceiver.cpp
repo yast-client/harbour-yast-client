@@ -301,27 +301,14 @@ void TDLibReceiver::processUpdateChatRemovedFromList(const QVariantMap &received
     emit chatRemovedFromList(receivedInformation.value(CHAT_LIST).toMap(), chatId);
 }
 
-void TDLibReceiver::processUpdateUnreadMessageCount(const QVariantMap &receivedInformation)
-{
-    QVariantMap messageCountInformation;
-    messageCountInformation.insert("chat_list_type", receivedInformation.value("chat_list").toMap().value(_TYPE));
-    messageCountInformation.insert(UNREAD_COUNT, receivedInformation.value(UNREAD_COUNT));
-    messageCountInformation.insert("unread_unmuted_count", receivedInformation.value("unread_unmuted_count"));
-    LOG("Unread message count updated: " << messageCountInformation.value("chat_list_type").toString() << messageCountInformation.value(UNREAD_COUNT).toString());
-    emit unreadMessageCountUpdated(messageCountInformation);
+void TDLibReceiver::processUpdateUnreadMessageCount(const QVariantMap &receivedInformation) {
+    LOG("Unread message count updated: " << receivedInformation.value("chat_list").toMap().value(_TYPE).toString() << receivedInformation.value(UNREAD_COUNT).toString());
+    emit unreadMessageCountUpdated(receivedInformation);
 }
 
-void TDLibReceiver::processUpdateUnreadChatCount(const QVariantMap &receivedInformation)
-{
-    QVariantMap chatCountInformation;
-    chatCountInformation.insert("chat_list_type", receivedInformation.value("chat_list").toMap().value(_TYPE));
-    chatCountInformation.insert("marked_as_unread_count", receivedInformation.value("marked_as_unread_count"));
-    chatCountInformation.insert("marked_as_unread_unmuted_count", receivedInformation.value("marked_as_unread_unmuted_count"));
-    chatCountInformation.insert(TOTAL_COUNT, receivedInformation.value(TOTAL_COUNT));
-    chatCountInformation.insert(UNREAD_COUNT, receivedInformation.value(UNREAD_COUNT));
-    chatCountInformation.insert("unread_unmuted_count", receivedInformation.value("unread_unmuted_count"));
-    LOG("Unread chat count updated: " << chatCountInformation.value("chat_list_type").toString() << chatCountInformation.value(UNREAD_COUNT).toString());
-    emit unreadChatCountUpdated(chatCountInformation);
+void TDLibReceiver::processUpdateUnreadChatCount(const QVariantMap &receivedInformation) {
+    LOG("Unread chat count updated: " << receivedInformation.value("chat_list").toMap().value(_TYPE).toString() << receivedInformation.value(UNREAD_COUNT).toString());
+    emit unreadChatCountUpdated(receivedInformation);
 }
 
 void TDLibReceiver::processUpdateChatLastMessage(const QVariantMap &receivedInformation) {

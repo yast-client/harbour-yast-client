@@ -93,8 +93,7 @@ Page {
         id: updateSecondaryContentTimer
         interval: 600
         onTriggered: {
-            chatListModel.calculateUnreadState()
-            archiveChatListModel.calculateUnreadState()
+            tdLibWrapper.chatListsCalculateUnreadState()
             tdLibWrapper.getRecentStickers()
             tdLibWrapper.getInstalledStickerSets()
             tdLibWrapper.getContacts()
@@ -191,8 +190,7 @@ Page {
             updateSecondaryContentTimer.stop()
             loadingText = qsTr("Logging out")
             overviewPage.logoutLoading = true
-            chatListModel.reset()
-            archiveChatListModel.reset()
+            tdLibWrapper.chatListsReset()
             break
         default:
             // Nothing ;)
@@ -208,18 +206,12 @@ Page {
         onChatLastMessageUpdated: {
             if (!overviewPage.chatListCreated)
                 chatListCreatedTimer.restart()
-            else {
-                chatListModel.calculateUnreadState()
-                archiveChatListModel.calculateUnreadState()
-            }
+            else tdLibWrapper.chatListsCalculateUnreadState()
         }
-        onChatPositionUpdated: {
+        onSomeChatPositionUpdated: {
             if (!overviewPage.chatListCreated)
                 chatListCreatedTimer.restart()
-            else {
-                chatListModel.calculateUnreadState()
-                archiveChatListModel.calculateUnreadState()
-            }
+            else tdLibWrapper.chatListsCalculateUnreadState()
         }
         onChatsReceived: {
             if(chats && chats.chat_ids && chats.chat_ids.length === 0) {
@@ -289,6 +281,27 @@ Page {
             }
             MenuItem {
                 text: qsTr("Archive")
+                visible: archiveChatListModel.count > 0
+
+                rightPadding: archiveChatListModel.unreadChatCount > 0 ? archiveUnreadCount.width + Theme.paddingLarge : 0
+                Rectangle {
+                    id: archiveUnreadCount
+                    visible: archiveChatListModel.unreadChatCount > 0
+                    color: Theme.rgba(Theme.highlightBackgroundColor, Theme.highlightBackgroundOpacity)
+                    anchors.verticalCenter: parent.verticalCenter
+                    x: (parent.width + parent.contentWidth - width)/2
+                    width: Theme.fontSizeExtraLarge
+                    height: Theme.fontSizeExtraLarge
+                    radius: width/2
+                    Text {
+                        anchors.centerIn: parent
+                        font.pixelSize: Theme.fontSizeSmall
+                        font.bold: true
+                        color: Theme.primaryColor
+                        text: Functions.formatUnreadCount(archiveChatListModel.unreadChatCount)
+                    }
+                }
+
                 onClicked: pageStack.push(Qt.resolvedUrl("../pages/ArchivedChatsPage.qml"), {overviewPage: overviewPage})
             }
         }

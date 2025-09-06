@@ -30,7 +30,8 @@ class ChatListModel : public QAbstractListModel
 {
     Q_OBJECT
     Q_PROPERTY(int count READ rowCount NOTIFY countChanged)
-
+    Q_PROPERTY(int unreadChatCount READ getUnreadChatCount NOTIFY unreadChatCountChanged)
+    Q_PROPERTY(int unreadMessageCount READ getUnreadMessageCount NOTIFY unreadMessageCountChanged)
 public:
 
     enum Role {
@@ -69,11 +70,23 @@ public:
 
     Q_INVOKABLE void redrawModel();
     Q_INVOKABLE QVariantMap get(int row);
+
+    int getUnreadChatCount() const;
+    int getUnreadMessageCount() const;
+
+public slots:
     Q_INVOKABLE void reset();
 
     Q_INVOKABLE void calculateUnreadState();
 
+signals:
+    void unreadChatCountChanged();
+    void unreadMessageCountChanged();
+
 private slots:
+    void handleUnreadChatCountUpdated(const QVariantMap &chatCountInformation);
+    void handleUnreadMessageCountUpdated(const QVariantMap &messageCountInformation);
+
     void handleChatAddedToList(const QVariantMap &chatInformation, qlonglong order, bool isPinned);
     void handleChatRemovedFromList(qlonglong chatId);
     void handleChatLastMessageUpdated(qlonglong chatId, const QVariantMap &lastMessage);
@@ -114,6 +127,11 @@ private:
     QTimer *relativeTimeRefreshTimer;
     QList<ChatData*> chatList;
     QHash<qlonglong, int> chatIndexMap;
+    bool archive;
+    int unreadChatCount;
+    int unreadUnmutedChatCount;
+    int unreadMessageCount;
+    int unreadUnmutedMessageCount;
 };
 
 #endif // CHATLISTMODEL_H

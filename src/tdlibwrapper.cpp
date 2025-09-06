@@ -56,7 +56,6 @@ namespace {
     const QString EDITABLE_USERNAME("editable_username");
     const QString THREAD_ID("thread_id");
     const QString VALUE("value");
-    const QString CHAT_LIST_TYPE("chat_list_type");
     const QString REPLY_TO_MESSAGE_ID("reply_to_message_id");
     const QString REPLY_TO("reply_to");
     const QString _TYPE("@type");
@@ -1349,14 +1348,6 @@ TDLibWrapper::UserPrivacySettingRule TDLibWrapper::getUserPrivacySettingRule(TDL
     return this->userPrivacySettingRules.value(userPrivacySetting, UserPrivacySettingRule::RuleAllowAll);
 }
 
-QVariantMap TDLibWrapper::getUnreadMessageInformation() {
-    return this->unreadMessageInformation;
-}
-
-QVariantMap TDLibWrapper::getUnreadChatInformation()  {
-    return this->unreadChatInformation;
-}
-
 QVariantMap TDLibWrapper::getBasicGroup(qlonglong groupId) const {
     const Group* group = basicGroups.value(groupId);
     if (group) {
@@ -1663,7 +1654,6 @@ void TDLibWrapper::handleChatPositionUpdated(qlonglong chatId, const QVariantMap
     const qlonglong order = position.value(ORDER).toLongLong();
     const bool isPinned = position.value(IS_PINNED).toBool();
 
-    // We are only processing main chat list updates at the moment...
     if (chatListType == TYPE_CHAT_LIST_MAIN) {
         LOG("Chat position updated in main list for ID" << chatId << "new order" << order << "is pinned" << isPinned);
         emit mainChatListChatPositionUpdated(chatId, order, isPinned);
@@ -1672,6 +1662,8 @@ void TDLibWrapper::handleChatPositionUpdated(qlonglong chatId, const QVariantMap
         emit archiveChatListChatPositionUpdated(chatId, order, isPinned);
     } else
         LOG("Received chat position update for an unused list" << chatListType << "ID" << chatId << "new order" << order << "is pinned" << isPinned);
+
+    emit someChatPositionUpdated();
 }
 
 void TDLibWrapper::updateChatPositions(qlonglong chatId, const QVariantList &positions) {
@@ -1790,17 +1782,25 @@ void TDLibWrapper::handleChatReceived(const QVariantMap &chatInformation) {
 }
 
 void TDLibWrapper::handleUnreadMessageCountUpdated(const QVariantMap &messageCountInformation) {
-    if (messageCountInformation.value(CHAT_LIST_TYPE).toString() == TYPE_CHAT_LIST_MAIN) {
-        this->unreadMessageInformation = messageCountInformation;
-        emit unreadMessageCountUpdated(messageCountInformation);
-    }
+    const QString chatListType = messageCountInformation.value(CHAT_LIST).toMap().value(_TYPE).toString();
+    if (chatListType == TYPE_CHAT_LIST_MAIN) {
+        LOG("Received unread message count update for main chat list");
+        emit mainChatListUnreadMessageCountUpdated(messageCountInformation);
+    } else if (chatListType == TYPE_CHAT_LIST_ARCHIVE) {
+        LOG("Received unread message count update for archive chat list");
+        emit archiveChatListUnreadMessageCountUpdated(messageCountInformation);
+    } else LOG("Received unread message count update for an unused chat list");
 }
 
 void TDLibWrapper::handleUnreadChatCountUpdated(const QVariantMap &chatCountInformation) {
-    if (chatCountInformation.value(CHAT_LIST_TYPE).toString() == TYPE_CHAT_LIST_MAIN) {
-        this->unreadChatInformation = chatCountInformation;
-        emit unreadChatCountUpdated(chatCountInformation);
-    }
+    const QString chatListType = chatCountInformation.value(CHAT_LIST).toMap().value(_TYPE).toString();
+    if (chatListType == TYPE_CHAT_LIST_MAIN) {
+        LOG("Received unread chat count update for main chat list");
+        emit mainChatListUnreadChatCountUpdated(chatCountInformation);
+    } else if (chatListType == TYPE_CHAT_LIST_ARCHIVE) {
+        LOG("Received unread chat count update for archive chat list");
+        emit archiveChatListUnreadChatCountUpdated(chatCountInformation);
+    } else LOG("Received unread chat count update for an unused chat list");
 }
 
 void TDLibWrapper::handleChatAvailableReactionsUpdated(qlonglong chatId, const QVariantMap &availableReactions) {

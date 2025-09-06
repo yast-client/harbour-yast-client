@@ -48,6 +48,7 @@ namespace {
     const QString SHOW_TRANSLATE_OPTION("showTranslateOption");
     const QString FORMATTED_TRANSLATE("formattedTranslate");
     const QString SEND_MARKDOWN("sendMarkdown");
+    const QString UNREAD_COUNT_INCLUDE_MUTED("unreadCountIncludeMuted");
 }
 
 AppSettings::AppSettings(QObject *parent) :
@@ -415,5 +416,16 @@ void AppSettings::setSendMarkdown(bool value) {
         LOG(SEND_MARKDOWN << value);
         settings.setValue(SEND_MARKDOWN, value);
         emit sendMarkdownChanged();
+    }
+}
+
+bool AppSettings::unreadCountIncludeMuted() const {
+    return settings.value(UNREAD_COUNT_INCLUDE_MUTED).toBool();
+}
+void AppSettings::setUnreadCountIncludeMuted(bool value) {
+    if (unreadCountIncludeMuted() != value) {
+        LOG(UNREAD_COUNT_INCLUDE_MUTED << value);
+        settings.setValue(UNREAD_COUNT_INCLUDE_MUTED, value);
+        emit unreadCountIncludeMutedChanged();
     }
 }
