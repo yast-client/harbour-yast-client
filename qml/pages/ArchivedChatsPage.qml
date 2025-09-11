@@ -21,6 +21,11 @@ Page {
                 text: qsTr("Archive settings")
                 onClicked: pageStack.push(Qt.resolvedUrl("SettingsPage.qml"), {initialArea: 'archive'})
             }
+            MenuItem {
+                text: qsTr("Mark as read")
+                visible: archiveChatListModel.unreadChatCount > 0
+                onClicked: tdLibWrapper.readChatList(true)
+            }
         }
     }
 

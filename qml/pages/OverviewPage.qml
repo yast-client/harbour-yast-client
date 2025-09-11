@@ -288,10 +288,19 @@ Page {
                         headerText: title
                         model: chat_list_model
 
+                        function readChatList() {
+                            if (type == ChatFoldersModel.FolderFolder)
+                                tdLibWrapper.readFolderChatList(id)
+                            else
+                                tdLibWrapper.readChatList(type == ChatFoldersModel.FolderArchive)
+                        }
+
                         Loader {
-                            active: index == 0
                             asynchronous: true
-                            sourceComponent: Component {
+                            sourceComponent: index == 0 ? mainPullDownMenu : folderPullDownMenu
+
+                            Component {
+                                id: mainPullDownMenu
                                 PullDownMenu {
                                     MenuItem {
                                         text: "Debug"
@@ -338,6 +347,23 @@ Page {
                                         }
 
                                         onClicked: pageStack.push(Qt.resolvedUrl("../pages/ArchivedChatsPage.qml"), {overviewPage: overviewPage})
+                                    }
+                                    MenuItem {
+                                        text: qsTr("Mark as read")
+                                        visible: count > 0
+                                        onClicked: chatsView.readChatList()
+                                    }
+                                }
+                            }
+
+                            Component {
+                                id: folderPullDownMenu
+                                PullDownMenu {
+                                    // this will be hidden if muted chats won't be included in folder counters (by settings) and only muted chats will be unread, which might not be ideal:
+                                    visible: active || count > 0
+                                    MenuItem {
+                                        text: qsTr("Mark as read")
+                                        onClicked: chatsView.readChatList()
                                     }
                                 }
                             }

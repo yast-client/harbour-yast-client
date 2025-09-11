@@ -104,6 +104,7 @@ namespace {
     const QString AVAILABLE_REACTIONS("available_reactions");
     const QString IS_MARKED_AS_UNREAD("is_marked_as_unread");
     const QString SECRET_CHAT_ID("secret_chat_id");
+    const QString TYPE_READ_CHAT_LIST("readChatList");
     const QStringList ALL_FILE_TYPES(QStringList()
                                      << "fileTypeAnimation"
                                      << "fileTypeAudio"
@@ -2451,4 +2452,14 @@ void TDLibWrapper::setArchiveChatListSettings(bool archiveAndMuteNewChatsFromUnk
                                                                         {"keep_unmuted_chats_archived", keepUnmutedChatsArchived},
                                                                         {"keep_chats_from_folders_archived", keepChatsFromFoldersArchived}
                                                                     }}});
+}
+
+void TDLibWrapper::readChatList(bool archive) {
+    LOG("Reading chat list archive:" << archive);
+    this->sendRequest(QVariantMap{{_TYPE, TYPE_READ_CHAT_LIST}, {CHAT_LIST, QVariantMap{{_TYPE, (archive ? TYPE_CHAT_LIST_ARCHIVE : TYPE_CHAT_LIST_MAIN)}}}});
+}
+
+void TDLibWrapper::readFolderChatList(int folderId) {
+    LOG("Reading folder chat list" << folderId);
+    this->sendRequest(QVariantMap{{_TYPE, TYPE_READ_CHAT_LIST}, {CHAT_LIST, QVariantMap{{_TYPE, TYPE_CHAT_LIST_FOLDER}, {CHAT_FOLDER_ID, folderId}}}});
 }

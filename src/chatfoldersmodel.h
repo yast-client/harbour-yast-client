@@ -43,6 +43,7 @@ public:
         IconNote,
         IconPalette
     };
+    Q_ENUM(Icon);
 
     enum Role {
         RoleDisplay = Qt::DisplayRole,
@@ -56,12 +57,14 @@ public:
         RoleUnreadChatCount,
         RoleType,
     };
+    Q_ENUM(Role);
 
     enum FolderType {
         FolderMain,
         FolderFolder,
         FolderArchive // this is for later
     };
+    Q_ENUM(FolderType);
 
     explicit ChatFoldersModel(TDLibWrapper *tdLibWrapper, AppSettings *appSettings, Utilities *utilities, QObject *parent = nullptr);
     ~ChatFoldersModel() override;

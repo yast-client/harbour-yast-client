@@ -162,6 +162,8 @@ public:
     Q_INVOKABLE void addChatToList(qlonglong chatId, bool archive);
     Q_INVOKABLE void getArchiveChatListSettings();
     Q_INVOKABLE void setArchiveChatListSettings(bool archiveAndMuteNewChatsFromUnknownUsers, bool keepUnmutedChatsArchived, bool keepChatsFromFoldersArchived);
+    Q_INVOKABLE void readChatList(bool archive = false);
+    Q_INVOKABLE void readFolderChatList(int folderId);
 
     inline Utilities *getUtilities() const { return this->utilities; }
     DBusAdaptor *getDBusAdaptor();
