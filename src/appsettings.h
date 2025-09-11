@@ -52,6 +52,7 @@ class AppSettings : public QObject {
     Q_PROPERTY(bool videoStickers READ videoStickers WRITE setVideoStickers NOTIFY videoStickersChanged)
     Q_PROPERTY(bool sendMarkdown READ sendMarkdown WRITE setSendMarkdown NOTIFY sendMarkdownChanged)
     Q_PROPERTY(bool unreadCountIncludeMuted READ unreadCountIncludeMuted WRITE setUnreadCountIncludeMuted NOTIFY unreadCountIncludeMutedChanged)
+    Q_PROPERTY(bool showFolderUnreadCount READ showFolderUnreadCount WRITE setShowFolderUnreadCount NOTIFY showFolderUnreadCountChanged)
     Q_PROPERTY(bool foldersUnreadCountIncludeMuted READ foldersUnreadCountIncludeMuted WRITE setFoldersUnreadCountIncludeMuted NOTIFY foldersUnreadCountIncludeMutedChanged)
     Q_PROPERTY(bool archiveChatListHintCompleted READ archiveChatListHintCompleted WRITE setArchiveChatListHintCompleted NOTIFY archiveChatListHintCompletedChanged)
     Q_PROPERTY(bool chatFoldersTabsOnBottom READ chatFoldersTabsOnBottom WRITE setChatFoldersTabsOnBottom NOTIFY chatFoldersTabsOnBottomChanged)
@@ -157,6 +158,9 @@ public:
     bool unreadCountIncludeMuted() const;
     void setUnreadCountIncludeMuted(bool value);
 
+    bool showFolderUnreadCount() const;
+    void setShowFolderUnreadCount(bool value);
+
     bool foldersUnreadCountIncludeMuted() const;
     void setFoldersUnreadCountIncludeMuted(bool value);
 
@@ -195,6 +199,7 @@ signals:
     void formattedTranslateChanged();
     void sendMarkdownChanged();
     void unreadCountIncludeMutedChanged();
+    void showFolderUnreadCountChanged();
     void foldersUnreadCountIncludeMutedChanged();
     void archiveChatListHintCompletedChanged();
     void chatFoldersTabsOnBottomChanged();

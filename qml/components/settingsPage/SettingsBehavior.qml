@@ -233,6 +233,14 @@ AccordionItem {
             }
 
             TextSwitch {
+                checked: appSettings.showFolderUnreadCount
+                text: qsTr("Show unread chat count in folders")
+                automaticCheck: false
+                onClicked: appSettings.showFolderUnreadCount = !checked
+            }
+
+            TextSwitch {
+                enabled: appSettings.showFolderUnreadCount
                 checked: appSettings.foldersUnreadCountIncludeMuted
                 text: qsTr("Include muted chats in folders unread count")
                 automaticCheck: false

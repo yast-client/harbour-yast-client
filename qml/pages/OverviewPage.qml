@@ -256,6 +256,13 @@ Page {
         anchors.fill: parent
         model: chatFoldersModel
 
+        Binding {
+            target: tabView.tabBarItem
+            property: 'countRole'
+            when: !!tabView.tabBarItem
+            value: appSettings.showFolderUnreadCount ? 'count' : ''
+        }
+
         tabBarVisible: count > 1
         tabBarPosition: appSettings.chatFoldersTabsOnBottom ? Qt.AlignBottom : Qt.AlignTop
 
