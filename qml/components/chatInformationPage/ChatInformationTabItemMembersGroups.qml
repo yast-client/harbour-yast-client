@@ -198,8 +198,8 @@ ChatInformationTabItemBase {
             }
         }
         onChatsReceived: {// common chats with user
-            if((isPrivateChat || isSecretChat) && chats["@extra"] === chatInformationPage.chatPartnerGroupId) {
-                tabBase.chatPartnerCommonGroupsIds = chats.chat_ids;
+            if((isPrivateChat || isSecretChat) && extra === chatInformationPage.chatPartnerGroupId) {
+                tabBase.chatPartnerCommonGroupsIds = chatIds;
                 delegateModel.applyFilter();
                 // if we set it directly, the views start scrolling
                 loadedTimer.start();

@@ -82,6 +82,8 @@ namespace {
     const QString REMOVE_CONTACTS("removeContacts");
     const QString INPUT_MESSAGE_CONTENT("input_message_content");
     const QString LOCATION("location");
+    const QString LIMIT("limit");
+    const QString OFFSET("offset");
     const QStringList ALL_FILE_TYPES(QStringList()
                                      << "fileTypeAnimation"
                                      << "fileTypeAudio"
@@ -306,7 +308,7 @@ void TDLibWrapper::logout() {
 
 void TDLibWrapper::getChats() {
     LOG("Getting chats");
-    this->sendRequest(QVariantMap{{_TYPE, "loadChats"}, {"limit", 5}});
+    this->sendRequest(QVariantMap{{_TYPE, "loadChats"}, {LIMIT, 5}});
 }
 
 void TDLibWrapper::downloadFile(int fileId) {
@@ -315,8 +317,8 @@ void TDLibWrapper::downloadFile(int fileId) {
         {_TYPE, "downloadFile"},
         {"file_id", fileId},
         {"synchronous", false},
-        {"offset", 0},
-        {"limit", 0},
+        {OFFSET, 0},
+        {LIMIT, 0},
         {"priority", 1}
     });
 }
@@ -353,8 +355,8 @@ void TDLibWrapper::getChatHistory(qlonglong chatId, qlonglong fromMessageId, int
         {_TYPE, "getChatHistory"},
         {CHAT_ID, chatId},
         {"from_message_id", fromMessageId},
-        {"offset", offset},
-        {"limit", limit},
+        {OFFSET, offset},
+        {LIMIT, limit},
         {"only_local", onlyLocal}
     });
 }
@@ -673,8 +675,8 @@ void TDLibWrapper::getSupergroupMembers(const QString &groupId, int limit, int o
         {_TYPE, "getSupergroupMembers"},
         {_EXTRA, groupId},
         {"supergroup_id", groupId},
-        {"offset", offset},
-        {"limit", limit}
+        {OFFSET, offset},
+        {LIMIT, limit}
     });
 }
 
@@ -742,8 +744,8 @@ void TDLibWrapper::getGroupsInCommon(const QString &userId, int limit, int offse
         {_TYPE, "getGroupsInCommon"},
         {_EXTRA, userId},
         {USER_ID, userId},
-        {"offset", offset},
-        {"limit", limit}
+        {OFFSET, offset},
+        {LIMIT, limit}
     });
 }
 
@@ -753,8 +755,8 @@ void TDLibWrapper::getUserProfilePhotos(const QString &userId, int limit, int of
         {_TYPE, "getUserProfilePhotos"},
         {_EXTRA, userId},
         {USER_ID, userId},
-        {"offset", offset},
-        {"limit", limit}
+        {OFFSET, offset},
+        {LIMIT, limit}
     });
 }
 
@@ -839,8 +841,8 @@ void TDLibWrapper::getPollVoters(const QString &chatId, qlonglong messageId, int
         {CHAT_ID, chatId},
         {MESSAGE_ID, messageId},
         {"option_id", optionId},
-        {"offset", offset},
-        {"limit", limit} //max 50
+        {OFFSET, offset},
+        {LIMIT, limit} //max 50
     });
 }
 
@@ -924,9 +926,19 @@ void TDLibWrapper::searchChatMessages(qlonglong chatId, const QString &query, ql
         {CHAT_ID, chatId},
         {"query", query},
         {"from_message_id", fromMessageId},
-        {"offset", 0},
-        {"limit", 50},
+        {OFFSET, 0},
+        {LIMIT, 50},
         {_EXTRA, "searchChatMessages"}
+    });
+}
+
+void TDLibWrapper::searchChats(const QString &query) {
+    LOG("Searching local chats" << query);
+    this->sendRequest(QVariantMap{
+        {_TYPE, "searchChats"},
+        {"query", query},
+        {LIMIT, 50},
+        {_EXTRA, "searchChats"}
     });
 }
 
@@ -1010,7 +1022,7 @@ void TDLibWrapper::getInlineQueryResults(qlonglong botUserId, qlonglong chatId, 
         {CHAT_ID, chatId},
         {"bot_user_id", botUserId},
         {"query", query},
-        {"offset", offset},
+        {OFFSET, offset},
         {_EXTRA, extra}
     };
     if(!userLocation.isEmpty())

@@ -236,7 +236,7 @@ Page {
             }
         }
         onChatsReceived: {
-            if(chats && chats.chat_ids && chats.chat_ids.length === 0) {
+            if(chatIds && chatIds.length === 0) {
                 chatListCreatedTimer.restart();
             }
         }

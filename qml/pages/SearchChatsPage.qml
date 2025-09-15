@@ -29,7 +29,7 @@ Page {
     allowedOrientations: Orientation.All
 
     function resetFocus() {
-        publicChatsSearchField.focus = false;
+        searchField.focus = false;
         searchChatsPage.focus = true;
     }
 
@@ -39,8 +39,8 @@ Page {
         running: false
         repeat: false
         onTriggered: {
-            Debug.log("Searching for '" + publicChatsSearchField.text + "'")
-            tdLibWrapper.searchPublicChats(publicChatsSearchField.text)
+            Debug.log("Searching for '" + searchField.text + "' globally")
+            tdLibWrapper.searchPublicChats(searchField.text)
             searchChatsPage.isLoading = true
         }
     }
@@ -48,18 +48,22 @@ Page {
     Connections {
         target: tdLibWrapper
         onChatsReceived: {
-            Debug.log(JSON.stringify(chats))
-            chatsFound = chats
-
-            searchChatsPage.isLoading = false
-            tdLibWrapper.getSearchSponsoredChats(publicChatsSearchField.text)
+            Debug.log("Chats found", extra, JSON.stringify(chatIds))
+            if (extra == 'searchChats') {
+                localChatsFound = chatIds
+                searchChatsPage.isLoading = false
+            } else if (extra == 'searchPublicChats') {
+                publicChatsFound = chatIds
+                tdLibWrapper.getSearchSponsoredChats(searchField.text)
+                searchChatsPage.isLoading = false
+            }
         }
         onSponsoredChatsReceived: {
-            Debug.log(JSON.stringify(chats))
+            Debug.log("Sponsored chats received", JSON.stringify(chats))
             for (var i=0; i < chats.length; i++) {
                 var chatId = chats[i].chat_id
                 sponsoredChats[chatId] = chats[i]
-                chatsFound.unshift(chatId)
+                publicChatsFound.unshift(chatId)
             }
             chatsFoundChanged()
 
@@ -70,8 +74,9 @@ Page {
         }
     }
 
-    property bool isLoading: false;
-    property var chatsFound: []
+    property bool isLoading: false
+    property var localChatsFound: []
+    property var publicChatsFound: []
     property var sponsoredChats: ({})
     readonly property var ownUserId: tdLibWrapper.getUserInformation().id;
 
@@ -97,44 +102,69 @@ Page {
                 height: searchChatsPageColumn.height - searchChatsPageHeader.height
 
                 Column {
-
                     width: parent.width
                     height: parent.height
 
                     SearchField {
-                        id: publicChatsSearchField
+                        id: searchField
                         width: parent.width
                         placeholderText: qsTr("Search a chat...")
                         focus: true
 
                         onTextChanged: {
-                            searchPublicChatsTimer.restart();
+                            if (text) {
+                                tdLibWrapper.searchChats(searchField.text)
+                                searchPublicChatsTimer.restart();
+                                Debug.log("Searching for '" + searchField.text + "' locally")
+                            } else {
+                                localChatsFound = []
+                                publicChatsFound = []
+                            }
                         }
 
                         EnterKey.iconSource: "image://theme/icon-m-enter-close"
-                        EnterKey.onClicked: {
-                            resetFocus();
-                        }
-
+                        EnterKey.onClicked: resetFocus()
                     }
 
                     SilicaListView {
-                        id: searchChatsListView
+                        id: publicSearchListView
                         clip: true
                         width: parent.width
-                        height: parent.height - publicChatsSearchField.height
+                        height: parent.height - searchField.height
                         visible: !searchChatsPage.isLoading
                         opacity: visible ? 1 : 0
                         Behavior on opacity { FadeAnimation {} }
-                        model: searchChatsPage.chatsFound.chat_ids
+                        
+                        header: Column {
+                            width: parent.width
+                            ColumnView {
+                                width: parent.width
+                                model: searchChatsPage.localChatsFound
+                                delegate: chatComponent
+                                itemHeight: Theme.itemSizeExtraLarge
+                            }
+
+                            SectionHeader {
+                                visible: publicSearchListView.count > 0
+                                text: qsTr("Global search results")
+                            }
+                        }
+
+                        model: searchChatsPage.publicChatsFound
+                        delegate: chatComponent
 
                         ViewPlaceholder {
                             y: Theme.paddingLarge
-                            enabled: searchChatsListView.count === 0
-                            text: publicChatsSearchField.text.length < 5 ? qsTr("Enter your query to start searching (at least 5 characters needed)") : qsTr("No chats found.")
+                            enabled: publicSearchListView.count == 0 && (!publicSearchListView.headerItem || publicSearchListView.headerItem.count == 0)
+                            text: searchField.text.length < 5 ? qsTr("Enter your query to start searching (at least 5 characters needed)") : qsTr("No chats found.")
                         }
 
-                        delegate: Item {
+                        VerticalScrollDecorator {}
+                    }
+
+                    Component {
+                        id: chatComponent
+                        Item {
                             id: foundChatListDelegate
                             width: parent.width
                             height: foundChatListItem.height
@@ -240,8 +270,6 @@ Page {
                                 }
                             }
                         }
-
-                        VerticalScrollDecorator {}
                     }
 
                 }

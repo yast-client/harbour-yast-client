@@ -79,6 +79,7 @@ namespace {
     const QString LEFT_REEL("left_reel");
     const QString CENTER_REEL("center_reel");
     const QString RIGHT_REEL("right_reel");
+    const QString CHAT_IDS("chat_ids");
 
     const QString _TYPE("@type");
     const QString _EXTRA("@extra");
@@ -510,9 +511,12 @@ void TDLibReceiver::processUpdateDeleteMessages(const QVariantMap &receivedInfor
     emit messagesDeleted(chatId, ids);
 }
 
-void TDLibReceiver::processChats(const QVariantMap &receivedInformation)
-{
-    emit chats(receivedInformation);
+void TDLibReceiver::processChats(const QVariantMap &receivedInformation) {
+    const QString extra = receivedInformation.value(_EXTRA).toString();
+    const QVariantList chatIds = receivedInformation.value(CHAT_IDS).toList();
+    const int totalCount = receivedInformation.value(TOTAL_COUNT).toInt();
+    LOG("Received chats" << extra << totalCount);
+    emit chats(extra, chatIds, totalCount);
 }
 
 void TDLibReceiver::processSponsoredChats(const QVariantMap &receivedInformation) {
