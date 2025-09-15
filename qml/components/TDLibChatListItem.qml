@@ -44,47 +44,47 @@ PhotoTextsListItem {
     Connections {
         target: tdLibWrapper
         onUserFullInfoUpdated: {
-            if (chatItem.isPrivateChat && userId.toString() === chatItem.chatInformation.type.user_id.toString()) {
+            if (isPrivateChat && userId.toString() === chatInformation.type.user_id.toString()) {
                 tertiaryText.text = Emoji.emojify(Functions.enhanceMessageText(userFullInfo.bio), tertiaryText.font.pixelSize, "../js/emoji/");
             }
         }
         onUserFullInfoReceived: {
-            if (chatItem.isPrivateChat && userFullInfo["@extra"].toString() === chatItem.chatInformation.type.user_id.toString()) {
-                chatItemtertiaryText.text = Emoji.emojify(Functions.enhanceMessageText(userFullInfo.bio), chatItemtertiaryText.font.pixelSize, "../js/emoji/");
+            if (isPrivateChat && userFullInfo["@extra"].toString() === chatInformation.type.user_id.toString()) {
+                tertiaryText.text = Emoji.emojify(Functions.enhanceMessageText(userFullInfo.bio), tertiaryText.font.pixelSize, "../js/emoji/");
             }
         }
 
         onBasicGroupFullInfoUpdated: {
-            if (chatItem.isBasicGroup && groupId.toString() === chatItem.chatInformation.type.basic_group_id.toString()) {
-                chatItemsecondaryText.text = qsTr("%1 members", "", groupFullInfo.members.length).arg(Number(groupFullInfo.members.length).toLocaleString(Qt.locale(), "f", 0));
-                chatItemtertiaryText.text = Emoji.emojify(groupFullInfo.description, chatItemtertiaryText.font.pixelSize, "../js/emoji/");
+            if (isBasicGroup && groupId.toString() === chatInformation.type.basic_group_id.toString()) {
+                secondaryText.text = qsTr("%1 members", "", groupFullInfo.members.length).arg(Number(groupFullInfo.members.length).toLocaleString(Qt.locale(), "f", 0));
+                tertiaryText.text = Emoji.emojify(groupFullInfo.description, tertiaryText.font.pixelSize, "../js/emoji/");
             }
         }
         onBasicGroupFullInfoReceived: {
-            if (chatItem.isBasicGroup && groupId.toString() === chatItem.chatInformation.type.basic_group_id.toString()) {
-                chatItemsecondaryText.text = qsTr("%1 members", "", groupFullInfo.members.length).arg(Number(groupFullInfo.members.length).toLocaleString(Qt.locale(), "f", 0));
-                chatItemtertiaryText.text = Emoji.emojify(groupFullInfo.description, chatItemtertiaryText.font.pixelSize, "../js/emoji/");
+            if (isBasicGroup && groupId.toString() === chatInformation.type.basic_group_id.toString()) {
+                secondaryText.text = qsTr("%1 members", "", groupFullInfo.members.length).arg(Number(groupFullInfo.members.length).toLocaleString(Qt.locale(), "f", 0));
+                tertiaryText.text = Emoji.emojify(groupFullInfo.description, tertiaryText.font.pixelSize, "../js/emoji/");
             }
         }
 
         onSupergroupFullInfoUpdated: {
-            if (chatItem.isSupergroup && groupId.toString() === chatItem.chatInformation.type.supergroup_id.toString()) {
-                if (chatItem.relatedInformation.is_channel) {
-                    chatItemsecondaryText.text = qsTr("%1 subscribers", "", groupFullInfo.member_count).arg(Number(groupFullInfo.member_count).toLocaleString(Qt.locale(), "f", 0));
+            if (isSupergroup && groupId.toString() === chatInformation.type.supergroup_id.toString()) {
+                if (relatedInformation.is_channel) {
+                    secondaryText.text = qsTr("%1 subscribers", "", groupFullInfo.member_count).arg(Number(groupFullInfo.member_count).toLocaleString(Qt.locale(), "f", 0));
                 } else {
-                    chatItemsecondaryText.text = qsTr("%1 members", "", groupFullInfo.member_count).arg(Number(groupFullInfo.member_count).toLocaleString(Qt.locale(), "f", 0));
+                    secondaryText.text = qsTr("%1 members", "", groupFullInfo.member_count).arg(Number(groupFullInfo.member_count).toLocaleString(Qt.locale(), "f", 0));
                 }
-                chatItemtertiaryText.text = Emoji.emojify(groupFullInfo.description, chatItemtertiaryText.font.pixelSize, "../js/emoji/");
+                tertiaryText.text = Emoji.emojify(groupFullInfo.description, tertiaryText.font.pixelSize, "../js/emoji/");
             }
         }
         onSupergroupFullInfoReceived: {
-            if (chatItem.isSupergroup && groupId.toString() === chatItem.chatInformation.type.supergroup_id.toString()) {
-                if (chatItem.relatedInformation.is_channel) {
-                    chatItemsecondaryText.text = qsTr("%1 subscribers", "", groupFullInfo.member_count).arg(Number(groupFullInfo.member_count).toLocaleString(Qt.locale(), "f", 0));
+            if (isSupergroup && groupId.toString() === chatInformation.type.supergroup_id.toString()) {
+                if (relatedInformation.is_channel) {
+                    secondaryText.text = qsTr("%1 subscribers", "", groupFullInfo.member_count).arg(Number(groupFullInfo.member_count).toLocaleString(Qt.locale(), "f", 0));
                 } else {
-                    chatItemsecondaryText.text = qsTr("%1 members", "", groupFullInfo.member_count).arg(Number(groupFullInfo.member_count).toLocaleString(Qt.locale(), "f", 0));
+                    secondaryText.text = qsTr("%1 members", "", groupFullInfo.member_count).arg(Number(groupFullInfo.member_count).toLocaleString(Qt.locale(), "f", 0));
                 }
-                chatItemtertiaryText.text = Emoji.emojify(groupFullInfo.description, chatItemtertiaryText.font.pixelSize, "../js/emoji/");
+                tertiaryText.text = Emoji.emojify(groupFullInfo.description, tertiaryText.font.pixelSize, "../js/emoji/");
             }
         }
     }
