@@ -15,15 +15,19 @@ PhotoTextsListItem {
     property bool isPrivateChat
     property bool isBasicGroup
     property bool isSupergroup
+    property bool isSecret
 
     function detectChatType() {
         switch (chatInformation.type["@type"]) {
         case "chatTypePrivate":
+        case "chatTypeSecret":
             relatedInformation = tdLibWrapper.getUserInformation(chatInformation.type.user_id);
-            prologSecondaryText.text = qsTr("Private Chat");
+            if (chatInformation.type["@type"] == 'chatTypeSecret')
+                isSecret = true
+            else isPrivateChat = true
+            prologSecondaryText.text = isSecret ? qsTr("Secret Chat") : qsTr("Private Chat");
             secondaryText.text = "@" + (relatedInformation.usernames && relatedInformation.usernames.editable_username !== "" ? relatedInformation.usernames.editable_username : relatedInformation.id);
             tdLibWrapper.getUserFullInfo(chatInformation.type.user_id);
-            isPrivateChat = true;
             break;
         case "chatTypeBasicGroup":
             relatedInformation = tdLibWrapper.getBasicGroup(chatInformation.type.basic_group_id);
@@ -46,12 +50,12 @@ PhotoTextsListItem {
     Connections {
         target: tdLibWrapper
         onUserFullInfoUpdated: {
-            if (isPrivateChat && userId.toString() === chatInformation.type.user_id.toString()) {
+            if ((isPrivateChat || isSecret) && userId.toString() === chatInformation.type.user_id.toString()) {
                 tertiaryText.text = Emoji.emojify(Functions.enhanceMessageText(userFullInfo.bio), tertiaryText.font.pixelSize, "../js/emoji/");
             }
         }
         onUserFullInfoReceived: {
-            if (isPrivateChat && userFullInfo["@extra"].toString() === chatInformation.type.user_id.toString()) {
+            if ((isPrivateChat || isSecret) && userFullInfo["@extra"].toString() === chatInformation.type.user_id.toString()) {
                 tertiaryText.text = Emoji.emojify(Functions.enhanceMessageText(userFullInfo.bio), tertiaryText.font.pixelSize, "../js/emoji/");
             }
         }
