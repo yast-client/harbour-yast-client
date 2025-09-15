@@ -125,6 +125,17 @@ public:
     };
     Q_ENUM(NetworkType)
 
+    enum TopChatCategory {
+        TopChatCategoryUsers,
+        TopChatCategoryBots,
+        TopChatCategoryCalls,
+        TopChatCategoryChannels,
+        TopChatCategoryForwardChats,
+        TopChatCategoryGroups,
+        TopChatCategoryInlineBots,
+        TopChatCategoryWebAppBots
+    };
+
     class Group {
     public:
         Group(qlonglong id) : groupId(id) { }
@@ -270,6 +281,10 @@ public:
     Q_INVOKABLE void sendChatAction(qlonglong chatId, const QString &chatActionType);
     Q_INVOKABLE void searchEmojis(const QString &text);
     Q_INVOKABLE void toggleSupergroupIsForum(bool isForum);
+    Q_INVOKABLE void getTopChats(TopChatCategory category, int limit=50);
+    Q_INVOKABLE void searchRecentlyFoundChats(const QString &query = QString());
+    Q_INVOKABLE void clearRecentlyFoundChats();
+    Q_INVOKABLE void addRecentlyFoundChat(qlonglong chatId);
 
     // Others (candidates for extraction ;))
     Q_INVOKABLE void initializeOpenWith();

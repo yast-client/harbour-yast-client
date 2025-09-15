@@ -45,8 +45,10 @@ SOURCES += src/harbour-fernschreiber2.cpp \
 DISTFILES += qml/harbour-fernschreiber2.qml \
     qml/components/AudioPreview.qml \
     qml/components/BackgroundImage.qml \
+    qml/components/ButtonsSectionHeader.qml \
     qml/components/ChatBadges.qml \
     qml/components/ChatListViewItem.qml \
+    qml/components/ChatPhotoPreview.qml \
     qml/components/ContactSync.qml \
     qml/components/DocumentPreview.qml \
     qml/components/GamePreview.qml \
@@ -63,6 +65,7 @@ DISTFILES += qml/harbour-fernschreiber2.qml \
     qml/components/MessageViaLabel.qml \
     qml/components/MultilineEmojiLabel.qml \
     qml/components/OpaqueButton.qml \
+    qml/components/PhotoTextsGridItem.qml \
     qml/components/PinnedMessageItem.qml \
     qml/components/PollPreview.qml \
     qml/components/PressEffect.qml \

@@ -84,6 +84,7 @@ namespace {
     const QString LOCATION("location");
     const QString LIMIT("limit");
     const QString OFFSET("offset");
+    const QString QUERY("query");
     const QStringList ALL_FILE_TYPES(QStringList()
                                      << "fileTypeAnimation"
                                      << "fileTypeAudio"
@@ -924,7 +925,7 @@ void TDLibWrapper::searchChatMessages(qlonglong chatId, const QString &query, ql
     this->sendRequest(QVariantMap{
         {_TYPE, "searchChatMessages"},
         {CHAT_ID, chatId},
-        {"query", query},
+        {QUERY, query},
         {"from_message_id", fromMessageId},
         {OFFSET, 0},
         {LIMIT, 50},
@@ -936,7 +937,7 @@ void TDLibWrapper::searchChats(const QString &query) {
     LOG("Searching local chats" << query);
     this->sendRequest(QVariantMap{
         {_TYPE, "searchChats"},
-        {"query", query},
+        {QUERY, query},
         {LIMIT, 50},
         {_EXTRA, "searchChats"}
     });
@@ -946,7 +947,7 @@ void TDLibWrapper::searchPublicChats(const QString &query) {
     LOG("Searching public chats" << query);
     this->sendRequest(QVariantMap{
         {_TYPE, "searchPublicChats"},
-        {"query", query},
+        {QUERY, query},
         {_EXTRA, "searchPublicChats"}
     });
 }
@@ -955,7 +956,7 @@ void TDLibWrapper::getSearchSponsoredChats(const QString &query) {
     LOG("Getting sponsored public chats for search" << query);
     this->sendRequest(QVariantMap{
         {_TYPE, "getSearchSponsoredChats"},
-        {"query", query}
+        {QUERY, query}
     });
 }
 
@@ -1021,7 +1022,7 @@ void TDLibWrapper::getInlineQueryResults(qlonglong botUserId, qlonglong chatId, 
         {_TYPE, "getInlineQueryResults"},
         {CHAT_ID, chatId},
         {"bot_user_id", botUserId},
-        {"query", query},
+        {QUERY, query},
         {OFFSET, offset},
         {_EXTRA, extra}
     };
@@ -2152,4 +2153,57 @@ void TDLibWrapper::handleDiceEmojisUpdated(const QStringList &emojis) {
 bool TDLibWrapper::isDiceEmoji(const QString &text) {
     LOG("Checking if text is a dice emoji" << text);
     return diceEmojis.contains(QString(text).trimmed());
+}
+
+void TDLibWrapper::getTopChats(TopChatCategory category, int limit) {
+    QString categoryType;
+    switch (category) {
+    case TopChatCategoryUsers:
+        categoryType = "topChatCategoryUsers";
+        break;
+    case TopChatCategoryBots:
+        categoryType = "topChatCategoryBots";
+        break;
+    case TopChatCategoryCalls:
+        categoryType = "topChatCategoryCalls";
+        break;
+    case TopChatCategoryChannels:
+        categoryType = "topChatCategoryChannels";
+        break;
+    case TopChatCategoryForwardChats:
+        categoryType = "topChatCategoryForwardChats";
+        break;
+    case TopChatCategoryGroups:
+        categoryType = "topChatCategoryGroups";
+        break;
+    case TopChatCategoryInlineBots:
+        categoryType = "topChatCategoryInlineBots";
+        break;
+    case TopChatCategoryWebAppBots:
+        categoryType = "topChatCategoryWebAppBots";
+        break;
+    }
+
+    LOG("Getting top chats for category" << categoryType);
+    this->sendRequest(QVariantMap{
+                          {_TYPE, "getTopChats"},
+                          {"category", QVariantMap{{_TYPE, categoryType}}},
+                          {LIMIT, limit},
+                          {_EXTRA, categoryType}
+                      });
+}
+
+void TDLibWrapper::searchRecentlyFoundChats(const QString &query) {
+    LOG("Searching for recently found chats" << query);
+    this->sendRequest(QVariantMap{{_TYPE, "searchRecentlyFoundChats"}, {QUERY, query}, {LIMIT, 50}, {_EXTRA, "searchRecentlyFoundChats"}});
+}
+
+void TDLibWrapper::clearRecentlyFoundChats() {
+    LOG("Clearing recently found chats");
+    this->sendRequest(QVariantMap{{_TYPE, "clearRecentlyFoundChats"}});
+}
+
+void TDLibWrapper::addRecentlyFoundChat(qlonglong chatId) {
+    LOG("Adding chat to recently found chats list" << chatId);
+    this->sendRequest(QVariantMap{{_TYPE, "addRecentlyFoundChat"}, {CHAT_ID, chatId}});
 }

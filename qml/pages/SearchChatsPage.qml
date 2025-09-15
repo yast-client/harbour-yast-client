@@ -40,6 +40,8 @@ Page {
         repeat: false
         onTriggered: {
             Debug.log("Searching for '" + searchField.text + "' globally")
+            publicChatsFound = []
+            recentlyFoundChatsFound = []
             tdLibWrapper.searchPublicChats(searchField.text)
             searchChatsPage.publicLoading = true
         }
@@ -54,6 +56,9 @@ Page {
             } else if (extra == 'searchPublicChats') {
                 publicChatsFound = chatIds
                 tdLibWrapper.getSearchSponsoredChats(searchField.text)
+                searchChatsPage.publicLoading = false
+            } else if (extra == 'searchRecentlyFoundChats') {
+                recentlyFoundChatsFound = chatIds
                 searchChatsPage.publicLoading = false
             }
         }
@@ -75,10 +80,15 @@ Page {
 
     property bool publicLoading: false
     readonly property bool isLoading: publicLoading && publicSearchListView.haveNoLocalResults
+    property var recentlyFoundChatsFound: []
     property var localChatsFound: []
     property var publicChatsFound: []
     property var sponsoredChats: ({})
     readonly property var ownUserId: tdLibWrapper.getUserInformation().id;
+
+    Component.onCompleted: {
+        tdLibWrapper.searchRecentlyFoundChats()
+    }
 
     SilicaFlickable {
         id: searchChatsContainer
@@ -112,6 +122,7 @@ Page {
                         focus: true
 
                         onTextChanged: {
+                            tdLibWrapper.searchRecentlyFoundChats(searchField.text)
                             if (text) {
                                 tdLibWrapper.searchChats(searchField.text)
                                 searchPublicChatsTimer.restart();
@@ -135,15 +146,41 @@ Page {
                         opacity: visible ? 1 : 0
                         Behavior on opacity { FadeAnimation {} }
 
-                        readonly property bool haveNoLocalResults: headerItem && headerItem.localSearchListView.count == 0
+                        readonly property bool haveNoLocalResults: headerItem
+                                                                   && headerItem.localSearchListView.count == 0
+                                                                   && headerItem.recentlyFoundSearchListView.count == 0
                         
                         header: Column {
                             width: parent.width
                             property alias localSearchListView: localSearchListView
+                            property alias recentlyFoundSearchListView: recentlyFoundSearchListView
+
                             ColumnView {
                                 id: localSearchListView
                                 width: parent.width
                                 model: searchChatsPage.localChatsFound
+                                delegate: chatComponent
+                                itemHeight: Theme.itemSizeExtraLarge
+                            }
+
+                            ButtonsSectionHeader {
+                                visible: recentlyFoundSearchListView.count > 0
+                                text: qsTr("Recent", "Recently found chats")
+
+                                SecondaryButton { // FIXME: this looks ugly
+                                    preferredWidth: Theme.buttonWidthExtraSmall
+                                    text: qsTr("Clear", "Clear recently found chats")
+                                    onClicked: Remorse.popupAction(searchChatsPage, qsTr("Cleared recents", "Remorse popup indicating that recently found chats are cleared"), function() {
+                                        tdLibWrapper.clearRecentlyFoundChats()
+                                        recentlyFoundChatsFound = []
+                                    })
+                                }
+                            }
+
+                            ColumnView {
+                                id: recentlyFoundSearchListView
+                                width: parent.width
+                                model: searchChatsPage.recentlyFoundChatsFound
                                 delegate: chatComponent
                                 itemHeight: Theme.itemSizeExtraLarge
                             }
@@ -271,6 +308,8 @@ Page {
 
                                 onClicked: {
                                     pageStack.push(Qt.resolvedUrl("../pages/ChatPage.qml"), { "chatInformation" : foundChatInformation });
+                                    tdLibWrapper.addRecentlyFoundChat(foundChatInformation.id)
+                                    tdLibWrapper.searchRecentlyFoundChats(searchField.text)
                                 }
                             }
                         }
