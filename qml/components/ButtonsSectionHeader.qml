@@ -17,17 +17,16 @@ Item {
 
     Row {
         id: buttonsContainer
-        height: parent.height - Theme.paddingMedium
+        height: parent.height
         spacing: Theme.paddingSmall
         width: Math.max(implicitWidth, parent.width - label.implicitWidth - Theme.paddingMedium)
     }
 
     Label {
         id: label
-        width: parent.width - buttonsContainer.width - Theme.paddingMedium
+        width: parent.width - (item.length > 0 ? (buttonsContainer.width - Theme.paddingMedium) : 0)
         anchors.right: parent.right
-        height: parent.height - Theme.paddingMedium
-        topPadding: Theme.paddingMedium
+        height: parent.height
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignRight
         font.pixelSize: Theme.fontSizeSmall

@@ -85,6 +85,7 @@ namespace {
     const QString LIMIT("limit");
     const QString OFFSET("offset");
     const QString QUERY("query");
+    const QString EXTRA_RECENTLY_FOUND("recentlyFound");
     const QStringList ALL_FILE_TYPES(QStringList()
                                      << "fileTypeAnimation"
                                      << "fileTypeAudio"
@@ -2205,5 +2206,10 @@ void TDLibWrapper::clearRecentlyFoundChats() {
 
 void TDLibWrapper::addRecentlyFoundChat(qlonglong chatId) {
     LOG("Adding chat to recently found chats list" << chatId);
-    this->sendRequest(QVariantMap{{_TYPE, "addRecentlyFoundChat"}, {CHAT_ID, chatId}});
+    this->sendRequest(QVariantMap{{_TYPE, "addRecentlyFoundChat"}, {CHAT_ID, chatId}, {_EXTRA, EXTRA_RECENTLY_FOUND}});
+}
+
+void TDLibWrapper::removeRecentlyFoundChat(qlonglong chatId) {
+    LOG("Removing chat from recently found chats list" << chatId);
+    this->sendRequest(QVariantMap{{_TYPE, "removeRecentlyFoundChat"}, {CHAT_ID, chatId}, {_EXTRA, EXTRA_RECENTLY_FOUND}});
 }

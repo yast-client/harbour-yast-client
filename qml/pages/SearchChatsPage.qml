@@ -21,8 +21,6 @@ import Sailfish.Silica 1.0
 import WerkWolf.Fernschreiber 1.0
 import "../components"
 import "../js/debug.js" as Debug
-import "../js/twemoji.js" as Emoji
-import "../js/functions.js" as Functions
 
 Page {
     id: searchChatsPage
@@ -69,12 +67,16 @@ Page {
                 sponsoredChats[chatId] = chats[i]
                 publicChatsFound.unshift(chatId)
             }
+            sponsoredChatsChanged()
             chatsFoundChanged()
 
             searchChatsPage.publicLoading = false
         }
-        onErrorReceived: {
+        onErrorReceived:
             searchChatsPage.publicLoading = false
+        onOkReceived: {
+            if (request == 'recentlyFound')
+                tdLibWrapper.searchRecentlyFoundChats(searchField.text)
         }
     }
 
@@ -84,7 +86,6 @@ Page {
     property var localChatsFound: []
     property var publicChatsFound: []
     property var sponsoredChats: ({})
-    readonly property var ownUserId: tdLibWrapper.getUserInformation().id;
 
     Component.onCompleted: {
         tdLibWrapper.searchRecentlyFoundChats()
@@ -159,7 +160,10 @@ Page {
                                 id: localSearchListView
                                 width: parent.width
                                 model: searchChatsPage.localChatsFound
-                                delegate: chatComponent
+                                delegate: TDLibChatListItem {
+                                    chatId: modelData
+                                    onClicked: tdLibWrapper.addRecentlyFoundChat(chatId)
+                                }
                                 itemHeight: Theme.itemSizeExtraLarge
                             }
 
@@ -167,9 +171,8 @@ Page {
                                 visible: recentlyFoundSearchListView.count > 0
                                 text: qsTr("Recent", "Recently found chats")
 
-                                SecondaryButton { // FIXME: this looks ugly
-                                    preferredWidth: Theme.buttonWidthExtraSmall
-                                    text: qsTr("Clear", "Clear recently found chats")
+                                IconButton {
+                                    icon.source: "image://theme/icon-m-clear"
                                     onClicked: Remorse.popupAction(searchChatsPage, qsTr("Cleared recents", "Remorse popup indicating that recently found chats are cleared"), function() {
                                         tdLibWrapper.clearRecentlyFoundChats()
                                         recentlyFoundChatsFound = []
@@ -181,7 +184,19 @@ Page {
                                 id: recentlyFoundSearchListView
                                 width: parent.width
                                 model: searchChatsPage.recentlyFoundChatsFound
-                                delegate: chatComponent
+                                delegate: TDLibChatListItem {
+                                    id: recentlyFoundChatDelegate
+                                    chatId: modelData
+                                    menu: Component {
+                                        ContextMenu {
+                                            MenuItem {
+                                                text: qsTr("Remove from Recent", "Remove a chat from recently found chats")
+                                                onClicked: tdLibWrapper.removeChat(recentlyFoundChatDelegate.chatId)
+                                            }
+                                        }
+                                    }
+                                    onClicked: tdLibWrapper.addRecentlyFoundChat(chatId)
+                                }
                                 itemHeight: Theme.itemSizeExtraLarge
                             }
 
@@ -192,7 +207,11 @@ Page {
                         }
 
                         model: searchChatsPage.publicChatsFound
-                        delegate: chatComponent
+                        delegate: TDLibChatListItem {
+                            chatId: modelData
+                            ad: modelData in sponsoredChats
+                            onClicked: tdLibWrapper.addRecentlyFoundChat(chatId)
+                        }
 
                         ViewPlaceholder {
                             y: Theme.paddingLarge
@@ -202,119 +221,6 @@ Page {
 
                         VerticalScrollDecorator {}
                     }
-
-                    Component {
-                        id: chatComponent
-                        Item {
-                            id: foundChatListDelegate
-                            width: parent.width
-                            height: foundChatListItem.height
-
-                            property var foundChatInformation: tdLibWrapper.getChat(modelData);
-                            property var foundSponsorInformation: sponsoredChats[modelData]
-                            property var relatedInformation;
-                            property bool isPrivateChat: false;
-                            property bool isBasicGroup: false;
-                            property bool isSupergroup: false;
-
-                            Component.onCompleted: {
-                                switch (foundChatInformation.type["@type"]) {
-                                case "chatTypePrivate":
-                                    relatedInformation = tdLibWrapper.getUserInformation(foundChatInformation.type.user_id);
-                                    foundChatListItem.prologSecondaryText.text = qsTr("Private Chat");
-                                    foundChatListItem.secondaryText.text = "@" + (relatedInformation.usernames && relatedInformation.usernames.editable_username !== "" ? relatedInformation.usernames.editable_username : relatedInformation.id);
-                                    tdLibWrapper.getUserFullInfo(foundChatInformation.type.user_id);
-                                    isPrivateChat = true;
-                                    break;
-                                case "chatTypeBasicGroup":
-                                    relatedInformation = tdLibWrapper.getBasicGroup(foundChatInformation.type.basic_group_id);
-                                    foundChatListItem.prologSecondaryText.text = qsTr("Group");
-                                    tdLibWrapper.getGroupFullInfo(foundChatInformation.type.basic_group_id, false);
-                                    isBasicGroup = true;
-                                    break;
-                                case "chatTypeSupergroup":
-                                    relatedInformation = tdLibWrapper.getSuperGroup(foundChatInformation.type.supergroup_id);
-                                    if (relatedInformation.is_channel) {
-                                        foundChatListItem.prologSecondaryText.text = qsTr("Channel");
-                                    } else {
-                                        foundChatListItem.prologSecondaryText.text = qsTr("Group");
-                                    }
-                                    tdLibWrapper.getGroupFullInfo(foundChatInformation.type.supergroup_id, true);
-                                    isSupergroup = true;
-                                    break;
-                                }
-                            }
-
-                            Connections {
-                                target: tdLibWrapper
-                                onUserFullInfoUpdated: {
-                                    if (foundChatListDelegate.isPrivateChat && userId.toString() === foundChatListDelegate.foundChatInformation.type.user_id.toString()) {
-                                        foundChatListItem.tertiaryText.text = Emoji.emojify(Functions.enhanceMessageText(userFullInfo.bio), foundChatListItem.tertiaryText.font.pixelSize, "../js/emoji/");
-                                    }
-                                }
-                                onUserFullInfoReceived: {
-                                    if (foundChatListDelegate.isPrivateChat && userFullInfo["@extra"].toString() === foundChatListDelegate.foundChatInformation.type.user_id.toString()) {
-                                        foundChatListItem.tertiaryText.text = Emoji.emojify(Functions.enhanceMessageText(userFullInfo.bio), foundChatListItem.tertiaryText.font.pixelSize, "../js/emoji/");
-                                    }
-                                }
-
-                                onBasicGroupFullInfoUpdated: {
-                                    if (foundChatListDelegate.isBasicGroup && groupId.toString() === foundChatListDelegate.foundChatInformation.type.basic_group_id.toString()) {
-                                        foundChatListItem.secondaryText.text = qsTr("%1 members", "", groupFullInfo.members.length).arg(Number(groupFullInfo.members.length).toLocaleString(Qt.locale(), "f", 0));
-                                        foundChatListItem.tertiaryText.text = Emoji.emojify(groupFullInfo.description, foundChatListItem.tertiaryText.font.pixelSize, "../js/emoji/");
-                                    }
-                                }
-                                onBasicGroupFullInfoReceived: {
-                                    if (foundChatListDelegate.isBasicGroup && groupId.toString() === foundChatListDelegate.foundChatInformation.type.basic_group_id.toString()) {
-                                        foundChatListItem.secondaryText.text = qsTr("%1 members", "", groupFullInfo.members.length).arg(Number(groupFullInfo.members.length).toLocaleString(Qt.locale(), "f", 0));
-                                        foundChatListItem.tertiaryText.text = Emoji.emojify(groupFullInfo.description, foundChatListItem.tertiaryText.font.pixelSize, "../js/emoji/");
-                                    }
-                                }
-
-                                onSupergroupFullInfoUpdated: {
-                                    if (foundChatListDelegate.isSupergroup && groupId.toString() === foundChatListDelegate.foundChatInformation.type.supergroup_id.toString()) {
-                                        if (foundChatListDelegate.relatedInformation.is_channel) {
-                                            foundChatListItem.secondaryText.text = qsTr("%1 subscribers", "", groupFullInfo.member_count).arg(Number(groupFullInfo.member_count).toLocaleString(Qt.locale(), "f", 0));
-                                        } else {
-                                            foundChatListItem.secondaryText.text = qsTr("%1 members", "", groupFullInfo.member_count).arg(Number(groupFullInfo.member_count).toLocaleString(Qt.locale(), "f", 0));
-                                        }
-                                        foundChatListItem.tertiaryText.text = Emoji.emojify(groupFullInfo.description, foundChatListItem.tertiaryText.font.pixelSize, "../js/emoji/");
-                                    }
-                                }
-                                onSupergroupFullInfoReceived: {
-                                    if (foundChatListDelegate.isSupergroup && groupId.toString() === foundChatListDelegate.foundChatInformation.type.supergroup_id.toString()) {
-                                        if (foundChatListDelegate.relatedInformation.is_channel) {
-                                            foundChatListItem.secondaryText.text = qsTr("%1 subscribers", "", groupFullInfo.member_count).arg(Number(groupFullInfo.member_count).toLocaleString(Qt.locale(), "f", 0));
-                                        } else {
-                                            foundChatListItem.secondaryText.text = qsTr("%1 members", "", groupFullInfo.member_count).arg(Number(groupFullInfo.member_count).toLocaleString(Qt.locale(), "f", 0));
-                                        }
-                                        foundChatListItem.tertiaryText.text = Emoji.emojify(groupFullInfo.description, foundChatListItem.tertiaryText.font.pixelSize, "../js/emoji/");
-                                    }
-                                }
-                            }
-
-                            PhotoTextsListItem {
-                                id: foundChatListItem
-
-                                pictureThumbnail {
-                                    photoData: typeof foundChatInformation.photo.small !== "undefined" ? foundChatInformation.photo.small : {}
-                                }
-                                width: parent.width
-
-                                primaryText.text: Emoji.emojify(foundChatInformation.title, primaryText.font.pixelSize, "../js/emoji/")
-                                tertiaryText.maximumLineCount: 1
-
-                                ad: !!foundSponsorInformation
-
-                                onClicked: {
-                                    pageStack.push(Qt.resolvedUrl("../pages/ChatPage.qml"), { "chatInformation" : foundChatInformation });
-                                    tdLibWrapper.addRecentlyFoundChat(foundChatInformation.id)
-                                    tdLibWrapper.searchRecentlyFoundChats(searchField.text)
-                                }
-                            }
-                        }
-                    }
-
                 }
 
                 BusyLabel {
