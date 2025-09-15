@@ -41,7 +41,7 @@ Page {
         onTriggered: {
             Debug.log("Searching for '" + searchField.text + "' globally")
             tdLibWrapper.searchPublicChats(searchField.text)
-            searchChatsPage.isLoading = true
+            searchChatsPage.publicLoading = true
         }
     }
 
@@ -51,11 +51,10 @@ Page {
             Debug.log("Chats found", extra, JSON.stringify(chatIds))
             if (extra == 'searchChats') {
                 localChatsFound = chatIds
-                searchChatsPage.isLoading = false
             } else if (extra == 'searchPublicChats') {
                 publicChatsFound = chatIds
                 tdLibWrapper.getSearchSponsoredChats(searchField.text)
-                searchChatsPage.isLoading = false
+                searchChatsPage.publicLoading = false
             }
         }
         onSponsoredChatsReceived: {
@@ -67,14 +66,15 @@ Page {
             }
             chatsFoundChanged()
 
-            searchChatsPage.isLoading = false
+            searchChatsPage.publicLoading = false
         }
         onErrorReceived: {
-            searchChatsPage.isLoading = false
+            searchChatsPage.publicLoading = false
         }
     }
 
-    property bool isLoading: false
+    property bool publicLoading: false
+    readonly property bool isLoading: publicLoading && publicSearchListView.haveNoLocalResults
     property var localChatsFound: []
     property var publicChatsFound: []
     property var sponsoredChats: ({})
@@ -134,10 +134,14 @@ Page {
                         visible: !searchChatsPage.isLoading
                         opacity: visible ? 1 : 0
                         Behavior on opacity { FadeAnimation {} }
+
+                        readonly property bool haveNoLocalResults: headerItem && headerItem.localSearchListView.count == 0
                         
                         header: Column {
                             width: parent.width
+                            property alias localSearchListView: localSearchListView
                             ColumnView {
+                                id: localSearchListView
                                 width: parent.width
                                 model: searchChatsPage.localChatsFound
                                 delegate: chatComponent
@@ -155,7 +159,7 @@ Page {
 
                         ViewPlaceholder {
                             y: Theme.paddingLarge
-                            enabled: publicSearchListView.count == 0 && (!publicSearchListView.headerItem || publicSearchListView.headerItem.count == 0)
+                            enabled: publicSearchListView.count == 0 && publicSearchListView.haveNoLocalResults
                             text: searchField.text.length < 5 ? qsTr("Enter your query to start searching (at least 5 characters needed)") : qsTr("No chats found.")
                         }
 
@@ -181,7 +185,7 @@ Page {
                                 case "chatTypePrivate":
                                     relatedInformation = tdLibWrapper.getUserInformation(foundChatInformation.type.user_id);
                                     foundChatListItem.prologSecondaryText.text = qsTr("Private Chat");
-                                    foundChatListItem.secondaryText.text = "@" + (relatedInformation.username !== "" ? relatedInformation.usernames.editable_username : relatedInformation.id);
+                                    foundChatListItem.secondaryText.text = "@" + (relatedInformation.usernames && relatedInformation.usernames.editable_username !== "" ? relatedInformation.usernames.editable_username : relatedInformation.id);
                                     tdLibWrapper.getUserFullInfo(foundChatInformation.type.user_id);
                                     isPrivateChat = true;
                                     break;
@@ -274,33 +278,11 @@ Page {
 
                 }
 
-                Column {
-
-                    opacity: visible ? 1 : 0
-                    Behavior on opacity { FadeAnimation {} }
-                    visible: searchChatsPage.isLoading
-                    width: parent.width
-                    height: loadingLabel.height + loadingBusyIndicator.height + Theme.paddingMedium
-
-                    spacing: Theme.paddingMedium
-
-                    anchors.verticalCenter: parent.verticalCenter
-
-                    InfoLabel {
-                        id: loadingLabel
-                        text: qsTr("Searching chats...")
-                    }
-
-                    BusyIndicator {
-                        id: loadingBusyIndicator
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        running: searchChatsPage.isLoading
-                        size: BusyIndicatorSize.Large
-                    }
+                BusyLabel {
+                    text: qsTr("Searching chats...")
+                    running: searchChatsPage.isLoading
                 }
-
             }
-
         }
     }
 }
