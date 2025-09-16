@@ -480,7 +480,7 @@ void AppSettings::setChatFoldersTabBarOnBottom(bool value) {
 }
 
 bool AppSettings::chatFoldersTabBarShowIcons() const {
-    return settings.value(CHAT_FOLDERS_TAB_BAR_SHOW_ICONS, true).toBool();
+    return settings.value(CHAT_FOLDERS_TAB_BAR_SHOW_ICONS, false).toBool();
 }
 void AppSettings::setChatFoldersTabBarShowIcons(bool value) {
     if (chatFoldersTabBarShowIcons() != value) {
