@@ -63,8 +63,8 @@ SilicaListView {
 
     ViewPlaceholder {
         enabled: chatListView.count === 0
-        text: !model || chatListView.model.count === 0 ? qsTr("You don't have any chats yet.") : qsTr("No matching chats found.")
-        hintText: qsTr("You can search public chats or create a new chat via the pull-down menu.")
+        text: qsTr("You don't have any chats yet.")
+        hintText: qsTr("Pull down to search public chats or create a new chat")
     }
 
     VerticalScrollDecorator {}
