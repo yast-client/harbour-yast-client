@@ -426,7 +426,7 @@ Page {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: pageStack.push(Qt.resolvedUrl("SearchChatsPage.qml"), undefined, PageStackAction.Immediate)
+            onClicked: pageStack.push(Qt.resolvedUrl("SearchChatsPage.qml"), {fromTitleBar: true}, PageStackAction.Immediate)
         }
     }
 

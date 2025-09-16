@@ -27,6 +27,8 @@ Page {
     id: searchChatsPage
     allowedOrientations: Orientation.All
 
+    property bool fromTitleBar
+
     function resetFocus() {
         searchField.focus = false;
         searchChatsPage.focus = true;
@@ -105,6 +107,12 @@ Page {
             PageHeader {
                 id: searchChatsPageHeader
                 title: qsTr("Search", "page header for search page")
+
+                MouseArea {
+                    anchors.fill: parent
+                    enabled: fromTitleBar
+                    onClicked: pageStack.pop(undefined, PageStackAction.Immediate)
+                }
             }
 
             Item {
