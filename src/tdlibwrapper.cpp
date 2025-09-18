@@ -182,7 +182,7 @@ TDLibWrapper::TDLibWrapper(AppSettings *settings, MceInterface *mce, QObject *pa
     }
 
     this->dbusInterface = new DBusInterface(this);
-    if (appSettings->getUseOpenWith()) {
+    if (appSettings->useOpenWith()) {
         initializeOpenWith();
     } else {
         removeOpenWith();
@@ -1927,7 +1927,7 @@ void TDLibWrapper::handleStickerSets(const QVariantList &stickerSets) {
 }
 
 void TDLibWrapper::handleOpenWithChanged() {
-    if (this->appSettings->getUseOpenWith()) {
+    if (this->appSettings->useOpenWith()) {
         this->initializeOpenWith();
     } else {
         this->removeOpenWith();
@@ -2036,7 +2036,7 @@ void TDLibWrapper::handleUpdatedUserPrivacySettingRules(const QVariantMap &updat
 }
 
 void TDLibWrapper::handleSponsoredMessage(qlonglong chatId, const QVariantMap &message) {
-    switch (appSettings->getSponsoredMess()) {
+    switch (appSettings->sponsoredMess()) {
     case AppSettings::SponsoredMessHandle:
         emit sponsoredMessageReceived(chatId, message);
         break;
@@ -2148,6 +2148,7 @@ QVariantMap& TDLibWrapper::fillTdlibParameters(QVariantMap& parameters) {
     parameters.insert("api_id", TDLIB_API_ID);
     parameters.insert("api_hash", TDLIB_API_HASH);
     parameters.insert("database_directory", QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/tdlib");
+    parameters.insert("files_directory", QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/tdlib");
     bool onlineOnlyMode = this->appSettings->onlineOnlyMode();
     parameters.insert("use_file_database", !onlineOnlyMode);
     parameters.insert("use_chat_info_database", !onlineOnlyMode);
