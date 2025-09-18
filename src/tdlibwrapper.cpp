@@ -137,7 +137,7 @@ TDLibWrapper::TDLibWrapper(AppSettings *settings, MceInterface *mce, QObject *pa
     }
 
     this->dbusInterface = new DBusInterface(this);
-    if (appSettings->getUseOpenWith()) {
+    if (appSettings->useOpenWith()) {
         initializeOpenWith();
     } else {
         removeOpenWith();
@@ -1660,7 +1660,7 @@ void TDLibWrapper::handleStickerSets(const QVariantList &stickerSets) {
 }
 
 void TDLibWrapper::handleOpenWithChanged() {
-    if (this->appSettings->getUseOpenWith()) {
+    if (this->appSettings->useOpenWith()) {
         this->initializeOpenWith();
     } else {
         this->removeOpenWith();
@@ -1759,7 +1759,7 @@ void TDLibWrapper::handleUpdatedUserPrivacySettingRules(const QVariantMap &updat
 }
 
 void TDLibWrapper::handleSponsoredMessage(qlonglong chatId, const QVariantMap &message) {
-    switch (appSettings->getSponsoredMess()) {
+    switch (appSettings->sponsoredMess()) {
     case AppSettings::SponsoredMessHandle:
         emit sponsoredMessageReceived(chatId, message);
         break;
