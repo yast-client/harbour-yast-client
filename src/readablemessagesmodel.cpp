@@ -66,7 +66,7 @@ int ReadableMessagesModel::calculateScrollPosition() {
     if (scrollPosition == -1) {
         LOG("calculateLastScrollMessageIndex");
 
-        int listInboxPosition = lastReadInboxMessageId();
+        int listInboxPosition = this->messageIndexMap.value(lastReadInboxMessageId(), -1);
         int listOwnPosition = findLastSentMessageIndex();
 
         if (listInboxPosition > messages.size() - 1) listInboxPosition = -1;
