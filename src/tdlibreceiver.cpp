@@ -201,6 +201,7 @@ TDLibReceiver::TDLibReceiver(int tdLibClientId, QObject *parent) : QThread(paren
     handlers.insert("emojiKeywords", &TDLibReceiver::processEmojiKeywords);
     handlers.insert("updateDiceEmojis", &TDLibReceiver::processUpdateDiceEmojis);
     handlers.insert("updateSuggestedActions", &TDLibReceiver::processUpdateSuggestedActions);
+    handlers.insert("count", &TDLibReceiver::processCount);
 }
 
 void TDLibReceiver::setActive(bool active)
@@ -1080,4 +1081,11 @@ void TDLibReceiver::processUpdateDiceEmojis(const QVariantMap &receivedInformati
 void TDLibReceiver::processUpdateSuggestedActions(const QVariantMap &receivedInformation) {
     LOG("Received updateSuggestedActions");
     emit suggestedActionsUpdated(receivedInformation.value("added_actions").toList(), receivedInformation.value("removed_actions").toList());
+}
+
+void TDLibReceiver::processCount(const QVariantMap &receivedInformation) {
+    const QString extra = receivedInformation.value(_EXTRA).toString();
+    const int count = receivedInformation.value("count").toInt();
+    LOG("Received count" << extra << count);
+    emit countReceived(count, extra);
 }
