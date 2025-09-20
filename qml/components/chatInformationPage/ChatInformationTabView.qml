@@ -145,6 +145,20 @@ Item {
                                 image: "image://theme/icon-m-diagnostic"
                             });
 
+        tdLibWrapper.getChatMessageCount(chatInformation.id, TelegramAPI.SearchMessagesFilterPhotoAndVideo)
+    }
+
+    Connections {
+        target: tdLibWrapper
+        onCountReceived:
+            if (extra == "searchMessagesFilterPhotoAndVideo:" + chatInformation.id && count > 0) {
+                tabModel.insert(0, {
+                    tab:"ChatInformationTabItemMedia",
+                    title: qsTr("Media", "Button: Chat media (photos and videos)"),
+                    image: "image://theme/icon-m-image"
+                })
+                tabView.openTab(0)
+            }
     }
 
 }

@@ -30,6 +30,7 @@ struct MessageData {
     MessageData(const QVariantMap &data, qlonglong msgid);
 
     static bool lessThan(const MessageData *message1, const MessageData *message2);
+    static bool moreThan(const MessageData *message1, const MessageData *message2);
     static QVector<int> flagsToRoles(uint flags);
 
     uint updateMessageData(const QVariantMap &data);

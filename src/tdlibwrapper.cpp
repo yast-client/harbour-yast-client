@@ -85,6 +85,7 @@ namespace {
     const QString LIMIT("limit");
     const QString OFFSET("offset");
     const QString QUERY("query");
+    const QString FILTER("filter");
     const QString EXTRA_RECENTLY_FOUND("recentlyFound");
     const QStringList ALL_FILE_TYPES(QStringList()
                                      << "fileTypeAnimation"
@@ -190,6 +191,7 @@ void TDLibWrapper::initializeTDLibReceiver() {
     connect(this->tdLibReceiver, &TDLibReceiver::superGroupUpdated, this, &TDLibWrapper::handleSuperGroupUpdated);
     connect(this->tdLibReceiver, &TDLibReceiver::chatOnlineMemberCountUpdated, this, &TDLibWrapper::chatOnlineMemberCountUpdated);
     connect(this->tdLibReceiver, &TDLibReceiver::messagesReceived, this, &TDLibWrapper::messagesReceived);
+    connect(this->tdLibReceiver, &TDLibReceiver::foundChatMessagesReceived, this, &TDLibWrapper::handleFoundChatMessagesReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::sponsoredMessageReceived, this, &TDLibWrapper::handleSponsoredMessage);
     connect(this->tdLibReceiver, &TDLibReceiver::messageLinkInfoReceived, this, &TDLibWrapper::messageLinkInfoReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::newMessageReceived, this, &TDLibWrapper::newMessageReceived);
@@ -921,8 +923,10 @@ void TDLibWrapper::removeContact(QString userId) {
     removeContacts(QStringList{userId});
 }
 
-void TDLibWrapper::searchChatMessages(qlonglong chatId, const QString &query, qlonglong fromMessageId) {
-    LOG("Searching for messages" << chatId << query << fromMessageId);
+void TDLibWrapper::searchChatMessages(qlonglong chatId, const QString &query, qlonglong fromMessageId, SearchMessagesFilter filter) {
+    const QString filterType = getSearchMessagesFilterType(filter);
+
+    LOG("Searching for messages" << chatId << query << fromMessageId << filterType);
     this->sendRequest(QVariantMap{
         {_TYPE, "searchChatMessages"},
         {CHAT_ID, chatId},
@@ -930,7 +934,8 @@ void TDLibWrapper::searchChatMessages(qlonglong chatId, const QString &query, ql
         {"from_message_id", fromMessageId},
         {OFFSET, 0},
         {LIMIT, 50},
-        {_EXTRA, "searchChatMessages"}
+        {FILTER, QVariantMap{{_TYPE, filterType}}},
+        {_EXTRA, (int)filter}
     });
 }
 
@@ -2230,4 +2235,48 @@ void TDLibWrapper::getChatMessageCount(qlonglong chatId, SearchMessagesFilter fi
                           {FILTER, QVariantMap{{_TYPE, filterType}}},
                           {_EXTRA, filterType+":"+QString::number(chatId)}
                       });
+
+void TDLibWrapper::handleFoundChatMessagesReceived(const int extra, const QVariantList &messages, int totalCount, qlonglong nextFromMessageId) {
+    emit foundChatMessagesReceived((SearchMessagesFilter)extra, messages, totalCount, nextFromMessageId);
+}
+
+QString TDLibWrapper::getSearchMessagesFilterType(SearchMessagesFilter filter) {
+    switch (filter) {
+    case SearchMessagesFilterEmpty:
+        return "searchMessagesFilterEmpty";
+    case SearchMessagesFilterPhotoAndVideo:
+        return "searchMessagesFilterPhotoAndVideo";
+    case SearchMessagesFilterAnimation:
+        return "searchMessagesFilterAnimation";
+    case SearchMessagesFilterAudio:
+        return "searchMessagesFilterAudio";
+    case SearchMessagesFilterChatPhoto:
+        return "searchMessagesFilterChatPhoto";
+    case SearchMessagesFilterDocument:
+        return "searchMessagesFilterDocument";
+    case SearchMessagesFilterFailedToSend:
+        return "searchMessagesFilterFailedToSend";
+    case SearchMessagesFilterMention:
+        return "searchMessagesFilterMention";
+    case SearchMessagesFilterPhoto:
+        return "searchMessagesFilterPhoto";
+    case SearchMessagesFilterPinned:
+        return "searchMessagesFilterPinned";
+    case SearchMessagesFilterUnreadMention:
+        return "searchMessagesFilterUnreadMention";
+    case SearchMessagesFilterUnreadReaction:
+        return "searchMessagesFilterUnreadReaction";
+    case SearchMessagesFilterUrl:
+        return "searchMessagesFilterUrl";
+    case SearchMessagesFilterVideo:
+        return "searchMessagesFilterVideo";
+    case SearchMessagesFilterVideoNote:
+        return "searchMessagesFilterVideoNote";
+    case SearchMessagesFilterVoiceAndVideoNote:
+        return "searchMessagesFilterVoiceAndVideoNote";
+    case SearchMessagesFilterVoiceNote:
+        return "searchMessagesFilterVoiceNote";
+    }
+
+    return "searchMessagesFilterEmpty";
 }

@@ -448,3 +448,35 @@ int MessagesModel::findLastSentMessageIndex() {
             return i;
     return -1;
 }
+
+bool MessagesModel::handleInsertMessages(const QVariantList &messages, QList<MessageData*> &newMessagesList, bool setAlbum, bool reverseOrder) {
+    // Returns true if it is required to load more messages
+
+    LOG("Inserting" << messages.size() << "messages from TDLib");
+
+    QListIterator<QVariant> messagesIterator(messages);
+
+    while (messagesIterator.hasNext()) {
+        const QVariantMap messageData = messagesIterator.next().toMap();
+        const qlonglong messageId = messageData.value(ID).toLongLong();
+        if (messageId && messageData.value(CHAT_ID).toLongLong() == chatId && !messageIndexMap.contains(messageId)) {
+            LOG("New message will be added:" << messageId);
+            MessageData* message = new MessageData(messageData, messageId);
+            newMessagesList.append(message);
+        }
+    }
+
+    std::sort(newMessagesList.begin(), newMessagesList.end(), reverseOrder ? MessageData::moreThan : MessageData::lessThan);
+
+    if (!newMessagesList.isEmpty()) {
+        insertMessages(newMessagesList);
+        if (setAlbum)
+            setMessagesAlbum(newMessagesList);
+    }
+
+    // First call only returns a few messages, we need to get a little more than that...
+    // (possibly) fixme
+    const bool reloadNeeded = !newMessagesList.isEmpty() && (newMessagesList.size() + messages.size()) < 10;
+    if (reloadNeeded) LOG("Only a few messages received in first call, requesting to load more...");
+    return reloadNeeded;
+}

@@ -58,23 +58,25 @@ private slots:
     void handleMessageContentUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &newContent);
     void handleMessageEditedUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &replyMarkup);
     void handleMessageInteractionInfoUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &updatedInfo);
-    void handleMessagesDeleted(qlonglong chatId, const QList<qlonglong> &messageIds);
 
 private:
-    void removeRange(int firstDeleted, int lastDeleted);
     void updateAlbumMessages(qlonglong albumId, bool checkDeleted);
     void updateAlbumMessages(QList<qlonglong> albumIds, bool checkDeleted);
     void setMessagesAlbum(MessageData *message);
 
 protected:
-    void insertMessages(const QList<MessageData*> newMessages);
+    void removeRange(int firstDeleted, int lastDeleted);
+    virtual void insertMessages(const QList<MessageData*> newMessages);
     void appendMessages(const QList<MessageData*> newMessages);
     void prependMessages(const QList<MessageData*> newMessages);
     void setMessagesAlbum(const QList<MessageData*> newMessages);
-    virtual void loadMessages(qlonglong fromMessageId, int offset = -1) = 0;
-    virtual inline bool canLoadMoreMessages() const { return true; }
     int findLastSentMessageIndex();
+    bool handleInsertMessages(const QVariantList &messages, QList<MessageData*> &newMessagesList, bool setAlbum = true, bool reverseOrder = false);
 
+protected slots:
+    virtual void handleMessagesDeleted(qlonglong chatId, const QList<qlonglong> &messageIds);
+
+protected:
 signals:
     void messageSendSucceeded();
 

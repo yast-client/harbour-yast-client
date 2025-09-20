@@ -19,6 +19,7 @@ ReadableMessagesModel::ReadableMessagesModel(TDLibWrapper *tdLibWrapper, QObject
     loadingFullEnd(false)
 {
     connect(this->tdLibWrapper, &TDLibWrapper::messagesReceived, this, &ReadableMessagesModel::handleMessagesReceived);
+    connect(this->tdLibWrapper, &TDLibWrapper::foundChatMessagesReceived, this, &ReadableMessagesModel::handleFoundChatMessagesReceived);
     connect(this->tdLibWrapper, &TDLibWrapper::sponsoredMessageReceived, this, &ReadableMessagesModel::handleSponsoredMessageReceived);
     connect(this->tdLibWrapper, &TDLibWrapper::newMessageReceived, this, &ReadableMessagesModel::handleNewMessageReceived);
 
@@ -163,31 +164,14 @@ void ReadableMessagesModel::handleMessagesReceived(const QVariantList &messages,
         emit messagesReceived(scrollPosition, totalCount, fromIncrementalUpdate);
     } else {
         if (this->inIncrementalUpdate || this->inReload || this->messages.size() == 0 || this->isMostRecentMessageLoaded()) {
-            QList<MessageData*> messagesToBeAdded;
-            QListIterator<QVariant> messagesIterator(messages);
-
-            while (messagesIterator.hasNext()) {
-                const QVariantMap messageData = messagesIterator.next().toMap();
-                const qlonglong messageId = messageData.value(ID).toLongLong();
-                if (messageId && messageData.value(CHAT_ID).toLongLong() == chatId && !messageIndexMap.contains(messageId)) {
-                    LOG("New message will be added:" << messageId);
-                    MessageData* message = new MessageData(messageData, messageId);
-                    messagesToBeAdded.append(message);
-                }
-            }
-
-            std::sort(messagesToBeAdded.begin(), messagesToBeAdded.end(), MessageData::lessThan);
-
-            if (!messagesToBeAdded.isEmpty()) {
-                insertMessages(messagesToBeAdded);
-                setMessagesAlbum(messagesToBeAdded);
-            }
+            QList<MessageData*> addedMessages;
+            const bool reloadNeeded = handleInsertMessages(messages, addedMessages);
 
             // First call only returns a few messages, we need to get a little more than that...
-            if (!messagesToBeAdded.isEmpty() && (messagesToBeAdded.size() + messages.size()) < 10 && !inReload) {
+            if (reloadNeeded && !inReload) {
                 LOG("Only a few messages received in first call, loading more...");
                 this->inReload = true;
-                this->loadMessages(messagesToBeAdded.first()->messageId, 0); // (possibly) fixme
+                this->loadMessages(addedMessages.first()->messageId, 0); // (possibly) fixme
             } else {
                 LOG("Messages loaded, notifying chat UI...");
                 this->inReload = false;
@@ -206,6 +190,13 @@ void ReadableMessagesModel::handleMessagesReceived(const QVariantList &messages,
         }
     }
 
+}
+
+void ReadableMessagesModel::handleFoundChatMessagesReceived(TDLibWrapper::SearchMessagesFilter filter, const QVariantList &messages, int totalCount, qlonglong /*nextFromMessageId*/) {
+    if (filter == TDLibWrapper::SearchMessagesFilterEmpty) {
+        LOG("Found chat messages received");
+        handleMessagesReceived(messages, totalCount);
+    }
 }
 
 void ReadableMessagesModel::handleSponsoredMessageReceived(qlonglong chatId, const QVariantMap &sponsoredMessage) {

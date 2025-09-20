@@ -2,6 +2,7 @@
 #define CHATMODEL_H
 
 #include "readablemessagesmodel.h"
+#include "mediamessagesmodel.h"
 
 class ChatModel : public ReadableMessagesModel {
     Q_OBJECT
@@ -9,6 +10,7 @@ class ChatModel : public ReadableMessagesModel {
     Q_PROPERTY(QVariantMap smallPhoto READ smallPhoto NOTIFY smallPhotoChanged)
     Q_PROPERTY(QVariantMap chatActionsByUsers MEMBER chatActionsByUsers NOTIFY chatActionsChanged)
     Q_PROPERTY(QVariantMap chatActionsByChats MEMBER chatActionsByChats NOTIFY chatActionsChanged)
+    Q_PROPERTY(MediaMessagesModel* mediaMessagesModel MEMBER mediaMessagesModel)
 
 public:
     ChatModel(TDLibWrapper *tdLibWrapper, QObject *parent = nullptr);
@@ -17,6 +19,7 @@ public:
     Q_INVOKABLE virtual void reset() override;
     Q_INVOKABLE void initialize(const QVariantMap &chatInformation, qlonglong fromMessageId = 0);
     Q_INVOKABLE void setSearchQuery(const QString newSearchQuery);
+    Q_INVOKABLE void initializeMediaMessagesModel();
 
     QVariantMap smallPhoto() const;
 
@@ -46,6 +49,8 @@ protected:
 private:
     QVariantMap chatInformation;
     QString searchQuery;
+
+    MediaMessagesModel* mediaMessagesModel;
 
     QVariantMap chatActionsByUsers; // QMap<qlonglong, QString>
     QVariantMap chatActionsByChats; //QMap<qlonglong, QString>

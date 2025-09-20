@@ -29,6 +29,7 @@ SOURCES += src/harbour-fernschreiber2.cpp \
     src/contactsmodel.cpp \
     src/dbusadaptor.cpp \
     src/dbusinterface.cpp \
+    src/mediamessagesmodel.cpp \
     src/messagedata.cpp \
     src/messagesmodel.cpp \
     src/readablemessagesmodel.cpp \
@@ -93,6 +94,7 @@ DISTFILES += qml/harbour-fernschreiber2.qml \
     qml/components/chatInformationPage/ChatInformationProfilePicture.qml \
     qml/components/chatInformationPage/ChatInformationTabItemBase.qml \
     qml/components/chatInformationPage/ChatInformationTabItemDebug.qml \
+    qml/components/chatInformationPage/ChatInformationTabItemMedia.qml \
     qml/components/chatInformationPage/ChatInformationTabItemMembersGroups.qml \
     qml/components/chatInformationPage/ChatInformationTabItemSettings.qml \
     qml/components/chatInformationPage/ChatInformationTabView.qml \
@@ -250,6 +252,7 @@ HEADERS += \
     src/dbusinterface.h \
     src/debuglog.h \
     src/debuglogjs.h \
+    src/mediamessagesmodel.h \
     src/messagedata.h \
     src/messagesmodel.h \
     src/readablemessagesmodel.h \

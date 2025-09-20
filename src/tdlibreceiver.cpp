@@ -83,6 +83,7 @@ namespace {
     const QString VOICE_NOTE("voice_note");
     const QString WAVEFORM("waveform");
     const QString DECODED_WAVEFORM("decoded_waveform");
+    const QString NEXT_FROM_MESSAGE_ID("next_from_message_id");
 
     const QString _TYPE("@type");
     const QString _EXTRA("@extra");
@@ -410,8 +411,10 @@ void TDLibReceiver::processMessages(const QVariantMap &receivedInformation)
 void TDLibReceiver::processFoundChatMessages(const QVariantMap &receivedInformation)
 {
     const int totalCount = receivedInformation.value(TOTAL_COUNT).toInt();
-    LOG("Received found chat messages, amount: " << totalCount);
-    emit messagesReceived(cleanupList(receivedInformation.value(MESSAGES).toList()), totalCount);
+    const qlonglong nextFromMessageId = receivedInformation.value(NEXT_FROM_MESSAGE_ID).toLongLong();
+    const int extra = receivedInformation.value(_EXTRA).toInt();
+    LOG("Received found chat messages, amount:" << totalCount << "next from message id:");
+    emit foundChatMessagesReceived(extra, cleanupList(receivedInformation.value(MESSAGES).toList()), totalCount, nextFromMessageId);
 }
 
 void TDLibReceiver::processSponsoredMessages(const QVariantMap &receivedInformation) {

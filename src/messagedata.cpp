@@ -193,3 +193,7 @@ bool MessageData::lessThan(const MessageData *message1, const MessageData *messa
 
     return message1->messageId < message2->messageId;
 }
+
+bool MessageData::moreThan(const MessageData *message1, const MessageData *message2) {
+    return !lessThan(message1, message2);
+}

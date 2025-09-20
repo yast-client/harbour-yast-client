@@ -18,7 +18,8 @@ namespace {
 
 ChatModel::ChatModel(TDLibWrapper *tdLibWrapper, QObject *parent) :
     ReadableMessagesModel(tdLibWrapper, parent),
-    searchQuery()
+    searchQuery(),
+    mediaMessagesModel(new MediaMessagesModel(tdLibWrapper, this))
 {
     connect(this->tdLibWrapper, &TDLibWrapper::chatPhotoUpdated, this, &ChatModel::handleChatPhotoUpdated);
     connect(this->tdLibWrapper, &TDLibWrapper::chatPinnedMessageUpdated, this, &ChatModel::handleChatPinnedMessageUpdated);
@@ -87,6 +88,8 @@ bool ChatModel::clear() {
 void ChatModel::reset() {
     ReadableMessagesModel::reset();
 
+    this->mediaMessagesModel->clear();
+
     if (!chatInformation.isEmpty()) {
         chatInformation.clear();
         emit smallPhotoChanged();
@@ -132,6 +135,10 @@ void ChatModel::loadMessages(qlonglong fromMessageId, int offset) {
     else
         // ignore offset for now
         this->tdLibWrapper->searchChatMessages(chatId, searchQuery, fromMessageId);
+}
+
+void ChatModel::initializeMediaMessagesModel() {
+    this->mediaMessagesModel->init(this->chatId);
 }
 
 

@@ -34,6 +34,7 @@ signals:
 
 private slots:
     void handleMessagesReceived(const QVariantList &messages, int totalCount);
+    void handleFoundChatMessagesReceived(TDLibWrapper::SearchMessagesFilter filter, const QVariantList &messages, int totalCount, qlonglong /*nextFromMessageId*/);
     void handleSponsoredMessageReceived(qlonglong chatId, const QVariantMap &sponsoredMessage);
     void handleNewMessageReceived(qlonglong chatId, const QVariantMap &message);
 
