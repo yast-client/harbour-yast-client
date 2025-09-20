@@ -25,7 +25,7 @@ Column {
     width: parent.width
     property SilicaFlickable flickable
     property bool animate: false
-    signal setActiveArea(string activeAreaTitle)
+    signal setActiveArea(string activeAreaName)
     function scrollUpFlickable(amount) {
         if(flickable) {
             flickableAnimation.to = Math.max(0, flickable.contentY - amount);

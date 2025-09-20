@@ -24,43 +24,17 @@
 #include "tdlibwrapper.h"
 #include "appsettings.h"
 #include "utilities.h"
+#include "tdlibreceiver.h"
+#include "chatdata.h"
 
 class ChatListModel : public QAbstractListModel
 {
     Q_OBJECT
-    Q_PROPERTY(bool showAllChats READ showAllChats WRITE setShowAllChats NOTIFY showAllChatsChanged)
     Q_PROPERTY(int count READ rowCount NOTIFY countChanged)
-
+    Q_PROPERTY(int unreadChatCount READ getUnreadChatCount NOTIFY unreadChatCountChanged)
+    Q_PROPERTY(int unreadMessageCount READ getUnreadMessageCount NOTIFY unreadMessageCountChanged)
 public:
-
-    enum Role {
-        RoleDisplay = Qt::DisplayRole,
-        RoleChatId,
-        RoleChatType,
-        RoleGroupId,
-        RoleTitle,
-        RolePhotoSmall,
-        RoleUnreadCount,
-        RoleUnreadMentionCount,
-        RoleUnreadReactionCount,
-        RoleAvailableReactions,
-        RoleLastReadInboxMessageId,
-        RoleLastMessageSenderId,
-        RoleLastMessageDate,
-        RoleLastMessageText,
-        RoleLastMessageStatus,
-        RoleChatMemberStatus,
-        RoleSecretChatState,
-        RoleVerificationStatus,
-        RoleIsChannel,
-        RoleIsMarkedAsUnread,
-        RoleIsPinned,
-        RoleFilter,
-        RoleDraftMessageText,
-        RoleDraftMessageDate
-    };
-
-    ChatListModel(TDLibWrapper *tdLibWrapper, AppSettings *appSettings, Utilities *utilities);
+    ChatListModel(TDLibWrapper *tdLibWrapper, AppSettings *appSettings, Utilities *utilities, bool archive = false, bool doNotConnectChatListSignals = false);
     ~ChatListModel() override;
 
     QHash<int,QByteArray> roleNames() const Q_DECL_OVERRIDE;
@@ -69,58 +43,70 @@ public:
 
     Q_INVOKABLE void redrawModel();
     Q_INVOKABLE QVariantMap get(int row);
+
+    virtual int getUnreadChatCount(bool asFolder = false) const;
+    virtual int getUnreadMessageCount(bool asFolder = false) const;
+
+public slots:
     Q_INVOKABLE void reset();
 
     Q_INVOKABLE void calculateUnreadState();
 
-    bool showAllChats() const;
-    void setShowAllChats(bool showAll);
+    void handleChatAddedToList(ChatData *chatData, qlonglong order, bool isPinned);
+
+signals:
+    void unreadChatCountChanged();
+    void unreadMessageCountChanged();
+
+protected slots:
+    void handleUnreadChatCountUpdated(const QVariantMap &chatCountInformation);
+    void handleUnreadMessageCountUpdated(const QVariantMap &messageCountInformation);
+
+    void handleChatRemovedFromList(qlonglong chatId);
+    void handleChatPositionUpdated(qlonglong chatId, qlonglong order, bool isPinned);
 
 private slots:
-    void handleChatDiscovered(qlonglong chatId, const QVariantMap &chatInformation);
-    void handleChatLastMessageUpdated(qlonglong chatId, const QVariant &order, const QVariantMap &lastMessage);
-    void handleChatOrderUpdated(qlonglong chatId, qlonglong order);
-    void handleChatReadInboxUpdated(const QString &chatId, const QString &lastReadInboxMessageId, int unreadCount);
-    void handleChatReadOutboxUpdated(const QString &chatId, const QString &lastReadOutboxMessageId);
-    void handleChatPhotoUpdated(qlonglong chatId, const QVariantMap &photo);
+    void handleChatRolesChanged(qlonglong chatId, const QVector<int> changedRoles);
     void handleChatPinnedMessageUpdated(qlonglong chatId, qlonglong pinnedMessageId);
     void handleMessageSendSucceeded(qlonglong messageId, qlonglong oldMessageId, const QVariantMap &message);
-    void handleChatNotificationSettingsUpdated(const QString &chatId, const QVariantMap &chatNotificationSettings);
-    void handleGroupUpdated(qlonglong groupId);
-    void handleSecretChatUpdated(qlonglong secretChatId, const QVariantMap &secretChat);
-    void handleChatTitleUpdated(qlonglong chatId, const QString &title);
-    void handleChatPinnedUpdated(qlonglong chatId, bool chatIsPinned);
-    void handleChatIsMarkedAsUnreadUpdated(qlonglong chatId, bool chatIsMarkedAsUnread);
-    void handleChatDraftMessageUpdated(qlonglong chatId, const QVariantMap &draftMessage, const QVariant &order);
-    void handleChatUnreadMentionCountUpdated(qlonglong chatId, int unreadMentionCount);
-    void handleChatUnreadReactionCountUpdated(qlonglong chatId, int unreadReactionCount);
-    void handleChatAvailableReactionsUpdated(qlonglong chatId, const QVariantMap availableReactions);
     void handleRelativeTimeRefreshTimer();
 
 signals:
     void countChanged();
     void showAllChatsChanged();
-    void chatChanged(const qlonglong &changedChatId);
     void chatJoined(const qlonglong &chatId, const QString &chatTitle);
     void unreadStateChanged(int unreadMessagesCount, int unreadChatsCount);
 
 private:
-    class ChatData;
-    void addVisibleChat(ChatData *chat);
-    void updateChatVisibility(const TDLibWrapper::Group *group);
-    void updateSecretChatVisibility(const QVariantMap secretChatDetails);
-    int updateChatOrder(int chatIndex);
+    class ListChatData {
+    public:
+        ListChatData(ChatData *data, qlonglong order, bool isPinned);
+        ChatData *data;
+        qlonglong order;
+        bool isPinned;
+        bool setOrder(const QVariant &order);
+        int compareTo(const ListChatData *other) const;
+    };
+
+    int updateChatOrder(const int chatIndex);
+    void updateChatIsPinned(const int chatIndex, const bool isPinned);
     void enableRefreshTimer();
 
 private:
     TDLibWrapper *tdLibWrapper;
-    AppSettings *appSettings;
     Utilities *utilities;
     QTimer *relativeTimeRefreshTimer;
-    QList<ChatData*> chatList;
+    QList<ListChatData*> chatList; // should we use a list of pointers to ListChatData or of plain ListChatData?
     QHash<qlonglong, int> chatIndexMap;
-    QHash<qlonglong, ChatData*> hiddenChats;
-    bool showHiddenChats;
+    bool archive;
+
+protected:
+    AppSettings *appSettings;
+
+    int unreadChatCount;
+    int unreadUnmutedChatCount;
+    int unreadMessageCount;
+    int unreadUnmutedMessageCount;
 };
 
 #endif // CHATLISTMODEL_H

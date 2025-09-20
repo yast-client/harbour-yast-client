@@ -24,6 +24,7 @@ import "../components"
 import "../js/twemoji.js" as Emoji
 import "../js/functions.js" as Functions
 import "../js/debug.js" as Debug
+import "../modules/Opal/Tabs"
 
 Page {
     id: overviewPage
@@ -34,6 +35,10 @@ Page {
     property bool logoutLoading: false;
     property int ownUserId;
     property bool chatListCreated: false;
+
+    property bool titleInteractionHintActive
+    property string loadingText
+    signal scrollToTopRequired
 
     // link handler:
     property string urlToOpen;
@@ -65,15 +70,15 @@ Page {
         running: false
         repeat: false
         onTriggered: {
-            overviewPage.chatListCreated = true;
-            chatListView.scrollToTop();
-            updateSecondaryContentTimer.start();
-            var remainingInteractionHints = appSettings.remainingInteractionHints;
-            Debug.log("Remaining interaction hints: " + remainingInteractionHints);
+            overviewPage.chatListCreated = true
+            scrollToTopRequired()
+            updateSecondaryContentTimer.start()
+            var remainingInteractionHints = appSettings.remainingInteractionHints
+            Debug.log("Remaining interaction hints: " + remainingInteractionHints)
             if (remainingInteractionHints > 0) {
-                interactionHintTimer.start();
-                titleInteractionHint.opacity = 1.0;
-                appSettings.remainingInteractionHints = remainingInteractionHints - 1;
+                interactionHintTimer.start()
+                titleInteractionHintActive = true
+                appSettings.remainingInteractionHints = remainingInteractionHints - 1
             }
             processUrlToOpen()
         }
@@ -89,7 +94,7 @@ Page {
         id: updateSecondaryContentTimer
         interval: 600
         onTriggered: {
-            chatListModel.calculateUnreadState()
+            tdLibWrapper.chatListsCalculateUnreadState()
             tdLibWrapper.getRecentStickers()
             tdLibWrapper.getInstalledStickerSets()
             tdLibWrapper.getContacts()
@@ -100,13 +105,6 @@ Page {
             tdLibWrapper.getUserPrivacySettingRules(TelegramAPI.SettingShowProfilePhoto)
             tdLibWrapper.getUserPrivacySettingRules(TelegramAPI.SettingShowStatus)
         }
-    }
-
-    TextFilterModel {
-        id: chatListProxyModel
-        sourceModel: (chatSearchField.opacity > 0) ? chatListModel : null
-        filterRoleName: "filter"
-        filterText: chatSearchField.text
     }
 
     function openChat(chatId) {
@@ -158,11 +156,8 @@ Page {
     }
 
     function updateContent() {
-        tdLibWrapper.getChats();
-    }
-
-    function initializePage() {
-        overviewPage.handleAuthorizationState(true);
+        tdLibWrapper.loadChats()
+        tdLibWrapper.loadChats(true)
     }
 
     function handleAuthorizationState(isOnInitialization) {
@@ -173,17 +168,16 @@ Page {
         case TelegramAPI.WaitRegistration:
             overviewPage.loading = false;
             overviewPage.logoutLoading = false;
-            if(isOnInitialization) { // pageStack isn't ready on Component.onCompleted
+            if(isOnInitialization) // pageStack isn't ready on Component.onCompleted
                 openInitializationPageTimer.start()
-            } else {
-                pageStack.push(Qt.resolvedUrl("../pages/InitializationPage.qml"));
-            }
+            else
+                pageStack.push(Qt.resolvedUrl("../pages/InitializationPage.qml"))
             break;
         case TelegramAPI.AuthorizationReady:
-            loadingBusyIndicator.text = qsTr("Loading chat list...");
-            overviewPage.loading = false;
-            overviewPage.initializationCompleted = true;
-            overviewPage.updateContent();
+            loadingText = qsTr("Loading chat list...")
+            overviewPage.loading = false
+            overviewPage.initializationCompleted = true
+            overviewPage.updateContent()
             break;
         case TelegramAPI.LoggingOut:
             if (logoutLoading) {
@@ -191,49 +185,29 @@ Page {
                 return;
             }
             Debug.log("Logging out")
-            overviewPage.initializationCompleted = false;
-            overviewPage.loading = false;
-            chatListCreatedTimer.stop();
-            updateSecondaryContentTimer.stop();
-            loadingBusyIndicator.text = qsTr("Logging out")
-            overviewPage.logoutLoading = true;
-            chatListModel.reset();
-            break;
+            overviewPage.initializationCompleted = false
+            overviewPage.loading = false
+            chatListCreatedTimer.stop()
+            updateSecondaryContentTimer.stop()
+            loadingText = qsTr("Logging out")
+            overviewPage.logoutLoading = true
+            tdLibWrapper.chatListsReset()
+            break
         default:
             // Nothing ;)
         }
     }
 
-    function resetFocus() {
-        if (chatSearchField.text === "") {
-            chatSearchField.opacity = 0.0;
-            pageHeader.opacity = 1.0;
-        }
-        chatSearchField.focus = false;
-        overviewPage.focus = true;
-    }
-
     Connections {
         target: tdLibWrapper
-        onAuthorizationStateChanged: {
-            handleAuthorizationState(false);
-        }
-        onOwnUserIdFound: {
-            overviewPage.ownUserId = ownUserId;
-        }
-        onChatLastMessageUpdated: {
-            if (!overviewPage.chatListCreated) {
-                chatListCreatedTimer.restart();
-            } else {
-                chatListModel.calculateUnreadState();
-            }
-        }
-        onChatOrderUpdated: {
-            if (!overviewPage.chatListCreated) {
-                chatListCreatedTimer.restart();
-            } else {
-                chatListModel.calculateUnreadState();
-            }
+        onAuthorizationStateChanged:
+            handleAuthorizationState(false)
+        onOwnUserIdFound:
+            overviewPage.ownUserId = ownUserId
+        onSomeChatListUpdated: {
+            if (!overviewPage.chatListCreated)
+                chatListCreatedTimer.restart()
+            else tdLibWrapper.chatListsCalculateUnreadState()
         }
         onChatsReceived: {
             if(chatIds && chatIds.length === 0) {
@@ -274,186 +248,203 @@ Page {
         }
     }
 
-    Component.onCompleted: initializePage()
+    Component.onCompleted:
+        overviewPage.handleAuthorizationState(true)
 
-    SilicaFlickable {
-        id: overviewContainer
-        contentHeight: parent.height
-        contentWidth: parent.width
+    TabView {
+        id: tabView
         anchors.fill: parent
-        visible: !overviewPage.loading
+        model: chatFoldersModel
 
-        PullDownMenu {
-            MenuItem {
-                text: "Debug"
-                visible: DebugLog.enabled
-                onClicked: pageStack.push(Qt.resolvedUrl("../pages/DebugPage.qml"), {overviewPage: overviewPage})
-            }
-            MenuItem {
-                text: qsTr("About Ferniegram")
-                onClicked: pageStack.push(Qt.resolvedUrl("../pages/AboutPage.qml"))
-            }
-            MenuItem {
-                text: qsTr("Settings")
-                onClicked: pageStack.push(Qt.resolvedUrl("../pages/SettingsPage.qml"))
-            }
-            MenuItem {
-                text: qsTr("Search Chats")
-                onClicked: pageStack.push(Qt.resolvedUrl("../pages/SearchChatsPage.qml"))
-            }
-            MenuItem {
-                text: qsTr("New Chat")
-                onClicked: pageStack.push(Qt.resolvedUrl("../pages/NewChatPage.qml"))
-            }
+        property real originalYOffset: currentItem && currentItem._yOffset || 0
+        yOffset: originalYOffset - header.height
+        //onYOffsetChanged: console.log(yOffset)
+
+        Component.onCompleted: {
+            tabView.tabBarItem.countRole = Qt.binding(function() { return appSettings.showFolderUnreadCount ? 'count' : '' })
+            tabView.tabBarItem.iconRole = Qt.binding(function() { return appSettings.chatFoldersTabBarShowIcons ? 'icon' : '' })
+            
+            tabView.tabBarItem.iconSize = Qt.size(Theme.iconSizeMedium, Theme.iconSizeMedium)
+            tabView.tabBarItem.iconColor = Qt.binding(function() { return Theme.primaryColor })
         }
 
-        PageHeader {
-            id: pageHeader
-            title: "Ferniegram"
-            leftMargin: Theme.itemSizeMedium
-            visible: opacity > 0
-            Behavior on opacity { FadeAnimation {} }
+        tabBarVisible: count > 1
+        tabBarPosition: appSettings.chatFoldersTabBarOnBottom ? Qt.AlignBottom : Qt.AlignTop
 
-            GlassItem {
-                id: pageStatus
-                width: Theme.itemSizeMedium
-                height: Theme.itemSizeMedium
-                color: "red"
-                falloffRadius: 0.1
-                radius: 0.2
-                cache: false
-                anchors.bottom: parent.bottom
-            }
+        delegate: Loader { // BIG HACK
+            id: tabLoader
+            asynchronous: true
 
-            states: [
-                State {
-                    name: "WaitingForNetwork"
-                    when: tdLibWrapper.connectionState == TelegramAPI.WaitingForNetwork
-                    PropertyChanges { target: pageStatus; color: "red" }
-                    PropertyChanges { target: pageHeader; title: qsTr("Waiting for network...") }
-                },
-                State {
-                    name: "Connecting"
-                    when: tdLibWrapper.connectionState == TelegramAPI.Connecting
-                    PropertyChanges { target: pageStatus; color: "gold" }
-                    PropertyChanges { target: pageHeader; title: qsTr("Connecting to network...") }
-                },
-                State {
-                    name: "ConnectingToProxy"
-                    when: tdLibWrapper.connectionState == TelegramAPI.ConnectingToProxy
-                    PropertyChanges { target: pageStatus; color: "gold" }
-                    PropertyChanges { target: pageHeader; title: qsTr("Connecting to proxy...") }
-                },
-                State {
-                    name: "ConnectionReady"
-                    when: tdLibWrapper.connectionState == TelegramAPI.ConnectionReady
-                    PropertyChanges { target: pageStatus; color: "green" }
-                    PropertyChanges { target: pageHeader; title: "Ferniegram" }
-                },
-                State {
-                    name: "Updating"
-                    when: tdLibWrapper.connectionState == TelegramAPI.Updating
-                    PropertyChanges { target: pageStatus; color: "lightblue" }
-                    PropertyChanges { target: pageHeader; title: qsTr("Updating content...") }
+            readonly property real _yOffset: item && item._yOffset || 0
+
+            // Loader's status is Loader.Loading when the component is partially loaded. We don't want the busy indicator in this state since the view is already usable in it, so for now we disable loading indicator completely.
+            //readonly property bool loading: Qt.application.active && PagedView.isCurrentItem && status === Loader.Loading
+
+            width: item ? item.implicitWidth : PagedView.contentWidth
+            height: item ? item.implicitHeight : PagedView.contentHeight
+
+            sourceComponent: Component {
+                TabItem {
+                    // this might break with Opal.Tabs updates:
+                    _page: tabView._page
+                    _tabContainer: tabLoader
+                    topMargin: (tabView._tabBarIsTop ? tabView.tabBarHeight : 0) + header.height
+                    bottomMargin: tabView._tabBarIsTop ? 0 : tabView.tabBarHeight
+
+                    allowDeletion: index != 0 // always keep first tab in cache
+
+                    //opacity: 1
+                    flickable: chatsFlickable
+                    SilicaFlickable {
+                        id: chatsFlickable
+                        anchors.fill: parent
+
+                        ChatsView {
+                            id: chatsView
+                            anchors.fill: parent
+                            model: chat_list_model
+
+                            function readChatList() {
+                                if (type == ChatFoldersModel.FolderFolder)
+                                    tdLibWrapper.readFolderChatList(id)
+                                else
+                                    tdLibWrapper.readChatList(type == ChatFoldersModel.FolderArchive)
+                            }
+                        }
+
+                        Loader {
+                            asynchronous: true
+                            sourceComponent: index == 0 ? mainPullDownMenu : folderPullDownMenu
+
+                            Component {
+                                id: mainPullDownMenu
+                                PullDownMenu {
+                                    MenuItem {
+                                        text: "Debug"
+                                        visible: DebugLog.enabled
+                                        onClicked: pageStack.push(Qt.resolvedUrl("../pages/DebugPage.qml"), {overviewPage: overviewPage})
+                                    }
+                                    MenuItem {
+                                        text: qsTr("Settings")
+                                        onClicked: pageStack.push(Qt.resolvedUrl("../pages/SettingsPage.qml"))
+                                    }
+                                    MenuItem {
+                                        text: qsTr("Search", "pulley menu option for opening search page")
+                                        onClicked: pageStack.push(Qt.resolvedUrl("../pages/SearchChatsPage.qml"))
+                                    }
+                                    MenuItem {
+                                        text: qsTr("New Chat")
+                                        onClicked: pageStack.push(Qt.resolvedUrl("../pages/NewChatPage.qml"))
+                                    }
+                                    MenuItem {
+                                        text: qsTr("Archive")
+                                        visible: archiveChatListModel.count > 0
+
+                                        rightPadding: archiveChatListModel.unreadChatCount > 0 ? archiveUnreadCount.width + Theme.paddingLarge : 0
+                                        Rectangle {
+                                            id: archiveUnreadCount
+                                            visible: archiveChatListModel.unreadChatCount > 0
+                                            color: Theme.rgba(Theme.highlightBackgroundColor, Theme.highlightBackgroundOpacity)
+                                            anchors.verticalCenter: parent.verticalCenter
+                                            x: (parent.width + parent.contentWidth - width)/2
+                                            width: Theme.fontSizeExtraLarge
+                                            height: Theme.fontSizeExtraLarge
+                                            radius: width/2
+                                            Text {
+                                                anchors.centerIn: parent
+                                                font.pixelSize: Theme.fontSizeSmall
+                                                font.bold: true
+                                                color: Theme.primaryColor
+                                                text: Functions.formatUnreadCount(archiveChatListModel.unreadChatCount)
+                                            }
+                                        }
+
+                                        onClicked: pageStack.push(Qt.resolvedUrl("../pages/ArchivedChatsPage.qml"), {overviewPage: overviewPage})
+                                    }
+                                    MenuItem {
+                                        text: qsTr("Mark as read")
+                                        visible: count > 0
+                                        onClicked: chatsView.readChatList()
+                                    }
+                                }
+                            }
+
+                            Component {
+                                id: folderPullDownMenu
+                                PullDownMenu {
+                                    // this will be hidden if muted chats won't be included in folder counters (by settings) and only muted chats will be unread, which might not be ideal:
+                                    visible: active || count > 0
+                                    MenuItem {
+                                        text: qsTr("Mark as read")
+                                        onClicked: chatsView.readChatList()
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                 }
-            ]
+            }
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    chatSearchField.focus = true;
-                    chatSearchField.opacity = 1.0;
-                    pageHeader.opacity = 0.0;
+            onItemChanged: {
+                if (!item) return
+                //itemLoaded = true
+                tabFadeAnimation.target = null
+                item.focus = true
+                item.opacity = 0
+                tabFadeAnimation.target = item
+                tabFadeAnimation.from = 0
+                tabFadeAnimation.to = 1
+                tabFadeAnimation.restart()
+            }
+
+            FadeAnimation {
+                id: tabFadeAnimation
+            }
+
+            /*BusyIndicator {
+                running: !delayBusy.running && loading
+
+                // Avoid flicker when tab container gets repositioned
+                parent: tabLoader.parent
+                x: (tabLoader.width - width) / 2 + tabLoader.x
+                y: root.height/3 - height/2 - tabView.tabBarLoader.height
+                size: BusyIndicatorSize.Large
+
+                Timer {
+                    id: delayBusy
+                    interval: 800
+                    running: tabLoader.loading
                 }
-            }
-
+            }*/
         }
+    }
 
-        SearchField {
-            id: chatSearchField
-            visible: opacity > 0
-            opacity: 0
-            Behavior on opacity { FadeAnimation {} }
-            width: parent.width
-            height: pageHeader.height
-            placeholderText: qsTr("Filter your chats...")
-            canHide: text === ""
+    OverviewPageHeader {
+        id: header
+        y: Math.max(0, -tabView.originalYOffset)
 
-            onHideClicked: {
-                resetFocus();
-            }
-
-            EnterKey.iconSource: "image://theme/icon-m-enter-close"
-            EnterKey.onClicked: {
-                resetFocus();
-            }
+        MouseArea {
+            anchors.fill: parent
+            onClicked: pageStack.push(Qt.resolvedUrl("SearchChatsPage.qml"), {fromTitleBar: true}, PageStackAction.Immediate)
         }
+    }
 
-        SilicaListView {
-            id: chatListView
-            anchors {
-                top: pageHeader.bottom
-                bottom: parent.bottom
-                left: parent.left
-                right: parent.right
-            }
-            clip: true
-            opacity: (overviewPage.chatListCreated && !overviewPage.logoutLoading) ? 1 : 0
-            Behavior on opacity { FadeAnimation {} }
-            model: chatListProxyModel.sourceModel ? chatListProxyModel : chatListModel
-            delegate: ChatListViewItem {
-                ownUserId: overviewPage.ownUserId
-                verificationStatus: verification_status
-                onClicked: {
-                    pageStack.push(Qt.resolvedUrl("../pages/ChatPage.qml"), {
-                        chatInformation : display,
-                        chatPicture: photo_small
-                    })
-                }
-            }
-
-            ViewPlaceholder {
-                enabled: chatListView.count === 0
-                text: chatListModel.count === 0 ? qsTr("You don't have any chats yet.") : qsTr("No matching chats found.")
-                hintText: qsTr("You can search public chats or create a new chat via the pull-down menu.")
-            }
-
-            VerticalScrollDecorator {}
-        }
-
-        Column {
-            width: parent.width
-            spacing: Theme.paddingMedium
-            anchors.verticalCenter: chatListView.verticalCenter
-
-            opacity: overviewPage.chatListCreated && !overviewPage.logoutLoading ? 0 : 1
-            Behavior on opacity { FadeAnimation {} }
-            visible: !overviewPage.chatListCreated || overviewPage.logoutLoading
-
-            BusyLabel {
-                    id: loadingBusyIndicator
-                    running: true
-            }
-        }
+    InteractionHintLabel {
+        id: titleInteractionHint
+        text: qsTr("Tap on the title bar to quickly open search")
+        visible: opacity > 0
+        invert: true
+        anchors.fill: parent
+        Behavior on opacity { FadeAnimation {} }
+        opacity: overviewPage.titleInteractionHintActive ? 1 : 0
     }
 
     Timer {
         id: interactionHintTimer
         running: false
         interval: 4000
-        onTriggered: {
-            titleInteractionHint.opacity = 0.0;
-        }
-    }
-
-    InteractionHintLabel {
-        id: titleInteractionHint
-        text: qsTr("Tap on the title bar to filter your chats")
-        visible: opacity > 0
-        invert: true
-        anchors.fill: parent
-        Behavior on opacity { FadeAnimation {} }
-        opacity: 0
+        onTriggered: titleInteractionHintActive = false
     }
 
 }

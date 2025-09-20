@@ -14,6 +14,7 @@ PhotoTextsListItem {
     property int ownUserId
     property bool showDraft: !!draft_message_text && draft_message_date > last_message_date
     property string previewText: showDraft ? draft_message_text : last_message_text
+    property bool inArchive
 
     // chat title
     primaryText.text: title ? Emoji.emojify(utilities.fixReservedHtmlCharacters(title), Theme.fontSizeMedium) : qsTr("Unknown")
@@ -46,6 +47,27 @@ PhotoTextsListItem {
         }
         sourceComponent: Component {
             ContextMenu {
+                property bool canArchive: true
+                Connections {
+                    target: tdLibWrapper
+                    onChatListsReceived: if (chatId == chat_id) {
+                                             for (var i=0; i < chatLists.length; i++) {
+                                                 switch (chatLists[i]['@type']) {
+                                                 case 'chatListArchive':
+                                                     canArchive = true
+                                                     toggleArchiveMenuItem.visible = true
+                                                     return // for now, don't check anything else
+                                                 case 'chatListMain':
+                                                     canArchive = false
+                                                     toggleArchiveMenuItem.visible = true
+                                                     return
+                                                 }
+                                             }
+                                         }
+                }
+                onActiveChanged: if (active) tdLibWrapper.getChatListsToAddChat(chat_id)
+                onClosed: toggleArchiveMenuItem.visible = false
+
                 MenuItem {
                     visible: unread_count > 0 || unread_reaction_count > 0 || unread_mention_count > 0
                     onClicked: {
@@ -67,9 +89,16 @@ PhotoTextsListItem {
 
                 MenuItem {
                     onClicked: {
-                        tdLibWrapper.toggleChatIsPinned(chat_id, !is_pinned);
+                        tdLibWrapper.toggleChatIsPinned(chat_id, !is_pinned, inArchive);
                     }
                     text: is_pinned ? qsTr("Unpin chat") : qsTr("Pin chat")
+                }
+
+                MenuItem {
+                    id: toggleArchiveMenuItem
+                    visible: false
+                    onClicked: tdLibWrapper.addChatToList(chat_id, canArchive)
+                    text: canArchive ? qsTr("Archive") : qsTr("Unarchive")
                 }
 
                 MenuItem {

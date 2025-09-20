@@ -22,7 +22,8 @@ import Sailfish.Silica 1.0
 import WerkWolf.Fernschreiber 1.0
 
 AccordionItem {
-    text: qsTr("Behavior")
+    name: "behavior"
+    title: qsTr("Behavior")
     Component {
         ResponsiveGrid {
             bottomPadding: Theme.paddingMedium
@@ -222,6 +223,28 @@ AccordionItem {
                         appSettings.notificationSoundsEnabled = !checked
                     }
                 }
+            }
+
+            TextSwitch {
+                checked: appSettings.unreadCountIncludeMuted
+                text: qsTr("Include muted chats in unread count")
+                automaticCheck: false
+                onClicked: appSettings.unreadCountIncludeMuted = !checked
+            }
+
+            TextSwitch {
+                checked: appSettings.showFolderUnreadCount
+                text: qsTr("Show unread chat count in folders")
+                automaticCheck: false
+                onClicked: appSettings.showFolderUnreadCount = !checked
+            }
+
+            TextSwitch {
+                enabled: appSettings.showFolderUnreadCount
+                checked: appSettings.foldersUnreadCountIncludeMuted
+                text: qsTr("Include muted chats in folders unread count")
+                automaticCheck: false
+                onClicked: appSettings.foldersUnreadCountIncludeMuted = !checked
             }
 
             /*Slider {

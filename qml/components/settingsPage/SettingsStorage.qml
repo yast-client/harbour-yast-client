@@ -22,7 +22,8 @@ import Sailfish.Silica 1.0
 import WerkWolf.Fernschreiber 1.0
 
 AccordionItem {
-    text: qsTr("Storage")
+    name: "storage"
+    title: qsTr("Storage")
     Component {
         ResponsiveGrid {
             bottomPadding: Theme.paddingMedium

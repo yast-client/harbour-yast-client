@@ -80,6 +80,8 @@ namespace {
     const QString CENTER_REEL("center_reel");
     const QString RIGHT_REEL("right_reel");
     const QString CHAT_IDS("chat_ids");
+    const QString CHAT_LIST("chat_list");
+    const QString CHAT_LISTS("chat_lists");
     const QString VOICE_NOTE("voice_note");
     const QString WAVEFORM("waveform");
     const QString DECODED_WAVEFORM("decoded_waveform");
@@ -87,8 +89,6 @@ namespace {
 
     const QString _TYPE("@type");
     const QString _EXTRA("@extra");
-    const QString TYPE_CHAT_POSITION("chatPosition");
-    const QString TYPE_CHAT_LIST_MAIN("chatListMain");
     const QString TYPE_STICKER_SET_INFO("stickerSetInfo");
     const QString TYPE_STICKER_SET("stickerSet");
     const QString TYPE_MESSAGE("message");
@@ -135,6 +135,8 @@ TDLibReceiver::TDLibReceiver(int tdLibClientId, QObject *parent) : QThread(paren
     handlers.insert("updateFile", &TDLibReceiver::processUpdateFile);
     handlers.insert("file", &TDLibReceiver::processFile);
     handlers.insert("updateNewChat", &TDLibReceiver::processUpdateNewChat);
+    handlers.insert("updateChatAddedToList", &TDLibReceiver::processUpdateChatAddedToList);
+    handlers.insert("updateChatRemovedFromList", &TDLibReceiver::processUpdateChatRemovedFromList);
     handlers.insert("updateUnreadMessageCount", &TDLibReceiver::processUpdateUnreadMessageCount);
     handlers.insert("updateUnreadChatCount", &TDLibReceiver::processUpdateUnreadChatCount);
     handlers.insert("updateChatLastMessage", &TDLibReceiver::processUpdateChatLastMessage);
@@ -175,7 +177,6 @@ TDLibReceiver::TDLibReceiver(int tdLibClientId, QObject *parent) : QThread(paren
     handlers.insert("updateChatPermissions", &TDLibReceiver::processUpdateChatPermissions);
     handlers.insert("updateChatPhoto", &TDLibReceiver::processUpdateChatPhoto);
     handlers.insert("updateChatTitle", &TDLibReceiver::processUpdateChatTitle);
-    handlers.insert("updateChatPinnedMessage", &TDLibReceiver::processUpdateChatPinnedMessage);
     handlers.insert("updateMessageIsPinned", &TDLibReceiver::processUpdateMessageIsPinned);
     handlers.insert("users", &TDLibReceiver::processUsers);
     handlers.insert("messageSenders", &TDLibReceiver::processMessageSenders);
@@ -208,6 +209,9 @@ TDLibReceiver::TDLibReceiver(int tdLibClientId, QObject *parent) : QThread(paren
     handlers.insert("updateDiceEmojis", &TDLibReceiver::processUpdateDiceEmojis);
     handlers.insert("updateSuggestedActions", &TDLibReceiver::processUpdateSuggestedActions);
     handlers.insert("count", &TDLibReceiver::processCount);
+    handlers.insert("chatLists", &TDLibReceiver::processChatLists);
+    handlers.insert("archiveChatListSettings", &TDLibReceiver::processArchiveChatListSettings);
+    handlers.insert("updateChatFolders", &TDLibReceiver::processUpdateChatFolders);
     handlers.insert("forumTopics", &TDLibReceiver::processForumTopics);
 }
 
@@ -298,61 +302,50 @@ void TDLibReceiver::processFile(const QVariantMap &receivedInformation)
     emit fileUpdated(receivedInformation);
 }
 
-void TDLibReceiver::processUpdateNewChat(const QVariantMap &receivedInformation)
-{
+void TDLibReceiver::processUpdateNewChat(const QVariantMap &receivedInformation) {
     const QVariantMap chatInformation = receivedInformation.value("chat").toMap();
     LOG("New chat discovered: " << chatInformation.value(ID).toLongLong() << chatInformation.value(TITLE).toString());
     emit newChatDiscovered(chatInformation);
 }
 
-void TDLibReceiver::processUpdateUnreadMessageCount(const QVariantMap &receivedInformation)
-{
-    QVariantMap messageCountInformation;
-    messageCountInformation.insert("chat_list_type", receivedInformation.value("chat_list").toMap().value(_TYPE));
-    messageCountInformation.insert(UNREAD_COUNT, receivedInformation.value(UNREAD_COUNT));
-    messageCountInformation.insert("unread_unmuted_count", receivedInformation.value("unread_unmuted_count"));
-    LOG("Unread message count updated: " << messageCountInformation.value("chat_list_type").toString() << messageCountInformation.value(UNREAD_COUNT).toString());
-    emit unreadMessageCountUpdated(messageCountInformation);
+void TDLibReceiver::processUpdateChatAddedToList(const QVariantMap &receivedInformation) {
+    qlonglong chatId = receivedInformation.value(CHAT_ID).toLongLong();
+    LOG("Chat added to a list" << chatId);
+    emit chatAddedToList(receivedInformation.value(CHAT_LIST).toMap(), chatId);
 }
 
-void TDLibReceiver::processUpdateUnreadChatCount(const QVariantMap &receivedInformation)
-{
-    QVariantMap chatCountInformation;
-    chatCountInformation.insert("chat_list_type", receivedInformation.value("chat_list").toMap().value(_TYPE));
-    chatCountInformation.insert("marked_as_unread_count", receivedInformation.value("marked_as_unread_count"));
-    chatCountInformation.insert("marked_as_unread_unmuted_count", receivedInformation.value("marked_as_unread_unmuted_count"));
-    chatCountInformation.insert(TOTAL_COUNT, receivedInformation.value(TOTAL_COUNT));
-    chatCountInformation.insert(UNREAD_COUNT, receivedInformation.value(UNREAD_COUNT));
-    chatCountInformation.insert("unread_unmuted_count", receivedInformation.value("unread_unmuted_count"));
-    LOG("Unread chat count updated: " << chatCountInformation.value("chat_list_type").toString() << chatCountInformation.value(UNREAD_COUNT).toString());
-    emit unreadChatCountUpdated(chatCountInformation);
+void TDLibReceiver::processUpdateChatRemovedFromList(const QVariantMap &receivedInformation) {
+    qlonglong chatId = receivedInformation.value(CHAT_ID).toLongLong();
+    LOG("Chat removed from a list" << chatId);
+    emit chatRemovedFromList(receivedInformation.value(CHAT_LIST).toMap(), chatId);
+}
+
+void TDLibReceiver::processUpdateUnreadMessageCount(const QVariantMap &receivedInformation) {
+    LOG("Unread message count updated: " << receivedInformation.value("chat_list").toMap().value(_TYPE).toString() << receivedInformation.value(UNREAD_COUNT).toString());
+    emit unreadMessageCountUpdated(receivedInformation);
+}
+
+void TDLibReceiver::processUpdateUnreadChatCount(const QVariantMap &receivedInformation) {
+    LOG("Unread chat count updated: " << receivedInformation.value("chat_list").toMap().value(_TYPE).toString() << receivedInformation.value(UNREAD_COUNT).toString());
+    emit unreadChatCountUpdated(receivedInformation);
 }
 
 void TDLibReceiver::processUpdateChatLastMessage(const QVariantMap &receivedInformation) {
     qlonglong chatId = receivedInformation.value(CHAT_ID).toLongLong();
-    QVariant order = findChatPositionOrder(receivedInformation.value(POSITIONS).toList());
     const QVariantMap lastMessage = receivedInformation.value(LAST_MESSAGE).toMap();
-    LOG("Last message of chat" << chatId << "updated, order" << order << "type" << lastMessage.value(_TYPE).toString());
-    emit chatLastMessageUpdated(chatId, order, cleanupMap(lastMessage));
+    LOG("Last message of chat" << chatId << "updated, type" << lastMessage.value(_TYPE).toString());
+    /*if (order.isValid() && order.toLongLong() == 0) // this seems to be already done by tdlib in updateChatRemovedFromList
+        emit chatRemovedFromList(chatId);
+    else*/
+    emit chatLastMessageUpdated(chatId, cleanupMap(lastMessage), receivedInformation.value(POSITIONS).toList());
 }
 
-void TDLibReceiver::processUpdateChatPosition(const QVariantMap &receivedInformation)
-{
+void TDLibReceiver::processUpdateChatPosition(const QVariantMap &receivedInformation) {
     qlonglong chatId = receivedInformation.value(CHAT_ID).toLongLong();
-    QVariantMap positionMap = receivedInformation.value(POSITION).toMap();
+    QVariantMap position = receivedInformation.value(POSITION).toMap();
 
-    QString updateForChatList = positionMap.value(LIST).toMap().value(_TYPE).toString();
-    qlonglong order = positionMap.value(ORDER).toLongLong();
-    bool isPinned = positionMap.value(IS_PINNED).toBool();
-
-    // We are only processing main chat list updates at the moment...
-    if (updateForChatList == TYPE_CHAT_LIST_MAIN) {
-        LOG("Chat position updated for ID" << chatId << "new order" << order << "is pinned" << isPinned);
-        emit chatOrderUpdated(chatId, order);
-        emit chatPinnedUpdated(chatId, isPinned);
-    } else {
-        LOG("Received chat position update for uninteresting list" << updateForChatList << "ID" << chatId << "new order" << order << "is pinned" << isPinned);
-    }
+    LOG("Chat position updated" << chatId);
+    emit chatPositionUpdated(chatId, position);
 }
 
 void TDLibReceiver::processUpdateChatReadInbox(const QVariantMap &receivedInformation)
@@ -630,12 +623,6 @@ void TDLibReceiver::processUpdateChatTitle(const QVariantMap &receivedInformatio
     emit chatTitleUpdated(receivedInformation.value(CHAT_ID).toLongLong(), receivedInformation.value(TITLE).toString());
 }
 
-void TDLibReceiver::processUpdateChatPinnedMessage(const QVariantMap &receivedInformation)
-{
-    LOG("Received UpdateChatPinnedMessage");
-    emit chatPinnedMessageUpdated(receivedInformation.value(CHAT_ID).toLongLong(), receivedInformation.value("pinned_message_id").toLongLong());
-}
-
 void TDLibReceiver::processUpdateMessageIsPinned(const QVariantMap &receivedInformation)
 {
     LOG("Received UpdateMessageIsPinned");
@@ -714,7 +701,7 @@ void TDLibReceiver::processUpdateChatIsMarkedAsUnread(const QVariantMap &receive
 void TDLibReceiver::processUpdateChatDraftMessage(const QVariantMap &receivedInformation)
 {
     LOG("Draft message was updated");
-    emit chatDraftMessageUpdated(receivedInformation.value(CHAT_ID).toLongLong(), cleanupMap(receivedInformation.value(DRAFT_MESSAGE).toMap()), findChatPositionOrder(receivedInformation.value(POSITIONS).toList()));
+    emit chatDraftMessageUpdated(receivedInformation.value(CHAT_ID).toLongLong(), cleanupMap(receivedInformation.value(DRAFT_MESSAGE).toMap()), receivedInformation.value(POSITIONS).toList());
 }
 
 void TDLibReceiver::processInlineQueryResults(const QVariantMap &receivedInformation)
@@ -1120,6 +1107,24 @@ void TDLibReceiver::processCount(const QVariantMap &receivedInformation) {
     const int count = receivedInformation.value("count").toInt();
     LOG("Received count" << extra << count);
     emit countReceived(count, extra);
+}
+void TDLibReceiver::processChatLists(const QVariantMap &receivedInformation) {
+    LOG("Received chatLists");
+    emit chatListsReceived(receivedInformation.value(_EXTRA).toLongLong(), receivedInformation.value(CHAT_LISTS).toList());
+}
+
+void TDLibReceiver::processArchiveChatListSettings(const QVariantMap &receivedInformation) {
+    LOG("Received archiveChatListSettings");
+    emit archiveChatListSettingsReceived(
+                receivedInformation.value("archive_and_mute_new_chats_from_unknown_users").toBool(),
+                receivedInformation.value("keep_unmuted_chats_archived").toBool(),
+                receivedInformation.value("keep_chats_from_folders_archived").toBool()
+                );
+}
+
+void TDLibReceiver::processUpdateChatFolders(const QVariantMap &receivedInformation) {
+    LOG("Received updateChatFolders");
+    emit chatFoldersUpdated(receivedInformation.value("chat_folders").toList(), receivedInformation.value("main_chat_list_position").toInt(), receivedInformation.value("are_tags_enabled").toBool());
 }
 
 void TDLibReceiver::processForumTopics(const QVariantMap &receivedInformation) {

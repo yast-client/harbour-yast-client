@@ -155,6 +155,13 @@
     </message>
 </context>
 <context>
+    <name>ArchivedChatsPage</name>
+    <message>
+        <source>Archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>BackgroundProgressIndicator</name>
     <message>
         <source>%1 %</source>
@@ -424,16 +431,20 @@
         <source>Mute chat</source>
         <translation type="unfinished">Mute chat</translation>
     </message>
+    <message>
+        <source>Archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unarchive</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatPage</name>
     <message>
         <source>Unknown</source>
         <translation>Unknown</translation>
-    </message>
-    <message>
-        <source>Your message</source>
-        <translation>Your message</translation>
     </message>
     <message>
         <source>Loading messages...</source>
@@ -573,6 +584,36 @@
         <source>Left chat</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>No results</source>
+        <comment>No messages search results found</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Silent Broadcast</source>
+        <comment>placeholder for broadcasting a message to a channel silently</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Broadcast</source>
+        <comment>placeholder for broadcasting a message to a channel</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send anonymously</source>
+        <comment>placeholder for sending an anonymous message in a supergroup</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Message for %1 Stars</source>
+        <comment>placeholder for sending a message for %1 stars</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Message</source>
+        <comment>placeholder for sending a message</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatSelectionPage</name>
@@ -583,6 +624,49 @@
     <message>
         <source>You don&apos;t have any chats yet.</source>
         <translation>You don&apos;t have any chats yet.</translation>
+    </message>
+</context>
+<context>
+    <name>ChatsView</name>
+    <message>
+        <source>Ferniegram</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Waiting for network...</source>
+        <translation type="unfinished">Waiting for network...</translation>
+    </message>
+    <message>
+        <source>Connecting to network...</source>
+        <translation type="unfinished">Connecting to network...</translation>
+    </message>
+    <message>
+        <source>Connecting to proxy...</source>
+        <translation type="unfinished">Connecting to proxy...</translation>
+    </message>
+    <message>
+        <source>Updating content...</source>
+        <translation type="unfinished">Updating content...</translation>
+    </message>
+    <message>
+        <source>Filter your chats...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You don&apos;t have any chats yet.</source>
+        <translation type="unfinished">You don&apos;t have any chats yet.</translation>
+    </message>
+    <message>
+        <source>No matching chats found.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can search public chats or create a new chat via the pull-down menu.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tap on the title bar to filter your chats</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1220,22 +1304,6 @@
 <context>
     <name>OverviewPage</name>
     <message>
-        <source>Waiting for network...</source>
-        <translation>Waiting for network...</translation>
-    </message>
-    <message>
-        <source>Connecting to network...</source>
-        <translation>Connecting to network...</translation>
-    </message>
-    <message>
-        <source>Connecting to proxy...</source>
-        <translation>Connecting to proxy...</translation>
-    </message>
-    <message>
-        <source>Updating content...</source>
-        <translation>Updating content...</translation>
-    </message>
-    <message>
         <source>Loading chat list...</source>
         <translation>Loading chat list...</translation>
     </message>
@@ -1244,31 +1312,11 @@
         <translation>Settings</translation>
     </message>
     <message>
-        <source>You don&apos;t have any chats yet.</source>
-        <translation>You don&apos;t have any chats yet.</translation>
-    </message>
-    <message>
         <source>New Chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Filter your chats...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Search Chats</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tap on the title bar to filter your chats</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No matching chats found.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You can search public chats or create a new chat via the pull-down menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1297,6 +1345,10 @@
     <message>
         <source>Unable to open link.</source>
         <comment>in-app notification text</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archive</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

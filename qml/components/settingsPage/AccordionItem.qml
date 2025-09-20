@@ -25,7 +25,8 @@ Item {
     width: parent.width
     height: button.height + content.height
     property alias icon: image
-    property alias text: label.text
+    property string name: title
+    property alias title: label.text
     property alias asynchronous: content.asynchronous
     property bool expanded: false
     default property alias els: content.sourceComponent
@@ -45,7 +46,7 @@ Item {
     Connections {
         target: area.parent
         onSetActiveArea: {
-            var expand = (activeAreaTitle === area.text);
+            var expand = (activeAreaName === area.name);
             if(area.expanded && !expand && area.parent.scrollUpFlickable) {
                 area.parent.scrollUpFlickable(content.implicitHeight + Theme.paddingLarge);
             }
@@ -59,7 +60,7 @@ Item {
         width: (!!Screen.hasCutouts && Screen.topCutout.top > 0 && Screen.topCutout.bottom > 0) ? Screen.height : parent.width
         onClicked: {
             area.parent.animate = true;
-            area.parent.setActiveArea(area.expanded ? -1 : area.text)
+            area.parent.setActiveArea(area.expanded ? -1 : area.name)
         }
         Rectangle {
             anchors.fill: parent

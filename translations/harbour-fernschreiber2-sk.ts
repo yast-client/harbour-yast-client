@@ -156,6 +156,13 @@
     </message>
 </context>
 <context>
+    <name>ArchivedChatsPage</name>
+    <message>
+        <source>Archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>BackgroundProgressIndicator</name>
     <message>
         <source>%1 %</source>
@@ -427,16 +434,20 @@
         <source>Mute chat</source>
         <translation>Umlčať čet</translation>
     </message>
+    <message>
+        <source>Archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unarchive</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatPage</name>
     <message>
         <source>Unknown</source>
         <translation>Neznámy</translation>
-    </message>
-    <message>
-        <source>Your message</source>
-        <translation>Moja správa</translation>
     </message>
     <message>
         <source>Loading messages...</source>
@@ -580,6 +591,36 @@
         <source>Left chat</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>No results</source>
+        <comment>No messages search results found</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Silent Broadcast</source>
+        <comment>placeholder for broadcasting a message to a channel silently</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Broadcast</source>
+        <comment>placeholder for broadcasting a message to a channel</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send anonymously</source>
+        <comment>placeholder for sending an anonymous message in a supergroup</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Message for %1 Stars</source>
+        <comment>placeholder for sending a message for %1 stars</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Message</source>
+        <comment>placeholder for sending a message</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatSelectionPage</name>
@@ -590,6 +631,49 @@
     <message>
         <source>You don&apos;t have any chats yet.</source>
         <translation>Nemáte žiadne čety.</translation>
+    </message>
+</context>
+<context>
+    <name>ChatsView</name>
+    <message>
+        <source>Ferniegram</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Waiting for network...</source>
+        <translation type="unfinished">Čakanie na sieť...</translation>
+    </message>
+    <message>
+        <source>Connecting to network...</source>
+        <translation type="unfinished">Pripájanie k sieti...</translation>
+    </message>
+    <message>
+        <source>Connecting to proxy...</source>
+        <translation type="unfinished">Pripájanie k proxy...</translation>
+    </message>
+    <message>
+        <source>Updating content...</source>
+        <translation type="unfinished">Aktualizácia obsahu...</translation>
+    </message>
+    <message>
+        <source>Filter your chats...</source>
+        <translation type="unfinished">Filtrovanie četov...</translation>
+    </message>
+    <message>
+        <source>You don&apos;t have any chats yet.</source>
+        <translation type="unfinished">Nemáte žiadne čety.</translation>
+    </message>
+    <message>
+        <source>No matching chats found.</source>
+        <translation type="unfinished">Nenašli sa žiadne zodpovedajúce čety.</translation>
+    </message>
+    <message>
+        <source>You can search public chats or create a new chat via the pull-down menu.</source>
+        <translation type="unfinished">Môžete vyhľadávať verejné čety alebo vytvoriť nový pomocou rozbaľovacej ponuky.</translation>
+    </message>
+    <message>
+        <source>Tap on the title bar to filter your chats</source>
+        <translation type="unfinished">Klepnutím na záhlavie filtrovať svoje čety</translation>
     </message>
 </context>
 <context>
@@ -1233,25 +1317,185 @@
         <source>Your contributions to translations or code would be most welcome.</source>
         <translation>Vaša pomoc s prekladom alebo programovaním by bola veľmi vítaná.</translation>
     </message>
+    <message>
+        <source>Author</source>
+        <translation>Autor</translation>
+    </message>
+    <message numerus="yes">
+        <source>Author(s)</source>
+        <translation>
+            <numerusform>Autor</numerusform>
+            <numerusform>Autori</numerusform>
+            <numerusform>Autorov</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Maintainer</source>
+        <translation>Správce</translation>
+    </message>
+    <message numerus="yes">
+        <source>Maintainer(s)</source>
+        <translation>
+            <numerusform>Správca</numerusform>
+            <numerusform>Správcovia</numerusform>
+            <numerusform>Správcov</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Programming</source>
+        <translation>Programovanie</translation>
+    </message>
+    <message>
+        <source>Icon Design</source>
+        <translation>Návrh ikon</translation>
+    </message>
+    <message>
+        <source>Third-party libraries</source>
+        <translation>Knižnice tretích strán</translation>
+    </message>
+    <message>
+        <source>Data</source>
+        <translation>Dáta</translation>
+    </message>
+    <message>
+        <source>Data License</source>
+        <translation>Dátová licencia</translation>
+    </message>
+    <message numerus="yes">
+        <source>Data License(s)</source>
+        <translation>
+            <numerusform>Dátová licencia</numerusform>
+            <numerusform>Dátové licencie</numerusform>
+            <numerusform>Dátových licencií</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Terms of Use</source>
+        <translation>Podmienky použitia</translation>
+    </message>
+    <message>
+        <source>Belarusian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chinese</source>
+        <translation>Čínština</translation>
+    </message>
+    <message>
+        <source>Czech</source>
+        <translation>Čeština</translation>
+    </message>
+    <message>
+        <source>Dutch</source>
+        <translation>Holandčina</translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation>Angličtina</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation>Estónčina</translation>
+    </message>
+    <message>
+        <source>Finnish</source>
+        <translation>Fínčina</translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation>Francúzština</translation>
+    </message>
+    <message>
+        <source>German</source>
+        <translation>Nemčina</translation>
+    </message>
+    <message>
+        <source>Greek</source>
+        <translation>Gréčtina</translation>
+    </message>
+    <message>
+        <source>Hungarian</source>
+        <translation>Maďarčina</translation>
+    </message>
+    <message>
+        <source>Indonesian</source>
+        <translation>Indonézština</translation>
+    </message>
+    <message>
+        <source>Italian</source>
+        <translation>Taliančina</translation>
+    </message>
+    <message>
+        <source>Lithuanian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian Bokmål</source>
+        <translation>Nórčina Bokmål</translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation>Poľština</translation>
+    </message>
+    <message>
+        <source>Portuguese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Brazilian Portuguese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Romanian</source>
+        <translation>Rumunčina</translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation>Ruština</translation>
+    </message>
+    <message>
+        <source>Serbian</source>
+        <translation>Srbština</translation>
+    </message>
+    <message>
+        <source>Slovak</source>
+        <translation>Slovenčina</translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation>Španielčina</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation>Švédčina</translation>
+    </message>
+    <message>
+        <source>Tamil</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turkish</source>
+        <translation>Turečtina</translation>
+    </message>
+    <message>
+        <source>Ukrainian</source>
+        <translation>Ukrajinčina</translation>
+    </message>
+    <message>
+        <source>Norwegian Nynorsk</source>
+        <translation>Nórčina (Nynorsk)</translation>
+    </message>
+    <message>
+        <source>Latvian</source>
+        <translation>Litvinština</translation>
+    </message>
+    <message>
+        <source>Dutch (Belgium)</source>
+        <translation>Holandčina (Belgicko)</translation>
+    </message>
 </context>
 <context>
     <name>OverviewPage</name>
-    <message>
-        <source>Waiting for network...</source>
-        <translation>Čakanie na sieť...</translation>
-    </message>
-    <message>
-        <source>Connecting to network...</source>
-        <translation>Pripájanie k sieti...</translation>
-    </message>
-    <message>
-        <source>Connecting to proxy...</source>
-        <translation>Pripájanie k proxy...</translation>
-    </message>
-    <message>
-        <source>Updating content...</source>
-        <translation>Aktualizácia obsahu...</translation>
-    </message>
     <message>
         <source>Loading chat list...</source>
         <translation>Načítanie zoznamu četov...</translation>
@@ -1261,32 +1505,12 @@
         <translation>Nastavenia</translation>
     </message>
     <message>
-        <source>You don&apos;t have any chats yet.</source>
-        <translation>Nemáte žiadne čety.</translation>
-    </message>
-    <message>
         <source>New Chat</source>
         <translation>Nový čet</translation>
     </message>
     <message>
-        <source>Filter your chats...</source>
-        <translation>Filtrovanie četov...</translation>
-    </message>
-    <message>
         <source>Search Chats</source>
         <translation>Hľadanie četov</translation>
-    </message>
-    <message>
-        <source>Tap on the title bar to filter your chats</source>
-        <translation>Klepnutím na záhlavie filtrovať svoje čety</translation>
-    </message>
-    <message>
-        <source>No matching chats found.</source>
-        <translation>Nenašli sa žiadne zodpovedajúce čety.</translation>
-    </message>
-    <message>
-        <source>You can search public chats or create a new chat via the pull-down menu.</source>
-        <translation>Môžete vyhľadávať verejné čety alebo vytvoriť nový pomocou rozbaľovacej ponuky.</translation>
     </message>
     <message>
         <source>Logging out</source>
@@ -1315,6 +1539,10 @@
         <source>Unable to open link.</source>
         <comment>in-app notification text</comment>
         <translation type="unfinished">Nemožno otvoriť odkaz.</translation>
+    </message>
+    <message>
+        <source>Archive</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

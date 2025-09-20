@@ -82,7 +82,7 @@ bool ChatPermissionFilterModel::filterAcceptsRow(int sourceRow, const QModelInde
         const TDLibWrapper::Group* group = Q_NULLPTR;
         const QModelIndex index(model->index(sourceRow, 0, sourceParent));
         TDLibWrapper::ChatType chatType = (TDLibWrapper::ChatType)
-            model->data(index, ChatListModel::RoleChatType).toInt();
+            model->data(index, ChatData::RoleChatType).toInt();
 
         switch (chatType) {
         case TDLibWrapper::ChatTypeUnknown:
@@ -93,13 +93,13 @@ bool ChatPermissionFilterModel::filterAcceptsRow(int sourceRow, const QModelInde
         case TDLibWrapper::TDLibWrapper::ChatTypeBasicGroup:
         case TDLibWrapper::TDLibWrapper::ChatTypeSupergroup:
             group = tdLibWrapper->getGroup(model->data(index,
-                ChatListModel::RoleGroupId).toLongLong());
+                ChatData::RoleGroupId).toLongLong());
             break;
         }
 
         if (group) {
             TDLibWrapper::ChatMemberStatus memberStatus = (TDLibWrapper::ChatMemberStatus)
-                model->data(index, ChatListModel::RoleChatMemberStatus).toInt();
+                model->data(index, ChatData::RoleChatMemberStatus).toInt();
             QVariantMap permissions;
 
             switch (memberStatus) {
@@ -107,7 +107,7 @@ bool ChatPermissionFilterModel::filterAcceptsRow(int sourceRow, const QModelInde
             case TDLibWrapper::ChatMemberStatusAdministrator:
                 return true;
             case TDLibWrapper::ChatMemberStatusMember:
-                permissions = model->data(index, ChatListModel::RoleDisplay).toMap().value(PERMISSIONS).toMap();
+                permissions = model->data(index, ChatData::RoleDisplay).toMap().value(PERMISSIONS).toMap();
                 break;
             case TDLibWrapper::ChatMemberStatusRestricted:
                 permissions = group->groupInfo.value(STATUS).toMap().value(PERMISSIONS).toMap();

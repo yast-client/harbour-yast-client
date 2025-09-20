@@ -22,7 +22,8 @@ import Sailfish.Silica 1.0
 import WerkWolf.Fernschreiber 1.0
 
 AccordionItem {
-    text: qsTr("Privacy")
+    name: "privacy"
+    title: qsTr("Privacy")
     Component {
         Column {
             bottomPadding: Theme.paddingMedium

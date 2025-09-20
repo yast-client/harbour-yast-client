@@ -21,7 +21,8 @@ import QtQuick 2.6
 import Sailfish.Silica 1.0
 
 AccordionItem {
-    text: qsTr("Appearance")
+    name: "appearance"
+    title: qsTr("Appearance")
     clip: heightBehavior.enabled || heightAnimation.running
 
     // One-shot behavior
@@ -38,6 +39,22 @@ AccordionItem {
     Component {
         ResponsiveGrid {
             bottomPadding: Theme.paddingMedium
+
+            TextSwitch {
+                width: parent.columnWidth
+                checked: appSettings.chatFoldersTabBarOnBottom
+                text: qsTr("Move chat folders panel to bottom")
+                automaticCheck: false
+                onClicked: appSettings.chatFoldersTabBarOnBottom = !checked
+            }
+
+            TextSwitch {
+                width: parent.columnWidth
+                checked: appSettings.chatFoldersTabBarShowIcons
+                text: qsTr("Show chat folders icons")
+                automaticCheck: false
+                onClicked: appSettings.chatFoldersTabBarShowIcons = !checked
+            }
 
             TextSwitch {
                 width: parent.columnWidth

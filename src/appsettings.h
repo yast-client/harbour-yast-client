@@ -70,6 +70,13 @@ public:
     BOOL_SETTING_DEFINE(formattedTranslate)
     BOOL_SETTING_DEFINE(sendMarkdown)
 
+    BOOL_SETTING_DEFINE(unreadCountIncludeMuted)
+    BOOL_SETTING_DEFINE(showFolderUnreadCount)
+    BOOL_SETTING_DEFINE(foldersUnreadCountIncludeMuted)
+    BOOL_SETTING_DEFINE(archiveChatListHintCompleted)
+    BOOL_SETTING_DEFINE(chatFoldersTabBarOnBottom)
+    BOOL_SETTING_DEFINE(chatFoldersTabBarShowIcons)
+
 // FIXME: macros should handle signals too
 signals:
     void sendByEnterChanged();
@@ -99,6 +106,12 @@ signals:
     void videoStickersChanged();
     void formattedTranslateChanged();
     void sendMarkdownChanged();
+    void unreadCountIncludeMutedChanged();
+    void showFolderUnreadCountChanged();
+    void foldersUnreadCountIncludeMutedChanged();
+    void archiveChatListHintCompletedChanged();
+    void chatFoldersTabBarOnBottomChanged();
+    void chatFoldersTabBarShowIconsChanged();
 
 private:
     QSettings settings;

@@ -23,12 +23,15 @@ DEFINES += QT_STATICPLUGIN
 SOURCES += src/harbour-fernschreiber2.cpp \
     src/appsettings.cpp \
     src/boolfiltermodel.cpp \
+    src/chatdata.cpp \
+    src/chatfoldersmodel.cpp \
     src/chatmanager.cpp \
     src/chatpermissionfiltermodel.cpp \
     src/chatlistmodel.cpp \
     src/contactsmodel.cpp \
     src/dbusadaptor.cpp \
     src/dbusinterface.cpp \
+    src/folderchatlistmodel.cpp \
     src/forumtopicsmodel.cpp \
     src/invertedmessagesmodel.cpp \
     src/mediamessagesmodel.cpp \
@@ -56,6 +59,7 @@ DISTFILES += qml/harbour-fernschreiber2.qml \
     qml/components/ChatBadges.qml \
     qml/components/ChatListViewItem.qml \
     qml/components/ChatPhotoPreview.qml \
+    qml/components/ChatsView.qml \
     qml/components/ContactSync.qml \
     qml/components/DocumentPreview.qml \
     qml/components/GamePreview.qml \
@@ -74,6 +78,7 @@ DISTFILES += qml/harbour-fernschreiber2.qml \
     qml/components/OpaqueButton.qml \
     qml/components/OpaqueIcon.qml \
     qml/components/OpaqueItemBase.qml \
+    qml/components/OverviewPageHeader.qml \
     qml/components/PhotoTextsGridItem.qml \
     qml/components/PinnedMessageItem.qml \
     qml/components/PollPreview.qml \
@@ -148,14 +153,17 @@ DISTFILES += qml/harbour-fernschreiber2.qml \
     qml/components/settingsPage/AccordionItem.qml \
     qml/components/settingsPage/ResponsiveGrid.qml \
     qml/components/settingsPage/SettingsAppearance.qml \
+    qml/components/settingsPage/SettingsArchiveChatList.qml \
     qml/components/settingsPage/SettingsBehavior.qml \
     qml/components/settingsPage/SettingsPrivacy.qml \
     qml/components/settingsPage/SettingsSession.qml \
     qml/components/settingsPage/SettingsStorage.qml \
     qml/components/settingsPage/SettingsUserProfile.qml \
     qml/dialogs/AddContactDialog.qml \
+    qml/dialogs/ArchiveChatListTutorialDialog.qml \
     qml/js/debug.js \
     qml/js/functions.js \
+    qml/pages/ArchivedChatsPage.qml \
     qml/pages/ChatInformationPage.qml \
     qml/pages/ChatPage.qml \
     qml/pages/ChatSelectionPage.qml \
@@ -246,6 +254,8 @@ INSTALLS += telegram 86.png 108.png 128.png 172.png 256.png \
 HEADERS += \
     src/appsettings.h \
     src/boolfiltermodel.h \
+    src/chatdata.h \
+    src/chatfoldersmodel.h \
     src/chatmanager.h \
     src/chatpermissionfiltermodel.h \
     src/chatlistmodel.h \
@@ -254,6 +264,7 @@ HEADERS += \
     src/dbusinterface.h \
     src/debuglog.h \
     src/debuglogjs.h \
+    src/folderchatlistmodel.h \
     src/forumtopicsmodel.h \
     src/invertedmessagesmodel.h \
     src/mediamessagesmodel.h \

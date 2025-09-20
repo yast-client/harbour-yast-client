@@ -55,6 +55,7 @@
 #include "utilities.h"
 #include "knownusersmodel.h"
 #include "contactsmodel.h"
+#include "chatfoldersmodel.h"
 #include "waveformmanager.h"
 
 // The default filter can be overridden by QT_LOGGING_RULES envinronment variable, e.g.
@@ -143,7 +144,7 @@ int main(int argc, char *argv[])
     context->setContextProperty("tdLibWrapper", tdLibWrapper);
     qmlRegisterUncreatableType<TDLibWrapper>(uri, 1, 0, "TelegramAPI", QString());
 
-    Utilities *utilities = new Utilities(appSettings, tdLibWrapper, view.data());
+    Utilities *utilities = tdLibWrapper->getUtilities();
     context->setContextProperty("utilities", utilities);
     qmlRegisterUncreatableType<Utilities>(uri, 1, 0, "Utilities", QString());
 
@@ -153,8 +154,14 @@ int main(int argc, char *argv[])
     DBusAdaptor *dBusAdaptor = tdLibWrapper->getDBusAdaptor();
     context->setContextProperty("dBusAdaptor", dBusAdaptor);
 
-    ChatListModel chatListModel(tdLibWrapper, appSettings, utilities);
-    context->setContextProperty("chatListModel", &chatListModel);
+    ChatFoldersModel chatFoldersModel(tdLibWrapper, appSettings, utilities, view.data());
+    context->setContextProperty("chatFoldersModel", &chatFoldersModel);
+    qmlRegisterUncreatableType<ChatFoldersModel>(uri, 1, 0, "ChatFoldersModel", QString());
+
+    ChatListModel* chatListModel = chatFoldersModel.getMainChatListModel();
+    context->setContextProperty("chatListModel", chatListModel);
+    ChatListModel* archiveChatListModel = chatFoldersModel.getArchiveChatListModel();
+    context->setContextProperty("archiveChatListModel", archiveChatListModel);
 
     ChatManager chatModel(tdLibWrapper);
     context->setContextProperty("chatManager", &chatModel);

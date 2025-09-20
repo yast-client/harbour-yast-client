@@ -27,7 +27,8 @@ import "../../js/twemoji.js" as Emoji
 import "../../js/functions.js" as Functions
 
 AccordionItem {
-    text: qsTr("User Profile")
+    name: "profile"
+    title: qsTr("User Profile")
     Component {
         Column {
             id: accordionContent

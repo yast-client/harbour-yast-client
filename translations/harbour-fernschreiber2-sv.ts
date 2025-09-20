@@ -155,6 +155,13 @@
     </message>
 </context>
 <context>
+    <name>ArchivedChatsPage</name>
+    <message>
+        <source>Archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>BackgroundProgressIndicator</name>
     <message>
         <source>%1 %</source>
@@ -424,16 +431,20 @@
         <source>Mute chat</source>
         <translation>Stäng av chatten</translation>
     </message>
+    <message>
+        <source>Archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unarchive</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatPage</name>
     <message>
         <source>Unknown</source>
         <translation>Okänd</translation>
-    </message>
-    <message>
-        <source>Your message</source>
-        <translation>Ditt meddelande</translation>
     </message>
     <message>
         <source>Loading messages...</source>
@@ -573,6 +584,36 @@
         <source>Left chat</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>No results</source>
+        <comment>No messages search results found</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Silent Broadcast</source>
+        <comment>placeholder for broadcasting a message to a channel silently</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Broadcast</source>
+        <comment>placeholder for broadcasting a message to a channel</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send anonymously</source>
+        <comment>placeholder for sending an anonymous message in a supergroup</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Message for %1 Stars</source>
+        <comment>placeholder for sending a message for %1 stars</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Message</source>
+        <comment>placeholder for sending a message</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatSelectionPage</name>
@@ -583,6 +624,49 @@
     <message>
         <source>You don&apos;t have any chats yet.</source>
         <translation>Du har inga chattar än.</translation>
+    </message>
+</context>
+<context>
+    <name>ChatsView</name>
+    <message>
+        <source>Ferniegram</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Waiting for network...</source>
+        <translation type="unfinished">Väntar på nätverket...</translation>
+    </message>
+    <message>
+        <source>Connecting to network...</source>
+        <translation type="unfinished">Ansluter till nätverket...</translation>
+    </message>
+    <message>
+        <source>Connecting to proxy...</source>
+        <translation type="unfinished">Ansluter till proxy...</translation>
+    </message>
+    <message>
+        <source>Updating content...</source>
+        <translation type="unfinished">Uppdaterar innehåll...</translation>
+    </message>
+    <message>
+        <source>Filter your chats...</source>
+        <translation type="unfinished">Filtrera dina chattar...</translation>
+    </message>
+    <message>
+        <source>You don&apos;t have any chats yet.</source>
+        <translation type="unfinished">Du har inga chattar än.</translation>
+    </message>
+    <message>
+        <source>No matching chats found.</source>
+        <translation type="unfinished">Ingen passande chatt hittades.</translation>
+    </message>
+    <message>
+        <source>You can search public chats or create a new chat via the pull-down menu.</source>
+        <translation type="unfinished">Du kan söka efter allmänna chattar eller skapa en ny chatt via toppmenyn.</translation>
+    </message>
+    <message>
+        <source>Tap on the title bar to filter your chats</source>
+        <translation type="unfinished">Tryck på titelfältet för att filtrera dina chattar</translation>
     </message>
 </context>
 <context>
@@ -1216,25 +1300,182 @@
         <source>Your contributions to translations or code would be most welcome.</source>
         <translation>Kodbidrag eller översättningar är väldigt välkommet.</translation>
     </message>
+    <message>
+        <source>Author</source>
+        <translation>Utvecklare</translation>
+    </message>
+    <message numerus="yes">
+        <source>Author(s)</source>
+        <translation>
+            <numerusform>Utvecklare</numerusform>
+            <numerusform>Utvecklare</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Maintainer</source>
+        <translation>Ansvarig</translation>
+    </message>
+    <message numerus="yes">
+        <source>Maintainer(s)</source>
+        <translation>
+            <numerusform>Ansvarig</numerusform>
+            <numerusform>Ansvariga</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Programming</source>
+        <translation>Programmering</translation>
+    </message>
+    <message>
+        <source>Icon Design</source>
+        <translation>Ikondesign</translation>
+    </message>
+    <message>
+        <source>Third-party libraries</source>
+        <translation>Tredjeparts bibliotek</translation>
+    </message>
+    <message>
+        <source>Data</source>
+        <translation>Data</translation>
+    </message>
+    <message>
+        <source>Data License</source>
+        <translation>Datalicens</translation>
+    </message>
+    <message numerus="yes">
+        <source>Data License(s)</source>
+        <translation>
+            <numerusform>Datalicens</numerusform>
+            <numerusform>Datalicenser</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Terms of Use</source>
+        <translation>Villkor för användning</translation>
+    </message>
+    <message>
+        <source>Belarusian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chinese</source>
+        <translation>Kinesiska</translation>
+    </message>
+    <message>
+        <source>Czech</source>
+        <translation>Tjeckiska</translation>
+    </message>
+    <message>
+        <source>Dutch</source>
+        <translation>Nederländska</translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation>Engelska</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation>Estniska</translation>
+    </message>
+    <message>
+        <source>Finnish</source>
+        <translation>Finska</translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation>Franska</translation>
+    </message>
+    <message>
+        <source>German</source>
+        <translation>Tyska</translation>
+    </message>
+    <message>
+        <source>Greek</source>
+        <translation>Grekiska</translation>
+    </message>
+    <message>
+        <source>Hungarian</source>
+        <translation>Ungerska</translation>
+    </message>
+    <message>
+        <source>Indonesian</source>
+        <translation>Indonesiska</translation>
+    </message>
+    <message>
+        <source>Italian</source>
+        <translation>Italienska</translation>
+    </message>
+    <message>
+        <source>Lithuanian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian Bokmål</source>
+        <translation>Norska Bokmål</translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation>Polska</translation>
+    </message>
+    <message>
+        <source>Portuguese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Brazilian Portuguese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Romanian</source>
+        <translation>Rumänska</translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation>Ryska</translation>
+    </message>
+    <message>
+        <source>Serbian</source>
+        <translation>Serbiska</translation>
+    </message>
+    <message>
+        <source>Slovak</source>
+        <translation>Slovakiska</translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation>Spanska</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation>Svenska</translation>
+    </message>
+    <message>
+        <source>Tamil</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turkish</source>
+        <translation>Turkiska</translation>
+    </message>
+    <message>
+        <source>Ukrainian</source>
+        <translation>Ukrainska</translation>
+    </message>
+    <message>
+        <source>Norwegian Nynorsk</source>
+        <translation>Norska Nynorska</translation>
+    </message>
+    <message>
+        <source>Latvian</source>
+        <translation>Lettiska</translation>
+    </message>
+    <message>
+        <source>Dutch (Belgium)</source>
+        <translation>Holländska (Belgien)</translation>
+    </message>
 </context>
 <context>
     <name>OverviewPage</name>
-    <message>
-        <source>Waiting for network...</source>
-        <translation>Väntar på nätverk...</translation>
-    </message>
-    <message>
-        <source>Connecting to network...</source>
-        <translation>Ansluter till nätverket...</translation>
-    </message>
-    <message>
-        <source>Connecting to proxy...</source>
-        <translation>Ansluter till proxy...</translation>
-    </message>
-    <message>
-        <source>Updating content...</source>
-        <translation>Uppdaterar innehåll...</translation>
-    </message>
     <message>
         <source>Loading chat list...</source>
         <translation>Läser in chattlistan...</translation>
@@ -1244,32 +1485,12 @@
         <translation>Inställningar</translation>
     </message>
     <message>
-        <source>You don&apos;t have any chats yet.</source>
-        <translation>Du har inga chattar än.</translation>
-    </message>
-    <message>
         <source>New Chat</source>
         <translation>Ny chatt</translation>
     </message>
     <message>
-        <source>Filter your chats...</source>
-        <translation>Filtrera dina chattar...</translation>
-    </message>
-    <message>
         <source>Search Chats</source>
         <translation>Sök chattar</translation>
-    </message>
-    <message>
-        <source>Tap on the title bar to filter your chats</source>
-        <translation>Tryck på titelfältet för att filtrera dina chattar</translation>
-    </message>
-    <message>
-        <source>No matching chats found.</source>
-        <translation>Ingen passande chatt hittades.</translation>
-    </message>
-    <message>
-        <source>You can search public chats or create a new chat via the pull-down menu.</source>
-        <translation>Du kan söka efter allmänna chattar eller skapa en ny chatt via toppmenyn.</translation>
     </message>
     <message>
         <source>Logging out</source>
@@ -1298,6 +1519,10 @@
         <source>Unable to open link.</source>
         <comment>in-app notification text</comment>
         <translation type="unfinished">Kan inte öppna länk.</translation>
+    </message>
+    <message>
+        <source>Archive</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

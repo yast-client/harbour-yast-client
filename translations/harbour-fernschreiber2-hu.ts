@@ -154,6 +154,13 @@
     </message>
 </context>
 <context>
+    <name>ArchivedChatsPage</name>
+    <message>
+        <source>Archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>BackgroundProgressIndicator</name>
     <message>
         <source>%1 %</source>
@@ -421,16 +428,20 @@
         <source>Mute chat</source>
         <translation>Csevegés némítása</translation>
     </message>
+    <message>
+        <source>Archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unarchive</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatPage</name>
     <message>
         <source>Unknown</source>
         <translation>Ismeretlen</translation>
-    </message>
-    <message>
-        <source>Your message</source>
-        <translation>Üzeneted</translation>
     </message>
     <message>
         <source>Loading messages...</source>
@@ -566,6 +577,36 @@
         <source>Left chat</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>No results</source>
+        <comment>No messages search results found</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Silent Broadcast</source>
+        <comment>placeholder for broadcasting a message to a channel silently</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Broadcast</source>
+        <comment>placeholder for broadcasting a message to a channel</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send anonymously</source>
+        <comment>placeholder for sending an anonymous message in a supergroup</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Message for %1 Stars</source>
+        <comment>placeholder for sending a message for %1 stars</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Message</source>
+        <comment>placeholder for sending a message</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatSelectionPage</name>
@@ -575,6 +616,49 @@
     </message>
     <message>
         <source>You don&apos;t have any chats yet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChatsView</name>
+    <message>
+        <source>Ferniegram</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Waiting for network...</source>
+        <translation type="unfinished">Hálózatra várakozás...</translation>
+    </message>
+    <message>
+        <source>Connecting to network...</source>
+        <translation type="unfinished">Csatlakozás a hálózathoz...</translation>
+    </message>
+    <message>
+        <source>Connecting to proxy...</source>
+        <translation type="unfinished">Csatlakozás a proxy-hoz...</translation>
+    </message>
+    <message>
+        <source>Updating content...</source>
+        <translation type="unfinished">Tartalom frissítése...</translation>
+    </message>
+    <message>
+        <source>Filter your chats...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You don&apos;t have any chats yet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No matching chats found.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can search public chats or create a new chat via the pull-down menu.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tap on the title bar to filter your chats</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1199,25 +1283,179 @@
         <source>Your contributions to translations or code would be most welcome.</source>
         <translation>A hozzájárulásaid a fordításokhoz, vagy a kódhoz nagyon szívesen fogadjuk.</translation>
     </message>
+    <message>
+        <source>Author</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>Author(s)</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Maintainer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>Maintainer(s)</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Programming</source>
+        <translation>Programozás</translation>
+    </message>
+    <message>
+        <source>Icon Design</source>
+        <translation>Ikon design</translation>
+    </message>
+    <message>
+        <source>Third-party libraries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Data License</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>Data License(s)</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Terms of Use</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Belarusian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chinese</source>
+        <translation>kínai</translation>
+    </message>
+    <message>
+        <source>Czech</source>
+        <translation>Cseh</translation>
+    </message>
+    <message>
+        <source>Dutch</source>
+        <translation>Holland</translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation>Angol</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation>Észt</translation>
+    </message>
+    <message>
+        <source>Finnish</source>
+        <translation>Finn</translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation>Francia</translation>
+    </message>
+    <message>
+        <source>German</source>
+        <translation>Német</translation>
+    </message>
+    <message>
+        <source>Greek</source>
+        <translation>Görög</translation>
+    </message>
+    <message>
+        <source>Hungarian</source>
+        <translation>Magyar</translation>
+    </message>
+    <message>
+        <source>Indonesian</source>
+        <translation>Indonéz</translation>
+    </message>
+    <message>
+        <source>Italian</source>
+        <translation>Olasz</translation>
+    </message>
+    <message>
+        <source>Lithuanian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian Bokmål</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation>Lengyel</translation>
+    </message>
+    <message>
+        <source>Portuguese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Brazilian Portuguese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Romanian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation>Orosz</translation>
+    </message>
+    <message>
+        <source>Serbian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slovak</source>
+        <translation>Szlovák</translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation>Spanyol</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation>Svéd</translation>
+    </message>
+    <message>
+        <source>Tamil</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turkish</source>
+        <translation>Török</translation>
+    </message>
+    <message>
+        <source>Ukrainian</source>
+        <translation>Ukrán</translation>
+    </message>
+    <message>
+        <source>Norwegian Nynorsk</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Latvian</source>
+        <translation>Lett</translation>
+    </message>
+    <message>
+        <source>Dutch (Belgium)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OverviewPage</name>
-    <message>
-        <source>Waiting for network...</source>
-        <translation>Hálózatra várakozás...</translation>
-    </message>
-    <message>
-        <source>Connecting to network...</source>
-        <translation>Csatlakozás a hálózathoz...</translation>
-    </message>
-    <message>
-        <source>Connecting to proxy...</source>
-        <translation>Csatlakozás a proxy-hoz...</translation>
-    </message>
-    <message>
-        <source>Updating content...</source>
-        <translation>Tartalom frissítése...</translation>
-    </message>
     <message>
         <source>Loading chat list...</source>
         <translation>Csevegés lista betöltése...</translation>
@@ -1227,31 +1465,11 @@
         <translation>Beállítások</translation>
     </message>
     <message>
-        <source>You don&apos;t have any chats yet.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>New Chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Filter your chats...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Search Chats</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tap on the title bar to filter your chats</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No matching chats found.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You can search public chats or create a new chat via the pull-down menu.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1280,6 +1498,10 @@
     <message>
         <source>Unable to open link.</source>
         <comment>in-app notification text</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archive</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -24,7 +24,8 @@ import "../../components"
 import "../../js/functions.js" as Functions
 
 AccordionItem {
-    text: qsTr("Sessions")
+    name: "sessions"
+    title: qsTr("Sessions")
     property SilicaFlickable flickable: parent.flickable
     Component {
         Column {

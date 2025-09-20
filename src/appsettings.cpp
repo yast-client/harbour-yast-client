@@ -72,6 +72,12 @@ namespace {
     const QString SHOW_TRANSLATE_OPTION("showTranslateOption");
     const QString FORMATTED_TRANSLATE("formattedTranslate");
     const QString SEND_MARKDOWN("sendMarkdown");
+    const QString UNREAD_COUNT_INCLUDE_MUTED("unreadCountIncludeMuted");
+    const QString SHOW_FOLDER_UNREAD_COUNT("showFolderUnreadCount");
+    const QString FOLDERS_UNREAD_COUNT_INCLUDE_MUTED("foldersUnreadCountIncludeMuted");
+    const QString ARCHIVE_CHAT_LIST_HINT_COMPLETED("archiveChatListHintCompleted");
+    const QString CHAT_FOLDERS_TAB_BAR_ON_BOTTOM("chatFoldersTabBarOnBottom");
+    const QString CHAT_FOLDERS_TAB_BAR_SHOW_ICONS("chatFoldersTabBarShowIcons");
 }
 
 AppSettings::AppSettings(QObject *parent) :
@@ -115,3 +121,10 @@ SETTING2(voiceNoteVolume, VOICE_NOTE_VOLUME, qreal, toReal, 1)
 BOOL_SETTING(showTranslateOption, SHOW_TRANSLATE_OPTION)
 BOOL_SETTING(formattedTranslate, FORMATTED_TRANSLATE)
 BOOL_SETTING2(sendMarkdown, SEND_MARKDOWN, true)
+
+BOOL_SETTING(unreadCountIncludeMuted, UNREAD_COUNT_INCLUDE_MUTED)
+BOOL_SETTING2(showFolderUnreadCount, SHOW_FOLDER_UNREAD_COUNT, true)
+BOOL_SETTING2(foldersUnreadCountIncludeMuted, FOLDERS_UNREAD_COUNT_INCLUDE_MUTED, true)
+BOOL_SETTING(archiveChatListHintCompleted, ARCHIVE_CHAT_LIST_HINT_COMPLETED)
+BOOL_SETTING(chatFoldersTabBarOnBottom, CHAT_FOLDERS_TAB_BAR_ON_BOTTOM)
+BOOL_SETTING(chatFoldersTabBarShowIcons, CHAT_FOLDERS_TAB_BAR_SHOW_ICONS)

@@ -155,6 +155,13 @@
     </message>
 </context>
 <context>
+    <name>ArchivedChatsPage</name>
+    <message>
+        <source>Archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>BackgroundProgressIndicator</name>
     <message>
         <source>%1 %</source>
@@ -424,16 +431,20 @@
         <source>Mute chat</source>
         <translation>Mettre la conversation en sourdine</translation>
     </message>
+    <message>
+        <source>Archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unarchive</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatPage</name>
     <message>
         <source>Unknown</source>
         <translation>Inconnu</translation>
-    </message>
-    <message>
-        <source>Your message</source>
-        <translation>Votre message</translation>
     </message>
     <message>
         <source>Loading messages...</source>
@@ -573,6 +584,36 @@
         <source>Left chat</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>No results</source>
+        <comment>No messages search results found</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Silent Broadcast</source>
+        <comment>placeholder for broadcasting a message to a channel silently</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Broadcast</source>
+        <comment>placeholder for broadcasting a message to a channel</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send anonymously</source>
+        <comment>placeholder for sending an anonymous message in a supergroup</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Message for %1 Stars</source>
+        <comment>placeholder for sending a message for %1 stars</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Message</source>
+        <comment>placeholder for sending a message</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatSelectionPage</name>
@@ -583,6 +624,49 @@
     <message>
         <source>You don&apos;t have any chats yet.</source>
         <translation>Vous n&apos;avez aucune conversation.</translation>
+    </message>
+</context>
+<context>
+    <name>ChatsView</name>
+    <message>
+        <source>Ferniegram</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Waiting for network...</source>
+        <translation type="unfinished">En attente d&apos;une connexion…</translation>
+    </message>
+    <message>
+        <source>Connecting to network...</source>
+        <translation type="unfinished">Se connecte au réseau…</translation>
+    </message>
+    <message>
+        <source>Connecting to proxy...</source>
+        <translation type="unfinished">Se connecte à un proxy…</translation>
+    </message>
+    <message>
+        <source>Updating content...</source>
+        <translation type="unfinished">Mise à jour du contenu…</translation>
+    </message>
+    <message>
+        <source>Filter your chats...</source>
+        <translation type="unfinished">Filtrer vos conversations…</translation>
+    </message>
+    <message>
+        <source>You don&apos;t have any chats yet.</source>
+        <translation type="unfinished">Vous n&apos;avez aucune conversation.</translation>
+    </message>
+    <message>
+        <source>No matching chats found.</source>
+        <translation type="unfinished">Aucune conversation trouvée.</translation>
+    </message>
+    <message>
+        <source>You can search public chats or create a new chat via the pull-down menu.</source>
+        <translation type="unfinished">Vous pouvez créer une conversation publique ou créer une nouvelle conversation via le menu pull-down.</translation>
+    </message>
+    <message>
+        <source>Tap on the title bar to filter your chats</source>
+        <translation type="unfinished">Appuyez sur la barre de titre pour filtrer vos conversations</translation>
     </message>
 </context>
 <context>
@@ -1216,25 +1300,182 @@
         <source>Your contributions to translations or code would be most welcome.</source>
         <translation>Vos contributions aux traductions ou au code seront les bienvenues.</translation>
     </message>
+    <message>
+        <source>Author</source>
+        <translation>Auteur</translation>
+    </message>
+    <message numerus="yes">
+        <source>Author(s)</source>
+        <translation>
+            <numerusform>Auteur</numerusform>
+            <numerusform>Auteurs</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Maintainer</source>
+        <translation>Mainteneur/mainteneuse</translation>
+    </message>
+    <message numerus="yes">
+        <source>Maintainer(s)</source>
+        <translation>
+            <numerusform>Mainteneur</numerusform>
+            <numerusform>Mainteneurs</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Programming</source>
+        <translation>Programmation</translation>
+    </message>
+    <message>
+        <source>Icon Design</source>
+        <translation>Design de l&apos;icône</translation>
+    </message>
+    <message>
+        <source>Third-party libraries</source>
+        <translation>Bibliothèques tierces</translation>
+    </message>
+    <message>
+        <source>Data</source>
+        <translation>Données</translation>
+    </message>
+    <message>
+        <source>Data License</source>
+        <translation>Licence de données</translation>
+    </message>
+    <message numerus="yes">
+        <source>Data License(s)</source>
+        <translation>
+            <numerusform>Licence de données</numerusform>
+            <numerusform>Licences de données</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Terms of Use</source>
+        <translation>Conditions d&apos;utilisation</translation>
+    </message>
+    <message>
+        <source>Belarusian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chinese</source>
+        <translation>chinois</translation>
+    </message>
+    <message>
+        <source>Czech</source>
+        <translation>tchèque</translation>
+    </message>
+    <message>
+        <source>Dutch</source>
+        <translation>néerlandais</translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation>anglais</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation>estonien</translation>
+    </message>
+    <message>
+        <source>Finnish</source>
+        <translation>finnois</translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation>français</translation>
+    </message>
+    <message>
+        <source>German</source>
+        <translation>allemand</translation>
+    </message>
+    <message>
+        <source>Greek</source>
+        <translation>grec</translation>
+    </message>
+    <message>
+        <source>Hungarian</source>
+        <translation>hongrois</translation>
+    </message>
+    <message>
+        <source>Indonesian</source>
+        <translation>indonésien</translation>
+    </message>
+    <message>
+        <source>Italian</source>
+        <translation>italien</translation>
+    </message>
+    <message>
+        <source>Lithuanian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian Bokmål</source>
+        <translation>norvégien (Bokmål)</translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation>polonais</translation>
+    </message>
+    <message>
+        <source>Portuguese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Brazilian Portuguese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Romanian</source>
+        <translation>Roumain</translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation>russe</translation>
+    </message>
+    <message>
+        <source>Serbian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slovak</source>
+        <translation>slovaque</translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation>espagnol</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation>suédois</translation>
+    </message>
+    <message>
+        <source>Tamil</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turkish</source>
+        <translation>turc</translation>
+    </message>
+    <message>
+        <source>Ukrainian</source>
+        <translation>Ukrainien</translation>
+    </message>
+    <message>
+        <source>Norwegian Nynorsk</source>
+        <translation>norvégien (Nynorsk)</translation>
+    </message>
+    <message>
+        <source>Latvian</source>
+        <translation>letton</translation>
+    </message>
+    <message>
+        <source>Dutch (Belgium)</source>
+        <translation>Flamand</translation>
+    </message>
 </context>
 <context>
     <name>OverviewPage</name>
-    <message>
-        <source>Waiting for network...</source>
-        <translation>En attente de réseau…</translation>
-    </message>
-    <message>
-        <source>Connecting to network...</source>
-        <translation>Connexion au réseau…</translation>
-    </message>
-    <message>
-        <source>Connecting to proxy...</source>
-        <translation>Se connecte au proxy…</translation>
-    </message>
-    <message>
-        <source>Updating content...</source>
-        <translation>Téléverse du contenu…</translation>
-    </message>
     <message>
         <source>Loading chat list...</source>
         <translation>Chargement de la liste des conversations…</translation>
@@ -1244,32 +1485,12 @@
         <translation>Paramètres</translation>
     </message>
     <message>
-        <source>You don&apos;t have any chats yet.</source>
-        <translation>Vous n&apos;avez aucune conversation.</translation>
-    </message>
-    <message>
         <source>New Chat</source>
         <translation>Nouvelle conversation</translation>
     </message>
     <message>
-        <source>Filter your chats...</source>
-        <translation>Filtrer vos conversations…</translation>
-    </message>
-    <message>
         <source>Search Chats</source>
         <translation>Rechercher une conversation</translation>
-    </message>
-    <message>
-        <source>Tap on the title bar to filter your chats</source>
-        <translation>Appuyez sur la barre de titre pour filtrer vos conversations</translation>
-    </message>
-    <message>
-        <source>No matching chats found.</source>
-        <translation>Aucune conversation trouvée.</translation>
-    </message>
-    <message>
-        <source>You can search public chats or create a new chat via the pull-down menu.</source>
-        <translation>Vous pouvez créer une conversation publique ou créer une nouvelle conversation via le menu pull-down.</translation>
     </message>
     <message>
         <source>Logging out</source>
@@ -1298,6 +1519,10 @@
         <source>Unable to open link.</source>
         <comment>in-app notification text</comment>
         <translation type="unfinished">Impossible d&apos;ouvrir le lien</translation>
+    </message>
+    <message>
+        <source>Archive</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

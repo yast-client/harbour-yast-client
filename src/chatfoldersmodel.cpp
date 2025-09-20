@@ -1,0 +1,343 @@
+#include "chatfoldersmodel.h"
+
+#include "sailfishapp.h"
+
+#define DEBUG_MODULE ChatFoldersModel
+#include "debuglog.h"
+
+namespace {
+    const QString ID("id");
+    const QString NAME("name");
+    const QString ICON("icon");
+    const QString COLOR_ID("color_id");
+    const QString IS_SHAREABLE("is_shareable");
+    const QString HAS_MY_INVITE_LINKS("has_my_invite_links");
+    const QString TEXT("text");
+
+    const QString FOLDER_ICON_PATH_PREFIX("images/folders/icon-m-folder-");
+    const QString SVG_EXTENSION_SUFFIX(".svg");
+    const QString THEME_ICON_PREFIX("image://theme/icon-m-");
+}
+
+ChatFoldersModel::Icon ChatFoldersModel::iconForName(const QString &name) {
+    if (name == "All") return IconAll;
+    if (name == "Unread") return IconUnread;
+    if (name == "Unmuted") return IconUnmuted;
+    if (name == "Bots") return IconBots;
+    if (name == "Channels") return IconChannels;
+    if (name == "Groups") return IconGroups;
+    if (name == "Private") return IconPrivate;
+    if (name == "Custom") return IconCustom;
+    if (name == "Setup") return IconSetup;
+    if (name == "Cat") return IconCat;
+    if (name == "Crown") return IconCrown;
+    if (name == "Favorite") return IconFavorite;
+    if (name == "Flower") return IconFlower;
+    if (name == "Game") return IconGame;
+    if (name == "Home") return IconHome;
+    if (name == "Love") return IconLove;
+    if (name == "Mask") return IconMask;
+    if (name == "Party") return IconParty;
+    if (name == "Sport") return IconSport;
+    if (name == "Study") return IconStudy;
+    if (name == "Trade") return IconTrade;
+    if (name == "Travel") return IconTravel;
+    if (name == "Work") return IconWork;
+    if (name == "Airplane") return IconAirplane;
+    if (name == "Book") return IconBook;
+    if (name == "Light") return IconLight;
+    if (name == "Like") return IconLike;
+    if (name == "Money") return IconMoney;
+    if (name == "Note") return IconNote;
+    if (name == "Palette") return IconPalette;
+
+    return IconAll;
+}
+
+inline QUrl pathToIcon(const QString &name) {
+    return SailfishApp::pathTo(FOLDER_ICON_PATH_PREFIX + name + SVG_EXTENSION_SUFFIX);
+}
+
+QUrl ChatFoldersModel::iconPath(Icon icon) {
+    switch (icon) {
+    case IconAll:
+        return THEME_ICON_PREFIX + "chat"; // FIXME: should this be outline-chat?
+    case IconHome:
+        return THEME_ICON_PREFIX + "home";
+    case IconFavorite:
+        return THEME_ICON_PREFIX + "favorite";
+    case IconCustom:
+        return THEME_ICON_PREFIX + "folder";
+    case IconGame:
+        return THEME_ICON_PREFIX + "game-controller";
+    case IconLike:
+        return THEME_ICON_PREFIX + "like"; // FIXME: should this be outline-like?
+    case IconNote:
+        return THEME_ICON_PREFIX + "media-songs";
+    case IconWork:
+        return THEME_ICON_PREFIX + "company";
+
+
+    // possibly FIXME for these:
+    case IconLight:
+        return THEME_ICON_PREFIX + "flashlight";
+    case IconGroups:
+        return THEME_ICON_PREFIX + "people";
+    case IconMask:
+        return THEME_ICON_PREFIX + "incognito";
+
+    //case IconAirplane: // LOOOOOOL
+    //    return THEME_ICON_PREFIX + "airplane-mode";
+
+
+    case IconBook:
+        return pathToIcon("book");
+    case IconLove:
+        return pathToIcon("love");
+    case IconBots:
+        return pathToIcon("bots");
+    case IconCat:
+        return pathToIcon("cat");
+    case IconChannels:
+        return pathToIcon("channels");
+    case IconCrown:
+        return pathToIcon("crown");
+    case IconFlower:
+        return pathToIcon("flower");
+    case IconAirplane:
+        return pathToIcon("airplane");
+    case IconMoney:
+        return pathToIcon("money");
+    case IconPalette:
+        return pathToIcon("palette");
+    case IconParty:
+        return pathToIcon("party");
+    case IconPrivate:
+        return pathToIcon("private");
+    case IconSetup:
+        return pathToIcon("setup");
+    case IconSport:
+        return pathToIcon("sport");
+    case IconStudy:
+        return pathToIcon("study");
+    case IconTrade:
+        return pathToIcon("trade");
+    case IconTravel:
+        return pathToIcon("travel");
+    case IconUnmuted:
+        return pathToIcon("unmuted");
+    case IconUnread:
+        return pathToIcon("unread");
+    }
+
+    return QString();
+}
+
+ChatFoldersModel::ChatFolderData::ChatFolderData(const QVariantMap &data) :
+    type(FolderFolder),
+    data(data)
+{
+    const QString iconName = this->data.take(ICON).toMap().value(NAME).toString();
+    icon = ChatFoldersModel::iconForName(iconName);
+}
+
+ChatFoldersModel::ChatFolderData::ChatFolderData(FolderType type) :
+    type(type),
+    icon(IconAll),
+    data()
+{}
+
+int ChatFoldersModel::ChatFolderData::id() const {
+    return data.value(ID).toInt();
+}
+
+QString ChatFoldersModel::ChatFolderData::name() const {
+    switch (type) {
+    case FolderMain:
+        return tr("All", "all chats tab");
+    case FolderFolder:
+        return Utilities::enhanceMessageText(data.value(NAME).toMap().value(TEXT).toMap(), true); // ignore entities because only animated emojis are supported and we don't support them yet
+    case FolderArchive:
+        return tr("Archive", "archived chats tab");
+    }
+    return QString();
+}
+
+ChatFoldersModel::ChatFoldersModel(TDLibWrapper *tdLibWrapper, AppSettings *appSettings, Utilities *utilities, QObject *parent) :
+    QAbstractListModel(parent),
+    tdLibWrapper(tdLibWrapper),
+    appSettings(appSettings),
+    utilities(utilities),
+    mainChatListModel(new ChatListModel(tdLibWrapper, appSettings, utilities)),
+    archiveChatListModel(new ChatListModel(tdLibWrapper, appSettings, utilities, true))
+{
+    connect(tdLibWrapper, &TDLibWrapper::chatAddedToFolderList, this, &ChatFoldersModel::handleChatAddedToFolderList);
+    connect(tdLibWrapper, &TDLibWrapper::chatFoldersUpdated, this, &ChatFoldersModel::handleChatFoldersUpdated);
+
+    connect(mainChatListModel, &ChatListModel::unreadChatCountChanged, this, &ChatFoldersModel::handleMainChatListUnreadChatCountUpdated);
+
+    connect(appSettings, &AppSettings::foldersUnreadCountIncludeMutedChanged, this, &ChatFoldersModel::handleFoldersUnreadCountIncludeMutedChanged);
+}
+
+ChatFoldersModel::~ChatFoldersModel() {
+    LOG("Destroying myself...");
+    qDeleteAll(chatFolders);
+    qDeleteAll(chatModels.values());
+}
+
+
+ChatListModel* ChatFoldersModel::getMainChatListModel() {
+    return mainChatListModel;
+}
+ChatListModel* ChatFoldersModel::getArchiveChatListModel() {
+    return archiveChatListModel;
+}
+
+
+QHash<int,QByteArray> ChatFoldersModel::roleNames() const {
+    return QHash<int, QByteArray>{
+        // Opal.Tabs-specific:
+        {RoleName, "title"},
+        {RoleUnreadChatCount, "count"},
+        {RoleIconPath, "icon"},
+
+        {RoleDisplay, "display"},
+        {RoleId, "id"},
+        {RoleIcon, "icon_"},
+        {RoleColorId, "color_id"},
+        {RoleIsShareable, "is_shareable"},
+        {RoleHasMyInviteLinks, "has_my_invite_links"},
+
+        // not directly from folderInfo object
+        {RoleModel, "chat_list_model"},
+        {RoleType, "type"}
+    };
+}
+
+int ChatFoldersModel::rowCount(const QModelIndex &) const {
+    return chatFolders.size();
+}
+
+QVariant ChatFoldersModel::data(const QModelIndex &index, int role) const {
+    const int row = index.row();
+    if (row >= 0 && row < chatFolders.size()) {
+        const ChatFolderData *data = chatFolders.at(row);
+        switch ((ChatFoldersModel::Role)role) {
+        case RoleDisplay: return data->data;
+        case RoleId: return data->data.value(ID).toInt();
+        case RoleName: return data->name(); // ignore entities because only animated emojis are supported and we don't support them yet
+        case RoleIcon: return data->icon;
+        case RoleIconPath: return iconPath(data->icon);
+        case RoleColorId: return data->data.value(COLOR_ID).toInt();
+        case RoleIsShareable: return data->data.value(IS_SHAREABLE).toBool();
+        case RoleHasMyInviteLinks: return data->data.value(HAS_MY_INVITE_LINKS).toBool();
+        case RoleModel:
+            switch (data->type) {
+            case FolderMain:
+                return QVariant::fromValue(this->mainChatListModel);
+            case FolderFolder: {
+                const int id = data->id();
+                if (chatModels.contains(id))
+                    return QVariant::fromValue(chatModels.value(id));
+                break;
+            }
+            case FolderArchive:
+                return QVariant::fromValue(this->archiveChatListModel);
+            }
+            break;
+        case RoleUnreadChatCount:
+            switch (data->type) {
+            case FolderMain:
+                return this->mainChatListModel->getUnreadChatCount(true);
+            case FolderFolder: {
+                const int id = data->data.value(ID).toInt();
+                if (chatModels.contains(id))
+                    return chatModels.value(id)->getUnreadChatCount(true);
+                break;
+            }
+            case FolderArchive:
+                return this->archiveChatListModel->getUnreadChatCount(true);
+            }
+        case RoleType:
+            return data->type;
+        }
+    }
+    return QVariant();
+}
+
+void ChatFoldersModel::handleChatAddedToFolderList(int folderId, ChatData *chatData, qlonglong order, bool isPinned) {
+    if (!this->chatModels.contains(folderId)) {
+        FolderChatListModel* chatModel = new FolderChatListModel(tdLibWrapper, appSettings, utilities, this, folderId);
+        this->chatModels.insert(folderId, chatModel);
+        chatModel->handleChatAddedToList(chatData, order, isPinned);
+    }
+}
+
+void ChatFoldersModel::handleChatFoldersUpdated(const QVariantList &newChatFolders, int mainChatListPosition, bool tagsEnabled) {
+    LOG("Chat folders list updated" << newChatFolders.count());
+
+    beginResetModel();
+    chatFoldersIndexMap.clear();
+    qDeleteAll(chatFolders);
+    chatFolders.clear();
+    this->mainChatListIndex = -1;
+
+    //QSet<int> newFolderIds;
+
+    for (const QVariant &folderVariant : newChatFolders) {
+        const QVariantMap folder = folderVariant.toMap();
+        const int folderId = folder.value(ID).toInt();
+
+        this->chatFolders.append(new ChatFolderData(folder));
+        this->chatFoldersIndexMap.insert(folderId, chatFolders.size()-1);
+
+        if (!this->chatModels.contains(folderId))
+            this->chatModels.insert(folderId, new FolderChatListModel(tdLibWrapper, appSettings, utilities, this, folderId));
+
+        //newFolderIds.insert(folder.value(ID).toInt());
+    }
+
+    this->chatFolders.insert(mainChatListPosition, new ChatFolderData());
+    this->mainChatListIndex = mainChatListPosition;
+
+    // Update damaged part of the map
+    for (int i = mainChatListIndex + 1; i < chatFolders.size(); i++)
+        // should we check if type is FolderFolder here?
+        chatFoldersIndexMap.insert(chatFolders.at(i)->id(), i);
+
+    /*QSet<int> folderIdsToRemove = chatModels.keys().toSet();
+    folderIdsToRemove -= newFolderIds;
+    for (int folderId : folderIdsToRemove)
+        delete chatModels.take(folderId);
+
+    QSet<int> folderIdsToAdd = newFolderIds;
+    folderIdsToAdd -= chatModels.keys().toSet();
+    for (int folderId : folderIdsToAdd) {
+        chatModels.insert(folderId, new FolderChatListModel(tdLibWrapper, appSettings, utilities, folderId));
+        tdLibWrapper->loadChatsForFolder(folderId);
+    }*/
+
+    endResetModel();
+}
+
+void ChatFoldersModel::handleMainChatListUnreadChatCountUpdated() {
+    if (mainChatListIndex > 0 && mainChatListIndex < chatFolders.size()) {
+        LOG("Main chat list unread chat count updated");
+        const QModelIndex modelIndex = index(mainChatListIndex);
+        emit dataChanged(modelIndex, modelIndex, QVector<int>{RoleUnreadChatCount});
+    }
+}
+
+void ChatFoldersModel::handleFolderChatListUnreadChatCountUpdated(int folderId) {
+    // This comes from the FolderChatListModel itself
+    if (this->chatFoldersIndexMap.contains(folderId)) {
+        const QModelIndex modelIndex = index(this->chatFoldersIndexMap.value(folderId));
+        LOG("Folder chat list unread chat count updated" << folderId << data(modelIndex, RoleUnreadChatCount));
+        emit dataChanged(modelIndex, modelIndex, QVector<int>{RoleUnreadChatCount});
+    }
+}
+
+void ChatFoldersModel::handleFoldersUnreadCountIncludeMutedChanged() {
+    LOG("Folder unread count include muted setting changed");
+    emit dataChanged(index(0), index(chatFolders.size()-1), QVector<int>{RoleUnreadChatCount});
+}

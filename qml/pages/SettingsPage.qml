@@ -29,10 +29,19 @@ Page {
     id: settingsPage
     allowedOrientations: Orientation.All
 
+    property string initialArea: 'profile'
+
     SilicaFlickable {
         id: settingsContainer
         contentHeight: column.height
         anchors.fill: parent
+
+        PullDownMenu {
+            MenuItem {
+                text: qsTr("About Ferniegram")
+                onClicked: pageStack.push(Qt.resolvedUrl("../pages/AboutPage.qml"))
+            }
+        }
 
         Column {
             id: column
@@ -45,10 +54,14 @@ Page {
 
             Accordion {
                 flickable: settingsContainer
-                SettingsUserProfile { expanded: true }
+                Component.onCompleted: if (initialArea)
+                                           setActiveArea(initialArea)
+
+                SettingsUserProfile {}
                 SettingsSession {}
                 SettingsPrivacy {}
                 SettingsBehavior {}
+                SettingsArchiveChatList {}
                 SettingsAppearance {}
                 SettingsStorage {}
             }

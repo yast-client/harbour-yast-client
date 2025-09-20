@@ -45,11 +45,12 @@ signals:
     void userStatusUpdated(const QString &userId, const QVariantMap &userStatusInformation);
     void fileUpdated(const QVariantMap &fileInformation);
     void newChatDiscovered(const QVariantMap &chatInformation);
+    void chatAddedToList(const QVariantMap &chatList, qlonglong chatId);
+    void chatRemovedFromList(const QVariantMap &chatList, qlonglong chatId);
     void unreadMessageCountUpdated(const QVariantMap &messageCountInformation);
     void unreadChatCountUpdated(const QVariantMap &chatCountInformation);
-    void chatLastMessageUpdated(qlonglong chatId, const QVariant &order, const QVariantMap &lastMessage);
-    void chatOrderUpdated(qlonglong chatId, qlonglong order);
-    void chatPinnedUpdated(qlonglong chatId, bool isPinned);
+    void chatLastMessageUpdated(qlonglong chatId, const QVariantMap &lastMessage, const QVariantList &positions);
+    void chatPositionUpdated(qlonglong chatId, const QVariantMap &position);
     void chatReadInboxUpdated(const QString &chatId, const QString &lastReadInboxMessageId, int unreadCount);
     void chatReadOutboxUpdated(const QString &chatId, const QString &lastReadOutboxMessageId);
     void chatAvailableReactionsUpdated(qlonglong chatId, const QVariantMap &availableReactions);
@@ -89,7 +90,6 @@ signals:
     void chatPermissionsUpdated(qlonglong chatId, const QVariantMap &chatPermissions);
     void chatPhotoUpdated(qlonglong chatId, const QVariantMap &photo);
     void chatTitleUpdated(qlonglong chatId, const QString &title);
-    void chatPinnedMessageUpdated(qlonglong chatId, qlonglong pinnedMessageId);
     void messageIsPinnedUpdated(qlonglong chatId, qlonglong messageId, bool isPinned);
     void usersReceived(const QString &extra, const QVariantList &senders, int totalUsers);
     void messageSendersReceived(const QString &extra, const QVariantList &userIds, int totalUsers);
@@ -99,7 +99,7 @@ signals:
     void secretChatUpdated(qlonglong secretChatId, const QVariantMap &secretChat);
     void contactsImported(const QVariantList &importerCount, const QVariantList &userIds, bool single);
     void chatIsMarkedAsUnreadUpdated(qlonglong chatId, bool chatIsMarkedAsUnread);
-    void chatDraftMessageUpdated(qlonglong chatId, const QVariantMap &draftMessage, const QVariant &order);
+    void chatDraftMessageUpdated(qlonglong chatId, const QVariantMap &draftMessage, const QVariantList &positions);
     void inlineQueryResults(const QString &inlineQueryId, const QString &nextOffset, const QVariantList &results, const QString &switchPmText, const QString &switchPmParameter, const QString &extra);
     void callbackQueryAnswer(const QString &text, bool alert, const QString &url);
     void userPrivacySettingRules(const QVariantMap &rules);
@@ -121,6 +121,9 @@ signals:
     void diceEmojisUpdated(const QStringList &emojis);
     void suggestedActionsUpdated(const QVariantList added, const QVariantList removed);
     void countReceived(int count, const QString &extra);
+    void chatListsReceived(qlonglong chatId, const QVariantList &chatLists);
+    void archiveChatListSettingsReceived(bool archiveAndMuteNewChatsFromUnknownUsers, bool keepUnmutedChatsArchived, bool keepChatsFromFoldersArchived);
+    void chatFoldersUpdated(const QVariantList &chatFolders, int mainChatListPosition, bool tagsEnabled);
     void forumTopicsReceived(qlonglong chatId, int totalCount, QVariantList topics, qint32 nextOffsetDate, qlonglong nextOffsetMessageId, qlonglong nextOffsetMessageThreadId);
 
 private:
@@ -144,6 +147,8 @@ private:
     void processUpdateFile(const QVariantMap &receivedInformation);
     void processFile(const QVariantMap &receivedInformation);
     void processUpdateNewChat(const QVariantMap &receivedInformation);
+    void processUpdateChatAddedToList(const QVariantMap &receivedInformation);
+    void processUpdateChatRemovedFromList(const QVariantMap &receivedInformation);
     void processUpdateUnreadMessageCount(const QVariantMap &receivedInformation);
     void processUpdateUnreadChatCount(const QVariantMap &receivedInformation);
     void processUpdateChatLastMessage(const QVariantMap &receivedInformation);
@@ -217,6 +222,9 @@ private:
     void processUpdateDiceEmojis(const QVariantMap &receivedInformation);
     void processUpdateSuggestedActions(const QVariantMap &receivedInformation);
     void processCount(const QVariantMap &receivedInformation);
+    void processChatLists(const QVariantMap &receivedInformation);
+    void processArchiveChatListSettings(const QVariantMap &receivedInformation);
+    void processUpdateChatFolders(const QVariantMap &receivedInformation);
     void processForumTopics(const QVariantMap &receivedInformation);
 };
 

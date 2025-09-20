@@ -155,6 +155,13 @@
     </message>
 </context>
 <context>
+    <name>ArchivedChatsPage</name>
+    <message>
+        <source>Archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>BackgroundProgressIndicator</name>
     <message>
         <source>%1 %</source>
@@ -424,16 +431,20 @@
         <source>Mute chat</source>
         <translation>Vaimenna keskustelu</translation>
     </message>
+    <message>
+        <source>Archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unarchive</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatPage</name>
     <message>
         <source>Unknown</source>
         <translation>Tuntematon</translation>
-    </message>
-    <message>
-        <source>Your message</source>
-        <translation>Viestisi</translation>
     </message>
     <message>
         <source>Loading messages...</source>
@@ -573,6 +584,36 @@
         <source>Left chat</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>No results</source>
+        <comment>No messages search results found</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Silent Broadcast</source>
+        <comment>placeholder for broadcasting a message to a channel silently</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Broadcast</source>
+        <comment>placeholder for broadcasting a message to a channel</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send anonymously</source>
+        <comment>placeholder for sending an anonymous message in a supergroup</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Message for %1 Stars</source>
+        <comment>placeholder for sending a message for %1 stars</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Message</source>
+        <comment>placeholder for sending a message</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatSelectionPage</name>
@@ -583,6 +624,49 @@
     <message>
         <source>You don&apos;t have any chats yet.</source>
         <translation>Sinulla ei ole vielä keskusteluja.</translation>
+    </message>
+</context>
+<context>
+    <name>ChatsView</name>
+    <message>
+        <source>Ferniegram</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Waiting for network...</source>
+        <translation type="unfinished">Odotetaan verkkoa...</translation>
+    </message>
+    <message>
+        <source>Connecting to network...</source>
+        <translation type="unfinished">Yhdistetään verkkoon...</translation>
+    </message>
+    <message>
+        <source>Connecting to proxy...</source>
+        <translation type="unfinished">Yhdistetään välityspalvelimeen...</translation>
+    </message>
+    <message>
+        <source>Updating content...</source>
+        <translation type="unfinished">Päivitetään sisältöä...</translation>
+    </message>
+    <message>
+        <source>Filter your chats...</source>
+        <translation type="unfinished">Suodata keskustelujasi...</translation>
+    </message>
+    <message>
+        <source>You don&apos;t have any chats yet.</source>
+        <translation type="unfinished">Sinulla ei ole vielä keskusteluja.</translation>
+    </message>
+    <message>
+        <source>No matching chats found.</source>
+        <translation type="unfinished">Hakua vastaavia keskusteluja ei löytynyt,</translation>
+    </message>
+    <message>
+        <source>You can search public chats or create a new chat via the pull-down menu.</source>
+        <translation type="unfinished">Voit etsiä julkisia keskusteluja tai luoda uuden keskustelun alasvetovalikosta.</translation>
+    </message>
+    <message>
+        <source>Tap on the title bar to filter your chats</source>
+        <translation type="unfinished">Kosketa otsikkopalkkia suodattaaksesi keskusteluja</translation>
     </message>
 </context>
 <context>
@@ -1217,25 +1301,182 @@
         <source>Your contributions to translations or code would be most welcome.</source>
         <translation>Koodipäivityksesi ja käännöksesi ovat mitä tervetulleimpia.</translation>
     </message>
+    <message>
+        <source>Author</source>
+        <translation>Tekijä</translation>
+    </message>
+    <message numerus="yes">
+        <source>Author(s)</source>
+        <translation>
+            <numerusform>Tekijä</numerusform>
+            <numerusform>Tekijät</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Maintainer</source>
+        <translation>Ylläpitäjä</translation>
+    </message>
+    <message numerus="yes">
+        <source>Maintainer(s)</source>
+        <translation>
+            <numerusform>Ylläpitäjä</numerusform>
+            <numerusform>Ylläpitäjät</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Programming</source>
+        <translation>Ohjelmointi</translation>
+    </message>
+    <message>
+        <source>Icon Design</source>
+        <translation>Kuvakesuunnittelu</translation>
+    </message>
+    <message>
+        <source>Third-party libraries</source>
+        <translation>Kolmannen osapuolen kirjastoja</translation>
+    </message>
+    <message>
+        <source>Data</source>
+        <translation>Data</translation>
+    </message>
+    <message>
+        <source>Data License</source>
+        <translation>Data lisenssi</translation>
+    </message>
+    <message numerus="yes">
+        <source>Data License(s)</source>
+        <translation>
+            <numerusform>Data lisenssi</numerusform>
+            <numerusform>Data lisenssit</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Terms of Use</source>
+        <translation>Käyttöehdot</translation>
+    </message>
+    <message>
+        <source>Belarusian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chinese</source>
+        <translation>Kiina</translation>
+    </message>
+    <message>
+        <source>Czech</source>
+        <translation>Tsekki</translation>
+    </message>
+    <message>
+        <source>Dutch</source>
+        <translation>Hollanti</translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation>Englanti</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation>Viro</translation>
+    </message>
+    <message>
+        <source>Finnish</source>
+        <translation>Suomi</translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation>Ranska</translation>
+    </message>
+    <message>
+        <source>German</source>
+        <translation>Saksa</translation>
+    </message>
+    <message>
+        <source>Greek</source>
+        <translation>Kreikka</translation>
+    </message>
+    <message>
+        <source>Hungarian</source>
+        <translation>Unkari</translation>
+    </message>
+    <message>
+        <source>Indonesian</source>
+        <translation>Indonesia</translation>
+    </message>
+    <message>
+        <source>Italian</source>
+        <translation>Italia</translation>
+    </message>
+    <message>
+        <source>Lithuanian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian Bokmål</source>
+        <translation>Norjan kirjakieli</translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation>Puola</translation>
+    </message>
+    <message>
+        <source>Portuguese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Brazilian Portuguese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Romanian</source>
+        <translation>Romanian kieli</translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation>Venäjä</translation>
+    </message>
+    <message>
+        <source>Serbian</source>
+        <translation>Serbian kieli</translation>
+    </message>
+    <message>
+        <source>Slovak</source>
+        <translation>Slovakia</translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation>Espanja</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation>Ruotsi</translation>
+    </message>
+    <message>
+        <source>Tamil</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turkish</source>
+        <translation>Turkki</translation>
+    </message>
+    <message>
+        <source>Ukrainian</source>
+        <translation>Ukraina</translation>
+    </message>
+    <message>
+        <source>Norwegian Nynorsk</source>
+        <translation>Uusi norjan kieli</translation>
+    </message>
+    <message>
+        <source>Latvian</source>
+        <translation>Latvian kieli</translation>
+    </message>
+    <message>
+        <source>Dutch (Belgium)</source>
+        <translation>Belgian kieli</translation>
+    </message>
 </context>
 <context>
     <name>OverviewPage</name>
-    <message>
-        <source>Waiting for network...</source>
-        <translation>Odotetaan verkkoa...</translation>
-    </message>
-    <message>
-        <source>Connecting to network...</source>
-        <translation>Yhdistetään verkkoon...</translation>
-    </message>
-    <message>
-        <source>Connecting to proxy...</source>
-        <translation>Yhdistetään välityspalvelimeen...</translation>
-    </message>
-    <message>
-        <source>Updating content...</source>
-        <translation>Päivitetään sisältöä...</translation>
-    </message>
     <message>
         <source>Loading chat list...</source>
         <translation>Ladataan keskustelulistaa...</translation>
@@ -1245,32 +1486,12 @@
         <translation>Asetukset</translation>
     </message>
     <message>
-        <source>You don&apos;t have any chats yet.</source>
-        <translation>Sinulla ei ole vielä keskusteluja.</translation>
-    </message>
-    <message>
         <source>New Chat</source>
         <translation>Uusi keskustelu</translation>
     </message>
     <message>
-        <source>Filter your chats...</source>
-        <translation>Suodata keskustelujasi...</translation>
-    </message>
-    <message>
         <source>Search Chats</source>
         <translation>Etsi keskusteluista</translation>
-    </message>
-    <message>
-        <source>Tap on the title bar to filter your chats</source>
-        <translation>Kosketa otsikkopalkkia suodattaaksesi keskusteluja</translation>
-    </message>
-    <message>
-        <source>No matching chats found.</source>
-        <translation>Hakua vastaavia keskusteluja ei löytynyt,</translation>
-    </message>
-    <message>
-        <source>You can search public chats or create a new chat via the pull-down menu.</source>
-        <translation>Voit etsiä julkisia keskusteluja tai luoda uuden keskustelun alasvetovalikosta.</translation>
     </message>
     <message>
         <source>Logging out</source>
@@ -1298,6 +1519,10 @@
     <message>
         <source>Unable to open link.</source>
         <comment>in-app notification text</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archive</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

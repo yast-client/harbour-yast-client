@@ -154,6 +154,13 @@
     </message>
 </context>
 <context>
+    <name>ArchivedChatsPage</name>
+    <message>
+        <source>Archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>BackgroundProgressIndicator</name>
     <message>
         <source>%1 %</source>
@@ -421,16 +428,20 @@
         <source>Mute chat</source>
         <translation>静音对话</translation>
     </message>
+    <message>
+        <source>Archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unarchive</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatPage</name>
     <message>
         <source>Unknown</source>
         <translation>未知</translation>
-    </message>
-    <message>
-        <source>Your message</source>
-        <translation>你的消息</translation>
     </message>
     <message>
         <source>Loading messages...</source>
@@ -566,6 +577,36 @@
         <source>Left chat</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>No results</source>
+        <comment>No messages search results found</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Silent Broadcast</source>
+        <comment>placeholder for broadcasting a message to a channel silently</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Broadcast</source>
+        <comment>placeholder for broadcasting a message to a channel</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send anonymously</source>
+        <comment>placeholder for sending an anonymous message in a supergroup</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Message for %1 Stars</source>
+        <comment>placeholder for sending a message for %1 stars</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Message</source>
+        <comment>placeholder for sending a message</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatSelectionPage</name>
@@ -576,6 +617,49 @@
     <message>
         <source>You don&apos;t have any chats yet.</source>
         <translation>你还没有任何对话。</translation>
+    </message>
+</context>
+<context>
+    <name>ChatsView</name>
+    <message>
+        <source>Ferniegram</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Waiting for network...</source>
+        <translation type="unfinished">等候网络连接…</translation>
+    </message>
+    <message>
+        <source>Connecting to network...</source>
+        <translation type="unfinished">正在连接到网络…</translation>
+    </message>
+    <message>
+        <source>Connecting to proxy...</source>
+        <translation type="unfinished">正在连接到代理…</translation>
+    </message>
+    <message>
+        <source>Updating content...</source>
+        <translation type="unfinished">正在更新内容…</translation>
+    </message>
+    <message>
+        <source>Filter your chats...</source>
+        <translation type="unfinished">筛选你的对话…</translation>
+    </message>
+    <message>
+        <source>You don&apos;t have any chats yet.</source>
+        <translation type="unfinished">你还没有任何对话。</translation>
+    </message>
+    <message>
+        <source>No matching chats found.</source>
+        <translation type="unfinished">没有找到匹配的对话。</translation>
+    </message>
+    <message>
+        <source>You can search public chats or create a new chat via the pull-down menu.</source>
+        <translation type="unfinished">你可以搜索公共对话或通过下拉菜单创建新对话。</translation>
+    </message>
+    <message>
+        <source>Tap on the title bar to filter your chats</source>
+        <translation type="unfinished">点击顶部状态栏即可筛选你的对话</translation>
     </message>
 </context>
 <context>
@@ -1204,22 +1288,6 @@
 <context>
     <name>OverviewPage</name>
     <message>
-        <source>Waiting for network...</source>
-        <translation>等候网络连接…</translation>
-    </message>
-    <message>
-        <source>Connecting to network...</source>
-        <translation>正在连接到网络…</translation>
-    </message>
-    <message>
-        <source>Connecting to proxy...</source>
-        <translation>正在连接到代理…</translation>
-    </message>
-    <message>
-        <source>Updating content...</source>
-        <translation>正在更新内容…</translation>
-    </message>
-    <message>
         <source>Loading chat list...</source>
         <translation>正在加载对话列表…</translation>
     </message>
@@ -1228,32 +1296,12 @@
         <translation>设置</translation>
     </message>
     <message>
-        <source>You don&apos;t have any chats yet.</source>
-        <translation>你还没有任何对话。</translation>
-    </message>
-    <message>
         <source>New Chat</source>
         <translation>新对话</translation>
     </message>
     <message>
-        <source>Filter your chats...</source>
-        <translation>筛选你的对话…</translation>
-    </message>
-    <message>
         <source>Search Chats</source>
         <translation>搜索对话</translation>
-    </message>
-    <message>
-        <source>Tap on the title bar to filter your chats</source>
-        <translation>点击顶部状态栏即可筛选你的对话</translation>
-    </message>
-    <message>
-        <source>No matching chats found.</source>
-        <translation>没有找到匹配的对话。</translation>
-    </message>
-    <message>
-        <source>You can search public chats or create a new chat via the pull-down menu.</source>
-        <translation>你可以搜索公共对话或通过下拉菜单创建新对话。</translation>
     </message>
     <message>
         <source>Logging out</source>
@@ -1281,6 +1329,10 @@
     <message>
         <source>Unable to open link.</source>
         <comment>in-app notification text</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archive</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
