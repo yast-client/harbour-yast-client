@@ -107,22 +107,6 @@ namespace {
     const QString TYPE_VOICE_NOTE("voiceNote");
 }
 
-static QVariant getChatPositionOrder(const QVariantMap &position) {
-    if (position.value(_TYPE).toString() == TYPE_CHAT_POSITION &&
-        position.value(LIST).toMap().value(_TYPE) == TYPE_CHAT_LIST_MAIN) {
-        return position.value(ORDER).toString();
-    }
-    return QVariant();
-}
-
-static QVariant findChatPositionOrder(const QVariantList &positions) {
-    for (QVariant position : positions) {
-        const QVariant order = getChatPositionOrder(position.toMap());
-        if (order.isValid()) return order;
-    }
-    return QVariant();
-}
-
 TDLibReceiver::TDLibReceiver(int tdLibClientId, QObject *parent) : QThread(parent) {
     this->tdLibClientId = tdLibClientId;
     this->isActive = true;

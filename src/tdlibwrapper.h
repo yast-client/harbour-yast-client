@@ -320,6 +320,7 @@ public:
     Q_INVOKABLE void clearRecentlyFoundChats();
     Q_INVOKABLE void addRecentlyFoundChat(qlonglong chatId);
     Q_INVOKABLE void removeRecentlyFoundChat(qlonglong chatId);
+    Q_INVOKABLE void getChatMessageCount(qlonglong chatId, SearchMessagesFilter filter);
     Q_INVOKABLE void getForumTopics(qlonglong chatId, qint32 offsetDate = 0, qlonglong offsetMessageId = 0, qlonglong offsetMessageThreadId = 0, const QString &query = QString(), int limit = 50);
 
     // Others (candidates for extraction ;))
