@@ -258,6 +258,7 @@ QVariant ChatFoldersModel::data(const QModelIndex &index, int role) const {
             case FolderArchive:
                 return this->archiveChatListModel->getUnreadChatCount(true);
             }
+            break;
         case RoleType:
             return data->type;
         }
@@ -273,7 +274,7 @@ void ChatFoldersModel::handleChatAddedToFolderList(int folderId, ChatData *chatD
     }
 }
 
-void ChatFoldersModel::handleChatFoldersUpdated(const QVariantList &newChatFolders, int mainChatListPosition, bool tagsEnabled) {
+void ChatFoldersModel::handleChatFoldersUpdated(const QVariantList &newChatFolders, int mainChatListPosition, bool /*tagsEnabled*/) {
     LOG("Chat folders list updated" << newChatFolders.count());
 
     beginResetModel();

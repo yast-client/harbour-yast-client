@@ -2550,16 +2550,6 @@ void TDLibWrapper::removeRecentlyFoundChat(qlonglong chatId) {
     this->sendRequest(QVariantMap{{_TYPE, "removeRecentlyFoundChat"}, {CHAT_ID, chatId}, {_EXTRA, EXTRA_RECENTLY_FOUND}});
 }
 
-void TDLibWrapper::getChatMessageCount(qlonglong chatId, SearchMessagesFilter filter) {
-    const QString filterType = getSearchMessagesFilterType(filter);
-    LOG("Receiving chat message count" << chatId << filterType);
-    this->sendRequest(QVariantMap{
-                          {_TYPE, "getChatMessageCount"},
-                          {CHAT_ID, chatId},
-                          {FILTER, QVariantMap{{_TYPE, filterType}}},
-                          {_EXTRA, filterType+":"+QString::number(chatId)}
-                      });
-}
 
 void TDLibWrapper::handleFoundChatMessagesReceived(const int extra, const QVariantList &messages, int totalCount, qlonglong nextFromMessageId) {
     emit foundChatMessagesReceived((SearchMessagesFilter)extra, messages, totalCount, nextFromMessageId);
@@ -2604,6 +2594,17 @@ QString TDLibWrapper::getSearchMessagesFilterType(SearchMessagesFilter filter) {
     }
 
     return "searchMessagesFilterEmpty";
+}
+
+void TDLibWrapper::getChatMessageCount(qlonglong chatId, SearchMessagesFilter filter) {
+    const QString filterType = getSearchMessagesFilterType(filter);
+    LOG("Receiving chat message count" << chatId << filterType);
+    this->sendRequest(QVariantMap{
+                          {_TYPE, "getChatMessageCount"},
+                          {CHAT_ID, chatId},
+                          {FILTER, QVariantMap{{_TYPE, filterType}}},
+                          {_EXTRA, filterType+":"+QString::number(chatId)}
+                      });
 }
 
 void TDLibWrapper::getForumTopics(qlonglong chatId, qint32 offsetDate, qlonglong offsetMessageId, qlonglong offsetMessageThreadId, const QString &query, int limit) {

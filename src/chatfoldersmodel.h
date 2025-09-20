@@ -85,7 +85,7 @@ public slots:
 
 private slots:
     void handleChatAddedToFolderList(int folderId, ChatData *chatData, qlonglong order, bool isPinned);
-    void handleChatFoldersUpdated(const QVariantList &newChatFolders, int mainChatListPosition, bool tagsEnabled);
+    void handleChatFoldersUpdated(const QVariantList &newChatFolders, int mainChatListPosition, bool /*tagsEnabled*/);
 
     void handleMainChatListUnreadChatCountUpdated();
 
