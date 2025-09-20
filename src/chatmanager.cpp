@@ -157,7 +157,7 @@ bool ChatManager::isForum() {
 }
 
 
-void ChatManager::handleChatLastMessageUpdated(qlonglong id, const QVariant &/*order*/, const QVariantMap &lastMessage) {
+void ChatManager::handleChatLastMessageUpdated(qlonglong id, const QVariantMap &lastMessage) {
     if (id == chatId) {
         this->chatInformation.insert(LAST_MESSAGE, lastMessage);
         LOG("Last message updated");
