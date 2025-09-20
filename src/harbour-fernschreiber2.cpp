@@ -163,10 +163,10 @@ int main(int argc, char *argv[])
     ChatListModel* archiveChatListModel = chatFoldersModel.getArchiveChatListModel();
     context->setContextProperty("archiveChatListModel", archiveChatListModel);
 
-    ChatManager chatModel(tdLibWrapper);
-    context->setContextProperty("chatManager", &chatModel);
+    ChatManager chatManager(tdLibWrapper);
+    context->setContextProperty("chatManager", &chatManager);
 
-    NotificationManager notificationManager(tdLibWrapper, appSettings, mceInterface, &chatModel, utilities);
+    NotificationManager notificationManager(tdLibWrapper, appSettings, mceInterface, &chatManager, utilities);
     context->setContextProperty("notificationManager", &notificationManager);
 
     ProcessLauncher processLauncher;
