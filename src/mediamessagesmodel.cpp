@@ -11,7 +11,7 @@ namespace {
     const QString TYPE_MESSAGE_VIDEO("messageVideo");
 }
 
-MediaMessagesModel::MediaMessagesModel(TDLibWrapper *tdLibWrapper, QObject *parent) : MessagesModel(tdLibWrapper, parent), inIncrementalUpdate(false) {
+MediaMessagesModel::MediaMessagesModel(TDLibWrapper *tdLibWrapper, QObject *parent) : InvertedMessagesModel(tdLibWrapper, parent), inIncrementalUpdate(false) {
     connect(this->tdLibWrapper, &TDLibWrapper::foundChatMessagesReceived, this, &MediaMessagesModel::handleMessagesReceived);
     connect(this->tdLibWrapper, &TDLibWrapper::newMessageReceived, this, &MediaMessagesModel::handleNewMessageReceived);
 }
@@ -44,7 +44,7 @@ void MediaMessagesModel::handleMessagesReceived(TDLibWrapper::SearchMessagesFilt
         LOG("Messages received next id:" << nextFromMessageId << "size:" << messages.size());
 
         QList<MessageData*> addedMessages;
-        const bool reloadNeeded = handleInsertMessages(messages, addedMessages, false, true);
+        const bool reloadNeeded = handleInsertMessages(messages, addedMessages, false);
 
         if (reloadNeeded) {
             LOG("Only a few messages received in first call, loading more...");
@@ -65,58 +65,6 @@ void MediaMessagesModel::handleNewMessageReceived(qlonglong chatId, const QVaria
         if (contentType == TYPE_MESSAGE_PHOTO || contentType == TYPE_MESSAGE_VIDEO) {
             LOG("New media message received for this chat");
             insertMessages(QList<MessageData*>{new MessageData(message, messageId)});
-        }
-    }
-}
-
-void MediaMessagesModel::insertMessages(const QList<MessageData*> newMessages) {
-    // Caller ensures that newMessages is not empty
-    if (messages.isEmpty()) {
-        appendMessages(newMessages);
-    } else if (!newMessages.isEmpty()) {
-        // No sponsored messages here
-        // There is only an append or a prepend, tertium non datur! (probably ;))
-        const qlonglong lastKnownId = (messages.size() > 0) ? messages.at(0)->messageId : -1;
-        const qlonglong firstNewId = newMessages.first()->messageId;
-        LOG("Inserting messages, last known ID:" << lastKnownId << ", first new ID:" << firstNewId);
-        if (firstNewId > lastKnownId)
-            prependMessages(newMessages);
-        else
-            appendMessages(newMessages);
-    }
-}
-
-void MediaMessagesModel::handleMessagesDeleted(qlonglong chatId, const QList<qlonglong> &messageIds) {
-    LOG("Messages were deleted in a chat" << chatId);
-    if (chatId == this->chatId) {
-        const int count = messageIds.size();
-        LOG(count << "messages in this chat were deleted...");
-
-        int firstPosition = count, lastPosition = count;
-        for (int i = 0; i < count; i++) { // Normal, non-reversed order, unlike what's used in MessagesModel
-            const int position = messageIndexMap.value(messageIds.at(i), -1);
-            if (position >= 0) {
-                // We found at least one message in our list that needs to be deleted
-                if (lastPosition == count) {
-                    lastPosition = position;
-                }
-                if (firstPosition == count) {
-                    firstPosition = position;
-                }
-                if (position < (firstPosition - 1)) {
-                    // Some gap in between, can remove previous range and reset positions
-                    removeRange(firstPosition, lastPosition);
-                    firstPosition = lastPosition = position;
-                } else {
-                    // No gap in between, extend the range and continue loop
-                    firstPosition = position;
-                }
-            }
-        }
-        // After all elements have been processed, there may be one last range to remove
-        // But only if we found at least one item to remove
-        if (firstPosition != count && lastPosition != count) {
-            removeRange(firstPosition, lastPosition);
         }
     }
 }

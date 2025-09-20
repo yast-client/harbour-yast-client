@@ -1,9 +1,9 @@
 #ifndef MEDIAMESSAGESMODEL_H
 #define MEDIAMESSAGESMODEL_H
 
-#include "messagesmodel.h"
+#include "invertedmessagesmodel.h"
 
-class MediaMessagesModel : public MessagesModel {
+class MediaMessagesModel : public InvertedMessagesModel {
     Q_OBJECT
 public:
     MediaMessagesModel(TDLibWrapper *tdLibWrapper, QObject *parent = nullptr);
@@ -15,12 +15,6 @@ public:
 private slots:
     void handleMessagesReceived(TDLibWrapper::SearchMessagesFilter filter, const QVariantList &messages, int /*totalCount*/, qlonglong nextFromMessageId);
     void handleNewMessageReceived(qlonglong chatId, const QVariantMap &message);
-
-protected:
-    virtual void insertMessages(const QList<MessageData*> newMessages) override;
-
-protected slots:
-    virtual void handleMessagesDeleted(qlonglong chatId, const QList<qlonglong> &messageIds) override;
 
 private:
     void loadMessages(qlonglong fromMessageId = 0);

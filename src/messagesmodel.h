@@ -71,7 +71,7 @@ protected:
     void prependMessages(const QList<MessageData*> newMessages);
     void setMessagesAlbum(const QList<MessageData*> newMessages);
     int findLastSentMessageIndex();
-    bool handleInsertMessages(const QVariantList &messages, QList<MessageData*> &newMessagesList, bool setAlbum = true, bool reverseOrder = false);
+    virtual bool handleInsertMessages(const QVariantList &messages, QList<MessageData*> &newMessagesList, bool setAlbum = true, bool reverseOrder = false);
 
 protected slots:
     virtual void handleMessagesDeleted(qlonglong chatId, const QList<qlonglong> &messageIds);
