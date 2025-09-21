@@ -123,6 +123,7 @@ void ChatManager::handleChatNotificationSettingsUpdated(const QString &id, const
 
 void ChatManager::reset() {
     LOG("Resetting chat manager");
+    this->chatMessagesModel->reset();
     this->mediaMessagesModel->reset();
 
     if (!chatInformation.isEmpty()) {
