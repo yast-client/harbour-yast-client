@@ -87,7 +87,6 @@ QVariant MessagesModel::data(const QModelIndex &index, int role) const
 
 bool MessagesModel::clear() {
     LOG("Clearing messages model");
-    LOG(messages.size() << messageIndexMap.size());
     if (!messages.isEmpty()) {
         LOG("Messages is not empty; clearing");
         beginResetModel();
