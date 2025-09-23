@@ -16,11 +16,8 @@
     You should have received a copy of the GNU General Public License
     along with Fernschreiber. If not, see <http://www.gnu.org/licenses/>.
 */
-import QtQuick 2.6
-import QtGraphicalEffects 1.0
+import QtQuick 2.0
 import Sailfish.Silica 1.0
-import Sailfish.Pickers 1.0
-import Nemo.Thumbnailer 1.0
 import WerkWolf.Fernschreiber 1.0
 import "../components"
 import "../js/debug.js" as Debug
@@ -30,7 +27,7 @@ import "../js/functions.js" as Functions
 Page {
     id: chatPage
     allowedOrientations: Orientation.All
-    backNavigation: !stickerPickerLoader.active
+    backNavigation: !messagesView.stickerPickerLoader.active
 
     property bool loading: true
     property bool isInitialized: false
@@ -45,13 +42,10 @@ Page {
     property bool isSuperGroup: chatInformation.type['@type'] === "chatTypeSupergroup"
     property bool isChannel: !!(chatGroupInformation && chatGroupInformation.is_channel)
     property bool isDeletedUser: !!chatPartnerInformation && chatPartnerInformation.type['@type'] === "userTypeDeleted"
-    property bool containsSponsoredMessages: false
     property var chatPartnerInformation
     property var botInformation
     property var chatGroupInformation
     property int chatOnlineMemberCount: 0
-    property var emojiProposals
-    property string emojiProposalsKeyword
     property bool iterativeInitialization: false
     property var messageToShow
     property string messageIdToShow
@@ -65,8 +59,6 @@ Page {
                                     || (chatGroupInformation.status["@type"] === "chatMemberStatusRestricted" && chatGroupInformation.status.is_member)
                                     || (chatGroupInformation.status["@type"] === "chatMemberStatusCreator" && chatGroupInformation.status.is_member)
                                     )
-    property var selectedMessages: []
-    readonly property bool isSelecting: selectedMessages.length > 0
     readonly property bool canSendMessages: hasSendPrivilege("can_send_basic_messages")
     property bool doSendBotStartMessage
     property string sendBotStartMessageParameter
@@ -76,221 +68,9 @@ Page {
     signal navigatedTo(int targetIndex)
     property bool timepointStatus
 
-    states: [
-        State {
-            name: "selectMessages"
-            when: isSelecting
-            PropertyChanges {
-                target: chatNameText
-                text: qsTr("Select Messages")
-            }
-            PropertyChanges {
-                target: chatStatusText
-                text: qsTr("%Ln messages selected", "number of messages selected", chatPage.selectedMessages.length)
-            }
-            PropertyChanges {
-                target: newMessageTextField
-                focus: false
-            }
-        }
-    ]
-
-    function deselectMessage(message) {
-        for (var i = 0; i < selectedMessages.length; i++) {
-            if(selectedMessages[i].id === message.id) {
-                delete selectedMessages[i].properties
-                selectedMessages.splice(i, 1)
-                return true
-            }
-        }
-        return false
-    }
-    function selectMessage(message) {
-        message.properties = {}
-        selectedMessages.push(message)
-        tdLibWrapper.getMessageProperties(message.chat_id, message.id)
-    }
-
-    function toggleSingleMessageSelection(message) {
-        if (deselectMessage(message)) {
-            selectedMessagesChanged()
-            return
-        }
-
-        selectMessage(message)
-        selectedMessagesChanged()
-    }
-    function toggleMultipleMessagesSelection(messages) {
-        var i;
-        if (messages.every(function(m) {
-            return selectedMessages.some(function(selectedMessage) {
-                return selectedMessage.id === m.id
-            })
-        })) {
-            for (i=0; i < messages.length; i++)
-                deselectMessage(messages[i])
-            selectedMessagesChanged()
-            return
-        }
-
-        for (i=0; i < messages.length; i++)
-            selectMessage(messages[i]);
-        selectedMessagesChanged()
-    }
-
-    function toggleMessageSelection(message, albumMessageIds) {
-        if (!albumMessageIds || message.media_album_id === '0' || albumMessageIds.length <= 1)
-            toggleSingleMessageSelection(message)
-        else {
-            var albumMessages = [message]
-            chatModel.getMessagesForAlbum(message.media_album_id, 1).forEach(function(m) { albumMessages.push(m) })
-            toggleMultipleMessagesSelection(albumMessages)
-        }
-    }
-
-    Connections {
-        target: tdLibWrapper
-        onMessagePropertiesReceived: {
-            for (var i = 0; i < selectedMessages.length; i++) {
-                if (selectedMessages[i].id === messageId) {
-                    selectedMessages[i].properties = messageProperties
-                    selectedMessagesChanged()
-                    break
-                }
-            }
-        }
-    }
-
-    function getMessageStatusText(message, listItemIndex, lastReadSentIndex, useElapsed) {
-        Debug.log("Last read sent index: " + lastReadSentIndex)
-        var messageStatusSuffix = ""
-
-        if(!message) return ""
-        if (message['@type'] === "sponsoredMessage")
-            return message.is_recommended ? qsTr("Recommended Message") : qsTr("Sponsored Message")
-
-        if (message.edit_date > 0)
-            messageStatusSuffix += " - " + qsTr("edited")
-
-        if (chatPage.myUserId === message.sender_id.user_id) {
-            messageStatusSuffix += "&nbsp;&nbsp;"
-            if (listItemIndex <= lastReadSentIndex) {
-                // Read by other party
-                messageStatusSuffix += Emoji.emojify("✅", Theme.fontSizeTiny)
-            } else {
-                // Not yet read by other party
-                if (message.sending_state) {
-                    if (message.sending_state['@type'] === "messageSendingStatePending")
-                        messageStatusSuffix += Emoji.emojify("🕙", Theme.fontSizeTiny)
-                    else
-                        // Sending failed...
-                        messageStatusSuffix += Emoji.emojify("❌", Theme.fontSizeTiny)
-                } else
-                    messageStatusSuffix += Emoji.emojify("☑️", Theme.fontSizeTiny)
-            }
-        }
-
-        if (message.author_signature && !chatView.precalculatedValues.showUserInfo)
-            messageStatusSuffix += " - " + message.author_signature
-
-        return (useElapsed ? Functions.getDateTimeElapsed(message.date) : Functions.getDateTimeTranslated(message.date)) + messageStatusSuffix
-    }
-
-    function clearAttachmentPreviewRow() {
-        attachmentPreviewRow.isPicture = false
-        attachmentPreviewRow.isVideo = false
-        attachmentPreviewRow.isDocument = false
-        attachmentPreviewRow.isVoiceNote = false
-        attachmentPreviewRow.isLocation = false
-        attachmentPreviewRow.fileProperties = null
-        attachmentPreviewRow.locationData = null
-        attachmentPreviewRow.attachmentDescription = ""
-        utilities.stopGeoLocationUpdates()
-    }
-
-    function sendMessage() {
-        if (newMessageColumn.editMessageId !== "0")
-            (newMessageColumn.editIsCaption ? tdLibWrapper.editMessageCaption : tdLibWrapper.editMessageText)
-                    (chatInformation.id, newMessageColumn.editMessageId, newMessageTextField.text)
-        else {
-            if (attachmentPreviewRow.visible) {
-                var basecall = function(f){ f(chatInformation.id, attachmentPreviewRow.fileProperties.filePath, newMessageTextField.text, newMessageColumn.replyToMessageId) }
-                if (attachmentPreviewRow.isPicture) basecall(tdLibWrapper.sendPhotoMessage)
-                if (attachmentPreviewRow.isVideo) basecall(tdLibWrapper.sendVideoMessage)
-                if (attachmentPreviewRow.isDocument) basecall(tdLibWrapper.sendDocumentMessage)
-                if (attachmentPreviewRow.isVoiceNote)
-                    tdLibWrapper.sendVoiceNoteMessage(chatInformation.id, utilities.voiceNotePath, newMessageTextField.text, newMessageColumn.replyToMessageId)
-                if (attachmentPreviewRow.isLocation)
-                    tdLibWrapper.sendLocationMessage(chatInformation.id, attachmentPreviewRow.locationData.latitude, attachmentPreviewRow.locationData.longitude, attachmentPreviewRow.locationData.horizontalAccuracy, newMessageColumn.replyToMessageId)
-                clearAttachmentPreviewRow()
-            } else if (chatPage.hasSendPrivilege('can_send_other_messages') && tdLibWrapper.isDiceEmoji(newMessageTextField.text))
-                tdLibWrapper.sendDiceMessage(chatInformation.id, newMessageTextField.text, newMessageColumn.replyToMessageId)
-            else tdLibWrapper.sendTextMessage(chatInformation.id, newMessageTextField.text, newMessageColumn.replyToMessageId)
-
-            if(appSettings.focusTextAreaAfterSend)
-                lostFocusTimer.start()
-        }
-        newMessageInReplyToRow.inReplyToMessage = null
-        newMessageColumn.editMessageId = "0"
-        newMessageColumn.editIsCaption = false
-        utilities.stopGeoLocationUpdates()
-    }
-
-    function getWordBoundaries(text, cursorPosition) {
-        var wordBoundaries = { beginIndex : 0, endIndex : text.length}
-        var currentIndex = 0
-        for (currentIndex = (cursorPosition - 1); currentIndex > 0; currentIndex--) {
-            if (text.charAt(currentIndex) === ' ') {
-                wordBoundaries.beginIndex = currentIndex + 1
-                break
-            }
-        }
-        for (currentIndex = cursorPosition; currentIndex < text.length; currentIndex++) {
-            if (text.charAt(currentIndex) === ' ') {
-                wordBoundaries.endIndex = currentIndex
-                break
-            }
-        }
-        return wordBoundaries
-    }
-
-    function handleMessageTextReplacement(text, cursorPosition) {
-        if(!newMessageTextField.focus) return
-
-        var wordBoundaries = getWordBoundaries(text, cursorPosition)
-
-        var currentWord = text.substring(wordBoundaries.beginIndex, wordBoundaries.endIndex)
-        if (currentWord.length > 1 && currentWord.charAt(0) === ':')
-            tdLibWrapper.searchEmojis(currentWord.substring(1))
-        else {
-            chatPage.emojiProposals = null
-            chatPage.emojiProposalsKeyword = ''
-        }
-        if (currentWord.length > 1 && currentWord.charAt(0) === '@') {
-            knownUsersRepeater.model = knownUsersProxyModel
-            knownUsersProxyModel.setFilterWildcard("*" + currentWord.substring(1) + "*")
-        } else
-            knownUsersRepeater.model = undefined
-    }
-
-    function replaceMessageText(text, cursorPosition, newText) {
-        var wordBoundaries = getWordBoundaries(text, cursorPosition)
-        var newCompleteText = text.substring(0, wordBoundaries.beginIndex) + newText + " " + text.substring(wordBoundaries.endIndex)
-        var newIndex = wordBoundaries.beginIndex + newText.length + 1
-        newMessageTextField.text = newCompleteText
-        newMessageTextField.cursorPosition = newIndex
-        lostFocusTimer.start()
-    }
-
     function setMessageText(text, doSend) {
-        if(doSend)
-            tdLibWrapper.sendTextMessage(chatInformation.id, text, 0)
-        else {
-            newMessageTextField.text = text
-            newMessageTextField.cursorPosition = text.length
-            lostFocusTimer.start()
-        }
-
+        if (messagesView)
+            messagesView.setMessageText(text, doSend)
     }
 
     function startForwardingMessages(messages) {
@@ -353,24 +133,6 @@ Page {
         chatPage.focus = true
     }
 
-    function showMessage(messageId, initialRun) {
-        // Means we tapped a quoted message and had to load it.
-        if(initialRun) {
-            chatPage.messageIdToScrollTo = messageId
-        }
-        if (chatPage.messageIdToScrollTo) {
-            var index = chatModel.getMessageIndex(chatPage.messageIdToScrollTo)
-            var proxyIndex = chatProxyModel.mapRowFromSource(index, -1)
-            if(proxyIndex !== -1) {
-                chatPage.messageIdToScrollTo = ""
-                chatView.scrollToIndex(proxyIndex)
-                navigatedTo(proxyIndex)
-            } else if(initialRun)
-                // we only want to do this once.
-                chatModel.triggerLoadHistoryForMessage(chatPage.messageIdToScrollTo)
-        }
-    }
-
     // TODO: close when chat is deleted
     // left the chat, even if from another device; this follows the behaviour in Telegram Desktop
     onUserIsMemberChanged: if (!userIsMember)
@@ -403,8 +165,6 @@ Page {
 
     Component.onCompleted: {
         Debug.log("[ChatPage] Initializing chat page...")
-        chatView.currentIndex = -1
-        chatView.lastReadSentIndex = -1
 
         if (isPrivateChat || isSecretChat) {
             chatPartnerInformation = tdLibWrapper.getUserInformation(chatInformation.type.user_id)
@@ -428,12 +188,6 @@ Page {
     }
 
     Component.onDestruction: {
-        if (chatPage.canSendMessages && !chatPage.isDeletedUser)
-            tdLibWrapper.setChatDraftMessage(chatInformation.id, 0, newMessageColumn.replyToMessageId, newMessageTextField.text,
-                newMessageInReplyToRow.inReplyToMessage ? newMessageInReplyToRow.inReplyToMessage.id : 0)
-
-        utilities.stopGeoLocationUpdates()
-        chatActionTimer.stop()
         tdLibWrapper.closeChat(chatInformation.id)
     }
 
@@ -497,31 +251,7 @@ Page {
                 chatOnlineMemberCount = onlineMemberCount
             }
         }
-        onFileUpdated: {
-            uploadStatusRow.visible = fileInformation.remote.is_uploading_active
-            if (uploadStatusRow.visible) {
-                uploadingProgressBar.maximumValue = fileInformation.size
-                uploadingProgressBar.value = fileInformation.remote.uploaded_size
-            }
-        }
-        onEmojiKeywordsReceived: {
-            chatPage.emojiProposalsKeyword = text
-            chatPage.emojiProposals = emojis
-        }
-        onReceivedMessage: {
-            if (message.is_pinned) {
-                Debug.log("[ChatPage] Received pinned message")
-                pinnedMessageItem.pinnedMessage = message
-            }
-            if (chatInformation.draft_message && messageId === chatInformation.draft_message.reply_to_message_id) {
-                newMessageInReplyToRow.inReplyToMessage = message
-            }
-            Debug.log("Received message ID: " + messageId + ", message ID to show: " + chatPage.messageIdToShow)
-            if (chatPage.messageIdToShow && chatPage.messageIdToShow === String(messageId)) {
-                messageOverlayLoader.overlayMessage = message
-                messageOverlayLoader.active = true
-            }
-        }
+
         onSecretChatReceived: {
             if (secretChatId === chatInformation.type.secret_chat_id) {
                 Debug.log("[ChatPage] Received detailed information about this secret chat")
@@ -552,97 +282,7 @@ Page {
             if ((isPrivateChat || isSecretChat) && userId === chatPartnerInformation.id)
                 chatPage.botInformation = userFullInfo.bot_info
         }
-        onSponsoredMessageReceived: chatPage.containsSponsoredMessages = true
         onReactionsUpdated: availableReactions = tdLibWrapper.getChatReactions(chatInformation.id)
-    }
-
-    Connections {
-        target: chatModel
-        onMessagesReceived: {
-            var proxyIndex = chatProxyModel.mapRowFromSource(modelIndex, -1)
-            Debug.log("[ChatPage] Messages received, view has ", chatView.count, " messages, last known message index ", proxyIndex, "("+modelIndex+"), own messages were read before index ", lastReadSentIndex)
-            if (totalCount === 0) {
-                if (chatPage.iterativeInitialization) {
-                    chatPage.iterativeInitialization = false
-                    Debug.log("[ChatPage] actually, skipping that: No Messages in Chat.")
-                    chatView.positionViewAtEnd()
-                    chatPage.loading = false
-                    return
-                } else
-                    chatPage.iterativeInitialization = true
-            }
-
-            chatView.lastReadSentIndex = lastReadSentIndex
-            chatView.scrollToIndex(proxyIndex)
-            chatPage.loading = false
-            if (chatOverviewItem.visible && proxyIndex >= (chatView.count - 10)) {
-                chatView.inCooldown = true
-                chatModel.triggerLoadMoreFuture()
-            }
-
-            if (chatView.height > chatView.contentHeight) {
-                Debug.log("[ChatPage] Chat content quite small...")
-                viewMessageTimer.queueViewMessage(chatView.count - 1)
-            }
-
-            chatViewCooldownTimer.restart()
-            chatViewStartupReadTimer.restart()
-
-            /*
-            // Double-tap for reactions is currently disabled, let's see if we'll ever need it again
-            var remainingDoubleTapHints = appSettings.remainingDoubleTapHints;
-            Debug.log("Remaining double tap hints: " + remainingDoubleTapHints);
-            if (remainingDoubleTapHints > 0) {
-                doubleTapHintTimer.start();
-                tapHint.visible = true;
-                tapHintLabel.visible = true;
-                appSettings.remainingDoubleTapHints = remainingDoubleTapHints - 1;
-            }
-             */
-
-        }
-        onNewMessageReceived: {
-            if (( chatView.manuallyScrolledToBottom && Qt.application.state === Qt.ApplicationActive ) || message.sender_id.user_id === chatPage.myUserId) {
-                Debug.log("[ChatPage] Own message received or was scrolled to bottom, scrolling down to see it...")
-                chatView.scrollToIndex(chatView.count - 1)
-                viewMessageTimer.queueViewMessage(chatView.count - 1)
-            }
-        }
-        onUnreadCountUpdated: {
-            Debug.log("[ChatPage] Unread count updated, new count: ", unreadCount)
-            chatInformation.unread_count = unreadCount
-            chatUnreadMessagesItem.visible = ( !chatPage.loading && unreadCount > 0 && chatOverviewItem.visible )
-            chatUnreadMessagesCount.text = Functions.formatUnreadCount(unreadCount)
-        }
-        onLastReadSentMessageUpdated: {
-            Debug.log("[ChatPage] Updating last read sent index, new index: ", lastReadSentIndex)
-            chatView.lastReadSentIndex = lastReadSentIndex
-        }
-        onMessagesIncrementalUpdate: {
-            var proxyIndex = chatProxyModel.mapRowFromSource(modelIndex, -1)
-            Debug.log("Incremental update received. View now has ", chatView.count, " messages, view is on index ", proxyIndex, "("+modelIndex+"), own messages were read before index ", lastReadSentIndex)
-            chatView.lastReadSentIndex = lastReadSentIndex
-            if ((!chatPage.isInitialized) && (proxyIndex > -1))
-                chatView.scrollToIndex(proxyIndex)
-            if (chatView.height > chatView.contentHeight) {
-                Debug.log("[ChatPage] Chat content quite small...")
-                viewMessageTimer.queueViewMessage(chatView.count - 1)
-            } else if (chatPage.messageIdToScrollTo && chatPage.messageIdToScrollTo != "")
-                showMessage(chatPage.messageIdToScrollTo, false)
-            chatViewCooldownTimer.restart()
-            chatViewStartupReadTimer.restart()
-        }
-        onNotificationSettingsUpdated: {
-            chatInformation = chatModel.getChatInformation()
-            muteChatMenuItem.text = chatInformation.notification_settings.mute_for > 0 ? qsTr("Unmute Chat") : qsTr("Mute Chat")
-        }
-        onPinnedMessageChanged: {
-            chatInformation = chatModel.getChatInformation()
-            if (chatInformation.pinned_message_id.toString() !== "0") {
-                Debug.log("[ChatPage] Loading pinned message ", chatInformation.pinned_message_id)
-                tdLibWrapper.getMessage(chatInformation.id, chatInformation.pinned_message_id)
-            } else pinnedMessageItem.pinnedMessage = undefined
-        }
     }
 
     Connections {
@@ -652,71 +292,11 @@ Page {
     }
 
     Timer {
-        id: lostFocusTimer
-        interval: 200
-        running: false
-        repeat: false
-        onTriggered:
-            newMessageTextField.forceActiveFocus()
-    }
-
-    Timer {
-        id: textReplacementTimer
-        interval: 600
-        running: false
-        repeat: false
-        onTriggered:
-            handleMessageTextReplacement(newMessageTextField.text, newMessageTextField.cursorPosition)
-    }
-
-    Timer {
         id: chatContactTimeUpdater
         interval: 60000
         running: isPrivateChat || isSecretChat
         repeat: true
         onTriggered: chatStatusText.update()
-    }
-    Timer {
-        id: viewMessageTimer
-        interval: appSettings.delayMessageRead ? 1000 : 0
-        property int lastQueuedIndex: -1
-        function queueViewMessage(index) {
-            if (index > lastQueuedIndex) {
-                lastQueuedIndex = index
-                start()
-            }
-        }
-
-        onTriggered: {
-            Debug.log("scroll position changed, message index: ", lastQueuedIndex)
-            Debug.log("unread count: ", chatInformation.unread_count)
-            var modelIndex = chatProxyModel.mapRowToSource(lastQueuedIndex)
-            var messageToRead = chatModel.getMessage(modelIndex)
-            if (messageToRead['@type'] === "sponsoredMessage") {
-                Debug.log("sponsored message to read: ", messageToRead.id)
-                tdLibWrapper.viewMessage(chatInformation.id, messageToRead.message_id, false)
-            } else if (chatInformation.unread_count > 0 && lastQueuedIndex > -1) {
-                if (messageToRead) {
-                    Debug.log("message to read: ", messageToRead.id)
-                    var messageId = messageToRead.id
-                    var type = messageToRead.content["@type"]
-                    if (messageToRead.media_album_id !== '0') {
-                        var albumIds = chatModel.getMessageIdsForAlbum(messageToRead.media_album_id)
-                        if (albumIds.length > 0) {
-                            messageId = albumIds[albumIds.length - 1]
-                            Debug.log("message to read last album message id: ", messageId)
-                        }
-                    }
-                    if (messageId)
-                        tdLibWrapper.viewMessage(chatInformation.id, messageId, false)
-                }
-                lastQueuedIndex = -1
-            }
-            if (chatInformation.unread_count === 0) {
-                tdLibWrapper.readAllChatMentions(chatInformation.id)
-                tdLibWrapper.readAllChatReactions(chatInformation.id)
-            }
-        }
     }
 
     SilicaFlickable {
@@ -734,7 +314,7 @@ Page {
         contentWidth: width
 
         PullDownMenu {
-            visible: !stickerPickerLoader.active && !voiceNoteOverlayLoader.active && !messageOverlayLoader.active && !stickerSetOverlayLoader.active
+            visible: !messagesView.overlayActive
 
             MenuItem {
                 id: deleteChatMenuItem
@@ -800,8 +380,8 @@ Page {
             height: headerRow.height
             width: parent.width
             onClicked: {
-                if (chatPage.isSelecting)
-                    chatPage.selectedMessages = []
+                if (messagesView && messagesView.isSelecting)
+                    messagesView.selectedMessages = []
                 else pageStack.navigateForward()
             }
             onPressAndHold:
@@ -975,599 +555,10 @@ Page {
             }
 
 
-            PinnedMessageItem {
-                id: pinnedMessageItem
-                onRequestShowMessage: {
-                    messageOverlayLoader.overlayMessage = pinnedMessageItem.pinnedMessage
-                    messageOverlayLoader.active = true
-                }
-                onRequestCloseMessage: {
-                    messageOverlayLoader.overlayMessage = undefined
-                    messageOverlayLoader.active = false
-                }
-            }
-
-            Item {
-                id: chatViewItem
+            MessagesView {
+                id: messagesView
                 width: parent.width
-                height: parent.height - headerRow.height - pinnedMessageItem.height - newMessageColumn.height - selectedMessagesActions.height
-
-                property int previousHeight
-
-                Component.onCompleted:
-                    previousHeight = height
-
-                onHeightChanged: {
-                    if (previousHeight > height) {
-                        var deltaHeight = previousHeight - height
-                        chatView.contentY = chatView.contentY + deltaHeight
-                    } else
-                        chatView.handleScrollPositionChanged()
-                    previousHeight = height
-                }
-
-                Timer {
-                    id: chatViewCooldownTimer
-                    interval: 2000
-                    onTriggered: {
-                        Debug.log("[ChatPage] Cooldown completed...")
-                        chatView.inCooldown = false
-
-                        if (!chatPage.isInitialized) {
-                            Debug.log("Page is initialized!")
-                            chatPage.isInitialized = true
-                            chatView.handleScrollPositionChanged()
-                        }
-                    }
-                }
-
-                Timer {
-                    id: chatViewStartupReadTimer
-                    interval: 200
-                    onTriggered: {
-                        if (!chatPage.isInitialized) {
-                            Debug.log("Page is initialized!")
-                            chatPage.isInitialized = true
-                            chatView.handleScrollPositionChanged()
-                            if (chatPage.isChannel)
-                                tdLibWrapper.getChatSponsoredMessage(chatInformation.id)
-                            if (typeof chatPage.messageToShow !== "undefined" && chatPage.messageToShow !== {}) {
-                                messageOverlayLoader.overlayMessage = chatPage.messageToShow
-                                messageOverlayLoader.active = true
-                            }
-                            if (chatPage.messageIdToShow)
-                                tdLibWrapper.getMessage(chatPage.chatInformation.id, chatPage.messageIdToShow)
-                        }
-                    }
-                }
-
-                Loader {
-                    asynchronous: true
-                    active: chatView.blurred
-                    anchors.fill: chatView
-                    sourceComponent: Component {
-                        FastBlur {
-                            source: chatView
-                            radius: Theme.paddingLarge
-                        }
-                    }
-                }
-
-                SilicaListView {
-                    id: chatView
-
-                    visible: !blurred
-                    property bool blurred: messageOverlayLoader.item || stickerPickerLoader.item || voiceNoteOverlayLoader.item || inlineQuery.hasOverlay || stickerSetOverlayLoader.item
-
-                    anchors.fill: parent
-                    opacity: chatPage.loading ? 0 : 1
-                    Behavior on opacity { FadeAnimation {} }
-                    clip: true
-                    highlightMoveDuration: 0
-                    highlightResizeDuration: 0
-                    property int lastReadSentIndex: -1
-                    property bool inCooldown: false
-                    property bool manuallyScrolledToBottom
-                    property QtObject precalculatedValues: QtObject {
-                        readonly property alias page: chatPage
-                        readonly property bool showUserInfo: page.isBasicGroup || (page.isSuperGroup && (!page.isChannel || chatGroupInformation.show_message_sender))
-                        readonly property int profileThumbnailDimensions: showUserInfo ? Theme.itemSizeSmall : 0
-                        readonly property int pageMarginDouble: 2 * Theme.horizontalPageMargin
-                        readonly property int paddingMediumDouble: 2 * Theme.paddingMedium
-                        readonly property int entryWidth: chatView.width - pageMarginDouble
-                        readonly property int textItemWidth: entryWidth - profileThumbnailDimensions - Theme.paddingSmall
-                        readonly property int backgroundWidth: page.isChannel ? textItemWidth : textItemWidth - pageMarginDouble
-                        readonly property int backgroundRadius: textItemWidth/50
-                        readonly property int textColumnWidth: backgroundWidth - Theme.horizontalPageMargin
-                        readonly property int messageInReplyToHeight: Theme.fontSizeExtraSmall * 2.571428571 + Theme.paddingSmall
-                        readonly property int webPagePreviewHeight: ( (textColumnWidth * 2 / 3) + (6 * Theme.fontSizeExtraSmall) + ( 7 * Theme.paddingSmall) )
-                        readonly property bool pageIsSelecting: chatPage.isSelecting
-                    }
-
-                    function handleScrollPositionChanged() {
-                        Debug.log("Current position: ", chatView.contentY)
-                        Debug.log("Contains sponsored messages?", chatPage.containsSponsoredMessages)
-                        if (chatOverviewItem.visible && ( chatInformation.unread_count > 0 || chatPage.containsSponsoredMessages ) ) {
-                            var bottomIndex = chatView.indexAt(chatView.contentX, ( chatView.contentY + chatView.height - Theme.horizontalPageMargin ))
-                            if (bottomIndex > -1)
-                                viewMessageTimer.queueViewMessage(bottomIndex)
-                        } else {
-                            tdLibWrapper.readAllChatMentions(chatInformation.id)
-                            tdLibWrapper.readAllChatReactions(chatInformation.id)
-                        }
-                        manuallyScrolledToBottom = chatView.atYEnd
-                    }
-
-                    function scrollToIndex(index, mode) {
-                        if(index > 0 && index < chatView.count) {
-                            positionViewAtIndex(index, (mode === undefined) ? ListView.Contain : mode)
-                            if(index === chatView.count - 1) {
-                                manuallyScrolledToBottom = true
-                                if(!chatView.atYEnd)
-                                    chatView.positionViewAtEnd()
-                            }
-                        }
-                    }
-
-                    onContentYChanged: {
-                        if (!chatPage.loading && !chatView.inCooldown) {
-                            if (chatView.indexAt(chatView.contentX, chatView.contentY) < 10) {
-                                Debug.log("[ChatPage] Trying to get older history items...")
-                                chatView.inCooldown = true
-                                chatModel.triggerLoadMoreHistory()
-                            } else if (chatOverviewItem.visible && chatView.indexAt(chatView.contentX, chatView.contentY) > ( count - 10)) {
-                                Debug.log("[ChatPage] Trying to get newer history items...")
-                                chatView.inCooldown = true
-                                chatModel.triggerLoadMoreFuture()
-                            }
-                        }
-                    }
-
-                    onMovementEnded:
-                        handleScrollPositionChanged()
-
-                    onQuickScrollAnimatingChanged: {
-                        if (!quickScrollAnimating) {
-                            handleScrollPositionChanged()
-                            if(atYEnd) { // handle some false guesses from quick scroll
-                                chatView.scrollToIndex(chatView.count - 2)
-                                chatView.scrollToIndex(chatView.count - 1)
-                            }
-                        }
-                    }
-
-                    BoolFilterModel {
-                        id: chatProxyModel
-                        sourceModel: chatModel
-                        filterRoleName: "album_entry_filter"
-                        filterValue: false
-                    }
-                    model: chatProxyModel
-                    header: Component {
-                        Loader {
-                            active: !!chatPage.botInformation && chatPage.botInformation.description.length > 0
-                            asynchronous: true
-                            width: chatView.width
-                            sourceComponent: Component {
-                                Label {
-                                    id: botInfoLabel
-                                    topPadding: Theme.paddingLarge
-                                    bottomPadding: Theme.paddingLarge
-                                    leftPadding: Theme.horizontalPageMargin
-                                    rightPadding: Theme.horizontalPageMargin
-                                    text: Emoji.emojify(chatPage.botInformation.description, font.pixelSize)
-                                    font.pixelSize: Theme.fontSizeSmall
-                                    color: Theme.highlightColor
-                                    wrapMode: Text.Wrap
-                                    textFormat: Text.StyledText
-                                    horizontalAlignment: Text.AlignHCenter
-                                    onLinkActivated: {
-                                        var chatCommand = Functions.handleLink(link)
-                                        if(chatCommand)
-                                            tdLibWrapper.sendTextMessage(chatInformation.id, chatCommand)
-                                    }
-                                    linkColor: Theme.primaryColor
-                                    visible: (text !== "")
-                                }
-                            }
-                        }
-                    }
-
-                    function getContentComponentHeight(contentType, content, parentWidth, albumEntries) {
-                        var unit
-                        switch(contentType) {
-                        case "messageAnimatedEmoji":
-                            return content.animated_emoji.sticker.height
-                        case "messageAnimation":
-                            return Functions.getVideoHeight(parentWidth, content.animation)
-                        case "messageAudio":
-                        case "messageVoiceNote":
-                        case "messageDocument":
-                            return Theme.itemSizeLarge * (albumEntries + 1)
-                        case "messageGame":
-                            return parentWidth * 0.66666666 + Theme.itemSizeLarge // 2 / 3;
-                        case "messageLocation":
-                        case "messageVenue":
-                            return parentWidth * 0.66666666 // 2 / 3;
-                        case "messagePhoto":
-                            if(albumEntries > 0) {
-                                unit = (parentWidth * 0.66666666)
-                                return (albumEntries % 2 !== 0 ? unit * 0.75 : 0) + unit * albumEntries * 0.25
-                            }
-                            var biggest = content.photo.sizes[content.photo.sizes.length - 1]
-                            var aspectRatio = biggest.width/biggest.height
-                            return Math.max(Theme.itemSizeExtraSmall, Math.min(parentWidth * 0.66666666, parentWidth / aspectRatio))
-                        case "messagePoll":
-                            return Theme.itemSizeSmall * (4 + content.poll.options)
-                        case "messageSticker":
-                            return content.sticker.height
-                        case "messageDice":
-                            var diceStickers = content.final_state || content.initial_state
-                            if (diceStickers['@type'] === 'diceStickersSlotMachine')
-                                return diceStickers.lever.height
-                            return diceStickers.sticker.height
-                        case "messageVideo":
-                            if(albumEntries > 0) {
-                                unit = (parentWidth * 0.66666666)
-                                return (albumEntries % 2 !== 0 ? unit * 0.75 : 0) + unit * albumEntries * 0.25
-                            }
-                            return Functions.getVideoHeight(parentWidth, content.video)
-                        case "messageVideoNote":
-                            return parentWidth
-                        }
-                    }
-
-                    readonly property var delegateMessagesContent: [
-                        "messageAnimatedEmoji",
-                        "messageAnimation",
-                        "messageAudio",
-                        // "messageContact",
-                        "messageDocument",
-                        "messageGame",
-                        // "messageInvoice",
-                        "messageLocation",
-                        // "messagePassportDataSent",
-                        // "messagePaymentSuccessful",
-                        "messagePhoto",
-                        "messagePoll",
-                        // "messageProximityAlertTriggered",
-                        "messageSticker",
-                        "messageVenue",
-                        "messageVideo",
-                        "messageVideoNote",
-                        "messageVoiceNote",
-                        "messageDice"
-                    ]
-                    readonly property var fullWidthWidescreenContentMessages: [
-                        "messageDocument",
-                        "messageAudio",
-                        "messagePoll",
-                        "messageVoiceNote",
-                    ]
-                    readonly property var albumMessages: [
-                        'messagePhoto',
-                        'messageVideo',
-                        'messageDocument',
-                        'messageAudio',
-                    ]
-                    readonly property var contentAboveMediaByDefaultMessages: [
-                        'messagePoll',
-                        'messageVenue'
-                    ]
-
-                    readonly property var simpleDelegateMessages: [
-                        "messageBasicGroupChatCreate",
-                        "messageChatAddMembers",
-                        "messageChatChangePhoto",
-                        "messageChatChangeTitle",
-                        "messageChatDeleteMember",
-                        "messageChatDeletePhoto",
-                        "messageChatJoinByLink",
-                        "messageChatSetTtl", "messageChatSetMessageAutoDeleteTime",
-                        "messageChatUpgradeFrom", "messageChatUpgradeTo",
-                        "messageContactRegistered",
-                        // "messageExpiredPhoto", "messageExpiredVideo","messageWebsiteConnected", "messageExpiredVoiceNote", "messageExpiredVideoNote",
-                        "messageGameScore",
-                        "messageCustomServiceAction",
-                        "messagePinMessage",
-                        "messageScreenshotTaken",
-                        "messageSupergroupChatCreate",
-                        "messageBotWriteAccessAllowed",
-                        "messageChatBoost",
-                        "messageGift", // TODO
-                        "messageGiveawayCreated", // TODO
-                        "messageGiveawayCompleted",
-                        "messageUnsupported",
-                    ]
-
-                    delegate: Loader {
-                        width: chatView.width
-                        Component {
-                            id: messageListViewItemComponent
-                            MessageListViewItem {
-                                precalculatedValues: chatView.precalculatedValues
-                                chatId: chatModel.chatId
-                                myMessage: model.display
-                                messageId: model.message_id
-                                messageAlbumMessageIds: model.album_message_ids
-                                messageViewCount: model.view_count
-                                reactions: model.reactions
-                                chatReactions: availableReactions
-                                readonly property int originalIndex: model.index
-                                messageIndex: chatProxyModel.mapRowToSource(originalIndex)
-                                onOriginalIndexChanged: messageIndexTimer.start()
-                                Timer {
-                                    // FIXME: find a better way to fix this
-                                    id: messageIndexTimer
-                                    interval: 0
-                                    onTriggered: messageIndex = Qt.binding(function() { return chatProxyModel.mapRowToSource(originalIndex) })
-                                }
-                                hasContentComponent: !!myMessage.content && chatView.delegateMessagesContent.indexOf(model.content_type) > -1
-                                fullWidthWidescreenContent: !!myMessage.content && chatView.fullWidthWidescreenContentMessages.indexOf(model.content_type) > -1
-                                contentAboveMedia: !!myMessage.content && chatView.contentAboveMediaByDefaultMessages.indexOf(model.content_type) > -1
-                                onReplyToMessage: {
-                                    newMessageInReplyToRow.inReplyToMessage = myMessage
-                                    newMessageTextField.focus = true
-                                }
-                                onEditMessage: {
-                                    newMessageColumn.editMessageId = messageId
-                                    newMessageColumn.editIsCaption = !!myMessage && !!myMessage.content && !!myMessage.content.caption
-                                    newMessageTextField.text = Functions.getMessageText(myMessage, false, chatPage.myUserId, true)
-                                    newMessageTextField.cursorPosition = newMessageTextField.text.length
-                                    newMessageTextField.focus = true
-                                }
-                                onForwardMessage: {
-                                    startForwardingMessages([myMessage])
-                                }
-                            }
-                        }
-                        Component {
-                            id: messageListViewItemSimpleComponent
-                            MessageListViewItemSimple {}
-                        }
-                        Component {
-                            id: messageListViewItemHiddenComponent
-                            Item {
-                                property var myMessage: display
-                                property bool senderIsUser: myMessage.sender_id["@type"] === "messageSenderUser"
-                                property var userInformation: senderIsUser ? tdLibWrapper.getUserInformation(myMessage.sender_id.user_id) : null
-                                property bool isOwnMessage: senderIsUser && chatPage.myUserId === myMessage.sender_id.user_id
-                                height: 1
-                            }
-                        }
-                        sourceComponent: chatView.simpleDelegateMessages.indexOf(model.content_type) > -1
-                                            ? messageListViewItemSimpleComponent
-                                            : messageListViewItemComponent
-                    }
-                    VerticalScrollDecorator { flickable: chatView }
-
-                    ViewPlaceholder {
-                        id: chatViewPlaceholder
-                        enabled: chatView.count === 0
-                        text: (chatPage.isSecretChat && !chatPage.isSecretChatReady) ? qsTr("This secret chat is not yet ready. Your chat partner needs to go online first.")
-                                                                                     : searchInChatItem.visible ? qsTr("No results", "No messages search results found") : qsTr("This chat is empty.")
-                    }
-                }
-
-                BusyLabel {
-                    Behavior on opacity { FadeAnimator {} }
-                    anchors.verticalCenter: parent.verticalCenter
-                    //spacing: Theme.paddingMedium
-                    text: qsTr("Loading messages...")
-                    running: chatPage.loading
-                }
-
-                Item {
-                    id: chatUnreadMessagesItem
-                    width: Theme.fontSizeHuge
-                    height: Theme.fontSizeHuge
-                    anchors.right: parent.right
-                    anchors.rightMargin: Theme.paddingMedium
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: Theme.paddingMedium
-                    visible: !chatPage.loading && chatInformation.unread_count > 0 && chatOverviewItem.visible
-                    Rectangle {
-                        id: chatUnreadMessagesCountBackground
-                        color: Theme.highlightBackgroundColor
-                        anchors.fill: parent
-                        radius: width / 2
-                        visible: chatUnreadMessagesItem.visible
-                    }
-
-                    Text {
-                        id: chatUnreadMessagesCount
-                        font.pixelSize: Theme.fontSizeMedium
-                        font.bold: true
-                        color: Theme.primaryColor
-                        anchors.centerIn: chatUnreadMessagesCountBackground
-                        visible: chatUnreadMessagesItem.visible
-                        text: Functions.formatUnreadCount(chatInformation.unread_count)
-                    }
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            chatView.scrollToIndex(chatView.count - 1 - chatInformation.unread_count)
-                        }
-                    }
-                }
-
-                Timer {
-                    id: chatActionTimer
-                    property string action
-                    triggeredOnStart: true
-                    interval: 5000 // from https://core.telegram.org/constructor/updateChatUserTyping: chat action update is valid for 6 seconds
-                    repeat: true
-                    onTriggered: if (Qt.application.active)
-                                     tdLibWrapper.sendChatAction(chatInformation.id, action)
-                    onRunningChanged: if (!running)
-                                          tdLibWrapper.sendChatAction(chatInformation.id, "chatActionCancel")
-                    function run(action) {
-                        this.action = action
-                        restart()
-                    }
-                }
-
-                Loader {
-                    id: stickerPickerLoader
-                    active: false
-                    asynchronous: true
-                    width: parent.width
-                    height: active ? parent.height : 0
-                    source: "../components/StickerPicker.qml"
-                    onStatusChanged: if (status == Loader.Ready)
-                                         chatActionTimer.run("chatActionChoosingSticker")
-                                     else chatActionTimer.stop()
-                }
-
-                Connections {
-                    target: stickerPickerLoader.item
-                    onStickerPicked: {
-                        Debug.log("Sticker picked: " + stickerId)
-                        stickerManager.setNeedsReload(true)
-                        tdLibWrapper.sendStickerMessage(chatInformation.id, stickerId, newMessageColumn.replyToMessageId)
-                        stickerPickerLoader.active = false
-                        attachmentOptionsFlickable.show = false
-                        newMessageInReplyToRow.inReplyToMessage = null
-                        newMessageColumn.editMessageId = "0"
-                        newMessageColumn.editIsCaption = false
-                    }
-                }
-
-                Loader {
-                    id: messageOverlayLoader
-
-                    property var overlayMessage
-
-                    active: false
-                    asynchronous: true
-                    width: parent.width
-                    height: active ? parent.height : 0
-                    sourceComponent: Component {
-                        MessageOverlayFlickable {
-                            overlayMessage: messageOverlayLoader.overlayMessage
-                            showHeader: !chatPage.isChannel
-                            onRequestClose:
-                                messageOverlayLoader.active = false
-                        }
-                    }
-                }
-
-                Loader {
-                    id: voiceNoteOverlayLoader
-                    active: false
-                    asynchronous: true
-                    width: parent.width
-                    height: active ? parent.height : 0
-                    source: "../components/VoiceNoteOverlay.qml"
-                    onActiveChanged: if (!active)
-                        utilities.stopRecordingVoiceNote()
-                }
-
-                Loader {
-                    id: stickerSetOverlayLoader
-
-                    property string stickerSetId
-
-                    active: false
-                    asynchronous: true
-                    width: parent.width
-                    height: active ? parent.height : 0
-                    sourceComponent: Component {
-                        StickerSetOverlay {
-                            stickerSetId: stickerSetOverlayLoader.stickerSetId
-                            onRequestClose:
-                                stickerSetOverlayLoader.active = false
-                        }
-                    }
-
-                    onActiveChanged: if (active)
-                        attachmentOptionsFlickable.show = false
-                }
-
-                InlineQuery {
-                    id: inlineQuery
-                    textField: newMessageTextField
-                    chatId: chatInformation.id
-                }
-            }
-
-            NewMessageColumn {
-                myUserId: chatPage.myUserId
-                show: !chatPage.isSelecting && chatPage.canSendMessages
-            }
-        }
-    }
-
-
-    Loader {
-        id: selectedMessagesActions
-        asynchronous: true
-        anchors.bottom: parent.bottom
-        readonly property bool show: chatPage.isSelecting
-        active: height > 0
-        width: parent.width
-        height: show ? Theme.itemSizeMedium : 0
-        Behavior on height { SmoothedAnimation { duration: 200 } }
-        sourceComponent: Component {
-            Item {
-                clip: true
-
-                IconButton {
-                    anchors {
-                        left: parent.left
-                        leftMargin: Theme.horizontalPageMargin
-                        verticalCenter: parent.verticalCenter
-                    }
-                    icon.source: "image://theme/icon-m-cancel"
-                    onClicked:
-                        chatPage.selectedMessages = []
-                }
-
-                Row {
-                    spacing: Theme.paddingSmall
-                    anchors {
-                        right: parent.right
-                        rightMargin: Theme.horizontalPageMargin
-                        verticalCenter: parent.verticalCenter
-                    }
-
-                    IconButton {
-                        icon.source: "../../images/icon-m-copy.svg"
-                        icon.sourceSize: Qt.size(Theme.iconSizeMedium, Theme.iconSizeMedium)
-                        onClicked: {
-                            Clipboard.text = Functions.getMessagesArrayText(chatPage.selectedMessages)
-                            appNotification.show(qsTr("%Ln messages have been copied", "", selectedMessages.length))
-                            chatPage.selectedMessages = []
-                        }
-                    }
-
-                    IconButton {
-                        visible: !chatPage.isSecretChat && selectedMessages.every(function(message) {
-                            return message.properties.can_be_forwarded
-                        })
-                        icon.sourceSize: Qt.size(Theme.iconSizeMedium, Theme.iconSizeMedium)
-                        icon.source: "image://theme/icon-m-forward"
-                        onClicked:
-                            startForwardingMessages(chatPage.selectedMessages)
-
-                    }
-                    IconButton {
-                        icon.source: "image://theme/icon-m-delete"
-                        visible: chatInformation.id === chatPage.myUserId || selectedMessages.every(function(message) {
-                            return message.properties.can_be_deleted_for_all_users
-                        })
-                        icon.sourceSize: Qt.size(Theme.iconSizeMedium, Theme.iconSizeMedium)
-                        onClicked: {
-                            var ids = Functions.getMessagesArrayIds(selectedMessages)
-                            var chatId = chatInformation.id
-                            var wrapper = tdLibWrapper
-                            Remorse.popupAction(chatPage, qsTr("%Ln Messages deleted", "", ids.length), function() {
-                                wrapper.deleteMessages(chatId, ids)
-                            })
-                            chatPage.selectedMessages = []
-                        }
-                    }
-                }
+                height: chatColumn.height - headerRow.height
             }
         }
     }

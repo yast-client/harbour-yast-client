@@ -42,10 +42,11 @@ ListItem {
     readonly property color textColor: isOwnMessage ? Theme.highlightColor : Theme.primaryColor
     readonly property int textAlign: isOwnMessage ? Text.AlignRight : Text.AlignLeft
     readonly property Page page: precalculatedValues.page
+    readonly property Item view: precalculatedValues.view
     readonly property bool isSelected: messageListItem.precalculatedValues.pageIsSelecting
-                                       && page.selectedMessages.some(function(existingMessage) { return existingMessage.id === messageId })
+                                       && view.selectedMessages.some(function(existingMessage) { return existingMessage.id === messageId })
                                        && (messageAlbumMessageIds.length === 0 || messageAlbumMessageIds.every(function(id) {
-                                           return page.selectedMessages.some(function(m) { return m.id == id })
+                                           return view.selectedMessages.some(function(m) { return m.id == id })
                                        }))
 
     readonly property bool isOwnMessage: page.myUserId === myMessage.sender_id.user_id
@@ -133,7 +134,7 @@ ListItem {
 
     onClicked: {
         if (messageListItem.precalculatedValues.pageIsSelecting) {
-            page.toggleMessageSelection(myMessage, messageAlbumMessageIds)
+            view.toggleMessageSelection(myMessage, messageAlbumMessageIds)
         } else {
             // Allow extra context to react to click
             var extraContent = extraContentLoader.item
@@ -159,8 +160,8 @@ ListItem {
         if (openMenuOnPressAndHold) {
             openContextMenu()
         } else {
-            page.selectedMessages = []
-            page.state = ""
+            view.selectedMessages = []
+            view.state = ""
         }
     }
 
@@ -221,7 +222,7 @@ ListItem {
                     // NOTE2: When a user selects a message, the finger first goes to the (horizontal) center of the message, so the most used options should be there
                     IconRowMenuItem {
                         icon.source: "image://theme/icon-m-select-all"
-                        onClicked: page.toggleMessageSelection(myMessage, messageAlbumMessageIds)
+                        onClicked: view.toggleMessageSelection(myMessage, messageAlbumMessageIds)
                     }
                     IconRowMenuItem {
                         icon.source: "image://theme/icon-m-clipboard"
@@ -541,10 +542,10 @@ ListItem {
                                 anchors.fill: parent
                                 onClicked: {
                                     if (precalculatedValues.pageIsSelecting) {
-                                        page.toggleMessageSelection(myMessage, messageAlbumMessageIds)
+                                        view.toggleMessageSelection(myMessage, messageAlbumMessageIds)
                                     } else {
                                         if(appSettings.goToQuotedMessage) {
-                                            chatPage.showMessage(messageInReplyToRow.inReplyToMessage.id, true)
+                                            messagesView.showMessage(messageInReplyToRow.inReplyToMessage.id, true)
                                         } else {
                                             messageOverlayLoader.active = true
                                             messageOverlayLoader.overlayMessage = messageInReplyToRow.inReplyToMessage

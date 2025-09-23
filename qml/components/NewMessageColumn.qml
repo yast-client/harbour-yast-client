@@ -1,5 +1,9 @@
 import QtQuick 2.6
 import Sailfish.Silica 1.0
+import Nemo.Thumbnailer 1.0
+
+import "../js/debug.js" as Debug
+import "../js/twemoji.js" as Emoji
 
 Column {
     id: newMessageColumn
@@ -17,6 +21,88 @@ Column {
     property string replyToMessageId: "0"
     property string editMessageId: "0"
     property bool editIsCaption
+
+    property var emojiProposals
+    property string emojiProposalsKeyword
+
+    property alias newMessageInReplyToRow: newMessageInReplyToRow
+    property alias knownUsersRepeater: knownUsersRepeater
+    property alias attachmentPreviewRow: attachmentPreviewRow
+    property alias newMessageTextField: newMessageTextField
+
+    function getWordBoundaries(text, cursorPosition) {
+        var wordBoundaries = { beginIndex : 0, endIndex : text.length}
+        var currentIndex = 0
+        for (currentIndex = (cursorPosition - 1); currentIndex > 0; currentIndex--) {
+            if (text.charAt(currentIndex) === ' ') {
+                wordBoundaries.beginIndex = currentIndex + 1
+                break
+            }
+        }
+        for (currentIndex = cursorPosition; currentIndex < text.length; currentIndex++) {
+            if (text.charAt(currentIndex) === ' ') {
+                wordBoundaries.endIndex = currentIndex
+                break
+            }
+        }
+        return wordBoundaries
+    }
+
+    function replaceMessageText(text, cursorPosition, newText) {
+        var wordBoundaries = getWordBoundaries(text, cursorPosition)
+        var newCompleteText = text.substring(0, wordBoundaries.beginIndex) + newText + " " + text.substring(wordBoundaries.endIndex)
+        var newIndex = wordBoundaries.beginIndex + newText.length + 1
+        newMessageTextField.text = newCompleteText
+        newMessageTextField.cursorPosition = newIndex
+        lostFocusTimer.start()
+    }
+
+    function handleMessageTextReplacement(text, cursorPosition) {
+        if(!newMessageTextField.focus) return
+
+        var wordBoundaries = getWordBoundaries(text, cursorPosition)
+
+        var currentWord = text.substring(wordBoundaries.beginIndex, wordBoundaries.endIndex)
+        if (currentWord.length > 1 && currentWord.charAt(0) === ':')
+            tdLibWrapper.searchEmojis(currentWord.substring(1))
+        else {
+            emojiProposals = null
+            emojiProposalsKeyword = ''
+        }
+        if (currentWord.length > 1 && currentWord.charAt(0) === '@') {
+            knownUsersRepeater.model = knownUsersProxyModel
+            knownUsersProxyModel.setFilterWildcard("*" + currentWord.substring(1) + "*")
+        } else
+            knownUsersRepeater.model = undefined
+    }
+
+    Connections {
+        target: tdLibWrapper
+        onFileUpdated: {
+            uploadStatusRow.visible = fileInformation.remote.is_uploading_active
+            if (uploadStatusRow.visible) {
+                uploadingProgressBar.maximumValue = fileInformation.size
+                uploadingProgressBar.value = fileInformation.remote.uploaded_size
+            }
+        }
+    }
+
+    Timer {
+        id: textReplacementTimer
+        interval: 600
+        running: false
+        repeat: false
+        onTriggered:
+            handleMessageTextReplacement(newMessageTextField.text, newMessageTextField.cursorPosition)
+    }
+
+    Connections {
+        target: tdLibWrapper
+        onEmojiKeywordsReceived: {
+            emojiProposalsKeyword = text
+            emojiProposals = emojis
+        }
+    }
 
     InReplyToRow {
         onInReplyToMessageChanged:
