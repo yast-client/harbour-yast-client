@@ -74,7 +74,9 @@ DISTFILES += qml/harbour-fernschreiber2.qml \
     qml/components/MessageOverlayFlickable.qml \
     qml/components/MessagePropertiesLoader.qml \
     qml/components/MessageViaLabel.qml \
+    qml/components/MessagesView.qml \
     qml/components/MultilineEmojiLabel.qml \
+    qml/components/NewMessageColumn.qml \
     qml/components/OpaqueButton.qml \
     qml/components/OpaqueIcon.qml \
     qml/components/OpaqueItemBase.qml \
