@@ -774,7 +774,7 @@ Column {
 
             ViewPlaceholder {
                 id: chatViewPlaceholder
-                enabled: chatView.count === 0
+                enabled: chatView.count === 0 && !(chatPage.botInformation && chatPage.botInformation.description.length > 0)
                 text: (chatPage.isSecretChat && !chatPage.isSecretChatReady) ? qsTr("This secret chat is not yet ready. Your chat partner needs to go online first.")
                                                                              : searchInChatItem.visible ? qsTr("No results", "No messages search results found") : qsTr("This chat is empty.")
             }
