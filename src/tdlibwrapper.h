@@ -160,6 +160,7 @@ public:
     Q_INVOKABLE QVariantMap getSuperGroup(qlonglong groupId) const;
     Q_INVOKABLE QVariantMap getChat(qlonglong chatId);
     ChatData* getChatData(qlonglong chatId);
+    ChatData* getChatDataForce(qlonglong chatId);
     Q_INVOKABLE QVariantMap getSecretChatFromCache(qlonglong secretChatId);
     Q_INVOKABLE QStringList getChatReactions(qlonglong chatId);
     Q_INVOKABLE QString getOptionString(const QString &optionName);

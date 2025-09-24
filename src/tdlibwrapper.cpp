@@ -1433,6 +1433,13 @@ QVariantMap TDLibWrapper::getChat(qlonglong chatId) {
 
 ChatData* TDLibWrapper::getChatData(qlonglong chatId) {
     LOG("Returning chat data for ID" << chatId);
+    if (this->chats.contains(chatId))
+        return this->chats.value(chatId);
+    return nullptr;
+}
+
+ChatData* TDLibWrapper::getChatDataForce(qlonglong chatId) {
+    LOG("Forcefully returning chat data for ID" << chatId);
     if (!this->chats.contains(chatId))
         this->chats.insert(chatId, new ChatData(this, this->utilities, chatId));
 
@@ -1757,7 +1764,7 @@ void TDLibWrapper::updateChatPositions(qlonglong chatId, const QVariantList &pos
 
 void TDLibWrapper::handleChatLastMessageUpdated(qlonglong chatId, const QVariantMap &lastMessage, const QVariantList &positions) {
     LOG("Chat last message updated" << chatId);
-    emit chatRolesUpdated(chatId, getChatData(chatId)->updateLastMessage(lastMessage));
+    emit chatRolesUpdated(chatId, this->getChatDataForce(chatId)->updateLastMessage(lastMessage));
 
     emit someChatListUpdated();
     emit chatLastMessageUpdated(chatId, lastMessage);
@@ -1766,7 +1773,7 @@ void TDLibWrapper::handleChatLastMessageUpdated(qlonglong chatId, const QVariant
 
 void TDLibWrapper::handleChatDraftMessageUpdated(qlonglong chatId, const QVariantMap &draftMessage, const QVariantList &positions) {
     LOG("Chat draft message updated" << chatId);
-    this->getChatData(chatId)->chatData.insert(DRAFT_MESSAGE, draftMessage);
+    this->getChatDataForce(chatId)->chatData.insert(DRAFT_MESSAGE, draftMessage);
     emit chatRolesUpdated(chatId, QVector<int>{ChatData::RoleDraftMessageDate, ChatData::RoleDraftMessageText});
 
     emit someChatListUpdated();
@@ -1777,7 +1784,7 @@ void TDLibWrapper::handleChatReadInboxUpdated(const QString &chatId, const QStri
     bool ok;
     qlonglong id = chatId.toLongLong(&ok);
     if (ok) {
-        ChatData *chatData = this->getChatData(id);
+        ChatData *chatData = this->getChatDataForce(id);
 
         QVector<int> changedRoles;
         changedRoles.append(ChatData::RoleDisplay);
@@ -1794,20 +1801,20 @@ void TDLibWrapper::handleChatReadOutboxUpdated(const QString &chatId, const QStr
     bool ok;
     qlonglong id = chatId.toLongLong(&ok);
     if (ok) {
-        this->getChatData(id)->chatData.insert(LAST_READ_OUTBOX_MESSAGE_ID, lastReadOutboxMessageId.toLongLong());
+        this->getChatDataForce(id)->chatData.insert(LAST_READ_OUTBOX_MESSAGE_ID, lastReadOutboxMessageId.toLongLong());
         emit chatRolesUpdated(id);
     }
     emit chatReadOutboxUpdated(chatId, lastReadOutboxMessageId);
 }
 
 void TDLibWrapper::handleChatTitleUpdated(qlonglong chatId, const QString &title) {
-    this->getChatData(chatId)->chatData.insert(TITLE, title);
+    this->getChatDataForce(chatId)->chatData.insert(TITLE, title);
     emit chatRolesUpdated(chatId, QVector<int>{ChatData::RoleTitle, ChatData::RoleFilter});
     emit chatTitleUpdated(chatId, title);
 }
 
 void TDLibWrapper::handleChatPhotoUpdated(qlonglong chatId, const QVariantMap &photo) {
-    this->getChatData(chatId)->chatData.insert(PHOTO, photo);
+    this->getChatDataForce(chatId)->chatData.insert(PHOTO, photo);
     emit chatRolesUpdated(chatId, QVector<int>{ChatData::RolePhotoSmall});
     emit chatPhotoUpdated(chatId, photo);
 }
@@ -1816,26 +1823,26 @@ void TDLibWrapper::handleChatNotificationSettingsUpdated(const QString &chatId, 
     bool ok;
     qlonglong id = chatId.toLongLong(&ok);
     if (ok) {
-        this->getChatData(id)->chatData.insert(NOTIFICATION_SETTINGS, chatNotificationSettings);
+        this->getChatDataForce(id)->chatData.insert(NOTIFICATION_SETTINGS, chatNotificationSettings);
         emit chatRolesUpdated(id);
     }
     emit chatNotificationSettingsUpdated(chatId, chatNotificationSettings);
 }
 
 void TDLibWrapper::handleChatIsMarkedAsUnreadUpdated(qlonglong chatId, bool chatIsMarkedAsUnread) {
-    this->getChatData(chatId)->chatData.insert(IS_MARKED_AS_UNREAD, chatIsMarkedAsUnread);
+    this->getChatDataForce(chatId)->chatData.insert(IS_MARKED_AS_UNREAD, chatIsMarkedAsUnread);
     emit chatRolesUpdated(chatId, QVector<int>{ChatData::RoleIsMarkedAsUnread});
     emit chatIsMarkedAsUnreadUpdated(chatId, chatIsMarkedAsUnread);
 }
 
 void TDLibWrapper::handleChatUnreadMentionCountUpdated(qlonglong chatId, int unreadMentionCount) {
-    this->getChatData(chatId)->chatData.insert(UNREAD_MENTION_COUNT, unreadMentionCount);
+    this->getChatDataForce(chatId)->chatData.insert(UNREAD_MENTION_COUNT, unreadMentionCount);
     emit chatRolesUpdated(chatId, QVector<int>{ChatData::RoleUnreadMentionCount});
     emit chatUnreadMentionCountUpdated(chatId, unreadMentionCount);
 }
 
 void TDLibWrapper::handleChatUnreadReactionCountUpdated(qlonglong chatId, int unreadReactionCount) {
-    this->getChatData(chatId)->chatData.insert(UNREAD_REACTION_COUNT, unreadReactionCount);
+    this->getChatDataForce(chatId)->chatData.insert(UNREAD_REACTION_COUNT, unreadReactionCount);
     emit chatRolesUpdated(chatId, QVector<int>{ChatData::RoleUnreadReactionCount});
     emit chatUnreadReactionCountUpdated(chatId, unreadReactionCount);
 }
@@ -1895,7 +1902,7 @@ void TDLibWrapper::handleUnreadChatCountUpdated(const QVariantMap &chatCountInfo
 
 void TDLibWrapper::handleChatAvailableReactionsUpdated(qlonglong chatId, const QVariantMap &availableReactions) {
     LOG("Updating available reactions for chat" << chatId << availableReactions);
-    this->getChatData(chatId)->chatData.insert(CHAT_AVAILABLE_REACTIONS, availableReactions);
+    this->getChatDataForce(chatId)->chatData.insert(CHAT_AVAILABLE_REACTIONS, availableReactions);
     emit chatRolesUpdated(chatId, QVector<int>{ChatData::RoleAvailableReactions});
     emit chatAvailableReactionsUpdated(chatId, availableReactions);
 }
