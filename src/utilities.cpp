@@ -427,7 +427,7 @@ QVariant Utilities::getMaybeFormattedMessageText(const QVariantMap &messageConte
                 if (i > 0) {
                     addedUserNames += ", ";
                 }
-                addedUserNames += getUserName(this->tdLibWrapper->getUserInformation(memberUserIds.at(i).toString()));
+                addedUserNames += getUserName(this->tdLibWrapper->getUserInformation(memberUserIds.at(i).toLongLong()));
             }
             return myself ? tr("have added %1 to the chat", "myself").arg(addedUserNames) : tr("has added %1 to the chat").arg(addedUserNames);
         }
@@ -436,7 +436,7 @@ QVariant Utilities::getMaybeFormattedMessageText(const QVariantMap &messageConte
         if (messageSenderType == MESSAGE_SENDER_TYPE_USER && messageSenderUserId == messageContent.value(USER_ID).toLongLong()) {
             return myself ? tr("left this chat", "myself") : tr("left this chat");
         } else {
-            return myself ? tr("have removed %1 from the chat", "myself").arg(getUserName(this->tdLibWrapper->getUserInformation(messageContent.value("user_id").toString()))) : tr("has removed %1 from the chat").arg(getUserName(this->tdLibWrapper->getUserInformation(messageContent.value("user_id").toString())));
+            return myself ? tr("have removed %1 from the chat", "myself").arg(getUserName(this->tdLibWrapper->getUserInformation(messageContent.value("user_id").toLongLong()))) : tr("has removed %1 from the chat").arg(getUserName(this->tdLibWrapper->getUserInformation(messageContent.value("user_id").toLongLong())));
         }
     }
     if (contentType == "messageChatChangeTitle")

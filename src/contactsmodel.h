@@ -57,15 +57,15 @@ signals:
 
 public slots:
     void handleUsersReceived(const QString &extra, const QVariantList &userIds, int totalUsers);
-    void handleUserUpdated(const QString &userId);
+    void handleUserUpdated(qlonglong userId);
     void handleContactsImported(const QVariantList &importerCount, const QVariantList &userIds, bool single);
     void handleOkMapReceived(const QString &type, const QVariantMap &extra);
 
 private:
     TDLibWrapper *tdLibWrapper;
-    QList<QString> contactIds;
+    QList<qlonglong> contactIds;
 
-    void addUser(const QString &userId);
+    void addUser(qlonglong userId);
     bool compareUsersByName(const QVariantMap &user1, const QVariantMap &user2) const;
 };
 

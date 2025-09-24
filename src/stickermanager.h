@@ -35,17 +35,14 @@ public:
 
     Q_INVOKABLE QVariantList getRecentStickers();
     Q_INVOKABLE QVariantList getInstalledStickerSets();
-    Q_INVOKABLE QVariantMap getStickerSet(const QString &stickerSetId);
-    Q_INVOKABLE QVariantMap getCustomEmojiSticker(const QString &emojiId);
-    Q_INVOKABLE bool hasStickerSet(const QString &stickerSetId);
-    Q_INVOKABLE bool isStickerSetInstalled(const QString &stickerSetId);
-    Q_INVOKABLE bool hasCustomEmoji(const QString &emojiId);
+    Q_INVOKABLE QVariantMap getStickerSet(qlonglong stickerSetId);
+    Q_INVOKABLE bool hasStickerSet(qlonglong stickerSetId);
+    Q_INVOKABLE bool isStickerSetInstalled(qlonglong stickerSetId);
     Q_INVOKABLE bool needsReload();
     Q_INVOKABLE void setNeedsReload(const bool &reloadNeeded);
 
 signals:
     void stickerSetsReceived();
-    void customEmojiReceived(const QString &stickerId);
 
 private slots:
 
@@ -60,13 +57,12 @@ private:
     TDLibWrapper *tdLibWrapper;
 
     QVariantList recentStickers;
-    QVariantList recentStickerIds;
+    QList<int> recentStickerIds; // list of file ids
     QVariantList installedStickerSets;
-    QVariantList installedStickerSetIds;
-    QVariantMap stickers;
-    QVariantMap stickerSets;
-    QVariantMap stickerSetMap;
-    QVariantMap customEmojis;
+    QList<qlonglong> installedStickerSetIds;
+    QMap<int, QVariantMap> stickers; // file id -> sticker
+    QMap<qlonglong, QVariantMap> stickerSets;
+    QMap<qlonglong, int> stickerSetMap;
     bool reloadNeeded;
 
 };

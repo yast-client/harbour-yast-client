@@ -73,10 +73,10 @@ private slots:
     void handleSponsoredMessageReceived(qlonglong chatId, const QVariantMap &sponsoredMessage);
     void handleNewMessageReceived(qlonglong chatId, const QVariantMap &message);
     void handleMessageReceived(qlonglong chatId, qlonglong messageId, const QVariantMap &message);
-    void handleChatReadInboxUpdated(const QString &chatId, const QString &lastReadInboxMessageId, int unreadCount);
-    void handleChatReadOutboxUpdated(const QString &chatId, const QString &lastReadOutboxMessageId);
+    void handleChatReadInboxUpdated(qlonglong chatId, qlonglong lastReadInboxMessageId, int unreadCount);
+    void handleChatReadOutboxUpdated(qlonglong chatId, qlonglong lastReadOutboxMessageId);
     void handleMessageSendSucceeded(qlonglong messageId, qlonglong oldMessageId, const QVariantMap &message);
-    void handleChatNotificationSettingsUpdated(const QString &chatId, const QVariantMap &chatNotificationSettings);
+    void handleChatNotificationSettingsUpdated(qlonglong chatId, const QVariantMap &chatNotificationSettings);
     void handleChatPhotoUpdated(qlonglong chatId, const QVariantMap &photo);
     void handleChatPinnedMessageUpdated(qlonglong chatId, qlonglong pinnedMessageId);
     void handleMessageContentUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &newContent);

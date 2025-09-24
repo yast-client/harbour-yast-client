@@ -30,8 +30,8 @@ Flickable {
     contentHeight: stickerSetContentColumn.height
     clip: true
 
-    property string stickerSetId;
-    property var stickerSet;
+    property var stickerSetId
+    property var stickerSet
     signal requestClose;
 
     Component.onCompleted: {

@@ -33,7 +33,7 @@ Page {
     property bool initializationCompleted: false;
     property bool loading: true;
     property bool logoutLoading: false;
-    property int ownUserId;
+    property var ownUserId: tdLibWrapper.ownUserId
     property bool chatListCreated: false;
 
     property bool titleInteractionHintActive

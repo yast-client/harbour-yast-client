@@ -46,11 +46,11 @@ public:
     virtual QVariant data(const QModelIndex &index, int role) const override;
 
 public slots:
-    void handleUserUpdated(const QString &userId, const QVariantMap &userInformation);
+    void handleUserUpdated(qlonglong userId, const QVariantMap &userInformation);
 
 private:
     TDLibWrapper *tdLibWrapper;
-    QVariantMap knownUsers;
+    QMap<qlonglong, QVariantMap> knownUsers;
 
 };
 

@@ -389,23 +389,23 @@ void TDLibWrapper::downloadFile(int fileId) {
     });
 }
 
-void TDLibWrapper::openChat(const QString &chatId) {
+void TDLibWrapper::openChat(qlonglong chatId) {
     LOG("Opening chat " << chatId);
     this->sendRequest(QVariantMap{{_TYPE, "openChat"}, {CHAT_ID, chatId}});
 }
 
-void TDLibWrapper::closeChat(const QString &chatId) {
+void TDLibWrapper::closeChat(qlonglong chatId) {
     LOG("Closing chat " << chatId);
     this->sendRequest(QVariantMap{{_TYPE, "closeChat"}, {CHAT_ID, chatId}});
 }
 
-void TDLibWrapper::joinChat(const QString &chatId) {
+void TDLibWrapper::joinChat(qlonglong chatId) {
     LOG("Joining chat " << chatId);
     this->joinChatRequested = true;
     this->sendRequest(QVariantMap{{_TYPE, "joinChat"}, {CHAT_ID, chatId}});
 }
 
-void TDLibWrapper::leaveChat(const QString &chatId) {
+void TDLibWrapper::leaveChat(qlonglong chatId) {
     LOG("Leaving chat " << chatId);
     this->sendRequest(QVariantMap{{_TYPE, "leaveChat"}, {CHAT_ID, chatId}});
 }
@@ -437,7 +437,7 @@ void TDLibWrapper::viewMessage(qlonglong chatId, qlonglong messageId, bool force
     });
 }
 
-void TDLibWrapper::pinMessage(const QString &chatId, const QString &messageId, bool disableNotification) {
+void TDLibWrapper::pinMessage(qlonglong chatId, const QString &messageId, bool disableNotification) {
     LOG("Pin message to chat" << chatId << messageId << disableNotification);
     this->sendRequest(QVariantMap{
         {_TYPE, "pinChatMessage"},
@@ -447,13 +447,13 @@ void TDLibWrapper::pinMessage(const QString &chatId, const QString &messageId, b
     });
 }
 
-void TDLibWrapper::unpinMessage(const QString &chatId, const QString &messageId) {
+void TDLibWrapper::unpinMessage(qlonglong chatId, const QString &messageId) {
     LOG("Unpin message from chat" << chatId);
     this->sendRequest(QVariantMap{
         {_TYPE, "unpinChatMessage"},
         {CHAT_ID, chatId},
         {MESSAGE_ID, messageId},
-        {_EXTRA, "unpinChatMessage:" + chatId}
+        {_EXTRA, "unpinChatMessage:" + QString::number(chatId)}
     });
 }
 
@@ -572,7 +572,7 @@ void TDLibWrapper::sendDiceMessage(qlonglong chatId, const QString &emoji, qlong
     this->sendRequest(requestObject);
 }
 
-void TDLibWrapper::forwardMessages(const QString &chatId, const QString &fromChatId, const QVariantList &messageIds, bool sendCopy, bool removeCaption) {
+void TDLibWrapper::forwardMessages(qlonglong chatId, const QString &fromChatId, const QVariantList &messageIds, bool sendCopy, bool removeCaption) {
     LOG("Forwarding messages" << chatId << fromChatId << messageIds);
     this->sendRequest(QVariantMap{
         {_TYPE, "forwardMessages"},
@@ -612,7 +612,7 @@ void TDLibWrapper::getExternalLinkInfo(const QString &url, const QString &extra)
     });
 }
 
-void TDLibWrapper::getCallbackQueryAnswer(const QString &chatId, const QString &messageId, const QVariantMap &payload) {
+void TDLibWrapper::getCallbackQueryAnswer(qlonglong chatId, const QString &messageId, const QVariantMap &payload) {
     LOG("Getting Callback Query Answer" << chatId << messageId);
     this->sendRequest(QVariantMap{
         {_TYPE, "getCallbackQueryAnswer"},
@@ -658,7 +658,7 @@ void TDLibWrapper::setOption(const QString &name, const QString &type, const QVa
     });
 }
 
-void TDLibWrapper::setChatNotificationSettings(const QString &chatId, const QVariantMap &notificationSettings) {
+void TDLibWrapper::setChatNotificationSettings(qlonglong chatId, const QVariantMap &notificationSettings) {
     LOG("Notification settings for chat " << chatId << notificationSettings);
     this->sendRequest(QVariantMap{
         {_TYPE, "setChatNotificationSettings"},
@@ -667,7 +667,7 @@ void TDLibWrapper::setChatNotificationSettings(const QString &chatId, const QVar
     });
 }
 
-void TDLibWrapper::editMessageText(const QString &chatId, const QString &messageId, const QString &message) {
+void TDLibWrapper::editMessageText(qlonglong chatId, const QString &messageId, const QString &message) {
     LOG("Editing message text" << chatId << messageId);
     this->sendRequest(QVariantMap{
         {_TYPE, "editMessageText"},
@@ -680,7 +680,7 @@ void TDLibWrapper::editMessageText(const QString &chatId, const QString &message
     });
 }
 
-void TDLibWrapper::editMessageCaption(const QString &chatId, const QString &messageId, const QString &caption) {
+void TDLibWrapper::editMessageCaption(qlonglong chatId, const QString &messageId, const QString &caption) {
     LOG("Editing message caption" << chatId << messageId);
     this->sendRequest(QVariantMap{
         {_TYPE, "editMessageCaption"},
@@ -690,7 +690,7 @@ void TDLibWrapper::editMessageCaption(const QString &chatId, const QString &mess
     });
 }
 
-void TDLibWrapper::deleteMessages(const QString &chatId, const QVariantList messageIds) {
+void TDLibWrapper::deleteMessages(qlonglong chatId, const QVariantList messageIds) {
     LOG("Deleting some messages" << chatId << messageIds);
     this->sendRequest(QVariantMap{
         {_TYPE, "deleteMessages"},
@@ -700,7 +700,7 @@ void TDLibWrapper::deleteMessages(const QString &chatId, const QVariantList mess
     });
 }
 
-void TDLibWrapper::getMapThumbnailFile(const QString &chatId, double latitude, double longitude, int width, int height, const QString &extra) {
+void TDLibWrapper::getMapThumbnailFile(qlonglong chatId, double latitude, double longitude, int width, int height, const QString &extra) {
     LOG("Getting Map Thumbnail File" << chatId);
     this->sendRequest(QVariantMap{
         {_TYPE, "getMapThumbnailFile"},
@@ -730,12 +730,12 @@ void TDLibWrapper::getInstalledStickerSets() {
     this->sendRequest(QVariantMap{{_TYPE, TYPE_GET_INSTALLED_STICKER_SETS}, {_EXTRA, TYPE_GET_INSTALLED_STICKER_SETS}});
 }
 
-void TDLibWrapper::getStickerSet(const QString &setId) {
+void TDLibWrapper::getStickerSet(qlonglong setId) {
     LOG("Retrieving sticker set" << setId);
     this->sendRequest(QVariantMap{{_TYPE, "getStickerSet"}, {"set_id", setId}});
 }
 
-void TDLibWrapper::getSupergroupMembers(const QString &groupId, int limit, int offset) {
+void TDLibWrapper::getSupergroupMembers(qlonglong groupId, int limit, int offset) {
     LOG("Retrieving SupergroupMembers");
     this->sendRequest(QVariantMap{
         {_TYPE, "getSupergroupMembers"},
@@ -746,7 +746,7 @@ void TDLibWrapper::getSupergroupMembers(const QString &groupId, int limit, int o
     });
 }
 
-void TDLibWrapper::getGroupFullInfo(const QString &groupId, bool isSuperGroup) {
+void TDLibWrapper::getGroupFullInfo(qlonglong groupId, bool isSuperGroup) {
     LOG("Retrieving GroupFullInfo");
     QVariantMap requestObject{{_EXTRA, groupId}};
     if(isSuperGroup) {
@@ -759,7 +759,7 @@ void TDLibWrapper::getGroupFullInfo(const QString &groupId, bool isSuperGroup) {
     this->sendRequest(requestObject);
 }
 
-void TDLibWrapper::getUserFullInfo(const QString &userId) {
+void TDLibWrapper::getUserFullInfo(qlonglong userId) {
     LOG("Retrieving UserFullInfo" << userId);
     this->sendRequest(QVariantMap{
         {_TYPE, "getUserFullInfo"},
@@ -768,7 +768,7 @@ void TDLibWrapper::getUserFullInfo(const QString &userId) {
     });
 }
 
-void TDLibWrapper::createPrivateChat(const QString &userId, const QString &extra) {
+void TDLibWrapper::createPrivateChat(qlonglong userId, const QString &extra) {
     LOG("Creating Private Chat");
     this->sendRequest(QVariantMap{
         {_TYPE, "createPrivateChat"},
@@ -777,7 +777,7 @@ void TDLibWrapper::createPrivateChat(const QString &userId, const QString &extra
     });
 }
 
-void TDLibWrapper::createNewSecretChat(const QString &userId, const QString &extra) {
+void TDLibWrapper::createNewSecretChat(qlonglong userId, const QString &extra) {
     LOG("Creating new secret chat");
     this->sendRequest(QVariantMap{
         {_TYPE, "createNewSecretChat"},
@@ -786,7 +786,7 @@ void TDLibWrapper::createNewSecretChat(const QString &userId, const QString &ext
     });
 }
 
-void TDLibWrapper::createSupergroupChat(const QString &supergroupId, const QString &extra) {
+void TDLibWrapper::createSupergroupChat(qlonglong supergroupId, const QString &extra) {
     LOG("Creating Supergroup Chat");
     this->sendRequest(QVariantMap{
         {_TYPE, "createSupergroupChat"},
@@ -795,7 +795,7 @@ void TDLibWrapper::createSupergroupChat(const QString &supergroupId, const QStri
     });
 }
 
-void TDLibWrapper::createBasicGroupChat(const QString &basicGroupId, const QString &extra) {
+void TDLibWrapper::createBasicGroupChat(qlonglong basicGroupId, const QString &extra) {
     LOG("Creating Basic Group Chat");
     this->sendRequest(QVariantMap{
         {_TYPE, "createBasicGroupChat"},
@@ -804,7 +804,7 @@ void TDLibWrapper::createBasicGroupChat(const QString &basicGroupId, const QStri
     });
 }
 
-void TDLibWrapper::getGroupsInCommon(const QString &userId, int limit, int offset) {
+void TDLibWrapper::getGroupsInCommon(qlonglong userId, int limit, int offset) {
     LOG("Retrieving Groups in Common");
     this->sendRequest(QVariantMap{
         {_TYPE, "getGroupsInCommon"},
@@ -815,7 +815,7 @@ void TDLibWrapper::getGroupsInCommon(const QString &userId, int limit, int offse
     });
 }
 
-void TDLibWrapper::getUserProfilePhotos(const QString &userId, int limit, int offset) {
+void TDLibWrapper::getUserProfilePhotos(qlonglong userId, int limit, int offset) {
     LOG("Retrieving User Profile Photos");
     this->sendRequest(QVariantMap{
         {_TYPE, "getUserProfilePhotos"},
@@ -826,7 +826,7 @@ void TDLibWrapper::getUserProfilePhotos(const QString &userId, int limit, int of
     });
 }
 
-void TDLibWrapper::setChatPermissions(const QString &chatId, const QVariantMap &chatPermissions) {
+void TDLibWrapper::setChatPermissions(qlonglong chatId, const QVariantMap &chatPermissions) {
     LOG("Setting Chat Permissions");
     this->sendRequest(QVariantMap{
         {_TYPE, "setChatPermissions"},
@@ -836,7 +836,7 @@ void TDLibWrapper::setChatPermissions(const QString &chatId, const QVariantMap &
     });
 }
 
-void TDLibWrapper::setChatSlowModeDelay(const QString &chatId, int delay) {
+void TDLibWrapper::setChatSlowModeDelay(qlonglong chatId, int delay) {
     LOG("Setting Chat Slow Mode Delay");
     this->sendRequest(QVariantMap{
         {_TYPE, "setChatSlowModeDelay"},
@@ -845,7 +845,7 @@ void TDLibWrapper::setChatSlowModeDelay(const QString &chatId, int delay) {
     });
 }
 
-void TDLibWrapper::setChatDescription(const QString &chatId, const QString &description) {
+void TDLibWrapper::setChatDescription(qlonglong chatId, const QString &description) {
     LOG("Setting Chat Description");
     this->sendRequest(QVariantMap{
         {_TYPE, "setChatDescription"},
@@ -854,7 +854,7 @@ void TDLibWrapper::setChatDescription(const QString &chatId, const QString &desc
     });
 }
 
-void TDLibWrapper::setChatTitle(const QString &chatId, const QString &title) {
+void TDLibWrapper::setChatTitle(qlonglong chatId, const QString &title) {
     LOG("Setting Chat Title");
     this->sendRequest(QVariantMap{
         {_TYPE, "setChatTitle"},
@@ -871,7 +871,7 @@ void TDLibWrapper::setBio(const QString &bio) {
     });
 }
 
-void TDLibWrapper::toggleSupergroupIsAllHistoryAvailable(const QString &groupId, bool isAllHistoryAvailable) {
+void TDLibWrapper::toggleSupergroupIsAllHistoryAvailable(qlonglong groupId, bool isAllHistoryAvailable) {
     LOG("Toggling SupergroupIsAllHistoryAvailable");
     this->sendRequest(QVariantMap{
         {_TYPE, "toggleSupergroupIsAllHistoryAvailable"},
@@ -880,7 +880,7 @@ void TDLibWrapper::toggleSupergroupIsAllHistoryAvailable(const QString &groupId,
     });
 }
 
-void TDLibWrapper::setPollAnswer(const QString &chatId, qlonglong messageId, QVariantList optionIds) {
+void TDLibWrapper::setPollAnswer(qlonglong chatId, qlonglong messageId, QVariantList optionIds) {
     LOG("Setting Poll Answer");
     this->sendRequest(QVariantMap{
         {_TYPE, "setPollAnswer"},
@@ -890,7 +890,7 @@ void TDLibWrapper::setPollAnswer(const QString &chatId, qlonglong messageId, QVa
     });
 }
 
-void TDLibWrapper::stopPoll(const QString &chatId, qlonglong messageId) {
+void TDLibWrapper::stopPoll(qlonglong chatId, qlonglong messageId) {
     LOG("Stopping Poll");
     this->sendRequest(QVariantMap{
         {_TYPE, "stopPoll"},
@@ -899,7 +899,7 @@ void TDLibWrapper::stopPoll(const QString &chatId, qlonglong messageId) {
     });
 }
 
-void TDLibWrapper::getPollVoters(const QString &chatId, qlonglong messageId, int optionId, int limit, int offset, const QString &extra) {
+void TDLibWrapper::getPollVoters(qlonglong chatId, qlonglong messageId, int optionId, int limit, int offset, const QString &extra) {
     LOG("Retrieving Poll Voters");
     this->sendRequest(QVariantMap{
         {_TYPE, "getPollVoters"},
@@ -1369,36 +1369,40 @@ void TDLibWrapper::setInactiveSessionTtl(int days) {
     this->sendRequest(QVariantMap{{_TYPE, "setInactiveSessionTtl"}, {"inactive_session_ttl_days", days}});
 }
 
-QVariantMap TDLibWrapper::getUserInformation() {
-    return this->userInformation;
+qlonglong TDLibWrapper::ownUserId() const {
+    return this->options.value("my_id").toLongLong();
 }
 
-QVariantMap TDLibWrapper::getUserInformation(const QString &userId) {
+QVariantMap TDLibWrapper::getUserInformation() const {
+    return userInformation;
+}
+
+QVariantMap TDLibWrapper::getUserInformation(qlonglong userId) const {
     // LOG("Returning user information for ID" << userId);
-    return this->usersById.value(userId).toMap();
+    return this->usersById.value(userId);
 }
 
-bool TDLibWrapper::hasUserInformation(const QString &userId) {
+bool TDLibWrapper::hasUserInformation(qlonglong userId) const {
     return this->usersById.contains(userId);
 }
 
-bool TDLibWrapper::hasUserNameInformation(const QString &userName) {
+bool TDLibWrapper::hasUserNameInformation(const QString &userName) const {
     return this->usersByName.contains(userName);
 }
 
-QVariantMap TDLibWrapper::getUserInformationByName(const QString &userName) {
-    return this->usersByName.value(userName.toLower()).toMap();
+QVariantMap TDLibWrapper::getUserInformationByName(const QString &userName) const {
+    return this->usersByName.value(userName.toLower());
 }
 
-bool TDLibWrapper::hasSuperGroupNameInformation(const QString &name) {
+bool TDLibWrapper::hasSuperGroupNameInformation(const QString &name) const {
     return this->superGroupsByName.contains(name);
 }
 
-QVariantMap TDLibWrapper::getSupergroupInformationByName(const QString &name) {
+QVariantMap TDLibWrapper::getSupergroupInformationByName(const QString &name) const {
     return this->superGroupsByName.value(name.toLower()).toMap();
 }
 
-TDLibWrapper::UserPrivacySettingRule TDLibWrapper::getUserPrivacySettingRule(TDLibWrapper::UserPrivacySetting userPrivacySetting) {
+TDLibWrapper::UserPrivacySettingRule TDLibWrapper::getUserPrivacySettingRule(TDLibWrapper::UserPrivacySetting userPrivacySetting) const {
     return this->userPrivacySettingRules.value(userPrivacySetting, UserPrivacySettingRule::RuleAllowAll);
 }
 
@@ -1424,14 +1428,14 @@ QVariantMap TDLibWrapper::getSuperGroup(qlonglong groupId) const {
     }
 }
 
-QVariantMap TDLibWrapper::getChat(qlonglong chatId) {
+QVariantMap TDLibWrapper::getChat(qlonglong chatId) const {
     LOG("Returning chat information for ID" << chatId);
     if (this->chats.contains(chatId))
         return this->chats.value(chatId)->chatData;
     return QVariantMap();
 }
 
-ChatData* TDLibWrapper::getChatData(qlonglong chatId) {
+ChatData* TDLibWrapper::getChatData(qlonglong chatId) const {
     LOG("Returning chat data for ID" << chatId);
     if (this->chats.contains(chatId))
         return this->chats.value(chatId);
@@ -1609,9 +1613,10 @@ void TDLibWrapper::handleOptionUpdated(const QString &optionName, const QVariant
             versionNumber = VERSION_NUMBER(major, minor, release);
         }
     } else if (optionName == "my_id") {
-        QString ownUserId = optionValue.toString();
-        this->userInformation = this->getUserInformation(ownUserId);
-        emit ownUserIdFound(ownUserId);
+        qlonglong ownUserId = optionValue.toLongLong();
+        this->userInformation = getUserInformation(ownUserId);
+        LOG("Own user id found" << ownUserId);
+        emit ownUserIdFound();
     }
 }
 
@@ -1636,23 +1641,24 @@ void TDLibWrapper::handleConnectionStateChanged(const QString &connectionState) 
 }
 
 void TDLibWrapper::handleUserUpdated(const QVariantMap &updatedUserInformation) {
-    QString updatedUserId = updatedUserInformation.value(ID).toString();
-    if (updatedUserId == this->options.value("my_id").toString()) {
-        LOG("Own user information updated :)");
+    qlonglong updatedUserId = updatedUserInformation.value(ID).toLongLong();
+    if (updatedUserId == this->options.value("my_id").toLongLong()) {
+        LOG("Own user information updated");
         this->userInformation = updatedUserInformation;
-        emit ownUserUpdated(updatedUserInformation);
+        emit ownUserUpdated();
     }
     LOG("User information updated:" << updatedUserInformation.value(USERNAMES).toMap().value(EDITABLE_USERNAME).toString() << updatedUserInformation.value(FIRST_NAME).toString() << updatedUserInformation.value(LAST_NAME).toString());
     updateUserInformation(updatedUserId, updatedUserInformation);
     emit userUpdated(updatedUserId, updatedUserInformation);
 }
 
-void TDLibWrapper::handleUserStatusUpdated(const QString &userId, const QVariantMap &userStatusInformation) {
-    if (userId == this->options.value("my_id").toString()) {
-        LOG("Own user status information updated :)");
+void TDLibWrapper::handleUserStatusUpdated(qlonglong userId, const QVariantMap &userStatusInformation) {
+    if (userId == this->options.value("my_id").toLongLong()) {
+        LOG("Own user status information updated");
         this->userInformation.insert(STATUS, userStatusInformation);
+        emit ownUserUpdated();
     }
-    QVariantMap updatedUserInformation = this->usersById.value(userId).toMap();
+    QVariantMap updatedUserInformation = this->usersById.value(userId);
     if(updatedUserInformation.value(STATUS) == userStatusInformation) {
         return;
     }
@@ -1662,7 +1668,7 @@ void TDLibWrapper::handleUserStatusUpdated(const QString &userId, const QVariant
     emit userUpdated(userId, updatedUserInformation);
 }
 
-void TDLibWrapper::updateUserInformation(const QString &userId, const QVariantMap &userInformation) {
+void TDLibWrapper::updateUserInformation(qlonglong userId, const QVariantMap &userInformation) {
     this->usersById.insert(userId, userInformation);
     this->usersByName.insert(userInformation.value(USERNAMES).toMap().value(EDITABLE_USERNAME).toString().toLower(), userInformation);
 }
@@ -1780,30 +1786,22 @@ void TDLibWrapper::handleChatDraftMessageUpdated(qlonglong chatId, const QVarian
     updateChatPositions(chatId, positions); // FIXME: this might affect performance
 }
 
-void TDLibWrapper::handleChatReadInboxUpdated(const QString &chatId, const QString &lastReadInboxMessageId, int unreadCount) {
-    bool ok;
-    qlonglong id = chatId.toLongLong(&ok);
-    if (ok) {
-        ChatData *chatData = this->getChatDataForce(id);
+void TDLibWrapper::handleChatReadInboxUpdated(qlonglong chatId, qlonglong lastReadInboxMessageId, int unreadCount) {
+    ChatData *chatData = this->getChatDataForce(chatId);
 
-        QVector<int> changedRoles;
-        changedRoles.append(ChatData::RoleDisplay);
-        if (chatData->updateUnreadCount(unreadCount))
-            changedRoles.append(ChatData::RoleUnreadCount);
-        if (chatData->updateLastReadInboxMessageId(lastReadInboxMessageId.toLongLong()))
-            changedRoles.append(ChatData::RoleLastReadInboxMessageId);
-        emit chatRolesUpdated(id, changedRoles);
-    }
+    QVector<int> changedRoles;
+    changedRoles.append(ChatData::RoleDisplay);
+    if (chatData->updateUnreadCount(unreadCount))
+        changedRoles.append(ChatData::RoleUnreadCount);
+    if (chatData->updateLastReadInboxMessageId(lastReadInboxMessageId))
+        changedRoles.append(ChatData::RoleLastReadInboxMessageId);
+    emit chatRolesUpdated(chatId, changedRoles);
     emit chatReadInboxUpdated(chatId, lastReadInboxMessageId, unreadCount);
 }
 
-void TDLibWrapper::handleChatReadOutboxUpdated(const QString &chatId, const QString &lastReadOutboxMessageId) {
-    bool ok;
-    qlonglong id = chatId.toLongLong(&ok);
-    if (ok) {
-        this->getChatDataForce(id)->chatData.insert(LAST_READ_OUTBOX_MESSAGE_ID, lastReadOutboxMessageId.toLongLong());
-        emit chatRolesUpdated(id);
-    }
+void TDLibWrapper::handleChatReadOutboxUpdated(qlonglong chatId, qlonglong lastReadOutboxMessageId) {
+    this->getChatDataForce(chatId)->chatData.insert(LAST_READ_OUTBOX_MESSAGE_ID, lastReadOutboxMessageId);
+    emit chatRolesUpdated(chatId);
     emit chatReadOutboxUpdated(chatId, lastReadOutboxMessageId);
 }
 
@@ -1819,13 +1817,9 @@ void TDLibWrapper::handleChatPhotoUpdated(qlonglong chatId, const QVariantMap &p
     emit chatPhotoUpdated(chatId, photo);
 }
 
-void TDLibWrapper::handleChatNotificationSettingsUpdated(const QString &chatId, const QVariantMap chatNotificationSettings) {
-    bool ok;
-    qlonglong id = chatId.toLongLong(&ok);
-    if (ok) {
-        this->getChatDataForce(id)->chatData.insert(NOTIFICATION_SETTINGS, chatNotificationSettings);
-        emit chatRolesUpdated(id);
-    }
+void TDLibWrapper::handleChatNotificationSettingsUpdated(qlonglong chatId, const QVariantMap chatNotificationSettings) {
+    this->getChatDataForce(chatId)->chatData.insert(NOTIFICATION_SETTINGS, chatNotificationSettings);
+    emit chatRolesUpdated(chatId);
     emit chatNotificationSettingsUpdated(chatId, chatNotificationSettings);
 }
 
@@ -1855,15 +1849,15 @@ void TDLibWrapper::handleChatReceived(const QVariantMap &chatInformation) {
         if (receivedChatType == ChatTypeBasicGroup) {
             LOG("Found basic group for active search" << this->activeChatSearchName);
             this->activeChatSearchName.clear();
-            this->createBasicGroupChat(chatType.value("basic_group_id").toString(), "openDirectly");
+            this->createBasicGroupChat(chatType.value("basic_group_id").toLongLong(), "openDirectly");
         } else if (receivedChatType == ChatTypeSupergroup) {
             LOG("Found supergroup for active search" << this->activeChatSearchName);
             this->activeChatSearchName.clear();
-            this->createSupergroupChat(chatType.value("supergroup_id").toString(), "openDirectly");
+            this->createSupergroupChat(chatType.value("supergroup_id").toLongLong(), "openDirectly");
         } else if (receivedChatType == ChatTypePrivate) {
             LOG("Found private chat for active search" << this->activeChatSearchName);
             this->activeChatSearchName.clear();
-            this->createPrivateChat(chatType.value(USER_ID).toString(), "openDirectly");
+            this->createPrivateChat(chatType.value(USER_ID).toLongLong(), "openDirectly");
         }
     }
 }
@@ -1912,7 +1906,7 @@ void TDLibWrapper::handleBasicGroupUpdated(qlonglong groupId, const QVariantMap 
     if (!this->activeChatSearchName.isEmpty() && this->activeChatSearchName == groupInformation.value(USERNAME).toString()) {
         LOG("Found basic group for active search" << this->activeChatSearchName);
         this->activeChatSearchName.clear();
-        this->createBasicGroupChat(groupInformation.value(ID).toString(), "openDirectly");
+        this->createBasicGroupChat(groupInformation.value(ID).toLongLong(), "openDirectly");
     }
 }
 
@@ -1922,7 +1916,7 @@ void TDLibWrapper::handleSuperGroupUpdated(qlonglong groupId, const QVariantMap 
     if (!this->activeChatSearchName.isEmpty() && this->activeChatSearchName == groupInformation.value(USERNAME).toString()) {
         LOG("Found supergroup for active search" << this->activeChatSearchName);
         this->activeChatSearchName.clear();
-        this->createSupergroupChat(groupInformation.value(ID).toString(), "openDirectly");
+        this->createSupergroupChat(groupInformation.value(ID).toLongLong(), "openDirectly");
     }
 }
 
@@ -1930,7 +1924,7 @@ void TDLibWrapper::handleStickerSets(const QVariantList &stickerSets) {
     QListIterator<QVariant> stickerSetIterator(stickerSets);
     while (stickerSetIterator.hasNext()) {
         QVariantMap stickerSet = stickerSetIterator.next().toMap();
-        this->getStickerSet(stickerSet.value(ID).toString());
+        this->getStickerSet(stickerSet.value(ID).toLongLong());
     }
     emit this->stickerSetsReceived(stickerSets);
 }

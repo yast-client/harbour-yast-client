@@ -45,9 +45,9 @@ AccordionItem {
             Connections {
                 target: tdLibWrapper
                 onOwnUserUpdated: {
-                    firstNameEditArea.text = userInformation.first_name;
-                    lastNameEditArea.text = userInformation.last_name;
-                    userNameEditArea.text = userInformation.username;
+                    firstNameEditArea.text = tdLibWrapper.userInformation.first_name;
+                    lastNameEditArea.text = tdLibWrapper.userInformation.last_name;
+                    userNameEditArea.text = tdLibWrapper.userInformation.username;
                 }
                 onUserProfilePhotosReceived: {
                     if (extra === userInformation.id.toString()) {
