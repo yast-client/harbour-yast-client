@@ -31,7 +31,7 @@ Page {
         initializationPage.loading = false;
 
         switch (tdLibWrapper.authorizationState) {
-        case TelegramAPI.WaitCode:
+        case TDLibAPI.WaitCode:
             initializationPage.loading = false;
             welcomeColumn.visible = false;
             enterPinColumn.visible = true;
@@ -39,14 +39,14 @@ Page {
             enterPasswordColumn.visible = false;
             waitRegistrationColumn.visible = false;
             break;
-        case TelegramAPI.WaitPassword:
+        case TDLibAPI.WaitPassword:
             initializationPage.loading = false;
             welcomeColumn.visible = false;
             enterPinColumn.visible = false;
             enterPasswordColumn.visible = true;
             waitRegistrationColumn.visible = false;
             break;
-        case TelegramAPI.WaitRegistration:
+        case TDLibAPI.WaitRegistration:
             initializationPage.loading = false;
             welcomeColumn.visible = false;
             enterPinColumn.visible = false;
@@ -63,26 +63,26 @@ Page {
         target: tdLibWrapper
         onAuthorizationStateChanged: {
             switch (tdLibWrapper.authorizationState) {
-            case TelegramAPI.WaitCode:
+            case TDLibAPI.WaitCode:
                 initializationPage.loading = false;
                 enterPinColumn.visible = true;
                 enterPinField.focus = true
                 enterPasswordColumn.visible = false;
                 waitRegistrationColumn.visible = false;
                 break;
-            case TelegramAPI.WaitPassword:
+            case TDLibAPI.WaitPassword:
                 initializationPage.loading = false;
                 enterPinColumn.visible = false;
                 enterPasswordColumn.visible = true;
                 waitRegistrationColumn.visible = false;
                 break;
-            case TelegramAPI.WaitRegistration:
+            case TDLibAPI.WaitRegistration:
                 initializationPage.loading = false;
                 enterPinColumn.visible = false;
                 enterPasswordColumn.visible = false;
                 waitRegistrationColumn.visible = true;
                 break;
-            case TelegramAPI.AuthorizationReady:
+            case TDLibAPI.AuthorizationReady:
                 initializationPage.loading = false;
                 pageStack.completeAnimation();
                 pageStack.pop();

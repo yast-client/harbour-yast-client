@@ -24,7 +24,7 @@ import "../js/functions.js" as Functions
 
 CoverBackground {
     id: coverPage
-    readonly property bool authenticated: tdLibWrapper.authorizationState === TelegramAPI.AuthorizationReady
+    readonly property bool authenticated: tdLibWrapper.authorizationState === TDLibAPI.AuthorizationReady
 
     BackgroundImage {
         id: backgroundImage
@@ -96,15 +96,15 @@ CoverBackground {
         Text {
             id: connectionStateText
             text: switch (tdLibWrapper.connectionState) {
-            case TelegramAPI.WaitingForNetwork:
+            case TDLibAPI.WaitingForNetwork:
                 return qsTr("Waiting for network...")
-            case TelegramAPI.Connecting:
+            case TDLibAPI.Connecting:
                 return qsTr("Connecting to network...")
-            case TelegramAPI.ConnectingToProxy:
+            case TDLibAPI.ConnectingToProxy:
                 return qsTr("Connecting to proxy...")
-            case TelegramAPI.ConnectionReady:
+            case TDLibAPI.ConnectionReady:
                 return qsTr("Connected")
-            case TelegramAPI.Updating:
+            case TDLibAPI.Updating:
                 return qsTr("Updating content...")
             default: return ''
             }

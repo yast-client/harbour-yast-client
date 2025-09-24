@@ -55,7 +55,7 @@ AccordionItem {
             }
 
             Loader {
-                active: tdLibWrapper.authorizationState === TelegramAPI.AuthorizationReady
+                active: tdLibWrapper.authorizationState === TDLibAPI.AuthorizationReady
                 width: parent.width
                 sourceComponent: Component {
                     Column {

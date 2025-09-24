@@ -142,7 +142,7 @@ int main(int argc, char *argv[])
     MceInterface *mceInterface = new MceInterface(view.data());
     TDLibWrapper *tdLibWrapper = new TDLibWrapper(appSettings, mceInterface, view.data());
     context->setContextProperty("tdLibWrapper", tdLibWrapper);
-    qmlRegisterUncreatableType<TDLibWrapper>(uri, 1, 0, "TelegramAPI", QString());
+    qmlRegisterUncreatableType<TDLibWrapper>(uri, 1, 0, "TDLibAPI", QString());
 
     Utilities *utilities = tdLibWrapper->getUtilities();
     context->setContextProperty("utilities", utilities);
