@@ -31,13 +31,17 @@ class ChatManager : public QObject {
     Q_OBJECT
     Q_PROPERTY(qlonglong chatId MEMBER chatId NOTIFY chatIdChanged)
     Q_PROPERTY(QVariantMap chatInformation READ chatInformation NOTIFY chatInformationChanged)
-    Q_PROPERTY(bool isForum READ isForum NOTIFY isForumChanged)
+    //Q_PROPERTY(bool isForum READ isForum NOTIFY isForumChanged)
+    Q_PROPERTY(QVariantMap smallPhoto READ smallPhoto NOTIFY smallPhotoChanged)
+    Q_PROPERTY(TDLibWrapper::ChatType chatType READ chatType NOTIFY chatIdChanged)
+    Q_PROPERTY(bool isChannel READ isChannel NOTIFY chatIdChanged)
+    Q_PROPERTY(QVariantMap userInfo READ userInfo NOTIFY userInfoChanged)
+    Q_PROPERTY(QVariantMap groupInfo READ groupInfo NOTIFY groupInfoChanged)
 
     Q_PROPERTY(ChatMessagesModel* model MEMBER chatMessagesModel CONSTANT)
     Q_PROPERTY(MediaMessagesModel* mediaMessagesModel MEMBER mediaMessagesModel CONSTANT)
     Q_PROPERTY(ForumTopicsModel* forumTopicsModel MEMBER forumTopicsModel CONSTANT)
 
-    Q_PROPERTY(QVariantMap smallPhoto READ smallPhoto NOTIFY smallPhotoChanged)
     Q_PROPERTY(qlonglong pinnedMessageId MEMBER pinnedMessageId NOTIFY pinnedMessageChanged)
     Q_PROPERTY(QVariantMap chatActionsByUsers MEMBER chatActionsByUsers NOTIFY chatActionsChanged)
     Q_PROPERTY(QVariantMap chatActionsByChats MEMBER chatActionsByChats NOTIFY chatActionsChanged)
@@ -53,6 +57,10 @@ public:
     inline QVariantMap chatInformation() const { return tdLibWrapper->getChat(chatId); }
 
     QVariantMap smallPhoto() const;
+    TDLibWrapper::ChatType chatType() const;
+    bool isChannel() const;
+    QVariantMap userInfo() const;
+    QVariantMap groupInfo() const;
 
 signals:
     void chatIdChanged();
@@ -61,11 +69,20 @@ signals:
     void chatActionsChanged();
     void chatInformationChanged();
     void isForumChanged();
+    void userInfoChanged();
+    void groupInfoChanged();
 
 private slots:
     void handleChatRolesUpdated(qlonglong chatId, const QVector<int> changedRoles = QVector<int>());
     void handleChatPinnedMessageUpdated(qlonglong chatId, qlonglong pinnedMessageId);
     void handleChatActionUpdated(qlonglong chatId, const QVariantMap &sender, const QVariantMap &chatAction, qlonglong messageThreadId);
+    void handleUserUpdated(const QString &userId);
+    void handleBasicGroupUpdated(qlonglong groupId);
+    void handleSupergroupUpdated(qlonglong groupId);
+
+private:
+    qlonglong userId() const;
+    qlonglong groupId() const;
 
 private:
     TDLibWrapper *tdLibWrapper;
