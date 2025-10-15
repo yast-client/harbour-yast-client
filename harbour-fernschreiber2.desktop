@@ -1,11 +1,11 @@
 [Desktop Entry]
 Type=Application
-X-Nemo-Application-Type=generic
+X-Nemo-Application-Type=silica-qt5
 Icon=harbour-fernschreiber2
 Exec=harbour-fernschreiber2
 Name=Ferniegram
 
 [X-Sailjail]
-Permissions=Audio;Contacts;Documents;Downloads;Internet;Location;MediaIndexing;Microphone;Music;Pictures;Privileged;PublicDir;RemovableMedia;UserDirs;Videos
 OrganizationName=io.github.roundedrectangle
 ApplicationName=fernschreiber2
+Permissions=Audio;Contacts;Documents;Downloads;Internet;Location;MediaIndexing;Microphone;Music;Pictures;PublicDir;RemovableMedia;UserDirs;Videos
