@@ -24,10 +24,6 @@
         <translation>Tento produkt používa rozhranie Telegram (API), ale nie je schválený alebo certifikovaný spoločnosťou Telegram.</translation>
     </message>
     <message>
-        <source>TDLib version %1</source>
-        <translation>Verzia TDLib %1</translation>
-    </message>
-    <message>
         <source>This project uses OpenStreetMap Nominatim for reverse geocoding of location attachments. Thanks for making it available as web service!</source>
         <translation>Tento projekt využíva OpenStreetMap Nominatim na reverzné geokódovanie príloh umiestnenia. Ďakujeme, že je sprístupnený ako webová služba!</translation>
     </message>
@@ -123,6 +119,10 @@
         <source>Debug mode is now enabled!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>TDLib version %1 (commit hash %2)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AddContactDialog</name>
@@ -156,9 +156,56 @@
     </message>
 </context>
 <context>
+    <name>ArchiveChatListTutorialDialog</name>
+    <message>
+        <source>Got it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is your Archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archived chats will remain in the Archive when you receive a new message. %1Tap to change%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When you receive a new message, muted chats will remain in the Archive, while unmuted chats will be moved to Chats. %1Tap to change%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archived Chats</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move any chat into your Archive and back using the context menu.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stories</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archive Stories from your contacts separately from chats with them.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ArchivedChatsPage</name>
     <message>
         <source>Archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>How does it work?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archive settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mark as read</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -192,6 +239,19 @@
     </message>
 </context>
 <context>
+    <name>ChatFoldersModel</name>
+    <message>
+        <source>All</source>
+        <comment>all chats tab</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archive</source>
+        <comment>archived chats tab</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ChatInformationPageContent</name>
     <message>
         <source>Unknown</source>
@@ -200,22 +260,6 @@
     <message>
         <source>The Invite Link has been copied to the clipboard.</source>
         <translation>Pozývací odkaz bol skopírovaný do schránky.</translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 subscribers</source>
-        <translation>
-            <numerusform>%1 odberateľ</numerusform>
-            <numerusform>%1 odberatelia</numerusform>
-            <numerusform>%1 odberateľov</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 members</source>
-        <translation>
-            <numerusform>%1 člen</numerusform>
-            <numerusform>%1 členovia</numerusform>
-            <numerusform>%1 členov</numerusform>
-        </translation>
     </message>
     <message>
         <source>Info</source>
@@ -277,18 +321,6 @@
         <source>Username</source>
         <comment>header</comment>
         <translation type="unfinished">Prihlasovacie meno</translation>
-    </message>
-    <message>
-        <source>Private Chat</source>
-        <translation type="unfinished">Súkromný čet</translation>
-    </message>
-    <message>
-        <source>Group</source>
-        <translation type="unfinished">Skupina</translation>
-    </message>
-    <message>
-        <source>Channel</source>
-        <translation type="unfinished">Kanál</translation>
     </message>
     <message>
         <source>View discussion</source>
@@ -450,32 +482,12 @@
         <translation>Neznámy</translation>
     </message>
     <message>
-        <source>Loading messages...</source>
-        <translation>Načítanie správ...</translation>
-    </message>
-    <message>
         <source>Unmute Chat</source>
         <translation>Ozvučiť čet</translation>
     </message>
     <message>
         <source>Mute Chat</source>
         <translation>Umlčať čet</translation>
-    </message>
-    <message>
-        <source>Edit Message</source>
-        <translation>Upraviť správu</translation>
-    </message>
-    <message>
-        <source>edited</source>
-        <translation>upravená</translation>
-    </message>
-    <message>
-        <source>Uploading...</source>
-        <translation>Zapisovanie...</translation>
-    </message>
-    <message>
-        <source>This chat is empty.</source>
-        <translation>Tento čet je prázdny.</translation>
     </message>
     <message>
         <source>Leave Chat</source>
@@ -489,26 +501,6 @@
         <source>You joined the chat %1</source>
         <translation>Ste pripojený k četu %1</translation>
     </message>
-    <message>
-        <source>Select Messages</source>
-        <translation>Vybrať správy</translation>
-    </message>
-    <message numerus="yes">
-        <source>%Ln Messages deleted</source>
-        <translation>
-            <numerusform>%Ln správa odstránená</numerusform>
-            <numerusform>%Ln správy odstránené</numerusform>
-            <numerusform>%Ln správ odstránených</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>%Ln messages have been copied</source>
-        <translation>
-            <numerusform>%Ln správa bola skopírovaná</numerusform>
-            <numerusform>%Ln správy boli skopírované</numerusform>
-            <numerusform>%Ln správ bolo skopírovaných</numerusform>
-        </translation>
-    </message>
     <message numerus="yes">
         <source>Forward %Ln messages</source>
         <comment>dialog header</comment>
@@ -517,19 +509,6 @@
             <numerusform>Postúpené %Ln správy</numerusform>
             <numerusform>Postúpených %Ln správ</numerusform>
         </translation>
-    </message>
-    <message numerus="yes">
-        <source>%Ln messages selected</source>
-        <comment>number of messages selected</comment>
-        <translation>
-            <numerusform>%Ln správa bola vybratá</numerusform>
-            <numerusform>%Ln správy boli vybraté</numerusform>
-            <numerusform>%Ln správ bolo vybratých</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>This secret chat is not yet ready. Your chat partner needs to go online first.</source>
-        <translation>Tento dôverný čet ešte nie je prístupný. Váš četovací partner sa musí pripojiť.</translation>
     </message>
     <message>
         <source>Closing chat</source>
@@ -548,26 +527,6 @@
         <translation>Hľadanie v čete...</translation>
     </message>
     <message>
-        <source>Location: Obtaining position...</source>
-        <translation>Poloha: Získavanie pozície...</translation>
-    </message>
-    <message>
-        <source>Location (%1/%2)</source>
-        <translation>Poloha (%1/%2)</translation>
-    </message>
-    <message>
-        <source>Unknown address</source>
-        <translation>Neznáma adresa</translation>
-    </message>
-    <message>
-        <source>Accuracy: %1m</source>
-        <translation>Presnosť: %1 m</translation>
-    </message>
-    <message>
-        <source>Sponsored Message</source>
-        <translation>Sponzorovaná správa</translation>
-    </message>
-    <message>
         <source>Delete Chat</source>
         <translation>Odstrániť čet</translation>
     </message>
@@ -580,45 +539,11 @@
         <translation>Dvojitým klepnutím na správu vybrať reakciu</translation>
     </message>
     <message>
-        <source>Recommended Message</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Chat deleted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Left chat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No results</source>
-        <comment>No messages search results found</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Silent Broadcast</source>
-        <comment>placeholder for broadcasting a message to a channel silently</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Broadcast</source>
-        <comment>placeholder for broadcasting a message to a channel</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Send anonymously</source>
-        <comment>placeholder for sending an anonymous message in a supergroup</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Message for %1 Stars</source>
-        <comment>placeholder for sending a message for %1 stars</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Message</source>
-        <comment>placeholder for sending a message</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -636,44 +561,12 @@
 <context>
     <name>ChatsView</name>
     <message>
-        <source>Ferniegram</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Waiting for network...</source>
-        <translation type="unfinished">Čakanie na sieť...</translation>
-    </message>
-    <message>
-        <source>Connecting to network...</source>
-        <translation type="unfinished">Pripájanie k sieti...</translation>
-    </message>
-    <message>
-        <source>Connecting to proxy...</source>
-        <translation type="unfinished">Pripájanie k proxy...</translation>
-    </message>
-    <message>
-        <source>Updating content...</source>
-        <translation type="unfinished">Aktualizácia obsahu...</translation>
-    </message>
-    <message>
-        <source>Filter your chats...</source>
-        <translation type="unfinished">Filtrovanie četov...</translation>
-    </message>
-    <message>
         <source>You don&apos;t have any chats yet.</source>
         <translation type="unfinished">Nemáte žiadne čety.</translation>
     </message>
     <message>
-        <source>No matching chats found.</source>
-        <translation type="unfinished">Nenašli sa žiadne zodpovedajúce čety.</translation>
-    </message>
-    <message>
-        <source>You can search public chats or create a new chat via the pull-down menu.</source>
-        <translation type="unfinished">Môžete vyhľadávať verejné čety alebo vytvoriť nový pomocou rozbaľovacej ponuky.</translation>
-    </message>
-    <message>
-        <source>Tap on the title bar to filter your chats</source>
-        <translation type="unfinished">Klepnutím na záhlavie filtrovať svoje čety</translation>
+        <source>Pull down to search public chats or create a new chat</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1115,6 +1008,75 @@
     </message>
 </context>
 <context>
+    <name>MessagesView</name>
+    <message>
+        <source>Recommended Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sponsored Message</source>
+        <translation type="unfinished">Sponzorovaná správa</translation>
+    </message>
+    <message>
+        <source>edited</source>
+        <translation type="unfinished">upravená</translation>
+    </message>
+    <message>
+        <source>Select Messages</source>
+        <translation type="unfinished">Vybrať správy</translation>
+    </message>
+    <message numerus="yes">
+        <source>%Ln messages selected</source>
+        <comment>number of messages selected</comment>
+        <translation type="unfinished">
+            <numerusform>%Ln správa bola vybratá</numerusform>
+            <numerusform>%Ln správy boli vybraté</numerusform>
+            <numerusform>%Ln správ bolo vybratých</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Unmute Chat</source>
+        <translation type="unfinished">Ozvučiť čet</translation>
+    </message>
+    <message>
+        <source>Mute Chat</source>
+        <translation type="unfinished">Umlčať čet</translation>
+    </message>
+    <message>
+        <source>This secret chat is not yet ready. Your chat partner needs to go online first.</source>
+        <translation type="unfinished">Tento dôverný čet ešte nie je prístupný. Váš četovací partner sa musí pripojiť.</translation>
+    </message>
+    <message>
+        <source>No results</source>
+        <comment>No messages search results found</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This chat is empty.</source>
+        <translation type="unfinished">Tento čet je prázdny.</translation>
+    </message>
+    <message>
+        <source>Loading messages...</source>
+        <translation type="unfinished">Načítanie správ...</translation>
+    </message>
+    <message numerus="yes">
+        <source>%Ln messages have been copied</source>
+        <translation type="unfinished">
+            <numerusform>%Ln správa bola skopírovaná</numerusform>
+            <numerusform>%Ln správy boli skopírované</numerusform>
+            <numerusform>%Ln správ bolo skopírovaných</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%Ln Messages deleted</source>
+        <translation type="unfinished">
+            <numerusform>%Ln správa odstránená</numerusform>
+            <numerusform>%Ln správy odstránené</numerusform>
+            <numerusform>%Ln správ odstránených</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>NewChatPage</name>
     <message>
         <source>Your Contacts</source>
@@ -1174,6 +1136,58 @@
     </message>
     <message>
         <source>contact has not joined telegram yet</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>NewMessageColumn</name>
+    <message>
+        <source>Location: Obtaining position...</source>
+        <translation type="unfinished">Poloha: Získavanie pozície...</translation>
+    </message>
+    <message>
+        <source>Unknown address</source>
+        <translation type="unfinished">Neznáma adresa</translation>
+    </message>
+    <message>
+        <source>Location (%1/%2)</source>
+        <translation type="unfinished">Poloha (%1/%2)</translation>
+    </message>
+    <message>
+        <source>Accuracy: %1m</source>
+        <translation type="unfinished">Presnosť: %1 m</translation>
+    </message>
+    <message>
+        <source>Uploading...</source>
+        <translation type="unfinished">Zapisovanie...</translation>
+    </message>
+    <message>
+        <source>Edit Message</source>
+        <translation type="unfinished">Upraviť správu</translation>
+    </message>
+    <message>
+        <source>Silent Broadcast</source>
+        <comment>placeholder for broadcasting a message to a channel silently</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Broadcast</source>
+        <comment>placeholder for broadcasting a message to a channel</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send anonymously</source>
+        <comment>placeholder for sending an anonymous message in a supergroup</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Message for %1 Stars</source>
+        <comment>placeholder for sending a message for %1 stars</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Message</source>
+        <comment>placeholder for sending a message</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1317,182 +1331,6 @@
         <source>Your contributions to translations or code would be most welcome.</source>
         <translation>Vaša pomoc s prekladom alebo programovaním by bola veľmi vítaná.</translation>
     </message>
-    <message>
-        <source>Author</source>
-        <translation>Autor</translation>
-    </message>
-    <message numerus="yes">
-        <source>Author(s)</source>
-        <translation>
-            <numerusform>Autor</numerusform>
-            <numerusform>Autori</numerusform>
-            <numerusform>Autorov</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Maintainer</source>
-        <translation>Správce</translation>
-    </message>
-    <message numerus="yes">
-        <source>Maintainer(s)</source>
-        <translation>
-            <numerusform>Správca</numerusform>
-            <numerusform>Správcovia</numerusform>
-            <numerusform>Správcov</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Programming</source>
-        <translation>Programovanie</translation>
-    </message>
-    <message>
-        <source>Icon Design</source>
-        <translation>Návrh ikon</translation>
-    </message>
-    <message>
-        <source>Third-party libraries</source>
-        <translation>Knižnice tretích strán</translation>
-    </message>
-    <message>
-        <source>Data</source>
-        <translation>Dáta</translation>
-    </message>
-    <message>
-        <source>Data License</source>
-        <translation>Dátová licencia</translation>
-    </message>
-    <message numerus="yes">
-        <source>Data License(s)</source>
-        <translation>
-            <numerusform>Dátová licencia</numerusform>
-            <numerusform>Dátové licencie</numerusform>
-            <numerusform>Dátových licencií</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Terms of Use</source>
-        <translation>Podmienky použitia</translation>
-    </message>
-    <message>
-        <source>Belarusian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Chinese</source>
-        <translation>Čínština</translation>
-    </message>
-    <message>
-        <source>Czech</source>
-        <translation>Čeština</translation>
-    </message>
-    <message>
-        <source>Dutch</source>
-        <translation>Holandčina</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation>Angličtina</translation>
-    </message>
-    <message>
-        <source>Estonian</source>
-        <translation>Estónčina</translation>
-    </message>
-    <message>
-        <source>Finnish</source>
-        <translation>Fínčina</translation>
-    </message>
-    <message>
-        <source>French</source>
-        <translation>Francúzština</translation>
-    </message>
-    <message>
-        <source>German</source>
-        <translation>Nemčina</translation>
-    </message>
-    <message>
-        <source>Greek</source>
-        <translation>Gréčtina</translation>
-    </message>
-    <message>
-        <source>Hungarian</source>
-        <translation>Maďarčina</translation>
-    </message>
-    <message>
-        <source>Indonesian</source>
-        <translation>Indonézština</translation>
-    </message>
-    <message>
-        <source>Italian</source>
-        <translation>Taliančina</translation>
-    </message>
-    <message>
-        <source>Lithuanian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Norwegian Bokmål</source>
-        <translation>Nórčina Bokmål</translation>
-    </message>
-    <message>
-        <source>Polish</source>
-        <translation>Poľština</translation>
-    </message>
-    <message>
-        <source>Portuguese</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Brazilian Portuguese</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Romanian</source>
-        <translation>Rumunčina</translation>
-    </message>
-    <message>
-        <source>Russian</source>
-        <translation>Ruština</translation>
-    </message>
-    <message>
-        <source>Serbian</source>
-        <translation>Srbština</translation>
-    </message>
-    <message>
-        <source>Slovak</source>
-        <translation>Slovenčina</translation>
-    </message>
-    <message>
-        <source>Spanish</source>
-        <translation>Španielčina</translation>
-    </message>
-    <message>
-        <source>Swedish</source>
-        <translation>Švédčina</translation>
-    </message>
-    <message>
-        <source>Tamil</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turkish</source>
-        <translation>Turečtina</translation>
-    </message>
-    <message>
-        <source>Ukrainian</source>
-        <translation>Ukrajinčina</translation>
-    </message>
-    <message>
-        <source>Norwegian Nynorsk</source>
-        <translation>Nórčina (Nynorsk)</translation>
-    </message>
-    <message>
-        <source>Latvian</source>
-        <translation>Litvinština</translation>
-    </message>
-    <message>
-        <source>Dutch (Belgium)</source>
-        <translation>Holandčina (Belgicko)</translation>
-    </message>
 </context>
 <context>
     <name>OverviewPage</name>
@@ -1509,16 +1347,8 @@
         <translation>Nový čet</translation>
     </message>
     <message>
-        <source>Search Chats</source>
-        <translation>Hľadanie četov</translation>
-    </message>
-    <message>
         <source>Logging out</source>
         <translation>Odhlasovanie</translation>
-    </message>
-    <message>
-        <source>About Ferniegram</source>
-        <translation>O aplikácii Ferniegram</translation>
     </message>
     <message>
         <source>Download of %1 successful.</source>
@@ -1543,6 +1373,42 @@
     <message>
         <source>Archive</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <comment>pulley menu option for opening search page</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mark as read</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tap on the title bar to quickly open search</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OverviewPageHeader</name>
+    <message>
+        <source>Ferniegram</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Waiting for network...</source>
+        <translation type="unfinished">Čakanie na sieť...</translation>
+    </message>
+    <message>
+        <source>Connecting to network...</source>
+        <translation type="unfinished">Pripájanie k sieti...</translation>
+    </message>
+    <message>
+        <source>Connecting to proxy...</source>
+        <translation type="unfinished">Pripájanie k proxy...</translation>
+    </message>
+    <message>
+        <source>Updating content...</source>
+        <translation type="unfinished">Aktualizácia obsahu...</translation>
     </message>
 </context>
 <context>
@@ -1732,44 +1598,45 @@
         <translation>Hľadanie četov...</translation>
     </message>
     <message>
-        <source>Private Chat</source>
-        <translation>Súkromný čet</translation>
-    </message>
-    <message>
-        <source>Group</source>
-        <translation>Skupina</translation>
-    </message>
-    <message>
-        <source>Channel</source>
-        <translation>Kanál</translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 members</source>
-        <translation>
-            <numerusform>%1 člen</numerusform>
-            <numerusform>%1 členovia</numerusform>
-            <numerusform>%1 členov</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 subscribers</source>
-        <translation>
-            <numerusform>%1 odberateľ</numerusform>
-            <numerusform>%1 odberatelia</numerusform>
-            <numerusform>%1 odberateľov</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Search Chats</source>
-        <translation>Prehľadávať čety</translation>
-    </message>
-    <message>
-        <source>Search a chat...</source>
-        <translation>Hľadať čet...</translation>
-    </message>
-    <message>
         <source>Enter your query to start searching (at least 5 characters needed)</source>
         <translation>Pre spustenie hľadania zadajte podmienku (vyžaduje sa najmenej 5 znakov)</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <comment>page header for search page</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <comment>Placeholder text for chats search field</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Frequent contacts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove from Recents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recent</source>
+        <comment>Recently found chats</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cleared recents</source>
+        <comment>Remorse popup indicating that recently found chats are cleared</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove from Recent</source>
+        <comment>Remove a chat from recently found chats</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Global search results</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1800,6 +1667,45 @@
     </message>
     <message>
         <source>Video stickers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move chat folders panel to bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show chat folders icons</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SettingsArchiveChatList</name>
+    <message>
+        <source>Archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always keep unmuted chats archived</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep archived chats in the Archive even if they are unmuted and get a new message.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always keep chats from folders archived</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep archived chats from folders in the Archive even if they are unmuted and get a new message.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically archive new chats from unknown users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically archive and mute new chats, groups and channels from non-contacts.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1933,12 +1839,32 @@
         <source>Parse markdown in messages</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Include muted chats in unread count</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show unread chat count in folders</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Include muted chats in folders unread count</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Force QtMultimedia-based audio recorder</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsPage</name>
     <message>
         <source>Settings</source>
         <translation>Nastavenia</translation>
+    </message>
+    <message>
+        <source>About Ferniegram</source>
+        <translation type="unfinished">O aplikácii Ferniegram</translation>
     </message>
 </context>
 <context>
@@ -2224,6 +2150,41 @@
     <message>
         <source>Sticker set successfully removed!</source>
         <translation>Sada nálepiek bola úspešne odstránená!</translation>
+    </message>
+</context>
+<context>
+    <name>TDLibChatListItem</name>
+    <message>
+        <source>Secret Chat</source>
+        <translation type="unfinished">Dôverný čet</translation>
+    </message>
+    <message>
+        <source>Private Chat</source>
+        <translation type="unfinished">Súkromný čet</translation>
+    </message>
+    <message>
+        <source>Group</source>
+        <translation type="unfinished">Skupina</translation>
+    </message>
+    <message>
+        <source>Channel</source>
+        <translation type="unfinished">Kanál</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 members</source>
+        <translation type="unfinished">
+            <numerusform>%1 člen</numerusform>
+            <numerusform>%1 členovia</numerusform>
+            <numerusform>%1 členov</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 subscribers</source>
+        <translation type="unfinished">
+            <numerusform>%1 odberateľ</numerusform>
+            <numerusform>%1 odberatelia</numerusform>
+            <numerusform>%1 odberateľov</numerusform>
+        </translation>
     </message>
 </context>
 <context>

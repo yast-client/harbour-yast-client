@@ -24,10 +24,6 @@
         <translation>Ten produkt korzysta z Telegram API, ale nie jest zatwierdzony ani certyfikowany przez Telegram.</translation>
     </message>
     <message>
-        <source>TDLib version %1</source>
-        <translation>Wersja TDLib %1</translation>
-    </message>
-    <message>
         <source>This project uses OpenStreetMap Nominatim for reverse geocoding of location attachments. Thanks for making it available as web service!</source>
         <translation>Ten projekt wykorzystuje OpenStreetMap Nominatim do odwrotnego geokodowania załączników lokalizacji. Dziękujemy za udostępnienie go jako usługi internetowej! </translation>
     </message>
@@ -123,6 +119,10 @@
         <source>Debug mode is now enabled!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>TDLib version %1 (commit hash %2)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AddContactDialog</name>
@@ -156,9 +156,56 @@
     </message>
 </context>
 <context>
+    <name>ArchiveChatListTutorialDialog</name>
+    <message>
+        <source>Got it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is your Archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archived chats will remain in the Archive when you receive a new message. %1Tap to change%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When you receive a new message, muted chats will remain in the Archive, while unmuted chats will be moved to Chats. %1Tap to change%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archived Chats</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move any chat into your Archive and back using the context menu.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stories</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archive Stories from your contacts separately from chats with them.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ArchivedChatsPage</name>
     <message>
         <source>Archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>How does it work?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archive settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mark as read</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -192,6 +239,19 @@
     </message>
 </context>
 <context>
+    <name>ChatFoldersModel</name>
+    <message>
+        <source>All</source>
+        <comment>all chats tab</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archive</source>
+        <comment>archived chats tab</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ChatInformationPageContent</name>
     <message>
         <source>Unknown</source>
@@ -200,22 +260,6 @@
     <message>
         <source>The Invite Link has been copied to the clipboard.</source>
         <translation>Link do zaproszenia został skopiowany do schowka.</translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 subscribers</source>
-        <translation>
-            <numerusform>%1 subskrybent</numerusform>
-            <numerusform>%1 subskrybentów</numerusform>
-            <numerusform>%1 subskrybentów</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 members</source>
-        <translation>
-            <numerusform>%1 członek</numerusform>
-            <numerusform>%1 członków</numerusform>
-            <numerusform>%1 członków</numerusform>
-        </translation>
     </message>
     <message>
         <source>Info</source>
@@ -277,18 +321,6 @@
         <source>Username</source>
         <comment>header</comment>
         <translation type="unfinished">Nazwa użytkownika</translation>
-    </message>
-    <message>
-        <source>Private Chat</source>
-        <translation type="unfinished">Prywatny czat</translation>
-    </message>
-    <message>
-        <source>Group</source>
-        <translation type="unfinished">Grupa</translation>
-    </message>
-    <message>
-        <source>Channel</source>
-        <translation type="unfinished">Kanał</translation>
     </message>
     <message>
         <source>View discussion</source>
@@ -450,32 +482,12 @@
         <translation>Nieznany</translation>
     </message>
     <message>
-        <source>Loading messages...</source>
-        <translation>Ładowanie wiadomości...</translation>
-    </message>
-    <message>
         <source>Unmute Chat</source>
         <translation>Wyłącz wyciszenie czatu</translation>
     </message>
     <message>
         <source>Mute Chat</source>
         <translation>Wycisz czat</translation>
-    </message>
-    <message>
-        <source>Edit Message</source>
-        <translation>Edytuj widomość</translation>
-    </message>
-    <message>
-        <source>edited</source>
-        <translation>edytowana</translation>
-    </message>
-    <message>
-        <source>Uploading...</source>
-        <translation>Przesyłanie...</translation>
-    </message>
-    <message>
-        <source>This chat is empty.</source>
-        <translation>Ten czat jest pusty</translation>
     </message>
     <message>
         <source>Leave Chat</source>
@@ -489,26 +501,6 @@
         <source>You joined the chat %1</source>
         <translation>Dołączyłeś do czatu %1</translation>
     </message>
-    <message>
-        <source>Select Messages</source>
-        <translation>Wybierz wiadomości</translation>
-    </message>
-    <message numerus="yes">
-        <source>%Ln Messages deleted</source>
-        <translation>
-            <numerusform>%Ln wiadomość została usunięta</numerusform>
-            <numerusform>%Ln wiadomości zostały usunięte</numerusform>
-            <numerusform>%Ln wiadomości zostało usunięte</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>%Ln messages have been copied</source>
-        <translation>
-            <numerusform>%Ln wiadomość została skopiowana</numerusform>
-            <numerusform>%Ln wiadomości zostały skopiowane</numerusform>
-            <numerusform>%Ln wiadomość zostało skopiowane</numerusform>
-        </translation>
-    </message>
     <message numerus="yes">
         <source>Forward %Ln messages</source>
         <comment>dialog header</comment>
@@ -517,19 +509,6 @@
             <numerusform>Przekaż %Ln wiadomości</numerusform>
             <numerusform>Przekaż %Ln wiadomości</numerusform>
         </translation>
-    </message>
-    <message numerus="yes">
-        <source>%Ln messages selected</source>
-        <comment>number of messages selected</comment>
-        <translation>
-            <numerusform>%Ln wiadomość zaznaczona</numerusform>
-            <numerusform>%Ln wiadomości zaznaczone</numerusform>
-            <numerusform>%Ln wiadomości zaznaczonych</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>This secret chat is not yet ready. Your chat partner needs to go online first.</source>
-        <translation>Ten tajny czat nie jest jeszcze gotowy. Twój rozmówca musi być online.</translation>
     </message>
     <message>
         <source>Closing chat</source>
@@ -548,26 +527,6 @@
         <translation>Wyszukaj w czacie</translation>
     </message>
     <message>
-        <source>Location: Obtaining position...</source>
-        <translation>Lokalizacja: Uzyskanie pozycji ...</translation>
-    </message>
-    <message>
-        <source>Location (%1/%2)</source>
-        <translation>Lokalizacja (%1/%2)</translation>
-    </message>
-    <message>
-        <source>Unknown address</source>
-        <translation>Nieznany adres</translation>
-    </message>
-    <message>
-        <source>Accuracy: %1m</source>
-        <translation>Dokładność: %1m</translation>
-    </message>
-    <message>
-        <source>Sponsored Message</source>
-        <translation>Wiadomość sponsorowana</translation>
-    </message>
-    <message>
         <source>Delete Chat</source>
         <translation>Usuń czat</translation>
     </message>
@@ -580,45 +539,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Recommended Message</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Chat deleted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Left chat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No results</source>
-        <comment>No messages search results found</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Silent Broadcast</source>
-        <comment>placeholder for broadcasting a message to a channel silently</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Broadcast</source>
-        <comment>placeholder for broadcasting a message to a channel</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Send anonymously</source>
-        <comment>placeholder for sending an anonymous message in a supergroup</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Message for %1 Stars</source>
-        <comment>placeholder for sending a message for %1 stars</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Message</source>
-        <comment>placeholder for sending a message</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -636,44 +561,12 @@
 <context>
     <name>ChatsView</name>
     <message>
-        <source>Ferniegram</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Waiting for network...</source>
-        <translation type="unfinished">Oczekiwanie na sieć...</translation>
-    </message>
-    <message>
-        <source>Connecting to network...</source>
-        <translation type="unfinished">Łączenie z siecią...</translation>
-    </message>
-    <message>
-        <source>Connecting to proxy...</source>
-        <translation type="unfinished">Łączenie z proxy</translation>
-    </message>
-    <message>
-        <source>Updating content...</source>
-        <translation type="unfinished">Aktualizacja treści...</translation>
-    </message>
-    <message>
-        <source>Filter your chats...</source>
-        <translation type="unfinished">Filtruj swoje czaty...</translation>
-    </message>
-    <message>
         <source>You don&apos;t have any chats yet.</source>
         <translation type="unfinished">Nie masz jeszcze żadnych czatów.</translation>
     </message>
     <message>
-        <source>No matching chats found.</source>
-        <translation type="unfinished">Brak pasujących czatów</translation>
-    </message>
-    <message>
-        <source>You can search public chats or create a new chat via the pull-down menu.</source>
-        <translation type="unfinished">Możesz przeszukiwać czaty publiczne lub utworzyć nowy czat za pomocą menu rozwijanego z góry.</translation>
-    </message>
-    <message>
-        <source>Tap on the title bar to filter your chats</source>
-        <translation type="unfinished">Dotknij paska tytułowego, aby filtrować swoje czaty</translation>
+        <source>Pull down to search public chats or create a new chat</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1115,6 +1008,75 @@
     </message>
 </context>
 <context>
+    <name>MessagesView</name>
+    <message>
+        <source>Recommended Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sponsored Message</source>
+        <translation type="unfinished">Wiadomość sponsorowana</translation>
+    </message>
+    <message>
+        <source>edited</source>
+        <translation type="unfinished">edytowana</translation>
+    </message>
+    <message>
+        <source>Select Messages</source>
+        <translation type="unfinished">Wybierz wiadomości</translation>
+    </message>
+    <message numerus="yes">
+        <source>%Ln messages selected</source>
+        <comment>number of messages selected</comment>
+        <translation type="unfinished">
+            <numerusform>%Ln wiadomość zaznaczona</numerusform>
+            <numerusform>%Ln wiadomości zaznaczone</numerusform>
+            <numerusform>%Ln wiadomości zaznaczonych</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Unmute Chat</source>
+        <translation type="unfinished">Wyłącz wyciszenie czatu</translation>
+    </message>
+    <message>
+        <source>Mute Chat</source>
+        <translation type="unfinished">Wycisz czat</translation>
+    </message>
+    <message>
+        <source>This secret chat is not yet ready. Your chat partner needs to go online first.</source>
+        <translation type="unfinished">Ten tajny czat nie jest jeszcze gotowy. Twój rozmówca musi być online.</translation>
+    </message>
+    <message>
+        <source>No results</source>
+        <comment>No messages search results found</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This chat is empty.</source>
+        <translation type="unfinished">Ten czat jest pusty</translation>
+    </message>
+    <message>
+        <source>Loading messages...</source>
+        <translation type="unfinished">Ładowanie wiadomości...</translation>
+    </message>
+    <message numerus="yes">
+        <source>%Ln messages have been copied</source>
+        <translation type="unfinished">
+            <numerusform>%Ln wiadomość została skopiowana</numerusform>
+            <numerusform>%Ln wiadomości zostały skopiowane</numerusform>
+            <numerusform>%Ln wiadomość zostało skopiowane</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%Ln Messages deleted</source>
+        <translation type="unfinished">
+            <numerusform>%Ln wiadomość została usunięta</numerusform>
+            <numerusform>%Ln wiadomości zostały usunięte</numerusform>
+            <numerusform>%Ln wiadomości zostało usunięte</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>NewChatPage</name>
     <message>
         <source>Your Contacts</source>
@@ -1174,6 +1136,58 @@
     </message>
     <message>
         <source>contact has not joined telegram yet</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>NewMessageColumn</name>
+    <message>
+        <source>Location: Obtaining position...</source>
+        <translation type="unfinished">Lokalizacja: Uzyskanie pozycji ...</translation>
+    </message>
+    <message>
+        <source>Unknown address</source>
+        <translation type="unfinished">Nieznany adres</translation>
+    </message>
+    <message>
+        <source>Location (%1/%2)</source>
+        <translation type="unfinished">Lokalizacja (%1/%2)</translation>
+    </message>
+    <message>
+        <source>Accuracy: %1m</source>
+        <translation type="unfinished">Dokładność: %1m</translation>
+    </message>
+    <message>
+        <source>Uploading...</source>
+        <translation type="unfinished">Przesyłanie...</translation>
+    </message>
+    <message>
+        <source>Edit Message</source>
+        <translation type="unfinished">Edytuj widomość</translation>
+    </message>
+    <message>
+        <source>Silent Broadcast</source>
+        <comment>placeholder for broadcasting a message to a channel silently</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Broadcast</source>
+        <comment>placeholder for broadcasting a message to a channel</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send anonymously</source>
+        <comment>placeholder for sending an anonymous message in a supergroup</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Message for %1 Stars</source>
+        <comment>placeholder for sending a message for %1 stars</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Message</source>
+        <comment>placeholder for sending a message</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1317,182 +1331,6 @@
         <source>Your contributions to translations or code would be most welcome.</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Author</source>
-        <translation>Autor</translation>
-    </message>
-    <message numerus="yes">
-        <source>Author(s)</source>
-        <translation>
-            <numerusform>Autor</numerusform>
-            <numerusform>Autorzy</numerusform>
-            <numerusform>Autorów</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Maintainer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message numerus="yes">
-        <source>Maintainer(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Programming</source>
-        <translation>Programowanie</translation>
-    </message>
-    <message>
-        <source>Icon Design</source>
-        <translation>Projekt ikon</translation>
-    </message>
-    <message>
-        <source>Third-party libraries</source>
-        <translation>Biblioteki stron trzecich</translation>
-    </message>
-    <message>
-        <source>Data</source>
-        <translation>Dane</translation>
-    </message>
-    <message>
-        <source>Data License</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message numerus="yes">
-        <source>Data License(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Terms of Use</source>
-        <translation>Warunki użytkowania</translation>
-    </message>
-    <message>
-        <source>Belarusian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Chinese</source>
-        <translation>chiński</translation>
-    </message>
-    <message>
-        <source>Czech</source>
-        <translation>czeski</translation>
-    </message>
-    <message>
-        <source>Dutch</source>
-        <translation>holenderski</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation>angielski</translation>
-    </message>
-    <message>
-        <source>Estonian</source>
-        <translation>estoński</translation>
-    </message>
-    <message>
-        <source>Finnish</source>
-        <translation>fiński</translation>
-    </message>
-    <message>
-        <source>French</source>
-        <translation>francuski</translation>
-    </message>
-    <message>
-        <source>German</source>
-        <translation>niemiecki</translation>
-    </message>
-    <message>
-        <source>Greek</source>
-        <translation>grecki</translation>
-    </message>
-    <message>
-        <source>Hungarian</source>
-        <translation>węgierski</translation>
-    </message>
-    <message>
-        <source>Indonesian</source>
-        <translation>indonezyjski</translation>
-    </message>
-    <message>
-        <source>Italian</source>
-        <translation>włoski</translation>
-    </message>
-    <message>
-        <source>Lithuanian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Norwegian Bokmål</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Polish</source>
-        <translation>polski</translation>
-    </message>
-    <message>
-        <source>Portuguese</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Brazilian Portuguese</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Romanian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Russian</source>
-        <translation>rosyjski</translation>
-    </message>
-    <message>
-        <source>Serbian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Slovak</source>
-        <translation>slowacki</translation>
-    </message>
-    <message>
-        <source>Spanish</source>
-        <translation>hiszpański</translation>
-    </message>
-    <message>
-        <source>Swedish</source>
-        <translation>szwedzki</translation>
-    </message>
-    <message>
-        <source>Tamil</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turkish</source>
-        <translation>turecki</translation>
-    </message>
-    <message>
-        <source>Ukrainian</source>
-        <translation>ukraiński</translation>
-    </message>
-    <message>
-        <source>Norwegian Nynorsk</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Latvian</source>
-        <translation>łotewski</translation>
-    </message>
-    <message>
-        <source>Dutch (Belgium)</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>OverviewPage</name>
@@ -1509,16 +1347,8 @@
         <translation>Nowy czat</translation>
     </message>
     <message>
-        <source>Search Chats</source>
-        <translation>Wyszukaj czaty</translation>
-    </message>
-    <message>
         <source>Logging out</source>
         <translation>Wylogowywanie</translation>
-    </message>
-    <message>
-        <source>About Ferniegram</source>
-        <translation>O Ferniegram</translation>
     </message>
     <message>
         <source>Download of %1 successful.</source>
@@ -1543,6 +1373,42 @@
     <message>
         <source>Archive</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <comment>pulley menu option for opening search page</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mark as read</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tap on the title bar to quickly open search</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OverviewPageHeader</name>
+    <message>
+        <source>Ferniegram</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Waiting for network...</source>
+        <translation type="unfinished">Oczekiwanie na sieć...</translation>
+    </message>
+    <message>
+        <source>Connecting to network...</source>
+        <translation type="unfinished">Łączenie z siecią...</translation>
+    </message>
+    <message>
+        <source>Connecting to proxy...</source>
+        <translation type="unfinished">Łączenie z proxy</translation>
+    </message>
+    <message>
+        <source>Updating content...</source>
+        <translation type="unfinished">Aktualizacja treści...</translation>
     </message>
 </context>
 <context>
@@ -1732,44 +1598,45 @@
         <translation>Wyszukiwanie czatów...</translation>
     </message>
     <message>
-        <source>Private Chat</source>
-        <translation>Prywatny czat</translation>
-    </message>
-    <message>
-        <source>Group</source>
-        <translation>Grupa</translation>
-    </message>
-    <message>
-        <source>Channel</source>
-        <translation>Kanał</translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 members</source>
-        <translation>
-            <numerusform>%1 członek</numerusform>
-            <numerusform>%1 członków</numerusform>
-            <numerusform>%1 członków</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 subscribers</source>
-        <translation>
-            <numerusform>%1 subskrybent</numerusform>
-            <numerusform>%1 subskrybentów</numerusform>
-            <numerusform>%1 subskrybentów</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Search Chats</source>
-        <translation>Wyszukaj czaty</translation>
-    </message>
-    <message>
-        <source>Search a chat...</source>
-        <translation>Wyszukaj czat...</translation>
-    </message>
-    <message>
         <source>Enter your query to start searching (at least 5 characters needed)</source>
         <translation>Wprowadź zapytanie aby zacząć wyszukiwanie (minimum 5 znaków)</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <comment>page header for search page</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <comment>Placeholder text for chats search field</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Frequent contacts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove from Recents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recent</source>
+        <comment>Recently found chats</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cleared recents</source>
+        <comment>Remorse popup indicating that recently found chats are cleared</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove from Recent</source>
+        <comment>Remove a chat from recently found chats</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Global search results</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1800,6 +1667,45 @@
     </message>
     <message>
         <source>Video stickers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move chat folders panel to bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show chat folders icons</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SettingsArchiveChatList</name>
+    <message>
+        <source>Archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always keep unmuted chats archived</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep archived chats in the Archive even if they are unmuted and get a new message.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always keep chats from folders archived</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep archived chats from folders in the Archive even if they are unmuted and get a new message.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically archive new chats from unknown users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically archive and mute new chats, groups and channels from non-contacts.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1933,12 +1839,32 @@
         <source>Parse markdown in messages</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Include muted chats in unread count</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show unread chat count in folders</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Include muted chats in folders unread count</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Force QtMultimedia-based audio recorder</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsPage</name>
     <message>
         <source>Settings</source>
         <translation>Ustawienia</translation>
+    </message>
+    <message>
+        <source>About Ferniegram</source>
+        <translation type="unfinished">O Ferniegram</translation>
     </message>
 </context>
 <context>
@@ -2224,6 +2150,41 @@
     <message>
         <source>Sticker set successfully removed!</source>
         <translation>Zestaw naklejek został usunięty!</translation>
+    </message>
+</context>
+<context>
+    <name>TDLibChatListItem</name>
+    <message>
+        <source>Secret Chat</source>
+        <translation type="unfinished">Tajny czat</translation>
+    </message>
+    <message>
+        <source>Private Chat</source>
+        <translation type="unfinished">Prywatny czat</translation>
+    </message>
+    <message>
+        <source>Group</source>
+        <translation type="unfinished">Grupa</translation>
+    </message>
+    <message>
+        <source>Channel</source>
+        <translation type="unfinished">Kanał</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 members</source>
+        <translation type="unfinished">
+            <numerusform>%1 członek</numerusform>
+            <numerusform>%1 członków</numerusform>
+            <numerusform>%1 członków</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 subscribers</source>
+        <translation type="unfinished">
+            <numerusform>%1 subskrybent</numerusform>
+            <numerusform>%1 subskrybentów</numerusform>
+            <numerusform>%1 subskrybentów</numerusform>
+        </translation>
     </message>
 </context>
 <context>

@@ -24,10 +24,6 @@
         <translation>该项目采用 Telegram API ，但未获得 Telegram 批准或背书。</translation>
     </message>
     <message>
-        <source>TDLib version %1</source>
-        <translation>TDLib 版本 %1</translation>
-    </message>
-    <message>
         <source>This project uses OpenStreetMap Nominatim for reverse geocoding of location attachments. Thanks for making it available as web service!</source>
         <translation>该项目使用 OpenStreetMap Nominatim 对位置附件进行反向地理编码。感谢把它作为网络服务提供给我们！</translation>
     </message>
@@ -121,6 +117,10 @@
         <source>Debug mode is now enabled!</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>TDLib version %1 (commit hash %2)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AddContactDialog</name>
@@ -154,9 +154,56 @@
     </message>
 </context>
 <context>
+    <name>ArchiveChatListTutorialDialog</name>
+    <message>
+        <source>Got it</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is your Archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archived chats will remain in the Archive when you receive a new message. %1Tap to change%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When you receive a new message, muted chats will remain in the Archive, while unmuted chats will be moved to Chats. %1Tap to change%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archived Chats</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move any chat into your Archive and back using the context menu.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stories</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archive Stories from your contacts separately from chats with them.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ArchivedChatsPage</name>
     <message>
         <source>Archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>How does it work?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archive settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mark as read</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -190,19 +237,20 @@
     </message>
 </context>
 <context>
+    <name>ChatFoldersModel</name>
+    <message>
+        <source>All</source>
+        <comment>all chats tab</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archive</source>
+        <comment>archived chats tab</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ChatInformationPageContent</name>
-    <message numerus="yes">
-        <source>%1 subscribers</source>
-        <translation>
-            <numerusform>%1 位订阅者</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 members</source>
-        <translation>
-            <numerusform>%1 位成员</numerusform>
-        </translation>
-    </message>
     <message>
         <source>Leave Chat</source>
         <translation>离开对话</translation>
@@ -271,18 +319,6 @@
         <source>Username</source>
         <comment>header</comment>
         <translation type="unfinished">用户名</translation>
-    </message>
-    <message>
-        <source>Private Chat</source>
-        <translation type="unfinished">个人对话</translation>
-    </message>
-    <message>
-        <source>Group</source>
-        <translation type="unfinished">群组</translation>
-    </message>
-    <message>
-        <source>Channel</source>
-        <translation type="unfinished">频道</translation>
     </message>
     <message>
         <source>View discussion</source>
@@ -444,32 +480,12 @@
         <translation>未知</translation>
     </message>
     <message>
-        <source>Loading messages...</source>
-        <translation>正在加载消息…</translation>
-    </message>
-    <message>
         <source>Unmute Chat</source>
         <translation>取消对话静音</translation>
     </message>
     <message>
         <source>Mute Chat</source>
         <translation>对话静音</translation>
-    </message>
-    <message>
-        <source>Edit Message</source>
-        <translation>编辑消息</translation>
-    </message>
-    <message>
-        <source>edited</source>
-        <translation>已编辑</translation>
-    </message>
-    <message>
-        <source>Uploading...</source>
-        <translation>正在上传…</translation>
-    </message>
-    <message>
-        <source>This chat is empty.</source>
-        <translation>此对话为空。</translation>
     </message>
     <message>
         <source>Leave Chat</source>
@@ -483,39 +499,12 @@
         <source>You joined the chat %1</source>
         <translation>你已加入对话 %1</translation>
     </message>
-    <message>
-        <source>Select Messages</source>
-        <translation>选择消息</translation>
-    </message>
-    <message numerus="yes">
-        <source>%Ln Messages deleted</source>
-        <translation>
-            <numerusform>已删除 %Ln 则消息</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>%Ln messages have been copied</source>
-        <translation>
-            <numerusform>已复制 %Ln 则消息</numerusform>
-        </translation>
-    </message>
     <message numerus="yes">
         <source>Forward %Ln messages</source>
         <comment>dialog header</comment>
         <translation>
             <numerusform>转发 %Ln 则消息</numerusform>
         </translation>
-    </message>
-    <message numerus="yes">
-        <source>%Ln messages selected</source>
-        <comment>number of messages selected</comment>
-        <translation>
-            <numerusform>已选择 %Ln 则消息</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>This secret chat is not yet ready. Your chat partner needs to go online first.</source>
-        <translation>加密对话未就绪，你的聊天对象必须先上线。</translation>
     </message>
     <message>
         <source>Closing chat</source>
@@ -534,26 +523,6 @@
         <translation>搜索对话内容…</translation>
     </message>
     <message>
-        <source>Location: Obtaining position...</source>
-        <translation>位置:正在获取位置…</translation>
-    </message>
-    <message>
-        <source>Location (%1/%2)</source>
-        <translation>位置 (%1/%2)</translation>
-    </message>
-    <message>
-        <source>Unknown address</source>
-        <translation>未知位置</translation>
-    </message>
-    <message>
-        <source>Accuracy: %1m</source>
-        <translation>精度: %1m</translation>
-    </message>
-    <message>
-        <source>Sponsored Message</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Delete Chat</source>
         <translation type="unfinished"></translation>
     </message>
@@ -566,45 +535,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Recommended Message</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Chat deleted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Left chat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No results</source>
-        <comment>No messages search results found</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Silent Broadcast</source>
-        <comment>placeholder for broadcasting a message to a channel silently</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Broadcast</source>
-        <comment>placeholder for broadcasting a message to a channel</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Send anonymously</source>
-        <comment>placeholder for sending an anonymous message in a supergroup</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Message for %1 Stars</source>
-        <comment>placeholder for sending a message for %1 stars</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Message</source>
-        <comment>placeholder for sending a message</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -622,44 +557,12 @@
 <context>
     <name>ChatsView</name>
     <message>
-        <source>Ferniegram</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Waiting for network...</source>
-        <translation type="unfinished">等候网络连接…</translation>
-    </message>
-    <message>
-        <source>Connecting to network...</source>
-        <translation type="unfinished">正在连接到网络…</translation>
-    </message>
-    <message>
-        <source>Connecting to proxy...</source>
-        <translation type="unfinished">正在连接到代理…</translation>
-    </message>
-    <message>
-        <source>Updating content...</source>
-        <translation type="unfinished">正在更新内容…</translation>
-    </message>
-    <message>
-        <source>Filter your chats...</source>
-        <translation type="unfinished">筛选你的对话…</translation>
-    </message>
-    <message>
         <source>You don&apos;t have any chats yet.</source>
         <translation type="unfinished">你还没有任何对话。</translation>
     </message>
     <message>
-        <source>No matching chats found.</source>
-        <translation type="unfinished">没有找到匹配的对话。</translation>
-    </message>
-    <message>
-        <source>You can search public chats or create a new chat via the pull-down menu.</source>
-        <translation type="unfinished">你可以搜索公共对话或通过下拉菜单创建新对话。</translation>
-    </message>
-    <message>
-        <source>Tap on the title bar to filter your chats</source>
-        <translation type="unfinished">点击顶部状态栏即可筛选你的对话</translation>
+        <source>Pull down to search public chats or create a new chat</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1088,6 +991,69 @@
     </message>
 </context>
 <context>
+    <name>MessagesView</name>
+    <message>
+        <source>Recommended Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sponsored Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>edited</source>
+        <translation type="unfinished">已编辑</translation>
+    </message>
+    <message>
+        <source>Select Messages</source>
+        <translation type="unfinished">选择消息</translation>
+    </message>
+    <message numerus="yes">
+        <source>%Ln messages selected</source>
+        <comment>number of messages selected</comment>
+        <translation type="unfinished">
+            <numerusform>已选择 %Ln 则消息</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Unmute Chat</source>
+        <translation type="unfinished">取消对话静音</translation>
+    </message>
+    <message>
+        <source>Mute Chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This secret chat is not yet ready. Your chat partner needs to go online first.</source>
+        <translation type="unfinished">加密对话未就绪，你的聊天对象必须先上线。</translation>
+    </message>
+    <message>
+        <source>No results</source>
+        <comment>No messages search results found</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This chat is empty.</source>
+        <translation type="unfinished">此对话为空。</translation>
+    </message>
+    <message>
+        <source>Loading messages...</source>
+        <translation type="unfinished">正在加载消息…</translation>
+    </message>
+    <message numerus="yes">
+        <source>%Ln messages have been copied</source>
+        <translation type="unfinished">
+            <numerusform>已复制 %Ln 则消息</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%Ln Messages deleted</source>
+        <translation type="unfinished">
+            <numerusform>已删除 %Ln 则消息</numerusform>
+        </translation>
+    </message>
+</context>
+<context>
     <name>NewChatPage</name>
     <message>
         <source>Your Contacts</source>
@@ -1147,6 +1113,58 @@
     </message>
     <message>
         <source>contact has not joined telegram yet</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>NewMessageColumn</name>
+    <message>
+        <source>Location: Obtaining position...</source>
+        <translation type="unfinished">位置:正在获取位置…</translation>
+    </message>
+    <message>
+        <source>Unknown address</source>
+        <translation type="unfinished">未知位置</translation>
+    </message>
+    <message>
+        <source>Location (%1/%2)</source>
+        <translation type="unfinished">位置 (%1/%2)</translation>
+    </message>
+    <message>
+        <source>Accuracy: %1m</source>
+        <translation type="unfinished">精度: %1m</translation>
+    </message>
+    <message>
+        <source>Uploading...</source>
+        <translation type="unfinished">正在上传…</translation>
+    </message>
+    <message>
+        <source>Edit Message</source>
+        <translation type="unfinished">编辑消息</translation>
+    </message>
+    <message>
+        <source>Silent Broadcast</source>
+        <comment>placeholder for broadcasting a message to a channel silently</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Broadcast</source>
+        <comment>placeholder for broadcasting a message to a channel</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send anonymously</source>
+        <comment>placeholder for sending an anonymous message in a supergroup</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Message for %1 Stars</source>
+        <comment>placeholder for sending a message for %1 stars</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Message</source>
+        <comment>placeholder for sending a message</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1300,16 +1318,8 @@
         <translation>新对话</translation>
     </message>
     <message>
-        <source>Search Chats</source>
-        <translation>搜索对话</translation>
-    </message>
-    <message>
         <source>Logging out</source>
         <translation>正在登出</translation>
-    </message>
-    <message>
-        <source>About Ferniegram</source>
-        <translation>关于 Ferniegram</translation>
     </message>
     <message>
         <source>Download of %1 successful.</source>
@@ -1334,6 +1344,42 @@
     <message>
         <source>Archive</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <comment>pulley menu option for opening search page</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mark as read</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tap on the title bar to quickly open search</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OverviewPageHeader</name>
+    <message>
+        <source>Ferniegram</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Waiting for network...</source>
+        <translation type="unfinished">等候网络连接…</translation>
+    </message>
+    <message>
+        <source>Connecting to network...</source>
+        <translation type="unfinished">正在连接到网络…</translation>
+    </message>
+    <message>
+        <source>Connecting to proxy...</source>
+        <translation type="unfinished">正在连接到代理…</translation>
+    </message>
+    <message>
+        <source>Updating content...</source>
+        <translation type="unfinished">正在更新内容…</translation>
     </message>
 </context>
 <context>
@@ -1511,40 +1557,45 @@
         <translation>正在搜索对话…</translation>
     </message>
     <message>
-        <source>Private Chat</source>
-        <translation>个人对话</translation>
-    </message>
-    <message>
-        <source>Group</source>
-        <translation>群组</translation>
-    </message>
-    <message>
-        <source>Channel</source>
-        <translation>频道</translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 members</source>
-        <translation>
-            <numerusform>%1 位成员</numerusform>
-        </translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 subscribers</source>
-        <translation>
-            <numerusform>%1 位订阅者</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Search Chats</source>
-        <translation>搜索对话</translation>
-    </message>
-    <message>
-        <source>Search a chat...</source>
-        <translation>搜索对话…</translation>
-    </message>
-    <message>
         <source>Enter your query to start searching (at least 5 characters needed)</source>
         <translation>输入你要搜索的内容（至少需要输入5个字符）</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <comment>page header for search page</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <comment>Placeholder text for chats search field</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Frequent contacts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove from Recents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recent</source>
+        <comment>Recently found chats</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cleared recents</source>
+        <comment>Remorse popup indicating that recently found chats are cleared</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove from Recent</source>
+        <comment>Remove a chat from recently found chats</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Global search results</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1575,6 +1626,45 @@
     </message>
     <message>
         <source>Video stickers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move chat folders panel to bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show chat folders icons</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SettingsArchiveChatList</name>
+    <message>
+        <source>Archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always keep unmuted chats archived</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep archived chats in the Archive even if they are unmuted and get a new message.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always keep chats from folders archived</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep archived chats from folders in the Archive even if they are unmuted and get a new message.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically archive new chats from unknown users</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically archive and mute new chats, groups and channels from non-contacts.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1708,12 +1798,32 @@
         <source>Parse markdown in messages</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Include muted chats in unread count</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show unread chat count in folders</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Include muted chats in folders unread count</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Force QtMultimedia-based audio recorder</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsPage</name>
     <message>
         <source>Settings</source>
         <translation>设置</translation>
+    </message>
+    <message>
+        <source>About Ferniegram</source>
+        <translation type="unfinished">关于 Ferniegram</translation>
     </message>
 </context>
 <context>
@@ -1995,6 +2105,37 @@
     <message>
         <source>Sticker set successfully removed!</source>
         <translation>表情包已成功移除！</translation>
+    </message>
+</context>
+<context>
+    <name>TDLibChatListItem</name>
+    <message>
+        <source>Secret Chat</source>
+        <translation type="unfinished">加密对话</translation>
+    </message>
+    <message>
+        <source>Private Chat</source>
+        <translation type="unfinished">个人对话</translation>
+    </message>
+    <message>
+        <source>Group</source>
+        <translation type="unfinished">群组</translation>
+    </message>
+    <message>
+        <source>Channel</source>
+        <translation type="unfinished">频道</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 members</source>
+        <translation type="unfinished">
+            <numerusform>%1 位成员</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 subscribers</source>
+        <translation type="unfinished">
+            <numerusform>%1 位订阅者</numerusform>
+        </translation>
     </message>
 </context>
 <context>
