@@ -254,8 +254,9 @@ Column {
     Connections {
         target: chatManager.model
         onMessagesReceived: {
-            var proxyIndex = chatProxyModel.mapRowFromSource(scrollPosition, -1)
-            Debug.log("[ChatPage] Messages received, from incremental update: ", fromIncrementalUpdate, ", view has ", chatView.count, " messages, possibly need to scroll to ", proxyIndex, "("+scrollPosition+")")
+            var originalScrollPosition = chatManager.model.calculateScrollPosition()
+            var scrollPosition = chatProxyModel.mapRowFromSource(originalScrollPosition, -1)
+            Debug.log("[ChatPage] Messages received, from incremental update: ", fromIncrementalUpdate, ", view has ", chatView.count, " messages, possibly need to scroll to ", scrollPosition, "("+originalScrollPosition+")")
 
             if (!fromIncrementalUpdate && totalCount === 0) {
                 if (iterativeInitialization) {
@@ -268,12 +269,12 @@ Column {
                     iterativeInitialization = true
             }
 
-            if (!fromIncrementalUpdate || (!chatPage.isInitialized && proxyIndex > -1))
-                chatView.scrollToIndex(proxyIndex)
+            if (!fromIncrementalUpdate || (!chatPage.isInitialized && scrollPosition > -1))
+                chatView.scrollToIndex(scrollPosition)
 
             if (!fromIncrementalUpdate) {
                 chatPage.loading = false
-                if (chatOverviewItem.visible && proxyIndex >= (chatView.count - 10)) {
+                if (chatOverviewItem.visible && scrollPosition >= (chatView.count - 10)) {
                     chatView.inCooldown = true
                     chatManager.model.triggerLoadMoreFuture()
                 }

@@ -154,15 +154,18 @@ void ReadableMessagesModel::triggerLoadMoreFuture() {
 void ReadableMessagesModel::handleMessagesReceived(const QVariantList &messages, int totalCount) {
     LOG("Receiving new messages :)" << messages.size());
 
-    if (messages.size() == 0) {
-        LOG("No additional messages loaded, notifying chat UI...");
+    auto notifyMessagesLoaded = [&]() {
         this->inReload = false;
-        const int scrollPosition = this->calculateScrollPosition();
         emit lastReadSentMessageUpdated();
 
         bool fromIncrementalUpdate = this->inIncrementalUpdate;
         this->inIncrementalUpdate = false;
-        emit messagesReceived(scrollPosition, totalCount, fromIncrementalUpdate);
+        emit messagesReceived(totalCount, fromIncrementalUpdate);
+    };
+
+    if (messages.size() == 0) {
+        LOG("No additional messages loaded, notifying chat UI...");
+        notifyMessagesLoaded();
     } else {
         if (this->inIncrementalUpdate || this->inReload || this->messages.size() == 0 || this->isMostRecentMessageLoaded()) {
             QList<MessageData*> addedMessages;
@@ -175,18 +178,11 @@ void ReadableMessagesModel::handleMessagesReceived(const QVariantList &messages,
                 this->loadMessages(addedMessages.first()->messageId, 0); // (possibly) fixme
             } else {
                 LOG("Messages loaded, notifying chat UI...");
-                this->inReload = false;
-                const int scrollPosition = this->calculateScrollPosition();
-                emit lastReadSentMessageUpdated();
-
-                bool fromIncrementalUpdate = this->inIncrementalUpdate;
-                this->inIncrementalUpdate = false;
-                emit messagesReceived(scrollPosition, totalCount, fromIncrementalUpdate);
+                notifyMessagesLoaded();
             }
         } else {
             // Cleanup... Is that really needed? Well, let's see...
-            this->inReload = false;
-            this->inIncrementalUpdate = false;
+            this->inReload = this->inIncrementalUpdate = false;
             LOG("New messages in this chat, but not relevant as less recent messages need to be loaded first!");
         }
     }
@@ -230,7 +226,7 @@ void ReadableMessagesModel::handleNewMessageReceived(qlonglong chatId, const QVa
 
 void ReadableMessagesModel::loadEnd(bool markAllAsRead) {
     if (!this->inIncrementalUpdate && !messages.isEmpty() && !inReload) {
-        LOG("Loading end of the chat... markAllAsRead:" << markAllAsRead << (markAllAsRead ? 0 : lastReadInboxMessageId()) << chatId);
+        LOG("Loading end of the chat... markAllAsRead:" << markAllAsRead << (markAllAsRead ? 0 : lastReadOutboxMessageId()) << chatId);
 
         //if (markAllAsRead) // FIXME: is this really needed?
         //    this->tdLibWrapper->toggleChatIsMarkedAsUnread(this->chatId, false);

@@ -22,8 +22,10 @@ public:
     Q_INVOKABLE void triggerLoadHistoryForMessage(qlonglong messageId);
     Q_INVOKABLE void loadEnd(bool markAllAsRead = false);
 
+    Q_INVOKABLE int calculateScrollPosition();
+
 signals:
-    void messagesReceived(int scrollPosition, int totalCount, bool fromIncrementalUpdate);
+    void messagesReceived(int totalCount, bool fromIncrementalUpdate);
     void newMessageReceived(const QVariantMap &message);
     void unreadCountUpdated(int unreadCount, const QString &lastReadInboxMessageId);
 
@@ -42,7 +44,6 @@ protected:
 
     int getLastReadMessageIndex();
     int calculateLastReadSentMessageIndex();
-    int calculateScrollPosition();
 
     virtual void loadMessages(qlonglong fromMessageId, int offset = -1) = 0;
     virtual inline bool canLoadMoreMessages() const { return true; }
