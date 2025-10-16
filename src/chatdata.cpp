@@ -214,8 +214,7 @@ bool ChatData::updateLastReadInboxMessageId(qlonglong messageId)
     return prevLastReadInboxMessageId != lastReadInboxMessageId();
 }
 
-QVector<int> ChatData::updateLastMessage(const QVariantMap &message)
-{
+QVector<int> ChatData::updateLastMessage(const QVariantMap &message) {
     const qlonglong prevSenderUserId(senderUserId());
     const qlonglong prevSenderMessageDate(senderMessageDate());
     const QString prevSenderMessageText(senderMessageText());
