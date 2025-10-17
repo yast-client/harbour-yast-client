@@ -602,6 +602,34 @@ QString Utilities::getMessageContentText(const QVariantMap messageContent, bool 
     return text.toString();
 }
 
+bool Utilities::messageContentIsService(const QString &contentType, bool includeTextOnly) {
+    QStringList nonServiceContentTypes{
+        "messageAnimatedEmoji",
+        "messageAnimation",
+        "messageAudio",
+        "messageDocument",
+        "messageGame",
+        // "messageInvoice",
+        "messageLocation",
+        // "messagePassportDataSent",
+        // "messagePaymentSuccessful",
+        "messagePhoto",
+        "messagePoll",
+        // "messageProximityAlertTriggered",
+        "messageSticker",
+        "messageVenue",
+        "messageVideo",
+        "messageVideoNote",
+        "messageVoiceNote",
+        "messageDice"
+    };
+    if (!includeTextOnly) {
+        nonServiceContentTypes.append("messageText");
+    }
+
+    return !nonServiceContentTypes.contains(contentType);
+}
+
 QString Utilities::getUserName(const QVariantMap &userInformation) {
     const QString firstName = userInformation.value("first_name").toString();
     const QString lastName = userInformation.value("last_name").toString();

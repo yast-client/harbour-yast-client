@@ -673,27 +673,6 @@ Column {
                 }
             }
 
-            readonly property var delegateMessagesContent: [
-                "messageAnimatedEmoji",
-                "messageAnimation",
-                "messageAudio",
-                // "messageContact",
-                "messageDocument",
-                "messageGame",
-                // "messageInvoice",
-                "messageLocation",
-                // "messagePassportDataSent",
-                // "messagePaymentSuccessful",
-                "messagePhoto",
-                "messagePoll",
-                // "messageProximityAlertTriggered",
-                "messageSticker",
-                "messageVenue",
-                "messageVideo",
-                "messageVideoNote",
-                "messageVoiceNote",
-                "messageDice"
-            ]
             readonly property var fullWidthWidescreenContentMessages: [
                 "messageDocument",
                 "messageAudio",
@@ -709,31 +688,6 @@ Column {
             readonly property var contentAboveMediaByDefaultMessages: [
                 'messagePoll',
                 'messageVenue'
-            ]
-
-            readonly property var simpleDelegateMessages: [
-                "messageBasicGroupChatCreate",
-                "messageChatAddMembers",
-                "messageChatChangePhoto",
-                "messageChatChangeTitle",
-                "messageChatDeleteMember",
-                "messageChatDeletePhoto",
-                "messageChatJoinByLink",
-                "messageChatSetTtl", "messageChatSetMessageAutoDeleteTime",
-                "messageChatUpgradeFrom", "messageChatUpgradeTo",
-                "messageContactRegistered",
-                // "messageExpiredPhoto", "messageExpiredVideo","messageWebsiteConnected", "messageExpiredVoiceNote", "messageExpiredVideoNote",
-                "messageGameScore",
-                "messageCustomServiceAction",
-                "messagePinMessage",
-                "messageScreenshotTaken",
-                "messageSupergroupChatCreate",
-                "messageBotWriteAccessAllowed",
-                "messageChatBoost",
-                "messageGift", // TODO
-                "messageGiveawayCreated", // TODO
-                "messageGiveawayCompleted",
-                "messageUnsupported",
             ]
 
             delegate: Loader {
@@ -758,7 +712,7 @@ Column {
                             interval: 0
                             onTriggered: messageIndex = Qt.binding(function() { return chatProxyModel.mapRowToSource(originalIndex) })
                         }
-                        hasContentComponent: !!myMessage.content && chatView.delegateMessagesContent.indexOf(model.content_type) > -1
+                        hasContentComponent: !!myMessage.content && utilities.messageContentIsService(model.content_type, true)
                         fullWidthWidescreenContent: !!myMessage.content && chatView.fullWidthWidescreenContentMessages.indexOf(model.content_type) > -1
                         contentAboveMedia: !!myMessage.content && chatView.contentAboveMediaByDefaultMessages.indexOf(model.content_type) > -1
                         onReplyToMessage: {
@@ -791,7 +745,7 @@ Column {
                         height: 1
                     }
                 }
-                sourceComponent: chatView.simpleDelegateMessages.indexOf(model.content_type) > -1
+                sourceComponent: utilities.messageContentIsService(model.content_type)
                                     ? messageListViewItemSimpleComponent
                                     : messageListViewItemComponent
             }

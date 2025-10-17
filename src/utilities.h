@@ -59,6 +59,7 @@ public:
     Q_INVOKABLE QString getMessageText(const QVariantMap &message, bool simple = false, bool ignoreEntities = false, bool escapeReserved = true) const;
     Q_INVOKABLE QVariantMap getFormattedMessageText(const QVariantMap &message, bool simple = false) const;
     Q_INVOKABLE QString getMessageContentText(const QVariantMap messageContent, bool simple = false, bool ignoreEntities = false, bool escapeReserved = true) const;
+    Q_INVOKABLE static bool messageContentIsService(const QString &contentType, bool includeTextOnly = false);
 
     Q_INVOKABLE static QVariantMap newFormattedText(const QString &text, const QVariantList &entities = QVariantList());
     Q_INVOKABLE static QVariantList formattedTextEntitiesFromReplacements(QList<QVariantMap> &replacements, QString &text);
