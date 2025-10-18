@@ -2201,97 +2201,31 @@
         <source>Copy</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%2Device Language%3 (%1)</source>
+        <comment>Indicator in language selection page for translation that a certain language is currently set as the device language</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Device Language</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Utilities</name>
     <message>
-        <source>Picture: %1</source>
-        <translation type="unfinished">Obrázok: %1</translation>
-    </message>
-    <message>
-        <source>sent a picture</source>
-        <comment>myself</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sent a picture</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Video: %1</source>
         <translation type="unfinished">Video: %1</translation>
-    </message>
-    <message>
-        <source>sent a video</source>
-        <comment>myself</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sent a video</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sent a video message</source>
-        <comment>myself</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sent a video message</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Animation: %1</source>
-        <translation type="unfinished">Animácia: %1</translation>
-    </message>
-    <message>
-        <source>sent an animation</source>
-        <comment>myself</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sent an animation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Audio: %1</source>
-        <translation type="unfinished">Zvuk: %1</translation>
-    </message>
-    <message>
-        <source>sent an audio</source>
-        <comment>myself</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sent an audio</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Document: %1</source>
-        <translation type="unfinished">Dokument: %1</translation>
-    </message>
-    <message>
-        <source>sent a document</source>
-        <comment>myself</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sent a document</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Voice message: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>sent a voice message</source>
-        <comment>myself</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sent a voice message</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>sent a location</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
@@ -2299,24 +2233,6 @@
     <message>
         <source>sent a location</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sent a venue</source>
-        <comment>myself</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sent a venue</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>have registered with Telegram</source>
-        <comment>myself</comment>
-        <translation type="unfinished">som sa registroval pomocou Telegramu</translation>
-    </message>
-    <message>
-        <source>has registered with Telegram</source>
-        <translation type="unfinished">registrovaný pomocou Telegramu</translation>
     </message>
     <message>
         <source>joined this chat</source>
@@ -2386,39 +2302,12 @@
         <translation type="unfinished">Anonymný kvíz</translation>
     </message>
     <message>
-        <source>sent a quiz</source>
-        <comment>myself</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sent a quiz</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Quiz</source>
         <translation type="unfinished">Kvíz</translation>
     </message>
     <message>
-        <source>sent an anonymous poll</source>
-        <comment>myself</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sent an anonymous poll</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Anonymous Poll</source>
         <translation type="unfinished">Anonymný prieskum</translation>
-    </message>
-    <message>
-        <source>sent a poll</source>
-        <comment>myself</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sent a poll</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Poll</source>
@@ -2524,15 +2413,6 @@
         <source>created a screenshot in this chat</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>sent a game</source>
-        <comment>myself</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>sent a game</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message numerus="yes">
         <source>scored %Ln points</source>
         <comment>myself</comment>
@@ -2627,6 +2507,89 @@
     <message>
         <source>sent an unsupported message: %1</source>
         <comment>%1 is message type</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Photo: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Photo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Video</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Video message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GIF: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GIF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1: %2</source>
+        <comment>Audio message. %1 is the audio file name, %2 is the caption</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1: %2</source>
+        <comment>A message with a file attached. %1 is the audio file name, %2 is the caption</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Voice message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Venue: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Venue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Game</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>joined Telegram</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>joined Telegram</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quiz: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Anonymous Poll: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Poll: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Game: %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

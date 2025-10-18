@@ -2163,7 +2163,7 @@
     </message>
     <message>
         <source>Private Chat</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Приватный Чат</translation>
     </message>
     <message>
         <source>Group</source>
@@ -2204,95 +2204,29 @@
         <source>Copy</source>
         <translation>Копировать</translation>
     </message>
+    <message>
+        <source>Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%2Device Language%3 (%1)</source>
+        <comment>Indicator in language selection page for translation that a certain language is currently set as the device language</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Device Language</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Utilities</name>
-    <message>
-        <source>Picture: %1</source>
-        <translation>Картинка: %1</translation>
-    </message>
-    <message>
-        <source>sent a picture</source>
-        <comment>myself</comment>
-        <translation>отправили картинку</translation>
-    </message>
-    <message>
-        <source>sent a picture</source>
-        <translation>отправил(а) картинку</translation>
-    </message>
     <message>
         <source>Video: %1</source>
         <translation>Видео: %1</translation>
     </message>
     <message>
-        <source>sent a video</source>
-        <comment>myself</comment>
-        <translation>отправили видео</translation>
-    </message>
-    <message>
-        <source>sent a video</source>
-        <translation>отправил(а) видео</translation>
-    </message>
-    <message>
-        <source>sent a video message</source>
-        <comment>myself</comment>
-        <translation>отправили видеосообщение</translation>
-    </message>
-    <message>
-        <source>sent a video message</source>
-        <translation>отправил(а) видеосообщение</translation>
-    </message>
-    <message>
-        <source>Animation: %1</source>
-        <translation>Анимация: %1</translation>
-    </message>
-    <message>
-        <source>sent an animation</source>
-        <comment>myself</comment>
-        <translation>отправили анимацию</translation>
-    </message>
-    <message>
-        <source>sent an animation</source>
-        <translation>отправил(а) анимацию</translation>
-    </message>
-    <message>
-        <source>Audio: %1</source>
-        <translation>Аудио: %1</translation>
-    </message>
-    <message>
-        <source>sent an audio</source>
-        <comment>myself</comment>
-        <translation>отправили аудио</translation>
-    </message>
-    <message>
-        <source>sent an audio</source>
-        <translation>отправил(а) аудио</translation>
-    </message>
-    <message>
-        <source>Document: %1</source>
-        <translation>Документ: %1</translation>
-    </message>
-    <message>
-        <source>sent a document</source>
-        <comment>myself</comment>
-        <translation>отправили документ</translation>
-    </message>
-    <message>
-        <source>sent a document</source>
-        <translation>отправил(а) документ</translation>
-    </message>
-    <message>
         <source>Voice message: %1</source>
         <translation>Голосовое сообщение: %1</translation>
-    </message>
-    <message>
-        <source>sent a voice message</source>
-        <comment>myself</comment>
-        <translation>отправили голосовое сообщение</translation>
-    </message>
-    <message>
-        <source>sent a voice message</source>
-        <translation>отправил(а) голосовое сообщение</translation>
     </message>
     <message>
         <source>sent a location</source>
@@ -2302,24 +2236,6 @@
     <message>
         <source>sent a location</source>
         <translation>отправил(а) геопозицию</translation>
-    </message>
-    <message>
-        <source>sent a venue</source>
-        <comment>myself</comment>
-        <translation>отправили место встречи</translation>
-    </message>
-    <message>
-        <source>sent a venue</source>
-        <translation>отправил(а) место встречи</translation>
-    </message>
-    <message>
-        <source>have registered with Telegram</source>
-        <comment>myself</comment>
-        <translation>зарегистрировались в Telegram</translation>
-    </message>
-    <message>
-        <source>has registered with Telegram</source>
-        <translation>зарегистрировал(ась)ся в Telegram</translation>
     </message>
     <message>
         <source>joined this chat</source>
@@ -2389,39 +2305,12 @@
         <translation>Анонимный тест</translation>
     </message>
     <message>
-        <source>sent a quiz</source>
-        <comment>myself</comment>
-        <translation>отправили тест</translation>
-    </message>
-    <message>
-        <source>sent a quiz</source>
-        <translation>отправил(а) тест</translation>
-    </message>
-    <message>
         <source>Quiz</source>
         <translation>Тест</translation>
     </message>
     <message>
-        <source>sent an anonymous poll</source>
-        <comment>myself</comment>
-        <translation>отправили анонимный опрос</translation>
-    </message>
-    <message>
-        <source>sent an anonymous poll</source>
-        <translation>отправил(а) анонимный опрос</translation>
-    </message>
-    <message>
         <source>Anonymous Poll</source>
         <translation>Анонимный Опрос</translation>
-    </message>
-    <message>
-        <source>sent a poll</source>
-        <comment>myself</comment>
-        <translation>отправили опрос</translation>
-    </message>
-    <message>
-        <source>sent a poll</source>
-        <translation>отправил(а) опрос</translation>
     </message>
     <message>
         <source>Poll</source>
@@ -2527,15 +2416,6 @@
         <source>created a screenshot in this chat</source>
         <translation>создал(а) снимок экрана в этом чате</translation>
     </message>
-    <message>
-        <source>sent a game</source>
-        <comment>myself</comment>
-        <translation>отправили игру</translation>
-    </message>
-    <message>
-        <source>sent a game</source>
-        <translation>отправил(а) игру</translation>
-    </message>
     <message numerus="yes">
         <source>scored %Ln points</source>
         <comment>myself</comment>
@@ -2631,6 +2511,89 @@
         <source>sent an unsupported message: %1</source>
         <comment>%1 is message type</comment>
         <translation type="unfinished">отправлено неподдерживаемое сообщение: %1</translation>
+    </message>
+    <message>
+        <source>Photo: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Photo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Video</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Video message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GIF: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GIF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1: %2</source>
+        <comment>Audio message. %1 is the audio file name, %2 is the caption</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1: %2</source>
+        <comment>A message with a file attached. %1 is the audio file name, %2 is the caption</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Voice message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Venue: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Venue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Game</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>joined Telegram</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>joined Telegram</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quiz: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Anonymous Poll: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Poll: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Game: %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
