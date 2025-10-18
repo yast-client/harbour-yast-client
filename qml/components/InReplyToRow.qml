@@ -38,7 +38,7 @@ Row {
     onInReplyToMessageChanged: {
         if (inReplyToMessage) {
             inReplyToUserText.text = (inReplyToMessage.sender_id["@type"] === "messageSenderChat" ? page.chatInformation.title : (inReplyToRow.inReplyToMessage.sender_id.user_id !== inReplyToRow.myUserId) ? Emoji.emojify(Functions.getUserName(tdLibWrapper.getUserInformation(inReplyToRow.inReplyToMessage.sender_id.user_id)), inReplyToUserText.font.pixelSize) : qsTr("You"));
-            inReplyToMessageText.text = Emoji.emojify(Functions.getMessageText(inReplyToRow.inReplyToMessage, Utilities.MessageTextSimple, inReplyToRow.myUserId, false), inReplyToMessageText.font.pixelSize);
+            inReplyToMessageText.text = Emoji.emojify(Functions.getMessageText(inReplyToRow.inReplyToMessage, true, inReplyToRow.myUserId, false), inReplyToMessageText.font.pixelSize);
         }
     }
 
