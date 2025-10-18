@@ -348,3 +348,5 @@ SSE2 = $$system(g++ -dM -E -x c++ - < /dev/null | grep __SSE2__)
         message(Using default render functions)
     }
 }
+
+include(libs/opal/sfpm/SortFilterProxyModel.pri)

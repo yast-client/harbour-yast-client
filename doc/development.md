@@ -41,3 +41,7 @@ This update's [TL API analog](https://core.telegram.org/constructor/updateServic
 Some other links with error databases (but, official page is better and always up-to-date):
 - https://github.com/KurimuzonAkuma/pyrogram/tree/4c367aaec5b4aa9d055d1334da117487ef9fabfa/compiler/errors/source
 - https://github.com/xelaj/mtproto/blob/main/errors.go
+
+# SortFilterProxyModel
+
+We now use Opal.SortFilterProxyModel, which is a QSortFilterProxyModel exposed to QML and is easy to use. In heavy places it is still recommended to use TextFilterModel/BoolFilterModel, or custom models like the ContactsModel.
