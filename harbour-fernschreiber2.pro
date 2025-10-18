@@ -12,7 +12,7 @@
 # The name of your application
 TARGET = harbour-fernschreiber2
 
-CONFIG += sailfishapp sailfishapp_i18n c++17
+CONFIG += sailfishapp sailfishapp_i18n c++11
 
 PKGCONFIG += nemonotifications-qt5 zlib
 
