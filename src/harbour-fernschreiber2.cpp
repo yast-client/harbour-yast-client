@@ -43,7 +43,7 @@
 #include "tdlibwrapper.h"
 #include "chatpermissionfiltermodel.h"
 #include "chatlistmodel.h"
-#include "chatmanager.h"
+#include "chat/chatmanager.h"
 #include "notificationmanager.h"
 #include "mceinterface.h"
 #include "dbusadaptor.h"
