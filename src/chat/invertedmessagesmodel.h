@@ -16,10 +16,10 @@ protected:
     inline virtual void removeRange(int firstDeleted, int lastDeleted, bool updateAlbums = true, bool updateIsFirstLastInSequence = true, bool invertIsFirstLastInSequence = true) override {
         return MessagesModel::removeRange(firstDeleted, lastDeleted, updateAlbums, updateIsFirstLastInSequence, invertIsFirstLastInSequence);
     }
-    virtual void appendMessages(const QList<MessageData*> newMessages, bool updateIsLastInSequence = true, bool invertIsLastInSequence = true) override {
+    inline virtual void appendMessages(const QList<MessageData*> newMessages, bool updateIsLastInSequence = true, bool invertIsLastInSequence = true) override {
         return MessagesModel::appendMessages(newMessages, updateIsLastInSequence, invertIsLastInSequence);
     }
-    virtual void prependMessages(const QList<MessageData*> newMessages, bool updateIsFirstInSequence = true, bool invertIsFirstInSequence = true) override {
+    inline virtual void prependMessages(const QList<MessageData*> newMessages, bool updateIsFirstInSequence = true, bool invertIsFirstInSequence = true) override {
         return MessagesModel::prependMessages(newMessages, updateIsFirstInSequence, invertIsFirstInSequence);
     }
     inline virtual bool messageIsFirstInSequence(const int index, const MessageData *message) const override {
