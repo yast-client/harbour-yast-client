@@ -26,6 +26,7 @@ INCLUDEPATH += src/
 SOURCES += src/harbour-fernschreiber2.cpp \
     src/appsettings.cpp \
     src/boolfiltermodel.cpp \
+    src/chat/jumpablemessagesmodel.cpp \
     src/chatdata.cpp \
     src/chatfoldersmodel.cpp \
     src/chat/chatmanager.cpp \
@@ -272,6 +273,7 @@ INSTALLS += telegram 86.png 108.png 128.png 172.png 256.png \
 HEADERS += \
     src/appsettings.h \
     src/boolfiltermodel.h \
+    src/chat/jumpablemessagesmodel.h \
     src/chatdata.h \
     src/chatfoldersmodel.h \
     src/chat/chatmanager.h \

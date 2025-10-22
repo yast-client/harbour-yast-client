@@ -12,10 +12,7 @@ namespace {
 }
 
 ReadableMessagesModel::ReadableMessagesModel(TDLibWrapper *tdLibWrapper, QObject *parent) :
-    MessagesModel(tdLibWrapper, parent),
-    highlightedMessageId(0),
-    inReload(false),
-    inIncrementalUpdate(false),
+    JumpableMessagesModel(tdLibWrapper, parent),
     loadingFullEnd(false)
 {
     connect(this->tdLibWrapper, &TDLibWrapper::messagesReceived, this, &ReadableMessagesModel::handleMessagesReceived);
@@ -24,6 +21,7 @@ ReadableMessagesModel::ReadableMessagesModel(TDLibWrapper *tdLibWrapper, QObject
     connect(this->tdLibWrapper, &TDLibWrapper::newMessageReceived, this, &ReadableMessagesModel::handleNewMessageReceived);
 
     connect(this, &ReadableMessagesModel::messageSendSucceeded, this, &ReadableMessagesModel::lastReadSentMessageUpdated);
+    connect(this, &ReadableMessagesModel::messagesReceived, this, &ReadableMessagesModel::lastReadSentMessageUpdated);
 
     // FIXME: can this be implemented better?
     connect(this, &ReadableMessagesModel::messagesReceived, this, &ReadableMessagesModel::lastReadMessageIndexChanged);
@@ -36,11 +34,8 @@ ReadableMessagesModel::ReadableMessagesModel(TDLibWrapper *tdLibWrapper, QObject
 
 bool ReadableMessagesModel::clear() {
     LOG("Clearing readable messages model");
-    inReload = false;
-    inIncrementalUpdate = false;
-    highlightedMessageId = 0;
     loadingFullEnd = false;
-    if (MessagesModel::clear()) {
+    if (JumpableMessagesModel::clear()) {
         emit historyEndLoadedChanged();
         emit lastReadSentMessageUpdated();
         return true;
@@ -126,67 +121,14 @@ int ReadableMessagesModel::calculateLastReadMessageIndexInBounds() {
 }
 
 
-void ReadableMessagesModel::triggerLoadHistoryForMessage(qlonglong messageId) {
-    if (!this->inIncrementalUpdate && !messages.isEmpty()) {
-        LOG("Trigger loading message with id..." << messageId);
-        this->clear();
-        this->highlightedMessageId = messageId;
-        this->loadMessages(messageId);
-    }
+void ReadableMessagesModel::loadMoreHistoryImpl() {
+    this->loadMessages(messages.first()->messageId);
 }
-
-void ReadableMessagesModel::triggerLoadMoreHistory() {
-    if (!this->inIncrementalUpdate && !messages.isEmpty()) {
-        this->inIncrementalUpdate = true;
-        LOG("Loading older messages...");
-        this->loadMessages(messages.first()->messageId);
-    }
+void ReadableMessagesModel::loadMoreFutureImpl() {
+    this->loadMessages(messages.last()->messageId, -49);
 }
-
-void ReadableMessagesModel::triggerLoadMoreFuture() {
-    if (canLoadMoreMessages() && !this->inIncrementalUpdate && !messages.isEmpty()) {
-        LOG("Loading newer messages...");
-        this->inIncrementalUpdate = true;
-        this->loadMessages(messages.last()->messageId, -49);
-    }
-}
-
-void ReadableMessagesModel::handleMessagesReceived(const QVariantList &messages, int totalCount) {
-    LOG("Receiving new messages :)" << messages.size());
-
-    auto notifyMessagesLoaded = [&]() {
-        this->inReload = false;
-        emit lastReadSentMessageUpdated();
-
-        bool fromIncrementalUpdate = this->inIncrementalUpdate;
-        this->inIncrementalUpdate = false;
-        emit messagesReceived(totalCount, fromIncrementalUpdate);
-    };
-
-    if (messages.size() == 0) {
-        LOG("No additional messages loaded, notifying chat UI...");
-        notifyMessagesLoaded();
-    } else {
-        if (this->inIncrementalUpdate || this->inReload || this->messages.size() == 0 || this->isMostRecentMessageLoaded()) {
-            QList<MessageData*> addedMessages;
-            const bool reloadNeeded = handleInsertMessages(messages, addedMessages);
-
-            // First call only returns a few messages, we need to get a little more than that...
-            if (reloadNeeded && !inReload) {
-                LOG("Only a few messages received in first call, loading more...");
-                this->inReload = true;
-                this->loadMessages(addedMessages.first()->messageId, 0); // (possibly) fixme
-            } else {
-                LOG("Messages loaded, notifying chat UI...");
-                notifyMessagesLoaded();
-            }
-        } else {
-            // Cleanup... Is that really needed? Well, let's see...
-            this->inReload = this->inIncrementalUpdate = false;
-            LOG("New messages in this chat, but not relevant as less recent messages need to be loaded first!");
-        }
-    }
-
+void ReadableMessagesModel::loadHistoryForMessageImpl(qlonglong messageId) {
+    this->loadMessages(messageId);
 }
 
 void ReadableMessagesModel::handleFoundChatMessagesReceived(TDLibWrapper::SearchMessagesFilter filter, const QVariantList &messages, int totalCount, qlonglong /*nextFromMessageId*/) {

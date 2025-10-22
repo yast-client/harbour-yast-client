@@ -11,7 +11,7 @@ namespace {
     const QString TYPE_MESSAGE_VIDEO("messageVideo");
 }
 
-MediaMessagesModel::MediaMessagesModel(TDLibWrapper *tdLibWrapper, QObject *parent) : MessagesModel(tdLibWrapper, parent), inIncrementalUpdate(false) {
+MediaMessagesModel::MediaMessagesModel(TDLibWrapper *tdLibWrapper, QObject *parent) : JumpableMessagesModel(tdLibWrapper, parent) {
     connect(this->tdLibWrapper, &TDLibWrapper::foundChatMessagesReceived, this, &MediaMessagesModel::handleMessagesReceived);
     connect(this->tdLibWrapper, &TDLibWrapper::newMessageReceived, this, &MediaMessagesModel::handleNewMessageReceived);
 }
@@ -22,50 +22,32 @@ bool MediaMessagesModel::clear() {
     return MessagesModel::clear();
 }
 
-void MediaMessagesModel::loadMessages(qlonglong fromMessageId, int offset, int limit) {
+void MediaMessagesModel::loadMessages(qlonglong fromMessageId, int offset) {
     LOG("Loading messages" << fromMessageId << offset);
-    this->tdLibWrapper->searchChatMessages(this->chatId, QString(), fromMessageId, TDLibWrapper::SearchMessagesFilterPhotoAndVideo, limit, offset);
+    this->tdLibWrapper->searchChatMessages(this->chatId, QString(), fromMessageId, TDLibWrapper::SearchMessagesFilterPhotoAndVideo, 100, offset);
 }
 
 void MediaMessagesModel::init(qlonglong chatId, qlonglong fromMessageId) {
     LOG("Initializing" << chatId << fromMessageId);
     this->chatId = chatId;
-    loadMessages(fromMessageId, fromMessageId == 0 ? 0 : -1);
+    loadMessages(fromMessageId, 0);
 }
 
-void MediaMessagesModel::triggerLoadMoreHistory() {
-    if (!inIncrementalUpdate && !messages.isEmpty() && nextFromMessageId != 0) {
-        LOG("Loading older messages...");
-        loadMessages(nextFromMessageId);
-        inIncrementalUpdate = false;
-    }
+void MediaMessagesModel::loadMoreHistoryImpl() {
+    this->loadMessages(nextFromMessageId);
+}
+void MediaMessagesModel::loadMoreFutureImpl() {
+    this->loadMessages(messages.last()->messageId, -100);
+}
+void MediaMessagesModel::loadHistoryForMessageImpl(qlonglong messageId) {
+    this->loadMessages(messageId, -1);
 }
 
-void MediaMessagesModel::triggerLoadMoreFuture() {
-    // TODO: when adding search (for example for files), don't accept this while searching
-    if (!this->inIncrementalUpdate && !messages.isEmpty()) {
-        LOG("Loading newer messages...");
-        this->inIncrementalUpdate = true;
-        this->loadMessages(messages.last()->messageId, -100);
-    }
-}
-
-void MediaMessagesModel::handleMessagesReceived(TDLibWrapper::SearchMessagesFilter filter, const QVariantList &messages, int /*totalCount*/, qlonglong nextFromMessageId) {
+void MediaMessagesModel::handleMessagesReceived(TDLibWrapper::SearchMessagesFilter filter, const QVariantList &messages, int totalCount, qlonglong nextFromMessageId) {
     if (filter == TDLibWrapper::SearchMessagesFilterPhotoAndVideo) {
-        LOG("Messages received next id:" << nextFromMessageId << "size:" << messages.size());
-
-        QList<MessageData*> addedMessages;
-        const bool reloadNeeded = handleInsertMessages(messages, addedMessages, false);
-
-        if (reloadNeeded) {
-            LOG("Only a few messages received in first call, loading more...");
-            loadMessages(addedMessages.first()->messageId);
-            this->inIncrementalUpdate = true;
-        } else
-            this->inIncrementalUpdate = false;
-
+        LOG("Messages received next id:" << nextFromMessageId);
+        JumpableMessagesModel::handleMessagesReceived(messages, totalCount);
         this->nextFromMessageId = nextFromMessageId;
-
     }
 }
 

@@ -1,24 +1,27 @@
 #ifndef MEDIAMESSAGESMODEL_H
 #define MEDIAMESSAGESMODEL_H
 
-#include "messagesmodel.h"
+#include "jumpablemessagesmodel.h"
 
-class MediaMessagesModel : public MessagesModel {
+class MediaMessagesModel : public JumpableMessagesModel {
     Q_OBJECT
 public:
     MediaMessagesModel(TDLibWrapper *tdLibWrapper, QObject *parent = nullptr);
 
     Q_INVOKABLE virtual bool clear() override;
     Q_INVOKABLE void init(qlonglong chatId, qlonglong fromMessageId = 0);
-    Q_INVOKABLE void triggerLoadMoreHistory();
-    Q_INVOKABLE void triggerLoadMoreFuture();
 
 private slots:
-    void handleMessagesReceived(TDLibWrapper::SearchMessagesFilter filter, const QVariantList &messages, int /*totalCount*/, qlonglong nextFromMessageId);
+    void handleMessagesReceived(TDLibWrapper::SearchMessagesFilter filter, const QVariantList &messages, int totalCount, qlonglong nextFromMessageId);
     void handleNewMessageReceived(qlonglong chatId, const QVariantMap &message);
 
 private:
-    void loadMessages(qlonglong fromMessageId = 0, int offset = 0, int limit = 100);
+    virtual void loadMessages(qlonglong fromMessageId = 0, int offset = 0) override;
+
+protected:
+    virtual inline void loadMoreHistoryImpl() override;
+    virtual inline void loadMoreFutureImpl() override;
+    virtual inline void loadHistoryForMessageImpl(qlonglong messageId) override;
 
 private:
     qlonglong nextFromMessageId;
