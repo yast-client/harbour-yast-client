@@ -110,5 +110,7 @@ ChatInformationTabItemBase {
                 chatManager.mediaMessagesModel.triggerLoadMoreHistory()
             }
         }
+
+        VerticalScrollDecorator {}
     }
 }
