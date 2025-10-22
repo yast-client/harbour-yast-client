@@ -277,7 +277,7 @@ public:
     Q_INVOKABLE void addContact(qlonglong userId, const QString &firstName, const QString &lastName, const QString &phone, bool sharePhoneNumber);
     Q_INVOKABLE void removeContacts(QStringList userIds);
     Q_INVOKABLE void removeContact(QString userId);
-    Q_INVOKABLE void searchChatMessages(qlonglong chatId, const QString &query, qlonglong fromMessageId = 0, SearchMessagesFilter filter = SearchMessagesFilterEmpty, int limit = 50);
+    Q_INVOKABLE void searchChatMessages(qlonglong chatId, const QString &query, qlonglong fromMessageId = 0, SearchMessagesFilter filter = SearchMessagesFilterEmpty, int limit = 50, int offset = 0);
     Q_INVOKABLE void searchChats(const QString &query);
     Q_INVOKABLE void searchPublicChats(const QString &query);
     Q_INVOKABLE void getSearchSponsoredChats(const QString &query);
