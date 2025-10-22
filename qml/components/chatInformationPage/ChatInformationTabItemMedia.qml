@@ -18,7 +18,7 @@
 */
 import QtQuick 2.6
 import Sailfish.Silica 1.0
-import QtQml.Models 2.3
+import WerkWolf.Fernschreiber 1.0
 
 import ".."
 import "../../js/debug.js" as Debug
@@ -40,7 +40,9 @@ ChatInformationTabItemBase {
         cellWidth: width / columnCount
         cellHeight: cellWidth
 
-        model: chatManager.mediaMessagesModel
+        model: InvertedProxyModel {
+            sourceModel: chatManager.mediaMessagesModel
+        }
 
         delegate: GridItem {
             id: gridItem
