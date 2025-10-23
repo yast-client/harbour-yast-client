@@ -1030,14 +1030,6 @@
         </translation>
     </message>
     <message>
-        <source>Unmute Chat</source>
-        <translation>Riattiva suoni Chat</translation>
-    </message>
-    <message>
-        <source>Mute Chat</source>
-        <translation>Silenzia Chat</translation>
-    </message>
-    <message>
         <source>This secret chat is not yet ready. Your chat partner needs to go online first.</source>
         <translation>Questa chat segreta non è ancora pronta. Il tuo interlocutore deve essere online.</translation>
     </message>
