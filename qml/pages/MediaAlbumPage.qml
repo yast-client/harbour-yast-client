@@ -72,7 +72,6 @@ Page {
                 if (i !== -1)
                     pagedView.currentIndex = i
             }
-            console.log(pagedView.currentIndex)
         }
     }
 
@@ -117,26 +116,12 @@ Page {
                 chatManager.mediaMessagesModel.loadMoreFuture()
         }
     }
-    Button {
-        text: "Jump to first in album"
-        onClicked: {
-            var i = chatManager.mediaMessagesModel.getMessageIndex(messages[0].id)
-            text = "Jump to first in album " + i
-            pagedView.currentIndex = i
-        }
-    }
 
     // overlay
     FullscreenOverlay {
         id: overlay
         pageCount: messages.length
         currentIndex: page.index
-        message: pagedView.currentItem ? pagedView.currentItem._model : messages[0]//messages[currentIndex]
-
-        Button {
-            anchors.right: parent.right
-            anchors.verticalCenter: parent.verticalCenter
-            text: overlay.message.id + "  " + pagedView.currentIndex
-        }
+        message: pagedView.currentItem ? pagedView.currentItem._model : messages[0]
     }
 }
