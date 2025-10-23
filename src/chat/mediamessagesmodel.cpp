@@ -19,18 +19,20 @@ MediaMessagesModel::MediaMessagesModel(TDLibWrapper *tdLibWrapper, QObject *pare
 bool MediaMessagesModel::clear() {
     LOG("Clearing media messages model");
     this->nextFromMessageId = 0;
-    return MessagesModel::clear();
+    return JumpableMessagesModel::clear();
 }
 
-void MediaMessagesModel::loadMessages(qlonglong fromMessageId, int offset) {
+void MediaMessagesModel::loadMessagesWithLimit(qlonglong fromMessageId, int offset, int limit) {
     LOG("Loading messages" << fromMessageId << offset);
-    this->tdLibWrapper->searchChatMessages(this->chatId, QString(), fromMessageId, TDLibWrapper::SearchMessagesFilterPhotoAndVideo, 100, offset);
+    this->tdLibWrapper->searchChatMessages(this->chatId, QString(), fromMessageId, TDLibWrapper::SearchMessagesFilterPhotoAndVideo, limit, offset);
 }
 
 void MediaMessagesModel::init(qlonglong chatId, qlonglong fromMessageId) {
     LOG("Initializing" << chatId << fromMessageId);
+    clear();
     this->chatId = chatId;
-    loadMessages(fromMessageId, 0);
+    this->highlightedMessageId = fromMessageId;
+    loadMessagesWithLimit(fromMessageId, fromMessageId == 0 ? 0 : -26, fromMessageId == 0 ? 100 : 51);
 }
 
 void MediaMessagesModel::loadMoreHistoryImpl() {

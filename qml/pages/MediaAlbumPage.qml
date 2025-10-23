@@ -53,16 +53,34 @@ Page {
 
 
     Component.onCompleted: {
-        //console.log(JSON.stringify(messages[0]))
-        console.log(messages[0].chat_id, messages[0].id)
-        chatManager.initializeMediaMessagesModel(messages[0].id)
+        var messageId = messages[index].id
+        var i = chatManager.mediaMessagesModel.getMessageIndex(messageId)
+        if (i !== -1) index = i
+        else // Required message isn't loaded
+            chatManager.initializeMediaMessagesModel(messageId)
+    }
+
+    function jumpToMessage(messageId, initialRun) {
+        chatManager.mediaMessagesModel.getMessageIndex()
+    }
+
+    Connections {
+        target: chatManager.mediaMessagesModel
+        onMessagesReceived: {
+            if (!fromIncrementalUpdate) {
+                var i = chatManager.mediaMessagesModel.calculateScrollPosition()
+                if (i !== -1)
+                    pagedView.currentIndex = i
+            }
+            console.log(pagedView.currentIndex)
+        }
     }
 
     // content
     PagedView {
         id: pagedView
         anchors.fill: parent
-        model: chatManager.mediaMessagesModel //messages
+        model: chatManager.mediaMessagesModel
         wrapMode: PagedView.NoWrap
         delegate: Component {
             Loader {
@@ -71,7 +89,7 @@ Page {
                 visible: status == Loader.Ready
                 width: PagedView.contentWidth
                 height: PagedView.contentHeight
-                property var _model: display//.modelData
+                property var _model: display
 
                 states: [
                     State {
@@ -79,7 +97,6 @@ Page {
                         PropertyChanges {
                             target: loader
                             source: "../components/messageContent/mediaAlbumPage/PhotoComponent.qml"
-                            //sourceComponent: photoComponent2
                         }
                     },
                     State {
@@ -87,14 +104,14 @@ Page {
                         PropertyChanges {
                             target: loader
                             source: "../components/messageContent/mediaAlbumPage/VideoComponent.qml"
-                            /*sourceComponent: Component {
-
-                            }*/
                         }
                     }
                 ]
-                //Component.onCompleted: console.log("Hello", model, JSON.stringify(display.content.photo))
             }
+        }
+
+        onCurrentIndexChanged: {
+            // TODO
         }
     }
     Button {

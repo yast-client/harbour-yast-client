@@ -16,7 +16,8 @@ private slots:
     void handleNewMessageReceived(qlonglong chatId, const QVariantMap &message);
 
 private:
-    virtual void loadMessages(qlonglong fromMessageId = 0, int offset = 0) override;
+    inline virtual void loadMessages(qlonglong fromMessageId = 0, int offset = 0) override { loadMessagesWithLimit(fromMessageId, offset); }
+    void loadMessagesWithLimit(qlonglong fromMessageId = 0, int offset = 0, int limit = 100);
 
 protected:
     virtual void loadMoreHistoryImpl() override;
