@@ -287,7 +287,7 @@ Column {
             }
             IconButton {
                 visible: chatPage.hasSendPrivilege("can_send_other_messages")
-                icon.source: "../../images/icon-m-sticker.svg"
+                icon.source: "../../../images/icon-m-sticker.svg"
                 icon.sourceSize {
                     width: Theme.iconSizeMedium
                     height: Theme.iconSizeMedium
