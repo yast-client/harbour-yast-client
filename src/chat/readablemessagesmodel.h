@@ -15,7 +15,7 @@ public:
     ReadableMessagesModel(TDLibWrapper *tdLibWrapper, QObject *parent = nullptr);
 
     Q_INVOKABLE virtual bool clear() override;
-    Q_INVOKABLE virtual bool isMostRecentMessageLoaded() override;
+    Q_INVOKABLE bool isMostRecentMessageLoaded();
 
     Q_INVOKABLE void loadEnd(bool markAllAsRead = false);
 

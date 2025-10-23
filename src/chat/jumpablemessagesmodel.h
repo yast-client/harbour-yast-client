@@ -9,7 +9,6 @@ public:
     explicit JumpableMessagesModel(TDLibWrapper *tdLibWrapper, QObject *parent = nullptr);
 
     Q_INVOKABLE virtual bool clear() override;
-    Q_INVOKABLE virtual bool isMostRecentMessageLoaded() = 0;
     virtual void loadMessages(qlonglong fromMessageId, int offset = -1) = 0;
 
     Q_INVOKABLE void loadMoreHistory();

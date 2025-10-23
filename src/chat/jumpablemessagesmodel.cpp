@@ -58,7 +58,7 @@ void JumpableMessagesModel::handleMessagesReceived(const QVariantList &messages,
         LOG("No additional messages loaded, notifying chat UI...");
         notifyMessagesLoaded();
     } else {
-        if (this->inIncrementalUpdate || this->inReload || this->messages.size() == 0 || this->isMostRecentMessageLoaded()) {
+        if (this->inIncrementalUpdate || this->inReload || this->messages.size() == 0) {
             QList<MessageData*> addedMessages;
             const bool reloadNeeded = handleInsertMessages(messages, addedMessages);
 
