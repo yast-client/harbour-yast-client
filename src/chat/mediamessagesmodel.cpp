@@ -14,6 +14,8 @@ namespace {
 MediaMessagesModel::MediaMessagesModel(TDLibWrapper *tdLibWrapper, QObject *parent) : JumpableMessagesModel(tdLibWrapper, parent) {
     connect(this->tdLibWrapper, &TDLibWrapper::foundChatMessagesReceived, this, &MediaMessagesModel::handleMessagesReceived);
     connect(this->tdLibWrapper, &TDLibWrapper::newMessageReceived, this, &MediaMessagesModel::handleNewMessageReceived);
+
+    connect(this, &MediaMessagesModel::messagesReceivedPre, this, &MediaMessagesModel::updateIsEndReached);
 }
 
 bool MediaMessagesModel::clear() {
@@ -45,6 +47,11 @@ void MediaMessagesModel::loadHistoryForMessageImpl(qlonglong messageId) {
     this->loadMessages(messageId, -1);
 }
 
+void MediaMessagesModel::updateIsEndReached(int totalCount, UpdateType fromUpdate) {
+    if (fromUpdate == UpdateNextSlice && totalCount == 0)
+        endReached = true;
+}
+
 void MediaMessagesModel::handleMessagesReceived(TDLibWrapper::SearchMessagesFilter filter, const QVariantList &messages, int totalCount, qlonglong nextFromMessageId) {
     if (filter == TDLibWrapper::SearchMessagesFilterPhotoAndVideo) {
         LOG("Messages received next id:" << nextFromMessageId);
@@ -54,6 +61,8 @@ void MediaMessagesModel::handleMessagesReceived(TDLibWrapper::SearchMessagesFilt
 }
 
 void MediaMessagesModel::handleNewMessageReceived(qlonglong chatId, const QVariantMap &message) {
+    if (!endReached) return;
+
     const qlonglong messageId = message.value(ID).toLongLong();
     if (chatId == this->chatId && !messageIndexMap.contains(messageId)) {
         const QString contentType = message.value(CONTENT).toMap().value(_TYPE).toString();

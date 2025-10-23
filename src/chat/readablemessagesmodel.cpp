@@ -13,8 +13,7 @@ namespace {
 
 ReadableMessagesModel::ReadableMessagesModel(TDLibWrapper *tdLibWrapper, QObject *parent) :
     JumpableMessagesModel(tdLibWrapper, parent),
-    loadingFullEnd(false),
-    endReached(false)
+    loadingFullEnd(false)
 {
     connect(this->tdLibWrapper, &TDLibWrapper::messagesReceived, this, &ReadableMessagesModel::handleMessagesReceived);
     connect(this->tdLibWrapper, &TDLibWrapper::foundChatMessagesReceived, this, &ReadableMessagesModel::handleFoundChatMessagesReceived);
@@ -29,14 +28,12 @@ ReadableMessagesModel::ReadableMessagesModel(TDLibWrapper *tdLibWrapper, QObject
     connect(this, &ReadableMessagesModel::newMessageReceived, this, &ReadableMessagesModel::lastReadMessageIndexChanged);
     connect(this, &ReadableMessagesModel::unreadCountUpdated, this, &ReadableMessagesModel::lastReadMessageIndexChanged);
 
-    // FIXME: can this be implemented better?
-    connect(this, &ReadableMessagesModel::messagesReceived, this, &ReadableMessagesModel::updateIsEndReached);
+    connect(this, &ReadableMessagesModel::messagesReceivedPre, this, &ReadableMessagesModel::updateIsEndReached);
 }
 
 bool ReadableMessagesModel::clear() {
     LOG("Clearing readable messages model");
-    loadingFullEnd = endReached = false;
-    emit endReachedChanged();
+    loadingFullEnd = false;
     if (JumpableMessagesModel::clear()) {
         emit lastReadSentMessageUpdated();
         return true;

@@ -24,6 +24,9 @@ protected:
     virtual void loadMoreFutureImpl() override;
     virtual void loadHistoryForMessageImpl(qlonglong messageId) override;
 
+protected slots:
+    void updateIsEndReached(int totalCount, UpdateType fromUpdate);
+
 private:
     qlonglong nextFromMessageId;
     bool inIncrementalUpdate; // if we are waiting for messages after sending a request to load more of them

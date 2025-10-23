@@ -5,13 +5,16 @@
 
 JumpableMessagesModel::JumpableMessagesModel(TDLibWrapper *tdLibWrapper, QObject *parent) :
     MessagesModel(tdLibWrapper, parent),
-    highlightedMessageId(0),
-    waitingFor(UpdateNone)
+    waitingFor(UpdateNone),
+    endReached(false),
+    highlightedMessageId(0)
 {}
 
 bool JumpableMessagesModel::clear() {
     LOG("Clearing jumpable messages model");
     waitingFor = UpdateNone;
+    endReached = false;
+    emit endReachedChanged();
     highlightedMessageId = 0;
     return MessagesModel::clear();
 }
@@ -45,8 +48,10 @@ void JumpableMessagesModel::handleMessagesReceived(const QVariantList &messages,
     LOG("Receiving new messages :)" << messages.size());
 
     auto notifyMessagesLoaded = [&]() {
+        const UpdateType fromUpdate = this->waitingFor;
         const bool fromSliceUpdate = waitingForSlice();
         this->waitingFor = UpdateNone;
+        emit messagesReceivedPre(totalCount, fromUpdate);
         emit messagesReceived(totalCount, fromSliceUpdate);
     };
 

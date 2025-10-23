@@ -9,7 +9,6 @@ class ReadableMessagesModel : public JumpableMessagesModel {
     Q_PROPERTY(int lastReadIncomingMessageIndex READ getLastReadMessageIndex NOTIFY lastReadMessageIndexChanged)
 
     Q_PROPERTY(int lastReadSentMessageIndex READ calculateLastReadSentMessageIndex NOTIFY lastReadSentMessageUpdated)
-    Q_PROPERTY(bool endReached MEMBER endReached NOTIFY endReachedChanged)
 
 public:
     ReadableMessagesModel(TDLibWrapper *tdLibWrapper, QObject *parent = nullptr);
@@ -23,7 +22,6 @@ signals:
     void unreadCountUpdated(int unreadCount, const QString &lastReadInboxMessageId);
 
     void lastReadSentMessageUpdated();
-    void endReachedChanged();
     void lastReadMessageIndexChanged();
 
 private slots:
@@ -50,7 +48,6 @@ protected slots:
 
 protected:
     bool loadingFullEnd;
-    bool endReached;
 };
 
 #endif // READABLEMESSAGESMODEL_H

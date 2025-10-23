@@ -5,6 +5,8 @@
 
 class JumpableMessagesModel : public MessagesModel {
     Q_OBJECT
+
+    Q_PROPERTY(bool endReached MEMBER endReached NOTIFY endReachedChanged)
 public:
     explicit JumpableMessagesModel(TDLibWrapper *tdLibWrapper, QObject *parent = nullptr);
 
@@ -19,6 +21,7 @@ public:
 
 signals:
     void messagesReceived(int totalCount, bool fromIncrementalUpdate);
+    void endReachedChanged();
 
 protected slots:
     void handleMessagesReceived(const QVariantList &messages, int totalCount);
@@ -38,9 +41,13 @@ protected:
     virtual void loadMoreFutureImpl() = 0;
     virtual void loadHistoryForMessageImpl(qlonglong messageId) = 0;
 
+signals:
+    void messagesReceivedPre(int totalCount, UpdateType fromUpdate);
+
 protected:
-    qlonglong highlightedMessageId;
     UpdateType waitingFor; // if we are waiting for messages after sending a request to load more of them
+    bool endReached;
+    qlonglong highlightedMessageId;
 };
 
 #endif // JUMPABLEMESSAGESMODEL_H
