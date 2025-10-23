@@ -41,10 +41,10 @@ void MediaMessagesModel::loadMoreHistoryImpl() {
     this->loadMessages(nextFromMessageId);
 }
 void MediaMessagesModel::loadMoreFutureImpl() {
-    this->loadMessages(messages.last()->messageId, -100);
+    this->loadMessagesWithLimit(messages.last()->messageId, -26, 27);
 }
 void MediaMessagesModel::loadHistoryForMessageImpl(qlonglong messageId) {
-    this->loadMessages(messageId, -1);
+    this->loadMessagesWithLimit(messageId, -26, 51);
 }
 
 void MediaMessagesModel::updateIsEndReached(int totalCount, UpdateType fromUpdate) {

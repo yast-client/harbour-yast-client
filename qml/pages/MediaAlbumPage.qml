@@ -111,7 +111,10 @@ Page {
         }
 
         onCurrentIndexChanged: {
-            // TODO
+            if (currentIndex <= 10)
+                chatManager.mediaMessagesModel.loadMoreHistory()
+            else if (currentIndex >= count - 1 - 10)
+                chatManager.mediaMessagesModel.loadMoreFuture()
         }
     }
     Button {

@@ -28,7 +28,7 @@ void JumpableMessagesModel::loadMoreHistory() {
 }
 
 void JumpableMessagesModel::loadMoreFuture() {
-    if (canLoadMoreMessages() && !waitingForSlice() && !messages.isEmpty()) {
+    if (canLoadMoreMessages() && !endReached && !waitingForSlice() && !messages.isEmpty()) {
         LOG("Loading newer messages...");
         this->waitingFor = UpdateNextSlice;
         this->loadMoreFutureImpl();
