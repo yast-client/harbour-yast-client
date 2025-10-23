@@ -33,13 +33,13 @@ void MediaMessagesModel::init(qlonglong chatId, qlonglong fromMessageId) {
     loadMessages(fromMessageId, 0);
 }
 
-inline void MediaMessagesModel::loadMoreHistoryImpl() {
+void MediaMessagesModel::loadMoreHistoryImpl() {
     this->loadMessages(nextFromMessageId);
 }
-inline void MediaMessagesModel::loadMoreFutureImpl() {
+void MediaMessagesModel::loadMoreFutureImpl() {
     this->loadMessages(messages.last()->messageId, -100);
 }
-inline void MediaMessagesModel::loadHistoryForMessageImpl(qlonglong messageId) {
+void MediaMessagesModel::loadHistoryForMessageImpl(qlonglong messageId) {
     this->loadMessages(messageId, -1);
 }
 
