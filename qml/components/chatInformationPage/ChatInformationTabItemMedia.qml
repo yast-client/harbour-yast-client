@@ -99,6 +99,18 @@ ChatInformationTabItemBase {
 
         Component.onCompleted: chatManager.initializeMediaMessagesModel()
 
+        Connections {
+            target: chatManager.mediaMessagesModel
+            onMessagesReceived: {
+                Debug.log("[ChatInformationTabItemMedia] Messages received, from incremental update: ", fromIncrementalUpdate, ", view has ", gridView.count, " messages")
+
+                if (!fromIncrementalUpdate)
+                    busyIndicator.running = false
+
+                //cooldownTimer.restart()
+            }
+        }
+
         Timer {
             id: cooldownTimer
             interval: 2000
@@ -114,5 +126,10 @@ ChatInformationTabItemBase {
         }
 
         VerticalScrollDecorator {}
+
+        BusyLabel {
+            id: busyIndicator
+            running: true
+        }
     }
 }
