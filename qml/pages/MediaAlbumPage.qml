@@ -38,7 +38,6 @@ Page {
     property alias index: pagedView.currentIndex
     property alias delegate: pagedView.delegate
     property alias model: pagedView.model
-    property var messages: []
     // message.content.caption.text
     palette.colorScheme: Theme.LightOnDark
     clip: status !== PageStatus.Active || pageStack.dragInProgress
@@ -116,7 +115,6 @@ Page {
     // overlay
     FullscreenOverlay {
         id: overlay
-        pageCount: messages.length
         currentIndex: page.index
         message: pagedView.currentItem ? pagedView.currentItem._model : page.message
         previewModel: previewModelLoader.item

@@ -28,7 +28,6 @@ import "../.."
 Item {
     id: overlay
 
-    property int pageCount
     property int currentIndex
     property alias text: captionLabel.text
     property bool active: true
