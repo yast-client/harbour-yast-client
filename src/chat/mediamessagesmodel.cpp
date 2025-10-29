@@ -41,8 +41,7 @@ void MediaMessagesModel::init(qlonglong chatId, qlonglong fromMessageId) {
                 return;
             }
         } else {
-            const int index = this->getMessageIndex(fromMessageId);
-            if (index != -1) {
+            if (this->messages.size() > 0 && this->messageIndexMap.contains(fromMessageId)) {
                 LOG("Message is already loaded, skipping initialization");
                 this->highlightedMessageId = fromMessageId;
                 emit alreadyLoaded();
