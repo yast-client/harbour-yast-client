@@ -1,8 +1,6 @@
 #ifndef CHATMANAGER_H
 #define CHATMANAGER_H
 
-#include <QThread>
-
 #include "readablemessagesmodel.h"
 #include "mediamessagesmodel.h"
 #include "forumtopicsmodel.h"
@@ -29,7 +27,7 @@ private:
     QString searchQuery;
 };
 
-class ChatManager : public QThread {
+class ChatManager : public QObject {
     Q_OBJECT
     Q_PROPERTY(qlonglong chatId MEMBER chatId NOTIFY chatIdChanged)
     Q_PROPERTY(bool infoInitialized READ infoInitialized NOTIFY chatIdChanged)
@@ -54,14 +52,13 @@ public:
 
     Q_INVOKABLE void reset(bool resetChatId = true);
     Q_INVOKABLE void beginInitialization(const QVariantMap &chatInformation);
+    Q_INVOKABLE void finishInitialization(qlonglong fromMessageId = 0);
     Q_INVOKABLE void initialize(const QVariantMap &chatInformation, qlonglong fromMessageId = 0);
     Q_INVOKABLE void initializeMediaMessagesModel(qlonglong fromMessageId = 0);
     bool viewAsTopics();
     inline qlonglong getChatId() { return chatId; }
     inline bool infoInitialized() { return chatId != 0; }
     inline QVariantMap chatInformation() const { return tdLibWrapper->getChat(chatId); }
-
-    void run() Q_DECL_OVERRIDE;
 
     QVariantMap smallPhoto() const;
     TDLibWrapper::ChatType chatType() const;
@@ -89,8 +86,6 @@ private slots:
     void handleBasicGroupUpdated(qlonglong groupId);
     void handleSupergroupUpdated(qlonglong groupId);
 
-    Q_INVOKABLE void finishInitialization(qlonglong fromMessageId = 0);
-
 private:
     qlonglong userId() const;
     qlonglong groupId() const;
@@ -104,9 +99,6 @@ private:
     ChatMessagesModel *chatMessagesModel;
     MediaMessagesModel* mediaMessagesModel;
     ForumTopicsModel *topicsModel;
-
-    QThread initializationThread;
-    qlonglong fromMessageIdForInitialization;
 
     QVariantMap chatActionsByUsers; // QMap<qlonglong, QString>
     QVariantMap chatActionsByChats; //QMap<qlonglong, QString>

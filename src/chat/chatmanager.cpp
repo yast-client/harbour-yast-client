@@ -1,11 +1,9 @@
 #include "chatmanager.h"
 
-#include <QThread>
-
-#include "chatdata.h"
-
 #define DEBUG_MODULE ChatManagerAndModel
 #include "debuglog.h"
+
+#include "chatdata.h"
 
 namespace {
     const QString _TYPE("@type");
@@ -61,14 +59,13 @@ qlonglong ChatMessagesModel::lastMessageId() const { // FIXME: this is wrong and
 
 
 ChatManager::ChatManager(TDLibWrapper *tdLibWrapper, QObject *parent) :
-    QThread(parent),
+    QObject(parent),
     tdLibWrapper(tdLibWrapper),
     chatId(0),
     pinnedMessageId(0),
     chatMessagesModel(new ChatMessagesModel(tdLibWrapper, this)),
     mediaMessagesModel(new MediaMessagesModel(tdLibWrapper, this)),
-    topicsModel(new ForumTopicsModel(tdLibWrapper, this)),
-    fromMessageIdForInitialization(0)
+    topicsModel(new ForumTopicsModel(tdLibWrapper, this))
 {
     connect(this->tdLibWrapper, &TDLibWrapper::chatReadInboxUpdated, this, &ChatManager::handleChatReadInboxUpdated);
     connect(this->tdLibWrapper, &TDLibWrapper::chatReadOutboxUpdated, this, &ChatManager::handleChatReadOutboxUpdated);
@@ -239,15 +236,9 @@ void ChatManager::finishInitialization(qlonglong fromMessageId) {
     }
 }
 
-void ChatManager::run() { // FIXME: destruction with this might not be safe enough
-    this->finishInitialization(this->fromMessageIdForInitialization);
-    this->fromMessageIdForInitialization = 0;
-}
-
 void ChatManager::initialize(const QVariantMap &chatInformation, qlonglong fromMessageId) {
     beginInitialization(chatInformation);
-    this->fromMessageIdForInitialization = fromMessageId;
-    this->start();
+    finishInitialization(fromMessageId);
 }
 
 
