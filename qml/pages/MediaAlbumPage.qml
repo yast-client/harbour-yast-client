@@ -49,6 +49,11 @@ Page {
     Component.onCompleted: {
         chatManager.initializeMediaMessagesModel(messageId)
     }
+    Component.onDestruction: {
+        // if end is reached model could be re-used in the media chat information tab
+        if (!chatManager.mediaMessagesModel.endReached)
+            chatManager.mediaMessagesModel.clear()
+    }
 
     function goToScrollPosition() {
         var i = chatManager.mediaMessagesModel.calculateScrollPosition()
