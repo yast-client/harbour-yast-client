@@ -70,10 +70,10 @@ TDLibVideo {
             spacing: Theme.paddingLarge
 
             Slider {
-                anchors.verticalCenter: parent.verticalCenter
                 width: parent.width - (muteButton.width) - parent.spacing*1
                 leftMargin: 0
                 rightMargin: 0
+                anchors.verticalCenter: parent.verticalCenter
 
                 enabled: videoUI.active
                 property real previousValue
@@ -125,6 +125,7 @@ TDLibVideo {
                 width: parent.width - (controlsButton.width) - parent.spacing*1
                 leftMargin: 0
                 rightMargin: 0
+                anchors.verticalCenter: parent.verticalCenter
 
                 value: video.position
                 minimumValue: 0
