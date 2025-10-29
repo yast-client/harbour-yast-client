@@ -187,14 +187,16 @@ void ChatManager::handleChatActionUpdated(qlonglong chatId, const QVariantMap &s
 }
 
 
-void ChatManager::reset() {
+void ChatManager::reset(bool resetChatId) {
     LOG("Resetting chat manager");
     this->chatMessagesModel->reset();
     this->mediaMessagesModel->reset();
     this->topicsModel->reset();
 
-    chatId = 0;
-    emit chatIdChanged();
+    if (resetChatId) {
+        chatId = 0;
+        emit chatIdChanged();
+    }
 
     if (!chatActionsByUsers.isEmpty()) {
         chatActionsByUsers.clear();
@@ -206,13 +208,21 @@ void ChatManager::reset() {
     }
 }
 
-void ChatManager::initialize(const QVariantMap &chatInformation, qlonglong fromMessageId) {
+void ChatManager::beginInitialization(const QVariantMap &chatInformation) {
     const qlonglong chatId = chatInformation.value(ID).toLongLong();
-    LOG("Initializing chat manager..." << chatId << "from message id" << fromMessageId);
+    LOG("Beginning chat manager initialization..." << chatId);
 
-    reset();
     this->chatId = chatId;
     emit chatIdChanged();
+}
+
+void ChatManager::finishInitialization(qlonglong fromMessageId) {
+    if (chatId == 0) {
+        LOG("Cannot finish initialization: initialization not in progress");
+    }
+    LOG("Finishing initialization from message id" << fromMessageId);
+
+    reset(false);
 
     if (viewAsTopics()) {
         LOG("Initializing a forum chat");
@@ -220,10 +230,15 @@ void ChatManager::initialize(const QVariantMap &chatInformation, qlonglong fromM
     } else {
         LOG("Initializing a regular chat");
         chatMessagesModel->chatId = chatId;
-        chatMessagesModel->chatIdChanged();
+        emit chatMessagesModel->chatIdChanged();
 
         tdLibWrapper->getChatHistory(chatId, fromMessageId != 0 ? fromMessageId : this->chatInformation().value(LAST_READ_INBOX_MESSAGE_ID).toLongLong());
     }
+}
+
+void ChatManager::initialize(const QVariantMap &chatInformation, qlonglong fromMessageId) {
+    beginInitialization(chatInformation);
+    finishInitialization(fromMessageId);
 }
 
 
