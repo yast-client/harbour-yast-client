@@ -54,6 +54,7 @@ void MediaMessagesModel::init(qlonglong chatId, qlonglong fromMessageId) {
     this->chatId = chatId;
     this->highlightedMessageId = fromMessageId;
     loadMessagesWithLimit(fromMessageId, fromMessageId == 0 ? 0 : -16, fromMessageId == 0 ? 100 : 32);
+    this->endReached = fromMessageId == 0;
 }
 
 void MediaMessagesModel::loadMoreHistoryImpl() {
