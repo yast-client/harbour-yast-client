@@ -22,7 +22,7 @@ PhotoTextsListItem {
     prologSecondaryText.text: showDraft ? "<i>"+qsTr("Draft")+"</i>" : (is_channel || ((chat_type == TDLibAPI.ChatTypePrivate || chat_type == TDLibAPI.ChatTypeSecret) && !last_message_is_service) ? "" : ( last_message_sender_id ? ( last_message_sender_id !== ownUserId ? Emoji.emojify(Functions.getUserName(tdLibWrapper.getUserInformation(last_message_sender_id)), Theme.fontSizeExtraSmall) : qsTr("You") ) : "" ))
     // last message
     secondaryText.text: previewText ? Emoji.emojify(utilities.fixReservedHtmlCharacters(previewText), Theme.fontSizeExtraSmall) : "<i>" + qsTr("No message in this chat.") + "</i>"
-    minithumbnail: last_message_minithumbnail
+    minithumbnail: showDraft ? null : last_message_minithumbnail
     // message date
     tertiaryText.text: showDraft ? Functions.getDateTimeElapsed(draft_message_date) : (last_message_date ? (last_message_date.length === 0 ? "" : Functions.getDateTimeElapsed(last_message_date) + Emoji.emojify(last_message_status, tertiaryText.font.pixelSize)) : "")
     unreadCount: unread_count
