@@ -37,6 +37,8 @@ Page {
     property alias overlayActive: overlay.active
     property alias index: pagedView.currentIndex
     property alias delegate: pagedView.delegate
+    property bool singleElement: false
+    property bool useChatManagerMediaModel: !singleElement
     property alias model: pagedView.model
     // message.content.caption.text
     palette.colorScheme: Theme.LightOnDark
@@ -46,11 +48,12 @@ Page {
     allowedOrientations: Orientation.All
 
     Component.onCompleted: {
-        chatManager.initializeMediaMessagesModel(messageId)
+        if (useChatManagerMediaModel)
+            chatManager.initializeMediaMessagesModel(messageId)
     }
     Component.onDestruction: {
         // if end is reached model could be re-used in the media chat information tab
-        if (!chatManager.mediaMessagesModel.endReached)
+        if (useChatManagerMediaModel && !chatManager.mediaMessagesModel.endReached)
             chatManager.mediaMessagesModel.clear()
     }
 
@@ -74,7 +77,7 @@ Page {
     PagedView {
         id: pagedView
         anchors.fill: parent
-        model: chatManager.mediaMessagesModel
+        model: singleElement ? [message] : chatManager.mediaMessagesModel
         wrapMode: PagedView.NoWrap
         delegate: Component {
             Loader {
@@ -83,18 +86,19 @@ Page {
                 visible: status == Loader.Ready
                 width: PagedView.contentWidth
                 height: PagedView.contentHeight
-                property var _model: display
+                property var _model: singleElement ? model.modelData : display
+                Component.onCompleted: console.log(_model)
 
                 states: [
                     State {
-                        when: display.content['@type'] === 'messagePhoto'
+                        when: _model.content['@type'] === 'messagePhoto'
                         PropertyChanges {
                             target: loader
                             source: "../components/messageContent/mediaAlbumPage/PhotoComponent.qml"
                         }
                     },
                     State {
-                        when: display.content['@type'] === 'messageVideo' || model.modelData.content['@type'] === 'messageAnimation' || model.modelData.content['@type'] === 'messageVideoNote'
+                        when: _model.content['@type'] === 'messageVideo' || _model.content['@type'] === 'messageAnimation' || _model.content['@type'] === 'messageVideoNote'
                         PropertyChanges {
                             target: loader
                             source: "../components/messageContent/mediaAlbumPage/VideoComponent.qml"
@@ -116,12 +120,13 @@ Page {
     FullscreenOverlay {
         id: overlay
         currentIndex: page.index
-        message: pagedView.currentItem ? pagedView.currentItem._model : page.message
-        previewModel: previewModelLoader.item
+        message: (singleElement || !pagedView.currentItem) ? page.message : pagedView.currentItem._model
+        hidePreview: singleElement
+        previewModel: useChatManagerMediaModel ? previewModelLoader.item : null
 
         Loader {
             id: previewModelLoader
-            active: overlay.message.media_album_id !== '0'
+            active: useChatManagerMediaModel && overlay.message.media_album_id !== '0'
             sourceComponent: Component {
                 SortFilterProxyModel {
                     sourceModel: chatManager.mediaMessagesModel

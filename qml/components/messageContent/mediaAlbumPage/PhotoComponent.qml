@@ -1,7 +1,7 @@
 import QtQuick 2.6
 
 ZoomImage {
-    photoData: display.content.photo
+    photoData: _model.content.photo
     onClicked: {
         if(zoomed) {
             zoomOut(true)

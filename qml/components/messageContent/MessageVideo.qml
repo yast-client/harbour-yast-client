@@ -170,7 +170,10 @@ MessageContentBase {
                     anchors.centerIn: parent
                     highlighted: videoMessageComponent.highlighted || down
                     icon.source: "../../../images/icon-l-fullscreen.svg"
-                    onClicked: pageStack.push(Qt.resolvedUrl("../../pages/MediaAlbumPage.qml"), {message: rawMessage})
+                    onClicked: pageStack.push(Qt.resolvedUrl("../../pages/MediaAlbumPage.qml"), {
+                        message: rawMessage,
+                        singleElement: rawMessage.content['@type'] !== 'messageVideo' // GIFs and video messages models are not yet supported...
+                    })
                 }
             }
         }

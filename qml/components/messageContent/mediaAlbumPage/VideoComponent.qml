@@ -7,7 +7,7 @@ import "../.."
 
 TDLibVideo {
     id: video
-    messageContent: display.content
+    messageContent: _model.content
     readonly property bool isCurrent: index === page.index
     onIsCurrentChanged: if(!isCurrent) pause()
 
@@ -118,7 +118,7 @@ TDLibVideo {
             spacing: Theme.paddingLarge
             anchors {
                 bottom: parent.bottom
-                bottomMargin: Theme.itemSizeLarge
+                bottomMargin: page.singleElement ? Theme.itemSizeMedium : Theme.itemSizeExtraLarge
             }
 
             Slider {

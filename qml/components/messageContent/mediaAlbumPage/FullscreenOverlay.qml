@@ -32,6 +32,7 @@ Item {
     property alias text: captionLabel.text
     property bool active: true
     property var message
+    property bool hidePreview
     property var previewModel
     readonly property color gradientColor: '#bb000000'
     readonly property int gradientPadding: Theme.itemSizeMedium
@@ -187,11 +188,11 @@ Item {
         id: previewsLoader
         asynchronous: true
         active: !!previewModel && previewModel.count > 1
-        height: Theme.itemSizeExtraSmall
+        height: hidePreview ? 0 : Theme.itemSizeExtraSmall
         anchors {
             horizontalCenter: parent.horizontalCenter
             bottom: parent.bottom
-            bottomMargin: Theme.paddingSmall
+            bottomMargin: hidePreview ? 0 : Theme.paddingSmall
         }
 
         sourceComponent: Component {
