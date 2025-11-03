@@ -303,7 +303,7 @@ Column {
                 visible: !(chatPage.isPrivateChat || chatPage.isSecretChat) && chatPage.hasSendPrivilege("can_send_polls")
                 icon.source: "image://theme/icon-m-question"
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("../pages/PollCreationPage.qml"), {
+                    pageStack.push(Qt.resolvedUrl("../../pages/PollCreationPage.qml"), {
                                         chatId: chatInformation.id,
                                         groupName: chatInformation.title,
                                     })
