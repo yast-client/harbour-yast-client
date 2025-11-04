@@ -51,8 +51,7 @@ public:
     ChatManager(TDLibWrapper *tdLibWrapper, QObject *parent = nullptr);
 
     Q_INVOKABLE void reset(bool resetChatId = true);
-    Q_INVOKABLE void beginInitialization(const QVariantMap &chatInformation);
-    Q_INVOKABLE void finishInitialization(qlonglong fromMessageId = 0);
+    Q_INVOKABLE void doBasicInitialization(const QVariantMap &chatInformation);
     Q_INVOKABLE void initialize(const QVariantMap &chatInformation, qlonglong fromMessageId = 0);
     Q_INVOKABLE void initializeMediaMessagesModel(qlonglong fromMessageId = 0);
     bool viewAsTopics();

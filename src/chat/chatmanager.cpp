@@ -188,7 +188,7 @@ void ChatManager::handleChatActionUpdated(qlonglong chatId, const QVariantMap &s
 
 
 void ChatManager::reset(bool resetChatId) {
-    LOG("Resetting chat manager");
+    LOG("Resetting chat manager resetChatId" << resetChatId);
     this->chatMessagesModel->reset();
     this->mediaMessagesModel->reset();
     this->topicsModel->reset();
@@ -206,23 +206,25 @@ void ChatManager::reset(bool resetChatId) {
         chatActionsByChats.clear();
         emit chatActionsChanged();
     }
+    LOG("Finished resetting chat manager" << resetChatId);
 }
 
-void ChatManager::beginInitialization(const QVariantMap &chatInformation) {
+void ChatManager::doBasicInitialization(const QVariantMap &chatInformation) {
     const qlonglong chatId = chatInformation.value(ID).toLongLong();
-    LOG("Beginning chat manager initialization..." << chatId);
+    LOG("Doing basic chat manager initialization..." << chatId);
 
-    this->chatId = chatId;
-    emit chatIdChanged();
+    if (this->chatId != chatId) {
+        this->chatId = chatId;
+        emit chatIdChanged();
+    }
 }
 
-void ChatManager::finishInitialization(qlonglong fromMessageId) {
-    if (chatId == 0) {
-        LOG("Cannot finish initialization: initialization not in progress");
-    }
-    LOG("Finishing initialization from message id" << fromMessageId);
+void ChatManager::initialize(const QVariantMap &chatInformation, qlonglong fromMessageId) {
+    doBasicInitialization(chatInformation);
+    LOG("Continuing with full initialization" << chatId << "from message id" << fromMessageId);
 
     reset(false);
+    LOG("Reset for initialization done" << chatId);
 
     if (viewAsTopics()) {
         LOG("Initializing a forum chat");
@@ -234,11 +236,6 @@ void ChatManager::finishInitialization(qlonglong fromMessageId) {
 
         tdLibWrapper->getChatHistory(chatId, fromMessageId != 0 ? fromMessageId : this->chatInformation().value(LAST_READ_INBOX_MESSAGE_ID).toLongLong());
     }
-}
-
-void ChatManager::initialize(const QVariantMap &chatInformation, qlonglong fromMessageId) {
-    beginInitialization(chatInformation);
-    finishInitialization(fromMessageId);
 }
 
 
