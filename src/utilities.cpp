@@ -95,13 +95,13 @@ namespace {
     const QString ALBUM_COVER_MINITHUMBNAIL("album_cover_minithumbnail");
     const QString FILE_NAME("file_name");
 
-    const QString LT("<");
+    const QChar LT('<');
     const QString HTML_LT("&lt;");
-    const QString GT(">");
+    const QChar GT('>');
     const QString HTML_GT("&gt;");
-    const QString AMP("&");
+    const QChar AMP('&');
     const QString HTML_AMP("&amp;");
-    const QString QUOT("\"");
+    const QChar QUOT('"');
     const QString HTML_QUOT("&qout;");
     const QRegularExpression RAW_NEW_LINE_RE("\r?\n");
     const QString HTML_BR_TAG("<br>");
@@ -220,10 +220,17 @@ struct Utilities::FormattedTextInsertion {
         : offset(offset), insertion(insertion), removeLength(removeLength) {}
 };
 
-void Utilities::addInsertionsFor(const QString &messageText, QList<FormattedTextInsertion> &insertions, const QString &originalString, const QString &replacementString) {
+void Utilities::addInsertionsFor(const QString &messageText, QList<FormattedTextInsertion> &insertions, const QString &original, const QString &replacement) {
     int nextIndex = -1;
-    while ((nextIndex = messageText.indexOf(originalString, nextIndex + 1)) > -1) {
-        insertions.append(FormattedTextInsertion(nextIndex, replacementString, originalString.length()));
+    while ((nextIndex = messageText.indexOf(original, nextIndex + 1)) > -1) {
+        insertions.append(FormattedTextInsertion(nextIndex, replacement, original.length()));
+    }
+}
+
+void Utilities::addInsertionsFor(const QString &messageText, QList<FormattedTextInsertion> &insertions, const QChar &original, const QString &replacement) {
+    int nextIndex = -1;
+    while ((nextIndex = messageText.indexOf(original, nextIndex + 1)) > -1) {
+        insertions.append(FormattedTextInsertion(nextIndex, replacement,1));
     }
 }
 

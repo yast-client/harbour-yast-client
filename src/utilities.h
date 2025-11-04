@@ -95,7 +95,8 @@ public:
 private:
     struct FormattedTextInsertion;
 
-    static void addInsertionsFor(const QString &messageText, QList<FormattedTextInsertion> &insertions, const QString &originalString, const QString &replacementString);
+    static void addInsertionsFor(const QString &messageText, QList<FormattedTextInsertion> &insertions, const QString &original, const QString &replacement);
+    static void addInsertionsFor(const QString &messageText, QList<FormattedTextInsertion> &insertions, const QChar &original, const QString &replacement);
 
 signals:
     void voiceNoteDurationChanged();
