@@ -53,7 +53,6 @@ QVariantList WaveformManager::getWaveformData(const QVariantList &waveform, int 
         for (int i = 0; i < count - 1; i++) {
             const double sum = std::accumulate(waveform.begin() + i*chunk, waveform.begin() + (i+1)*chunk, 0.0, sumQVariantDoubles);
             result.append(((sum / chunk) + 0.06) / 1.06); // make 0 visible
-            LOG(((sum / chunk) + 0.06) / 1.06);
         }
 
         const double sum = std::accumulate(waveform.end() - 1 - remainder, waveform.end(), 0.0, sumQVariantDoubles);
