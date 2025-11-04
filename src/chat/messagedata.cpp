@@ -212,12 +212,10 @@ bool MessageData::areTogether(const MessageData *message1, const MessageData *me
     if (Utilities::messageContentIsService(message1->messageContentType) || Utilities::messageContentIsService(message2->messageContentType))
         return false;
 
-    LOG("Past #1");
     if (message1->senderIsChat() && message2->senderIsChat() && message1->senderChatId() != message2->senderChatId())
         return false;
     else if (!message1->senderIsChat() && !message2->senderIsChat() && message1->senderUserId() != message2->senderUserId())
         return false;
-    LOG("Past #2" << (qAbs(message1->messageData.value(DATE).toInt() - message2->messageData.value(DATE).toInt()) <= 900));
 
     return qAbs(message1->messageData.value(DATE).toInt() - message2->messageData.value(DATE).toInt()) <= 900;
 }
