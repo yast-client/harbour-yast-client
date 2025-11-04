@@ -1656,7 +1656,7 @@ void TDLibWrapper::handleConnectionStateChanged(const QString &connectionState) 
 void TDLibWrapper::handleUserUpdated(const QVariantMap &updatedUserInformation) {
     QString updatedUserId = updatedUserInformation.value(ID).toString();
     if (updatedUserId == this->options.value("my_id").toString()) {
-        LOG("Own user information updated :)");
+        LOG("Current user information updated");
         this->userInformation = updatedUserInformation;
         emit ownUserUpdated(updatedUserInformation);
     }
@@ -1667,7 +1667,7 @@ void TDLibWrapper::handleUserUpdated(const QVariantMap &updatedUserInformation) 
 
 void TDLibWrapper::handleUserStatusUpdated(const QString &userId, const QVariantMap &userStatusInformation) {
     if (userId == this->options.value("my_id").toString()) {
-        LOG("Own user status information updated :)");
+        LOG("Current user status information updated");
         this->userInformation.insert(STATUS, userStatusInformation);
     }
     QVariantMap updatedUserInformation = this->usersById.value(userId).toMap();
