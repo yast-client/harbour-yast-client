@@ -234,9 +234,9 @@ void Utilities::addInsertionsFor(const QString &messageText, QList<FormattedText
     }
 }
 
-bool messageInsertionSorter(const QVariantMap &a, const QVariantMap &b) {
+bool Utilities::messageInsertionSorter(const FormattedTextInsertion &a, const FormattedTextInsertion &b) {
     // Sort in reverse order (so offset indexes are valid)
-    return b.value(OFFSET).toInt() + b.value(REMOVE_LENGTH).toInt() < a.value(OFFSET).toInt() + a.value(REMOVE_LENGTH).toInt();
+    return b.offset + b.removeLength < a.offset + a.removeLength;
 }
 
 QVariantMap Utilities::newFormattedText(const QString &text, const QVariantList &entities) {

@@ -95,6 +95,8 @@ public:
 private:
     struct FormattedTextInsertion;
 
+    static bool messageInsertionSorter(const FormattedTextInsertion &a, const FormattedTextInsertion &b);
+
     static void addInsertionsFor(const QString &messageText, QList<FormattedTextInsertion> &insertions, const QString &original, const QString &replacement);
     static void addInsertionsFor(const QString &messageText, QList<FormattedTextInsertion> &insertions, const QChar &original, const QString &replacement);
 
