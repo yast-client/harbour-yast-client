@@ -340,7 +340,7 @@
     </message>
 </context>
 <context>
-    <name>ChatInformationTabItemMedia</name>
+    <name>ChatInformationTabItemMediaBase</name>
     <message>
         <source>Jump to message</source>
         <translation type="unfinished"></translation>
