@@ -118,7 +118,7 @@ ChatInformationTabItemBase {
         }
 
         onContentYChanged: {
-            if (!cooldownTimer.running && gridView.indexAt(gridView.contentX, gridView.contentY) > Math.max(0, gridView.count - 10*columnCount)) {
+            if (active && !cooldownTimer.running && gridView.indexAt(gridView.contentX, gridView.contentY) > Math.max(0, gridView.count - 10*columnCount)) {
                 Debug.log("[ChatInformationTabItemMedia] Trying to get older history items...")
                 cooldownTimer.restart()
                 tabBase.model.loadMoreHistory()
