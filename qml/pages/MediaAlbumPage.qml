@@ -79,7 +79,7 @@ Page {
     PagedView {
         id: pagedView
         anchors.fill: parent
-        model: singleElement ? [message] : chatManager.photoAndvideoNoteMessagesModel
+        model: singleElement ? [message] : chatManager.photoAndVideoMessagesModel
         wrapMode: PagedView.NoWrap
         delegate: Component {
             Loader {

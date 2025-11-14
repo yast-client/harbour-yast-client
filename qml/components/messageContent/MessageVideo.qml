@@ -179,7 +179,7 @@ MessageContentBase {
                             case 'messageAnimation':
                                 return chatManager.animationMessagesModel
                             default:
-                                return chatManager.photoAndvideoNoteMessagesModel
+                                return chatManager.photoAndVideoMessagesModel
                             }
                         }()
                     })

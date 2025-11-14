@@ -69,7 +69,7 @@ ChatManager::ChatManager(TDLibWrapper *tdLibWrapper, QObject *parent) :
     chatId(0),
     pinnedMessageId(0),
     chatMessagesModel(new ChatMessagesModel(tdLibWrapper, this)),
-    photoAndvideoNoteMessagesModel(new MediaMessagesModel(tdLibWrapper, TDLibWrapper::SearchMessagesFilterPhotoAndVideo, QStringList{CONTENT_MESSAGE_PHOTO, CONTENT_MESSAGE_VIDEO}, this)),
+    photoAndVideoMessagesModel(new MediaMessagesModel(tdLibWrapper, TDLibWrapper::SearchMessagesFilterPhotoAndVideo, QStringList{CONTENT_MESSAGE_PHOTO, CONTENT_MESSAGE_VIDEO}, this)),
     animationMessagesModel(new MediaMessagesModel(tdLibWrapper, TDLibWrapper::SearchMessagesFilterAnimation, CONTENT_MESSAGE_ANIMATION, this)),
     videoNoteMessagesModel(new MediaMessagesModel(tdLibWrapper, TDLibWrapper::SearchMessagesFilterVideoNote, CONTENT_MESSAGE_VIDEO_NOTE, this)),
     topicsModel(new ForumTopicsModel(tdLibWrapper, this))
@@ -197,7 +197,7 @@ void ChatManager::handleChatActionUpdated(qlonglong chatId, const QVariantMap &s
 void ChatManager::reset(bool resetChatId) {
     LOG("Resetting chat manager resetChatId" << resetChatId);
     this->chatMessagesModel->reset();
-    this->photoAndvideoNoteMessagesModel->reset();
+    this->photoAndVideoMessagesModel->reset();
     this->animationMessagesModel->reset();
     this->videoNoteMessagesModel->reset();
     this->topicsModel->reset();

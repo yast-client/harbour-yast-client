@@ -41,7 +41,7 @@ class ChatManager : public QObject {
 
     Q_PROPERTY(ChatMessagesModel* model MEMBER chatMessagesModel CONSTANT)
 
-    Q_PROPERTY(MediaMessagesModel* photoAndvideoNoteMessagesModel MEMBER photoAndvideoNoteMessagesModel CONSTANT)
+    Q_PROPERTY(MediaMessagesModel* photoAndVideoMessagesModel MEMBER photoAndVideoMessagesModel CONSTANT)
     Q_PROPERTY(MediaMessagesModel* animationMessagesModel MEMBER animationMessagesModel CONSTANT)
     Q_PROPERTY(MediaMessagesModel* videoNoteMessagesModel MEMBER videoNoteMessagesModel CONSTANT)
 
@@ -100,7 +100,7 @@ private:
     qlonglong pinnedMessageId;
 
     ChatMessagesModel *chatMessagesModel;
-    MediaMessagesModel* photoAndvideoNoteMessagesModel;
+    MediaMessagesModel* photoAndVideoMessagesModel;
     MediaMessagesModel* animationMessagesModel;
     MediaMessagesModel* videoNoteMessagesModel;
     ForumTopicsModel *topicsModel;
