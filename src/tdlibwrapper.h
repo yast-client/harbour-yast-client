@@ -198,6 +198,7 @@ public:
     Q_INVOKABLE void setArchiveChatListSettings(bool archiveAndMuteNewChatsFromUnknownUsers, bool keepUnmutedChatsArchived, bool keepChatsFromFoldersArchived);
     Q_INVOKABLE void readChatList(bool archive = false);
     Q_INVOKABLE void readFolderChatList(int folderId);
+    SearchMessagesFilter getSearchMessagesFilterForType(const QString &type);
 
     inline Utilities *getUtilities() const { return this->utilities; }
     DBusAdaptor *getDBusAdaptor();
@@ -324,7 +325,7 @@ public:
     Q_INVOKABLE void clearRecentlyFoundChats();
     Q_INVOKABLE void addRecentlyFoundChat(qlonglong chatId);
     Q_INVOKABLE void removeRecentlyFoundChat(qlonglong chatId);
-    Q_INVOKABLE void getChatMessageCount(qlonglong chatId, SearchMessagesFilter filter);
+    Q_INVOKABLE void getChatMessageCount(qlonglong chatId, SearchMessagesFilter filter, bool returnLocal = false);
     Q_INVOKABLE void getForumTopics(qlonglong chatId, qint32 offsetDate = 0, qlonglong offsetMessageId = 0, qlonglong offsetMessageThreadId = 0, const QString &query = QString(), int limit = 50);
 
     // Others (candidates for extraction ;))
@@ -442,6 +443,8 @@ signals:
     void emojiKeywordsReceived(const QString &text, const QVariantList &emojis);
     void suggestedActionsUpdated(const QVariantList added, const QVariantList removed);
     void countReceived(int count, const QString &extra);
+    void chatMessageCountReceived(int count, qlonglong chatId, SearchMessagesFilter filter, bool onlyLocal);
+    void chatMessageCountErrorReceived(qlonglong chatId, SearchMessagesFilter filter, bool onlyLocal);
     void chatListsReceived(qlonglong chatId, const QVariantList &chatLists);
     void archiveChatListSettingsReceived(bool archiveAndMuteNewChatsFromUnknownUsers, bool keepUnmutedChatsArchived, bool keepChatsFromFoldersArchived);
     void chatFoldersUpdated(const QVariantList &chatFolders, int mainChatListPosition, bool tagsEnabled);
@@ -499,6 +502,7 @@ public slots:
     void handleGetPageSourceFinished();
     void handleDiceEmojisUpdated(const QStringList &emojis);
     void handleFoundChatMessagesReceived(const int extra, const QVariantList &messages, int totalCount, qlonglong nextFromMessageId);
+    void handleCountReceived(int count, const QString &extra);
 
 private:
     void setOption(const QString &name, const QString &type, const QVariant &value);

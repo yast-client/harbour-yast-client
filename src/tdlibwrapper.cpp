@@ -109,6 +109,8 @@ namespace {
     const QString IS_MARKED_AS_UNREAD("is_marked_as_unread");
     const QString SECRET_CHAT_ID("secret_chat_id");
     const QString TYPE_READ_CHAT_LIST("readChatList");
+    const QString RETURN_LOCAL("return_local");
+
     const QStringList ALL_FILE_TYPES(QStringList()
                                      << "fileTypeAnimation"
                                      << "fileTypeAudio"
@@ -134,6 +136,8 @@ namespace {
                                      << "fileTypeVoiceNote"
                                      << "fileTypeWallpaper"
     );
+
+    const QRegularExpression RE_EXTRA_CHAT_MESSAGE_COUNT("^(searchMessagesFilter[a-zA-Z]+)(!?):(-?[0-9]*)$");
 }
 
 QVariantMap findChatPosition(const QVariantList &positions, bool archive = false) {
@@ -303,7 +307,7 @@ void TDLibWrapper::initializeTDLibReceiver() {
     connect(this->tdLibReceiver, &TDLibReceiver::emojiKeywordsReceived, this, &TDLibWrapper::emojiKeywordsReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::diceEmojisUpdated, this, &TDLibWrapper::handleDiceEmojisUpdated);
     connect(this->tdLibReceiver, &TDLibReceiver::suggestedActionsUpdated, this, &TDLibWrapper::suggestedActionsUpdated);
-    connect(this->tdLibReceiver, &TDLibReceiver::countReceived, this, &TDLibWrapper::countReceived);
+    connect(this->tdLibReceiver, &TDLibReceiver::countReceived, this, &TDLibWrapper::handleCountReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::chatListsReceived, this, &TDLibWrapper::chatListsReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::archiveChatListSettingsReceived, this, &TDLibWrapper::archiveChatListSettingsReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::chatFoldersUpdated, this, &TDLibWrapper::chatFoldersUpdated);
@@ -1989,10 +1993,21 @@ void TDLibWrapper::handleSendMarkdownChanged() {
 }
 
 void TDLibWrapper::handleErrorReceived(int code, const QString &message, const QVariant &extra) {
-    if (extra.userType() == QMetaType::QString && !extra.toString().isEmpty()) {
+    const QString extraString = extra.toString();
+    if (extra.userType() == QMetaType::QString && !extraString.isEmpty()) {
         QStringList parts(extra.toString().split(':'));
         if (parts.size() == 3 && parts.at(0) == QStringLiteral("getMessage")) {
             emit messageNotFound(parts.at(1).toLongLong(), parts.at(2).toLongLong());
+        } else {
+            QRegularExpressionMatch match = RE_EXTRA_CHAT_MESSAGE_COUNT.match(extraString);
+            if (match.hasMatch()) {
+                const QString filterType = match.captured(1);
+                const bool local = !match.captured(2).isEmpty();
+                const qlonglong chatId = match.captured(3).toLongLong();
+                LOG("Received chat message count error" << chatId << filterType << local);
+
+                emit chatMessageCountErrorReceived(chatId, getSearchMessagesFilterForType(filterType), local);
+            }
         }
     }
     emit errorReceived(code, message, extra);
@@ -2626,15 +2641,68 @@ QString TDLibWrapper::getSearchMessagesFilterType(SearchMessagesFilter filter) {
     return "searchMessagesFilterEmpty";
 }
 
-void TDLibWrapper::getChatMessageCount(qlonglong chatId, SearchMessagesFilter filter) {
+TDLibWrapper::SearchMessagesFilter TDLibWrapper::getSearchMessagesFilterForType(const QString &type) {
+    if (type == "searchMessagesFilterAnimation")
+        return SearchMessagesFilterAnimation;
+    if (type == "searchMessagesFilterAudio")
+        return SearchMessagesFilterAudio;
+    if (type == "searchMessagesFilterChatPhoto")
+        return SearchMessagesFilterChatPhoto;
+    if (type == "searchMessagesFilterDocument")
+        return SearchMessagesFilterDocument;
+    if (type == "searchMessagesFilterEmpty")
+        return SearchMessagesFilterEmpty;
+    if (type == "searchMessagesFilterFailedToSend")
+        return SearchMessagesFilterFailedToSend;
+    if (type == "searchMessagesFilterMention")
+        return SearchMessagesFilterMention;
+    if (type == "searchMessagesFilterPhoto")
+        return SearchMessagesFilterPhoto;
+    if (type == "searchMessagesFilterPhotoAndVideo")
+        return SearchMessagesFilterPhotoAndVideo;
+    if (type == "searchMessagesFilterPinned")
+        return SearchMessagesFilterPinned;
+    if (type == "searchMessagesFilterUnreadMention")
+        return SearchMessagesFilterUnreadMention;
+    if (type == "searchMessagesFilterUnreadReaction")
+        return SearchMessagesFilterUnreadReaction;
+    if (type == "searchMessagesFilterUrl")
+        return SearchMessagesFilterUrl;
+    if (type == "searchMessagesFilterVideo")
+        return SearchMessagesFilterVideo;
+    if (type == "searchMessagesFilterVideoNote")
+        return SearchMessagesFilterVideoNote;
+    if (type == "searchMessagesFilterVoiceAndVideoNote")
+        return SearchMessagesFilterVoiceAndVideoNote;
+    if (type == "searchMessagesFilterVoiceNote")
+        return SearchMessagesFilterVoiceNote;
+
+    return SearchMessagesFilterEmpty;
+}
+
+void TDLibWrapper::getChatMessageCount(qlonglong chatId, SearchMessagesFilter filter, bool returnLocal) {
     const QString filterType = getSearchMessagesFilterType(filter);
     LOG("Receiving chat message count" << chatId << filterType);
     this->sendRequest(QVariantMap{
                           {_TYPE, "getChatMessageCount"},
                           {CHAT_ID, chatId},
                           {FILTER, QVariantMap{{_TYPE, filterType}}},
-                          {_EXTRA, filterType+":"+QString::number(chatId)}
+                          {RETURN_LOCAL, returnLocal},
+                          {_EXTRA, filterType+(returnLocal?"!":"")+":"+QString::number(chatId)}
                       });
+}
+
+void TDLibWrapper::handleCountReceived(int count, const QString &extra) {
+    QRegularExpressionMatch match = RE_EXTRA_CHAT_MESSAGE_COUNT.match(extra);
+    if (match.hasMatch()) {
+        const QString filterType = match.captured(1);
+        const bool local = !match.captured(2).isEmpty();
+        const qlonglong chatId = match.captured(3).toLongLong();
+        LOG("Received chat message count" << chatId << filterType << local);
+
+        emit chatMessageCountReceived(count, chatId, getSearchMessagesFilterForType(filterType), local);
+    } else
+        emit countReceived(count, extra);
 }
 
 void TDLibWrapper::getForumTopics(qlonglong chatId, qint32 offsetDate, qlonglong offsetMessageId, qlonglong offsetMessageThreadId, const QString &query, int limit) {
