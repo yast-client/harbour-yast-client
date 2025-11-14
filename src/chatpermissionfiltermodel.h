@@ -18,7 +18,7 @@
 #ifndef CHATPERMISSIONFILTERMODEL_H
 #define CHATPERMISSIONFILTERMODEL_H
 
-#include "tdlibwrapper.h"
+#include "tdlib/tdlibwrapper.h"
 
 #include <QSortFilterProxyModel>
 

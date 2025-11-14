@@ -22,7 +22,7 @@
 
 #include <QObject>
 #include <nemonotifications-qt5/notification.h>
-#include "tdlibwrapper.h"
+#include "tdlib/tdlibwrapper.h"
 #include "appsettings.h"
 #include "mceinterface.h"
 #include "utilities.h"

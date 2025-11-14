@@ -71,7 +71,7 @@ AccordionItem {
             TextSwitch {
                 id: archiveAndMuteNewChatsFromUnknownUsersSwitch
                 width: parent.columnWidth
-                visible: tdLibWrapper.getOptionBoolean("can_archive_and_mute_new_chats_from_unknown_users")
+                visible: tdLibWrapper.options.can_archive_and_mute_new_chats_from_unknown_users
                 text: qsTr("Automatically archive new chats from unknown users")
                 description: qsTr("Automatically archive and mute new chats, groups and channels from non-contacts.")
             }

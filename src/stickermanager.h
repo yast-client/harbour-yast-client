@@ -24,7 +24,7 @@
 #include <QVariantMap>
 #include <QVariantList>
 
-#include "tdlibwrapper.h"
+#include "tdlib/tdlibwrapper.h"
 
 class StickerManager : public QObject
 {

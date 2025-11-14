@@ -2,7 +2,7 @@
 #define CHATDATA_H
 
 #include <QObject>
-#include "tdlibwrapper.h"
+#include "tdlib/tdlibwrapper.h"
 
 class ChatData {
 public:

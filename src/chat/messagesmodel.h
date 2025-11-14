@@ -21,7 +21,7 @@
 #define MESSAGESMODEL_H
 
 #include <QAbstractListModel>
-#include "tdlibwrapper.h"
+#include "../tdlib/tdlibwrapper.h"
 #include "messagedata.h"
 
 // MessagesModel's main job is to take care of the messages updates (content, interaction info, etc.)

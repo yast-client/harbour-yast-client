@@ -50,9 +50,9 @@ SOURCES += src/harbour-fernschreiber2.cpp \
     src/notificationmanager.cpp \
     src/processlauncher.cpp \
     src/stickermanager.cpp \
-    src/tdlibfile.cpp \
-    src/tdlibreceiver.cpp \
-    src/tdlibwrapper.cpp \
+    src/tdlib/tdlibfile.cpp \
+    src/tdlib/tdlibreceiver.cpp \
+    src/tdlib/tdlibwrapper.cpp \
     src/textfiltermodel.cpp \
     src/tgsplugin.cpp \
     src/waveformmanager.cpp
@@ -302,10 +302,10 @@ HEADERS += \
     src/notificationmanager.h \
     src/processlauncher.h \
     src/stickermanager.h \
-    src/tdlibfile.h \
-    src/tdlibreceiver.h \
+    src/tdlib/tdlibfile.h \
+    src/tdlib/tdlibreceiver.h \
     src/tdlibsecrets.h \
-    src/tdlibwrapper.h \
+    src/tdlib/tdlibwrapper.h \
     src/textfiltermodel.h \
     src/tgsplugin.h \
     src/waveformmanager.h

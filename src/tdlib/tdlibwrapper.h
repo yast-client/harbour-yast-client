@@ -25,6 +25,7 @@
 #include <QNetworkReply>
 #include <QNetworkAccessManager>
 #include <QNetworkConfigurationManager>
+#include <QQmlPropertyMap>
 #include <td/telegram/td_json_client.h>
 #include "tdlibreceiver.h"
 #include "dbusadaptor.h"
@@ -42,7 +43,7 @@ class TDLibWrapper : public QObject
     Q_PROPERTY(QVariantMap authorizationStateData MEMBER authorizationStateData NOTIFY authorizationStateChanged)
     Q_PROPERTY(ConnectionState connectionState MEMBER connectionState NOTIFY connectionStateChanged)
     Q_PROPERTY(QVariantMap userInformation READ getUserInformation NOTIFY ownUserUpdated)
-    Q_PROPERTY(QVariantMap options MEMBER options NOTIFY optionUpdated)
+    Q_PROPERTY(QQmlPropertyMap* options MEMBER options CONSTANT)
 
 public:
     explicit TDLibWrapper(int argc, char **argv, AppSettings *appSettings, MceInterface *mceInterface, QObject *parent = nullptr);
@@ -184,9 +185,7 @@ public:
     ChatData* getChatDataForce(qlonglong chatId);
     Q_INVOKABLE QVariantMap getSecretChatFromCache(qlonglong secretChatId);
     Q_INVOKABLE QStringList getChatReactions(qlonglong chatId);
-    Q_INVOKABLE QString getOptionString(const QString &optionName);
-    Q_INVOKABLE bool getOptionBoolean(const QString &optionName);
-    Q_INVOKABLE qlonglong getOptionInteger(const QString &optionName);
+    QVariant getOption(const QString &optionName);
     Q_INVOKABLE void copyFileToDownloads(const QString &filePath, bool openAfterCopy = false);
     Q_INVOKABLE void openFileOnDevice(const QString &filePath);
     Q_INVOKABLE bool getJoinChatRequested();
@@ -531,7 +530,7 @@ private:
     TDLibWrapper::AuthorizationState authorizationState;
     QVariantMap authorizationStateData;
     TDLibWrapper::ConnectionState connectionState;
-    QVariantMap options;
+    QQmlPropertyMap* options;
     QVariantMap userInformation;
     QMap<UserPrivacySetting, UserPrivacySettingRule> userPrivacySettingRules;
     QVariantMap usersById;

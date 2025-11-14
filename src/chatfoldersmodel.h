@@ -4,7 +4,7 @@
 #include <QAbstractListModel>
 #include <QObject>
 
-#include "tdlibwrapper.h"
+#include "tdlib/tdlibwrapper.h"
 #include "utilities.h"
 #include "folderchatlistmodel.h"
 

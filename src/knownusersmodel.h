@@ -22,7 +22,7 @@
 
 #include <QAbstractListModel>
 #include <QVariantList>
-#include "tdlibwrapper.h"
+#include "tdlib/tdlibwrapper.h"
 
 class KnownUsersModel : public QAbstractListModel
 {

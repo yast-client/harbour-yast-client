@@ -47,7 +47,7 @@ function getMessageText(message, simple, currentUserId, ignoreEntities, asFormat
 }
 
 function getChatPartnerStatusText(statusType, was_online, isSupport, userId, asTimepoint) {
-    if (isSupport) return userId == tdLibWrapper.getOptionString("telegram_service_notifications_chat_id")
+    if (isSupport) return userId == tdLibWrapper.options.telegram_service_notifications_chat_id
                    ? qsTr("service notifications", "used as a status for the service notifications chat")
                    : qsTr("support", "used as a status for support chats, excluding the service notifications chat")
     switch(statusType) {
@@ -220,7 +220,7 @@ function handleTMeLink(link, usedPrefix) {
 }
 
 function isDirectMessageLink(link) {
-    var tMePrefix = tdLibWrapper.getOptionString("t_me_url");
+    var tMePrefix = tdLibWrapper.options.t_me_url
     var tMePrefixHttp = tMePrefix.replace('https', 'http');
 
     return (link.indexOf(tMePrefix) === 0 && link.substring(tMePrefix.length).indexOf("/") > 0) ||
@@ -230,7 +230,7 @@ function isDirectMessageLink(link) {
 }
 
 function handleLink(link) {
-    var tMePrefix = tdLibWrapper.getOptionString("t_me_url");
+    var tMePrefix = tdLibWrapper.options.t_me_url
     var tMePrefixHttp = tMePrefix.replace('https', 'http');
 
     // Checking if we have a direct message link...

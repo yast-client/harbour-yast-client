@@ -25,7 +25,7 @@
 #include <QGeoPositionInfo>
 #include <QGeoPositionInfoSource>
 #include <QNetworkAccessManager>
-#include "tdlibwrapper.h"
+#include "tdlib/tdlibwrapper.h"
 
 #ifdef NO_HARBOUR_COMPLIANCE
 #include "gstaudiorecorder.h"

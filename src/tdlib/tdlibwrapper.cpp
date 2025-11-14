@@ -171,6 +171,7 @@ TDLibWrapper::TDLibWrapper(int argc, char **argv, AppSettings *settings, MceInte
     , mceInterface(mce)
     , utilities(new Utilities(argc, argv, appSettings, this))
     , authorizationState(AuthorizationState::Closed)
+    , options(new QQmlPropertyMap(this))
     , diceEmojis()
     , versionNumber(0)
     , joinChatRequested(false)
@@ -1511,15 +1512,8 @@ QVariantMap TDLibWrapper::getSecretChatFromCache(qlonglong secretChatId) {
     return this->secretChats.value(secretChatId);
 }
 
-QString TDLibWrapper::getOptionString(const QString &optionName) {
-    return this->options.value(optionName).toString();
-}
-
-bool TDLibWrapper::getOptionBoolean(const QString &optionName) {
-    return this->options.value(optionName).toBool();
-}
-qlonglong TDLibWrapper::getOptionInteger(const QString &optionName) {
-    return this->options.value(optionName).toLongLong();
+QVariant TDLibWrapper::getOption(const QString &optionName) {
+    return this->options->value(optionName);
 }
 
 void TDLibWrapper::copyFileToDownloads(const QString &filePath, bool openAfterCopy) {
@@ -1617,7 +1611,7 @@ void TDLibWrapper::handleAuthorizationStateChanged(const QString &authorizationS
 }
 
 void TDLibWrapper::handleOptionUpdated(const QString &optionName, const QVariant &optionValue) {
-    this->options.insert(optionName, optionValue);
+    this->options->insert(optionName, optionValue);
     emit optionUpdated(optionName, optionValue);
     if (optionName == "version") {
         const QString version = optionValue.toString();
@@ -1659,7 +1653,7 @@ void TDLibWrapper::handleConnectionStateChanged(const QString &connectionState) 
 
 void TDLibWrapper::handleUserUpdated(const QVariantMap &updatedUserInformation) {
     QString updatedUserId = updatedUserInformation.value(ID).toString();
-    if (updatedUserId == this->options.value("my_id").toString()) {
+    if (updatedUserId == this->options->value("my_id").toString()) {
         LOG("Current user information updated");
         this->userInformation = updatedUserInformation;
         emit ownUserUpdated(updatedUserInformation);
@@ -1670,7 +1664,7 @@ void TDLibWrapper::handleUserUpdated(const QVariantMap &updatedUserInformation) 
 }
 
 void TDLibWrapper::handleUserStatusUpdated(const QString &userId, const QVariantMap &userStatusInformation) {
-    if (userId == this->options.value("my_id").toString()) {
+    if (userId == this->options->value("my_id").toString()) {
         LOG("Current user status information updated");
         this->userInformation.insert(STATUS, userStatusInformation);
     }
@@ -2507,7 +2501,7 @@ void TDLibWrapper::getArchiveChatListSettings() {
 
 void TDLibWrapper::setArchiveChatListSettings(bool archiveAndMuteNewChatsFromUnknownUsers, bool keepUnmutedChatsArchived, bool keepChatsFromFoldersArchived) {
     // If this value is true while we can't set it, AUTOARCHIVE_NOT_AVAILABLE error will show up, so we double-check
-    if (!this->options.value("can_archive_and_mute_new_chats_from_unknown_users").toBool())
+    if (!this->options->value("can_archive_and_mute_new_chats_from_unknown_users").toBool())
         archiveAndMuteNewChatsFromUnknownUsers = false;
 
     LOG("Setting archive chat list settings");

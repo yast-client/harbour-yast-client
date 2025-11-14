@@ -23,7 +23,7 @@
 #include <QAbstractListModel>
 #include <QVariantList>
 
-#include "tdlibwrapper.h"
+#include "tdlib/tdlibwrapper.h"
 
 class ContactsListModel : public QAbstractListModel {
     Q_OBJECT

@@ -2,7 +2,7 @@
 #define SUGGESTEDACTIONSMODEL_H
 
 #include <QAbstractListModel>
-#include "tdlibwrapper.h"
+#include "tdlib/tdlibwrapper.h"
 
 class SuggestedActionsModel : public QAbstractListModel {
     Q_OBJECT
