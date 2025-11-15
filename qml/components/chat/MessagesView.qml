@@ -253,6 +253,12 @@ Column {
         }
     }
 
+    Binding {
+        target: chatPage
+        property: 'loading'
+        value: chatManager.model.loading
+    }
+
     Connections {
         target: chatManager.model
         onMessagesReceived: {
@@ -275,7 +281,6 @@ Column {
                 chatView.scrollToIndex(scrollPosition)
 
             if (!fromIncrementalUpdate) {
-                chatPage.loading = false
                 if (chatOverviewItem.visible && scrollPosition >= (chatView.count - 10)) {
                     chatView.inCooldown = true
                     chatManager.model.loadMoreFuture()
@@ -307,7 +312,7 @@ Column {
 
         }
         onNewMessageReceived: {
-            if (( chatView.manuallyScrolledToBottom && Qt.application.state === Qt.ApplicationActive ) || message.sender_id.user_id === chatPage.myUserId) {
+            if ((chatView.manuallyScrolledToBottom && Qt.application.state === Qt.ApplicationActive) || message.sender_id.user_id === chatPage.myUserId) {
                 Debug.log("[ChatPage] Own message received or was scrolled to bottom, scrolling down to see it...")
                 chatView.scrollToIndex(chatView.count - 1)
                 viewMessageTimer.queueViewMessage(chatView.count - 1)

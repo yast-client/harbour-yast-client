@@ -9,13 +9,16 @@ JumpableMessagesModel::JumpableMessagesModel(TDLibWrapper *tdLibWrapper, QObject
     startReached(false),
     endReached(false),
     highlightedMessageId(0)
-{}
+{
+    connect(this, &JumpableMessagesModel::endReachedChanged, this, &JumpableMessagesModel::loadingChanged);
+}
 
 bool JumpableMessagesModel::clear() {
     LOG("Clearing jumpable messages model");
     waitingFor = UpdateNone;
     startReached = endReached = false;
     emit endReachedChanged();
+    loadingChanged();
     highlightedMessageId = 0;
     return MessagesModel::clear();
 }
@@ -45,6 +48,12 @@ void JumpableMessagesModel::loadHistoryForMessage(qlonglong messageId) {
     }
 }
 
+bool JumpableMessagesModel::loading() const {
+    // If messages isn't empty, we aren't loading
+    // Otherwise, if it is empty and both end and start is reached, means that the chat is empty for sure, meaning we have finished loading too
+    return messages.isEmpty() && !endReached && !startReached;
+}
+
 void JumpableMessagesModel::updateStartEndReached(int totalCount, UpdateType fromUpdate) {
     if (totalCount == 0) {
         if (fromUpdate == UpdateNextSlice)
@@ -67,7 +76,7 @@ void JumpableMessagesModel::handleMessagesReceived(const QVariantList &messages,
         const UpdateType fromUpdate = this->waitingFor;
         const bool fromSliceUpdate = waitingForSlice();
         this->waitingFor = UpdateNone;
-        this->updateStartEndReached(totalCount, fromUpdate);
+        this->updateStartEndReached(totalCount, fromUpdate); // emits loadingChanged() as well
         emit messagesReceived(totalCount, fromSliceUpdate);
     };
 

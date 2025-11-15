@@ -86,25 +86,14 @@ int ReadableMessagesModel::calculateScrollPosition() {
 }
 
 void ReadableMessagesModel::updateStartEndReached(int totalCount, UpdateType fromUpdate) {
-    if (totalCount == 0 && fromUpdate == UpdatePreviousSlice)
-        this->startReached = true;
+    LOG("Updating start/end reached values");
 
-    // Need to check if we can actually add messages (only possible if the previously latest messages are loaded)
-    // some other things also depend on this now
-
-    if (chatId == 0)
-        endReached = false;
-    else if (messages.isEmpty())
+    if (this->messageIndexMap.contains(lastMessageId())) {
         endReached = true;
-    else {
-        const qlonglong messageId = lastMessageId();
-        endReached = this->messageIndexMap.contains(messageId);
-        LOG("Updating endReached by checking if last message is loaded" << messageId << endReached);
+        LOG("Last message is in the model, end was reached");
     }
 
-    LOG("Updated endReached" << endReached << "startReached" << startReached);
-
-    emit endReachedChanged();
+    JumpableMessagesModel::updateStartEndReached(totalCount, fromUpdate);
 }
 
 int ReadableMessagesModel::calculateLastReadMessageIndexInBounds() {

@@ -7,6 +7,7 @@ class JumpableMessagesModel : public MessagesModel {
     Q_OBJECT
 
     Q_PROPERTY(bool endReached MEMBER endReached NOTIFY endReachedChanged)
+    Q_PROPERTY(bool loading READ loading NOTIFY loadingChanged)
 public:
     explicit JumpableMessagesModel(TDLibWrapper *tdLibWrapper, QObject *parent = nullptr);
 
@@ -22,6 +23,7 @@ public:
 signals:
     void messagesReceived(int totalCount, bool fromIncrementalUpdate);
     void endReachedChanged();
+    void loadingChanged();
 
 protected slots:
     void handleMessagesReceived(const QVariantList &messages, int totalCount);
@@ -34,7 +36,9 @@ protected:
         UpdateReload
     };
 
-    virtual inline bool waitingForSlice() const { return waitingFor == UpdatePreviousSlice || waitingFor == UpdateNextSlice; }
+    virtual bool loading() const;
+
+    inline bool waitingForSlice() const { return waitingFor == UpdatePreviousSlice || waitingFor == UpdateNextSlice; }
     virtual inline bool canLoadMoreMessages() const { return true; }
 
     virtual void loadMoreHistoryImpl() = 0;
