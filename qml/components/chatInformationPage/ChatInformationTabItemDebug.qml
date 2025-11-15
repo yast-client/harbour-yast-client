@@ -27,8 +27,7 @@ import "../../js/functions.js" as Functions
 
 ChatInformationTabItemBase {
     id: tabBase
-    title: "debug"
-    image: "image://theme/icon-m-diagnostic"
+
     SilicaFlickable {
         height: tabBase.height
         width: tabBase.width

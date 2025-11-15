@@ -38,47 +38,48 @@ TabView {
     // Use a custom model to make it easy to add tabs dynamically with model.append()
     model: ListModel {}
 
-    Component.onCompleted: {
-        if(!isSavedMessages && (isPrivateOrSecretChat || groupFullInformation.can_get_members))
-            model.append({
-                source: Qt.resolvedUrl("ChatInformationTabItemMembersGroups.qml"),
-                title: chatInformationPage.isPrivateOrSecretChat ? qsTr("Groups", "Button: groups in common (short)") : qsTr("Members", "Button: Group Members"),
-                icon: "image://theme/icon-m-people"
-            })
+    function insertTab(name, title, icon) {
+        var insertIndex = 0
+        var tabOrder = [
+                    'MembersGroups',
+                    'Settings',
+                    'Debug'
+                ]
+        var targetOrderIndex = tabOrder.indexOf(name)
+        for (var j = model.count - 1; j >= 0; j--) {
+            var n = model.get(j).name
+            if (n === name) return -1
 
-        if(isGroup && (groupInformation.status.can_restrict_members || isGroupCreator))
-            model.append({
-                source: Qt.resolvedUrl("ChatInformationTabItemSettings.qml"),
-                title: qsTr("Settings", "Button: Chat Settings"),
-                icon: "image://theme/icon-m-developer-mode"
-            })
-
-        if (DebugLog.enabled)
-            model.append({
-                                source: Qt.resolvedUrl("ChatInformationTabItemDebug.qml"),
-                                title: "Debug",
-                                image: "image://theme/icon-m-diagnostic"
-                            });
-        tdLibWrapper.getChatMessageCount(chatInformation.id, TDLibAPI.SearchMessagesFilterPhotoAndVideo)
-        tdLibWrapper.getChatMessageCount(chatInformation.id, TDLibAPI.SearchMessagesFilterAnimation)
-        tdLibWrapper.getChatMessageCount(chatInformation.id, TDLibAPI.SearchMessagesFilterVideoNote)
-    }
-
-    Connections {
-        target: tdLibWrapper
-        onCountReceived: {
-            if (count < 1) return
-            switch (extra) {
-                case "searchMessagesFilterPhotoAndVideo:" + chatInformation.id:
-                model.insert(0, {
-                    source: Qt.resolvedUrl("ChatInformationTabItemMedia.qml"),
-                    title: qsTr("Media", "Button: Chat media (photos and videos)"),
-                    icon: "image://theme/icon-m-image"
-                })
-                tabView.openTab(0)
+            if (tabOrder.indexOf(n) < targetOrderIndex) {
+                insertIndex = j + 1
                 break
             }
         }
+
+        model.insert(insertIndex, {
+            name: name,
+            source: Qt.resolvedUrl('ChatInformationTabItem' + name + '.qml'),
+            title: title,
+            icon: icon
+        })
+
+        return insertIndex
     }
 
+    Component.onCompleted: {
+        //tabView.tabBarItem.iconColor = Qt.binding(function() { return Theme.primaryColor })
+
+        if(!isSavedMessages && (isPrivateOrSecretChat || groupFullInformation.can_get_members))
+            insertTab('MembersGroups',
+                      chatInformationPage.isPrivateOrSecretChat ? qsTr("Groups", "Button: groups in common (short)") : qsTr("Members", "Button: Group Members"),
+                      'image://theme/icon-m-people')
+
+        if(isGroup && (groupInformation.status.can_restrict_members || isGroupCreator))
+            insertTab('Settings', qsTr("Settings", "Button: Chat Settings"), 'image://theme/icon-m-developer-mode')
+
+        if (DebugLog.enabled)
+            insertTab('Debug', "Debug", 'image://theme/icon-m-diagnostic')
+        
+        // TODO: bring back media tabs
+    }
 }
