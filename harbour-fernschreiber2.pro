@@ -112,9 +112,9 @@ DISTFILES += qml/harbour-fernschreiber2.qml \
     qml/components/chatInformationPage/ChatInformationTabItemMedia.qml \
     qml/components/chatInformationPage/ChatInformationTabItemMediaBase.qml \
     qml/components/chatInformationPage/ChatInformationTabItemMediaGifs.qml \
-    qml/components/chatInformationPage/ChatInformationTabItemMediaVideoNotes.qml \
     qml/components/chatInformationPage/ChatInformationTabItemMembersGroups.qml \
     qml/components/chatInformationPage/ChatInformationTabItemSettings.qml \
+    qml/components/chatInformationPage/ChatInformationTabItemVideoNotes.qml \
     qml/components/chatInformationPage/ChatInformationTabView.qml \
     qml/components/chatInformationPage/EditGroupChatPermissionsColumn.qml \
     qml/components/chatInformationPage/EditSuperGroupSlowModeColumn.qml \
