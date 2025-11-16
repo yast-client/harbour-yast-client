@@ -20,10 +20,12 @@ void InvertedProxyModel::setSourceModel(QAbstractItemModel *model) {
 
 QModelIndex InvertedProxyModel::mapFromSource(const QModelIndex &sourceIndex) const {
     if (!sourceIndex.isValid()) return QModelIndex();
-    return index(rowCount() - sourceIndex.row() - 1, sourceIndex.column());
+    int row = sourceModel()->rowCount(sourceIndex.parent()) - sourceIndex.row() - 1;
+    return createIndex(row, sourceIndex.column(), sourceIndex.internalPointer());
 }
 
 QModelIndex InvertedProxyModel::mapToSource(const QModelIndex &proxyIndex) const {
     if (!proxyIndex.isValid()) return QModelIndex();
-    return index(rowCount() - proxyIndex.row() - 1, proxyIndex.column());
+    int row = sourceModel()->rowCount(proxyIndex.parent()) - proxyIndex.row() - 1;
+    return sourceModel()->index(row, proxyIndex.column(), proxyIndex.parent());
 }
