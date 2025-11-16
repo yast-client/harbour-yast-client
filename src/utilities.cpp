@@ -958,4 +958,6 @@ bool Utilities::messageMatchesSearchFilter(const QVariantMap &message, TDLibWrap
     case TDLibWrapper::SearchMessagesFilterUrl:
         return !message.value(CONTENT).toMap().value(LINK_PREVIEW).toMap().isEmpty();
     }
+
+    return false;
 }
