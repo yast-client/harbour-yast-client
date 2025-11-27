@@ -202,7 +202,7 @@ QHash<int,QByteArray> ChatFoldersModel::roleNames() const {
         {RoleIconPath, "icon"},
 
         {RoleDisplay, "display"},
-        {RoleId, "id"},
+        {RoleId, "folder_id"},
         {RoleIcon, "icon_"},
         {RoleColorId, "color_id"},
         {RoleIsShareable, "is_shareable"},
