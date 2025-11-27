@@ -108,6 +108,16 @@ You can append ` &> fernschreiber2.log` to the command to create a text file con
 
 **Please be aware that debug messages will most likely include personal information** including (but not limited to) chat content and user ids/names of yourself and all your chat partners. Do not share it publicly and, at your discretion, try to remove private info even from the parts you do share with a trusted person.
 
+### GDB
+
+To debug complex issues you can use GDB. First, ensure you are installing the debug version of the app, including the debugsource and debuginfo packages. Then launch it with `gdb /usr/bin/harbour-fernschreiber2`, optionally prepending the command with `QT_LOGGING_RULES="fernschreiber2.*=true"` if you want to read the logs.
+
+Inside GDB, you will have to enter `handle SIGILL nostop noprint` command to ignore some false errors coming from OpenSSL. Otherwise app will fail
+
+You can then proceed with adding required breakpoints via `b ../harbour-fernschreiber/src/file_name.cpp:line_number`. A breakpoint can also be removed with `clear ../harbour-fernschreiber/src/file_name.cpp:line_number`.
+
+After that you can run the program with `run`. It will pause at your specified breakpoints. In those cases you can use `step` to jump to the next part of the code, `next` to jump to next code line directly (without diving into functions) or `continue` to run the program normally (for example, if you only need to debug the second time the program reaches a specific code block).
+
 ## Contribute
 
 If you want to contribute bug fixes, improvements, new features etc. please create a pull request (PR). PRs are always welcome and will be reviewed as soon as possible, but may take some time. :)
