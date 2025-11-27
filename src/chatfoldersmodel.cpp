@@ -147,6 +147,10 @@ ChatFoldersModel::ChatFolderData::ChatFolderData(FolderType type) :
     data()
 {}
 
+inline bool ChatFoldersModel::ChatFolderData::isFolder() const {
+    return type == FolderFolder;
+}
+
 int ChatFoldersModel::ChatFolderData::id() const {
     return data.value(ID).toInt();
 }
@@ -277,48 +281,166 @@ void ChatFoldersModel::handleChatAddedToFolderList(int folderId, ChatData *chatD
 void ChatFoldersModel::handleChatFoldersUpdated(const QVariantList &newChatFolders, int mainChatListPosition, bool /*tagsEnabled*/) {
     LOG("Chat folders list updated" << newChatFolders.count());
 
-    beginResetModel();
-    chatFoldersIndexMap.clear();
-    qDeleteAll(chatFolders);
-    chatFolders.clear();
     this->mainChatListIndex = -1;
 
-    //QSet<int> newFolderIds;
+    //int firstAlteredIndex = -1;
 
-    for (const QVariant &folderVariant : newChatFolders) {
-        const QVariantMap folder = folderVariant.toMap();
-        const int folderId = folder.value(ID).toInt();
+    // remove removed chat folders
+    for (int i = chatFolders.length() - 1; i >= 0; i--) {
+        ChatFolderData *chatFolder = chatFolders.at(i);
+        if (!chatFolder->isFolder()) continue;
 
-        this->chatFolders.append(new ChatFolderData(folder));
-        this->chatFoldersIndexMap.insert(folderId, chatFolders.size()-1);
+        bool isRemoved = true;
+        const int id = chatFolder->id();
+        for (const QVariant &folderVariant : newChatFolders)
+            if (folderVariant.toMap().value(ID).toInt() == id) {
+                isRemoved = false;
+                break;
+            }
 
-        if (!this->chatModels.contains(folderId))
-            this->chatModels.insert(folderId, new FolderChatListModel(tdLibWrapper, appSettings, utilities, this, folderId));
+        if (isRemoved) {
+            // TODO: ideally actually remove a range if it is possible
+            //removeRange(i, i);
+            LOG("Removing folder at" << i);
 
-        //newFolderIds.insert(folder.value(ID).toInt());
+            beginRemoveRows(QModelIndex(), i, i);
+            chatFoldersIndexMap.remove(id);
+            delete chatFolder;
+            chatFolders.removeAt(i);
+            // rebuild following chatFoldersIndexMap; doing it here could impact performance but will hopefully cause less crashes
+            for(int j = i; j < chatFolders.size(); ++j)
+                chatFoldersIndexMap.insert(chatFolders.at(j)->id(), j);
+            //firstAlteredIndex = qMin(firstAlteredIndex, i);
+            endRemoveRows();
+        }
     }
 
-    this->chatFolders.insert(mainChatListPosition, new ChatFolderData());
+    const int newMainChatListIndex = qMin(mainChatListPosition, chatFolders.length());
+    int oldMainChatListIndex = -1;
+    for (int i=0; i < chatFolders.length(); i++)
+        if (chatFolders.at(i)->type == FolderMain) {
+            oldMainChatListIndex = i;
+            break;
+        }
+
+    if (oldMainChatListIndex == -1) {
+        beginInsertRows(QModelIndex(), newMainChatListIndex, newMainChatListIndex);
+        LOG("Inserting main chat list at" << newMainChatListIndex);
+
+        this->chatFolders.insert(newMainChatListIndex, new ChatFolderData());
+        this->mainChatListIndex = newMainChatListIndex;
+        // Update damaged part of the map
+        for (int i = newMainChatListIndex + 1; i < chatFolders.size(); i++)
+            // should we check if type is FolderFolder here? ANSWER: yes, when archive folder will be added
+            chatFoldersIndexMap.insert(chatFolders.at(i)->id(), i);
+
+        endInsertRows();
+    } else if (oldMainChatListIndex != newMainChatListIndex) {
+        LOG("Moving main chat list from" << oldMainChatListIndex << "to" << newMainChatListIndex);
+
+        beginMoveRows(QModelIndex(), oldMainChatListIndex, oldMainChatListIndex, QModelIndex(), (newMainChatListIndex < oldMainChatListIndex) ? newMainChatListIndex : (newMainChatListIndex+1));
+        this->chatFolders.move(oldMainChatListIndex, newMainChatListIndex);
+        this->mainChatListIndex = newMainChatListIndex;
+
+        // FIXME: there's no need to check folder type here...
+        finishMove(oldMainChatListIndex, newMainChatListIndex);
+    }
+
+
+    // insert new chat folders & update existing ones
+    for (int i=0; i < newChatFolders.length(); i++) {
+        const int normalizedIndex = (i >= mainChatListPosition) ? (i + 1) : i;
+        const QVariantMap folder = newChatFolders.at(i).toMap();
+        const int id = folder.value(ID).toInt();
+
+        if (!this->chatModels.contains(id))
+            this->chatModels.insert(id, new FolderChatListModel(tdLibWrapper, appSettings, utilities, this, id));
+
+        int oldIndex = -1;
+        for (int j = 0; j < chatFolders.length(); j++) {
+            ChatFolderData *folderData = chatFolders.at(j);
+            if (folderData->isFolder() && folderData->id() == id) {
+                folderData->data = folder;
+                const QModelIndex modelIndex = index(j);
+                emit dataChanged(modelIndex, modelIndex);
+                oldIndex = j;
+            }
+        }
+
+        if (oldIndex == -1) {
+            const int insertionIndex = qMin(normalizedIndex, chatFolders.length());
+            LOG("Inserting chat folder" << id << "at" << insertionIndex);
+            beginInsertRows(QModelIndex(), insertionIndex, insertionIndex);
+            this->chatFolders.insert(insertionIndex, new ChatFolderData(folder));
+
+            for(int j = insertionIndex; j < chatFolders.size(); ++j)
+                updateChatFolderIndexAt(j);
+
+            endInsertRows();
+        } else if (oldIndex != normalizedIndex) {
+            const int newIndex = qMin(normalizedIndex, chatFolders.length());
+            LOG("Moving chat folder" << id << "from" << oldIndex << "to" << newIndex);
+            //                                                              (newIndex < oldIndex) ? newIndex : (newIndex+1)??
+            beginMoveRows(QModelIndex(), oldIndex, oldIndex, QModelIndex(), (newIndex < oldIndex) ? newIndex : (newIndex+1));
+            this->chatFolders.move(oldIndex, newIndex);
+            this->chatFoldersIndexMap.insert(id, newIndex);
+
+            finishMove(oldIndex, newIndex);
+        }
+    }
+
     this->mainChatListIndex = mainChatListPosition;
+}
 
-    // Update damaged part of the map
-    for (int i = mainChatListIndex + 1; i < chatFolders.size(); i++)
-        // should we check if type is FolderFolder here?
-        chatFoldersIndexMap.insert(chatFolders.at(i)->id(), i);
+void ChatFoldersModel::updateChatFolderIndexAt(int i) {
+    LOG("Updating chat folder index at" << i);
+    ChatFolderData *folder = chatFolders.at(i);
+    switch (folder->type) {
+    case FolderFolder:
+        this->chatFoldersIndexMap.insert(folder->id(), i);
+        break;
+    case FolderMain:
+        this->mainChatListIndex = i;
+        break;
+    case FolderArchive:
+        break;
+    }
+}
 
-    /*QSet<int> folderIdsToRemove = chatModels.keys().toSet();
-    folderIdsToRemove -= newFolderIds;
-    for (int folderId : folderIdsToRemove)
-        delete chatModels.take(folderId);
+void ChatFoldersModel::finishMove(int from, int to) {
+    LOG("Finishing move from" << from << "to" << to);
+    const int last = qMax(from, to);
+    if (to < from) {
+        // First index is already correct
+        for (int i = to + 1; i <= last; i++) {
+            updateChatFolderIndexAt(i);
+        }
+    } else {
+        // Last index is already correct
+        for (int i = from; i < last; i++) {
+            updateChatFolderIndexAt(i);
+        }
+    }
 
-    QSet<int> folderIdsToAdd = newFolderIds;
-    folderIdsToAdd -= chatModels.keys().toSet();
-    for (int folderId : folderIdsToAdd) {
-        chatModels.insert(folderId, new FolderChatListModel(tdLibWrapper, appSettings, utilities, folderId));
-        tdLibWrapper->loadChatsForFolder(folderId);
-    }*/
+    endMoveRows();
+}
 
-    endResetModel();
+void ChatFoldersModel::removeRange(int firstDeleted, int lastDeleted) {
+    if (firstDeleted >= 0 && firstDeleted <= lastDeleted) {
+        LOG("Removing range" << firstDeleted << "..." << lastDeleted << "| current size" << chatFolders.size());
+        beginRemoveRows(QModelIndex(), firstDeleted, lastDeleted);
+        for (int i = firstDeleted; i <= lastDeleted; i++) {
+            ChatFolderData *chatFolder = chatFolders.at(i);
+            chatFoldersIndexMap.remove(chatFolder->id());
+            delete chatFolder;
+        }
+        chatFolders.erase(chatFolders.begin() + firstDeleted, chatFolders.begin() + (lastDeleted + 1));
+        // rebuild following chatFoldersIndexMap; doing it here could impact performance but will hopefully cause less crashes
+        for(int i = firstDeleted; i < chatFolders.size(); ++i) {
+            chatFoldersIndexMap.insert(chatFolders.at(i)->id(), i);
+        }
+        endRemoveRows();
+    }
 }
 
 void ChatFoldersModel::handleMainChatListUnreadChatCountUpdated() {

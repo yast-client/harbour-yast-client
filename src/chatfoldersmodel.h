@@ -90,11 +90,18 @@ private slots:
     void handleMainChatListUnreadChatCountUpdated();
 
     void handleFoldersUnreadCountIncludeMutedChanged();
+
+private:
+    void updateChatFolderIndexAt(int i);
+    void finishMove(int from, int to);
+    void removeRange(int firstDeleted, int lastDeleted);
+
 private:
     struct ChatFolderData {
         ChatFolderData(const QVariantMap &data);
         ChatFolderData(FolderType type = FolderMain);
 
+        bool isFolder() const;
         int id() const;
         QString name() const;
 
