@@ -50,6 +50,7 @@ public:
     QByteArray name() const Q_DECL_OVERRIDE;
     bool read(QImage* image) Q_DECL_OVERRIDE;
     QVariant option(ImageOption option) const Q_DECL_OVERRIDE;
+    void setOption(ImageOption option, const QVariant &value) Q_DECL_OVERRIDE;
     bool supportsOption(ImageOption option) const Q_DECL_OVERRIDE;
     bool jumpToNextImage() Q_DECL_OVERRIDE;
     bool jumpToImage(int imageNumber) Q_DECL_OVERRIDE;
@@ -62,6 +63,7 @@ public:
 public:
     QString fileName;
     QSize size;
+    QSize scaledSize;
     qreal frameRate;
     int frameCount;
     int currentFrame;
@@ -176,8 +178,8 @@ void TgsIOHandler::render(int frameIndex)
         // The first frame only gets rendered once
         currentImage = firstImage;
     } else {
-        const int width = (int)size.width();
-        const int height = (int)size.height();
+        const int width = (int)(scaledSize.width() || size.width());
+        const int height = (int)(scaledSize.height() || size.height());
         currentImage = QImage(width, height, QImage::Format_ARGB32_Premultiplied);
         currentRender = animation->render(currentFrame,
             rlottie::Surface((uint32_t*)currentImage.bits(),
@@ -245,11 +247,23 @@ bool TgsIOHandler::supportsOption(ImageOption option) const
     case Size:
     case Animation:
     case ImageFormat:
+    case ScaledSize:
         return true;
     default:
         break;
     }
     return false;
+}
+
+void TgsIOHandler::setOption(ImageOption option, const QVariant &value) {
+    switch(option) {
+    case ScaledSize:
+        scaledSize = value.toSize();
+        LOG_("Scaled to" << scaledSize);
+        break;
+    default:
+        break;
+    }
 }
 
 bool TgsIOHandler::jumpToNextImage()
