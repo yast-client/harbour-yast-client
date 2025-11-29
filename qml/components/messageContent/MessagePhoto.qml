@@ -27,6 +27,7 @@ MessageContentBase {
 
     onClicked: {
         pageStack.push(Qt.resolvedUrl("../../pages/MediaAlbumPage.qml"), {
+            chatManager: chatManager,
             message: rawMessage,
         })
     }

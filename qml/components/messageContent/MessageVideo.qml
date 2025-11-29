@@ -171,6 +171,7 @@ MessageContentBase {
                     highlighted: videoMessageComponent.highlighted || down
                     icon.source: "../../../images/icon-l-fullscreen.svg"
                     onClicked: pageStack.push(Qt.resolvedUrl("../../pages/MediaAlbumPage.qml"), {
+                        chatManager: chatManager,
                         message: rawMessage,
                         model: function() {
                             switch (rawMessage.content['@type']) {
