@@ -1658,6 +1658,14 @@ messages</numerusform>
         <source>Show chat folders icons</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Downscale animated stickers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>May improve performance on low-end devices</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsArchiveChatList</name>
