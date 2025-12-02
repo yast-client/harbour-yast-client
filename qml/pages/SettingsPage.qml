@@ -52,10 +52,9 @@ Page {
                 title: qsTr("Settings")
             }
 
-            Loader {
+            AnimatedLoader {
                 width: parent.width
-                active: suggestedActionsManager.checkPhoneNumber && (!item || !item.transitionRunning)
-                height: active ? implicitHeight : 0
+                show: suggestedActionsManager.checkPhoneNumber
                 sourceComponent: Component {
                     SuggestedActionListItem {
                         id: checkPhoneNumberSuggestedAction
@@ -63,7 +62,6 @@ Page {
                         title: qsTr("Is %1 still your number?").arg(tdLibWrapper.userInformation.phone_number)
                         description: qsTr("Keep your number up to date to ensure you can always log into Telegram.")
                         name: 'suggestedActionCheckPhoneNumber'
-                        active: suggestedActionsManager.checkPhoneNumber
 
                         menu: Component {
                             ContextMenu {
@@ -85,17 +83,15 @@ Page {
                 }
             }
 
-            Loader {
+            AnimatedLoader {
                 width: parent.width
-                active: suggestedActionsManager.checkPassword && (!item || !item.transitionRunning)
-                height: active ? implicitHeight : 0
+                show: suggestedActionsManager.checkPassword
                 sourceComponent: Component {
                     SuggestedActionListItem {
                         id: checkPasswordSuggestedAction
                         title: qsTr("Do you still remember your password?")
                         description: qsTr("Check that you still remember your 2-Step Verification password to ensure you can always log into Telegram.")
                         name: 'suggestedActionCheckPassword'
-                        active: suggestedActionsManager.checkPassword
 
                         menu: Component {
                             ContextMenu {
