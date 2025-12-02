@@ -21,7 +21,7 @@ import Sailfish.Silica 1.0
 import "pages"
 import "components"
 import "./js/functions.js" as Functions
-import WerkWolf.Fernschreiber 1.0
+import App.Logic 1.0
 
 ApplicationWindow {
     id: appWindow

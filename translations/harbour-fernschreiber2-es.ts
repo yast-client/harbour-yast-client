@@ -1633,6 +1633,17 @@
     </message>
 </context>
 <context>
+    <name>SetBirthdateDialog</name>
+    <message>
+        <source>Your birthday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove birthday</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SettingsAppearance</name>
     <message>
         <source>Appearance</source>
@@ -1866,6 +1877,52 @@
     <message>
         <source>About Ferniegram</source>
         <translation type="unfinished">Acerca de</translation>
+    </message>
+    <message>
+        <source>Is %1 still your number?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep your number up to date to ensure you can always log into Telegram.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change phone number</source>
+        <comment>Button in the menu for suggestion to check if the phone number is still yours</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep %1</source>
+        <comment>Button hiding the suggestion to check if the phone number is still yours</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Learn More</source>
+        <comment>Learn more about the suggestion to check if the phone number is still yours</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>https://telegram.org/faq#q-i-have-a-new-phone-number-what-do-i-do</source>
+        <comment>URL to the Telegram&apos;s FAQ about changing the phone number for this language. Keep unfinished if not available for your language</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you still remember your password?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check that you still remember your 2-Step Verification password to ensure you can always log into Telegram.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Verify Password</source>
+        <comment>Button in the menu for suggestion to check if you still remember your 2FA password</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide Suggestion</source>
+        <comment>Button hiding the suggestion to check if you still remember your 2FA password</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2123,6 +2180,15 @@
     <message>
         <source>Synchronize Contacts with Telegram</source>
         <translation>Sincronizar Telegrama</translation>
+    </message>
+    <message>
+        <source>Birthday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add</source>
+        <comment>Add the birthday to your profile</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

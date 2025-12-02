@@ -21,7 +21,7 @@ import Sailfish.Silica 1.0
 import "./"
 import "../"
 import "../../pages"
-import WerkWolf.Fernschreiber 1.0
+import App.Logic 1.0
 import "../../modules/Opal/Tabs"
 
 TabView {

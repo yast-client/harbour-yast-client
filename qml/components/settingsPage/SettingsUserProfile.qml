@@ -20,7 +20,7 @@
 import QtQuick 2.6
 import Sailfish.Silica 1.0
 import Sailfish.Pickers 1.0
-import WerkWolf.Fernschreiber 1.0
+import App.Logic 1.0
 import "../"
 import "../../pages/"
 import "../../js/twemoji.js" as Emoji
@@ -34,12 +34,14 @@ AccordionItem {
             id: accordionContent
             bottomPadding: Theme.paddingMedium
 
-            readonly property var userInformation: tdLibWrapper.getUserInformation()
+            readonly property var userInformation: tdLibWrapper.userInformation
+            property var fullUserInformation: ({})
             property bool uploadInProgress: false
             property bool contactSyncEnabled: false
 
             Component.onCompleted: {
                 tdLibWrapper.getUserProfilePhotos(userInformation.id, 100, 0);
+                tdLibWrapper.getUserFullInfo(userInformation.id)
             }
 
             Connections {
@@ -54,6 +56,10 @@ AccordionItem {
                         imageContainer.thumbnailModel = photos;
                     }
                 }
+                onUserFullInfoReceived:
+                    accordionContent.fullUserInformation = userFullInfo
+                onUserFullInfoUpdated:
+                    accordionContent.fullUserInformation = userFullInfo
                 onFileUpdated: {
                     if (uploadInProgress) {
                         profilePictureButtonColumn.visible = !fileInformation.remote.is_uploading_active;
@@ -150,6 +156,32 @@ AccordionItem {
 
                     onSaveButtonClicked: {
                         tdLibWrapper.setUsername(textValue);
+                    }
+                }
+
+                Item {
+                    width: parent.columnWidth
+                    height: birthdayButton.height + Theme.paddingMedium
+
+                    ValueButton {
+                        id: birthdayButton
+                        x: -Theme.horizontalPageMargin
+                        width: parent.width - 2*x
+                        label: qsTr("Birthday")
+                        property var birthdate: fullUserInformation.birthdate ? new Date(
+                                                                                    fullUserInformation.birthdate.year || 1800,
+                                                                                    fullUserInformation.birthdate.month - 1,
+                                                                                    fullUserInformation.birthdate.day) : null
+                        value: fullUserInformation.birthdate ?
+                                   Format.formatDate(birthdate, fullUserInformation.birthdate.year ? Formatter.DateMedium : Formatter.DateMediumWithoutYear)
+                                 : qsTr("Add", "Add the birthday to your profile")
+                        function getDefaultDate() {
+                            var date = new Date()
+                            date.setYear(1800)
+                            return date
+                        }
+                        onClicked:
+                            pageStack.push(Qt.resolvedUrl("../../dialogs/SetBirthdateDialog.qml"), {date: birthdate || getDefaultDate(), canRemove: !!birthdate})
                     }
                 }
 

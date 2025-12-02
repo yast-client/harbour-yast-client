@@ -120,7 +120,7 @@ signals:
     void chatActionUpdated(qlonglong chatId, const QVariantMap &sender, const QVariantMap &action, qlonglong messageThreadId);
     void emojiKeywordsReceived(const QString &text, const QVariantList &emojis);
     void diceEmojisUpdated(const QStringList &emojis);
-    void suggestedActionsUpdated(const QVariantList added, const QVariantList removed);
+    void suggestedActionsUpdated(const QVariantList &added, const QVariantList &removed);
     void countReceived(int count, const QString &extra);
     void chatListsReceived(qlonglong chatId, const QVariantList &chatLists);
     void archiveChatListSettingsReceived(bool archiveAndMuteNewChatsFromUnknownUsers, bool keepUnmutedChatsArchived, bool keepChatsFromFoldersArchived);

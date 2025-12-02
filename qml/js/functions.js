@@ -21,7 +21,7 @@
 .import "debug.js" as Debug
 .import "twemoji.js" as Emoji
 .import Sailfish.Silica 1.0 as Silica
-.import WerkWolf.Fernschreiber 1.0 as Fernschreiber
+.import App.Logic 1.0 as Fernschreiber
 
 var tdLibWrapper, appNotification, utilities
 function setGlobals(globals) {

@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import WerkWolf.Fernschreiber 1.0
+import App.Logic 1.0
 import Opal.SortFilterProxyModel 1.0
 import "../js/twemoji.js" as Emoji
 import "../js/functions.js" as Functions

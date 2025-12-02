@@ -110,6 +110,9 @@ namespace {
     const QString SECRET_CHAT_ID("secret_chat_id");
     const QString TYPE_READ_CHAT_LIST("readChatList");
     const QString RETURN_LOCAL("return_local");
+    const QString ACTION("action");
+    const QString TYPE_SET_BIRTHDATE("setBirthdate");
+    const QString BIRTHDATE("birthdate");
 
     const QStringList ALL_FILE_TYPES(QStringList()
                                      << "fileTypeAnimation"
@@ -2712,4 +2715,26 @@ void TDLibWrapper::getForumTopics(qlonglong chatId, qint32 offsetDate, qlonglong
                           {LIMIT, limit},
                           {_EXTRA, CHAT_ID}
                       });
+}
+
+void TDLibWrapper::hideSuggestedAction(const QVariantMap &action) {
+    LOG("Removing suggested action" << action.value(_TYPE).toString());
+    this->sendRequest(QVariantMap{{_TYPE, "hideSuggestedAction"}, {ACTION, action}});
+}
+
+void TDLibWrapper::hideSuggestedAction(const QString &type) {
+    this->hideSuggestedAction(QVariantMap{{_TYPE, type}});
+}
+
+void TDLibWrapper::setBirthdate(int day, int month, int year) {
+    LOG("Setting birthdate" << day << month << year);
+    this->sendRequest(QVariantMap{
+                          {_TYPE, TYPE_SET_BIRTHDATE},
+                          {BIRTHDATE, QVariantMap{{_TYPE, BIRTHDATE}, {"day", day}, {"month", month}, {"year", year}}}
+                      });
+}
+
+void TDLibWrapper::setBirthdate() {
+    LOG("Removing birthdate");
+    this->sendRequest(QVariantMap{{_TYPE, TYPE_SET_BIRTHDATE}});
 }

@@ -19,7 +19,7 @@
 import QtQuick 2.6
 import Sailfish.Silica 1.0
 import Sailfish.Pickers 1.0
-import WerkWolf.Fernschreiber 1.0
+import App.Logic 1.0
 import "../components"
 import "../components/settingsPage"
 import "../js/functions.js" as Functions
@@ -50,6 +50,67 @@ Page {
 
             PageHeader {
                 title: qsTr("Settings")
+            }
+
+            Loader {
+                width: parent.width
+                active: suggestedActionsManager.checkPhoneNumber && (!item || !item.transitionRunning)
+                height: active ? implicitHeight : 0
+                sourceComponent: Component {
+                    SuggestedActionListItem {
+                        id: checkPhoneNumberSuggestedAction
+                        // TODO: properly format the phone number
+                        title: qsTr("Is %1 still your number?").arg(tdLibWrapper.userInformation.phone_number)
+                        description: qsTr("Keep your number up to date to ensure you can always log into Telegram.")
+                        name: 'suggestedActionCheckPhoneNumber'
+                        active: suggestedActionsManager.checkPhoneNumber
+
+                        menu: Component {
+                            ContextMenu {
+                                MenuItem {
+                                    visible: false // TODO
+                                    text: qsTr("Change phone number", "Button in the menu for suggestion to check if the phone number is still yours")
+                                }
+                                MenuItem {
+                                    text: qsTr("Keep %1", "Button hiding the suggestion to check if the phone number is still yours").arg(tdLibWrapper.userInformation.phone_number)
+                                    onClicked: checkPhoneNumberSuggestedAction.hide()
+                                }
+                                MenuItem {
+                                    text: qsTr("Learn More", "Learn more about the suggestion to check if the phone number is still yours")
+                                    onClicked: Qt.openUrlExternally(qsTr("https://telegram.org/faq#q-i-have-a-new-phone-number-what-do-i-do", "URL to the Telegram's FAQ about changing the phone number for this language. Keep unfinished if not available for your language"))
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            Loader {
+                width: parent.width
+                active: suggestedActionsManager.checkPassword && (!item || !item.transitionRunning)
+                height: active ? implicitHeight : 0
+                sourceComponent: Component {
+                    SuggestedActionListItem {
+                        id: checkPasswordSuggestedAction
+                        title: qsTr("Do you still remember your password?")
+                        description: qsTr("Check that you still remember your 2-Step Verification password to ensure you can always log into Telegram.")
+                        name: 'suggestedActionCheckPassword'
+                        active: suggestedActionsManager.checkPassword
+
+                        menu: Component {
+                            ContextMenu {
+                                MenuItem {
+                                    visible: false // TODO
+                                    text: qsTr("Verify Password", "Button in the menu for suggestion to check if you still remember your 2FA password")
+                                }
+                                MenuItem {
+                                    text: qsTr("Hide Suggestion", "Button hiding the suggestion to check if you still remember your 2FA password").arg(tdLibWrapper.userInformation.phone_number)
+                                    onClicked: checkPasswordSuggestedAction.hide()
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             Accordion {

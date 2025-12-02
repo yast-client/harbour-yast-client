@@ -18,7 +18,7 @@
 */
 
 .pragma library
-.import WerkWolf.Fernschreiber 1.0 as Fernschreiber
+.import App.Logic 1.0 as Fernschreiber
 var enabled = Fernschreiber.DebugLog.enabled;
 var log = enabled ? console.log : function(){};
 var assert = enabled ? console.assert : function(){};

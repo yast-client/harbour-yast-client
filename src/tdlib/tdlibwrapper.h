@@ -327,6 +327,10 @@ public:
     Q_INVOKABLE void removeRecentlyFoundChat(qlonglong chatId);
     Q_INVOKABLE void getChatMessageCount(qlonglong chatId, SearchMessagesFilter filter, bool returnLocal = false);
     Q_INVOKABLE void getForumTopics(qlonglong chatId, qint32 offsetDate = 0, qlonglong offsetMessageId = 0, qlonglong offsetMessageThreadId = 0, const QString &query = QString(), int limit = 50);
+    Q_INVOKABLE void hideSuggestedAction(const QVariantMap &action);
+    Q_INVOKABLE void hideSuggestedAction(const QString &type);
+    Q_INVOKABLE void setBirthdate(int day, int month, int year);
+    Q_INVOKABLE void setBirthdate();
 
     // Others (candidates for extraction ;))
     Q_INVOKABLE void initializeOpenWith();
@@ -441,7 +445,7 @@ signals:
     void formattedTextReceived(const QVariantMap &formattedText, const QString &extra);
     void chatActionUpdated(qlonglong chatId, const QVariantMap &sender, const QVariantMap &action, qlonglong messageThreadId);
     void emojiKeywordsReceived(const QString &text, const QVariantList &emojis);
-    void suggestedActionsUpdated(const QVariantList added, const QVariantList removed);
+    void suggestedActionsUpdated(const QVariantList &added, const QVariantList &removed);
     void countReceived(int count, const QString &extra);
     void chatMessageCountReceived(int count, qlonglong chatId, SearchMessagesFilter filter, bool onlyLocal);
     void chatMessageCountErrorReceived(qlonglong chatId, SearchMessagesFilter filter, bool onlyLocal);
