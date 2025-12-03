@@ -331,6 +331,9 @@ public:
     Q_INVOKABLE void hideSuggestedAction(const QString &type);
     Q_INVOKABLE void setBirthdate(int day, int month, int year);
     Q_INVOKABLE void setBirthdate();
+    Q_INVOKABLE void getChatJoinRequests(qlonglong chatId, const QVariantMap &offsetRequest = QVariantMap(), const QString &query = QString(), int limit = 25);
+    Q_INVOKABLE void processChatJoinRequest(qlonglong chatId, qlonglong userId, bool approve);
+    Q_INVOKABLE void processChatJoinRequests(qlonglong chatId, bool approve, const QString &inviteLink = QString());
 
     // Others (candidates for extraction ;))
     Q_INVOKABLE void initializeOpenWith();
@@ -454,6 +457,7 @@ signals:
     void chatFoldersUpdated(const QVariantList &chatFolders, int mainChatListPosition, bool tagsEnabled);
     void forumTopicsReceived(qlonglong chatId, int totalCount, QVariantList topics, qint32 nextOffsetDate, qlonglong nextOffsetMessageId, qlonglong nextOffsetMessageThreadId);
     void chatPendingJoinRequestsUpdated(qlonglong chatId);
+    void chatJoinRequestsReceived(qlonglong chatId, int totalCount, const QVariantList &requests);
 
     // Signals not directly used by TDLibWrapper
     void chatListsReset();

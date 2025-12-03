@@ -184,6 +184,7 @@ DISTFILES += qml/harbour-fernschreiber2.qml \
     qml/pages/ArchivedChatsPage.qml \
     qml/pages/ChatInformationPage.qml \
     qml/pages/ChatPage.qml \
+    qml/pages/ChatPendingJoinRequestsPage.qml \
     qml/pages/ChatSelectionPage.qml \
     qml/pages/CoverPage.qml \
     qml/pages/DebugPage.qml \

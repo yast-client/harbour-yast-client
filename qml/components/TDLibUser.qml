@@ -4,7 +4,8 @@ QtObject {
     id: user
 
     property var userId
-    property var userInformation: tdLibWrapper.getUserInformation(userId)
+    property var info: tdLibWrapper.getUserInformation(userId)
+    property alias userInformation: user.info
 
     onUserIdChanged:
         userInformation = tdLibWrapper.getUserInformation(userId)

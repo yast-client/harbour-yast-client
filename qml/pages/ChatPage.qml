@@ -549,6 +549,7 @@ Page {
                 id: pendingJoinRequestsItem
                 width: parent.width
                 pendingJoinRequests: chatManager.pendingJoinRequests
+                chatId: chatInformation.id
             }
 
             Loader {

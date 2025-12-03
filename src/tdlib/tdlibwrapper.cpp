@@ -114,6 +114,8 @@ namespace {
     const QString TYPE_SET_BIRTHDATE("setBirthdate");
     const QString BIRTHDATE("birthdate");
     const QString PENDING_JOIN_REQUESTS("pending_join_requests");
+    const QString APPROVE("approve");
+    const QString INVITE_LINK("invite_link");
 
     const QStringList ALL_FILE_TYPES(QStringList()
                                      << "fileTypeAnimation"
@@ -319,6 +321,7 @@ void TDLibWrapper::initializeTDLibReceiver() {
     connect(this->tdLibReceiver, &TDLibReceiver::responseForRequestIdReceived, this, &TDLibWrapper::responseForRequestIdReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::forumTopicsReceived, this, &TDLibWrapper::forumTopicsReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::chatPendingJoinRequestsUpdated, this, &TDLibWrapper::handleChatPendingJoinRequestsUpdated);
+    connect(this->tdLibReceiver, &TDLibReceiver::chatJoinRequestsReceived, this, &TDLibWrapper::chatJoinRequestsReceived);
 
     this->tdLibReceiver->start();
 }
@@ -951,7 +954,7 @@ void TDLibWrapper::searchPublicChat(const QString &userName, bool doOpenOnFound)
 void TDLibWrapper::joinChatByInviteLink(const QString &inviteLink) {
     LOG("Join chat by invite link" << inviteLink);
     this->joinChatRequested = true;
-    this->sendRequest(QVariantMap{{_TYPE, "joinChatByInviteLink"}, {"invite_link", inviteLink}});
+    this->sendRequest(QVariantMap{{_TYPE, "joinChatByInviteLink"}, {INVITE_LINK, inviteLink}});
 }
 
 void TDLibWrapper::getDeepLinkInfo(const QString &link) {
@@ -2745,4 +2748,36 @@ void TDLibWrapper::handleChatPendingJoinRequestsUpdated(qlonglong chatId, const 
     LOG("Chat pending join requests updated" << chatId);
     this->getChatDataForce(chatId)->chatData.insert(PENDING_JOIN_REQUESTS, pendingJoinRequests);
     emit chatPendingJoinRequestsUpdated(chatId);
+}
+
+void TDLibWrapper::getChatJoinRequests(qlonglong chatId, const QVariantMap &offsetRequest, const QString &query, int limit) {
+    LOG("Getting chat join requests for" << chatId);
+    this->sendRequest({
+                          {_TYPE, "getChatJoinRequests"},
+                          {CHAT_ID, chatId},
+                          {_EXTRA, chatId},
+                          {"offset_request", offsetRequest},
+                          {LIMIT, limit},
+                          {QUERY, query}
+                      });
+}
+
+void TDLibWrapper::processChatJoinRequest(qlonglong chatId, qlonglong userId, bool approve) {
+    LOG("Processing chat join request" << chatId << userId << approve);
+    this->sendRequest({
+                          {_TYPE, "processChatJoinRequest"},
+                          {CHAT_ID, chatId},
+                          {USER_ID, userId},
+                          {APPROVE, approve}
+                      });
+}
+
+void TDLibWrapper::processChatJoinRequests(qlonglong chatId, bool approve, const QString &inviteLink) {
+    LOG("Processing chat join requests" << chatId << approve << "with link:" << !inviteLink.isEmpty());
+    this->sendRequest({
+                          {_TYPE, "processChatJoinRequests"},
+                          {CHAT_ID, chatId},
+                          {APPROVE, approve},
+                          {INVITE_LINK, inviteLink}
+                      });
 }

@@ -3,6 +3,7 @@ import Sailfish.Silica 1.0
 import '..'
 
 AnimatedLoader {
+    property var chatId
     property var pendingJoinRequests
 
     show: pendingJoinRequests && pendingJoinRequests.total_count > 0
@@ -13,6 +14,8 @@ AnimatedLoader {
             id: backgroundItem
             width: parent.width
             height: Theme.itemSizeSmall
+
+            onClicked: pageStack.push(Qt.resolvedUrl('../../pages/ChatPendingJoinRequestsPage.qml'), {chatId: chatId})
 
             Repeater {
                 model: pendingJoinRequests.user_ids
