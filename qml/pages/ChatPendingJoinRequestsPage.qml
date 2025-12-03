@@ -20,6 +20,8 @@ Page {
     SilicaListView {
         id: view
         anchors.fill: parent
+        opacity: loading ? 0 : 1
+        Behavior on opacity { FadeAnimator {} }
 
         property string searchQuery: headerItem ? headerItem.searchField.text : ''
         property bool inCooldown
