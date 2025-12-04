@@ -409,6 +409,11 @@ Page {
                                 onSmallPhotoChanged:
                                     chatPictureThumbnail.photoData = chatManager.smallPhoto
                             }
+                            // UPD 2025 from roundedrectangle:
+                            // for some reason when pushing the page without animation (e.g. from notification)
+                            // it doesn't show the picture now, with this line it works: (Connections is still needed for some reason)
+                            photoData: chatManager.smallPhoto
+
                         }
 
                         Rectangle {

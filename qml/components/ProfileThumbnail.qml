@@ -54,6 +54,7 @@ Item {
         id: file
         tdlib: tdLibWrapper
         autoLoad: true
+        clearWithInvalidFileInfo: true
     }
 
     Component {
