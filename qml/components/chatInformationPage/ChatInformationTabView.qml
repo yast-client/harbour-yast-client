@@ -75,6 +75,12 @@ TabView {
         return insertIndex
     }
 
+    function removeTab(name) {
+        for (var i=0; i < model.count; i++)
+            if (model.get(i).name == name)
+                model.remove(i)
+    }
+
     Connections {
         target: chatManager.photoAndVideoMessagesModel
         onNotEmptyDetected: {
@@ -93,11 +99,22 @@ TabView {
         onNotEmptyDetected: insertTab('VideoNotes', qsTr("Video Messages", "Button: Chat video messages"), 'image://theme/icon-m-file-video')
     }
 
+    // FIXME: this works for now (required because groupFullInformation is not yet initialized when Component.onCompleted is called), but this is too clunky
+    function insertMembersGroupsTab() {
+        insertTab('MembersGroups',
+                  chatInformationPage.isPrivateOrSecretChat ? qsTr("Groups", "Button: groups in common (short)") : qsTr("Members", "Button: Group Members"),
+                  'image://theme/icon-m-people')
+    }
+    property bool showMembersGroupsTab: !isSavedMessages && (isPrivateOrSecretChat || groupFullInformation.can_get_members)
+    onShowMembersGroupsTabChanged:
+        if (showMembersGroupsTab)
+            insertMembersGroupsTab()
+        else removeTab('MembersGroups')
+
+
     Component.onCompleted: {
-        if(!isSavedMessages && (isPrivateOrSecretChat || groupFullInformation.can_get_members))
-            insertTab('MembersGroups',
-                      chatInformationPage.isPrivateOrSecretChat ? qsTr("Groups", "Button: groups in common (short)") : qsTr("Members", "Button: Group Members"),
-                      'image://theme/icon-m-people')
+        if(showMembersGroupsTab)
+            insertMembersGroupsTab()
 
         if(isGroup && (groupInformation.status.can_restrict_members || isGroupCreator))
             insertTab('Settings', qsTr("Settings", "Button: Chat Settings"), 'image://theme/icon-m-developer-mode')
