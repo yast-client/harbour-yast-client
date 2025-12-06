@@ -566,6 +566,76 @@
     </message>
 </context>
 <context>
+    <name>ChatPendingJoinRequestsItem</name>
+    <message>
+        <source>%1 requested to join</source>
+        <comment>banner indicating that there is one unreviewed group join request from a user</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%n join requests</source>
+        <comment>banner indicating that there are unreviewed group join requests, for admins</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+</context>
+<context>
+    <name>ChatPendingJoinRequestsPage</name>
+    <message>
+        <source>Decline all</source>
+        <comment>decline all join requests</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Declined all join requests</source>
+        <comment>remorse</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Accept all</source>
+        <comment>accept all join requests</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Accepted all join requests</source>
+        <comment>remorse</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Join Requests</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No join requests</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wait for someone to send a join request</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>requested to join %1</source>
+        <comment>Indicates when a user sent the join request</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add to Channel</source>
+        <comment>button: accept a chat join request</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add to Group</source>
+        <comment>button: accept a chat join request</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Decline</source>
+        <comment>decline a chat join request</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ChatSelectionPage</name>
     <message>
         <source>Select Chat</source>
