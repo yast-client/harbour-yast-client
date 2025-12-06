@@ -202,14 +202,15 @@ Page {
 
         if (status == PageStatus.Activating || status == PageStatus.Active) {
             if (messagesView) messagesView.prepareView()
-            // From tests, the following doesn't take more than 20 milliseconds, so for now we initialize this here:
-            // The real issue might be that since it initializes early, UI also needs to be initialized earlier, so it could actually lag a bit
-            // So, TODO: decide if it's best to move it back down or keep it here
-            chatManager.initializeMainModels(messageIdToShow)
         }
 
         if (status == PageStatus.Active) {
-            //chatManager.initializeMainModels(chatInformation, messageIdToShow)
+            // From tests, the following line doesn't take more than 20 milliseconds, so for now we initialize this here:
+            // The real issue might be that since it initializes early, UI also needs to be initialized earlier, so it could actually lag a bit
+            // So, TODO: decide if it's best to move it up or keep it here
+            // also to move this up we need to not depend on isInitialized, because otherwise the code here won't ever run at all
+            chatManager.initializeMainModels(chatInformation, messageIdToShow)
+
             pageStack.pushAttached(Qt.resolvedUrl("ChatInformationPage.qml"), {
                                        chatManager: chatManager,
                                        chatOnlineMemberCount: chatOnlineMemberCount,
