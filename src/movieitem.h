@@ -7,7 +7,7 @@
 class MovieItem : public QQuickItem {
     Q_OBJECT
     Q_PROPERTY(QUrl source READ source WRITE setSource NOTIFY sourceChanged)
-    Q_PROPERTY(bool paused READ paused WRITE setPaused NOTIFY pausedChanged)
+    Q_PROPERTY(bool paused MEMBER paused WRITE setPaused NOTIFY pausedChanged)
     Q_PROPERTY(int currentFrame READ currentFrame WRITE setCurrentFrame NOTIFY frameChanged)
     Q_PROPERTY(QSize sourceSize READ sourceSize WRITE setSourceSize NOTIFY sourceSizeChanged)
     Q_PROPERTY(int frameCount READ frameCount NOTIFY frameCountChanged)
@@ -19,7 +19,6 @@ public:
     QUrl source() const;
     void setSource(QUrl source);
 
-    bool paused() const;
     void setPaused(bool paused);
 
     int currentFrame() const;
@@ -49,6 +48,7 @@ private:
 
 private:
     QMovie *movie;
+    bool paused;
 };
 
 #endif // MOVIEITEM_H

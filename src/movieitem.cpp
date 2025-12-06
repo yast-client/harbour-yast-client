@@ -10,7 +10,8 @@
 
 MovieItem::MovieItem()
     : QQuickItem(),
-      movie(new QMovie(this))
+      movie(new QMovie(this)),
+      paused(false)
 {
     setFlag(ItemHasContents, true);
 
@@ -34,6 +35,7 @@ void MovieItem::setSource(QUrl source) {
 
         if (movie->isValid()) {
             movie->start();
+            movie->setPaused(paused);
             emit frameCountChanged();
             updateSize();
             update();
@@ -42,13 +44,15 @@ void MovieItem::setSource(QUrl source) {
     }
 }
 
-bool MovieItem::paused() const {
-    return movie->state() != QMovie::Running;
-}
-
 void MovieItem::setPaused(bool paused) {
-    if (movie->state() != QMovie::Paused)
+    if (this->paused != paused) {
+        LOG_((paused ? "Pausing" : "Unpausing") << "previous state" << movie->state());
+        this->paused = paused;
+        emit pausedChanged();
+
         movie->setPaused(paused);
+        LOG_(movie->state());
+    }
 }
 
 QSize MovieItem::sourceSize() const {
