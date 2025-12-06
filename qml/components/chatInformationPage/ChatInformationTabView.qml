@@ -101,9 +101,11 @@ TabView {
 
     // FIXME: this works for now (required because groupFullInformation is not yet initialized when Component.onCompleted is called), but this is too clunky
     function insertMembersGroupsTab() {
-        insertTab('MembersGroups',
+        var i = insertTab('MembersGroups',
                   chatInformationPage.isPrivateOrSecretChat ? qsTr("Groups", "Button: groups in common (short)") : qsTr("Members", "Button: Group Members"),
                   'image://theme/icon-m-people')
+        if (i > -1)
+            currentIndex = i
     }
     property bool showMembersGroupsTab: !isSavedMessages && (isPrivateOrSecretChat || groupFullInformation.can_get_members)
     onShowMembersGroupsTabChanged:
