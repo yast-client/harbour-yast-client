@@ -84,6 +84,9 @@ In case you want to use the same codebase which was used to compile the library 
 
 You'll find the compiled library in the directory `td/tdlib`. You might also need to copy the `td/tdlib/include` folder to the `tdlib/` folder in the root of this project
 
+Ferniegram is now built with CMake. Here are issues related to it which are not yet solved:
+- It might be required to open projects panel in Qt Creator and replace `-GNinja` with `-GUnix Makefiles` in every build cofiguration and then select "Re-configure with initial parameters". *(TODO: do this automatically, or switch to Ninja)*
+
 ### Harbour compatibility
 Some Ferniegram features are not harbour-compatible. In the harbour version, they can be stripped out by changing the `HARBOUR_COMPLIANCE` value to `on` in the SPEC file. Currently, such features include:
 
