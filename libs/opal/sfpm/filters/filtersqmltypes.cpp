@@ -23,6 +23,4 @@ void registerFiltersTypes() {
     qmlRegisterUncreatableType<FilterContainerAttached>("Opal.SortFilterProxyModel", 1, 0, "FilterContainer", "FilterContainer can only be used as an attaching type");
 }
 
-Q_COREAPP_STARTUP_FUNCTION(registerFiltersTypes)
-
 }

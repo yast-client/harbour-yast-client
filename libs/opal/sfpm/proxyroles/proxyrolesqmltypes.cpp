@@ -18,6 +18,4 @@ void registerProxyRoleTypes() {
     qmlRegisterType<FilterRole>("Opal.SortFilterProxyModel", 1, 0, "FilterRole");
 }
 
-Q_COREAPP_STARTUP_FUNCTION(registerProxyRoleTypes)
-
 }

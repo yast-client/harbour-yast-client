@@ -4,6 +4,9 @@
 #include "filters/filter.h"
 #include "sorters/sorter.h"
 #include "proxyroles/proxyrole.h"
+#include "filters/filtersqmltypes.cpp"
+#include "sorters/sortersqmltypes.cpp"
+#include "proxyroles/proxyrolesqmltypes.cpp"
 
 namespace qqsfpm {
 
@@ -572,6 +575,9 @@ void QQmlSortFilterProxyModel::onProxyRolesCleared()
 
 void registerQQmlSortFilterProxyModelTypes() {
     qmlRegisterType<QQmlSortFilterProxyModel>("Opal.SortFilterProxyModel", 1, 0, "SortFilterProxyModel");
+    qqsfpm::registerFiltersTypes();
+    qqsfpm::registerSorterTypes();
+    qqsfpm::registerProxyRoleTypes();
 }
 
 Q_COREAPP_STARTUP_FUNCTION(registerQQmlSortFilterProxyModelTypes)
