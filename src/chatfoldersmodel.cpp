@@ -1,6 +1,6 @@
 #include "chatfoldersmodel.h"
 
-#include "sailfishapp.h"
+#include "platformapp.h"
 
 #define DEBUG_MODULE ChatFoldersModel
 #include "debuglog.h"
@@ -55,7 +55,7 @@ ChatFoldersModel::Icon ChatFoldersModel::iconForName(const QString &name) {
 }
 
 inline QUrl pathToIcon(const QString &name) {
-    return SailfishApp::pathTo(FOLDER_ICON_PATH_PREFIX + name + SVG_EXTENSION_SUFFIX);
+    return PlatformApp::pathTo(FOLDER_ICON_PATH_PREFIX + name + SVG_EXTENSION_SUFFIX);
 }
 
 QUrl ChatFoldersModel::iconPath(Icon icon) {

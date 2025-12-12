@@ -18,7 +18,7 @@
 */
 
 #include "notificationmanager.h"
-#include <sailfishapp.h>
+#include <platformapp.h>
 #include <QListIterator>
 #include <QUrl>
 #include <QDateTime>
@@ -128,7 +128,7 @@ NotificationManager::NotificationManager(TDLibWrapper *tdLibWrapper, AppSettings
     appSettings(appSettings),
     mceInterface(mceInterface),
     utilities(utilities),
-    appIconFile(SailfishApp::pathTo("images/fernschreiber2-notification.png").toLocalFile()),
+    appIconFile(PlatformApp::pathTo("images/fernschreiber2-notification.png").toLocalFile()),
     activeChatId(0)
 {
     LOG("Initializing...");

@@ -192,6 +192,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     src/mceinterface.cpp
     src/notificationmanager.cpp
     src/processlauncher.cpp
+    src/platformapp.cpp
     src/stickermanager.cpp
     src/tdlib/tdlibfile.cpp
     src/tdlib/tdlibreceiver.cpp
@@ -229,6 +230,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     src/mceinterface.h
     src/notificationmanager.h
     src/processlauncher.h
+    src/platformapp.h
     src/stickermanager.h
     src/tdlib/tdlibfile.h
     src/tdlib/tdlibreceiver.h
