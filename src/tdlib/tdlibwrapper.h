@@ -338,6 +338,7 @@ public:
     Q_INVOKABLE void processChatJoinRequest(qlonglong chatId, qlonglong userId, bool approve);
     Q_INVOKABLE void processChatJoinRequests(qlonglong chatId, bool approve, const QString &inviteLink = QString());
     Q_INVOKABLE void getInternalLinkType(const QString &link);
+    Q_INVOKABLE void checkChatInviteLink(const QString &link);
 
     // Others (candidates for extraction ;))
     Q_INVOKABLE void initializeOpenWith();
@@ -463,6 +464,7 @@ signals:
     void chatJoinRequestsReceived(qlonglong chatId, int totalCount, const QVariantList &requests);
     void deepLinkInfoReceived(const QVariantMap &text, bool needUpdateApplication);
     void userReceived(const QVariantMap &user);
+    void chatInviteLinkInfoReceived(const QString &link, const QVariantMap &info);
 
     // Link types
     void linkUnsupportedByApp(const QString &type);

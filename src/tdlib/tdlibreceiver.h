@@ -133,6 +133,7 @@ signals:
     void internalLinkTypeReceived(const QVariantMap &internalLinkType);
     void deepLinkInfoReceived(const QVariantMap &text, bool needUpdateApplication);
     void userReceived(const QVariantMap &user, bool doOpenOnFound);
+    void chatInviteLinkInfoReceived(const QString &link, const QVariantMap &info);
 
 private:
     typedef void (TDLibReceiver::*Handler)(const QVariantMap &);
@@ -241,6 +242,7 @@ private:
     void processInternalLinkType(const QVariantMap &receivedInformation);
     void processDeepLinkInfo(const QVariantMap &receivedInformation);
     void processUser(const QVariantMap &receivedInformation);
+    void processChatInviteLinkInfo(const QVariantMap &receivedInformation);
 };
 
 #endif // TDLIBRECEIVER_H

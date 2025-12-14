@@ -329,6 +329,7 @@ void TDLibWrapper::initializeTDLibReceiver() {
     connect(this->tdLibReceiver, &TDLibReceiver::internalLinkTypeReceived, this, &TDLibWrapper::handleInternalLinkTypeReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::deepLinkInfoReceived, this, &TDLibWrapper::deepLinkInfoReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::userReceived, this, &TDLibWrapper::handleUserReceived);
+    connect(this->tdLibReceiver, &TDLibReceiver::chatInviteLinkInfoReceived, this, &TDLibWrapper::chatInviteLinkInfoReceived);
 
     this->tdLibReceiver->start();
 }
@@ -2758,7 +2759,7 @@ QString TDLibWrapper::connectionStateText() {
 
 void TDLibWrapper::getInternalLinkType(const QString &link) {
     LOG("Getting internal link type for" << link);
-    this->sendRequest(QVariantMap{
+    this->sendRequest({
                           {_TYPE, "getInternalLinkType"},
                           {LINK, link},
                           {_EXTRA, "getInternalLinkType:"+link} // only for errors
@@ -2778,6 +2779,8 @@ void TDLibWrapper::handleInternalLinkTypeReceived(const QVariantMap &linkType) {
     else if (type == "internalLinkTypeMessage")
         // TODO: handle topic, media timestamp, for album, etc.
         this->getMessageLinkInfo(linkType.value(URL).toString());
+    else if (type == "internalLinkTypeChatInvite")
+        this->checkChatInviteLink(linkType.value(INVITE_LINK).toString());
     else if (type == "internalLinkTypeUnknownDeepLink")
         this->getDeepLinkInfo(linkType.value(LINK).toString());
     else
@@ -2793,4 +2796,9 @@ void TDLibWrapper::handleUserReceived(const QVariantMap &user, bool doOpenOnFoun
         this->createPrivateChat(id, EXTRA_OPEN_DIRECTLY);
     } else
         emit userReceived(user);
+}
+
+void TDLibWrapper::checkChatInviteLink(const QString &link) {
+    LOG("Checking chat invite link info" << link);
+    this->sendRequest({{_TYPE, "checkChatInviteLink"}, {INVITE_LINK, link}, {_EXTRA, link}});
 }

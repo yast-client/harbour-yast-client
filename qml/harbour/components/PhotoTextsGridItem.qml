@@ -19,14 +19,18 @@ GridItem {
     property alias ad: chatBadges.ad
     property alias pictureThumbnail: pictureItem.pictureThumbnail
 
+    property alias content: contentColumn
+
     Column {
         id: contentColumn
-        width: Theme.iconSizeLarge
+        width: chatItem.width - 2*Theme.paddingMedium
         anchors.centerIn: parent
         spacing: Theme.paddingSmall / 2
 
         ChatPhotoPreview {
             id: pictureItem
+            width: parent.width
+            height: width
 
             highlighted: chatItem.highlighted
             unreadCount: chatItem.unreadCount

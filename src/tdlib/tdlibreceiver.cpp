@@ -207,6 +207,7 @@ TDLibReceiver::TDLibReceiver(int tdLibClientId, QObject *parent) : QThread(paren
     handlers.insert("internalLinkType", &TDLibReceiver::processInternalLinkType);
     handlers.insert("deepLinkInfo", &TDLibReceiver::processDeepLinkInfo);
     handlers.insert("user", &TDLibReceiver::processUser);
+    handlers.insert("chatInviteLinkInfo", &TDLibReceiver::processChatInviteLinkInfo);
 }
 
 void TDLibReceiver::setActive(bool active)
@@ -1195,4 +1196,9 @@ void TDLibReceiver::processUser(const QVariantMap &receivedInformation) {
     const bool open = receivedInformation.value(_EXTRA).toBool();
     LOG("Received user open on found" << open);
     emit userReceived(receivedInformation, open);
+}
+
+void TDLibReceiver::processChatInviteLinkInfo(const QVariantMap &receivedInformation) {
+    LOG("Received chatInviteLinkInfo" << receivedInformation.value(TITLE).toString() << receivedInformation.value(ID).toLongLong());
+    emit chatInviteLinkInfoReceived(receivedInformation.value(_EXTRA).toString(), receivedInformation);
 }

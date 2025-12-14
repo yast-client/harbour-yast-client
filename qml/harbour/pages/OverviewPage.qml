@@ -246,6 +246,12 @@ Page {
             else
                 openChat(chatId)
         }
+        onChatInviteLinkInfoReceived: {
+            if (info.chat_id)
+                openChat(info.chat_id)
+            else
+                pageStack.push(Qt.resolvedUrl("../dialogs/ChatJoinDialog.qml"), {link: link, invite: info})
+        }
     }
 
     Component.onCompleted:
