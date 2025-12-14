@@ -193,16 +193,6 @@ function enhanceMessageText(formattedText, ignoreEntities, emojiSize, reloader) 
     return utilities.enhanceMessageText(formattedText, ignoreEntities)
 }
 
-function isDirectMessageLink(link) {
-    var tMePrefix = tdLibWrapper.options.t_me_url
-    var tMePrefixHttp = tMePrefix.replace('https', 'http');
-
-    return (link.indexOf(tMePrefix) === 0 && link.substring(tMePrefix.length).indexOf("/") > 0) ||
-           (link.indexOf(tMePrefixHttp) === 0 && link.substring(tMePrefixHttp.length).indexOf("/") > 0) ||
-           link.indexOf("tg://privatepost") === 0 ||
-           (link.indexOf("tg://resolve") === 0 && link.indexOf("post") > 0)
-}
-
 function getVideoHeight(videoWidth, videoData) {
     if (typeof videoData !== "undefined") {
         if (videoData.height === 0) {
