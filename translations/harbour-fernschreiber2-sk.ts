@@ -900,6 +900,13 @@
     </message>
 </context>
 <context>
+    <name>MainShared</name>
+    <message>
+        <source>Link unsupported: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MessageDice</name>
     <message>
         <source>Send a %1 emoji to any chat to try your luck.</source>
