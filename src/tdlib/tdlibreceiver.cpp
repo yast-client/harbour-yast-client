@@ -204,6 +204,9 @@ TDLibReceiver::TDLibReceiver(int tdLibClientId, QObject *parent) : QThread(paren
     handlers.insert("updateForumTopicInfo", &TDLibReceiver::processUpdateForumTopicInfo);
     handlers.insert("updateChatPendingJoinRequests", &TDLibReceiver::processUpdateChatPendingJoinRequests);
     handlers.insert("chatJoinRequests", &TDLibReceiver::processChatJoinRequests);
+    handlers.insert("internalLinkType", &TDLibReceiver::processInternalLinkType);
+    handlers.insert("deepLinkInfo", &TDLibReceiver::processDeepLinkInfo);
+    handlers.insert("user", &TDLibReceiver::processUser);
 }
 
 void TDLibReceiver::setActive(bool active)
@@ -248,6 +251,9 @@ void TDLibReceiver::processReceivedDocument(const QJsonDocument &receivedJsonDoc
     Handler handler = handlers.value(objectTypeName);
     if (handler) {
         (this->*handler)(receivedInformation);
+    } else if (objectTypeName.startsWith("internalLinkType")) {
+        // InternalLinkType return type can only be a subclass, so passing it to normal handlers list wouldn't work
+        this->processInternalLinkType(receivedInformation);
     } else {
         LOG("Unhandled object type" << objectTypeName);
     }
@@ -438,20 +444,11 @@ void TDLibReceiver::processMessage(const QVariantMap &receivedInformation)
     emit messageInformation(chatId, messageId, cleanupMap(receivedInformation));
 }
 
-void TDLibReceiver::processMessageLinkInfo(const QVariantMap &receivedInformation)
-{
-    const QString oldExtra = receivedInformation.value(_EXTRA).toString();
-    QString url = "";
-    QString extra = "";
-    LOG("Received message link info " << oldExtra);
-    if (oldExtra.contains("|")) {
-        const int midIndex = oldExtra.indexOf("|");
-        url = oldExtra.left(midIndex);
-        extra = oldExtra.mid(midIndex + 1);
-    } else {
-        url = oldExtra;
-    }
-    emit messageLinkInfoReceived(url, receivedInformation, extra);
+void TDLibReceiver::processMessageLinkInfo(const QVariantMap &receivedInformation) {
+    qlonglong chatId = receivedInformation.value(CHAT_ID).toLongLong();
+    qlonglong messageId = receivedInformation.value(MESSAGE).toMap().value(ID).toLongLong();
+    LOG("Received message link info" << chatId << messageId);
+    emit messageLinkInfoReceived(chatId, messageId);
 }
 
 void TDLibReceiver::processMessageSendSucceeded(const QVariantMap &receivedInformation)
@@ -1182,4 +1179,20 @@ void TDLibReceiver::processChatJoinRequests(const QVariantMap &receivedInformati
     LOG("Received chatJoinRequests" << chatId << totalCount);
 
     emit chatJoinRequestsReceived(chatId, totalCount, receivedInformation.value("requests").toList());
+}
+
+void TDLibReceiver::processInternalLinkType(const QVariantMap &receivedInformation) {
+    LOG("Received internalLinkType" << receivedInformation.value(_TYPE).toString());
+    emit internalLinkTypeReceived(receivedInformation);
+}
+
+void TDLibReceiver::processDeepLinkInfo(const QVariantMap &receivedInformation) {
+    LOG("Received deepLinkInfo");
+    emit deepLinkInfoReceived(receivedInformation.value(TEXT).toMap(), receivedInformation.value("need_update_application").toBool());
+}
+
+void TDLibReceiver::processUser(const QVariantMap &receivedInformation) {
+    const bool open = receivedInformation.value(_EXTRA).toBool();
+    LOG("Received user open on found" << open);
+    emit userReceived(receivedInformation, open);
 }

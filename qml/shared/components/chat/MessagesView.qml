@@ -608,11 +608,8 @@ Column {
                             wrapMode: Text.Wrap
                             textFormat: Text.StyledText
                             horizontalAlignment: Text.AlignHCenter
-                            onLinkActivated: {
-                                var chatCommand = Functions.handleLink(link)
-                                if(chatCommand)
-                                    tdLibWrapper.sendTextMessage(chatInformation.id, chatCommand)
-                            }
+                            onLinkActivated:
+                                utilities.handleLink(link, chatInformation.id)
                             linkColor: Theme.primaryColor
                             visible: (text !== "")
                         }

@@ -94,6 +94,9 @@ public:
 
     Q_INVOKABLE static bool messageMatchesSearchFilter(const QVariantMap &message, TDLibWrapper::SearchMessagesFilter filter);
 
+    Q_INVOKABLE void handleLink(const QString &link);
+    Q_INVOKABLE void handleLink(const QString &link, qlonglong botCommandChatId);
+
 private:
     struct FormattedTextInsertion;
 

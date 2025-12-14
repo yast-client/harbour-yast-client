@@ -148,9 +148,7 @@ Flickable {
             color: Theme.primaryColor
             wrapMode: Text.Wrap
             textFormat: Text.StyledText
-            onLinkActivated: {
-                Functions.handleLink(link);
-            }
+            onLinkActivated: utilities.handleLink(link)
             linkColor: Theme.highlightColor
             visible: (text !== "")
         }

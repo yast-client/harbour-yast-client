@@ -76,7 +76,7 @@ Item {
             readonly property int defaultMaxLineCount: 3
             maxLineCount: defaultMaxLineCount
             linkColor: Theme.highlightColor
-            onLinkActivated: Functions.handleLink(link)
+            onLinkActivated: utilities.handleLink(link)
             function toggleMaxLineCount() {
                 maxLineCount = maxLineCount > 0 ? 0 : defaultMaxLineCount
             }
@@ -85,7 +85,7 @@ Item {
 
     MouseArea {
         anchors.fill: infoColumn
-        onClicked: Functions.handleLink(linkPreviewData.url)
+        onClicked: utilities.handleLink(linkPreviewData.url)
     }
 
     Loader {

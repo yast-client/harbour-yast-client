@@ -143,7 +143,7 @@ Page {
     function processUrlToOpen() {
         if(chatListCreated && urlToOpen && urlToOpen.length > 1) {
             Debug.log("[OverviewPage] Opening URL: ", urlToOpen);
-            Functions.handleLink(urlToOpen);
+            utilities.handleLink(urlToOpen);
             urlToOpen = "";
         }
     }
@@ -239,13 +239,12 @@ Page {
             appNotification.show(qsTr("Download failed.", "in-app notification text"));
         }
         onMessageLinkInfoReceived: {
-            if (extra === "openDirectly") {
-                if (messageLinkInfo.chat_id === 0) {
-                    appNotification.show(qsTr("Unable to open link.", "in-app notification text"));
-                } else {
-                    openChatWithMessage(messageLinkInfo.chat_id, messageLinkInfo.message);
-                }
-            }
+            if (chatId === 0)
+                appNotification.show(qsTr("Unable to open link.", "in-app notification text"))
+            else if (messageId != 0)
+                openChatWithMessageId(chatId, messageId)
+            else
+                openChat(chatId)
         }
     }
 

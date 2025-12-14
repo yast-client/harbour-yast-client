@@ -57,9 +57,8 @@ Item {
             if(link === "linkedmessage" && linkedMessage) {
                 messageOverlayLoader.overlayMessage = linkedMessage;
                 messageOverlayLoader.active = true;
-            } else {
-                Functions.handleLink(link);
-            }
+            } else
+                utilities.handleLink(link)
 
         }
     }

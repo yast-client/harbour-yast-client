@@ -60,7 +60,7 @@ signals:
     void chatOnlineMemberCountUpdated(const QString &chatId, int onlineMemberCount);
     void messagesReceived(qlonglong chatId, int extra, const QVariantList &messages, int totalCount);
     void foundChatMessagesReceived(qlonglong chatId, int extra, int extra2, const QVariantList &messages, int totalCount, qlonglong nextFromMessageId);
-    void messageLinkInfoReceived(const QString &url, const QVariantMap &messageLinkInfo, const QString &extra);
+    void messageLinkInfoReceived(qlonglong chatId, qlonglong messageId);
     void sponsoredMessageReceived(qlonglong chatId, const QVariantMap &message);
     void newMessageReceived(qlonglong chatId, const QVariantMap &message);
     void messageInformation(qlonglong chatId, qlonglong messageId, const QVariantMap &message);
@@ -130,6 +130,9 @@ signals:
     void forumTopicInfoUpdated(qlonglong chatId, qlonglong messageThreadId, const QVariantMap &info);
     void chatPendingJoinRequestsUpdated(qlonglong chatId, const QVariantMap &pendingJoinRequests);
     void chatJoinRequestsReceived(qlonglong chatId, int totalCount, const QVariantList &requests);
+    void internalLinkTypeReceived(const QVariantMap &internalLinkType);
+    void deepLinkInfoReceived(const QVariantMap &text, bool needUpdateApplication);
+    void userReceived(const QVariantMap &user, bool doOpenOnFound);
 
 private:
     typedef void (TDLibReceiver::*Handler)(const QVariantMap &);
@@ -235,6 +238,9 @@ private:
     void processUpdateForumTopicInfo(const QVariantMap &receivedInformation);
     void processUpdateChatPendingJoinRequests(const QVariantMap &receivedInformation);
     void processChatJoinRequests(const QVariantMap &receivedInformation);
+    void processInternalLinkType(const QVariantMap &receivedInformation);
+    void processDeepLinkInfo(const QVariantMap &receivedInformation);
+    void processUser(const QVariantMap &receivedInformation);
 };
 
 #endif // TDLIBRECEIVER_H

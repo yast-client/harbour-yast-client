@@ -121,6 +121,8 @@ namespace {
     const QString AUDIO_CODEC_VORBIS("audio/vorbis");
 
     const QString WIDTH("width");
+
+    const QString EXTRA_OPEN_DIRECTLY("openDirectly");
 }
 
 
@@ -960,4 +962,27 @@ bool Utilities::messageMatchesSearchFilter(const QVariantMap &message, TDLibWrap
     }
 
     return false;
+}
+
+void Utilities::handleLink(const QString &link) {
+    if (link.startsWith("user://")) {
+        const QString username = link.mid(8);
+        if (tdLibWrapper->hasUserNameInformation(username)) {
+            const QString id = tdLibWrapper->getUserInformationByName(username).value(ID).toString();
+            tdLibWrapper->createPrivateChat(id, EXTRA_OPEN_DIRECTLY);
+        } else if (tdLibWrapper->hasSuperGroupNameInformation(username)) {
+            const QString id = tdLibWrapper->getUserInformationByName(username).value(ID).toString();
+            tdLibWrapper->createSupergroupChat(id, EXTRA_OPEN_DIRECTLY);
+        } else
+            tdLibWrapper->searchPublicChat(username, true);
+    } else if (link.indexOf("userId://") == 0)
+        tdLibWrapper->createPrivateChat(link.mid(9), EXTRA_OPEN_DIRECTLY);
+    else
+        tdLibWrapper->getInternalLinkType(link);
+}
+
+void Utilities::handleLink(const QString &link, qlonglong botCommandChatId) {
+    if (link.startsWith("botCommand://"))
+        tdLibWrapper->sendTextMessage(botCommandChatId, link.mid(13));
+    else handleLink(link);
 }

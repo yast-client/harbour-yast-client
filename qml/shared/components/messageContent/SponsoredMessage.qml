@@ -43,11 +43,8 @@ Column {
         anchors.horizontalCenter: parent.horizontalCenter
 
         text: message ? message.button_text : ''
-        onClicked: {
-            if (Functions.isDirectMessageLink(message.sponsor.url))
-                tdLibWrapper.getMessageLinkInfo(message.sponsor.url)
-            else Functions.handleLink(message.sponsor.url)
-        }
+        onClicked:
+            // don't user utilities.handleLink here because we can't get Ferniegram-specific links here
+            tdLibWrapper.getInternalLinkType(message.sponsor.url)
     }
-
 }

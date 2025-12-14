@@ -34,6 +34,7 @@
 #include <QRegularExpression>
 #include <QRegularExpressionMatch>
 #include <QRegularExpressionMatchIterator>
+#include <QDesktopServices>
 
 #define DEBUG_MODULE TDLibWrapper
 #include "debuglog.h"
@@ -116,6 +117,9 @@ namespace {
     const QString PENDING_JOIN_REQUESTS("pending_join_requests");
     const QString APPROVE("approve");
     const QString INVITE_LINK("invite_link");
+    const QString LINK("link");
+    const QString EXTRA_OPEN_DIRECTLY("openDirectly");
+    const QString URL("url");
 
     const QStringList ALL_FILE_TYPES(QStringList()
                                      << "fileTypeAnimation"
@@ -322,6 +326,9 @@ void TDLibWrapper::initializeTDLibReceiver() {
     connect(this->tdLibReceiver, &TDLibReceiver::forumTopicsReceived, this, &TDLibWrapper::forumTopicsReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::chatPendingJoinRequestsUpdated, this, &TDLibWrapper::handleChatPendingJoinRequestsUpdated);
     connect(this->tdLibReceiver, &TDLibReceiver::chatJoinRequestsReceived, this, &TDLibWrapper::chatJoinRequestsReceived);
+    connect(this->tdLibReceiver, &TDLibReceiver::internalLinkTypeReceived, this, &TDLibWrapper::handleInternalLinkTypeReceived);
+    connect(this->tdLibReceiver, &TDLibReceiver::deepLinkInfoReceived, this, &TDLibWrapper::deepLinkInfoReceived);
+    connect(this->tdLibReceiver, &TDLibReceiver::userReceived, this, &TDLibWrapper::handleUserReceived);
 
     this->tdLibReceiver->start();
 }
@@ -620,12 +627,11 @@ void TDLibWrapper::getMessage(qlonglong chatId, qlonglong messageId) {
     });
 }
 
-void TDLibWrapper::getMessageLinkInfo(const QString &url, const QString &extra) {
-    LOG("Retrieving message link info" << url << extra);
+void TDLibWrapper::getMessageLinkInfo(const QString &url) {
+    LOG("Retrieving message link info" << url);
     this->sendRequest(QVariantMap{
         {_TYPE, "getMessageLinkInfo"},
-        {"url", url},
-        {_EXTRA, extra == "" ? url : (url + "|" + extra)}
+        {URL, url}
     });
 }
 
@@ -633,7 +639,7 @@ void TDLibWrapper::getExternalLinkInfo(const QString &url, const QString &extra)
     LOG("Retrieving external link info" << url << extra);
     this->sendRequest(QVariantMap{
         {_TYPE, "getExternalLinkInfo"},
-        {"url", url},
+        {URL, url},
         {_EXTRA, extra == "" ? url : (url + "|" + extra)}
     });
 }
@@ -952,6 +958,16 @@ void TDLibWrapper::searchPublicChat(const QString &userName, bool doOpenOnFound)
     });
 }
 
+void TDLibWrapper::searchUserByPhoneNumber(const QString &phoneNumber, bool doOpenOnFound) {
+    LOG("Search user by phone number" << phoneNumber);
+
+    this->sendRequest({
+                          {_TYPE, "searchUserByPhoneNumber"},
+                          {PHONE_NUMBER, phoneNumber},
+                          {_EXTRA, doOpenOnFound}
+                      });
+}
+
 void TDLibWrapper::joinChatByInviteLink(const QString &inviteLink) {
     LOG("Join chat by invite link" << inviteLink);
     this->joinChatRequested = true;
@@ -959,8 +975,8 @@ void TDLibWrapper::joinChatByInviteLink(const QString &inviteLink) {
 }
 
 void TDLibWrapper::getDeepLinkInfo(const QString &link) {
-    LOG("Resolving TG deep link" << link);
-    this->sendRequest(QVariantMap{{_TYPE, "getDeepLinkInfo"}, {"link", link}});
+    LOG("Resolving unknown deep link info" << link);
+    this->sendRequest(QVariantMap{{_TYPE, "getDeepLinkInfo"}, {LINK, link}});
 }
 
 void TDLibWrapper::getContacts() {
@@ -1326,20 +1342,6 @@ void TDLibWrapper::getMessageAvailableReactions(qlonglong chatId, qlonglong mess
         {CHAT_ID, chatId},
         {MESSAGE_ID, messageId}
     });
-}
-
-void TDLibWrapper::getPageSource(const QString &address) {
-    QUrl url = QUrl(address);
-    QNetworkRequest request(url);
-    request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
-    request.setHeader(QNetworkRequest::UserAgentHeader, "Ferniegram Bot (Sailfish OS)");
-    request.setRawHeader(QByteArray("Accept"), QByteArray("text/html,application/xhtml+xml"));
-    request.setRawHeader(QByteArray("Accept-Charset"), QByteArray("utf-8"));
-    request.setRawHeader(QByteArray("Connection"), QByteArray("close"));
-    request.setRawHeader(QByteArray("Cache-Control"), QByteArray("max-age=0"));
-    QNetworkReply *reply = manager->get(request);
-
-    connect(reply, SIGNAL(finished()), this, SLOT(handleGetPageSourceFinished()));
 }
 
 void TDLibWrapper::addMessageReaction(qlonglong chatId, qlonglong messageId, const QString &reaction) {
@@ -1880,15 +1882,15 @@ void TDLibWrapper::handleChatReceived(const QVariantMap &chatInformation) {
         if (receivedChatType == ChatTypeBasicGroup) {
             LOG("Found basic group for active search" << this->activeChatSearchName);
             this->activeChatSearchName.clear();
-            this->createBasicGroupChat(chatType.value("basic_group_id").toString(), "openDirectly");
+            this->createBasicGroupChat(chatType.value("basic_group_id").toString(), EXTRA_OPEN_DIRECTLY);
         } else if (receivedChatType == ChatTypeSupergroup) {
             LOG("Found supergroup for active search" << this->activeChatSearchName);
             this->activeChatSearchName.clear();
-            this->createSupergroupChat(chatType.value("supergroup_id").toString(), "openDirectly");
+            this->createSupergroupChat(chatType.value("supergroup_id").toString(), EXTRA_OPEN_DIRECTLY);
         } else if (receivedChatType == ChatTypePrivate) {
             LOG("Found private chat for active search" << this->activeChatSearchName);
             this->activeChatSearchName.clear();
-            this->createPrivateChat(chatType.value(USER_ID).toString(), "openDirectly");
+            this->createPrivateChat(chatType.value(USER_ID).toString(), EXTRA_OPEN_DIRECTLY);
         }
     }
 }
@@ -1937,7 +1939,7 @@ void TDLibWrapper::handleBasicGroupUpdated(qlonglong groupId, const QVariantMap 
     if (!this->activeChatSearchName.isEmpty() && this->activeChatSearchName == groupInformation.value(USERNAME).toString()) {
         LOG("Found basic group for active search" << this->activeChatSearchName);
         this->activeChatSearchName.clear();
-        this->createBasicGroupChat(groupInformation.value(ID).toString(), "openDirectly");
+        this->createBasicGroupChat(groupInformation.value(ID).toString(), EXTRA_OPEN_DIRECTLY);
     }
 }
 
@@ -1947,7 +1949,7 @@ void TDLibWrapper::handleSuperGroupUpdated(qlonglong groupId, const QVariantMap 
     if (!this->activeChatSearchName.isEmpty() && this->activeChatSearchName == groupInformation.value(USERNAME).toString()) {
         LOG("Found supergroup for active search" << this->activeChatSearchName);
         this->activeChatSearchName.clear();
-        this->createSupergroupChat(groupInformation.value(ID).toString(), "openDirectly");
+        this->createSupergroupChat(groupInformation.value(ID).toString(), EXTRA_OPEN_DIRECTLY);
     }
 }
 
@@ -1998,9 +2000,17 @@ void TDLibWrapper::handleSendMarkdownChanged() {
 void TDLibWrapper::handleErrorReceived(int code, const QString &message, const QVariant &extra) {
     const QString extraString = extra.toString();
     if (extra.userType() == QMetaType::QString && !extraString.isEmpty()) {
-        QStringList parts(extra.toString().split(':'));
+        QStringList parts(extraString.split(':'));
         if (parts.size() == 3 && parts.at(0) == QStringLiteral("getMessage")) {
             emit messageNotFound(parts.at(1).toLongLong(), parts.at(2).toLongLong());
+        } else if (extraString.startsWith("getInternalLinkType:") && code == 404) {
+            LOG("Opening non-internal URL externally");
+            QString url = extraString.mid(20);
+            if (!url.contains("://"))
+                url.prepend("https://");
+
+            QDesktopServices::openUrl(url);
+            return;
         } else {
             QRegularExpressionMatch match = RE_EXTRA_CHAT_MESSAGE_COUNT.match(extraString);
             if (match.hasMatch()) {
@@ -2140,56 +2150,11 @@ void TDLibWrapper::handleNetworkConfigurationChanged(const QNetworkConfiguration
     }
 }
 
-void TDLibWrapper::handleGetPageSourceFinished() {
-    LOG("TDLibWrapper::handleGetPageSourceFinished");
-    QNetworkReply *reply = qobject_cast<QNetworkReply *>(sender());
-    reply->deleteLater();
-    if (reply->error() != QNetworkReply::NoError) {
-        return;
-    }
+void TDLibWrapper::setInitialParameters() {
+    LOG("Setting TDLib initial parameters");
+    QVariantMap parameters;
+    parameters.insert(_TYPE, "setTdlibParameters");
 
-    QString requestAddress = reply->request().url().toString();
-
-    QVariant contentTypeHeader = reply->header(QNetworkRequest::ContentTypeHeader);
-    if (!contentTypeHeader.isValid()) {
-        return;
-    }
-    LOG("Page source content type header: " + contentTypeHeader.toString());
-    if (contentTypeHeader.toString().indexOf("text/html", 0, Qt::CaseInsensitive) == -1) {
-        LOG(requestAddress + " is not HTML, not searching for TG URL...");
-        return;
-    }
-
-    QString charset = "UTF-8";
-    QRegularExpression charsetRegularExpression("charset\\s*\\=[\\s\\\"\\\']*([^\\s\\\"\\\'\\,>]*)");
-    QRegularExpressionMatchIterator matchIterator = charsetRegularExpression.globalMatch(contentTypeHeader.toString());
-    QStringList availableCharsets;
-    while (matchIterator.hasNext()) {
-        QRegularExpressionMatch nextMatch = matchIterator.next();
-        QString currentCharset = nextMatch.captured(1).toUpper();
-        LOG("Available page source charset: " << currentCharset);
-        availableCharsets.append(currentCharset);
-    }
-    if (availableCharsets.size() > 0 && !availableCharsets.contains("UTF-8")) {
-        // If we haven't received the requested UTF-8, we simply use the last one which we received in the header
-        charset = availableCharsets.last();
-    }
-    LOG("Charset for " << requestAddress << ": " << charset);
-
-    QByteArray rawDocument = reply->readAll();
-    QTextCodec *codec = QTextCodec::codecForName(charset.toUtf8());
-    if (codec == nullptr){
-      return;
-    }
-    QString resultDocument = codec->toUnicode(rawDocument);
-    QRegExp urlRegex("href\\=\"(tg\\:[^\"]+)\\\"");
-    if (urlRegex.indexIn(resultDocument) != -1) {
-        LOG("TG URL found: " + urlRegex.cap(1));
-        emit tgUrlFound(urlRegex.cap(1));
-    }
-}
-
-QVariantMap& TDLibWrapper::fillTdlibParameters(QVariantMap& parameters) {
     parameters.insert("api_id", TDLIB_API_ID);
     parameters.insert("api_hash", TDLIB_API_HASH);
     parameters.insert("database_directory", QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/tdlib");
@@ -2205,15 +2170,8 @@ QVariantMap& TDLibWrapper::fillTdlibParameters(QVariantMap& parameters) {
     parameters.insert("system_version", QSysInfo::prettyProductName());
     parameters.insert("application_version", "0.17");
     // parameters.insert("use_test_dc", true);
-    return parameters;
-}
 
-void TDLibWrapper::setInitialParameters() {
-    LOG("Sending initial parameters to TD Lib");
-    QVariantMap requestObject;
-    requestObject.insert(_TYPE, "setTdlibParameters");
-    fillTdlibParameters(requestObject);
-    this->sendRequest(requestObject);
+    this->sendRequest(parameters);
 }
 
 void TDLibWrapper::setEncryptionKey() {
@@ -2796,4 +2754,43 @@ QString TDLibWrapper::connectionStateText() {
     default:
         return QString();
     }
+}
+
+void TDLibWrapper::getInternalLinkType(const QString &link) {
+    LOG("Getting internal link type for" << link);
+    this->sendRequest(QVariantMap{
+                          {_TYPE, "getInternalLinkType"},
+                          {LINK, link},
+                          {_EXTRA, "getInternalLinkType:"+link} // only for errors
+                      });
+}
+
+void TDLibWrapper::handleInternalLinkTypeReceived(const QVariantMap &linkType) {
+    const QString type = linkType.value(_TYPE).toString();
+    LOG("Internal link type received" << type);
+
+    if (type == "internalLinkTypePublicChat")
+        // TODO: handle draft_text and open_profile
+        this->searchPublicChat(linkType.value("chat_username").toString(), true);
+    else if (type == "internalLinkTypeUserPhoneNumber")
+        // TODO: handle draft_text and open_profile
+        this->searchUserByPhoneNumber(linkType.value(PHONE_NUMBER).toString(), true);
+    else if (type == "internalLinkTypeMessage")
+        // TODO: handle topic, media timestamp, for album, etc.
+        this->getMessageLinkInfo(linkType.value(URL).toString());
+    else if (type == "internalLinkTypeUnknownDeepLink")
+        this->getDeepLinkInfo(linkType.value(LINK).toString());
+    else
+        emit linkUnsupportedByApp(type.mid(16));
+}
+
+void TDLibWrapper::handleUserReceived(const QVariantMap &user, bool doOpenOnFound) {
+    const QString id = user.value(ID).toString();
+    LOG("User received" << id << doOpenOnFound);
+
+    if (doOpenOnFound) {
+        LOG("Opening private chat for user" << id);
+        this->createPrivateChat(id, EXTRA_OPEN_DIRECTLY);
+    } else
+        emit userReceived(user);
 }

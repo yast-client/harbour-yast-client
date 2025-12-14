@@ -86,9 +86,7 @@ Row {
                 truncationMode: TruncationMode.Fade
                 maximumLineCount: 1
                 linkColor: Theme.highlightColor
-                onLinkActivated: {
-                    Functions.handleLink(link);
-                }
+                onLinkActivated: utilities.handleLink(link)
             }
         }
 

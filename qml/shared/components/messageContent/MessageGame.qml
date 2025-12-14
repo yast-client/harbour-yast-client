@@ -58,12 +58,8 @@ MessageContentBase {
             truncationMode: TruncationMode.Fade
             wrapMode: Text.Wrap
             textFormat: Text.StyledText
-            onLinkActivated: {
-                var chatCommand = Functions.handleLink(link);
-                if(chatCommand) {
-                    tdLibWrapper.sendTextMessage(chatInformation.id, chatCommand);
-                }
-            }
+            onLinkActivated:
+                utilities.handleLink(link, chatInformation.id)
         }
         Item {
             width: parent.width

@@ -193,25 +193,6 @@ function enhanceMessageText(formattedText, ignoreEntities, emojiSize, reloader) 
     return utilities.enhanceMessageText(formattedText, ignoreEntities)
 }
 
-function handleTMeLink(link, usedPrefix) {
-    if (link.indexOf("joinchat") !== -1) {
-        Debug.log("Joining Chat: ", link);
-        tdLibWrapper.joinChatByInviteLink(link);
-        // Do the necessary stuff to open the chat if successful
-        // Fail with nice error message if it doesn't work
-    } else if (link.indexOf("/+") !== -1) {
-        // Can't handle t.me/+... links directly, try to parse the Telegram page...
-        tdLibWrapper.getPageSource(link);
-    } else {
-        Debug.log("Search public chat: ", link.substring(usedPrefix.length));
-        tdLibWrapper.searchPublicChat(link.substring(usedPrefix.length), true);
-        // Check responses for updateBasicGroup or updateSupergroup
-        // Fire createBasicGroupChat or createSupergroupChat
-        // Do the necessary stuff to open the chat
-        // Fail with nice error message if chat can't be found
-    }
-}
-
 function isDirectMessageLink(link) {
     var tMePrefix = tdLibWrapper.options.t_me_url
     var tMePrefixHttp = tMePrefix.replace('https', 'http');
@@ -220,57 +201,6 @@ function isDirectMessageLink(link) {
            (link.indexOf(tMePrefixHttp) === 0 && link.substring(tMePrefixHttp.length).indexOf("/") > 0) ||
            link.indexOf("tg://privatepost") === 0 ||
            (link.indexOf("tg://resolve") === 0 && link.indexOf("post") > 0)
-}
-
-function handleLink(link) {
-    var tMePrefix = tdLibWrapper.options.t_me_url
-    var tMePrefixHttp = tMePrefix.replace('https', 'http');
-
-    // Checking if we have a direct message link...
-    Debug.log("URL open requested: " + link);
-    if (isDirectMessageLink(link)) {
-        Debug.log("Using message link info for: " + link);
-        tdLibWrapper.getMessageLinkInfo(link, "openDirectly");
-        return;
-    }
-
-    Debug.log("Trying to parse link ourselves: " + link);
-    if (link.indexOf("user://") === 0) {
-        var userName = link.substring(8)
-        var userInformation = tdLibWrapper.getUserInformationByName(userName)
-        if (typeof userInformation.id !== "undefined")
-            tdLibWrapper.createPrivateChat(userInformation.id, 'openDirectly')
-        else {
-            userInformation = tdLibWrapper.getSupergroupInformationByName(userName)
-            if (typeof userInformation.id !== "undefined")
-                tdLibWrapper.createSupergroupChat(userInformation.id, 'openDirectly')
-            else tdLibWrapper.searchPublicChat(userName, true)
-        }
-    } else if (link.indexOf("userId://") === 0) {
-        tdLibWrapper.createPrivateChat(link.substring(9), "openDirectly");
-    } else if (link.indexOf("tg://") === 0) {
-        Debug.log("Special TG link: ", link);
-        if (link.indexOf("tg://join?invite=") === 0) {
-            tdLibWrapper.joinChatByInviteLink(tMePrefix + "joinchat/" + link.substring(17));
-        } else if (link.indexOf("tg://resolve?domain=") === 0) {
-            tdLibWrapper.searchPublicChat(link.substring(20), true);
-        }
-    } else if (link.indexOf("botCommand://") === 0) { // this gets returned to send on ChatPage
-        return link.substring(13);
-    } else {
-        if (link.indexOf(tMePrefix) === 0) {
-            handleTMeLink(link, tMePrefix);
-        } else if (link.indexOf(tMePrefixHttp) === 0) {
-            handleTMeLink(link, tMePrefixHttp);
-        } else {
-            Debug.log("Trying to open URL externally: " + link)
-            if (link.indexOf("://") === -1) {
-                Qt.openUrlExternally("https://" + link)
-            } else {
-                Qt.openUrlExternally(link);
-            }
-        }
-    }
 }
 
 function getVideoHeight(videoWidth, videoData) {

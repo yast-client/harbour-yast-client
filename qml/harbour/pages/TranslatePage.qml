@@ -198,7 +198,7 @@ Page {
                 textFormat: Text.StyledText
                 linkColor: Theme.highlightColor
                 text: translated
-                onLinkActivated: Functions.handleLink(link)
+                onLinkActivated: utilities.handleLink(link)
             }
         }
     }

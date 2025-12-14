@@ -238,7 +238,7 @@ public:
     Q_INVOKABLE void sendDiceMessage(qlonglong chatId, const QString &emoji, qlonglong replyToMessageId = 0);
     Q_INVOKABLE void forwardMessages(const QString &chatId, const QString &fromChatId, const QVariantList &messageIds, bool sendCopy, bool removeCaption);
     Q_INVOKABLE void getMessage(qlonglong chatId, qlonglong messageId);
-    Q_INVOKABLE void getMessageLinkInfo(const QString &url, const QString &extra = "");
+    Q_INVOKABLE void getMessageLinkInfo(const QString &url);
     Q_INVOKABLE void getExternalLinkInfo(const QString &url, const QString &extra = "");
     Q_INVOKABLE void getCallbackQueryAnswer(const QString &chatId, const QString &messageId, const QVariantMap &payload);
     Q_INVOKABLE void getChatPinnedMessage(qlonglong chatId);
@@ -272,6 +272,7 @@ public:
     Q_INVOKABLE void stopPoll(const QString &chatId, qlonglong messageId);
     Q_INVOKABLE void getPollVoters(const QString &chatId, qlonglong messageId, int optionId, int limit, int offset, const QString &extra);
     Q_INVOKABLE void searchPublicChat(const QString &userName, bool doOpenOnFound = false);
+    Q_INVOKABLE void searchUserByPhoneNumber(const QString &phoneNumber, bool doOpenOnFound = false);
     Q_INVOKABLE void joinChatByInviteLink(const QString &inviteLink);
     Q_INVOKABLE void getDeepLinkInfo(const QString &link);
     Q_INVOKABLE void getContacts();
@@ -307,7 +308,6 @@ public:
     Q_INVOKABLE void getActiveSessions();
     Q_INVOKABLE void terminateSession(const QString &sessionId);
     Q_INVOKABLE void getMessageAvailableReactions(qlonglong chatId, qlonglong messageId);
-    Q_INVOKABLE void getPageSource(const QString &address);
     Q_INVOKABLE void addMessageReaction(qlonglong chatId, qlonglong messageId, const QString &reaction);
     Q_INVOKABLE void removeMessageReaction(qlonglong chatId, qlonglong messageId, const QString &reaction);
     Q_INVOKABLE void setNetworkType(NetworkType networkType);
@@ -337,6 +337,7 @@ public:
     Q_INVOKABLE void getChatJoinRequests(qlonglong chatId, const QVariantMap &offsetRequest = QVariantMap(), const QString &query = QString(), int limit = 25);
     Q_INVOKABLE void processChatJoinRequest(qlonglong chatId, qlonglong userId, bool approve);
     Q_INVOKABLE void processChatJoinRequests(qlonglong chatId, bool approve, const QString &inviteLink = QString());
+    Q_INVOKABLE void getInternalLinkType(const QString &link);
 
     // Others (candidates for extraction ;))
     Q_INVOKABLE void initializeOpenWith();
@@ -390,7 +391,7 @@ signals:
     void messagesReceived(qlonglong chatId, int extra, const QVariantList &messages, int totalCount);
     void foundChatMessagesReceived(qlonglong chatId, SearchMessagesFilter filter, int extra, const QVariantList &messages, int totalCount, qlonglong nextFromMessageId);
     void sponsoredMessageReceived(qlonglong chatId, const QVariantMap &message);
-    void messageLinkInfoReceived(const QString &url, const QVariantMap &messageLinkInfo, const QString &extra);
+    void messageLinkInfoReceived(qlonglong chatId, qlonglong messageId);
     void newMessageReceived(qlonglong chatId, const QVariantMap &message);
     void copyToDownloadsSuccessful(const QString &fileName, const QString &filePath);
     void copyToDownloadsError(const QString &fileName, const QString &filePath);
@@ -443,7 +444,6 @@ signals:
     void availableReactionsReceived(qlonglong messageId, const QStringList &reactions);
     void chatUnreadMentionCountUpdated(qlonglong chatId, int unreadMentionCount);
     void chatUnreadReactionCountUpdated(qlonglong chatId, int unreadReactionCount);
-    void tgUrlFound(const QString &tgUrl);
     void reactionsUpdated();
     void messagePropertiesReceived(qlonglong chatId, qlonglong messageId, const QVariantMap &messageProperties);
     void storageStatisticsFastReceived(const QVariantMap &statistics);
@@ -461,6 +461,11 @@ signals:
     void forumTopicsReceived(qlonglong chatId, int totalCount, QVariantList topics, qint32 nextOffsetDate, qlonglong nextOffsetMessageId, qlonglong nextOffsetMessageThreadId);
     void chatPendingJoinRequestsUpdated(qlonglong chatId);
     void chatJoinRequestsReceived(qlonglong chatId, int totalCount, const QVariantList &requests);
+    void deepLinkInfoReceived(const QVariantMap &text, bool needUpdateApplication);
+    void userReceived(const QVariantMap &user);
+
+    // Link types
+    void linkUnsupportedByApp(const QString &type);
 
     // Signals not directly used by TDLibWrapper
     void chatListsReset();
@@ -511,18 +516,18 @@ public slots:
     void handleSponsoredMessage(qlonglong chatId, const QVariantMap &message);
     void handleNetworkConfigurationChanged(const QNetworkConfiguration &config);
     void handleActiveEmojiReactionsUpdated(const QStringList& emojis);
-    void handleGetPageSourceFinished();
     void handleDiceEmojisUpdated(const QStringList &emojis);
     void handleFoundChatMessagesReceived(qlonglong chatId, int extra, int extra2, const QVariantList &messages, int totalCount, qlonglong nextFromMessageId);
     void handleCountReceived(int count, const QString &extra);
     void handleChatPendingJoinRequestsUpdated(qlonglong chatId, const QVariantMap &pendingJoinRequests);
+    void handleInternalLinkTypeReceived(const QVariantMap &type);
+    void handleUserReceived(const QVariantMap &user, bool doOpenOnFound);
 
 private:
     void setOption(const QString &name, const QString &type, const QVariant &value);
     void setInitialParameters();
     void setEncryptionKey();
     void setLogVerbosityLevel();
-    QVariantMap &fillTdlibParameters(QVariantMap &parameters);
     const Group *updateGroup(qlonglong groupId, const QVariantMap &groupInfo, QHash<qlonglong,Group*> *groups);
     QVariantMap newSendMessageRequest(qlonglong chatId, qlonglong replyToMessageId);
     void sendFileMessage(const QString &messageType, const QString &fileType, qlonglong chatId, const QString &filePath, const QString &message, qlonglong replyToMessageId);

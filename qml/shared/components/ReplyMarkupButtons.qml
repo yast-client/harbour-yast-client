@@ -56,7 +56,7 @@ Column {
                              tdLibWrapper.getCallbackQueryAnswer(myMessage.chat_id, myMessage.id, {game_short_name: myMessage.content.game.short_name, "@type": "callbackQueryPayloadGame"})
                          },
                         inlineKeyboardButtonTypeUrl: function() {
-                            Functions.handleLink(modelData.type.url);
+                            utilities.handleLink(modelData.type.url)
                         },
                         inlineKeyboardButtonTypeSwitchInline: function() {
                             if(modelData.type.in_current_chat) {

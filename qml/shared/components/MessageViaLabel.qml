@@ -39,10 +39,8 @@ Loader {
                 newMessageTextField.text = "@"+botUserInformation.usernames.editable_username+" "
                 newMessageTextField.cursorPosition = newMessageTextField.text.length
                 lostFocusTimer.start();
-            }
-            else {
-                Functions.handleLink(link);
-            }
+            } else
+                utilities.handleLink(link)
         }
     }
     property var message

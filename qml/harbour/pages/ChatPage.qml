@@ -252,7 +252,7 @@ Page {
                 appNotification.show(Emoji.emojify(text, Theme.fontSizeSmall))
             }
             if(url.length > 0) {
-                Functions.handleLink(url)
+                utilities.handleLink(url)
             }
         }
         onUserFullInfoReceived: {

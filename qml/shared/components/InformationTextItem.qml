@@ -56,7 +56,7 @@ Column {
             linkColor: highlighted ? Theme.primaryColor : Theme.highlightColor
             visible: text !== ""
             onLinkActivated: {
-                Functions.handleLink(link);
+                utilities.handleLink(link);
             }
         }
     }
@@ -69,7 +69,7 @@ Column {
             color: Theme.highlightColor
             plainText: textItem.text
             visible: textItem.text !== ""
-            onLinkActivated: Functions.handleLink(link)
+            onLinkActivated: utilities.handleLink(link)
         }
     }
 }
