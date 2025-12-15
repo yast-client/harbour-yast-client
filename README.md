@@ -81,9 +81,14 @@ In case you want to use the same codebase which was used to compile the library 
 - `mkdir build`
 - `cd build`
 - `sfdk build-init`
-- `sfdk build-shell --maintain zypper install ccache` (optional, this installs ccache which can speed up rebuilds)
-- `sfdk build-shell cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../tdlib -DTD_ENABLE_LTO=ON ..` (in case of compilation issues, try removing the flag `-DTD_ENABLE_LTO=ON`)
+- `sfdk build-shell --maintain zypper install ninja ccache` 
+  - optional, this installs ninja, which is usually faster than make, and ccache which can speed up rebuilds
+- `sfdk build-shell cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../tdlib -DTD_ENABLE_LTO=ON ..`
+  - if you don't have Ninja, remove the `-GNinja` flag, this will switch to make
+  - in case of compilation issues, try removing the flag `-DTD_ENABLE_LTO=ON`
 - `sfdk build-shell cmake --build . --target install`
+
+In case of errors try to remove `CMakeCache.txt` file from the build directory.
 
 You'll find the compiled library in the directory `td/tdlib`. You might also need to copy the `td/tdlib/include` folder to the `tdlib/` folder in the root of this project
 
