@@ -341,6 +341,7 @@ public:
     Q_INVOKABLE void processChatJoinRequests(qlonglong chatId, bool approve, const QString &inviteLink = QString());
     Q_INVOKABLE void getInternalLinkType(const QString &link);
     Q_INVOKABLE void checkChatInviteLink(const QString &link);
+    Q_INVOKABLE void clickChatSponsoredMessage(qlonglong chatId, qlonglong messageId, bool isMediaClick = false, bool fromFullscreen = false);
 
     // Others (candidates for extraction ;))
     Q_INVOKABLE void initializeOpenWith();

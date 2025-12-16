@@ -12,6 +12,10 @@ AnimatedLoader {
     show: !!(message && message.message_id)
     activeHeight: Theme.itemSizeSmall
 
+    onShowChanged:
+        if (show)
+            tdLibWrapper.viewMessage(chatId, message.message_id)
+
     sourceComponent: Component {
         PhotoTextsListItem {
             id: backgroundItem
@@ -28,7 +32,10 @@ AnimatedLoader {
             primaryText.font.pixelSize: Theme.fontSizeSmall
             secondaryText.text: Emoji.emojify(utilities.getMessageContentText(message.content, Utilities.MessageTextDefault), Theme.fontSizeExtraSmall)
 
-            onClicked: utilities.handleLink(message.sponsor.url)
+            onClicked: {
+                tdLibWrapper.clickChatSponsoredMessage(chatId, message.message_id)
+                tdLibWrapper.getInternalLinkType(message.sponsor.url)
+            }
         }
     }
 }

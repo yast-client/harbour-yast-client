@@ -2806,3 +2806,14 @@ bool TDLibWrapper::canSkipChatJoinDialog(qlonglong chatId) {
 
     return true;
 }
+
+void TDLibWrapper::clickChatSponsoredMessage(qlonglong chatId, qlonglong messageId, bool isMediaClick, bool fromFullscreen) {
+    LOG("Clicking chat sponsored message" << chatId << messageId << isMediaClick << fromFullscreen);
+    this->sendRequest({
+                          {_TYPE, "clickChatSponsoredMessage"},
+                          {CHAT_ID, chatId},
+                          {MESSAGE_ID, messageId},
+                          {"is_media_click", isMediaClick},
+                          {"from_fullscreen", fromFullscreen}
+                      });
+}
