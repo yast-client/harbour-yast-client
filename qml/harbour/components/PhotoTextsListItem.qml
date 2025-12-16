@@ -135,6 +135,7 @@ ListItem {
 
         Label {
             id: tertiaryText
+            visible: !!text
             width: parent.width
             font.pixelSize: Theme.fontSizeTiny
             color: Theme.secondaryColor
