@@ -27,6 +27,7 @@ Item {
     property MessageOverlayFlickable overlayFlickable
     property var rawMessage: messageListItem ? messageListItem.myMessage : overlayFlickable.overlayMessage
     property var messageProperties: messageListItem ? messageListItem.messageProperties : {}
+    property bool isSponsored: !!messageListItem && messageListItem.isSponsored
     property bool highlighted
     signal clicked()
 }

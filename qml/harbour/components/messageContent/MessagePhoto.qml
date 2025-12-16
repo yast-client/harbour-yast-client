@@ -21,14 +21,14 @@ import Sailfish.Silica 1.0
 import "../"
 
 MessageContentBase {
-
     height: Math.max(Theme.itemSizeExtraSmall, Math.min(Math.round(width * 0.66666666), width / getAspectRatio()))
-    readonly property alias photoData: photo.photo;
+    readonly property alias photoData: photo.photo
 
     onClicked: {
         pageStack.push(Qt.resolvedUrl("../../pages/MediaAlbumPage.qml"), {
             chatManager: chatManager,
             message: rawMessage,
+            singleElement: isSponsored
         })
     }
     function getAspectRatio() {

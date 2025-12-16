@@ -48,6 +48,7 @@ ListItem {
                                        && (messageAlbumMessageIds.length === 0 || messageAlbumMessageIds.every(function(id) {
                                            return view.selectedMessages.some(function(m) { return m.id == id })
                                        }))
+    readonly property bool isSponsored: myMessage['@type'] === 'sponsoredMessage'
 
     readonly property bool isOwnMessage: page.myUserId === myMessage.sender_id.user_id
     property bool hasContentComponent
@@ -406,7 +407,7 @@ ListItem {
         onTriggered: {
             if (messageListItem.hasContentComponent) {
                 var type = myMessage.content["@type"]
-                var albumComponentPart = (myMessage.media_album_id !== "0" && chatView.albumMessages.indexOf(type) !== -1) ? 'Album' : ''
+                var albumComponentPart = (myMessage.media_album_id && myMessage.media_album_id !== "0" && chatView.albumMessages.indexOf(type) !== -1) ? 'Album' : ''
                 extraContentLoader.setSource(
                             "../components/messageContent/" + type.charAt(0).toUpperCase() + type.substring(1) + albumComponentPart + ".qml",
                             {messageListItem: messageListItem})
@@ -467,7 +468,7 @@ ListItem {
                 }
                 height: messageTextColumn.height + precalculatedValues.paddingMediumDouble
                 width: precalculatedValues.backgroundWidth
-                property bool isUnread: messageIndex > chatManager.model.lastReadMessageIndexInBounds && myMessage['@type'] !== "sponsoredMessage"
+                property bool isUnread: messageIndex > chatManager.model.lastReadMessageIndexInBounds && !isSponsored
                 color: isUnread ? Theme.rgba(Theme.highlightBackgroundColor, Theme.highlightBackgroundOpacity) : Theme.rgba(Theme.primaryColor, Theme.opacityFaint)
                 radius: parent.width / 50
                 visible: appSettings.showStickersAsImages || (myMessage.content['@type'] !== "messageSticker" && myMessage.content['@type'] !== "messageAnimatedEmoji" && myMessage.content['@type'] !== "messageDice")
@@ -487,7 +488,7 @@ ListItem {
                     width: parent.width
                     text: messageListItem.isOwnMessage
                           ? qsTr("You")
-                          : Emoji.emojify(myMessage['@type'] === "sponsoredMessage"
+                          : Emoji.emojify(isSponsored
                                           ? myMessage.title
                                           : (messageListItem.isAnonymous
                                                 ? page.chatInformation.title
@@ -499,7 +500,7 @@ ListItem {
                     truncationMode: TruncationMode.Fade
                     textFormat: Text.StyledText
                     horizontalAlignment: messageListItem.textAlign
-                    visible: (precalculatedValues.showUserInfo && !messageListItem.isOwnMessage && isFirstInSequence) || myMessage['@type'] === "sponsoredMessage"
+                    visible: (precalculatedValues.showUserInfo && !messageListItem.isOwnMessage && isFirstInSequence) || isSponsored
                     MouseArea {
                         anchors.fill: parent
                         enabled: !(messageListItem.precalculatedValues.pageIsSelecting || messageListItem.isAnonymous)
@@ -713,10 +714,10 @@ ListItem {
 
                 Loader {
                     id: sponsoredMessageButtonLoader
-                    active: myMessage['@type'] === "sponsoredMessage"
+                    active: isSponsored
                     asynchronous: true
                     width: parent.width
-                    height: (status === Loader.Ready) ? item.implicitHeight : myMessage['@type'] === "sponsoredMessage" ? Theme.itemSizeMedium : 0
+                    height: (status === Loader.Ready) ? item.implicitHeight : isSponsored ? Theme.itemSizeMedium : 0
 
                     sourceComponent: Component {
                         SponsoredMessage {

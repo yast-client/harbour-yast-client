@@ -182,8 +182,10 @@ MessageContentBase {
                             default:
                                 return chatManager.photoAndVideoMessagesModel
                             }
-                        }()
+                        }(),
+                        singleElement: isSponsored
                     })
+                    Component.onCompleted: console.log(rawMessage.message_id, isSponsored)
                 }
             }
         }
