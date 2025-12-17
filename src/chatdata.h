@@ -38,6 +38,7 @@ public:
     ChatData(TDLibWrapper *tdLibWrapper, Utilities *utilities, const QVariantMap &data);
     ChatData(TDLibWrapper *tdLibWrapper, Utilities *utilities, qlonglong chatId);
 
+    void updateChatData(const QVariantMap &data);
     const QVariantMap lastMessage() const;
     const QVariant lastMessage(const QString &key) const;
     QString title() const;

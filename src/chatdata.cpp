@@ -42,12 +42,27 @@ namespace {
 ChatData::ChatData(TDLibWrapper *tdLibWrapper, Utilities *utilities, const QVariantMap &data) :
     tdLibWrapper(tdLibWrapper),
     utilities(utilities),
-    chatData(data),
     chatId(data.value(ID).toLongLong()),
     groupId(0),
     memberStatus(TDLibWrapper::ChatMemberStatusUnknown),
     secretChatState(TDLibWrapper::SecretChatStateUnknown)
 {
+    this->updateChatData(data);
+}
+
+ChatData::ChatData(TDLibWrapper *tdLibWrapper, Utilities *utilities, qlonglong chatId) :
+    tdLibWrapper(tdLibWrapper),
+    utilities(utilities),
+    chatData(),
+    chatId(chatId),
+    groupId(0),
+    memberStatus(TDLibWrapper::ChatMemberStatusUnknown),
+    secretChatState(TDLibWrapper::SecretChatStateUnknown)
+{}
+
+void ChatData::updateChatData(const QVariantMap &data) {
+    this->chatData = data;
+
     const QVariantMap type(data.value(TYPE).toMap());
     switch (chatType = TDLibWrapper::chatTypeFromString(type.value(_TYPE).toString())) {
     case TDLibWrapper::ChatTypeBasicGroup:
@@ -72,16 +87,6 @@ ChatData::ChatData(TDLibWrapper *tdLibWrapper, Utilities *utilities, const QVari
             this->updateGroup(group);
     }
 }
-
-ChatData::ChatData(TDLibWrapper *tdLibWrapper, Utilities *utilities, qlonglong chatId) :
-    tdLibWrapper(tdLibWrapper),
-    utilities(utilities),
-    chatData(),
-    chatId(chatId),
-    groupId(0),
-    memberStatus(TDLibWrapper::ChatMemberStatusUnknown),
-    secretChatState(TDLibWrapper::SecretChatStateUnknown)
-{}
 
 inline const QVariantMap ChatData::lastMessage() const {
     return chatData.value(LAST_MESSAGE).toMap();

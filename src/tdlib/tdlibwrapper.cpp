@@ -233,6 +233,7 @@ TDLibWrapper::~TDLibWrapper() {
     }
     qDeleteAll(basicGroups.values());
     qDeleteAll(superGroups.values());
+    qDeleteAll(chats.values());
 }
 
 void TDLibWrapper::initializeTDLibReceiver() {
@@ -1472,6 +1473,11 @@ QVariantMap TDLibWrapper::getChat(qlonglong chatId) {
     return QVariantMap();
 }
 
+bool TDLibWrapper::hasChatData(qlonglong chatId) {
+    LOG("Checking if have chat data for ID" << chatId);
+    return this->chats.contains(chatId);
+}
+
 ChatData* TDLibWrapper::getChatData(qlonglong chatId) {
     LOG("Returning chat data for ID" << chatId);
     if (this->chats.contains(chatId))
@@ -1710,9 +1716,19 @@ void TDLibWrapper::handleFileUpdated(const QVariantMap &fileInformation) {
 
 void TDLibWrapper::handleNewChatDiscovered(const QVariantMap &chatInformation) {
     qlonglong chatId = chatInformation.value(ID).toLongLong();
-    ChatData *chat = new ChatData(this, this->utilities, chatInformation);
-    this->chats.insert(chatId, chat);
-    emit newChatDiscovered(chatId, chatInformation);
+    ChatData *chat;
+    if (this->chats.contains(chatId)) {
+        // Chat can be forcefully added when other updates on it are received before updateNewChat (see getChatDataForce)
+        LOG("Chat information discovered for previously forcefully added chat");
+        chat = this->chats.value(chatId);
+        chat->updateChatData(chatInformation);
+        emit chatRolesUpdated(chatId);
+    } else {
+        LOG("New chat discovered" << chatId);
+        chat = new ChatData(this, this->utilities, chatInformation);
+        this->chats.insert(chatId, chat);
+        emit newChatDiscovered(chatId, chatInformation);
+    }
 
     for (const QVariant &chatList : chatInformation.value(CHAT_LISTS).toList()) {
         const QString chatListType = chatList.toMap().value(_TYPE).toString();
