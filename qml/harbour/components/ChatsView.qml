@@ -72,7 +72,7 @@ SilicaListView {
     BusyLabel {
         id: loadingBusyIndicator
         anchors.verticalCenter: parent.verticalCenter
-        y: null
+        y: undefined
         text: overviewPage.loadingText
         running: !overviewPage.chatListCreated || overviewPage.logoutLoading
     }
