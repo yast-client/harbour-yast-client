@@ -237,6 +237,13 @@
     </message>
 </context>
 <context>
+    <name>ChatBotSponsoredMessageItem</name>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished">未知</translation>
+    </message>
+</context>
+<context>
     <name>ChatFoldersModel</name>
     <message>
         <source>All</source>
@@ -2732,6 +2739,10 @@
     </message>
     <message>
         <source>Game: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sticker</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
