@@ -49,7 +49,6 @@
 #include "chatfoldersmodel.h"
 #include "invertedproxymodel.h"
 #include "waveformmanager.h"
-#include "movieitem.h"
 #include "suggestedactionsmanager.h"
 #include "lottieitem.h"
 
@@ -102,7 +101,6 @@ namespace MainShared {
         qmlRegisterType<InvertedProxyModel>(uri, 1, 0, "InvertedProxyModel");
         qmlRegisterType<ChatPermissionFilterModel>(uri, 1, 0, "ChatPermissionFilterModel");
         qmlRegisterType<ChatManager>(uri, 1, 0, "ChatManager");
-        qmlRegisterType<MovieItem>(uri, 1, 0, "MovieItem");
         qmlRegisterType<LottieItem>(uri, 1, 0, "LottieItem");
         qmlRegisterSingletonType<DebugLogJS>(uri, 1, 0, "DebugLog", DebugLogJS::createSingleton);
 

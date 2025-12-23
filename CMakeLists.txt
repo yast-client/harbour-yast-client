@@ -191,7 +191,6 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     src/chat/messagesmodel.cpp
     src/chat/readablemessagesmodel.cpp
     src/invertedproxymodel.cpp
-    src/movieitem.cpp
     src/suggestedactionsmanager.cpp
     src/utilities.cpp
     src/knownusersmodel.cpp
@@ -231,7 +230,6 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     src/chat/messagesmodel.h
     src/chat/readablemessagesmodel.h
     src/invertedproxymodel.h
-    src/movieitem.h
     src/suggestedactionsmanager.h
     src/utilities.h
     src/knownusersmodel.h
