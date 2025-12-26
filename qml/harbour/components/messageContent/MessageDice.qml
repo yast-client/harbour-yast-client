@@ -39,14 +39,12 @@ MessageContentBase {
             completed = true
     }
 
-    width: stickerData.width
-    height: stickerData.height
+    implicitWidth: Theme.itemSizeExtraLarge
+    implicitHeight: width * sticker.aspectRatio
 
     TDLibStickerBase {
         id: sticker
-
-        width: Math.min(implicitWidth, parent.width)
-        height: width * aspectRatio
+        width: Math.min(parent.width, parent.implicitWidth)
         // (centered in image mode, text-like in sticker mode)
         anchors {
             horizontalCenter: appSettings.showStickersAsImages ? parent.horizontalCenter : undefined

@@ -644,12 +644,14 @@ Column {
                 case "messagePoll":
                     return Theme.itemSizeSmall * (4 + content.poll.options)
                 case "messageSticker":
-                    return content.sticker.height
+                    return Theme.itemSizeLarge*3 * (content.sticker.width / content.sticker.height)
                 case "messageDice":
                     var diceStickers = content.final_state || content.initial_state
-                    if (diceStickers['@type'] === 'diceStickersSlotMachine')
-                        return diceStickers.lever.height
-                    return diceStickers.sticker.height
+                    var sticker = diceStickers['@type'] === 'diceStickersSlotMachine'
+                            ? diceStickers.background
+                            : diceStickers.sticker
+
+                    return Theme.itemSizeExtraLarge * (sticker.width / sticker.height)
                 case "messageVideo":
                     if(albumEntries > 0) {
                         unit = (parentWidth * 0.66666666)

@@ -28,11 +28,12 @@ MessageContentBase {
     property var stickerData: rawMessage.content.sticker
     readonly property bool isOwnSticker: typeof messageListItem !== 'undefined' ? messageListItem.isOwnMessage : overlayFlickable.isOwnMessage
 
-    implicitWidth: stickerData.width
-    implicitHeight: stickerData.height
+    implicitWidth: Theme.itemSizeLarge*3
+    implicitHeight: implicitWidth * sticker.aspectRatio
 
     TDLibSticker {
-        width: Math.min(implicitWidth, parent.width)
+        id: sticker
+        width: Math.min(parent.width, parent.implicitWidth)
         // (centered in image mode, text-like in sticker mode)
         anchors {
             horizontalCenter: appSettings.showStickersAsImages ? parent.horizontalCenter : undefined
