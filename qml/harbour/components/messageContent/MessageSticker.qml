@@ -41,6 +41,7 @@ MessageContentBase {
         }
 
         stickerData: stickerMessage.stickerData
+        highlighted: stickerMessage.highlighted
     }
 
     onClicked: {

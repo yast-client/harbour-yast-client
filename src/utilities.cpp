@@ -34,6 +34,8 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 
+#include <zlib.h>
+
 #define DEBUG_MODULE Utilities
 #include "debuglog.h"
 
@@ -981,4 +983,102 @@ void Utilities::handleLink(const QString &link, qlonglong botCommandChatId) {
     if (link.startsWith("botCommand://"))
         tdLibWrapper->sendTextMessage(botCommandChatId, link.mid(13));
     else handleLink(link);
+}
+
+const QByteArray Utilities::GZ_MAGIC("\x1f\x8b");
+
+std::string Utilities::uncompress(const QByteArray &zipped) {
+    std::string unzipped;
+    if (!zipped.isEmpty()) {
+        z_stream unzip;
+        memset(&unzip, 0, sizeof(unzip));
+        unzip.next_in = (Bytef*)zipped.constData();
+        // Add 16 for decoding gzip header
+        int zerr = inflateInit2(&unzip, MAX_WBITS + 16);
+        if (zerr == Z_OK) {
+            const uint chunk = 0x1000;
+            unzipped.resize(chunk);
+            unzip.next_out = (Bytef*)unzipped.data();
+            unzip.avail_in = zipped.size();
+            unzip.avail_out = chunk;
+            LOG("Compressed size" << zipped.size());
+            while (unzip.avail_out > 0 && zerr == Z_OK) {
+                zerr = inflate(&unzip, Z_NO_FLUSH);
+                if (zerr == Z_OK && unzip.avail_out < chunk) {
+                    // Data may get relocated, update next_out too
+                    unzipped.resize(unzipped.size() + chunk);
+                    unzip.next_out = (Bytef*)unzipped.data() + unzip.total_out;
+                    unzip.avail_out += chunk;
+                }
+            }
+            if (zerr == Z_STREAM_END) {
+                unzipped.resize(unzip.next_out - (Bytef*)unzipped.data());
+                LOG("Uncompressed size" << unzipped.size());
+            } else {
+                unzipped.clear();
+            }
+            inflateEnd(&unzip);
+        }
+    }
+    return unzipped;
+}
+
+QString Utilities::uncompressLocalFile(const QString &path) {
+    QFile file(path);
+    if (!file.isOpen() && !file.open(QFile::ReadOnly)) {
+        LOG("Can't uncompress" << file.errorString() << path);
+        file.close();
+        return QString();
+    }
+
+    return QString::fromStdString(uncompress(file.readAll()));
+}
+
+QString Utilities::mergeDiceSlotMachineReels(QStringList paths) {
+    if (paths.isEmpty()) {
+        LOG("Can't merge slot machine reels: no paths provided");
+        return QString();
+    }
+
+    QList<QJsonObject> reels;
+    for (const QString &path : paths) {
+        QFile file(path);
+        if (!file.isOpen() && !file.open(QFile::ReadOnly)) {
+            LOG("Can't merge slot machine reels: can't open file" << path);
+            return QString();
+        }
+
+        const QByteArray data = QByteArray::fromStdString(uncompress(file.readAll()));
+        const QJsonDocument document = QJsonDocument::fromJson(data);
+        if (!document.isObject()) {
+            LOG("Can't merge slot machine reels: JSON document is not an object" << path);
+            return QString();
+        }
+        reels.append(document.object());
+    }
+
+    QJsonObject merged = reels.takeAt(0);
+    QJsonArray newAssets = merged.value("assets").toArray();
+    QJsonArray newLayers = merged.value("layers").toArray();
+
+    for (const QJsonObject &reel : reels) {
+        const QString name = reel.value("nm").toString();
+
+        for (const QJsonValue &assetValue : reel.value("assets").toArray()) {
+            QJsonObject asset = assetValue.toObject();
+            asset.insert(ID, name + "__" + asset.value(ID).toString());
+            newAssets.append(asset);
+        }
+
+        for (const QJsonValue &layerValue : reel.value("layers").toArray()) {
+            QJsonObject layer = layerValue.toObject();
+            if (layer.contains("refId"))
+                layer.insert("refId", name + "__" + layer.value("refId").toString());
+            newLayers.append(layer);
+        }
+    }
+
+    merged.insert("assets", newAssets);
+    merged.insert("layers", newLayers);
+    return QJsonDocument(merged).toJson(QJsonDocument::Compact);
 }

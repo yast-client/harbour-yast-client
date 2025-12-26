@@ -3,14 +3,16 @@
 
 #include <QQuickItem>
 #include <QTimer>
+#include <QNetworkAccessManager>
 #include "tgsplugin.h"
 
 class LottieItem : public QQuickItem {
-    // No network support here (can be added later if needed)
     Q_OBJECT
-    Q_PROPERTY(QUrl source READ source WRITE setSource NOTIFY sourceChanged)
     Q_PROPERTY(bool autoLoad MEMBER autoLoad WRITE setAutoLoad NOTIFY autoLoadChanged)
+    Q_PROPERTY(QUrl source MEMBER source WRITE setSource NOTIFY sourceChanged)
+    Q_PROPERTY(bool loaded READ loaded NOTIFY loadedChanged)
     Q_PROPERTY(bool error MEMBER error NOTIFY errorChanged)
+    Q_PROPERTY(bool stopped MEMBER stopped NOTIFY stoppedChanged)
     Q_PROPERTY(bool paused MEMBER paused WRITE setPaused NOTIFY pausedChanged)
     Q_PROPERTY(int currentFrame READ currentFrame WRITE setCurrentFrame NOTIFY currentFrameChanged)
     Q_PROPERTY(QSize sourceSize READ sourceSize NOTIFY sourceSizeChanged)
@@ -22,9 +24,9 @@ public:
     LottieItem();
     ~LottieItem();
 
-    QUrl source() const;
     void setSource(QUrl source);
     void setAutoLoad(bool value);
+    bool loaded() const;
     Q_INVOKABLE void begin();
 
     void setPaused(bool value);
@@ -43,7 +45,9 @@ public:
 signals:
     void sourceChanged();
     void autoLoadChanged();
+    void loadedChanged();
     void errorChanged();
+    void stoppedChanged();
     void pausedChanged();
     void currentFrameChanged();
     void sourceSizeChanged();
@@ -55,14 +59,22 @@ protected:
     virtual QSGNode *updatePaintNode(QSGNode *oldNode, UpdatePaintNodeData*) override;
 
 private:
+    void setupHandler();
     void updateSize();
     void setError();
+    void setStopped(bool value);
     void reset();
     void loadNextFrame();
+    bool loopFinished();
+
+private slots:
+    void handleNetworkRequestFinished();
 
 private:
-    QFile *file;
+    QUrl source;
+    QIODevice *device;
     TgsIOHandler *handler;
+    QNetworkAccessManager *networkManager;
     QImage currentImage;
     QTimer nextImageTimer;
     QMap<QImageIOHandler::ImageOption, QVariant> pendingOptions;
@@ -70,6 +82,7 @@ private:
     bool jumpedToFrame;
     bool autoLoad;
     bool error;
+    bool stopped;
     bool paused;
     bool loop;
 };

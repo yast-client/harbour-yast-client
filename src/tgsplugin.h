@@ -30,7 +30,6 @@
 class TgsIOHandler : public QImageIOHandler {
 public:
     static const QByteArray NAME;
-    static const QByteArray GZ_MAGIC;
     typedef std::string ByteArray;
 
     TgsIOHandler(QIODevice* device, const QByteArray& format);
@@ -43,7 +42,6 @@ public:
 
     // QImageIOHandler
     bool canRead() const Q_DECL_OVERRIDE;
-    QByteArray name() const Q_DECL_OVERRIDE;
     bool read(QImage* image) Q_DECL_OVERRIDE;
     QVariant option(ImageOption option) const Q_DECL_OVERRIDE;
     void setOption(ImageOption option, const QVariant &value) Q_DECL_OVERRIDE;

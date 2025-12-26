@@ -42,6 +42,8 @@ public:
     explicit Utilities(int argc, char *argv[], AppSettings *settings = nullptr, TDLibWrapper *tdLibWrapper = nullptr, QObject *parent = nullptr);
     ~Utilities();
 
+    static const QByteArray GZ_MAGIC;
+
     enum VoiceNoteRecordingState {
         Unavailable,
         Ready,
@@ -96,6 +98,11 @@ public:
 
     Q_INVOKABLE void handleLink(const QString &link);
     Q_INVOKABLE void handleLink(const QString &link, qlonglong botCommandChatId);
+
+    static std::string uncompress(const QByteArray &data);
+    Q_INVOKABLE static QString uncompressLocalFile(const QString &path);
+
+    Q_INVOKABLE static QString mergeDiceSlotMachineReels(QStringList paths);
 
 private:
     struct FormattedTextInsertion;

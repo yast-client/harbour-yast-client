@@ -4,19 +4,23 @@
 #include <QSGSimpleTextureNode>
 #include <QQuickWindow>
 #include <QFile>
+#include <QNetworkRequest>
+#include <QNetworkReply>
 
 #define DEBUG_MODULE LottieItem
 #include "debuglog.h"
-#define LOG_(x) LOG(qPrintable(file ? file->fileName() : "") << x)
+#define LOG_(x) LOG(qPrintable(source.isValid() ? (source.isLocalFile() ? source.toLocalFile() : "<not a local file>") : "") << x)
 
 LottieItem::LottieItem() :
     QQuickItem(),
-    file(nullptr),
+    device(nullptr),
     handler(nullptr),
+    networkManager(new QNetworkAccessManager(this)),
     pendingFrameJump(-1),
     jumpedToFrame(false),
     autoLoad(true),
     error(false),
+    stopped(true),
     paused(false),
     loop(false)
 {
@@ -27,7 +31,12 @@ LottieItem::LottieItem() :
 }
 
 LottieItem::~LottieItem() {
+    LOG_("Done");
     delete handler;
+    if (device) {
+        device->close();
+        device->deleteLater();
+    }
 }
 
 QSize LottieItem::sourceSize() const {
@@ -64,62 +73,94 @@ void LottieItem::updateSize() {
     LOG_("Implicit size set to" << implicitWidth() << implicitHeight());
 }
 
-QUrl LottieItem::source() const {
-    if (file)
-        return file->fileName();
-    return QUrl();
-}
-
 void LottieItem::reset() {
     delete handler;
     handler = nullptr;
-    if (file) {
-        file->close();
-        file->deleteLater();
-        file = nullptr;
+    if (device) {
+        device->close();
+        device->deleteLater();
+        device = nullptr;
     }
+    emit loadedChanged();
 }
 
 void LottieItem::setSource(QUrl source) {
-    const QString fileName = QQmlFile::urlToLocalFileOrQrc(source);
-    if (this->file && this->file->fileName() == fileName)
+    if (this->source == source)
         return;
-
     reset();
+    this->source = source;
+    emit sourceChanged();
+    LOG("Source set");
 
-    if (fileName.isEmpty())
+    if (!source.isValid())
         return;
 
-    this->file = new QFile(fileName, this);
-    if (!file->isOpen() && !file->open(QFile::ReadOnly)) {
+    const QString fileName = QQmlFile::urlToLocalFileOrQrc(source);
+    if (!fileName.isEmpty()) {
+        this->device = new QFile(fileName, this);
+        if (!device->isOpen() && !device->open(QFile::ReadOnly)) {
+            setError();
+            return;
+        }
+
+        setupHandler();
+    } else {
+        QNetworkRequest request(source);
+        QNetworkReply *reply = this->networkManager->get(request);
+        connect(reply, &QNetworkReply::finished, this, &LottieItem::handleNetworkRequestFinished);
+    }
+}
+
+void LottieItem::handleNetworkRequestFinished() {
+    QNetworkReply *reply = qobject_cast<QNetworkReply *>(sender());
+    if (reply->error() != QNetworkReply::NoError) {
         setError();
         return;
     }
 
-    handler = new TgsIOHandler(this->file, TgsIOHandler::NAME);
+    this->device = reply;
+    setupHandler();
+}
+
+void LottieItem::setupHandler() {
+    delete handler;
+    handler = new TgsIOHandler(this->device, TgsIOHandler::NAME);
     for (QImageIOHandler::ImageOption option : pendingOptions.keys())
         handler->setOption(option, pendingOptions.value(option));
     pendingOptions.clear();
     updateSize();
     LOG_(sourceSize() << scaledSize());
+    emit loadedChanged();
     if (autoLoad)
         begin();
 }
 
 void LottieItem::setAutoLoad(bool value) {
     if (autoLoad != value) {
+        LOG("Set auto load" << value);
         autoLoad = value;
         emit autoLoadChanged();
     }
 }
 
+bool LottieItem::loaded() const {
+    return handler;
+}
+
 void LottieItem::begin() {
+    setAutoLoad(true);
+    if (!handler)
+        return;
+
     if (pendingFrameJump >= 0) {
+        // already sets stopped to false
         setCurrentFrame(pendingFrameJump);
         pendingFrameJump = -1;
-    } else
+    } else {
+        setStopped(false);
+        nextImageTimer.stop();
         loadNextFrame();
-    setAutoLoad(true);
+    }
 }
 
 void LottieItem::setPaused(bool value) {
@@ -128,7 +169,7 @@ void LottieItem::setPaused(bool value) {
         LOG_((paused ? "Pausing" : "Unpausing"));
         if (paused && !jumpedToFrame)
             nextImageTimer.stop();
-        else
+        else if (!loopFinished())
             loadNextFrame();
         emit pausedChanged();
     }
@@ -148,6 +189,7 @@ void LottieItem::setCurrentFrame(int frame) {
         if (handler->jumpToImage(frame)) {
             jumpedToFrame = true;
             nextImageTimer.stop();
+            setStopped(false);
             loadNextFrame();
             LOG_("Jumped to frame" << frame);
         } else
@@ -176,6 +218,18 @@ void LottieItem::setError() {
         error = true;
         emit errorChanged();
     }
+    setStopped(true);
+}
+
+void LottieItem::setStopped(bool value) {
+    if (stopped != value) {
+        stopped = value;
+        emit stoppedChanged();
+    }
+}
+
+inline bool LottieItem::loopFinished() {
+    return !loop && (handler->currentImageNumber() % handler->imageCount()) >= (handler->imageCount() - 1);
 }
 
 void LottieItem::loadNextFrame() {
@@ -198,8 +252,12 @@ void LottieItem::loadNextFrame() {
     update();
     emit currentFrameChanged();
 
-    if (!paused && (loop || handler->currentImageNumber() < (handler->imageCount() - 1)))
-        nextImageTimer.start(handler->nextImageDelay());
+    if (!paused) {
+        if (!loopFinished())
+            nextImageTimer.start(handler->nextImageDelay());
+        else
+            setStopped(true);
+    }
 }
 
 QSGNode *LottieItem::updatePaintNode(QSGNode *oldNode, UpdatePaintNodeData*) {

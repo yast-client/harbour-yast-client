@@ -20,14 +20,13 @@
 #include <QFileDevice>
 #include <QFileInfo>
 
-#include <zlib.h>
+#include "utilities.h"
 
 #define DEBUG_MODULE TgsIOHandler
 #include "debuglog.h"
 #define LOG_(x) LOG(qPrintable(fileName) << x)
 
 const QByteArray TgsIOHandler::NAME("tgs");
-const QByteArray TgsIOHandler::GZ_MAGIC("\x1f\x8b");
 
 TgsIOHandler::TgsIOHandler(QIODevice* device, const QByteArray& format) :
     frameRate(0.),
@@ -50,42 +49,17 @@ TgsIOHandler::~TgsIOHandler()
     LOG_("Done");
 }
 
-TgsIOHandler::ByteArray TgsIOHandler::uncompress()
-{
-    ByteArray unzipped;
+TgsIOHandler::ByteArray TgsIOHandler::uncompress() {
     const QByteArray zipped(device()->readAll());
-    if (!zipped.isEmpty()) {
-        z_stream unzip;
-        memset(&unzip, 0, sizeof(unzip));
-        unzip.next_in = (Bytef*)zipped.constData();
-        // Add 16 for decoding gzip header
-        int zerr = inflateInit2(&unzip, MAX_WBITS + 16);
-        if (zerr == Z_OK) {
-            const uint chunk = 0x1000;
-            unzipped.resize(chunk);
-            unzip.next_out = (Bytef*)unzipped.data();
-            unzip.avail_in = zipped.size();
-            unzip.avail_out = chunk;
-            LOG_("Compressed size" << zipped.size());
-            while (unzip.avail_out > 0 && zerr == Z_OK) {
-                zerr = inflate(&unzip, Z_NO_FLUSH);
-                if (zerr == Z_OK && unzip.avail_out < chunk) {
-                    // Data may get relocated, update next_out too
-                    unzipped.resize(unzipped.size() + chunk);
-                    unzip.next_out = (Bytef*)unzipped.data() + unzip.total_out;
-                    unzip.avail_out += chunk;
-                }
-            }
-            if (zerr == Z_STREAM_END) {
-                unzipped.resize(unzip.next_out - (Bytef*)unzipped.data());
-                LOG_("Uncompressed size" << unzipped.size());
-            } else {
-                unzipped.clear();
-            }
-            inflateEnd(&unzip);
-        }
+
+    if (zipped.mid(0, 2) != Utilities::GZ_MAGIC) {
+        // Not compressed
+        LOG_("Not compressed");
+        return ByteArray(zipped.constData(), zipped.length());
     }
-    return unzipped;
+
+    LOG_("Uncompressing");
+    return Utilities::uncompress(zipped);
 }
 
 bool TgsIOHandler::load()
@@ -166,25 +140,11 @@ bool TgsIOHandler::read(QImage* out)
     return false;
 }
 
-bool TgsIOHandler::canRead() const
-{
-    if (!device()) {
-        return false;
-    } else if (animation) {
-        return true;
-    } else {
-        // Need to support uncompressed data?
-        return device()->peek(2) == GZ_MAGIC;
-    }
+bool TgsIOHandler::canRead() const {
+    return device();
 }
 
-QByteArray TgsIOHandler::name() const
-{
-    return NAME;
-}
-
-QVariant TgsIOHandler::option(ImageOption option) const
-{
+QVariant TgsIOHandler::option(ImageOption option) const {
     switch (option) {
     case Size:
         ((TgsIOHandler*)this)->load(); // Cast off const

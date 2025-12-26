@@ -7,30 +7,32 @@ import "../js/twemoji.js" as Emoji
 TDLibStickerBase {
     id: sticker
 
-    stickerVisible: file.isDownloadingCompleted
+    stickerVisible: file.isDownloadingCompleted && loader.status == Loader.Ready
 
-    property alias stickerItem: animatedSticker
-    property alias frameCount: animatedSticker.frameCount
-    property alias currentFrame: animatedSticker.currentFrame
-    property alias paused: animatedSticker.paused
+    property alias stickerItem: loader.item
 
     readonly property bool loaded: file.isDownloadingCompleted
+    property bool setSource: true
 
-    LottieItem {
-        id: animatedSticker
-        // Don't use anchors.fill here (breaks width & height values used below)
-        width: parent.width
-        height: parent.height
+    Loader {
+        id: loader
+        anchors.fill: parent
+        sourceComponent: Component {
+            LottieItem {
+                id: animatedSticker
+                anchors.fill: parent
 
-        source: file.path
-        scaledSize {
-            width: appSettings.downscaleAnimatedStickers ? Theme.itemSizeSmall : width
-            height: appSettings.downscaleAnimatedStickers ? (Theme.itemSizeSmall * aspectRatio) : height
+                source: setSource ? file.path : ''
+                scaledSize {
+                    width: appSettings.downscaleAnimatedStickers ? Theme.itemSizeSmall : width
+                    height: appSettings.downscaleAnimatedStickers ? (Theme.itemSizeSmall * aspectRatio) : height
+                }
+
+                paused: !Qt.application.active
+                loop: sticker.loop
+                layer.enabled: sticker.highlighted
+                layer.effect: PressEffect { source: animatedSticker }
+            }
         }
-
-        paused: !Qt.application.active
-        loop: sticker.loop
-        layer.enabled: sticker.highlighted
-        layer.effect: PressEffect { source: animatedSticker }
     }
 }
