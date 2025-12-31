@@ -102,8 +102,6 @@ public:
     static std::string uncompress(const QByteArray &data);
     Q_INVOKABLE static QString uncompressLocalFile(const QString &path);
 
-    Q_INVOKABLE static QString mergeDiceSlotMachineReels(QStringList paths);
-
 private:
     struct FormattedTextInsertion;
 
