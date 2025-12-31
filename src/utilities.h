@@ -31,8 +31,7 @@
 #include "gstaudiorecorder.h"
 #endif
 
-class Utilities : public QObject
-{
+class Utilities : public QObject {
     Q_OBJECT
 
     Q_PROPERTY(VoiceNoteRecordingState voiceNoteRecordingState READ getVoiceNoteRecordingState NOTIFY voiceNoteRecordingStateChanged)
@@ -65,11 +64,14 @@ public:
     static QString formatDuration(int seconds);
     
     Q_INVOKABLE static QString fixReservedHtmlCharacters(const QString &text);
+    // TODO proper name for this (don't make it private since it might be used from other cpp classes):
+    static QString enhanceMessageTextInternal(const QVariantMap &formattedText, QList<QVariantMap> *customInsertions = nullptr, bool ignoreEntities = false, bool escapeReserved = true);
     Q_INVOKABLE static QString enhanceMessageText(const QVariantMap &formattedText, bool ignoreEntities = false, bool escapeReserved = true);
+    Q_INVOKABLE static QVariantMap enhanceMessageTextWithCustomInsertions(const QVariantMap &formattedText, bool ignoreEntities = false, bool escapeReserved = true);
 
-    Q_INVOKABLE QString getMessageText(const QVariantMap &messageContent, const QString &messageSenderType, qlonglong messageSenderUserId, bool isSponsored, MessageText type = MessageTextDefault, bool ignoreEntities = false, bool escapeReserved = true, const QString &forumTopicName = QString()) const;
     Q_INVOKABLE QString getMessageText(const QVariantMap &message, MessageText type = MessageTextDefault, bool ignoreEntities = false, bool escapeReserved = true, const QString &forumTopicName = QString()) const;
     Q_INVOKABLE QString getMessageContentText(const QVariantMap &messageContent, MessageText type = MessageTextDefault, bool ignoreEntities = false, bool escapeReserved = true, const QString &forumTopicName = QString()) const;
+    Q_INVOKABLE QVariantMap getMessageTextWithCustomEntities(const QVariantMap &message, MessageText type = MessageTextDefault, bool ignoreEntities = false, bool escapeReserved = true, const QString &forumTopicName = QString()) const;
 
     Q_INVOKABLE static bool messageContentIsService(const QString &contentType, bool includeTextOnly = false);
     Q_INVOKABLE static QVariant getMessageMinithumbnail(const QVariantMap &messageContent);
@@ -108,8 +110,12 @@ private:
 
     static bool messageInsertionSorter(const FormattedTextInsertion &a, const FormattedTextInsertion &b);
 
+    // FIXME: use templates here ideally
     static void addInsertionsFor(const QString &messageText, QList<FormattedTextInsertion> &insertions, const QString &original, const QString &replacement);
     static void addInsertionsFor(const QString &messageText, QList<FormattedTextInsertion> &insertions, const QChar &original, const QString &replacement);
+    static void addInsertionsFor(const QString &messageText, QList<FormattedTextInsertion> &insertions, const QRegularExpression &original, const QString &replacement);
+
+    QString getMessageTextInternal(const QVariantMap &messageContent, const QString &messageSenderType, qlonglong messageSenderUserId, bool isSponsored, QList<QVariantMap> *customEntities = nullptr, MessageText type = MessageTextDefault, bool ignoreEntities = false, bool escapeReserved = true, const QString &forumTopicName = QString()) const;
 
 signals:
     void voiceNoteDurationChanged();
