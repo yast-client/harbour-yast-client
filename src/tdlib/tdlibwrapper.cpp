@@ -2408,11 +2408,18 @@ void TDLibWrapper::translateMessageText(qlonglong chatId, qlonglong messageId, c
     });
 }
 
-void TDLibWrapper::sendChatAction(qlonglong chatId, const QString &chatActionType) {
-    LOG("Sending chat action" << chatId);
-    this->sendRequest(QVariantMap{{_TYPE, "sendChatAction"}, {CHAT_ID, chatId},
-                                  {"action", QVariantMap{{_TYPE, chatActionType}}}
-                      });
+void TDLibWrapper::sendChatAction(qlonglong chatId, const QString &chatActionType, const QVariantMap &topicId) {
+    LOG("Sending chat action" << chatId << chatActionType);
+    QVariantMap request{
+        {_TYPE, "sendChatAction"},
+        {CHAT_ID, chatId},
+        {"action", QVariantMap{{_TYPE, chatActionType}}}
+    };
+
+    if (!topicId.isEmpty())
+        request.insert(TOPIC_ID, topicId);
+
+    this->sendRequest(request);
 }
 
 void TDLibWrapper::searchEmojis(const QString &text) {

@@ -833,9 +833,9 @@ Column {
             interval: 5000 // from https://core.telegram.org/constructor/updateChatUserTyping: chat action update is valid for 6 seconds
             repeat: true
             onTriggered: if (Qt.application.active)
-                             tdLibWrapper.sendChatAction(chatInformation.id, action)
+                             tdLibWrapper.sendChatAction(chatInformation.id, action, topicId)
             onRunningChanged: if (!running)
-                                  tdLibWrapper.sendChatAction(chatInformation.id, "chatActionCancel")
+                                  tdLibWrapper.sendChatAction(chatInformation.id, "chatActionCancel", topicId)
             function run(action) {
                 this.action = action
                 restart()

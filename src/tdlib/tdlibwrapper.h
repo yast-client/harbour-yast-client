@@ -337,7 +337,7 @@ public:
     Q_INVOKABLE void optimizeStorage(bool entire = false);
     Q_INVOKABLE void translateText(const QVariantMap &text, const QString &languageCode, const QString &extra);
     Q_INVOKABLE void translateMessageText(qlonglong chatId, qlonglong messageId, const QString &languageCode);
-    Q_INVOKABLE void sendChatAction(qlonglong chatId, const QString &chatActionType);
+    Q_INVOKABLE void sendChatAction(qlonglong chatId, const QString &chatActionType, const QVariantMap &topicId = QVariantMap());
     Q_INVOKABLE void searchEmojis(const QString &text);
     Q_INVOKABLE void toggleSupergroupIsForum(bool isForum);
     Q_INVOKABLE void getTopChats(TopChatCategory category, int limit=50);
