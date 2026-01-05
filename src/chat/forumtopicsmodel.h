@@ -31,9 +31,11 @@ private slots:
     void handleForumTopicsReceived(qlonglong chatId, int totalCount, QVariantList newTopics, qint32 nextOffsetDate, qlonglong nextOffsetMessageId, int nextOffsetForumTopicId);
     void handleForumTopicUpdated(qlonglong chatId, int forumTopicId, const QVariantMap &update);
     void handleForumTopicInfoUpdated(qlonglong chatId, int forumTopicId, const QVariantMap &info);
+    void handleNewMessageReceived(qlonglong chatId, const QVariantMap &message);
+    void handleForumTopicReceived(qlonglong chatId, int forumTopicId, const QVariantMap &topic);
 
 private:
-    ForumTopic *getTopic(int id);
+    void insertNewTopic(const QVariantMap &topic);
 
 private:
     TDLibWrapper *tdLibWrapper;

@@ -22,6 +22,9 @@ namespace {
     const QString COLOR("color");
     const QString CUSTOM_EMOJI_ID("custom_emoji_id");
     const QString CREATOR_ID("creator_id");
+    const QString CHAT_ID("chat_id");
+    const QString TOPIC_ID("topic_id");
+    const QString TYPE_MESSAGE_TOPIC_FORUM("messageTopicForum");
 }
 
 ForumTopicsModel::ForumTopicsModel(TDLibWrapper *tdLibWrapper, Utilities *utilities, qlonglong chatId, QObject *parent) :
@@ -39,6 +42,8 @@ ForumTopicsModel::ForumTopicsModel(TDLibWrapper *tdLibWrapper, Utilities *utilit
     connect(tdLibWrapper, &TDLibWrapper::forumTopicsReceived, this, &ForumTopicsModel::handleForumTopicsReceived);
     connect(tdLibWrapper, &TDLibWrapper::forumTopicUpdated, this, &ForumTopicsModel::handleForumTopicUpdated);
     connect(tdLibWrapper, &TDLibWrapper::forumTopicInfoUpdated, this, &ForumTopicsModel::handleForumTopicInfoUpdated);
+    connect(tdLibWrapper, &TDLibWrapper::newMessageReceived, this, &ForumTopicsModel::handleNewMessageReceived);
+    connect(tdLibWrapper, &TDLibWrapper::forumTopicReceived, this, &ForumTopicsModel::handleForumTopicReceived);
 
     this->chatId = chatId;
     this->tdLibWrapper->getForumTopics(chatId);
@@ -219,6 +224,54 @@ void ForumTopicsModel::handleForumTopicInfoUpdated(qlonglong chatId, int forumTo
     }
 }
 
-ForumTopic *ForumTopicsModel::getTopic(int id) {
-    return topicIndexMap.contains(id) ? topics.value(topicIndexMap.value(id)) : nullptr;
+void ForumTopicsModel::insertNewTopic(const QVariantMap &topic) {
+    ForumTopic* forumTopic = new ForumTopic(tdLibWrapper, utilities, topic);
+
+    // Actually add the topic to list
+    const int n = this->topics.size();
+    int pos;
+    for (pos = 0; pos < n && ForumTopic::lessThan(forumTopic, topics.at(pos)); pos++);
+    LOG("Adding topic" << forumTopic->id << "at" << pos);
+
+    beginInsertRows(QModelIndex(), pos, pos);
+    topics.insert(pos, forumTopic);
+    topicIndexMap.insert(forumTopic->id, pos);
+    // Update damaged part of the map
+    for (int i = pos + 1; i <= n; i++)
+        topicIndexMap.insert(topics.at(i)->id, i);
+    endInsertRows();
+
+    //enableRefreshTimer(); // TODO: add refresh timer here as well
+}
+
+void ForumTopicsModel::handleNewMessageReceived(qlonglong chatId, const QVariantMap &message) {
+    const QVariantMap topicId = message.value(TOPIC_ID).toMap();
+    if (this->chatId != message.value(CHAT_ID).toLongLong() || topicId.value(_TYPE).toString() != TYPE_MESSAGE_TOPIC_FORUM)
+        return;
+
+    int forumTopicId = topicId.value(FORUM_TOPIC_ID).toInt();
+
+    if (topicIndexMap.contains(forumTopicId)) {
+        int forumTopicIndex = topicIndexMap.value(forumTopicId);
+        ForumTopic *topic = topics.at(forumTopicIndex);
+        const QModelIndex modelIndex = index(forumTopicIndex);
+        emit dataChanged(modelIndex, modelIndex, topic->updateLastMessage(message));
+        // TODO: update order
+    } else
+        // Load the topic in case it's not yet loaded but a new message is received, or if it was just created
+        tdLibWrapper->getForumTopic(chatId, forumTopicId); // New topic
+}
+
+void ForumTopicsModel::handleForumTopicReceived(qlonglong chatId, int forumTopicId, const QVariantMap &topic) {
+    if (this->chatId != chatId)
+        return;
+
+    if (topicIndexMap.contains(forumTopicId)) {
+        int forumTopicIndex = topicIndexMap.value(forumTopicId);
+        ForumTopic *forumTopic = topics.at(forumTopicIndex);
+        const QModelIndex modelIndex = index(forumTopicIndex);
+        emit dataChanged(modelIndex, modelIndex, forumTopic->updateForumTopicData(topic));
+        // TODO: update order
+    } else
+        insertNewTopic(topic);
 }

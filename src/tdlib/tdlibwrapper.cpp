@@ -128,6 +128,7 @@ namespace {
     const QString MY_ID("my_id");
     const QString TOPIC_ID("topic_id");
     const QString SOURCE("source");
+    const QString FORUM_TOPIC_ID("forum_topic_id");
 
     const QStringList ALL_FILE_TYPES(QStringList()
                                      << "fileTypeAnimation"
@@ -344,6 +345,7 @@ void TDLibWrapper::initializeTDLibReceiver() {
     connect(this->tdLibReceiver, &TDLibReceiver::forumTopicMessagesReceived, this, &TDLibWrapper::forumTopicMessagesReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::forumTopicUpdated, this, &TDLibWrapper::forumTopicUpdated);
     connect(this->tdLibReceiver, &TDLibReceiver::forumTopicInfoUpdated, this, &TDLibWrapper::forumTopicInfoUpdated);
+    connect(this->tdLibReceiver, &TDLibReceiver::forumTopicReceived, this, &TDLibWrapper::forumTopicReceived);
 
     this->tdLibReceiver->start();
 }
@@ -2858,7 +2860,7 @@ void TDLibWrapper::getForumTopicHistory(qlonglong chatId, int forumTopicId, int 
     this->sendRequest({
                           {_TYPE, "getForumTopicHistory"},
                           {CHAT_ID, chatId},
-                          {"forum_topic_id", forumTopicId},
+                          {FORUM_TOPIC_ID, forumTopicId},
                           {FROM_MESSAGE_ID, fromMessageId},
                           {OFFSET, offset},
                           {LIMIT, limit},
@@ -2893,4 +2895,9 @@ QString TDLibWrapper::getMessageSourceType(MessageSource source) {
     default:
         return QString();
     }
+}
+
+void TDLibWrapper::getForumTopic(qlonglong chatId, int forumTopicId) {
+    LOG("Getting forum topic" << chatId << forumTopicId);
+    this->sendRequest({{_TYPE, "getForumTopic"}, {CHAT_ID, chatId}, {FORUM_TOPIC_ID, forumTopicId}});
 }

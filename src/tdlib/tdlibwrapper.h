@@ -361,6 +361,7 @@ public:
     Q_INVOKABLE void toggleChatViewAsTopics(qlonglong chatId, bool viewAsTopics);
     Q_INVOKABLE void getMessageThreadHistory(qlonglong chatId, qlonglong messageId, int extra, qlonglong fromMessageId = 0, int offset = -1, int limit = 50);
     Q_INVOKABLE void getForumTopicHistory(qlonglong chatId, int forumTopicId, int extra, qlonglong fromMessageId = 0, int offset = -1, int limit = 50);
+    Q_INVOKABLE void getForumTopic(qlonglong chatId, int forumTopicId);
 
     // Others (candidates for extraction ;))
     Q_INVOKABLE void initializeOpenWith();
@@ -492,6 +493,7 @@ signals:
     void forumTopicMessagesReceived(qlonglong chatId, int forumTopicId, int extra, const QVariantList &messages, int totalCount);
     void forumTopicUpdated(qlonglong chatId, int forumTopicId, const QVariantMap &update);
     void forumTopicInfoUpdated(qlonglong chatId, int forumTopicId, const QVariantMap &info);
+    void forumTopicReceived(qlonglong chatId, int forumTopicId, const QVariantMap &topic);
 
     // Link types
     void linkUnsupportedByApp(const QString &type);

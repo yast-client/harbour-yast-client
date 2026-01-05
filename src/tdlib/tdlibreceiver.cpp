@@ -210,6 +210,7 @@ TDLibReceiver::TDLibReceiver(int tdLibClientId, QObject *parent) : QThread(paren
     handlers.insert("user", &TDLibReceiver::processUser);
     handlers.insert("chatInviteLinkInfo", &TDLibReceiver::processChatInviteLinkInfo);
     handlers.insert("updateChatViewAsTopics", &TDLibReceiver::processUpdateChatViewAsTopics);
+    handlers.insert("forumTopic", &TDLibReceiver::processForumTopic);
 }
 
 void TDLibReceiver::setActive(bool active)
@@ -1217,4 +1218,12 @@ void TDLibReceiver::processUpdateChatViewAsTopics(const QVariantMap &receivedInf
     bool viewAsTopics = receivedInformation.value("view_as_topics").toBool();
     LOG("Received updateChatViewAsTopics" << chatId << viewAsTopics);
     emit chatViewAsTopicsUpdated(chatId, viewAsTopics);
+}
+
+void TDLibReceiver::processForumTopic(const QVariantMap &receivedInformation) {
+    const QVariantMap info = receivedInformation.value(INFO).toMap();
+    qlonglong chatId = info.value(CHAT_ID).toLongLong();
+    int forumTopicId = info.value(FORUM_TOPIC_ID).toInt();
+    LOG("Received forumTopic" << chatId << forumTopicId);
+    emit forumTopicReceived(chatId, forumTopicId, receivedInformation);
 }

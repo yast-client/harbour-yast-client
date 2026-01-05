@@ -137,6 +137,7 @@ signals:
     void chatViewAsTopicsUpdated(qlonglong chatId, bool viewAsTopics);
     void threadMessagesReceived(qlonglong chatId, qlonglong messageId, int extra, const QVariantList &messages, int totalCount);
     void forumTopicMessagesReceived(qlonglong chatId, int forumTopicId, int extra, const QVariantList &messages, int totalCount);
+    void forumTopicReceived(qlonglong chatId, int forumTopicId, const QVariantMap &topic);
 
 private:
     typedef void (TDLibReceiver::*Handler)(const QVariantMap &);
@@ -247,6 +248,7 @@ private:
     void processUser(const QVariantMap &receivedInformation);
     void processChatInviteLinkInfo(const QVariantMap &receivedInformation);
     void processUpdateChatViewAsTopics(const QVariantMap &receivedInformation);
+    void processForumTopic(const QVariantMap &receivedInformation);
 };
 
 #endif // TDLIBRECEIVER_H
