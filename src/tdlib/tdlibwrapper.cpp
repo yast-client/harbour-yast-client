@@ -264,6 +264,7 @@ void TDLibWrapper::initializeTDLibReceiver() {
     connect(this->tdLibReceiver, &TDLibReceiver::chatNotificationSettingsUpdated, this, &TDLibWrapper::handleChatNotificationSettingsUpdated);
     connect(this->tdLibReceiver, &TDLibReceiver::chatIsMarkedAsUnreadUpdated, this, &TDLibWrapper::handleChatIsMarkedAsUnreadUpdated);
     connect(this->tdLibReceiver, &TDLibReceiver::chatUnreadMentionCountUpdated, this, &TDLibWrapper::handleChatUnreadMentionCountUpdated);
+    connect(this->tdLibReceiver, &TDLibReceiver::messageMentionRead, this, &TDLibWrapper::messageMentionRead);
     connect(this->tdLibReceiver, &TDLibReceiver::chatUnreadReactionCountUpdated, this, &TDLibWrapper::handleChatUnreadReactionCountUpdated);
     connect(this->tdLibReceiver, &TDLibReceiver::chatAvailableReactionsUpdated, this, &TDLibWrapper::handleChatAvailableReactionsUpdated);
 
@@ -346,6 +347,8 @@ void TDLibWrapper::initializeTDLibReceiver() {
     connect(this->tdLibReceiver, &TDLibReceiver::forumTopicUpdated, this, &TDLibWrapper::forumTopicUpdated);
     connect(this->tdLibReceiver, &TDLibReceiver::forumTopicInfoUpdated, this, &TDLibWrapper::forumTopicInfoUpdated);
     connect(this->tdLibReceiver, &TDLibReceiver::forumTopicReceived, this, &TDLibWrapper::forumTopicReceived);
+    connect(this->tdLibReceiver, &TDLibReceiver::messageSuggestedPostInfoUpdated, this, &TDLibWrapper::messageSuggestedPostInfoUpdated);
+    connect(this->tdLibReceiver, &TDLibReceiver::messageContentOpened, this, &TDLibWrapper::messageContentOpened);
 
     this->tdLibReceiver->start();
 }

@@ -467,6 +467,7 @@ signals:
     void openFileExternally(const QString &filePath);
     void availableReactionsReceived(qlonglong messageId, const QStringList &reactions);
     void chatUnreadMentionCountUpdated(qlonglong chatId, int unreadMentionCount);
+    void messageMentionRead(qlonglong chatId, qlonglong messageId);
     void chatUnreadReactionCountUpdated(qlonglong chatId, int unreadReactionCount);
     void reactionsUpdated();
     void messagePropertiesReceived(qlonglong chatId, qlonglong messageId, const QVariantMap &messageProperties);
@@ -494,6 +495,8 @@ signals:
     void forumTopicUpdated(qlonglong chatId, int forumTopicId, const QVariantMap &update);
     void forumTopicInfoUpdated(qlonglong chatId, int forumTopicId, const QVariantMap &info);
     void forumTopicReceived(qlonglong chatId, int forumTopicId, const QVariantMap &topic);
+    void messageSuggestedPostInfoUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &suggestedPostInfo);
+    void messageContentOpened(qlonglong chatId, qlonglong messageId);
 
     // Link types
     void linkUnsupportedByApp(const QString &type);

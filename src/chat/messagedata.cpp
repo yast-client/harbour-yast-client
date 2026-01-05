@@ -14,6 +14,8 @@ namespace {
     const QString DATE("date");
     const QString _TYPE("@type");
     const QString EDIT_DATE("edit_date");
+    const QString SUGGESTED_POST_INFO("suggested_post_info");
+    const QString CONTAINS_UNREAD_MENTION("contains_unread_mention");
 
     // "interaction_info": {
     //     "@type": "messageInteractionInfo",
@@ -29,6 +31,11 @@ namespace {
 
     const QString TYPE_MESSAGE_DICE("messageDice");
     const QString FINAL_STATE("final_state");
+
+    const QString TYPE_MESSAGE_VOICE_NOTE("messageVoiceNote");
+    const QString IS_LISTENED("is_listened");
+    const QString TYPE_MESSAGE_VIDEO_NOTE("messageVideoNote");
+    const QString IS_VIEWED("is_viewed");
 }
 
 MessageData::MessageData(const QVariantMap &data, qlonglong msgid) :
@@ -198,6 +205,50 @@ QVector<int> MessageData::setAlbumEntryMessageIds(const QVariantList &newAlbumMe
 
 QVector<int> MessageData::setInteractionInfo(const QVariantMap &info) {
     return flagsToRoles(updateInteractionInfo(info));
+}
+
+uint MessageData::updateSuggestedPostInfo(const QVariantMap &suggestedPostInfo) {
+    messageData.insert(SUGGESTED_POST_INFO, suggestedPostInfo);
+    return RoleFlagDisplay;
+}
+
+QVector<int> MessageData::setSuggestedPostInfo(const QVariantMap &suggestedPostInfo) {
+    return flagsToRoles(updateSuggestedPostInfo(suggestedPostInfo));
+}
+
+uint MessageData::updateMentionRead() {
+    if (!messageData.value(CONTAINS_UNREAD_MENTION).toBool())
+        return 0;
+    messageData.insert(CONTAINS_UNREAD_MENTION, false);
+    return RoleFlagDisplay;
+}
+
+QVector<int> MessageData::setMentionRead() {
+    return flagsToRoles(updateMentionRead());
+}
+
+uint MessageData::updateMessageContentOpened() {
+    if (messageContentType == TYPE_MESSAGE_VOICE_NOTE) {
+        if (messageData.value(CONTENT).toMap().value(IS_LISTENED).toBool())
+            return 0;
+        QVariantMap content = messageData.value(CONTENT).toMap();
+        content.insert(IS_LISTENED, true);
+        messageData.insert(CONTENT, content);
+        return RoleFlagDisplay;
+    } else if (messageContentType == TYPE_MESSAGE_VIDEO_NOTE) {
+        if (messageData.value(CONTENT).toMap().value(IS_VIEWED).toBool())
+            return 0;
+        QVariantMap content = messageData.value(CONTENT).toMap();
+        content.insert(IS_VIEWED, true);
+        messageData.insert(CONTENT, content);
+        return RoleFlagDisplay;
+    }
+
+    return 0;
+}
+
+QVector<int> MessageData::setMessageContentOpened() {
+    return flagsToRoles(updateMessageContentOpened());
 }
 
 

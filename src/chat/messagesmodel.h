@@ -61,6 +61,9 @@ private slots:
     void handleMessageContentUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &newContent);
     void handleMessageEditedUpdated(qlonglong chatId, qlonglong messageId, int editDate, const QVariantMap &replyMarkup);
     void handleMessageInteractionInfoUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &updatedInfo);
+    void handleMessageSuggestedPostInfoUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &suggestedPostInfo);
+    void handleMessageMentionRead(qlonglong chatId, qlonglong messageId);
+    void handleMessageContentOpened(qlonglong chatId, qlonglong messageId);
 
 private:
     void updateAlbumMessages(qlonglong albumId, bool checkDeleted);

@@ -111,6 +111,7 @@ signals:
     void sessionsReceived(int inactive_session_ttl_days, const QVariantList &sessions);
     void availableReactionsReceived(qlonglong messageId, const QStringList &reactions);
     void chatUnreadMentionCountUpdated(qlonglong chatId, int unreadMentionCount);
+    void messageMentionRead(qlonglong chatId, qlonglong messageId);
     void chatUnreadReactionCountUpdated(qlonglong chatId, int unreadReactionCount);
     void activeEmojiReactionsUpdated(const QStringList &emojis);
     void messagePropertiesReceived(qlonglong chatId, qlonglong messageId, const QVariantMap &messageProperties);
@@ -138,6 +139,8 @@ signals:
     void threadMessagesReceived(qlonglong chatId, qlonglong messageId, int extra, const QVariantList &messages, int totalCount);
     void forumTopicMessagesReceived(qlonglong chatId, int forumTopicId, int extra, const QVariantList &messages, int totalCount);
     void forumTopicReceived(qlonglong chatId, int forumTopicId, const QVariantMap &topic);
+    void messageSuggestedPostInfoUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &suggestedPostInfo);
+    void messageContentOpened(qlonglong chatId, qlonglong messageId);
 
 private:
     typedef void (TDLibReceiver::*Handler)(const QVariantMap &);
@@ -224,6 +227,7 @@ private:
     void processSessions(const QVariantMap &receivedInformation);
     void processAvailableReactions(const QVariantMap &receivedInformation);
     void processUpdateChatUnreadMentionCount(const QVariantMap &receivedInformation);
+    void processUpdateMessageMentionRead(const QVariantMap &receivedInformation);
     void processUpdateChatUnreadReactionCount(const QVariantMap &receivedInformation);
     void processUpdateActiveEmojiReactions(const QVariantMap &receivedInformation);
     void processMessageProperties(const QVariantMap &receivedInformation);
@@ -249,6 +253,8 @@ private:
     void processChatInviteLinkInfo(const QVariantMap &receivedInformation);
     void processUpdateChatViewAsTopics(const QVariantMap &receivedInformation);
     void processForumTopic(const QVariantMap &receivedInformation);
+    void processUpdateMessageSuggestedPostInfo(const QVariantMap &receivedInformation);
+    void processUpdateMessageContentOpened(const QVariantMap &receivedInformation);
 };
 
 #endif // TDLIBRECEIVER_H

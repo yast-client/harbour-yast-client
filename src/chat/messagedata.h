@@ -49,6 +49,9 @@ struct MessageData {
     uint updateReactions(const QVariantMap &interactionInfo);
     uint updateAlbumEntryFilter(const bool isAlbumChild);
     uint updateAlbumEntryMessageIds(const QVariantList &newAlbumMessageIds);
+    uint updateSuggestedPostInfo(const QVariantMap &suggestedPostInfo);
+    uint updateMentionRead();
+    uint updateMessageContentOpened();
 
     QVector<int> diff(const MessageData *message) const;
     QVector<int> setMessageData(const QVariantMap &data);
@@ -57,6 +60,9 @@ struct MessageData {
     QVector<int> setInteractionInfo(const QVariantMap &interactionInfo);
     QVector<int> setAlbumEntryFilter(bool isAlbumChild);
     QVector<int> setAlbumEntryMessageIds(const QVariantList &newAlbumMessageIds);
+    QVector<int> setSuggestedPostInfo(const QVariantMap &suggestedPostInfo);
+    QVector<int> setMentionRead();
+    QVector<int> setMessageContentOpened();
 
     int lastMessageSenderUserId() const;
     qlonglong lastMessageSenderChatId() const;

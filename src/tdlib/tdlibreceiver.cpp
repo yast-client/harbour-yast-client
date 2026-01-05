@@ -184,8 +184,8 @@ TDLibReceiver::TDLibReceiver(int tdLibClientId, QObject *parent) : QThread(paren
     handlers.insert("updateMessageInteractionInfo", &TDLibReceiver::processUpdateMessageInteractionInfo);
     handlers.insert("sessions", &TDLibReceiver::processSessions);
     handlers.insert("availableReactions", &TDLibReceiver::processAvailableReactions);
-    handlers.insert("updateMessageMentionRead", &TDLibReceiver::processUpdateChatUnreadMentionCount);
     handlers.insert("updateChatUnreadMentionCount", &TDLibReceiver::processUpdateChatUnreadMentionCount);
+    handlers.insert("updateMessageMentionRead", &TDLibReceiver::processUpdateMessageMentionRead);
     handlers.insert("updateChatUnreadReactionCount", &TDLibReceiver::processUpdateChatUnreadReactionCount);
     handlers.insert("updateActiveEmojiReactions", &TDLibReceiver::processUpdateActiveEmojiReactions);
     handlers.insert("messageProperties", &TDLibReceiver::processMessageProperties);
@@ -211,6 +211,8 @@ TDLibReceiver::TDLibReceiver(int tdLibClientId, QObject *parent) : QThread(paren
     handlers.insert("chatInviteLinkInfo", &TDLibReceiver::processChatInviteLinkInfo);
     handlers.insert("updateChatViewAsTopics", &TDLibReceiver::processUpdateChatViewAsTopics);
     handlers.insert("forumTopic", &TDLibReceiver::processForumTopic);
+    handlers.insert("updateMessageSuggestedPostInfo", &TDLibReceiver::processUpdateMessageSuggestedPostInfo);
+    handlers.insert("updateMessageContentOpened", &TDLibReceiver::processUpdateMessageContentOpened);
 }
 
 void TDLibReceiver::setActive(bool active)
@@ -770,13 +772,19 @@ void TDLibReceiver::processAvailableReactions(const QVariantMap &receivedInforma
     }
 }
 
-void TDLibReceiver::processUpdateChatUnreadMentionCount(const QVariantMap &receivedInformation)
-{
-    // Handles both updateMessageMentionRead and updateChatUnreadMentionCount
-    // They both have chat_id and unread_mention_count which is all we need
+void TDLibReceiver::processUpdateChatUnreadMentionCount(const QVariantMap &receivedInformation) {
     const qlonglong chatId = receivedInformation.value(CHAT_ID).toLongLong();
     const int unreadMentionCount = receivedInformation.value(UNREAD_MENTION_COUNT).toInt();
     LOG("Chat unread mention count updated" << chatId << unreadMentionCount);
+    emit chatUnreadMentionCountUpdated(chatId, unreadMentionCount);
+}
+
+void TDLibReceiver::processUpdateMessageMentionRead(const QVariantMap &receivedInformation) {
+    const qlonglong chatId = receivedInformation.value(CHAT_ID).toLongLong();
+    const qlonglong messageId = receivedInformation.value(MESSAGE_ID).toLongLong();
+    const int unreadMentionCount = receivedInformation.value(UNREAD_MENTION_COUNT).toInt();
+    LOG("Message mention read" << chatId << messageId << "unread mention count" << unreadMentionCount);
+    emit messageMentionRead(chatId, messageId);
     emit chatUnreadMentionCountUpdated(chatId, unreadMentionCount);
 }
 
@@ -1226,4 +1234,18 @@ void TDLibReceiver::processForumTopic(const QVariantMap &receivedInformation) {
     int forumTopicId = info.value(FORUM_TOPIC_ID).toInt();
     LOG("Received forumTopic" << chatId << forumTopicId);
     emit forumTopicReceived(chatId, forumTopicId, receivedInformation);
+}
+
+void TDLibReceiver::processUpdateMessageSuggestedPostInfo(const QVariantMap &receivedInformation) {
+    qlonglong chatId = receivedInformation.value(CHAT_ID).toLongLong();
+    qlonglong messageId = receivedInformation.value(MESSAGE_ID).toLongLong();
+    LOG("Received updateMessageSuggestedPostInfo" << chatId << messageId);
+    emit messageSuggestedPostInfoUpdated(chatId, messageId, receivedInformation.value("suggested_post_info").toMap());
+}
+
+void TDLibReceiver::processUpdateMessageContentOpened(const QVariantMap &receivedInformation) {
+    qlonglong chatId = receivedInformation.value(CHAT_ID).toLongLong();
+    qlonglong messageId = receivedInformation.value(MESSAGE_ID).toLongLong();
+    LOG("Received updateMessageContentOpened" << chatId << messageId);
+    emit messageContentOpened(chatId, messageId);
 }

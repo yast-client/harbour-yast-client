@@ -48,6 +48,9 @@ void MessagesModel::setupTDLibWrapper() {
     connect(this->tdLibWrapper, &TDLibWrapper::messageEditedUpdated, this, &MessagesModel::handleMessageEditedUpdated);
     connect(this->tdLibWrapper, &TDLibWrapper::messageInteractionInfoUpdated, this, &MessagesModel::handleMessageInteractionInfoUpdated);
     connect(this->tdLibWrapper, &TDLibWrapper::messagesDeleted, this, &MessagesModel::handleMessagesDeleted);
+    connect(this->tdLibWrapper, &TDLibWrapper::messageSuggestedPostInfoUpdated, this, &MessagesModel::handleMessageSuggestedPostInfoUpdated);
+    connect(this->tdLibWrapper, &TDLibWrapper::messageMentionRead, this, &MessagesModel::handleMessageMentionRead);
+    connect(this->tdLibWrapper, &TDLibWrapper::messageContentOpened, this, &MessagesModel::handleMessageContentOpened);
 }
 
 MessagesModel::~MessagesModel() {
@@ -206,7 +209,7 @@ void MessagesModel::handleMessageContentUpdated(qlonglong chatId, qlonglong mess
     if (chatId == this->chatId && messageIndexMap.contains(messageId)) {
         LOG("We know the message that was updated" << messageId);
         const int pos = messageIndexMap.value(messageId, -1);
-        if (pos >= 0) {
+        if (pos >= 0) { // FIXME: why is this here if we check contains() before?
             MessageData* messageData = messages.at(pos);
             const QVector<int> changedRoles(messageData->setContent(newContent));
             LOG("Message was updated at index" << pos);
@@ -235,11 +238,44 @@ void MessagesModel::handleMessageEditedUpdated(qlonglong chatId, qlonglong messa
         if (pos >= 0) {
             MessageData* messageData = messages.at(pos);
             const QVector<int> changedRoles(messageData->setEditDateReplyMarkup(editDate, replyMarkup));
-            LOG("Message was edited at index" << pos);
+            LOG("Message was edited" << messageId << "at index" << pos);
             const QModelIndex messageIndex(index(pos));
             emit dataChanged(messageIndex, messageIndex, changedRoles);
             emit messageUpdated(pos);
         }
+    }
+}
+
+void MessagesModel::handleMessageSuggestedPostInfoUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &suggestedPostInfo) {
+    if (this->chatId == chatId && messageIndexMap.contains(messageId)) {
+        const int pos = messageIndexMap.value(messageId);
+        MessageData *messageData = messages.at(pos);
+        LOG("Message suggested post info updated" << messageId << "at index" << pos);
+        const QModelIndex messageIndex(index(pos));
+        emit dataChanged(messageIndex, messageIndex, messageData->setSuggestedPostInfo(suggestedPostInfo));
+        emit messageUpdated(pos);
+    }
+}
+
+void MessagesModel::handleMessageMentionRead(qlonglong chatId, qlonglong messageId) {
+    if (this->chatId == chatId && messageIndexMap.contains(messageId)) {
+        const int pos = messageIndexMap.value(messageId);
+        MessageData *messageData = messages.at(pos);
+        LOG("Message mention read" << messageId << "at index" << pos);
+        const QModelIndex messageIndex(index(pos));
+        emit dataChanged(messageIndex, messageIndex, messageData->setMentionRead());
+        emit messageUpdated(pos);
+    }
+}
+
+void MessagesModel::handleMessageContentOpened(qlonglong chatId, qlonglong messageId) {
+    if (this->chatId == chatId && messageIndexMap.contains(messageId)) {
+        const int pos = messageIndexMap.value(messageId);
+        MessageData *messageData = messages.at(pos);
+        LOG("Message content opened" << messageId << "at index" << pos);
+        const QModelIndex messageIndex(index(pos));
+        emit dataChanged(messageIndex, messageIndex, messageData->setMessageContentOpened()); // TODO: begin self destruct timer here (if it's just a UI thing, do it from QML)
+        emit messageUpdated(pos);
     }
 }
 
