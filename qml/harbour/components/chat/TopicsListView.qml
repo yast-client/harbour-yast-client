@@ -101,6 +101,7 @@ Item {
                         messagesModel: topicMessagesModel
                         topicId: {'@type': 'messageTopicForum', 'forum_topic_id': topicMessagesModel.forumTopicId}
                         forumTopicName: topicMessagesModel.forumTopicName
+                        messageSource: TDLibAPI.MessageSourceForumTopicHistory
                         draftMessage: forumTopicData.draft_message
 
                         ForumTopicMessagesModel {
