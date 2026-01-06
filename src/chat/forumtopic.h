@@ -55,12 +55,14 @@ struct ForumTopic : public BaseMessagableData {
     const QVariantMap notificationSettings() const;
 
     virtual const QVariantMap lastMessage() const override;
+    qlonglong lastMessageId() const;
     virtual const QVariantMap draftMessage() const override;
 
     const QVector<int> updateIsPinned(bool value);
     const QVector<int> updateLastReadInboxMessageId(qlonglong value);
     const QVector<int> updateLastReadOutboxMessageId(qlonglong value);
     const QVector<int> updateLastMessage(const QVariantMap &message);
+    const QVector<int> updateLastMessageContent(const QVariantMap &content);
     const QVector<int> updateUnreadCount(int value);
     const QVector<int> updateUnreadMentionCount(int value);
     const QVector<int> updateUnreadReactionCount(int value);

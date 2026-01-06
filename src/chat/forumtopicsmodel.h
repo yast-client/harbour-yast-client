@@ -32,13 +32,16 @@ private slots:
     void handleForumTopicInfoUpdated(qlonglong chatId, int forumTopicId, const QVariantMap &info);
     void handleNewMessageReceived(qlonglong chatId, const QVariantMap &message);
     void handleForumTopicReceived(qlonglong chatId, int forumTopicId, const QVariantMap &topic);
+    void handleMessageContentUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &content);
+    void handleMessageSendSucceeded(qlonglong chatId, qlonglong oldMessageId, qlonglong messageId, const QVariantMap &message);
+    // TODO: (not only here) handle updateMessageSendFailed
 
     void handleRelativeTimeRefreshTimer();
 
 private:
     void insertNewTopic(const QVariantMap &topic);
     int updateForumTopicOrder(const int index);
-    void handleForumTopicRolesChanged(int forumTopicIndex, const QVector<int> changedRoles);
+    void handleForumTopicRolesChanged(int forumTopicIndex, const QVector<int> changedRoles, qlonglong prevLastMessageId = 0);
 
     void enableRefreshTimer();
 
@@ -49,6 +52,7 @@ private:
     QTimer *relativeTimeRefreshTimer;
     QList<ForumTopic*> topics;
     QHash<int, int> topicIndexMap;
+    QHash<qlonglong, int> topicLastMessageIdIndexMap;
 
     qlonglong chatId;
     qint32 nextOffsetDate;

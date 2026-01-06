@@ -88,6 +88,10 @@ const QVariantMap ForumTopic::lastMessage() const {
     return data.value(LAST_MESSAGE).toMap();
 }
 
+qlonglong ForumTopic::lastMessageId() const {
+    return lastMessage().value(ID).toLongLong();
+}
+
 const QVariantMap ForumTopic::draftMessage() const {
     return data.value(DRAFT_MESSAGE).toMap();
 }
@@ -148,6 +152,27 @@ const QVector<int> ForumTopic::updateLastMessage(const QVariantMap &message) {
         changedRoles.append(RoleLastMessageIsService);
     if (prevLastMessageStatus != lastMessageStatus())
         changedRoles.append(RoleLastMessageStatus);
+
+    return changedRoles;
+}
+
+const QVector<int> ForumTopic::updateLastMessageContent(const QVariantMap &content) {
+    const QString prevLastMessageText(lastMessageText());
+    const QVariant prevLastMessageMinithumbnail(lastMessageMinithumbnail());
+    const bool prevLastMessageIsService(lastMessageIsService());
+
+    QVariantMap message = lastMessage();
+    message.insert("content", content);
+    data.insert(LAST_MESSAGE, message);
+
+    QVector<int> changedRoles;
+        changedRoles.append(RoleLastMessageDate);
+    if (prevLastMessageText != lastMessageText())
+        changedRoles.append(RoleLastMessageText);
+    if (prevLastMessageMinithumbnail != lastMessageMinithumbnail())
+        changedRoles.append(RoleLastMessageMinithumbnail);
+    if (prevLastMessageIsService != lastMessageIsService())
+        changedRoles.append(RoleLastMessageIsService);
 
     return changedRoles;
 }

@@ -64,7 +64,7 @@ signals:
     void sponsoredMessagesReceived(qlonglong chatId, const QVariantList &messages, int messagesBetween);
     void newMessageReceived(qlonglong chatId, const QVariantMap &message);
     void messageInformation(qlonglong chatId, qlonglong messageId, const QVariantMap &message);
-    void messageSendSucceeded(qlonglong messageId, qlonglong oldMessageId, const QVariantMap &message);
+    void messageSendSucceeded(qlonglong chatId, qlonglong oldMessageId, qlonglong messageId, const QVariantMap &message);
     void activeNotificationsUpdated(const QVariantList notificationGroups);
     void notificationGroupUpdated(const QVariantMap notificationGroupUpdate);
     void notificationUpdated(const QVariantMap updatedNotification);

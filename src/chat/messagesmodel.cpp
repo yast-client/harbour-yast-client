@@ -181,11 +181,10 @@ void MessagesModel::handleMessageReceived(qlonglong chatId, qlonglong messageId,
     }
 }
 
-void MessagesModel::handleMessageSendSucceeded(qlonglong messageId, qlonglong oldMessageId, const QVariantMap &message) {
-    LOG("Message send succeeded, new message ID" << messageId << "old message ID" << oldMessageId << ", chat ID" << message.value(CHAT_ID).toString());
-    LOG("index map:" << messageIndexMap.contains(oldMessageId) << ", index count:" << messageIndexMap.size() << ", message count:" << messages.size());
-    if (this->messageIndexMap.contains(oldMessageId)) {
-        LOG("Message was successfully sent" << oldMessageId);
+void MessagesModel::handleMessageSendSucceeded(qlonglong chatId, qlonglong oldMessageId, qlonglong messageId, const QVariantMap &message) {
+    if (this->chatId == chatId && this->messageIndexMap.contains(oldMessageId)) {
+        LOG("Message send succeeded, new message ID" << messageId << "old message ID" << oldMessageId << ", chat ID" << message.value(CHAT_ID).toString());
+        LOG("index map:" << messageIndexMap.contains(oldMessageId) << ", index count:" << messageIndexMap.size() << ", message count:" << messages.size());
         const int pos = messageIndexMap.take(oldMessageId);
         MessageData* oldMessage = messages.at(pos);
         MessageData* newMessage = new MessageData(message, messageId);

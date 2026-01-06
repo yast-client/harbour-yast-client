@@ -420,7 +420,7 @@ signals:
     void copyToDownloadsSuccessful(const QString &fileName, const QString &filePath);
     void copyToDownloadsError(const QString &fileName, const QString &filePath);
     void receivedMessage(qlonglong chatId, qlonglong messageId, const QVariantMap &message);
-    void messageSendSucceeded(qlonglong messageId, qlonglong oldMessageId, const QVariantMap &message);
+    void messageSendSucceeded(qlonglong chatId, qlonglong oldMessageId, qlonglong messageId, const QVariantMap &message);
     void activeNotificationsUpdated(const QVariantList notificationGroups);
     void notificationGroupUpdated(const QVariantMap notificationGroupUpdate);
     void notificationUpdated(const QVariantMap updatedNotification);

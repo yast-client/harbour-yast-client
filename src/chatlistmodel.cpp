@@ -377,18 +377,13 @@ void ChatListModel::handleChatPinnedMessageUpdated(qlonglong chatId, qlonglong p
     }
 }
 
-void ChatListModel::handleMessageSendSucceeded(qlonglong messageId, qlonglong oldMessageId, const QVariantMap &message)
-{
+void ChatListModel::handleMessageSendSucceeded(qlonglong chatId, qlonglong oldMessageId, qlonglong messageId, const QVariantMap &message) {
     // is this really needed? and doesn't it break some stuff
-    bool ok;
-    const qlonglong chatId(message.value(CHAT_ID).toLongLong(&ok));
-    if (ok) {
-        if (chatIndexMap.contains(chatId)) {
-            const int chatIndex = chatIndexMap.value(chatId);
-            LOG("Updating last message for chat" << chatId << "at index" << chatIndex << ", as message was sent, old ID:" << oldMessageId << ", new ID:" << messageId);
-            const QModelIndex modelIndex(index(chatIndex));
-            emit dataChanged(modelIndex, modelIndex, chatList.at(chatIndex)->data->updateLastMessage(message));
-        }
+    if (chatIndexMap.contains(chatId)) {
+        const int chatIndex = chatIndexMap.value(chatId);
+        LOG("Updating last message for chat" << chatId << "at index" << chatIndex << ", as message was sent, old ID:" << oldMessageId << ", new ID:" << messageId);
+        const QModelIndex modelIndex(index(chatIndex));
+        emit dataChanged(modelIndex, modelIndex, chatList.at(chatIndex)->data->updateLastMessage(message));
     }
 }
 

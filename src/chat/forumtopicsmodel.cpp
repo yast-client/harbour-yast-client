@@ -44,6 +44,8 @@ ForumTopicsModel::ForumTopicsModel(TDLibWrapper *tdLibWrapper, Utilities *utilit
     connect(tdLibWrapper, &TDLibWrapper::forumTopicInfoUpdated, this, &ForumTopicsModel::handleForumTopicInfoUpdated);
     connect(tdLibWrapper, &TDLibWrapper::newMessageReceived, this, &ForumTopicsModel::handleNewMessageReceived);
     connect(tdLibWrapper, &TDLibWrapper::forumTopicReceived, this, &ForumTopicsModel::handleForumTopicReceived);
+    connect(tdLibWrapper, &TDLibWrapper::messageContentUpdated, this, &ForumTopicsModel::handleMessageContentUpdated);
+    connect(tdLibWrapper, &TDLibWrapper::messageSendSucceeded, this, &ForumTopicsModel::handleMessageSendSucceeded);
 
     // Don't start the timer until we have at least one forum topic
     relativeTimeRefreshTimer = new QTimer(this);
@@ -126,7 +128,7 @@ QVariant ForumTopicsModel::data(const QModelIndex &index, int role) const {
         case ForumTopic::RoleIsNameImplicit:
             return topic->info("is_name_implicit").toBool();
 
-        case ForumTopic::RoleLastMessageId: return topic->lastMessage().value(ID).toLongLong();
+        case ForumTopic::RoleLastMessageId: return topic->lastMessageId();
         case ForumTopic::RoleLastMessageSenderId: return topic->lastMessageSenderUserId();
         case ForumTopic::RoleLastMessageText: return topic->lastMessageText();
         case ForumTopic::RoleLastMessageMinithumbnail: return topic->lastMessageMinithumbnail();
@@ -188,8 +190,10 @@ void ForumTopicsModel::handleForumTopicsReceived(qlonglong chatId, int totalCoun
         beginInsertRows(QModelIndex(), topics.length(), topics.length() + newForumTopics.length() - 1);
         const int oldSize = this->topics.length();
         this->topics.append(newForumTopics);
-        for (int i = 0; i < newForumTopics.length(); i++)
+        for (int i = 0; i < newForumTopics.length(); i++) {
             this->topicIndexMap.insert(newForumTopics.at(i)->id, oldSize + i);
+            topicLastMessageIdIndexMap.insert(newForumTopics.at(i)->lastMessageId(), oldSize + i);
+        }
         endInsertRows();
 
         this->nextOffsetDate = nextOffsetDate;
@@ -233,9 +237,12 @@ void ForumTopicsModel::insertNewTopic(const QVariantMap &topic) {
     beginInsertRows(QModelIndex(), pos, pos);
     topics.insert(pos, forumTopic);
     topicIndexMap.insert(forumTopic->id, pos);
+    topicLastMessageIdIndexMap.insert(forumTopic->lastMessageId(), pos);
     // Update damaged part of the map
-    for (int i = pos + 1; i <= n; i++)
+    for (int i = pos + 1; i <= n; i++) {
         topicIndexMap.insert(topics.at(i)->id, i);
+        topicLastMessageIdIndexMap.insert(topics.at(i)->lastMessageId(), i);
+    }
     endInsertRows();
 
     enableRefreshTimer();
@@ -263,12 +270,16 @@ int ForumTopicsModel::updateForumTopicOrder(const int index) {
         const int last = qMax(index, newIndex);
         if (newIndex < index)
             // First index is already correct
-            for (int i = newIndex + 1; i <= last; i++)
+            for (int i = newIndex + 1; i <= last; i++) {
                 topicIndexMap.insert(topics.at(i)->id, i);
+                topicLastMessageIdIndexMap.insert(topics.at(i)->lastMessageId(), i);
+            }
         else
             // Last index is already correct
-            for (int i = index; i < last; i++)
+            for (int i = index; i < last; i++) {
                 topicIndexMap.insert(topics.at(i)->id, i);
+                topicLastMessageIdIndexMap.insert(topics.at(i)->lastMessageId(), i);
+            }
 
         endMoveRows();
     } else
@@ -287,16 +298,22 @@ void ForumTopicsModel::handleNewMessageReceived(qlonglong chatId, const QVariant
     if (topicIndexMap.contains(forumTopicId)) {
         int forumTopicIndex = topicIndexMap.value(forumTopicId);
         ForumTopic *topic = topics.at(forumTopicIndex);
-        handleForumTopicRolesChanged(forumTopicIndex, topic->updateLastMessage(message));
+        const qlonglong prevLastMessageId = topic->lastMessageId();
+        handleForumTopicRolesChanged(forumTopicIndex, topic->updateLastMessage(message), prevLastMessageId);
     } else
         // Load the topic in case it's not yet loaded but a new message is received (which puts it on the top of the list),
         // or if it was just created
         tdLibWrapper->getForumTopic(chatId, forumTopicId);
 }
 
-void ForumTopicsModel::handleForumTopicRolesChanged(int forumTopicIndex, const QVector<int> changedRoles) {
+void ForumTopicsModel::handleForumTopicRolesChanged(int forumTopicIndex, const QVector<int> changedRoles, qlonglong prevLastMessageId) {
     if (changedRoles.isEmpty())
         return;
+
+    if (prevLastMessageId && changedRoles.contains(ForumTopic::RoleLastMessageId)) {
+        topicLastMessageIdIndexMap.remove(prevLastMessageId);
+        topicLastMessageIdIndexMap.insert(topics.at(forumTopicIndex)->id, forumTopicIndex);
+    }
 
     // RoleId never changes
     if (changedRoles.contains(ForumTopic::RoleIsPinned)
@@ -316,7 +333,8 @@ void ForumTopicsModel::handleForumTopicReceived(qlonglong chatId, int forumTopic
     if (topicIndexMap.contains(forumTopicId)) {
         int forumTopicIndex = topicIndexMap.value(forumTopicId);
         ForumTopic *forumTopic = topics.at(forumTopicIndex);
-        handleForumTopicRolesChanged(forumTopicIndex, forumTopic->updateForumTopicData(topic));
+        const qlonglong prevLastMessageId = forumTopic->lastMessageId();
+        handleForumTopicRolesChanged(forumTopicIndex, forumTopic->updateForumTopicData(topic), prevLastMessageId);
     } else
         insertNewTopic(topic);
 }
@@ -335,4 +353,22 @@ void ForumTopicsModel::handleRelativeTimeRefreshTimer() {
                          ForumTopic::RoleLastMessageDate,
                          ForumTopic::RoleLastMessageStatus // FIXME: why was this added here?
                      });
+}
+
+void ForumTopicsModel::handleMessageContentUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &content) {
+    LOG("CHat" << chatId << this->chatId << messageId << topicLastMessageIdIndexMap);
+    if (this->chatId == chatId && topicLastMessageIdIndexMap.contains(messageId)) {
+        int forumTopicIndex = topicLastMessageIdIndexMap.value(messageId);
+        ForumTopic *topic = topics.at(forumTopicIndex);
+        handleForumTopicRolesChanged(forumTopicIndex, topic->updateLastMessageContent(content));
+    }
+}
+
+void ForumTopicsModel::handleMessageSendSucceeded(qlonglong chatId, qlonglong oldMessageId, qlonglong messageId, const QVariantMap &message) {
+    if (this->chatId == chatId && topicLastMessageIdIndexMap.contains(messageId)) {
+        int forumTopicIndex = topicLastMessageIdIndexMap.value(messageId);
+        ForumTopic *topic = topics.at(forumTopicIndex);
+        const qlonglong prevLastMessageId = topic->lastMessageId();
+        handleForumTopicRolesChanged(forumTopicIndex, topic->updateLastMessage(message), prevLastMessageId);
+    }
 }

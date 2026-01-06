@@ -472,13 +472,13 @@ void TDLibReceiver::processMessageLinkInfo(const QVariantMap &receivedInformatio
     emit messageLinkInfoReceived(chatId, messageId);
 }
 
-void TDLibReceiver::processMessageSendSucceeded(const QVariantMap &receivedInformation)
-{
+void TDLibReceiver::processMessageSendSucceeded(const QVariantMap &receivedInformation) {
     const qlonglong oldMessageId = receivedInformation.value(OLD_MESSAGE_ID).toLongLong();
     const QVariantMap message = receivedInformation.value(MESSAGE).toMap();
+    const qlonglong chatId = message.value(CHAT_ID).toLongLong();
     const qlonglong messageId = message.value(ID).toLongLong();
     LOG("Message send succeeded" << messageId << oldMessageId);
-    emit messageSendSucceeded(messageId, oldMessageId, cleanupMap(message));
+    emit messageSendSucceeded(chatId, messageId, oldMessageId, cleanupMap(message));
 }
 
 void TDLibReceiver::processUpdateActiveNotifications(const QVariantMap &receivedInformation)

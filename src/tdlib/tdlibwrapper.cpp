@@ -1134,7 +1134,7 @@ void TDLibWrapper::setChatDraftMessage(qlonglong chatId, qlonglong threadId, qlo
             {MESSAGE_ID, replyToMessageId}
         });
 
-    requestObject.insert("draft_message", draftMessage);
+    requestObject.insert(DRAFT_MESSAGE, draftMessage);
     this->sendRequest(requestObject);
 }
 
