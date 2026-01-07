@@ -107,23 +107,6 @@ ListItem {
         }
     }
 
-    function getInteractionText(viewCount, reactions, size, highlightColor) {
-        var interactionText = viewCount > 0 ? (Emoji.emojify("👁️ ", size) + Functions.getShortenedCount(viewCount)) : ''
-        for (var i = 0; i < reactions.length; i++) {
-            var reaction = reactions[i]
-            var reactionText = reaction.reaction ? reaction.reaction : (reaction.type && reaction.type.emoji) ? reaction.type.emoji : ""
-            if (reactionText) {
-                interactionText += ("&nbsp;" + Emoji.emojify(reactionText, size))
-                if (!chatPage.isPrivateChat) {
-                    var count = Functions.getShortenedCount(reaction.total_count)
-                    interactionText += " "
-                    interactionText += (reaction.is_chosen ? ("<font color='" + highlightColor + "'><b>" + count + "</b></font>") : count)
-                }
-            }
-        }
-        return interactionText
-    }
-
     function openReactions() {
         if (messageListItem.chatReactions) {
             Debug.log("Using chat reactions")
@@ -346,7 +329,7 @@ ListItem {
         target: messagesModel
         onLastReadSentMessageUpdated: {
             Debug.log("[ChatModel] Messages in this chat were read (last read changed), updating description for index ", index)
-            messageDateText.text = getMessageStatusText(myMessage, messageIndex, messageDateText.useElapsed)
+            messageDateText.text = getMessageStatusText(myMessage, messageIndex, messageViewCount, messageDateText.useElapsed)
         }
     }
 
@@ -424,7 +407,7 @@ ListItem {
 
     onMyMessageChanged: {
         Debug.log("[ChatModel] This message was updated, index", messageIndex, ", updating content...")
-        messageDateText.text = getMessageStatusText(myMessage, messageIndex, messageDateText.useElapsed)
+        messageDateText.text = getMessageStatusText(myMessage, messageIndex, messageViewCount, messageDateText.useElapsed)
         Emoji.emojify(Functions.getMessageText(myMessage, false, page.myUserId, false, Theme.fontSizeSmall), Theme.fontSizeSmall)
         if (webPagePreviewLoader.item)
             webPagePreviewLoader.item.linkPreviewData = myMessage.content.link_preview
@@ -763,7 +746,7 @@ ListItem {
                     running: true
                     repeat: true
                     onTriggered:
-                        messageDateText.text = getMessageStatusText(myMessage, messageIndex, messageDateText.useElapsed)
+                        messageDateText.text = getMessageStatusText(myMessage, messageIndex, messageViewCount, messageDateText.useElapsed)
                 }
 
                 Text {
@@ -775,13 +758,13 @@ ListItem {
                     font.pixelSize: Theme.fontSizeTiny
                     color: messageListItem.isOwnMessage ? Theme.secondaryHighlightColor : Theme.secondaryColor
                     horizontalAlignment: messageListItem.textAlign
-                    text: getMessageStatusText(myMessage, messageIndex, messageDateText.useElapsed)
+                    text: getMessageStatusText(myMessage, messageIndex, messageViewCount, messageDateText.useElapsed)
                     MouseArea {
                         anchors.fill: parent
                         enabled: !messageListItem.precalculatedValues.pageIsSelecting
                         onClicked: {
                             messageDateText.useElapsed = !messageDateText.useElapsed
-                            messageDateText.text = getMessageStatusText(myMessage, messageIndex, messageDateText.useElapsed)
+                            messageDateText.text = getMessageStatusText(myMessage, messageIndex, messageViewCount, messageDateText.useElapsed)
                         }
                     }
                 }
@@ -791,24 +774,127 @@ ListItem {
                     width: parent.width
                     asynchronous: true
                     active: (chatPage.isChannel && messageViewCount > 0) || reactions.length > 0
-                    height: active ? (Theme.fontSizeExtraSmall + Theme.paddingSmall) : 0
+                    height: active ? implicitHeight : 0
+
                     sourceComponent: Component {
-                        Label {
-                            text: getInteractionText(messageViewCount, reactions, font.pixelSize, Theme.highlightColor)
+                        Flow {
                             width: parent.width
-                            font.pixelSize: Theme.fontSizeTiny
-                            color: messageListItem.isOwnMessage ? Theme.secondaryHighlightColor : Theme.secondaryColor
-                            horizontalAlignment: messageListItem.textAlign
-                            textFormat: Text.StyledText
-                            maximumLineCount: 1
-                            elide: Text.ElideRight
-                            MouseArea {
-                                anchors.fill: parent
-                                onClicked: {
-                                    if (messageListItem.messageReactions) {
-                                        messageListItem.messageReactions = null
-                                        selectReactionBubble.visible = false
-                                    } else openReactions()
+                            spacing: Theme.paddingSmall
+                            layoutDirection: Qt.RightToLeft
+                            Repeater {
+                                model: reactions
+                                Rectangle {
+                                    property bool isSupported: !!reactionLoader.sourceComponent
+
+                                    visible: isSupported
+                                    height: Theme.fontSizeExtraSmall + Theme.paddingSmall
+                                    width: childrenRect.width + Theme.paddingSmall
+                                    radius: width
+
+                                    color: modelData.is_chosen ? Theme.secondaryHighlightColor : Theme.secondaryColor
+
+                                    Loader {
+                                        id: reactionLoader
+                                        x: Theme.paddingSmall/2
+                                        y: x
+                                        height: parent.height - y*2
+                                        width: height
+
+                                        sourceComponent:
+                                            switch (modelData.type['@type']) {
+                                            case 'reactionTypeEmoji':
+                                                return emojiReactionComponent
+                                            //case 'reactionTypePaid':
+                                            //    return paidReactionComponent
+                                            //case 'reactionTypeCustomEmoji':
+                                            //    return customEmojiReactionComponent
+                                            default:
+                                                return undefined
+                                            }
+
+                                        Component {
+                                            id: emojiReactionComponent
+                                            Image {
+                                                id: emojiPicture
+                                                anchors.fill: parent
+                                                sourceSize: {
+                                                    width: width
+                                                    height: height
+                                                }
+                                                source: Emoji.getEmojiPath(modelData.type.emoji)
+                                            }
+                                        }
+                                    }
+
+                                    Repeater {
+                                        id: reactorsRepeater
+                                        model: modelData.recent_sender_ids.reverse()
+                                        ProfileThumbnail {
+                                            id: reactorProfileThumbnail
+
+                                            height: parent.height
+                                            width: height
+                                            anchors {
+                                                left: reactionLoader.right
+                                                leftMargin: (Theme.paddingSmall/2) + Theme.paddingSmall * (reactorsRepeater.count - index - 1)
+                                            }
+
+                                            photoData: isChat
+                                                       ? tdLibWrapper.getChat(modelData.chat_id).photo.small
+                                                       : reactorUserInfoLoader.info.profile_photo.small
+                                            replacementStringHint: isChat
+                                                                   ? tdLibWrapper.getChat(modelData.chat_id).title
+                                                                   : Functions.getUserName(reactorUserInfoLoader.info)
+
+                                            property bool isChat: modelData['@type'] === 'messageSenderChat'
+
+                                            TDLibUser {
+                                                id: reactorUserInfoLoader
+                                                userId: isChat ? 0 : modelData.user_id
+                                            }
+
+                                            Connections {
+                                                // FIXME: this can be improved (maybe use QQmlPropertyMaps for storing chat info?):
+                                                target: isChat ? tdLibWrapper : null
+                                                onChatTitleUpdated:
+                                                    if (chatId === modelData.chat_id)
+                                                        reactorProfileThumbnail.replacementStringHint = title
+                                                onChatPhotoUpdated:
+                                                    if (chatId === modelData.chat_id)
+                                                        reactorProfileThumbnail.photoData = photo.small
+                                            }
+                                        }
+                                    }
+
+                                    Text {
+                                        anchors {
+                                            left: reactionLoader.right
+                                            leftMargin: visible ? (Theme.paddingSmall + Math.max(0, Theme.paddingSmall*(modelData.recent_sender_ids.length - 1))) : 0
+                                        }
+                                        visible: (modelData.total_count - modelData.recent_sender_ids.length) > 0
+                                        width: visible ? implicitWidth : 0
+                                        text: Functions.getShortenedCount(modelData.total_count)
+                                        font.pixelSize: Theme.fontSizeTiny
+                                        color: modelData.is_chosen ? Theme.highlightColor : Theme.primaryColor
+                                    }
+
+                                    MouseArea {
+                                        anchors.fill: parent
+                                        // TODO: check if you can actually add the reaction
+                                        onClicked:
+                                            switch (modelData.type['@type']) {
+                                            case 'reactionTypeEmoji':
+                                                if (modelData.is_chosen)
+                                                    tdLibWrapper.removeMessageReaction(chatId, messageId, modelData.type.emoji)
+                                                else
+                                                    tdLibWrapper.addMessageReaction(chatId, messageId, modelData.type.emoji)
+                                                break
+                                            //case 'reactionTypePaid':
+                                            //    return paidReactionComponent
+                                            //case 'reactionTypeCustomEmoji':
+                                            //    return customEmojiReactionComponent
+                                            }
+                                    }
                                 }
                             }
                         }

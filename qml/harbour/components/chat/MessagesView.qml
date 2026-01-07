@@ -64,14 +64,15 @@ Column {
         Debug.log.apply(console, a)
     }
 
-    function getMessageStatusText(message, listItemIndex, useElapsed) {
+    function getMessageStatusText(message, listItemIndex, viewCount, useElapsed) {
         var lastReadSentIndex = messagesModel.lastReadSentMessageIndex
         log("Last read sent index: " + lastReadSentIndex)
-        var messageStatusSuffix = ""
 
         if(!message) return ""
         if (message['@type'] === "sponsoredMessage")
             return message.is_recommended ? qsTr("Recommended Message") : qsTr("Sponsored Message")
+
+        var messageStatusSuffix = ''
 
         if (message.edit_date > 0)
             messageStatusSuffix += " - " + qsTr("edited")
@@ -100,7 +101,9 @@ Column {
         if (Debug.enabled)
             messageStatusSuffix += " (ID: " + message.id + ")"
 
-        return (useElapsed ? Functions.getDateTimeElapsed(message.date) : Functions.getDateTimeTranslated(message.date)) + messageStatusSuffix
+        return (viewCount > 0 ? (Emoji.emojify('👁️ ', Theme.fontSizeTiny) + Functions.getShortenedCount(viewCount) + ' ') : '')
+                + (useElapsed ? Functions.getDateTimeElapsed(message.date) : Functions.getDateTimeTranslated(message.date))
+                + messageStatusSuffix
     }
 
     function sendMessage() {
