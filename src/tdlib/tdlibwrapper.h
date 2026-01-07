@@ -268,7 +268,7 @@ public:
     Q_INVOKABLE void setChatNotificationSettings(const QString &chatId, const QVariantMap &notificationSettings);
     Q_INVOKABLE void editMessageText(const QString &chatId, const QString &messageId, const QString &message);
     Q_INVOKABLE void editMessageCaption(const QString &chatId, const QString &messageId, const QString &caption);
-    Q_INVOKABLE void deleteMessages(const QString &chatId, const QVariantList messageIds);
+    Q_INVOKABLE void deleteMessages(const QString &chatId, const QVariantList messageIds, bool revoke = true);
     Q_INVOKABLE void getMapThumbnailFile(const QString &chatId, double latitude, double longitude, int width, int height, const QString &extra);
     Q_INVOKABLE void getRecentStickers();
     Q_INVOKABLE void getInstalledStickerSets();

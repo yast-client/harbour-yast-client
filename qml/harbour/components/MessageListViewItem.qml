@@ -70,11 +70,11 @@ ListItem {
     signal editMessage()
     signal forwardMessage()
 
-    function deleteMessage() {
+    function deleteMessage(revoke) {
         var chatId = page.chatInformation.id
         var messageId = myMessage.id
-        Remorse.itemAction(messageListItem, qsTr("Message deleted"), function() {
-            tdLibWrapper.deleteMessages(chatId, [ messageId ])
+        Remorse.itemAction(messageListItem, (revoke || isSavedMessages) ? qsTr("Message deleted") : qsTr("Message deleted only for yourself"), function() {
+            tdLibWrapper.deleteMessages(chatId, [messageId], revoke)
         })
     }
 
@@ -99,8 +99,12 @@ ListItem {
     }
 
     function openContextMenu() {
-        if (menu) openMenu()
-        else contextMenuLoader.active = true
+        if (menu && menu.isMessageListViewItemMainContextMenu)
+            openMenu()
+        else {
+            contextMenuLoader.sourceComponent = mainContextMenuComponent
+            contextMenuLoader.active = true
+        }
     }
 
     function getInteractionText(viewCount, reactions, size, highlightColor) {
@@ -204,7 +208,7 @@ ListItem {
             autoLoad: false
         }
         property alias messageProperties: propertiesLoader.properties
-        readonly property bool canDeleteMessage: !!messageProperties.can_be_deleted_for_all_users || (!!messageProperties.can_be_deleted_only_for_self && myMessage.chat_id === page.myUserId)
+        readonly property bool canDeleteMessage: !!(messageProperties.can_be_deleted_for_all_users || messageProperties.can_be_deleted_only_for_self)
 
         onStatusChanged: {
             if (status == Loader.Loading || status == Loader.Ready)
@@ -217,11 +221,17 @@ ListItem {
                 propertiesLoader.reset()
         }
 
-        sourceComponent: Component {
+        sourceComponent: mainContextMenuComponent
+
+        Component {
+            id: mainContextMenuComponent
             FancyContextMenu {
                 listItem: messageListItem
                 onActiveChanged: if (active) propertiesLoader.load()
                 onClosed: propertiesLoader.reset() // closed is called at end of animation, and active is set to false at the start, so we use closed() for tracking close and active for tracking open
+
+                property bool isMessageListViewItemMainContextMenu: true
+
                 FancyMenuRow {
                     // NOTE: In places like this we should generally use `enabled` instead of `visible` so people can rely on spatial memory.
                     // NOTE2: When a user selects a message, the finger first goes to the (horizontal) center of the message, so the most used options should be there
@@ -270,7 +280,12 @@ ListItem {
                         icon.source: "image://theme/icon-m-delete"
                         shortText: qsTr("Delete", 'Short version for "Delete Message"')
                         longText: qsTr("Delete Message")
-                        onClicked: deleteMessage()
+                        onClicked: {
+                            if (messageProperties.can_be_deleted_only_for_self && messageProperties.can_be_deleted_for_all_users)
+                                contextMenuLoader.sourceComponent = deleteContextMenuComponent
+                            else
+                                deleteMessage(!!messageProperties.can_be_deleted_for_all_users)
+                        }
                     }
                     IconTextRowMenuItem {
                         visible: !!messageProperties.can_be_edited
@@ -305,6 +320,20 @@ ListItem {
                             extraContentLoader.item.extraContextMenuItems[i].processProperties({})
                         extraContentLoader.item.extraContextMenuItems[i].parent = null
                     }
+                }
+            }
+        }
+
+        Component {
+            id: deleteContextMenuComponent
+            ContextMenu {
+                MenuItem {
+                    text: (isPrivateChat || isSecretChat) ? qsTr("Delete for me and %1").arg(getChatTitle(font.pixelSize)) : qsTr("Delete for everyone")
+                    onClicked: deleteMessage(true)
+                }
+                MenuItem {
+                    text: qsTr("Delete just for me")
+                    onClicked: deleteMessage(false)
                 }
             }
         }

@@ -85,6 +85,13 @@ Page {
         Debug.log.apply(console, a)
     }
 
+    function getChatTitle(fontSize) {
+        return chatPage.isDeletedUser ? qsTr("Deleted User") :
+                                        chatInformation.title !== "" ?
+                                            Emoji.emojify(utilities.fixReservedHtmlCharacters(chatInformation.title), fontSize)
+                                          : qsTr("Unknown")
+    }
+
     function setMessageText(text, doSend) {
         if (messagesView)
             messagesView.setMessageText(text, doSend)
@@ -396,10 +403,7 @@ Page {
                     id: chatHeader
 
                     isSecret: chatPage.isSecretChat
-                    chatNameText.text: chatPage.isDeletedUser ? qsTr("Deleted User") :
-                                                           chatInformation.title !== "" ?
-                                                               Emoji.emojify(utilities.fixReservedHtmlCharacters(chatInformation.title), chatNameText.font.pixelSize)
-                                                             : qsTr("Unknown")
+                    chatNameText.text: getChatTitle(chatNameText.font.pixelSize)
                     chatBadges.verificationStatus: chatGroupInformation ? chatGroupInformation.verification_status : null
 
                     property bool _reloadStatus

@@ -756,13 +756,13 @@ void TDLibWrapper::editMessageCaption(const QString &chatId, const QString &mess
     });
 }
 
-void TDLibWrapper::deleteMessages(const QString &chatId, const QVariantList messageIds) {
+void TDLibWrapper::deleteMessages(const QString &chatId, const QVariantList messageIds, bool revoke) {
     LOG("Deleting some messages" << chatId << messageIds);
     this->sendRequest(QVariantMap{
         {_TYPE, "deleteMessages"},
         {CHAT_ID, chatId},
         {"message_ids", messageIds},
-        {"revoke", true}
+        {"revoke", revoke}
     });
 }
 
