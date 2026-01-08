@@ -10,6 +10,7 @@ Page {
     property var message
     property var chatId: message ? message.chat_id : null
     property var messageId: message ? message.id : null
+    property bool summaryAvailable: message && message.summary_language_code
 
     readonly property var supportedLanguages: ["af", "sq", "am", "ar", "hy", "az", "eu", "be", "bn", "bs", "bg", "ca", "ceb", "zh-CN", "zh", "zh-Hans", "zh-TW", "zh-Hant", "co", "hr", "cs", "da", "nl", "en", "eo", "et", "fi", "fr", "fy", "gl", "ka", "de", "el", "gu", "ht", "ha", "haw", "he", "iw", "hi", "hmn", "hu", "is", "ig", "id", "in", "ga", "it", "ja", "jv", "kn", "kk", "km", "rw", "ko", "ku", "ky", "lo", "la", "lv", "lt", "lb", "mk", "mg", "ms", "ml", "mt", "mi", "mr", "mn", "my", "ne", "no", "ny", "or", "ps", "fa", "pl", "pt", "pa", "ro", "ru", "sm", "gd", "sr", "st", "sn", "sd", "si", "sk", "sl", "so", "es", "su", "sw", "sv", "tl", "tg", "ta", "tt", "te", "th", "tr", "tk", "uk", "ur", "ug", "uz", "vi", "cy", "xh", "yi", "ji", "yo", "zu"]
 
@@ -22,9 +23,12 @@ Page {
     property bool deviceLanguageSupported: supportedLanguages.indexOf(deviceLanguage) >= 0
 
     property string language: deviceLanguageSupported ? deviceLanguage : 'en'
+    property bool summary
+
+    property bool translateDisabled
 
     property var getExtra: function() {
-        return "msgtr" + chatId + ":" + messageId + language
+        return (summary ? 'summarizeMessage' : 'msgtr') + chatId + ':' + messageId + language
     }
 
     /*
@@ -34,9 +38,12 @@ Page {
     */
 
     function translate() {
+        if (translateDisabled) return
         translating = true
         translated = ""
-        if (sourceText)
+        if (message && summary)
+            tdLibWrapper.summarizeMessage(chatId, messageId, language)
+        else if (sourceText)
             tdLibWrapper.translateText(sourceText, language, getExtra())
         else if (message)
             tdLibWrapper.translateMessageText(chatId, messageId, language)
@@ -45,7 +52,8 @@ Page {
     onSourceTextChanged: translate()
     onLanguageChanged: translate()
     onMessageChanged: translate()
-    Component.onCompleted: translate()
+    onSummaryChanged: translate()
+    //Component.onCompleted: translate()
 
     Connections {
         target: tdLibWrapper
@@ -71,7 +79,8 @@ Page {
                 model: SortFilterProxyModel {
                     sourceModel: ListModel {
                         id: languagesModel
-                        Component.onCompleted:
+                        Component.onCompleted: {
+                            append({lang: '', name: qsTr("Default", "Default language for AI summary")})
                             supportedLanguages.forEach(function(lang) {
                                 append({
                                            lang: lang,
@@ -79,17 +88,26 @@ Page {
                                            //isDevice: deviceLanguageSupported && lang === deviceLanguage
                                        })
                             })
+                        }
                     }
 
-                    filters: AnyOf {
-                        enabled: !!languageSelectionView.searchQuery
-                        RegExpFilter {
+                    filters: AllOf {
+                        ValueFilter {
+                            enabled: !summary
                             roleName: 'lang'
-                            pattern: languageSelectionView.searchQuery
+                            inverted: true
+                            value: ''
                         }
-                        RegExpFilter {
-                            roleName: 'name'
-                            pattern: languageSelectionView.searchQuery
+                        AnyOf {
+                            enabled: !!languageSelectionView.searchQuery
+                            RegExpFilter {
+                                roleName: 'lang'
+                                pattern: languageSelectionView.searchQuery
+                            }
+                            RegExpFilter {
+                                roleName: 'name'
+                                pattern: languageSelectionView.searchQuery
+                            }
                         }
                     }
 
@@ -167,6 +185,19 @@ Page {
 
         PullDownMenu {
             MenuItem {
+                visible: summaryAvailable
+                text: summary ? qsTr("Translate") : qsTr("Summarize")
+                onClicked: {
+                    translateDisabled = true
+                    if (summary)
+                        language = deviceLanguageSupported ? deviceLanguage : 'en'
+                    else
+                        language = ''
+                    translateDisabled = false
+                    summary = !summary
+                }
+            }
+            MenuItem {
                 text: qsTr("Change language")
                 onClicked: pageStack.push(languageSelectionPageComponent)
             }
@@ -182,11 +213,15 @@ Page {
             width: parent.width
 
             PageHeader {
-                title: {
+                property string readableLanguageName: {
+                    if (!language) return ''
                     var name = Qt.locale(language).nativeLanguageName
-                    if (!name) return qsTr("Translation")
+                    if (!name) return ''
                     return name.slice(0, 1).toUpperCase() + name.slice(1)
                 }
+                title: summary
+                        ? (readableLanguageName ? qsTr("AI Summary (%1)").arg(readableLanguageName) : qsTr("AI Summary"))
+                        : (readableLanguageName ? readableLanguageName : qsTr("Translation"))
             }
 
             Label {

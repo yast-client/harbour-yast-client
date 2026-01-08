@@ -2462,6 +2462,17 @@ void TDLibWrapper::translateMessageText(qlonglong chatId, qlonglong messageId, c
     });
 }
 
+void TDLibWrapper::summarizeMessage(qlonglong chatId, qlonglong messageId, const QString &translateToLanguageCode) {
+    LOG("Summarizing message text" << chatId << messageId << translateToLanguageCode);
+    this->sendRequest(QVariantMap{
+        {_TYPE, "summarizeMessage"},
+        {CHAT_ID, chatId},
+        {MESSAGE_ID, messageId},
+        {"translate_to_language_code", translateToLanguageCode},
+        {_EXTRA, "summarizeMessage" + QString::number(chatId) + ":" + QString::number(messageId) + translateToLanguageCode}
+    });
+}
+
 void TDLibWrapper::sendChatAction(qlonglong chatId, const QString &chatActionType, const QVariantMap &topicId) {
     LOG("Sending chat action" << chatId << chatActionType);
     QVariantMap request{
