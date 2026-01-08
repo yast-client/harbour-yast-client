@@ -102,13 +102,14 @@ class acceptedGiftTypes final : public Object {
   bool unlimited_gifts_;
   bool limited_gifts_;
   bool upgraded_gifts_;
+  bool gifts_from_channels_;
   bool premium_subscription_;
 
   acceptedGiftTypes();
 
-  acceptedGiftTypes(bool unlimited_gifts_, bool limited_gifts_, bool upgraded_gifts_, bool premium_subscription_);
+  acceptedGiftTypes(bool unlimited_gifts_, bool limited_gifts_, bool upgraded_gifts_, bool gifts_from_channels_, bool premium_subscription_);
 
-  static const std::int32_t ID = 1783521300;
+  static const std::int32_t ID = 1288451078;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -147,6 +148,55 @@ class accountTtl final : public Object {
   explicit accountTtl(int32 days_);
 
   static const std::int32_t ID = 1324495492;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class ActiveStoryState: public Object {
+ public:
+};
+
+class activeStoryStateLive final : public ActiveStoryState {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 story_id_;
+
+  activeStoryStateLive();
+
+  explicit activeStoryStateLive(int32 story_id_);
+
+  static const std::int32_t ID = -292947851;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class activeStoryStateUnread final : public ActiveStoryState {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+
+  activeStoryStateUnread();
+
+  static const std::int32_t ID = -1903622483;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class activeStoryStateRead final : public ActiveStoryState {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+
+  activeStoryStateRead();
+
+  static const std::int32_t ID = 153525350;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -614,6 +664,107 @@ class attachmentMenuBotColor final : public Object {
   attachmentMenuBotColor(int32 light_color_, int32 dark_color_);
 
   static const std::int32_t ID = 1680039612;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class auctionBid final : public Object {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int53 star_count_;
+  int32 bid_date_;
+  int32 position_;
+
+  auctionBid();
+
+  auctionBid(int53 star_count_, int32 bid_date_, int32 position_);
+
+  static const std::int32_t ID = -1756434144;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class auctionRound final : public Object {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 number_;
+  int32 duration_;
+  int32 extend_time_;
+  int32 top_winner_count_;
+
+  auctionRound();
+
+  auctionRound(int32 number_, int32 duration_, int32 extend_time_, int32 top_winner_count_);
+
+  static const std::int32_t ID = -986948877;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class auctionBid;
+
+class auctionRound;
+
+class userAuctionBid;
+
+class AuctionState: public Object {
+ public:
+};
+
+class auctionStateActive final : public AuctionState {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 start_date_;
+  int32 end_date_;
+  int53 min_bid_;
+  array<object_ptr<auctionBid>> bid_levels_;
+  array<int53> top_bidder_user_ids_;
+  array<object_ptr<auctionRound>> rounds_;
+  int32 current_round_end_date_;
+  int32 current_round_number_;
+  int32 total_round_count_;
+  int32 distributed_item_count_;
+  int32 left_item_count_;
+  int32 acquired_item_count_;
+  object_ptr<userAuctionBid> user_bid_;
+
+  auctionStateActive();
+
+  auctionStateActive(int32 start_date_, int32 end_date_, int53 min_bid_, array<object_ptr<auctionBid>> &&bid_levels_, array<int53> &&top_bidder_user_ids_, array<object_ptr<auctionRound>> &&rounds_, int32 current_round_end_date_, int32 current_round_number_, int32 total_round_count_, int32 distributed_item_count_, int32 left_item_count_, int32 acquired_item_count_, object_ptr<userAuctionBid> &&user_bid_);
+
+  static const std::int32_t ID = 1169774099;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class auctionStateFinished final : public AuctionState {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 start_date_;
+  int32 end_date_;
+  int53 average_price_;
+  int32 acquired_item_count_;
+  int32 telegram_listed_item_count_;
+  int32 fragment_listed_item_count_;
+  string fragment_url_;
+
+  auctionStateFinished();
+
+  auctionStateFinished(int32 start_date_, int32 end_date_, int53 average_price_, int32 acquired_item_count_, int32 telegram_listed_item_count_, int32 fragment_listed_item_count_, string const &fragment_url_);
+
+  static const std::int32_t ID = -451306439;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -3387,6 +3538,23 @@ class canPostStoryResultMonthlyLimitExceeded final : public CanPostStoryResult {
   explicit canPostStoryResultMonthlyLimitExceeded(int32 retry_after_);
 
   static const std::int32_t ID = -784208562;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class canPostStoryResultLiveStoryIsActive final : public CanPostStoryResult {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 story_id_;
+
+  canPostStoryResultLiveStoryIsActive();
+
+  explicit canPostStoryResultLiveStoryIsActive(int32 story_id_);
+
+  static const std::int32_t ID = 1156939675;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -7130,6 +7298,8 @@ class checklist final : public Object {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class MessageSender;
+
 class formattedText;
 
 class checklistTask final : public Object {
@@ -7140,14 +7310,14 @@ class checklistTask final : public Object {
  public:
   int32 id_;
   object_ptr<formattedText> text_;
-  int53 completed_by_user_id_;
+  object_ptr<MessageSender> completed_by_;
   int32 completion_date_;
 
   checklistTask();
 
-  checklistTask(int32 id_, object_ptr<formattedText> &&text_, int53 completed_by_user_id_, int32 completion_date_);
+  checklistTask(int32 id_, object_ptr<formattedText> &&text_, object_ptr<MessageSender> &&completed_by_, int32 completion_date_);
 
-  static const std::int32_t ID = 772992512;
+  static const std::int32_t ID = 464950512;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -7265,13 +7435,13 @@ class connectedAffiliateProgram final : public Object {
   int32 connection_date_;
   bool is_disconnected_;
   int64 user_count_;
-  int64 revenue_star_count_;
+  int53 revenue_star_count_;
 
   connectedAffiliateProgram();
 
-  connectedAffiliateProgram(string const &url_, int53 bot_user_id_, object_ptr<affiliateProgramParameters> &&parameters_, int32 connection_date_, bool is_disconnected_, int64 user_count_, int64 revenue_star_count_);
+  connectedAffiliateProgram(string const &url_, int53 bot_user_id_, object_ptr<affiliateProgramParameters> &&parameters_, int32 connection_date_, bool is_disconnected_, int64 user_count_, int53 revenue_star_count_);
 
-  static const std::int32_t ID = 1488942101;
+  static const std::int32_t ID = -294102864;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -9532,6 +9702,10 @@ class gameHighScores final : public Object {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class giftAuction;
+
+class giftBackground;
+
 class giftPurchaseLimits;
 
 class sticker;
@@ -9548,20 +9722,130 @@ class gift final : public Object {
   int53 star_count_;
   int53 default_sell_star_count_;
   int53 upgrade_star_count_;
+  int32 upgrade_variant_count_;
   bool has_colors_;
   bool is_for_birthday_;
   bool is_premium_;
+  object_ptr<giftAuction> auction_info_;
   int32 next_send_date_;
   object_ptr<giftPurchaseLimits> user_limits_;
   object_ptr<giftPurchaseLimits> overall_limits_;
+  object_ptr<giftBackground> background_;
   int32 first_send_date_;
   int32 last_send_date_;
 
   gift();
 
-  gift(int64 id_, int53 publisher_chat_id_, object_ptr<sticker> &&sticker_, int53 star_count_, int53 default_sell_star_count_, int53 upgrade_star_count_, bool has_colors_, bool is_for_birthday_, bool is_premium_, int32 next_send_date_, object_ptr<giftPurchaseLimits> &&user_limits_, object_ptr<giftPurchaseLimits> &&overall_limits_, int32 first_send_date_, int32 last_send_date_);
+  gift(int64 id_, int53 publisher_chat_id_, object_ptr<sticker> &&sticker_, int53 star_count_, int53 default_sell_star_count_, int53 upgrade_star_count_, int32 upgrade_variant_count_, bool has_colors_, bool is_for_birthday_, bool is_premium_, object_ptr<giftAuction> &&auction_info_, int32 next_send_date_, object_ptr<giftPurchaseLimits> &&user_limits_, object_ptr<giftPurchaseLimits> &&overall_limits_, object_ptr<giftBackground> &&background_, int32 first_send_date_, int32 last_send_date_);
 
-  static const std::int32_t ID = -2027885280;
+  static const std::int32_t ID = 1567244615;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class giftAuction final : public Object {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  string id_;
+  int32 gifts_per_round_;
+  int32 start_date_;
+
+  giftAuction();
+
+  giftAuction(string const &id_, int32 gifts_per_round_, int32 start_date_);
+
+  static const std::int32_t ID = -907929982;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class MessageSender;
+
+class formattedText;
+
+class giftAuctionAcquiredGift final : public Object {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  object_ptr<MessageSender> receiver_id_;
+  int32 date_;
+  int53 star_count_;
+  int32 auction_round_number_;
+  int32 auction_round_position_;
+  int32 unique_gift_number_;
+  object_ptr<formattedText> text_;
+  bool is_private_;
+
+  giftAuctionAcquiredGift();
+
+  giftAuctionAcquiredGift(object_ptr<MessageSender> &&receiver_id_, int32 date_, int53 star_count_, int32 auction_round_number_, int32 auction_round_position_, int32 unique_gift_number_, object_ptr<formattedText> &&text_, bool is_private_);
+
+  static const std::int32_t ID = -1109930332;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class giftAuctionAcquiredGift;
+
+class giftAuctionAcquiredGifts final : public Object {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  array<object_ptr<giftAuctionAcquiredGift>> gifts_;
+
+  giftAuctionAcquiredGifts();
+
+  explicit giftAuctionAcquiredGifts(array<object_ptr<giftAuctionAcquiredGift>> &&gifts_);
+
+  static const std::int32_t ID = 1203777214;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class AuctionState;
+
+class gift;
+
+class giftAuctionState final : public Object {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  object_ptr<gift> gift_;
+  object_ptr<AuctionState> state_;
+
+  giftAuctionState();
+
+  giftAuctionState(object_ptr<gift> &&gift_, object_ptr<AuctionState> &&state_);
+
+  static const std::int32_t ID = 1691485529;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class giftBackground final : public Object {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 center_color_;
+  int32 edge_color_;
+  int32 text_color_;
+
+  giftBackground();
+
+  giftBackground(int32 center_color_, int32 edge_color_, int32 text_color_);
+
+  static const std::int32_t ID = 269232091;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -9734,6 +10018,52 @@ class giftPurchaseLimits final : public Object {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class GiftPurchaseOfferState: public Object {
+ public:
+};
+
+class giftPurchaseOfferStatePending final : public GiftPurchaseOfferState {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+
+  giftPurchaseOfferStatePending();
+
+  static const std::int32_t ID = 568086522;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class giftPurchaseOfferStateAccepted final : public GiftPurchaseOfferState {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+
+  giftPurchaseOfferStateAccepted();
+
+  static const std::int32_t ID = 267078794;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class giftPurchaseOfferStateRejected final : public GiftPurchaseOfferState {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+
+  giftPurchaseOfferStateRejected();
+
+  static const std::int32_t ID = -1637834462;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
 class giftResaleParameters final : public Object {
   std::int32_t get_id() const final {
     return ID;
@@ -9891,6 +10221,31 @@ class giftUpgradePrice final : public Object {
   giftUpgradePrice(int32 date_, int53 star_count_);
 
   static const std::int32_t ID = -914121900;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class upgradedGiftBackdrop;
+
+class upgradedGiftModel;
+
+class upgradedGiftSymbol;
+
+class giftUpgradeVariants final : public Object {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  array<object_ptr<upgradedGiftModel>> models_;
+  array<object_ptr<upgradedGiftSymbol>> symbols_;
+  array<object_ptr<upgradedGiftBackdrop>> backdrops_;
+
+  giftUpgradeVariants();
+
+  giftUpgradeVariants(array<object_ptr<upgradedGiftModel>> &&models_, array<object_ptr<upgradedGiftSymbol>> &&symbols_, array<object_ptr<upgradedGiftBackdrop>> &&backdrops_);
+
+  static const std::int32_t ID = -797379063;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -10118,6 +10473,8 @@ class giveawayPrizeStars final : public GiveawayPrize {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class MessageSender;
+
 class groupCallRecentSpeaker;
 
 class groupCall final : public Object {
@@ -10129,10 +10486,12 @@ class groupCall final : public Object {
   int32 id_;
   string title_;
   string invite_link_;
+  int53 paid_message_star_count_;
   int32 scheduled_start_date_;
   bool enabled_start_notification_;
   bool is_active_;
   bool is_video_chat_;
+  bool is_live_story_;
   bool is_rtmp_stream_;
   bool is_joined_;
   bool need_rejoin_;
@@ -10141,6 +10500,7 @@ class groupCall final : public Object {
   int32 participant_count_;
   bool has_hidden_listeners_;
   bool loaded_all_participants_;
+  object_ptr<MessageSender> message_sender_id_;
   array<object_ptr<groupCallRecentSpeaker>> recent_speakers_;
   bool is_my_video_enabled_;
   bool is_my_video_paused_;
@@ -10148,16 +10508,18 @@ class groupCall final : public Object {
   bool mute_new_participants_;
   bool can_toggle_mute_new_participants_;
   bool can_send_messages_;
-  bool can_toggle_can_send_messages_;
+  bool are_messages_allowed_;
+  bool can_toggle_are_messages_allowed_;
+  bool can_delete_messages_;
   int32 record_duration_;
   bool is_video_recorded_;
   int32 duration_;
 
   groupCall();
 
-  groupCall(int32 id_, string const &title_, string const &invite_link_, int32 scheduled_start_date_, bool enabled_start_notification_, bool is_active_, bool is_video_chat_, bool is_rtmp_stream_, bool is_joined_, bool need_rejoin_, bool is_owned_, bool can_be_managed_, int32 participant_count_, bool has_hidden_listeners_, bool loaded_all_participants_, array<object_ptr<groupCallRecentSpeaker>> &&recent_speakers_, bool is_my_video_enabled_, bool is_my_video_paused_, bool can_enable_video_, bool mute_new_participants_, bool can_toggle_mute_new_participants_, bool can_send_messages_, bool can_toggle_can_send_messages_, int32 record_duration_, bool is_video_recorded_, int32 duration_);
+  groupCall(int32 id_, string const &title_, string const &invite_link_, int53 paid_message_star_count_, int32 scheduled_start_date_, bool enabled_start_notification_, bool is_active_, bool is_video_chat_, bool is_live_story_, bool is_rtmp_stream_, bool is_joined_, bool need_rejoin_, bool is_owned_, bool can_be_managed_, int32 participant_count_, bool has_hidden_listeners_, bool loaded_all_participants_, object_ptr<MessageSender> &&message_sender_id_, array<object_ptr<groupCallRecentSpeaker>> &&recent_speakers_, bool is_my_video_enabled_, bool is_my_video_paused_, bool can_enable_video_, bool mute_new_participants_, bool can_toggle_mute_new_participants_, bool can_send_messages_, bool are_messages_allowed_, bool can_toggle_are_messages_allowed_, bool can_delete_messages_, int32 record_duration_, bool is_video_recorded_, int32 duration_);
 
-  static const std::int32_t ID = -1792974427;
+  static const std::int32_t ID = -760571660;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -10245,6 +10607,56 @@ class groupCallJoinParameters final : public Object {
   groupCallJoinParameters(int32 audio_source_id_, string const &payload_, bool is_muted_, bool is_my_video_enabled_);
 
   static const std::int32_t ID = 1763438054;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class MessageSender;
+
+class formattedText;
+
+class groupCallMessage final : public Object {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 message_id_;
+  object_ptr<MessageSender> sender_id_;
+  int32 date_;
+  object_ptr<formattedText> text_;
+  int53 paid_message_star_count_;
+  bool is_from_owner_;
+  bool can_be_deleted_;
+
+  groupCallMessage();
+
+  groupCallMessage(int32 message_id_, object_ptr<MessageSender> &&sender_id_, int32 date_, object_ptr<formattedText> &&text_, int53 paid_message_star_count_, bool is_from_owner_, bool can_be_deleted_);
+
+  static const std::int32_t ID = 216155597;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class groupCallMessageLevel final : public Object {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int53 min_star_count_;
+  int32 pin_duration_;
+  int32 max_text_length_;
+  int32 max_custom_emoji_count_;
+  int32 first_color_;
+  int32 second_color_;
+  int32 background_color_;
+
+  groupCallMessageLevel();
+
+  groupCallMessageLevel(int53 min_star_count_, int32 pin_duration_, int32 max_text_length_, int32 max_custom_emoji_count_, int32 first_color_, int32 second_color_, int32 background_color_);
+
+  static const std::int32_t ID = 994685918;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -10344,6 +10756,44 @@ class groupCallRecentSpeaker final : public Object {
   groupCallRecentSpeaker(object_ptr<MessageSender> &&participant_id_, bool is_speaking_);
 
   static const std::int32_t ID = 1819519436;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class groupCallStream final : public Object {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 channel_id_;
+  int32 scale_;
+  int53 time_offset_;
+
+  groupCallStream();
+
+  groupCallStream(int32 channel_id_, int32 scale_, int53 time_offset_);
+
+  static const std::int32_t ID = -264564795;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class groupCallStream;
+
+class groupCallStreams final : public Object {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  array<object_ptr<groupCallStream>> streams_;
+
+  groupCallStreams();
+
+  explicit groupCallStreams(array<object_ptr<groupCallStream>> &&streams_);
+
+  static const std::int32_t ID = -1032959578;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -12271,6 +12721,25 @@ class inputMessagePoll final : public InputMessageContent {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class inputMessageStakeDice final : public InputMessageContent {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  string state_hash_;
+  int53 stake_toncoin_amount_;
+  bool clear_draft_;
+
+  inputMessageStakeDice();
+
+  inputMessageStakeDice(string const &state_hash_, int53 stake_toncoin_amount_, bool clear_draft_);
+
+  static const std::int32_t ID = 1946603673;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
 class inputMessageStory final : public InputMessageContent {
   std::int32_t get_id() const final {
     return ID;
@@ -13553,6 +14022,23 @@ class internalLinkTypeGame final : public InternalLinkType {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class internalLinkTypeGiftAuction final : public InternalLinkType {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  string auction_id_;
+
+  internalLinkTypeGiftAuction();
+
+  explicit internalLinkTypeGiftAuction(string const &auction_id_);
+
+  static const std::int32_t ID = 1724902818;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
 class internalLinkTypeGiftCollection final : public InternalLinkType {
   std::int32_t get_id() const final {
     return ID;
@@ -13650,6 +14136,37 @@ class internalLinkTypeLanguageSettings final : public InternalLinkType {
   internalLinkTypeLanguageSettings();
 
   static const std::int32_t ID = -1340479770;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class internalLinkTypeLiveStory final : public InternalLinkType {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  string story_poster_username_;
+
+  internalLinkTypeLiveStory();
+
+  explicit internalLinkTypeLiveStory(string const &story_poster_username_);
+
+  static const std::int32_t ID = 665614717;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class internalLinkTypeLoginEmailSettings final : public InternalLinkType {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+
+  internalLinkTypeLoginEmailSettings();
+
+  static const std::int32_t ID = 1741252808;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -13757,6 +14274,20 @@ class internalLinkTypePassportDataRequest final : public InternalLinkType {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class internalLinkTypePasswordSettings final : public InternalLinkType {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+
+  internalLinkTypePasswordSettings();
+
+  static const std::int32_t ID = -1776927773;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
 class internalLinkTypePhoneNumberConfirmation final : public InternalLinkType {
   std::int32_t get_id() const final {
     return ID;
@@ -13771,6 +14302,20 @@ class internalLinkTypePhoneNumberConfirmation final : public InternalLinkType {
   internalLinkTypePhoneNumberConfirmation(string const &hash_, string const &phone_number_);
 
   static const std::int32_t ID = 1757375254;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class internalLinkTypePhoneNumberPrivacySettings final : public InternalLinkType {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+
+  internalLinkTypePhoneNumberPrivacySettings();
+
+  static const std::int32_t ID = -765272859;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -14808,6 +15353,8 @@ class chatPhoto;
 
 class document;
 
+class gift;
+
 class photo;
 
 class sticker;
@@ -15103,6 +15650,24 @@ class linkPreviewTypeExternalVideo final : public LinkPreviewType {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class linkPreviewTypeGiftAuction final : public LinkPreviewType {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  object_ptr<gift> gift_;
+  int32 auction_end_date_;
+
+  linkPreviewTypeGiftAuction();
+
+  linkPreviewTypeGiftAuction(object_ptr<gift> &&gift_, int32 auction_end_date_);
+
+  static const std::int32_t ID = -1291307457;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
 class linkPreviewTypeGiftCollection final : public LinkPreviewType {
   std::int32_t get_id() const final {
     return ID;
@@ -15144,6 +15709,24 @@ class linkPreviewTypeInvoice final : public LinkPreviewType {
   linkPreviewTypeInvoice();
 
   static const std::int32_t ID = -729855782;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class linkPreviewTypeLiveStory final : public LinkPreviewType {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int53 story_poster_chat_id_;
+  int32 story_id_;
+
+  linkPreviewTypeLiveStory();
+
+  linkPreviewTypeLiveStory(int53 story_poster_chat_id_, int32 story_id_);
+
+  static const std::int32_t ID = 1062126469;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -15446,6 +16029,26 @@ class linkPreviewTypeWebApp final : public LinkPreviewType {
   explicit linkPreviewTypeWebApp(object_ptr<photo> &&photo_);
 
   static const std::int32_t ID = -1506873462;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class paidReactor;
+
+class liveStoryDonors final : public Object {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int53 total_star_count_;
+  array<object_ptr<paidReactor>> top_donors_;
+
+  liveStoryDonors();
+
+  liveStoryDonors(int53 total_star_count_, array<object_ptr<paidReactor>> &&top_donors_);
+
+  static const std::int32_t ID = 1254388193;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -15832,14 +16435,15 @@ class message final : public Object {
   int64 media_album_id_;
   int64 effect_id_;
   object_ptr<restrictionInfo> restriction_info_;
+  string summary_language_code_;
   object_ptr<MessageContent> content_;
   object_ptr<ReplyMarkup> reply_markup_;
 
   message();
 
-  message(int53 id_, object_ptr<MessageSender> &&sender_id_, int53 chat_id_, object_ptr<MessageSendingState> &&sending_state_, object_ptr<MessageSchedulingState> &&scheduling_state_, bool is_outgoing_, bool is_pinned_, bool is_from_offline_, bool can_be_saved_, bool has_timestamped_media_, bool is_channel_post_, bool is_paid_star_suggested_post_, bool is_paid_ton_suggested_post_, bool contains_unread_mention_, int32 date_, int32 edit_date_, object_ptr<messageForwardInfo> &&forward_info_, object_ptr<messageImportInfo> &&import_info_, object_ptr<messageInteractionInfo> &&interaction_info_, array<object_ptr<unreadReaction>> &&unread_reactions_, object_ptr<factCheck> &&fact_check_, object_ptr<suggestedPostInfo> &&suggested_post_info_, object_ptr<MessageReplyTo> &&reply_to_, object_ptr<MessageTopic> &&topic_id_, object_ptr<MessageSelfDestructType> &&self_destruct_type_, double self_destruct_in_, double auto_delete_in_, int53 via_bot_user_id_, int53 sender_business_bot_user_id_, int32 sender_boost_count_, int53 paid_message_star_count_, string const &author_signature_, int64 media_album_id_, int64 effect_id_, object_ptr<restrictionInfo> &&restriction_info_, object_ptr<MessageContent> &&content_, object_ptr<ReplyMarkup> &&reply_markup_);
+  message(int53 id_, object_ptr<MessageSender> &&sender_id_, int53 chat_id_, object_ptr<MessageSendingState> &&sending_state_, object_ptr<MessageSchedulingState> &&scheduling_state_, bool is_outgoing_, bool is_pinned_, bool is_from_offline_, bool can_be_saved_, bool has_timestamped_media_, bool is_channel_post_, bool is_paid_star_suggested_post_, bool is_paid_ton_suggested_post_, bool contains_unread_mention_, int32 date_, int32 edit_date_, object_ptr<messageForwardInfo> &&forward_info_, object_ptr<messageImportInfo> &&import_info_, object_ptr<messageInteractionInfo> &&interaction_info_, array<object_ptr<unreadReaction>> &&unread_reactions_, object_ptr<factCheck> &&fact_check_, object_ptr<suggestedPostInfo> &&suggested_post_info_, object_ptr<MessageReplyTo> &&reply_to_, object_ptr<MessageTopic> &&topic_id_, object_ptr<MessageSelfDestructType> &&self_destruct_type_, double self_destruct_in_, double auto_delete_in_, int53 via_bot_user_id_, int53 sender_business_bot_user_id_, int32 sender_boost_count_, int53 paid_message_star_count_, string const &author_signature_, int64 media_album_id_, int64 effect_id_, object_ptr<restrictionInfo> &&restriction_info_, string const &summary_language_code_, object_ptr<MessageContent> &&content_, object_ptr<ReplyMarkup> &&reply_markup_);
 
-  static const std::int32_t ID = 505441744;
+  static const std::int32_t ID = 875422076;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -15908,6 +16512,10 @@ class CallDiscardReason;
 class ChatTheme;
 
 class DiceStickers;
+
+class GiftPurchaseOfferState;
+
+class GiftResalePrice;
 
 class GiveawayPrize;
 
@@ -16375,6 +16983,27 @@ class messagePoll final : public MessageContent {
   explicit messagePoll(object_ptr<poll> &&poll_);
 
   static const std::int32_t ID = -662130099;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class messageStakeDice final : public MessageContent {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  object_ptr<DiceStickers> initial_state_;
+  object_ptr<DiceStickers> final_state_;
+  int32 value_;
+  int53 stake_toncoin_amount_;
+  int53 prize_toncoin_amount_;
+
+  messageStakeDice();
+
+  messageStakeDice(object_ptr<DiceStickers> &&initial_state_, object_ptr<DiceStickers> &&final_state_, int32 value_, int53 stake_toncoin_amount_, int53 prize_toncoin_amount_);
+
+  static const std::int32_t ID = 844428448;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -17060,13 +17689,14 @@ class messageGiftedPremium final : public MessageContent {
   string cryptocurrency_;
   int64 cryptocurrency_amount_;
   int32 month_count_;
+  int32 day_count_;
   object_ptr<sticker> sticker_;
 
   messageGiftedPremium();
 
-  messageGiftedPremium(int53 gifter_user_id_, int53 receiver_user_id_, object_ptr<formattedText> &&text_, string const &currency_, int53 amount_, string const &cryptocurrency_, int64 cryptocurrency_amount_, int32 month_count_, object_ptr<sticker> &&sticker_);
+  messageGiftedPremium(int53 gifter_user_id_, int53 receiver_user_id_, object_ptr<formattedText> &&text_, string const &currency_, int53 amount_, string const &cryptocurrency_, int64 cryptocurrency_amount_, int32 month_count_, int32 day_count_, object_ptr<sticker> &&sticker_);
 
-  static const std::int32_t ID = -456073094;
+  static const std::int32_t ID = 807892848;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -17086,14 +17716,15 @@ class messagePremiumGiftCode final : public MessageContent {
   string cryptocurrency_;
   int64 cryptocurrency_amount_;
   int32 month_count_;
+  int32 day_count_;
   object_ptr<sticker> sticker_;
   string code_;
 
   messagePremiumGiftCode();
 
-  messagePremiumGiftCode(object_ptr<MessageSender> &&creator_id_, object_ptr<formattedText> &&text_, bool is_from_giveaway_, bool is_unclaimed_, string const &currency_, int53 amount_, string const &cryptocurrency_, int64 cryptocurrency_amount_, int32 month_count_, object_ptr<sticker> &&sticker_, string const &code_);
+  messagePremiumGiftCode(object_ptr<MessageSender> &&creator_id_, object_ptr<formattedText> &&text_, bool is_from_giveaway_, bool is_unclaimed_, string const &currency_, int53 amount_, string const &cryptocurrency_, int64 cryptocurrency_amount_, int32 month_count_, int32 day_count_, object_ptr<sticker> &&sticker_, string const &code_);
 
-  static const std::int32_t ID = 701640270;
+  static const std::int32_t ID = 680217675;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -17261,9 +17892,11 @@ class messageGift final : public MessageContent {
   object_ptr<MessageSender> receiver_id_;
   string received_gift_id_;
   object_ptr<formattedText> text_;
+  int32 unique_gift_number_;
   int53 sell_star_count_;
   int53 prepaid_upgrade_star_count_;
   bool is_upgrade_separate_;
+  bool is_from_auction_;
   bool is_private_;
   bool is_saved_;
   bool is_prepaid_upgrade_;
@@ -17276,9 +17909,9 @@ class messageGift final : public MessageContent {
 
   messageGift();
 
-  messageGift(object_ptr<gift> &&gift_, object_ptr<MessageSender> &&sender_id_, object_ptr<MessageSender> &&receiver_id_, string const &received_gift_id_, object_ptr<formattedText> &&text_, int53 sell_star_count_, int53 prepaid_upgrade_star_count_, bool is_upgrade_separate_, bool is_private_, bool is_saved_, bool is_prepaid_upgrade_, bool can_be_upgraded_, bool was_converted_, bool was_upgraded_, bool was_refunded_, string const &upgraded_received_gift_id_, string const &prepaid_upgrade_hash_);
+  messageGift(object_ptr<gift> &&gift_, object_ptr<MessageSender> &&sender_id_, object_ptr<MessageSender> &&receiver_id_, string const &received_gift_id_, object_ptr<formattedText> &&text_, int32 unique_gift_number_, int53 sell_star_count_, int53 prepaid_upgrade_star_count_, bool is_upgrade_separate_, bool is_from_auction_, bool is_private_, bool is_saved_, bool is_prepaid_upgrade_, bool can_be_upgraded_, bool was_converted_, bool was_upgraded_, bool was_refunded_, string const &upgraded_received_gift_id_, string const &prepaid_upgrade_hash_);
 
-  static const std::int32_t ID = -1553135178;
+  static const std::int32_t ID = -1990929579;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -17328,6 +17961,46 @@ class messageRefundedUpgradedGift final : public MessageContent {
   messageRefundedUpgradedGift(object_ptr<gift> &&gift_, object_ptr<MessageSender> &&sender_id_, object_ptr<MessageSender> &&receiver_id_, object_ptr<UpgradedGiftOrigin> &&origin_);
 
   static const std::int32_t ID = -605744001;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class messageUpgradedGiftPurchaseOffer final : public MessageContent {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  object_ptr<upgradedGift> gift_;
+  object_ptr<GiftPurchaseOfferState> state_;
+  object_ptr<GiftResalePrice> price_;
+  int32 expiration_date_;
+
+  messageUpgradedGiftPurchaseOffer();
+
+  messageUpgradedGiftPurchaseOffer(object_ptr<upgradedGift> &&gift_, object_ptr<GiftPurchaseOfferState> &&state_, object_ptr<GiftResalePrice> &&price_, int32 expiration_date_);
+
+  static const std::int32_t ID = -1809958483;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class messageUpgradedGiftPurchaseOfferRejected final : public MessageContent {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  object_ptr<upgradedGift> gift_;
+  object_ptr<GiftResalePrice> price_;
+  int53 offer_message_id_;
+  bool was_expired_;
+
+  messageUpgradedGiftPurchaseOfferRejected();
+
+  messageUpgradedGiftPurchaseOfferRejected(object_ptr<upgradedGift> &&gift_, object_ptr<GiftResalePrice> &&price_, int53 offer_message_id_, bool was_expired_);
+
+  static const std::int32_t ID = 59315711;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -18310,12 +18983,13 @@ class messageSchedulingStateSendAtDate final : public MessageSchedulingState {
 
  public:
   int32 send_date_;
+  int32 repeat_period_;
 
   messageSchedulingStateSendAtDate();
 
-  explicit messageSchedulingStateSendAtDate(int32 send_date_);
+  messageSchedulingStateSendAtDate(int32 send_date_, int32 repeat_period_);
 
-  static const std::int32_t ID = -1485570073;
+  static const std::int32_t ID = 1505903015;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -20317,16 +20991,56 @@ class paidReactor final : public Object {
 
  public:
   object_ptr<MessageSender> sender_id_;
-  int32 star_count_;
+  int53 star_count_;
   bool is_top_;
   bool is_me_;
   bool is_anonymous_;
 
   paidReactor();
 
-  paidReactor(object_ptr<MessageSender> &&sender_id_, int32 star_count_, bool is_top_, bool is_me_, bool is_anonymous_);
+  paidReactor(object_ptr<MessageSender> &&sender_id_, int53 star_count_, bool is_top_, bool is_me_, bool is_anonymous_);
 
-  static const std::int32_t ID = -1657303032;
+  static const std::int32_t ID = -748917113;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class passkey final : public Object {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  string id_;
+  string name_;
+  int32 addition_date_;
+  int32 last_usage_date_;
+  int64 software_icon_custom_emoji_id_;
+
+  passkey();
+
+  passkey(string const &id_, string const &name_, int32 addition_date_, int32 last_usage_date_, int64 software_icon_custom_emoji_id_);
+
+  static const std::int32_t ID = -1200601505;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class passkey;
+
+class passkeys final : public Object {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  array<object_ptr<passkey>> passkeys_;
+
+  passkeys();
+
+  explicit passkeys(array<object_ptr<passkey>> &&passkeys_);
+
+  static const std::int32_t ID = 601084419;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -21967,6 +22681,20 @@ class premiumFeatureChecklists final : public PremiumFeature {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class premiumFeaturePaidMessages final : public PremiumFeature {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+
+  premiumFeaturePaidMessages();
+
+  static const std::int32_t ID = -2063708431;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
 class PremiumFeature;
 
 class animation;
@@ -22027,14 +22755,15 @@ class premiumGiftCodeInfo final : public Object {
   bool is_from_giveaway_;
   int53 giveaway_message_id_;
   int32 month_count_;
+  int32 day_count_;
   int53 user_id_;
   int32 use_date_;
 
   premiumGiftCodeInfo();
 
-  premiumGiftCodeInfo(object_ptr<MessageSender> &&creator_id_, int32 creation_date_, bool is_from_giveaway_, int53 giveaway_message_id_, int32 month_count_, int53 user_id_, int32 use_date_);
+  premiumGiftCodeInfo(object_ptr<MessageSender> &&creator_id_, int32 creation_date_, bool is_from_giveaway_, int53 giveaway_message_id_, int32 month_count_, int32 day_count_, int53 user_id_, int32 use_date_);
 
-  static const std::int32_t ID = -1198544674;
+  static const std::int32_t ID = -262674203;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -23178,14 +23907,14 @@ class publicPostSearchLimits final : public Object {
   int32 daily_free_query_count_;
   int32 remaining_free_query_count_;
   int32 next_free_query_in_;
-  int64 star_count_;
+  int53 star_count_;
   bool is_current_query_free_;
 
   publicPostSearchLimits();
 
-  publicPostSearchLimits(int32 daily_free_query_count_, int32 remaining_free_query_count_, int32 next_free_query_in_, int64 star_count_, bool is_current_query_free_);
+  publicPostSearchLimits(int32 daily_free_query_count_, int32 remaining_free_query_count_, int32 next_free_query_in_, int53 star_count_, bool is_current_query_free_);
 
-  static const std::int32_t ID = -1559054228;
+  static const std::int32_t ID = 42358064;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -24260,6 +24989,7 @@ class receivedGift final : public Object {
   string received_gift_id_;
   object_ptr<MessageSender> sender_id_;
   object_ptr<formattedText> text_;
+  int32 unique_gift_number_;
   bool is_private_;
   bool is_saved_;
   bool is_pinned_;
@@ -24281,9 +25011,9 @@ class receivedGift final : public Object {
 
   receivedGift();
 
-  receivedGift(string const &received_gift_id_, object_ptr<MessageSender> &&sender_id_, object_ptr<formattedText> &&text_, bool is_private_, bool is_saved_, bool is_pinned_, bool can_be_upgraded_, bool can_be_transferred_, bool was_refunded_, int32 date_, object_ptr<SentGift> &&gift_, array<int32> &&collection_ids_, int53 sell_star_count_, int53 prepaid_upgrade_star_count_, bool is_upgrade_separate_, int53 transfer_star_count_, int53 drop_original_details_star_count_, int32 next_transfer_date_, int32 next_resale_date_, int32 export_date_, string const &prepaid_upgrade_hash_);
+  receivedGift(string const &received_gift_id_, object_ptr<MessageSender> &&sender_id_, object_ptr<formattedText> &&text_, int32 unique_gift_number_, bool is_private_, bool is_saved_, bool is_pinned_, bool can_be_upgraded_, bool can_be_transferred_, bool was_refunded_, int32 date_, object_ptr<SentGift> &&gift_, array<int32> &&collection_ids_, int53 sell_star_count_, int53 prepaid_upgrade_star_count_, bool is_upgrade_separate_, int53 transfer_star_count_, int53 drop_original_details_star_count_, int32 next_transfer_date_, int32 next_resale_date_, int32 export_date_, string const &prepaid_upgrade_hash_);
 
-  static const std::int32_t ID = 1092688803;
+  static const std::int32_t ID = -259444201;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -26440,6 +27170,28 @@ class sponsoredMessages final : public Object {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class stakeDiceState final : public Object {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  string state_hash_;
+  int53 stake_toncoin_amount_;
+  array<int53> suggested_stake_toncoin_amounts_;
+  int32 current_streak_;
+  array<int32> prize_per_mille_;
+  int32 streak_prize_per_mille_;
+
+  stakeDiceState();
+
+  stakeDiceState(string const &state_hash_, int53 stake_toncoin_amount_, array<int53> &&suggested_stake_toncoin_amounts_, int32 current_streak_, array<int32> &&prize_per_mille_, int32 streak_prize_per_mille_);
+
+  static const std::int32_t ID = 2004711564;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
 class starAmount final : public Object {
   std::int32_t get_id() const final {
     return ID;
@@ -27115,6 +27867,24 @@ class starTransactionTypeChannelSubscriptionSale final : public StarTransactionT
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class starTransactionTypeGiftAuctionBid final : public StarTransactionType {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  object_ptr<MessageSender> owner_id_;
+  object_ptr<gift> gift_;
+
+  starTransactionTypeGiftAuctionBid();
+
+  starTransactionTypeGiftAuctionBid(object_ptr<MessageSender> &&owner_id_, object_ptr<gift> &&gift_);
+
+  static const std::int32_t ID = -1557306224;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
 class starTransactionTypeGiftPurchase final : public StarTransactionType {
   std::int32_t get_id() const final {
     return ID;
@@ -27129,6 +27899,23 @@ class starTransactionTypeGiftPurchase final : public StarTransactionType {
   starTransactionTypeGiftPurchase(object_ptr<MessageSender> &&owner_id_, object_ptr<gift> &&gift_);
 
   static const std::int32_t ID = -1819045664;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class starTransactionTypeGiftPurchaseOffer final : public StarTransactionType {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  object_ptr<upgradedGift> gift_;
+
+  starTransactionTypeGiftPurchaseOffer();
+
+  explicit starTransactionTypeGiftPurchaseOffer(object_ptr<upgradedGift> &&gift_);
+
+  static const std::int32_t ID = -1220117354;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -27251,12 +28038,13 @@ class starTransactionTypeUpgradedGiftSale final : public StarTransactionType {
   object_ptr<upgradedGift> gift_;
   int32 commission_per_mille_;
   object_ptr<starAmount> commission_star_amount_;
+  bool via_offer_;
 
   starTransactionTypeUpgradedGiftSale();
 
-  starTransactionTypeUpgradedGiftSale(int53 user_id_, object_ptr<upgradedGift> &&gift_, int32 commission_per_mille_, object_ptr<starAmount> &&commission_star_amount_);
+  starTransactionTypeUpgradedGiftSale(int53 user_id_, object_ptr<upgradedGift> &&gift_, int32 commission_per_mille_, object_ptr<starAmount> &&commission_star_amount_, bool via_offer_);
 
-  static const std::int32_t ID = 754659733;
+  static const std::int32_t ID = 1004166760;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -27349,6 +28137,78 @@ class starTransactionTypePaidMessageReceive final : public StarTransactionType {
   starTransactionTypePaidMessageReceive(object_ptr<MessageSender> &&sender_id_, int32 message_count_, int32 commission_per_mille_, object_ptr<starAmount> &&commission_star_amount_);
 
   static const std::int32_t ID = -676839994;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class starTransactionTypePaidGroupCallMessageSend final : public StarTransactionType {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int53 chat_id_;
+
+  starTransactionTypePaidGroupCallMessageSend();
+
+  explicit starTransactionTypePaidGroupCallMessageSend(int53 chat_id_);
+
+  static const std::int32_t ID = -655578726;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class starTransactionTypePaidGroupCallMessageReceive final : public StarTransactionType {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  object_ptr<MessageSender> sender_id_;
+  int32 commission_per_mille_;
+  object_ptr<starAmount> commission_star_amount_;
+
+  starTransactionTypePaidGroupCallMessageReceive();
+
+  starTransactionTypePaidGroupCallMessageReceive(object_ptr<MessageSender> &&sender_id_, int32 commission_per_mille_, object_ptr<starAmount> &&commission_star_amount_);
+
+  static const std::int32_t ID = 197238067;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class starTransactionTypePaidGroupCallReactionSend final : public StarTransactionType {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int53 chat_id_;
+
+  starTransactionTypePaidGroupCallReactionSend();
+
+  explicit starTransactionTypePaidGroupCallReactionSend(int53 chat_id_);
+
+  static const std::int32_t ID = -1410716443;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class starTransactionTypePaidGroupCallReactionReceive final : public StarTransactionType {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  object_ptr<MessageSender> sender_id_;
+  int32 commission_per_mille_;
+  object_ptr<starAmount> commission_star_amount_;
+
+  starTransactionTypePaidGroupCallReactionReceive();
+
+  starTransactionTypePaidGroupCallReactionReceive(object_ptr<MessageSender> &&sender_id_, int32 commission_per_mille_, object_ptr<starAmount> &&commission_star_amount_);
+
+  static const std::int32_t ID = 1410001679;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -27487,6 +28347,48 @@ class starTransactions final : public Object {
   starTransactions(object_ptr<starAmount> &&star_amount_, array<object_ptr<starTransaction>> &&transactions_, string const &next_offset_);
 
   static const std::int32_t ID = 1218437859;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class CanPostStoryResult;
+
+class story;
+
+class StartLiveStoryResult: public Object {
+ public:
+};
+
+class startLiveStoryResultOk final : public StartLiveStoryResult {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  object_ptr<story> story_;
+
+  startLiveStoryResultOk();
+
+  explicit startLiveStoryResultOk(object_ptr<story> &&story_);
+
+  static const std::int32_t ID = -387759428;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class startLiveStoryResultFail final : public StartLiveStoryResult {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  object_ptr<CanPostStoryResult> error_type_;
+
+  startLiveStoryResultFail();
+
+  explicit startLiveStoryResultFail(object_ptr<CanPostStoryResult> &&error_type_);
+
+  static const std::int32_t ID = 495261112;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -28199,6 +29101,7 @@ class story final : public Object {
   bool can_be_edited_;
   bool can_be_forwarded_;
   bool can_be_replied_;
+  bool can_set_privacy_settings_;
   bool can_toggle_is_posted_to_chat_page_;
   bool can_get_statistics_;
   bool can_get_interactions_;
@@ -28214,9 +29117,9 @@ class story final : public Object {
 
   story();
 
-  story(int32 id_, int53 poster_chat_id_, object_ptr<MessageSender> &&poster_id_, int32 date_, bool is_being_posted_, bool is_being_edited_, bool is_edited_, bool is_posted_to_chat_page_, bool is_visible_only_for_self_, bool can_be_added_to_album_, bool can_be_deleted_, bool can_be_edited_, bool can_be_forwarded_, bool can_be_replied_, bool can_toggle_is_posted_to_chat_page_, bool can_get_statistics_, bool can_get_interactions_, bool has_expired_viewers_, object_ptr<storyRepostInfo> &&repost_info_, object_ptr<storyInteractionInfo> &&interaction_info_, object_ptr<ReactionType> &&chosen_reaction_type_, object_ptr<StoryPrivacySettings> &&privacy_settings_, object_ptr<StoryContent> &&content_, array<object_ptr<storyArea>> &&areas_, object_ptr<formattedText> &&caption_, array<int32> &&album_ids_);
+  story(int32 id_, int53 poster_chat_id_, object_ptr<MessageSender> &&poster_id_, int32 date_, bool is_being_posted_, bool is_being_edited_, bool is_edited_, bool is_posted_to_chat_page_, bool is_visible_only_for_self_, bool can_be_added_to_album_, bool can_be_deleted_, bool can_be_edited_, bool can_be_forwarded_, bool can_be_replied_, bool can_set_privacy_settings_, bool can_toggle_is_posted_to_chat_page_, bool can_get_statistics_, bool can_get_interactions_, bool has_expired_viewers_, object_ptr<storyRepostInfo> &&repost_info_, object_ptr<storyInteractionInfo> &&interaction_info_, object_ptr<ReactionType> &&chosen_reaction_type_, object_ptr<StoryPrivacySettings> &&privacy_settings_, object_ptr<StoryContent> &&content_, array<object_ptr<storyArea>> &&areas_, object_ptr<formattedText> &&caption_, array<int32> &&album_ids_);
 
-  static const std::int32_t ID = 1454391053;
+  static const std::int32_t ID = -1551193142;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -28489,6 +29392,24 @@ class storyContentVideo final : public StoryContent {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class storyContentLive final : public StoryContent {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 group_call_id_;
+  bool is_rtmp_stream_;
+
+  storyContentLive();
+
+  storyContentLive(int32 group_call_id_, bool is_rtmp_stream_);
+
+  static const std::int32_t ID = -1192628634;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
 class storyContentUnsupported final : public StoryContent {
   std::int32_t get_id() const final {
     return ID;
@@ -28530,12 +29451,13 @@ class storyInfo final : public Object {
   int32 story_id_;
   int32 date_;
   bool is_for_close_friends_;
+  bool is_live_;
 
   storyInfo();
 
-  storyInfo(int32 story_id_, int32 date_, bool is_for_close_friends_);
+  storyInfo(int32 story_id_, int32 date_, bool is_for_close_friends_, bool is_live_);
 
-  static const std::int32_t ID = -1986542766;
+  static const std::int32_t ID = 182159362;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -29113,6 +30035,37 @@ class suggestedActionCustom final : public SuggestedAction {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class suggestedActionSetLoginEmailAddress final : public SuggestedAction {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  bool can_be_hidden_;
+
+  suggestedActionSetLoginEmailAddress();
+
+  explicit suggestedActionSetLoginEmailAddress(bool can_be_hidden_);
+
+  static const std::int32_t ID = 1557625160;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class suggestedActionAddLoginPasskey final : public SuggestedAction {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+
+  suggestedActionAddLoginPasskey();
+
+  static const std::int32_t ID = 1186248690;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
 class SuggestedPostPrice;
 
 class SuggestedPostState;
@@ -29254,6 +30207,8 @@ class suggestedPostStateDeclined final : public SuggestedPostState {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class ActiveStoryState;
+
 class ChatMemberStatus;
 
 class restrictionInfo;
@@ -29292,14 +30247,13 @@ class supergroup final : public Object {
   bool has_forum_tabs_;
   object_ptr<restrictionInfo> restriction_info_;
   int53 paid_message_star_count_;
-  bool has_active_stories_;
-  bool has_unread_active_stories_;
+  object_ptr<ActiveStoryState> active_story_state_;
 
   supergroup();
 
-  supergroup(int53 id_, object_ptr<usernames> &&usernames_, int32 date_, object_ptr<ChatMemberStatus> &&status_, int32 member_count_, int32 boost_level_, bool has_automatic_translation_, bool has_linked_chat_, bool has_location_, bool sign_messages_, bool show_message_sender_, bool join_to_send_messages_, bool join_by_request_, bool is_slow_mode_enabled_, bool is_channel_, bool is_broadcast_group_, bool is_forum_, bool is_direct_messages_group_, bool is_administered_direct_messages_group_, object_ptr<verificationStatus> &&verification_status_, bool has_direct_messages_group_, bool has_forum_tabs_, object_ptr<restrictionInfo> &&restriction_info_, int53 paid_message_star_count_, bool has_active_stories_, bool has_unread_active_stories_);
+  supergroup(int53 id_, object_ptr<usernames> &&usernames_, int32 date_, object_ptr<ChatMemberStatus> &&status_, int32 member_count_, int32 boost_level_, bool has_automatic_translation_, bool has_linked_chat_, bool has_location_, bool sign_messages_, bool show_message_sender_, bool join_to_send_messages_, bool join_by_request_, bool is_slow_mode_enabled_, bool is_channel_, bool is_broadcast_group_, bool is_forum_, bool is_direct_messages_group_, bool is_administered_direct_messages_group_, object_ptr<verificationStatus> &&verification_status_, bool has_direct_messages_group_, bool has_forum_tabs_, object_ptr<restrictionInfo> &&restriction_info_, int53 paid_message_star_count_, object_ptr<ActiveStoryState> &&active_story_state_);
 
-  static const std::int32_t ID = 918071782;
+  static const std::int32_t ID = -1134998957;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -30736,6 +31690,8 @@ class tonTransaction final : public Object {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class RevenueWithdrawalState;
+
 class sticker;
 
 class upgradedGift;
@@ -30762,6 +31718,23 @@ class tonTransactionTypeFragmentDeposit final : public TonTransactionType {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class tonTransactionTypeFragmentWithdrawal final : public TonTransactionType {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  object_ptr<RevenueWithdrawalState> withdrawal_state_;
+
+  tonTransactionTypeFragmentWithdrawal();
+
+  explicit tonTransactionTypeFragmentWithdrawal(object_ptr<RevenueWithdrawalState> &&withdrawal_state_);
+
+  static const std::int32_t ID = 1410960428;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
 class tonTransactionTypeSuggestedPostPayment final : public TonTransactionType {
   std::int32_t get_id() const final {
     return ID;
@@ -30775,6 +31748,23 @@ class tonTransactionTypeSuggestedPostPayment final : public TonTransactionType {
   explicit tonTransactionTypeSuggestedPostPayment(int53 chat_id_);
 
   static const std::int32_t ID = -396472561;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class tonTransactionTypeGiftPurchaseOffer final : public TonTransactionType {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  object_ptr<upgradedGift> gift_;
+
+  tonTransactionTypeGiftPurchaseOffer();
+
+  explicit tonTransactionTypeGiftPurchaseOffer(object_ptr<upgradedGift> &&gift_);
+
+  static const std::int32_t ID = 1754409273;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -30807,12 +31797,13 @@ class tonTransactionTypeUpgradedGiftSale final : public TonTransactionType {
   object_ptr<upgradedGift> gift_;
   int32 commission_per_mille_;
   int53 commission_toncoin_amount_;
+  bool via_offer_;
 
   tonTransactionTypeUpgradedGiftSale();
 
-  tonTransactionTypeUpgradedGiftSale(int53 user_id_, object_ptr<upgradedGift> &&gift_, int32 commission_per_mille_, int53 commission_toncoin_amount_);
+  tonTransactionTypeUpgradedGiftSale(int53 user_id_, object_ptr<upgradedGift> &&gift_, int32 commission_per_mille_, int53 commission_toncoin_amount_, bool via_offer_);
 
-  static const std::int32_t ID = -1507195680;
+  static const std::int32_t ID = 1162099275;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -31190,11 +32181,19 @@ class formattedText;
 
 class forumTopicInfo;
 
+class giftAuctionState;
+
 class groupCall;
+
+class groupCallMessage;
+
+class groupCallMessageLevel;
 
 class groupCallParticipant;
 
 class languagePackString;
+
+class liveStoryDonors;
 
 class location;
 
@@ -31229,6 +32228,8 @@ class scopeAutosaveSettings;
 class scopeNotificationSettings;
 
 class secretChat;
+
+class stakeDiceState;
 
 class starAmount;
 
@@ -32374,12 +33375,13 @@ class updateForumTopic final : public Update {
   int32 unread_mention_count_;
   int32 unread_reaction_count_;
   object_ptr<chatNotificationSettings> notification_settings_;
+  object_ptr<draftMessage> draft_message_;
 
   updateForumTopic();
 
-  updateForumTopic(int53 chat_id_, int32 forum_topic_id_, bool is_pinned_, int53 last_read_inbox_message_id_, int53 last_read_outbox_message_id_, int32 unread_mention_count_, int32 unread_reaction_count_, object_ptr<chatNotificationSettings> &&notification_settings_);
+  updateForumTopic(int53 chat_id_, int32 forum_topic_id_, bool is_pinned_, int53 last_read_inbox_message_id_, int53 last_read_outbox_message_id_, int32 unread_mention_count_, int32 unread_reaction_count_, object_ptr<chatNotificationSettings> &&notification_settings_, object_ptr<draftMessage> &&draft_message_);
 
-  static const std::int32_t ID = 733874947;
+  static const std::int32_t ID = 1803842990;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -32970,7 +33972,25 @@ class updateGroupCallVerificationState final : public Update {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
-class updateGroupCallNewMessage final : public Update {
+class updateNewGroupCallMessage final : public Update {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 group_call_id_;
+  object_ptr<groupCallMessage> message_;
+
+  updateNewGroupCallMessage();
+
+  updateNewGroupCallMessage(int32 group_call_id_, object_ptr<groupCallMessage> &&message_);
+
+  static const std::int32_t ID = 2072291743;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class updateNewGroupCallPaidReaction final : public Update {
   std::int32_t get_id() const final {
     return ID;
   }
@@ -32978,13 +33998,68 @@ class updateGroupCallNewMessage final : public Update {
  public:
   int32 group_call_id_;
   object_ptr<MessageSender> sender_id_;
-  object_ptr<formattedText> text_;
+  int53 star_count_;
 
-  updateGroupCallNewMessage();
+  updateNewGroupCallPaidReaction();
 
-  updateGroupCallNewMessage(int32 group_call_id_, object_ptr<MessageSender> &&sender_id_, object_ptr<formattedText> &&text_);
+  updateNewGroupCallPaidReaction(int32 group_call_id_, object_ptr<MessageSender> &&sender_id_, int53 star_count_);
 
-  static const std::int32_t ID = 144976736;
+  static const std::int32_t ID = -189233012;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class updateGroupCallMessageSendFailed final : public Update {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 group_call_id_;
+  int32 message_id_;
+  object_ptr<error> error_;
+
+  updateGroupCallMessageSendFailed();
+
+  updateGroupCallMessageSendFailed(int32 group_call_id_, int32 message_id_, object_ptr<error> &&error_);
+
+  static const std::int32_t ID = 472432559;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class updateGroupCallMessagesDeleted final : public Update {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 group_call_id_;
+  array<int32> message_ids_;
+
+  updateGroupCallMessagesDeleted();
+
+  updateGroupCallMessagesDeleted(int32 group_call_id_, array<int32> &&message_ids_);
+
+  static const std::int32_t ID = 1275517315;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class updateLiveStoryTopDonors final : public Update {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 group_call_id_;
+  object_ptr<liveStoryDonors> donors_;
+
+  updateLiveStoryTopDonors();
+
+  updateLiveStoryTopDonors(int32 group_call_id_, object_ptr<liveStoryDonors> &&donors_);
+
+  static const std::int32_t ID = -715693884;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -33003,6 +34078,40 @@ class updateNewCallSignalingData final : public Update {
   updateNewCallSignalingData(int32 call_id_, bytes const &data_);
 
   static const std::int32_t ID = 583634317;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class updateGiftAuctionState final : public Update {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  object_ptr<giftAuctionState> state_;
+
+  updateGiftAuctionState();
+
+  explicit updateGiftAuctionState(object_ptr<giftAuctionState> &&state_);
+
+  static const std::int32_t ID = -1864542270;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class updateActiveGiftAuctions final : public Update {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  array<object_ptr<giftAuctionState>> states_;
+
+  updateActiveGiftAuctions();
+
+  explicit updateActiveGiftAuctions(array<object_ptr<giftAuctionState>> &&states_);
+
+  static const std::int32_t ID = -521505204;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -33187,6 +34296,23 @@ class updateStoryStealthMode final : public Update {
   updateStoryStealthMode(int32 active_until_date_, int32 cooldown_until_date_);
 
   static const std::int32_t ID = 1878506778;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class updateTrustedMiniAppBots final : public Update {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  array<int53> bot_user_ids_;
+
+  updateTrustedMiniAppBots();
+
+  explicit updateTrustedMiniAppBots(array<int53> &&bot_user_ids_);
+
+  static const std::int32_t ID = -1733723438;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -33755,6 +34881,23 @@ class updateSpeechRecognitionTrial final : public Update {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class updateGroupCallMessageLevels final : public Update {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  array<object_ptr<groupCallMessageLevel>> levels_;
+
+  updateGroupCallMessageLevels();
+
+  explicit updateGroupCallMessageLevels(array<object_ptr<groupCallMessageLevel>> &&levels_);
+
+  static const std::int32_t ID = -882998951;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
 class updateDiceEmojis final : public Update {
   std::int32_t get_id() const final {
     return ID;
@@ -33768,6 +34911,23 @@ class updateDiceEmojis final : public Update {
   explicit updateDiceEmojis(array<string> &&emojis_);
 
   static const std::int32_t ID = -1069066940;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class updateStakeDiceState final : public Update {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  object_ptr<stakeDiceState> state_;
+
+  updateStakeDiceState();
+
+  explicit updateStakeDiceState(object_ptr<stakeDiceState> &&state_);
+
+  static const std::int32_t ID = -739631973;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -34384,14 +35544,16 @@ class upgradedGift final : public Object {
   object_ptr<upgradedGiftOriginalDetails> original_details_;
   object_ptr<upgradedGiftColors> colors_;
   object_ptr<giftResaleParameters> resale_parameters_;
+  bool can_send_purchase_offer_;
   string value_currency_;
   int53 value_amount_;
+  int53 value_usd_amount_;
 
   upgradedGift();
 
-  upgradedGift(int64 id_, int64 regular_gift_id_, int53 publisher_chat_id_, string const &title_, string const &name_, int32 number_, int32 total_upgraded_count_, int32 max_upgraded_count_, bool is_premium_, bool is_theme_available_, int53 used_theme_chat_id_, object_ptr<MessageSender> &&host_id_, object_ptr<MessageSender> &&owner_id_, string const &owner_address_, string const &owner_name_, string const &gift_address_, object_ptr<upgradedGiftModel> &&model_, object_ptr<upgradedGiftSymbol> &&symbol_, object_ptr<upgradedGiftBackdrop> &&backdrop_, object_ptr<upgradedGiftOriginalDetails> &&original_details_, object_ptr<upgradedGiftColors> &&colors_, object_ptr<giftResaleParameters> &&resale_parameters_, string const &value_currency_, int53 value_amount_);
+  upgradedGift(int64 id_, int64 regular_gift_id_, int53 publisher_chat_id_, string const &title_, string const &name_, int32 number_, int32 total_upgraded_count_, int32 max_upgraded_count_, bool is_premium_, bool is_theme_available_, int53 used_theme_chat_id_, object_ptr<MessageSender> &&host_id_, object_ptr<MessageSender> &&owner_id_, string const &owner_address_, string const &owner_name_, string const &gift_address_, object_ptr<upgradedGiftModel> &&model_, object_ptr<upgradedGiftSymbol> &&symbol_, object_ptr<upgradedGiftBackdrop> &&backdrop_, object_ptr<upgradedGiftOriginalDetails> &&original_details_, object_ptr<upgradedGiftColors> &&colors_, object_ptr<giftResaleParameters> &&resale_parameters_, bool can_send_purchase_offer_, string const &value_currency_, int53 value_amount_, int53 value_usd_amount_);
 
-  static const std::int32_t ID = -1068669644;
+  static const std::int32_t ID = -1419125099;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -34659,6 +35821,23 @@ class upgradedGiftOriginPrepaidUpgrade final : public UpgradedGiftOrigin {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class upgradedGiftOriginOffer final : public UpgradedGiftOrigin {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  object_ptr<GiftResalePrice> price_;
+
+  upgradedGiftOriginOffer();
+
+  explicit upgradedGiftOriginOffer(object_ptr<GiftResalePrice> &&price_);
+
+  static const std::int32_t ID = -182289662;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
 class MessageSender;
 
 class formattedText;
@@ -34754,6 +35933,8 @@ class upgradedGiftValueInfo final : public Object {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class ActiveStoryState;
+
 class UserStatus;
 
 class UserType;
@@ -34796,8 +35977,7 @@ class user final : public Object {
   bool is_premium_;
   bool is_support_;
   object_ptr<restrictionInfo> restriction_info_;
-  bool has_active_stories_;
-  bool has_unread_active_stories_;
+  object_ptr<ActiveStoryState> active_story_state_;
   bool restricts_new_chats_;
   int53 paid_message_star_count_;
   bool have_access_;
@@ -34807,9 +35987,32 @@ class user final : public Object {
 
   user();
 
-  user(int53 id_, string const &first_name_, string const &last_name_, object_ptr<usernames> &&usernames_, string const &phone_number_, object_ptr<UserStatus> &&status_, object_ptr<profilePhoto> &&profile_photo_, int32 accent_color_id_, int64 background_custom_emoji_id_, object_ptr<upgradedGiftColors> &&upgraded_gift_colors_, int32 profile_accent_color_id_, int64 profile_background_custom_emoji_id_, object_ptr<emojiStatus> &&emoji_status_, bool is_contact_, bool is_mutual_contact_, bool is_close_friend_, object_ptr<verificationStatus> &&verification_status_, bool is_premium_, bool is_support_, object_ptr<restrictionInfo> &&restriction_info_, bool has_active_stories_, bool has_unread_active_stories_, bool restricts_new_chats_, int53 paid_message_star_count_, bool have_access_, object_ptr<UserType> &&type_, string const &language_code_, bool added_to_attachment_menu_);
+  user(int53 id_, string const &first_name_, string const &last_name_, object_ptr<usernames> &&usernames_, string const &phone_number_, object_ptr<UserStatus> &&status_, object_ptr<profilePhoto> &&profile_photo_, int32 accent_color_id_, int64 background_custom_emoji_id_, object_ptr<upgradedGiftColors> &&upgraded_gift_colors_, int32 profile_accent_color_id_, int64 profile_background_custom_emoji_id_, object_ptr<emojiStatus> &&emoji_status_, bool is_contact_, bool is_mutual_contact_, bool is_close_friend_, object_ptr<verificationStatus> &&verification_status_, bool is_premium_, bool is_support_, object_ptr<restrictionInfo> &&restriction_info_, object_ptr<ActiveStoryState> &&active_story_state_, bool restricts_new_chats_, int53 paid_message_star_count_, bool have_access_, object_ptr<UserType> &&type_, string const &language_code_, bool added_to_attachment_menu_);
 
-  static const std::int32_t ID = 1823626565;
+  static const std::int32_t ID = 1874921182;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class MessageSender;
+
+class userAuctionBid final : public Object {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int53 star_count_;
+  int32 bid_date_;
+  int53 next_bid_star_count_;
+  object_ptr<MessageSender> owner_id_;
+  bool was_returned_;
+
+  userAuctionBid();
+
+  userAuctionBid(int53 star_count_, int32 bid_date_, int53 next_bid_star_count_, object_ptr<MessageSender> &&owner_id_, bool was_returned_);
+
+  static const std::int32_t ID = 538448225;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -34984,6 +36187,20 @@ class userPrivacySettingShowBirthdate final : public UserPrivacySetting {
   userPrivacySettingShowBirthdate();
 
   static const std::int32_t ID = 1167504607;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class userPrivacySettingShowProfileAudio final : public UserPrivacySetting {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+
+  userPrivacySettingShowProfileAudio();
+
+  static const std::int32_t ID = 610353549;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -35502,12 +36719,13 @@ class usernames final : public Object {
   array<string> active_usernames_;
   array<string> disabled_usernames_;
   string editable_username_;
+  array<string> collectible_usernames_;
 
   usernames();
 
-  usernames(array<string> &&active_usernames_, array<string> &&disabled_usernames_, string const &editable_username_);
+  usernames(array<string> &&active_usernames_, array<string> &&disabled_usernames_, string const &editable_username_, array<string> &&collectible_usernames_);
 
-  static const std::int32_t ID = 799608565;
+  static const std::int32_t ID = 1263390614;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -35685,44 +36903,6 @@ class videoChat final : public Object {
   videoChat(int32 group_call_id_, bool has_participants_, object_ptr<MessageSender> &&default_participant_id_);
 
   static const std::int32_t ID = -1374319320;
-
-  void store(TlStorerToString &s, const char *field_name) const final;
-};
-
-class videoChatStream final : public Object {
-  std::int32_t get_id() const final {
-    return ID;
-  }
-
- public:
-  int32 channel_id_;
-  int32 scale_;
-  int53 time_offset_;
-
-  videoChatStream();
-
-  videoChatStream(int32 channel_id_, int32 scale_, int53 time_offset_);
-
-  static const std::int32_t ID = -1151707172;
-
-  void store(TlStorerToString &s, const char *field_name) const final;
-};
-
-class videoChatStream;
-
-class videoChatStreams final : public Object {
-  std::int32_t get_id() const final {
-    return ID;
-  }
-
- public:
-  array<object_ptr<videoChatStream>> streams_;
-
-  videoChatStreams();
-
-  explicit videoChatStreams(array<object_ptr<videoChatStream>> &&streams_);
-
-  static const std::int32_t ID = -434622720;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -36365,6 +37545,28 @@ class addLogMessage final : public Function {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class passkey;
+
+class addLoginPasskey final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  string client_data_;
+  bytes attestation_object_;
+
+  addLoginPasskey();
+
+  addLoginPasskey(string const &client_data_, bytes const &attestation_object_);
+
+  static const std::int32_t ID = 1838899694;
+
+  using ReturnType = object_ptr<passkey>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
 class ReactionType;
 
 class ok;
@@ -36436,6 +37638,28 @@ class addOffer final : public Function {
   static const std::int32_t ID = 682451739;
 
   using ReturnType = object_ptr<message>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class ok;
+
+class addPendingLiveStoryReaction final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 group_call_id_;
+  int53 star_count_;
+
+  addPendingLiveStoryReaction();
+
+  addPendingLiveStoryReaction(int32 group_call_id_, int53 star_count_);
+
+  static const std::int32_t ID = 661166197;
+
+  using ReturnType = object_ptr<ok>;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -37425,6 +38649,31 @@ class checkAuthenticationEmailCode final : public Function {
 
 class ok;
 
+class checkAuthenticationPasskey final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  string credential_id_;
+  string client_data_;
+  bytes authenticator_data_;
+  bytes signature_;
+  bytes user_handle_;
+
+  checkAuthenticationPasskey();
+
+  checkAuthenticationPasskey(string const &credential_id_, string const &client_data_, bytes const &authenticator_data_, bytes const &signature_, bytes const &user_handle_);
+
+  static const std::int32_t ID = 1225325317;
+
+  using ReturnType = object_ptr<ok>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class ok;
+
 class checkAuthenticationPassword final : public Function {
   std::int32_t get_id() const final {
     return ID;
@@ -38067,6 +39316,27 @@ class closeChat final : public Function {
 
 class ok;
 
+class closeGiftAuction final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int64 gift_id_;
+
+  closeGiftAuction();
+
+  explicit closeGiftAuction(int64 gift_id_);
+
+  static const std::int32_t ID = 115495644;
+
+  using ReturnType = object_ptr<ok>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class ok;
+
 class closeSecretChat final : public Function {
   std::int32_t get_id() const final {
     return ID;
@@ -38123,6 +39393,27 @@ class closeWebApp final : public Function {
   explicit closeWebApp(int64 web_app_launch_id_);
 
   static const std::int32_t ID = 1755391174;
+
+  using ReturnType = object_ptr<ok>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class ok;
+
+class commitPendingLiveStoryReactions final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 group_call_id_;
+
+  commitPendingLiveStoryReactions();
+
+  explicit commitPendingLiveStoryReactions(int32 group_call_id_);
+
+  static const std::int32_t ID = -1786229016;
 
   using ReturnType = object_ptr<ok>;
 
@@ -39298,6 +40589,54 @@ class deleteGiftCollection final : public Function {
   deleteGiftCollection(object_ptr<MessageSender> &&owner_id_, int32 collection_id_);
 
   static const std::int32_t ID = -183749499;
+
+  using ReturnType = object_ptr<ok>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class ok;
+
+class deleteGroupCallMessages final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 group_call_id_;
+  array<int32> message_ids_;
+  bool report_spam_;
+
+  deleteGroupCallMessages();
+
+  deleteGroupCallMessages(int32 group_call_id_, array<int32> &&message_ids_, bool report_spam_);
+
+  static const std::int32_t ID = 339562398;
+
+  using ReturnType = object_ptr<ok>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class MessageSender;
+
+class ok;
+
+class deleteGroupCallMessagesBySender final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 group_call_id_;
+  object_ptr<MessageSender> sender_id_;
+  bool report_spam_;
+
+  deleteGroupCallMessagesBySender();
+
+  deleteGroupCallMessagesBySender(int32 group_call_id_, object_ptr<MessageSender> &&sender_id_, bool report_spam_);
+
+  static const std::int32_t ID = 1677247618;
 
   using ReturnType = object_ptr<ok>;
 
@@ -41066,6 +42405,24 @@ class getAttachmentMenuBot final : public Function {
   static const std::int32_t ID = 1034248699;
 
   using ReturnType = object_ptr<attachmentMenuBot>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class text;
+
+class getAuthenticationPasskeyParameters final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+
+  getAuthenticationPasskeyParameters();
+
+  static const std::int32_t ID = -686037865;
+
+  using ReturnType = object_ptr<text>;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -43604,6 +44961,48 @@ class getGameHighScores final : public Function {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class giftAuctionAcquiredGifts;
+
+class getGiftAuctionAcquiredGifts final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int64 gift_id_;
+
+  getGiftAuctionAcquiredGifts();
+
+  explicit getGiftAuctionAcquiredGifts(int64 gift_id_);
+
+  static const std::int32_t ID = -937975215;
+
+  using ReturnType = object_ptr<giftAuctionAcquiredGifts>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class giftAuctionState;
+
+class getGiftAuctionState final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  string auction_id_;
+
+  getGiftAuctionState();
+
+  explicit getGiftAuctionState(string const &auction_id_);
+
+  static const std::int32_t ID = 989210247;
+
+  using ReturnType = object_ptr<giftAuctionState>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
 class giftChatThemes;
 
 class getGiftChatThemes final : public Function {
@@ -43666,6 +45065,27 @@ class getGiftUpgradePreview final : public Function {
   static const std::int32_t ID = -1110719907;
 
   using ReturnType = object_ptr<giftUpgradePreview>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class giftUpgradeVariants;
+
+class getGiftUpgradeVariants final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int64 gift_id_;
+
+  getGiftUpgradeVariants();
+
+  explicit getGiftUpgradeVariants(int64 gift_id_);
+
+  static const std::int32_t ID = 554449726;
+
+  using ReturnType = object_ptr<giftUpgradeVariants>;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -43773,6 +45193,54 @@ class getGroupCallParticipants final : public Function {
   static const std::int32_t ID = 1986739394;
 
   using ReturnType = object_ptr<groupCallParticipants>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class GroupCallVideoQuality;
+
+class data;
+
+class getGroupCallStreamSegment final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 group_call_id_;
+  int53 time_offset_;
+  int32 scale_;
+  int32 channel_id_;
+  object_ptr<GroupCallVideoQuality> video_quality_;
+
+  getGroupCallStreamSegment();
+
+  getGroupCallStreamSegment(int32 group_call_id_, int53 time_offset_, int32 scale_, int32 channel_id_, object_ptr<GroupCallVideoQuality> &&video_quality_);
+
+  static const std::int32_t ID = -502273424;
+
+  using ReturnType = object_ptr<data>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class groupCallStreams;
+
+class getGroupCallStreams final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 group_call_id_;
+
+  getGroupCallStreams();
+
+  explicit getGroupCallStreams(int32 group_call_id_);
+
+  static const std::int32_t ID = -1619226268;
+
+  using ReturnType = object_ptr<groupCallStreams>;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -44133,6 +45601,90 @@ class getLinkPreview final : public Function {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class chatMessageSenders;
+
+class getLiveStoryAvailableMessageSenders final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 group_call_id_;
+
+  getLiveStoryAvailableMessageSenders();
+
+  explicit getLiveStoryAvailableMessageSenders(int32 group_call_id_);
+
+  static const std::int32_t ID = 1252390532;
+
+  using ReturnType = object_ptr<chatMessageSenders>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class rtmpUrl;
+
+class getLiveStoryRtmpUrl final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int53 chat_id_;
+
+  getLiveStoryRtmpUrl();
+
+  explicit getLiveStoryRtmpUrl(int53 chat_id_);
+
+  static const std::int32_t ID = 1267168178;
+
+  using ReturnType = object_ptr<rtmpUrl>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class groupCallParticipant;
+
+class getLiveStoryStreamer final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 group_call_id_;
+
+  getLiveStoryStreamer();
+
+  explicit getLiveStoryStreamer(int32 group_call_id_);
+
+  static const std::int32_t ID = -718164721;
+
+  using ReturnType = object_ptr<groupCallParticipant>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class liveStoryDonors;
+
+class getLiveStoryTopDonors final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 group_call_id_;
+
+  getLiveStoryTopDonors();
+
+  explicit getLiveStoryTopDonors(int32 group_call_id_);
+
+  static const std::int32_t ID = -700264064;
+
+  using ReturnType = object_ptr<liveStoryDonors>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
 class localizationTargetInfo;
 
 class getLocalizationTargetInfo final : public Function {
@@ -44225,6 +45777,24 @@ class getLogVerbosityLevel final : public Function {
   static const std::int32_t ID = 594057956;
 
   using ReturnType = object_ptr<logVerbosityLevel>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class passkeys;
+
+class getLoginPasskeys final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+
+  getLoginPasskeys();
+
+  static const std::int32_t ID = -165927873;
+
+  using ReturnType = object_ptr<passkeys>;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -44937,6 +46507,24 @@ class getPaidMessageRevenue final : public Function {
   static const std::int32_t ID = 1976589102;
 
   using ReturnType = object_ptr<starCount>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class text;
+
+class getPasskeyParameters final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+
+  getPasskeyParameters();
+
+  static const std::int32_t ID = -680161058;
+
+  using ReturnType = object_ptr<text>;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -45938,6 +47526,24 @@ class getSecretChat final : public Function {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class stakeDiceState;
+
+class getStakeDiceState final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+
+  getStakeDiceState();
+
+  static const std::int32_t ID = 1389168065;
+
+  using ReturnType = object_ptr<stakeDiceState>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
 class MessageSender;
 
 class httpUrl;
@@ -46183,6 +47789,29 @@ class getStickerOutline final : public Function {
   static const std::int32_t ID = -1550504539;
 
   using ReturnType = object_ptr<outline>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class text;
+
+class getStickerOutlineSvgPath final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 sticker_file_id_;
+  bool for_animated_emoji_;
+  bool for_clicked_animated_emoji_message_;
+
+  getStickerOutlineSvgPath();
+
+  getStickerOutlineSvgPath(int32 sticker_file_id_, bool for_animated_emoji_, bool for_clicked_animated_emoji_message_);
+
+  static const std::int32_t ID = -1615497803;
+
+  using ReturnType = object_ptr<text>;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -46951,6 +48580,24 @@ class getUpgradedGiftWithdrawalUrl final : public Function {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class animation;
+
+class getUpgradedGiftsPromotionalAnimation final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+
+  getUpgradedGiftsPromotionalAnimation();
+
+  static const std::int32_t ID = 1944094513;
+
+  using ReturnType = object_ptr<animation>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
 class user;
 
 class getUser final : public Function {
@@ -47183,54 +48830,6 @@ class getVideoChatRtmpUrl final : public Function {
   static const std::int32_t ID = 1210784543;
 
   using ReturnType = object_ptr<rtmpUrl>;
-
-  void store(TlStorerToString &s, const char *field_name) const final;
-};
-
-class GroupCallVideoQuality;
-
-class data;
-
-class getVideoChatStreamSegment final : public Function {
-  std::int32_t get_id() const final {
-    return ID;
-  }
-
- public:
-  int32 group_call_id_;
-  int53 time_offset_;
-  int32 scale_;
-  int32 channel_id_;
-  object_ptr<GroupCallVideoQuality> video_quality_;
-
-  getVideoChatStreamSegment();
-
-  getVideoChatStreamSegment(int32 group_call_id_, int53 time_offset_, int32 scale_, int32 channel_id_, object_ptr<GroupCallVideoQuality> &&video_quality_);
-
-  static const std::int32_t ID = 773343220;
-
-  using ReturnType = object_ptr<data>;
-
-  void store(TlStorerToString &s, const char *field_name) const final;
-};
-
-class videoChatStreams;
-
-class getVideoChatStreams final : public Function {
-  std::int32_t get_id() const final {
-    return ID;
-  }
-
- public:
-  int32 group_call_id_;
-
-  getVideoChatStreams();
-
-  explicit getVideoChatStreams(int32 group_call_id_);
-
-  static const std::int32_t ID = 531757765;
-
-  using ReturnType = object_ptr<videoChatStreams>;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -47468,6 +49067,28 @@ class importMessages final : public Function {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class ok;
+
+class increaseGiftAuctionBid final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int64 gift_id_;
+  int53 star_count_;
+
+  increaseGiftAuctionBid();
+
+  increaseGiftAuctionBid(int64 gift_id_, int53 star_count_);
+
+  static const std::int32_t ID = -493509001;
+
+  using ReturnType = object_ptr<ok>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
 class InviteGroupCallParticipantResult;
 
 class inviteGroupCallParticipant final : public Function {
@@ -47507,6 +49128,24 @@ class inviteVideoChatParticipants final : public Function {
   inviteVideoChatParticipants(int32 group_call_id_, array<int53> &&user_ids_);
 
   static const std::int32_t ID = -473149298;
+
+  using ReturnType = object_ptr<ok>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class ok;
+
+class isLoginEmailAddressRequired final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+
+  isLoginEmailAddressRequired();
+
+  static const std::int32_t ID = -874594326;
 
   using ReturnType = object_ptr<ok>;
 
@@ -47598,6 +49237,30 @@ class joinGroupCall final : public Function {
   static const std::int32_t ID = -2026079917;
 
   using ReturnType = object_ptr<groupCallInfo>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class groupCallJoinParameters;
+
+class text;
+
+class joinLiveStory final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 group_call_id_;
+  object_ptr<groupCallJoinParameters> join_parameters_;
+
+  joinLiveStory();
+
+  joinLiveStory(int32 group_call_id_, object_ptr<groupCallJoinParameters> &&join_parameters_);
+
+  static const std::int32_t ID = 227825676;
+
+  using ReturnType = object_ptr<text>;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -47958,6 +49621,27 @@ class openChatSimilarChat final : public Function {
 
 class ok;
 
+class openGiftAuction final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int64 gift_id_;
+
+  openGiftAuction();
+
+  explicit openGiftAuction(int64 gift_id_);
+
+  static const std::int32_t ID = -694137370;
+
+  using ReturnType = object_ptr<ok>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class ok;
+
 class openMessageContent final : public Function {
   std::int32_t get_id() const final {
     return ID;
@@ -48174,6 +49858,33 @@ class pingProxy final : public Function {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class formattedText;
+
+class ok;
+
+class placeGiftAuctionBid final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int64 gift_id_;
+  int53 star_count_;
+  int53 user_id_;
+  object_ptr<formattedText> text_;
+  bool is_private_;
+
+  placeGiftAuctionBid();
+
+  placeGiftAuctionBid(int64 gift_id_, int53 star_count_, int53 user_id_, object_ptr<formattedText> &&text_, bool is_private_);
+
+  static const std::int32_t ID = 1437176980;
+
+  using ReturnType = object_ptr<ok>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
 class InputStoryContent;
 
 class StoryPrivacySettings;
@@ -48303,6 +50014,28 @@ class processChatJoinRequests final : public Function {
   processChatJoinRequests(int53 chat_id_, string const &invite_link_, bool approve_);
 
   static const std::int32_t ID = 1048722894;
+
+  using ReturnType = object_ptr<ok>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class ok;
+
+class processGiftPurchaseOffer final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int53 message_id_;
+  bool accept_;
+
+  processGiftPurchaseOffer();
+
+  processGiftPurchaseOffer(int53 message_id_, bool accept_);
+
+  static const std::int32_t ID = -1177407462;
 
   using ReturnType = object_ptr<ok>;
 
@@ -48866,6 +50599,27 @@ class removeInstalledBackground final : public Function {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class ok;
+
+class removeLoginPasskey final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  string passkey_id_;
+
+  removeLoginPasskey();
+
+  explicit removeLoginPasskey(string const &passkey_id_);
+
+  static const std::int32_t ID = -1728940387;
+
+  using ReturnType = object_ptr<ok>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
 class ReactionType;
 
 class ok;
@@ -48953,6 +50707,27 @@ class removeNotificationGroup final : public Function {
   removeNotificationGroup(int32 notification_group_id_, int32 max_notification_id_);
 
   static const std::int32_t ID = 1713005454;
+
+  using ReturnType = object_ptr<ok>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class ok;
+
+class removePendingLiveStoryReactions final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 group_call_id_;
+
+  removePendingLiveStoryReactions();
+
+  explicit removePendingLiveStoryReactions(int32 group_call_id_);
+
+  static const std::int32_t ID = 868601112;
 
   using ReturnType = object_ptr<ok>;
 
@@ -49469,6 +51244,27 @@ class reorderSupergroupActiveUsernames final : public Function {
   static const std::int32_t ID = -1962466095;
 
   using ReturnType = object_ptr<ok>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class rtmpUrl;
+
+class replaceLiveStoryRtmpUrl final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int53 chat_id_;
+
+  replaceLiveStoryRtmpUrl();
+
+  explicit replaceLiveStoryRtmpUrl(int53 chat_id_);
+
+  static const std::int32_t ID = 585361229;
+
+  using ReturnType = object_ptr<rtmpUrl>;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -51357,6 +53153,35 @@ class sendGift final : public Function {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class GiftResalePrice;
+
+class MessageSender;
+
+class ok;
+
+class sendGiftPurchaseOffer final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  object_ptr<MessageSender> owner_id_;
+  string gift_name_;
+  object_ptr<GiftResalePrice> price_;
+  int32 duration_;
+  int53 paid_message_star_count_;
+
+  sendGiftPurchaseOffer();
+
+  sendGiftPurchaseOffer(object_ptr<MessageSender> &&owner_id_, string const &gift_name_, object_ptr<GiftResalePrice> &&price_, int32 duration_, int53 paid_message_star_count_);
+
+  static const std::int32_t ID = 917878931;
+
+  using ReturnType = object_ptr<ok>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
 class formattedText;
 
 class ok;
@@ -51369,12 +53194,13 @@ class sendGroupCallMessage final : public Function {
  public:
   int32 group_call_id_;
   object_ptr<formattedText> text_;
+  int53 paid_message_star_count_;
 
   sendGroupCallMessage();
 
-  sendGroupCallMessage(int32 group_call_id_, object_ptr<formattedText> &&text_);
+  sendGroupCallMessage(int32 group_call_id_, object_ptr<formattedText> &&text_, int53 paid_message_star_count_);
 
-  static const std::int32_t ID = -543237212;
+  static const std::int32_t ID = 2133590097;
 
   using ReturnType = object_ptr<ok>;
 
@@ -53398,6 +55224,28 @@ class setGiftSettings final : public Function {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class ok;
+
+class setGroupCallPaidMessageStarCount final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 group_call_id_;
+  int53 paid_message_star_count_;
+
+  setGroupCallPaidMessageStarCount();
+
+  setGroupCallPaidMessageStarCount(int32 group_call_id_, int53 paid_message_star_count_);
+
+  static const std::int32_t ID = -1764341527;
+
+  using ReturnType = object_ptr<ok>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
 class MessageSender;
 
 class setGroupCallParticipantIsSpeaking final : public Function {
@@ -53486,6 +55334,30 @@ class setInlineGameScore final : public Function {
   setInlineGameScore(string const &inline_message_id_, bool edit_message_, int53 user_id_, int32 score_, bool force_);
 
   static const std::int32_t ID = -948871797;
+
+  using ReturnType = object_ptr<ok>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class MessageSender;
+
+class ok;
+
+class setLiveStoryMessageSender final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int32 group_call_id_;
+  object_ptr<MessageSender> message_sender_id_;
+
+  setLiveStoryMessageSender();
+
+  setLiveStoryMessageSender(int32 group_call_id_, object_ptr<MessageSender> &&message_sender_id_);
+
+  static const std::int32_t ID = -1855297410;
 
   using ReturnType = object_ptr<ok>;
 
@@ -54956,6 +56828,34 @@ class startGroupCallScreenSharing final : public Function {
   void store(TlStorerToString &s, const char *field_name) const final;
 };
 
+class StartLiveStoryResult;
+
+class StoryPrivacySettings;
+
+class startLiveStory final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int53 chat_id_;
+  object_ptr<StoryPrivacySettings> privacy_settings_;
+  bool protect_content_;
+  bool is_rtmp_stream_;
+  bool enable_messages_;
+  int53 paid_message_star_count_;
+
+  startLiveStory();
+
+  startLiveStory(int53 chat_id_, object_ptr<StoryPrivacySettings> &&privacy_settings_, bool protect_content_, bool is_rtmp_stream_, bool enable_messages_, int53 paid_message_star_count_);
+
+  static const std::int32_t ID = 1253467958;
+
+  using ReturnType = object_ptr<StartLiveStoryResult>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
 class ok;
 
 class startScheduledVideoChat final : public Function {
@@ -55072,6 +56972,29 @@ class suggestUserProfilePhoto final : public Function {
   static const std::int32_t ID = -1788742557;
 
   using ReturnType = object_ptr<ok>;
+
+  void store(TlStorerToString &s, const char *field_name) const final;
+};
+
+class formattedText;
+
+class summarizeMessage final : public Function {
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+ public:
+  int53 chat_id_;
+  int53 message_id_;
+  string translate_to_language_code_;
+
+  summarizeMessage();
+
+  summarizeMessage(int53 chat_id_, int53 message_id_, string const &translate_to_language_code_);
+
+  static const std::int32_t ID = 1405194782;
+
+  using ReturnType = object_ptr<formattedText>;
 
   void store(TlStorerToString &s, const char *field_name) const final;
 };
@@ -55834,20 +57757,20 @@ class toggleGiftIsSaved final : public Function {
 
 class ok;
 
-class toggleGroupCallCanSendMessages final : public Function {
+class toggleGroupCallAreMessagesAllowed final : public Function {
   std::int32_t get_id() const final {
     return ID;
   }
 
  public:
   int32 group_call_id_;
-  bool can_send_messages_;
+  bool are_messages_allowed_;
 
-  toggleGroupCallCanSendMessages();
+  toggleGroupCallAreMessagesAllowed();
 
-  toggleGroupCallCanSendMessages(int32 group_call_id_, bool can_send_messages_);
+  toggleGroupCallAreMessagesAllowed(int32 group_call_id_, bool are_messages_allowed_);
 
-  static const std::int32_t ID = -617467060;
+  static const std::int32_t ID = -1535668758;
 
   using ReturnType = object_ptr<ok>;
 
