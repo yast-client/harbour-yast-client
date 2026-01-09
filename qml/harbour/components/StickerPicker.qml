@@ -25,25 +25,45 @@ Item {
     id: stickerPickerOverlayItem
     anchors.fill: parent
 
-    property var recentStickers: stickerManager.getRecentStickers();
-    property var installedStickerSets: stickerManager.getInstalledStickerSets();
+    property var recentStickers: []
+    property var favoriteStickers: []
+    property var installedStickerSets: []
 
     Connections {
         target: tdLibWrapper
-        onOkReceived: {
-            if (request === "removeStickerSet") {
-                appNotification.show(qsTr("Sticker set successfully removed!"));
-                tdLibWrapper.getInstalledStickerSets();
-            }
+        onRecentStickersUpdated:
+            if (!isAttach)
+                tdLibWrapper.getRecentStickers()
+        onRecentStickersReceived:
+            recentStickers = stickers
+
+        onFavoriteStickersUpdated:
+            if (!isAttach)
+                tdLibWrapper.getFavoriteStickers()
+        onFavoriteStickersReceived:
+            favoriteStickers = stickers
+
+        onInstalledStickerSetsUpdated:
+            if (stickerType == 'stickerTypeRegular')
+                tdLibWrapper.getInstalledStickerSets()
+        onInstalledStickerSetsReceived:
+            installedStickerSets = stickerSets
+
+        onStickerSetUpdated: {
+            for (var i=0; i < installedStickerSets.length; i++)
+                if (installedStickerSets[i].id == stickerSetId) {
+                    installedStickerSets[i] = stickerSet
+                    installedStickerSetsChanged()
+                }
         }
     }
 
-    Connections {
-        target: stickerManager
-        onStickerSetsReceived: {
-            installedStickerSets = stickerManager.getInstalledStickerSets();
-        }
+    Component.onCompleted: {
+        tdLibWrapper.getRecentStickers()
+        tdLibWrapper.getFavoriteStickers()
+        tdLibWrapper.getInstalledStickerSets()
     }
+
     Component {
         id: stickerComponent
         BackgroundItem {
@@ -89,24 +109,18 @@ Item {
         header: Column {
             spacing: Theme.paddingSmall
             width: stickerPickerListView.width
-            height: recentStickersGridView.count > 0 ? ( Theme.fontSizeLarge + Theme.itemSizeExtraLarge + 4 * Theme.paddingSmall ) : 0
             topPadding: Theme.paddingSmall
-            Label {
-                font.pixelSize: Theme.fontSizeLarge
-                font.bold: true
-                width: recentStickersGridView.width
-                leftPadding: Theme.paddingMedium
+
+            SectionHeader {
                 visible: recentStickersGridView.count > 0
-                maximumLineCount: 1
-                truncationMode: TruncationMode.Fade
-                text: qsTr("Recently used")
+                text: qsTr("Recently used", "stickers")
             }
             SilicaGridView {
                 id: recentStickersGridView
-                width: stickerPickerListView.width
+                width: parent.width
                 height: Theme.itemSizeExtraLarge + Theme.paddingSmall
-                cellWidth: Theme.itemSizeExtraLarge;
-                cellHeight: Theme.itemSizeExtraLarge;
+                cellWidth: Theme.itemSizeExtraLarge
+                cellHeight: Theme.itemSizeExtraLarge
                 visible: count > 0
                 clip: true
                 flow: GridView.FlowTopToBottom
@@ -115,19 +129,33 @@ Item {
                 delegate: stickerComponent
 
                 HorizontalScrollDecorator {}
+            }
 
+            SectionHeader {
+                visible: favoriteStickersGridView.count > 0
+                text: qsTr("Favorite", "stickers")
+            }
+            SilicaGridView {
+                id: favoriteStickersGridView
+                width: parent.width
+                height: Theme.itemSizeExtraLarge + Theme.paddingSmall
+                cellWidth: Theme.itemSizeExtraLarge
+                cellHeight: Theme.itemSizeExtraLarge
+                visible: count > 0
+                clip: true
+                flow: GridView.FlowTopToBottom
+
+                model: stickerPickerOverlayItem.favoriteStickers
+                delegate: stickerComponent
+
+                HorizontalScrollDecorator {}
             }
         }
         delegate: Column {
             id: stickerSetColumn
 
             property bool isExpanded: false
-            function toggleDisplaySet() {
-                stickerSetColumn.isExpanded = !stickerSetColumn.isExpanded;
-                if (stickerSetColumn.isExpanded) {
-                    stickerSetLoader.myStickerSet = modelData.stickers;
-                }
-            }
+            property string stickerSetId: modelData.id
 
             spacing: Theme.paddingSmall
             width: parent.width
@@ -142,9 +170,8 @@ Item {
                     width: parent.width - removeSetButton.width - Theme.paddingMedium * 2
                     height: parent.height
 
-                    onClicked: {
-                        toggleDisplaySet();
-                    }
+                    onClicked:
+                        isExpanded = !isExpanded
                     TDLibThumbnail {
                         id: stickerSetThumbnail
                         thumbnail: modelData.thumbnail ? modelData.thumbnail : modelData.stickers[0].thumbnail
@@ -194,7 +221,7 @@ Item {
                     onClicked: {
                         var stickerSetId = modelData.id;
                         Remorse.popupAction(chatPage, qsTr("Removing sticker set"), function() {
-                            tdLibWrapper.changeStickerSet(stickerSetId, false);
+                            tdLibWrapper.changeStickerSet(stickerSetId, false)
                         });
                     }
                 }
@@ -215,13 +242,6 @@ Item {
                     NumberAnimation { duration: 200 }
                 }
 
-                property var myStickerSet
-                onActiveChanged: {
-                    if(!active) {
-                        myStickerSet = ({});
-                    }
-                }
-
                 sourceComponent: Component {
                     SilicaListView {
                         id: installedStickerSetGridView
@@ -233,6 +253,20 @@ Item {
 
                         model: stickerSetLoader.myStickerSet
                         delegate: stickerComponent
+
+                        Component.onCompleted: {
+                            if (stickerManager.hasStickerSet(stickerSetColumn.stickerSetId))
+                                model = stickerManager.getStickerSet(stickerSetColumn.stickerSetId).stickers
+                            else
+                                tdLibWrapper.getStickerSet(stickerSetColumn.stickerSetId)
+                        }
+
+                        Connections {
+                            target: stickerManager
+                            onStickerSetStickersUpdated:
+                                if (stickerSetId == stickerSetColumn.stickerSetId)
+                                    installedStickerSetGridView.model = stickerManager.getStickerSet(stickerSetColumn.stickerSetId).stickers
+                        }
 
                         HorizontalScrollDecorator {}
                     }

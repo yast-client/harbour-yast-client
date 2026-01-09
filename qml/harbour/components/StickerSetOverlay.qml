@@ -30,37 +30,30 @@ Flickable {
     contentHeight: stickerSetContentColumn.height
     clip: true
 
-    property string stickerSetId;
-    property var stickerSet;
-    signal requestClose;
+    property string stickerSetId // Sticker set ID is int64, which can only be represented as a string in JS
+    property bool isInstalled: stickerSet && stickerSet.is_installed
+    property var stickerSet
+    signal requestClose
+    signal stickerPicked(var stickerId)
 
-    Component.onCompleted: {
-        if (!stickerManager.hasStickerSet(stickerSetId)) {
-            tdLibWrapper.getStickerSet(stickerSetId);
-        } else {
-            stickerSet = stickerManager.getStickerSet(stickerSetId);
-        }
+    Component.onCompleted:
+        tdLibWrapper.getStickerSet(stickerSetId)
+
+    onIsInstalledChanged: {
+        if (isInstalled)
+            appNotification.show(qsTr("Sticker set installed"))
+        else
+            appNotification.show(qsTr("Sticker set removed"))
     }
 
     Connections {
         target: tdLibWrapper
-        onStickerSetReceived: {
-            if (stickerSet.id === stickerSetOverlayFlickable.stickerSetId) {
-                stickerSetOverlayFlickable.stickerSet = stickerSet;
-            }
-        }
-        onOkReceived: {
-            if (request === "installStickerSet") {
-                appNotification.show(qsTr("Sticker set successfully installed!"));
-                installSetButton.visible = false;
-                tdLibWrapper.getInstalledStickerSets();
-            }
-            if (request === "removeStickerSet") {
-                appNotification.show(qsTr("Sticker set successfully removed!"));
-                installSetButton.visible = true;
-                tdLibWrapper.getInstalledStickerSets();
-            }
-        }
+        onStickerSetReceived:
+            if (stickerSetId === stickerSetOverlayFlickable.stickerSetId)
+                stickerSetOverlayFlickable.stickerSet = stickerSet
+        onStickerSetUpdated:
+            if (stickerSetId === stickerSetOverlayFlickable.stickerSetId)
+                stickerSetOverlayFlickable.stickerSet = stickerSet
     }
 
     Rectangle {
@@ -70,9 +63,7 @@ Flickable {
         anchors.fill: parent
         MouseArea {
             anchors.fill: parent
-            onClicked: {
-                stickerSetOverlayFlickable.requestClose();
-            }
+            onClicked: requestClose()
         }
     }
 
@@ -91,7 +82,7 @@ Flickable {
             Label {
                 id: overlayStickerTitleText
 
-                width: parent.width - installSetButton.width - closeSetButton.width
+                width: parent.width - changeSetButton.width - closeSetButton.width
                 text: stickerSet.title
                 font.pixelSize: Theme.fontSizeExtraLarge
                 font.weight: Font.ExtraBold
@@ -102,23 +93,11 @@ Flickable {
             }
 
             IconButton {
-                id: installSetButton
-                icon.source: "image://theme/icon-m-add"
+                id: changeSetButton
+                icon.source: 'image://theme/icon-m-' + (isInstalled ? 'remove' : 'add')
                 anchors.verticalCenter: parent.verticalCenter
-                visible: !stickerManager.isStickerSetInstalled(stickerSet.id)
-                onClicked: {
-                    tdLibWrapper.changeStickerSet(stickerSet.id, true);
-                }
-            }
-
-            IconButton {
-                id: removeSetButton
-                icon.source: "image://theme/icon-m-remove"
-                anchors.verticalCenter: parent.verticalCenter
-                visible: !installSetButton.visible
-                onClicked: {
-                    tdLibWrapper.changeStickerSet(stickerSet.id, false);
-                }
+                onClicked:
+                    tdLibWrapper.changeStickerSet(stickerSet.id, !isInstalled)
             }
 
             IconButton {
@@ -146,23 +125,27 @@ Flickable {
             clip: true
 
             model: stickerSet.stickers
-            delegate: Item {
-                width: stickerSetGridView.cellWidth - Theme.paddingSmall
-                height: stickerSetGridView.cellHeight - Theme.paddingSmall
+            delegate: BackgroundItem {
+                width: stickerSetGridView.cellWidth
+                height: stickerSetGridView.cellHeight
 
                 TDLibThumbnail {
                     id: singleStickerThumbnail
+                    anchors.centerIn: parent
+                    width: stickerSetGridView.cellWidth - Theme.paddingSmall
+                    height: stickerSetGridView.cellHeight - Theme.paddingSmall
+
                     thumbnail: modelData.thumbnail
-                    anchors.fill: parent
+
+                    Label {
+                        font.pixelSize: Theme.fontSizeSmall
+                        anchors.right: parent.right
+                        anchors.bottom: parent.bottom
+                        text: Emoji.emojify(modelData.emoji, font.pixelSize)
+                    }
                 }
 
-                Label {
-                    font.pixelSize: Theme.fontSizeSmall
-                    anchors.right: parent.right
-                    anchors.bottom: parent.bottom
-                    text: Emoji.emojify(modelData.emoji, font.pixelSize)
-                }
-
+                onClicked: stickerPicked(modelData.sticker.remote.id)
             }
 
             VerticalScrollDecorator {}

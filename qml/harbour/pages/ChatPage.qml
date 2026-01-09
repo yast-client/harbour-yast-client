@@ -197,11 +197,6 @@ Page {
                 tdLibWrapper.getUserFullInfo(chatPartnerInformation.id)
         }
 
-        if (stickerManager.needsReload()) {
-            log("Recent stickers will be reloaded!")
-            tdLibWrapper.getRecentStickers()
-            stickerManager.setNeedsReload(false)
-        }
         tdLibWrapper.getChatPinnedMessage(chatInformation.id)
         tdLibWrapper.toggleChatIsMarkedAsUnread(chatInformation.id, false)
         availableReactions = tdLibWrapper.getChatReactions(chatInformation.id)

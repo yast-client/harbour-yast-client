@@ -90,6 +90,7 @@ namespace {
     const QString NOTIFICATION_SETTINGS("notification_settings");
     const QString INFO("info");
     const QString FORUM_TOPIC_ID("forum_topic_id");
+    const QString STICKER_IDS("sticker_ids");
 
     const QString _TYPE("@type");
     const QString _EXTRA("@extra");
@@ -150,6 +151,7 @@ TDLibReceiver::TDLibReceiver(int tdLibClientId, QObject *parent) : QThread(paren
     handlers.insert("chats", &TDLibReceiver::processChats);
     handlers.insert("chat", &TDLibReceiver::processChat);
     handlers.insert("updateRecentStickers", &TDLibReceiver::processUpdateRecentStickers);
+    handlers.insert("updateFavoriteStickers", &TDLibReceiver::processUpdateFavoriteStickers);
     handlers.insert("stickers", &TDLibReceiver::processStickers);
     handlers.insert("updateInstalledStickerSets", &TDLibReceiver::processUpdateInstalledStickerSets);
     handlers.insert("stickerSets", &TDLibReceiver::processStickerSets);
@@ -214,6 +216,7 @@ TDLibReceiver::TDLibReceiver(int tdLibClientId, QObject *parent) : QThread(paren
     handlers.insert("updateMessageSuggestedPostInfo", &TDLibReceiver::processUpdateMessageSuggestedPostInfo);
     handlers.insert("updateMessageContentOpened", &TDLibReceiver::processUpdateMessageContentOpened);
     handlers.insert("updateMessageFactCheck", &TDLibReceiver::processUpdateMessageFactCheck);
+    handlers.insert("updateStickerSet", &TDLibReceiver::processUpdateStickerSet);
 }
 
 void TDLibReceiver::setActive(bool active)
@@ -545,34 +548,45 @@ void TDLibReceiver::processChat(const QVariantMap &receivedInformation)
     emit chat(receivedInformation);
 }
 
-void TDLibReceiver::processUpdateRecentStickers(const QVariantMap &receivedInformation)
-{
-    LOG("Recent stickers updated");
-    emit recentStickersUpdated(receivedInformation.value("sticker_ids").toList());
+void TDLibReceiver::processUpdateRecentStickers(const QVariantMap &receivedInformation) {
+    bool isAttached = receivedInformation.value("is_attached").toBool();
+    LOG("Received updateRecentStickers is attached:" << isAttached);
+    QList<int> ids;
+    for (const QVariant &id : receivedInformation.value(STICKER_IDS).toList())
+        ids.append(id.toInt());
+    emit recentStickersUpdated(isAttached, ids);
 }
 
-void TDLibReceiver::processStickers(const QVariantMap &receivedInformation)
-{
-    LOG("Received some stickers...");
-    emit stickers(cleanupList(receivedInformation.value(STICKERS).toList()));
+void TDLibReceiver::processUpdateFavoriteStickers(const QVariantMap &receivedInformation) {
+    LOG("Received updateFavoriteStickers");
+    QList<int> ids;
+    for (const QVariant &id : receivedInformation.value(STICKER_IDS).toList())
+        ids.append(id.toInt());
+    emit favoriteStickersUpdated(ids);
 }
 
-void TDLibReceiver::processUpdateInstalledStickerSets(const QVariantMap &receivedInformation)
-{
-    LOG("Recent sticker sets updated");
-    emit installedStickerSetsUpdated(receivedInformation.value("sticker_set_ids").toList());
+void TDLibReceiver::processStickers(const QVariantMap &receivedInformation) {
+    LOG("Received stickers");
+    emit stickers(cleanupList(receivedInformation.value(STICKERS).toList()), receivedInformation.value(_EXTRA).toString());
 }
 
-void TDLibReceiver::processStickerSets(const QVariantMap &receivedInformation)
-{
-    LOG("Received some sticker sets...");
-    emit stickerSets(cleanupList(receivedInformation.value(SETS).toList()));
+void TDLibReceiver::processUpdateInstalledStickerSets(const QVariantMap &receivedInformation) {
+    const QString stickerType = receivedInformation.value("sticker_type").toMap().value(_TYPE).toString();
+    LOG("Installed sticker sets updated" << stickerType);
+    emit installedStickerSetsUpdated(stickerType, receivedInformation.value("sticker_set_ids").toList());
 }
 
-void TDLibReceiver::processStickerSet(const QVariantMap &receivedInformation)
-{
-    LOG("Received a sticker set...");
-    emit stickerSet(cleanupMap(receivedInformation));
+void TDLibReceiver::processStickerSets(const QVariantMap &receivedInformation) {
+    const int totalCount = receivedInformation.value(TOTAL_COUNT).toInt();
+    const QString extra = receivedInformation.value(_EXTRA).toString();
+    LOG("Received stickerSets" << totalCount << extra);
+    emit stickerSets(cleanupList(receivedInformation.value(SETS).toList()), totalCount, extra);
+}
+
+void TDLibReceiver::processStickerSet(const QVariantMap &receivedInformation) {
+    const QString id = receivedInformation.value(ID).toString();
+    LOG("Received stickerSet" << id);
+    emit stickerSet(id, cleanupMap(receivedInformation));
 }
 void TDLibReceiver::processChatMembers(const QVariantMap &receivedInformation)
 {
@@ -933,6 +947,7 @@ const QVariantMap TDLibReceiver::cleanupMap(const QVariantMap& map, bool *update
             QVariantMap stickerSet(map);
             stickerSet.remove(STICKERS);
             stickerSet.insert(STICKERS, stickers);
+            stickerSet.remove(EMOJIS);
             stickerSet.remove(_TYPE);
             stickerSet.insert(_TYPE, TYPE_STICKER_SET); // Replace with a shared value
             if (updated) *updated = true;
@@ -1256,4 +1271,11 @@ void TDLibReceiver::processUpdateMessageFactCheck(const QVariantMap &receivedInf
     qlonglong messageId = receivedInformation.value(MESSAGE_ID).toLongLong();
     LOG("Received updateMessageFactCheck" << chatId << messageId);
     emit messageFactCheckUpdated(chatId, messageId, receivedInformation.value("fact_check").toMap());
+}
+
+void TDLibReceiver::processUpdateStickerSet(const QVariantMap &receivedInformation) {
+    const QVariantMap stickerSet = receivedInformation.value("sticker_set").toMap();
+    const QString id = stickerSet.value(ID).toString();
+    LOG("Received updateStickerSet" << id);
+    emit stickerSetUpdated(id, cleanupMap(stickerSet));
 }

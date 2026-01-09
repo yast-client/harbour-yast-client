@@ -39,21 +39,21 @@ MessageContentBase {
     readonly property bool canAnswer: !hasAnswered && !pollData.is_closed
     readonly property bool isQuiz: pollData.type['@type'] === "pollTypeQuiz"
     property list<Item> extraContextMenuItems: [
-            FancyMenuRow {
-                property bool canEdit
-                function processProperties(properties) { canEdit = !!properties.can_be_edited }
-                IconTextRowMenuItem {
-                    visible: !pollData.is_closed && canEdit
-                    text: qsTr("Close Poll")
-                    onClicked: tdLibWrapper.stopPoll(pollMessageComponent.chatId, pollMessageComponent.messageId)
-                }
-                IconTextRowMenuItem {
-                    visible: !pollData.is_closed && !pollMessageComponent.isQuiz && pollMessageComponent.hasAnswered
-                    text: qsTr("Reset Answer")
-                    onClicked: pollMessageComponent.resetChosen()
-                }
+        FancyMenuRow {
+            property bool canEdit
+            function processProperties(properties) { canEdit = !!properties.can_be_edited }
+            IconTextRowMenuItem {
+                visible: !pollData.is_closed && canEdit
+                text: qsTr("Close Poll")
+                onClicked: tdLibWrapper.stopPoll(pollMessageComponent.chatId, pollMessageComponent.messageId)
             }
-        ]
+            IconTextRowMenuItem {
+                visible: !pollData.is_closed && !pollMessageComponent.isQuiz && pollMessageComponent.hasAnswered
+                text: qsTr("Reset Answer")
+                onClicked: pollMessageComponent.resetChosen()
+            }
+        }
+    ]
 
     function handleChoose(index) {
         if(!pollData.type.allow_multiple_answers) {

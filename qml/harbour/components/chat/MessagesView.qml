@@ -858,7 +858,6 @@ Column {
             target: stickerPickerLoader.item
             onStickerPicked: {
                 log("Sticker picked: " + stickerId)
-                stickerManager.setNeedsReload(true)
                 tdLibWrapper.sendStickerMessage(chatInformation.id, stickerId, newMessageColumn.replyToMessageId)
                 stickerPickerLoader.active = false
                 attachmentOptionsFlickable.show = false
@@ -912,6 +911,13 @@ Column {
                     stickerSetId: stickerSetOverlayLoader.stickerSetId
                     onRequestClose:
                         stickerSetOverlayLoader.active = false
+                    onStickerPicked: {
+                        log("Sticker from set picked:", stickerId)
+                        tdLibWrapper.sendStickerMessage(chatInformation.id, stickerId, newMessageColumn.replyToMessageId)
+                        newMessageInReplyToRow.inReplyToMessage = null
+                        newMessageColumn.editMessageId = "0"
+                        newMessageColumn.editIsCaption = false
+                    }
                 }
             }
 

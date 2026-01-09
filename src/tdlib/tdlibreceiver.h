@@ -75,11 +75,12 @@ signals:
     void chats(const QString &extra, const QVariantList &chatIds, const int totalCount);
     void sponsoredChatsReceived(const QVariantList &chats);
     void chat(const QVariantMap &chats);
-    void recentStickersUpdated(const QVariantList &stickerIds);
-    void stickers(const QVariantList &stickers);
-    void installedStickerSetsUpdated(const QVariantList &stickerSetIds);
-    void stickerSets(const QVariantList &stickerSets);
-    void stickerSet(const QVariantMap &stickerSet);
+    void recentStickersUpdated(bool isAttached, const QList<int> &stickerIds);
+    void favoriteStickersUpdated(const QList<int> &stickerIds);
+    void stickers(const QVariantList &stickers, const QString &extra);
+    void installedStickerSetsUpdated(const QString &stickerType, const QVariantList &stickerSetIds);
+    void stickerSets(const QVariantList &stickerSets, int totalCount, const QString &extra);
+    void stickerSet(const QString &stickerSetId, const QVariantMap &stickerSet);
     void chatMembers(const QString &extra, const QVariantList &members, int totalMembers);
     void userFullInfo(const QVariantMap &userFullInfo);
     void userFullInfoUpdated(const QString &userId, const QVariantMap &userFullInfo);
@@ -142,6 +143,7 @@ signals:
     void messageSuggestedPostInfoUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &suggestedPostInfo);
     void messageContentOpened(qlonglong chatId, qlonglong messageId);
     void messageFactCheckUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &factCheck);
+    void stickerSetUpdated(const QString &stickerSetId, const QVariantMap &stickerSet);
 
 private:
     typedef void (TDLibReceiver::*Handler)(const QVariantMap &);
@@ -193,6 +195,7 @@ private:
     void processSponsoredChats(const QVariantMap &receivedInformation);
     void processChat(const QVariantMap &receivedInformation);
     void processUpdateRecentStickers(const QVariantMap &receivedInformation);
+    void processUpdateFavoriteStickers(const QVariantMap &receivedInformation);
     void processStickers(const QVariantMap &receivedInformation);
     void processUpdateInstalledStickerSets(const QVariantMap &receivedInformation);
     void processStickerSets(const QVariantMap &receivedInformation);
@@ -257,6 +260,7 @@ private:
     void processUpdateMessageSuggestedPostInfo(const QVariantMap &receivedInformation);
     void processUpdateMessageContentOpened(const QVariantMap &receivedInformation);
     void processUpdateMessageFactCheck(const QVariantMap &receivedInformation);
+    void processUpdateStickerSet(const QVariantMap &receivedInformation);
 };
 
 #endif // TDLIBRECEIVER_H

@@ -23,157 +23,67 @@
 #define DEBUG_MODULE StickerManager
 #include "debuglog.h"
 
-StickerManager::StickerManager(TDLibWrapper *tdLibWrapper, QObject *parent) : QObject(parent)
+namespace {
+    const QString STICKERS("stickers");
+}
+
+StickerManager::StickerManager(TDLibWrapper *tdLibWrapper, QObject *parent)
+    : QObject(parent),
+      tdLibWrapper(tdLibWrapper)
 {
     LOG("Initializing...");
-    this->tdLibWrapper = tdLibWrapper;
-    this->reloadNeeded = false;
 
-    connect(this->tdLibWrapper, SIGNAL(recentStickersUpdated(QVariantList)), this, SLOT(handleRecentStickersUpdated(QVariantList)));
-    connect(this->tdLibWrapper, SIGNAL(stickersReceived(QVariantList)), this, SLOT(handleStickersReceived(QVariantList)));
-    connect(this->tdLibWrapper, SIGNAL(installedStickerSetsUpdated(QVariantList)), this, SLOT(handleInstalledStickerSetsUpdated(QVariantList)));
-    connect(this->tdLibWrapper, SIGNAL(stickerSetsReceived(QVariantList)), this, SLOT(handleStickerSetsReceived(QVariantList)));
-    connect(this->tdLibWrapper, SIGNAL(stickerSetReceived(QVariantMap)), this, SLOT(handleStickerSetReceived(QVariantMap)));
+    connect(this->tdLibWrapper, &TDLibWrapper::recentStickersUpdated, this, &StickerManager::handleRecentStickersUpdated);
+    connect(this->tdLibWrapper, &TDLibWrapper::favoriteStickersUpdated, this, &StickerManager::handleFavoriteStickersUpdated);
+    connect(this->tdLibWrapper, &TDLibWrapper::stickerSetUpdated, this, &StickerManager::handleStickerSetUpdated);
+    connect(this->tdLibWrapper, &TDLibWrapper::stickerSetReceived, this, &StickerManager::handleStickerSetReceived);
 }
 
-StickerManager::~StickerManager()
-{
-    LOG("Destroying myself...");
+StickerManager::~StickerManager() {
+    LOG("Destroying");
 }
 
-QVariantList StickerManager::getRecentStickers()
-{
-    return this->recentStickers;
+QVariantMap StickerManager::getStickerSet(const QString &stickerSetId) {
+    return stickerSets.value(stickerSetId);
 }
 
-QVariantList StickerManager::getInstalledStickerSets()
-{
-    return this->installedStickerSets;
+bool StickerManager::hasStickerSet(const QString &stickerSetId) {
+    return stickerSets.contains(stickerSetId);
 }
 
-QVariantMap StickerManager::getStickerSet(const QString &stickerSetId)
-{
-    return this->stickerSets.value(stickerSetId).toMap();
-}
+void StickerManager::handleRecentStickersUpdated(bool isAttached, const QList<int> &stickerIds) {
+    if (isAttached) {
+        LOG("Attached recent stickers updated, ignoring" << stickerIds.length());
+        return;
+    }
 
-QVariantMap StickerManager::getCustomEmojiSticker(const QString &emojiId) {
-    return this->customEmojis.value(emojiId).toMap();
-}
-
-bool StickerManager::hasStickerSet(const QString &stickerSetId)
-{
-    return this->stickerSets.contains(stickerSetId);
-}
-
-bool StickerManager::isStickerSetInstalled(const QString &stickerSetId)
-{
-    return this->installedStickerSetIds.contains(stickerSetId);
-}
-
-bool StickerManager::hasCustomEmoji(const QString &emojiId) {
-    return this->customEmojis.contains(emojiId);
-}
-
-bool StickerManager::needsReload()
-{
-    return this->reloadNeeded;
-}
-
-void StickerManager::setNeedsReload(const bool &reloadNeeded)
-{
-    this->reloadNeeded = reloadNeeded;
-}
-
-void StickerManager::handleRecentStickersUpdated(const QVariantList &stickerIds)
-{
-    LOG("Receiving recent stickers...." << stickerIds);
+    LOG("Recent stickers updated" << stickerIds.length());
     this->recentStickerIds = stickerIds;
+    emit recentStickersChanged();
 }
 
-void StickerManager::handleStickersReceived(const QVariantList &stickers)
-{
-    LOG("Receiving stickers....");
-    QListIterator<QVariant> stickersIterator(stickers);
-    while (stickersIterator.hasNext()) {
-        QVariantMap newSticker = stickersIterator.next().toMap();
-        QString fileId = newSticker.value("sticker").toMap().value("id").toString();
-        this->stickers.insert(fileId, newSticker);
-
-        QVariantMap fullType = newSticker.value("full_type").toMap();
-        if (fullType.value("@type").toString() == "stickerFullTypeCustomEmoji") {
-            QString emojiId = fullType.value("custom_emoji_id").toString();
-            this->customEmojis.insert(emojiId, newSticker);
-            emit customEmojiReceived(emojiId);
-        }
-    }
-
-    this->recentStickers.clear();
-    QListIterator<QVariant> stickerIdIterator(this->recentStickerIds);
-    while (stickerIdIterator.hasNext()) {
-        QString stickerId = stickerIdIterator.next().toString();
-        this->recentStickers.append(this->stickers.value(stickerId));
-    }
+void StickerManager::handleFavoriteStickersUpdated(const QList<int> &stickerIds) {
+    LOG("Favorite stickers updated" << stickerIds.length());
+    this->favoriteStickerIds = stickerIds;
+    emit favoriteStickersChanged();
 }
 
-void StickerManager::handleInstalledStickerSetsUpdated(const QVariantList &stickerSetIds)
-{
-    LOG("Receiving installed sticker IDs...." << stickerSetIds);
-    this->installedStickerSetIds = stickerSetIds;
-}
-
-void StickerManager::handleStickerSetsReceived(const QVariantList &stickerSets)
-{
-    LOG("Receiving sticker sets....");
-    QListIterator<QVariant> stickerSetsIterator(stickerSets);
-    while (stickerSetsIterator.hasNext()) {
-        QVariantMap newStickerSet = stickerSetsIterator.next().toMap();
-        QString newSetId = newStickerSet.value("id").toString();
-        bool isInstalled = newStickerSet.value("is_installed").toBool();
-        if (isInstalled && !this->installedStickerSetIds.contains(newSetId)) {
-            this->installedStickerSetIds.append(newSetId);
-        }
-        if (!isInstalled && this->installedStickerSetIds.contains(newSetId)) {
-            this->installedStickerSetIds.removeAll(newSetId);
-        }
-        if (!this->stickerSets.contains(newSetId)) {
-            this->stickerSets.insert(newSetId, newStickerSet);
-        }
-    }
-
-    this->installedStickerSets.clear();
-    QListIterator<QVariant> stickerSetIdIterator(this->installedStickerSetIds);
-    int i = 0;
-    this->stickerSetMap.clear();
-    while (stickerSetIdIterator.hasNext()) {
-        QString stickerSetId = stickerSetIdIterator.next().toString();
-        if (this->stickerSets.contains(stickerSetId)) {
-            this->installedStickerSets.append(this->stickerSets.value(stickerSetId));
-            this->stickerSetMap.insert(stickerSetId, i);
-            i++;
-        }
-    }
-    emit stickerSetsReceived();
-}
-
-void StickerManager::handleStickerSetReceived(const QVariantMap &stickerSet)
-{
-    QString stickerSetId = stickerSet.value("id").toString();
+void StickerManager::handleStickerSet(const QString &stickerSetId, const QVariantMap &stickerSet) {
+    bool stickersListChanged = this->stickerSets.value(stickerSetId).value(STICKERS).toList() != stickerSet.value(STICKERS).toList();
     this->stickerSets.insert(stickerSetId, stickerSet);
-    if (this->installedStickerSetIds.contains(stickerSetId)) {
-        LOG("Receiving installed sticker set...." << stickerSetId);
-        int setIndex = this->stickerSetMap.value(stickerSetId).toInt();
-        this->installedStickerSets.replace(setIndex, stickerSet);
-    } else {
-        LOG("Receiving new sticker set...." << stickerSetId);
-    }
-    QVariantList stickerList = stickerSet.value("stickers").toList();
-    QListIterator<QVariant> stickerIterator(stickerList);
-    while (stickerIterator.hasNext()) {
-        QVariantMap singleSticker = stickerIterator.next().toMap();
-        QVariantMap thumbnailFile = singleSticker.value("thumbnail").toMap().value("file").toMap();
-        QVariantMap thumbnailLocalFile = thumbnailFile.value("local").toMap();
-        if (!thumbnailLocalFile.value("is_downloading_completed").toBool()) {
-            tdLibWrapper->downloadFile(thumbnailFile.value("id").toInt());
-        }
-    }
+    emit stickerSetUpdated(stickerSetId);
+    if (stickersListChanged)
+        emit stickerSetStickersUpdated(stickerSetId);
+}
+
+void StickerManager::handleStickerSetUpdated(const QString &stickerSetId, const QVariantMap &stickerSet) {
+    LOG("Sticker set updated" << stickerSetId);
+    this->stickerSets.insert(stickerSetId, stickerSet);
+    emit stickerSetUpdated(stickerSetId);
+}
+
+void StickerManager::handleStickerSetReceived(const QString &stickerSetId, const QVariantMap &stickerSet) {
+    LOG("Received a sticker set" << stickerSetId);
+    this->stickerSets.insert(stickerSetId, stickerSet);
+    emit stickerSetUpdated(stickerSetId);
 }

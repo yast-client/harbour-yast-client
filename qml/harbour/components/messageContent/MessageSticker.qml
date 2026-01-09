@@ -25,6 +25,18 @@ import "../../js/twemoji.js" as Emoji
 MessageContentBase {
     id: stickerMessage
 
+    property list<Item> extraContextMenuItems: [
+        MenuItem {
+            property bool isFavorite: stickerManager.favoriteStickerIds.indexOf(stickerData.sticker.id)
+            text: isFavorite ? qsTr("Remove from Favorites") : qsTr("Add to Favorites")
+            onClicked:
+                if (isFavorite)
+                    tdLibWrapper.removeFavoriteSticker(stickerData.sticker.id)
+                else
+                    tdLibWrapper.addFavoriteSticker(stickerData.sticker.id)
+        }
+    ]
+
     property var stickerData: rawMessage.content.sticker
     readonly property bool isOwnSticker: typeof messageListItem !== 'undefined' ? messageListItem.isOwnMessage : overlayFlickable.isOwnMessage
 

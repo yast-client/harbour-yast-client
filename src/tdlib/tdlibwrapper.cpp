@@ -76,10 +76,10 @@ namespace {
     const QString EMOJI("emoji");
     const QString TYPE_MESSAGE_REPLY_TO_MESSAGE("messageReplyToMessage");
     const QString TYPE_INPUT_MESSAGE_REPLY_TO_MESSAGE("inputMessageReplyToMessage");
-    const QString TYPE_GET_INSTALLED_STICKER_SETS("getInstalledStickerSets");
     const QString TEXT("text");
     const QString PHOTO("photo");
     const QString TYPE_INPUT_FILE_LOCAL("inputFileLocal");
+    const QString TYPE_INPUT_FILE_ID("inputFileId");
     const QString PATH("path");
     const QString CONTACT("contact");
     const QString PHONE_NUMBER("phone_number");
@@ -132,6 +132,8 @@ namespace {
     const QString TYPE_GET_FORUM_TOPC("getForumTopic");
     const QString NAME("name");
     const QString TYPE_SET_OPTION("setOption");
+    const QString STICKER_TYPE("sticker_type");
+    const QString STICKER("sticker");
 
     const QStringList ALL_FILE_TYPES(QStringList()
                                      << "fileTypeAnimation"
@@ -297,7 +299,8 @@ void TDLibWrapper::initializeTDLibReceiver() {
     connect(this->tdLibReceiver, &TDLibReceiver::secretChat, this, &TDLibWrapper::handleSecretChatReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::secretChatUpdated, this, &TDLibWrapper::handleSecretChatUpdated);
     connect(this->tdLibReceiver, &TDLibReceiver::recentStickersUpdated, this, &TDLibWrapper::recentStickersUpdated);
-    connect(this->tdLibReceiver, &TDLibReceiver::stickers, this, &TDLibWrapper::stickersReceived);
+    connect(this->tdLibReceiver, &TDLibReceiver::favoriteStickersUpdated, this, &TDLibWrapper::favoriteStickersUpdated);
+    connect(this->tdLibReceiver, &TDLibReceiver::stickers, this, &TDLibWrapper::handleStickersReceived);
     connect(this->tdLibReceiver, &TDLibReceiver::installedStickerSetsUpdated, this, &TDLibWrapper::installedStickerSetsUpdated);
     connect(this->tdLibReceiver, &TDLibReceiver::stickerSets, this, &TDLibWrapper::handleStickerSets);
     connect(this->tdLibReceiver, &TDLibReceiver::stickerSet, this, &TDLibWrapper::stickerSetReceived);
@@ -356,6 +359,7 @@ void TDLibWrapper::initializeTDLibReceiver() {
     connect(this->tdLibReceiver, &TDLibReceiver::messageSuggestedPostInfoUpdated, this, &TDLibWrapper::messageSuggestedPostInfoUpdated);
     connect(this->tdLibReceiver, &TDLibReceiver::messageContentOpened, this, &TDLibWrapper::messageContentOpened);
     connect(this->tdLibReceiver, &TDLibReceiver::messageFactCheckUpdated, this, &TDLibWrapper::messageFactCheckUpdated);
+    connect(this->tdLibReceiver, &TDLibReceiver::stickerSetUpdated, this, &TDLibWrapper::stickerSetUpdated);
 
     this->tdLibReceiver->start();
 }
@@ -569,7 +573,7 @@ void TDLibWrapper::sendStickerMessage(qlonglong chatId, const QString &fileId, q
     LOG("Sending sticker message" << chatId << fileId << replyToMessageId);
     sendMessage(chatId, replyToMessageId, topicId, {
                     {_TYPE, "inputMessageSticker"},
-                    {"sticker", QVariantMap{{_TYPE, "inputFileRemote"}, {ID, fileId}}}
+                    {STICKER, QVariantMap{{_TYPE, "inputFileRemote"}, {ID, fileId}}}
                 });
 }
 
@@ -788,17 +792,50 @@ void TDLibWrapper::getMapThumbnailFile(const QString &chatId, double latitude, d
 
 void TDLibWrapper::getRecentStickers() {
     LOG("Retrieving recent stickers");
-    this->sendRequest(QVariantMap{{_TYPE, "getRecentStickers"}});
+    this->sendRequest({{_TYPE, "getRecentStickers"}, {_EXTRA, "recent"}});
 }
 
-void TDLibWrapper::getInstalledStickerSets() {
+void TDLibWrapper::getFavoriteStickers() {
+    LOG("Retrieving favorite stickers");
+    this->sendRequest({{_TYPE, "getFavoriteStickers"}, {_EXTRA, "favorite"}});
+}
+
+TDLibWrapper::StickerType TDLibWrapper::getStickerTypeForType(const QString &type) {
+    if (type == "stickerTypeRegular")
+        return StickerTypeRegular;
+    if (type == "stickerTypeMask")
+        return StickerTypeMask;
+    if (type == "stickerTypeCustomEmoji")
+        return StickerTypeCustomEmoji;
+
+    return StickerTypeRegular;
+}
+
+QString TDLibWrapper::getStickerTypeType(StickerType stickerType) {
+    switch (stickerType) {
+    case StickerTypeRegular:
+        return "stickerTypeRegular";
+    case StickerTypeMask:
+        return "stickerTypeMask";
+    case StickerTypeCustomEmoji:
+        return "stickerTypeCustomEmoji";
+    }
+
+    return QString();
+}
+
+void TDLibWrapper::getInstalledStickerSets(StickerType stickerType) {
     LOG("Retrieving installed sticker sets");
-    this->sendRequest(QVariantMap{{_TYPE, TYPE_GET_INSTALLED_STICKER_SETS}, {_EXTRA, TYPE_GET_INSTALLED_STICKER_SETS}});
+    this->sendRequest({
+        {_TYPE, "getInstalledStickerSets"},
+        {STICKER_TYPE, QVariantMap{{_TYPE, getStickerTypeType(stickerType)}}},
+        {_EXTRA, "installed"+QString::number(stickerType)}
+    });
 }
 
 void TDLibWrapper::getStickerSet(const QString &setId) {
     LOG("Retrieving sticker set" << setId);
-    this->sendRequest(QVariantMap{{_TYPE, "getStickerSet"}, {"set_id", setId}});
+    this->sendRequest({{_TYPE, "getStickerSet"}, {"set_id", setId}});
 }
 
 void TDLibWrapper::getSupergroupMembers(const QString &groupId, int limit, int offset) {
@@ -1984,13 +2021,15 @@ void TDLibWrapper::handleSuperGroupUpdated(qlonglong groupId, const QVariantMap 
     emit superGroupUpdated(updateGroup(groupId, groupInformation, &superGroups)->groupId);
 }
 
-void TDLibWrapper::handleStickerSets(const QVariantList &stickerSets) {
-    QListIterator<QVariant> stickerSetIterator(stickerSets);
-    while (stickerSetIterator.hasNext()) {
-        QVariantMap stickerSet = stickerSetIterator.next().toMap();
-        this->getStickerSet(stickerSet.value(ID).toString());
+void TDLibWrapper::handleStickerSets(const QVariantList &stickerSets, int totalCount, const QString &extra) {
+    if (extra.startsWith("installed")) {
+        StickerType type = (StickerType)extra.mid(9).toInt();
+        LOG("Installed sticker sets received" << type << totalCount);
+        emit installedStickerSetsReceived(type, stickerSets);
+    } else {
+        LOG("Unknown sticker sets received" << totalCount);
+        emit stickerSetsReceived(stickerSets);
     }
-    emit this->stickerSetsReceived(stickerSets);
 }
 
 void TDLibWrapper::handleOpenWithChanged() {
@@ -2968,4 +3007,27 @@ void TDLibWrapper::getForumTopic(qlonglong chatId, int forumTopicId) {
                           {FORUM_TOPIC_ID, forumTopicId},
                           {_EXTRA, "getForumTopic:"+QString::number(chatId)+":"+QString::number(forumTopicId)}
                       });
+}
+
+void TDLibWrapper::handleStickersReceived(const QVariantList &stickers, const QString &extra) {
+    if (extra == "recent") {
+        LOG("Recent stickers received" << stickers.length());
+        emit recentStickersReceived(stickers);
+    } else if (extra == "favorite") {
+        LOG("Favorite stickers received" << stickers.length());
+        emit favoriteStickersReceived(stickers);
+    } else {
+        LOG("Unknown stickers received" << extra << stickers.length());
+        emit stickersReceived(stickers);
+    }
+}
+
+void TDLibWrapper::addFavoriteSticker(int fileId) {
+    LOG("Adding sticker to favorites" << fileId);
+    this->sendRequest({{_TYPE, "addFavoriteSticker"}, {STICKER, QVariantMap{{_TYPE, TYPE_INPUT_FILE_ID}, {ID, fileId}}}});
+}
+
+void TDLibWrapper::removeFavoriteSticker(int fileId) {
+    LOG("Removing sticker to favorites" << fileId);
+    this->sendRequest({{_TYPE, "removeFavoriteSticker"}, {STICKER, QVariantMap{{_TYPE, TYPE_INPUT_FILE_ID}, {ID, fileId}}}});
 }

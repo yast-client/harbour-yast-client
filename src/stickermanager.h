@@ -26,49 +26,43 @@
 
 #include "tdlib/tdlibwrapper.h"
 
-class StickerManager : public QObject
-{
+class StickerManager : public QObject {
     Q_OBJECT
+
+    Q_PROPERTY(QList<int> recentStickerIds MEMBER recentStickerIds NOTIFY recentStickersChanged)
+    Q_PROPERTY(QList<int> favoriteStickerIds MEMBER favoriteStickerIds NOTIFY favoriteStickersChanged)
+
 public:
     explicit StickerManager(TDLibWrapper *tdLibWrapper, QObject *parent = nullptr);
     ~StickerManager();
 
-    Q_INVOKABLE QVariantList getRecentStickers();
-    Q_INVOKABLE QVariantList getInstalledStickerSets();
+    //Q_INVOKABLE QVariantList getInstalledStickerSets();
     Q_INVOKABLE QVariantMap getStickerSet(const QString &stickerSetId);
-    Q_INVOKABLE QVariantMap getCustomEmojiSticker(const QString &emojiId);
     Q_INVOKABLE bool hasStickerSet(const QString &stickerSetId);
-    Q_INVOKABLE bool isStickerSetInstalled(const QString &stickerSetId);
-    Q_INVOKABLE bool hasCustomEmoji(const QString &emojiId);
-    Q_INVOKABLE bool needsReload();
-    Q_INVOKABLE void setNeedsReload(const bool &reloadNeeded);
 
 signals:
+    void recentStickersChanged();
+    void favoriteStickersChanged();
+    void stickerSetUpdated(const QString &stickerSetId);
+    void stickerSetStickersUpdated(const QString &stickerSetId);
     void stickerSetsReceived();
-    void customEmojiReceived(const QString &stickerId);
 
 private slots:
-
-    void handleRecentStickersUpdated(const QVariantList &stickerIds);
-    void handleStickersReceived(const QVariantList &stickers);
-    void handleInstalledStickerSetsUpdated(const QVariantList &stickerSetIds);
-    void handleStickerSetsReceived(const QVariantList &stickerSets);
-    void handleStickerSetReceived(const QVariantMap &stickerSet);
+    void handleRecentStickersUpdated(bool isAttached, const QList<int> &stickerIds);
+    void handleFavoriteStickersUpdated(const QList<int> &stickerIds);
+    void handleStickerSetUpdated(const QString &stickerSetId, const QVariantMap &stickerSet);
+    //void handleStickersReceived(const QVariantList &stickers);
+    void handleStickerSetReceived(const QString &stickerSetId, const QVariantMap &stickerSet);
 
 private:
+    void handleStickerSet(const QString &stickerSetId, const QVariantMap &stickerSet);
 
+private:
     TDLibWrapper *tdLibWrapper;
 
-    QVariantList recentStickers;
-    QVariantList recentStickerIds;
-    QVariantList installedStickerSets;
-    QVariantList installedStickerSetIds;
-    QVariantMap stickers;
-    QVariantMap stickerSets;
-    QVariantMap stickerSetMap;
-    QVariantMap customEmojis;
-    bool reloadNeeded;
-
+    QList<int> recentStickerIds;
+    QList<int> favoriteStickerIds;
+    QMap<QString, QVariantMap> stickerSets;
 };
 
 #endif // STICKERMANAGER_H

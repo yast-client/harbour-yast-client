@@ -180,6 +180,13 @@ public:
     };
     Q_ENUM(MessageSource)
 
+    enum StickerType {
+        StickerTypeRegular,
+        StickerTypeMask,
+        StickerTypeCustomEmoji
+    };
+    Q_ENUM(StickerType)
+
     class Group {
     public:
         Group(qlonglong id) : groupId(id) { }
@@ -271,7 +278,8 @@ public:
     Q_INVOKABLE void deleteMessages(const QString &chatId, const QVariantList messageIds, bool revoke = true);
     Q_INVOKABLE void getMapThumbnailFile(const QString &chatId, double latitude, double longitude, int width, int height, const QString &extra);
     Q_INVOKABLE void getRecentStickers();
-    Q_INVOKABLE void getInstalledStickerSets();
+    Q_INVOKABLE void getFavoriteStickers();
+    Q_INVOKABLE void getInstalledStickerSets(StickerType stickerType = StickerTypeRegular);
     Q_INVOKABLE void getStickerSet(const QString &setId);
     Q_INVOKABLE void getSupergroupMembers(const QString &groupId, int limit, int offset);
     Q_INVOKABLE void getGroupFullInfo(const QString &groupId, bool isSuperGroup);
@@ -365,6 +373,8 @@ public:
     Q_INVOKABLE void getMessageThreadHistory(qlonglong chatId, qlonglong messageId, int extra, qlonglong fromMessageId = 0, int offset = -1, int limit = 50);
     Q_INVOKABLE void getForumTopicHistory(qlonglong chatId, int forumTopicId, int extra, qlonglong fromMessageId = 0, int offset = -1, int limit = 50);
     Q_INVOKABLE void getForumTopic(qlonglong chatId, int forumTopicId);
+    Q_INVOKABLE void addFavoriteSticker(int fileId);
+    Q_INVOKABLE void removeFavoriteSticker(int fileId);
 
     // Others (candidates for extraction ;))
     Q_INVOKABLE void initializeOpenWith();
@@ -436,11 +446,15 @@ signals:
     void chatReceived(const QVariantMap &chat);
     void secretChatReceived(qlonglong secretChatId, const QVariantMap &secretChat);
     void secretChatUpdated(qlonglong secretChatId, const QVariantMap &secretChat);
-    void recentStickersUpdated(const QVariantList &stickerIds);
+    void recentStickersUpdated(bool isAttached, const QList<int> &stickerIds);
+    void recentStickersReceived(const QVariantList &stickers);
+    void favoriteStickersUpdated(const QList<int> &stickerIds);
+    void favoriteStickersReceived(const QVariantList &stickers);
     void stickersReceived(const QVariantList &stickers);
-    void installedStickerSetsUpdated(const QVariantList &stickerSetIds);
+    void installedStickerSetsUpdated(const QString &stickerType, const QVariantList &stickerSetIds);
+    void installedStickerSetsReceived(StickerType stickerType, const QVariantList &stickerSets);
     void stickerSetsReceived(const QVariantList &stickerSets);
-    void stickerSetReceived(const QVariantMap &stickerSet);
+    void stickerSetReceived(const QString &stickerSetId, const QVariantMap &stickerSet);
     void chatMembersReceived(const QString &extra, const QVariantList &members, int totalMembers);
     void userFullInfoReceived(const QVariantMap &userFullInfo);
     void userFullInfoUpdated(const QString &userId, const QVariantMap &userFullInfo);
@@ -502,6 +516,7 @@ signals:
     void messageContentOpened(qlonglong chatId, qlonglong messageId);
     void messageFactCheckUpdated(qlonglong chatId, qlonglong messageId, const QVariantMap &factCheck);
     void forumTopicNotFound(qlonglong chatId, int forumTopicId);
+    void stickerSetUpdated(const QString &stickerSetId, const QVariantMap &stickerSet);
 
     // Link types
     void linkUnsupportedByApp(const QString &type);
@@ -546,7 +561,7 @@ public slots:
     void handleUnreadChatCountUpdated(const QVariantMap &chatCountInformation);
     void handleBasicGroupUpdated(qlonglong groupId, const QVariantMap &groupInformation);
     void handleSuperGroupUpdated(qlonglong groupId, const QVariantMap &groupInformation);
-    void handleStickerSets(const QVariantList &stickerSets);
+    void handleStickerSets(const QVariantList &stickerSets, int totalCount, const QString &extra);
     void handleSecretChatReceived(qlonglong secretChatId, const QVariantMap &secretChat);
     void handleSecretChatUpdated(qlonglong secretChatId, const QVariantMap &secretChat);
     void handleErrorReceived(int code, const QString &message, const QVariant &extra);
@@ -564,6 +579,7 @@ public slots:
     void handleInternalLinkTypeReceived(const QVariantMap &type);
     void handleUserReceived(const QVariantMap &user, bool doOpenOnFound);
     void handleChatViewAsTopicsUpdated(qlonglong chatId, bool viewAsTopics);
+    void handleStickersReceived(const QVariantList &stickers, const QString &extra);
 
 private:
     void setOption(const QString &name, const QString &type, const QVariant &value);
@@ -577,6 +593,8 @@ private:
     void updateChatPositions(qlonglong chatId, const QVariantList &positions);
     static QString getTopChatCategoryType(TopChatCategory category);
     static QString getMessageSourceType(MessageSource source);
+    static QString getStickerTypeType(StickerType stickerType);
+    static StickerType getStickerTypeForType(const QString &type);
 
 private:
     int tdLibClientId;
