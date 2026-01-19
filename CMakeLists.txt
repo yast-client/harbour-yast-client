@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.13)
 
 set(EDITION "sailfish" CACHE STRING "The version of the app to build. Must be one of: sailfish, asteroid.")
 
@@ -71,191 +71,35 @@ set_target_properties(TDLib PROPERTIES
     IMPORTED_LOCATION ${LIBTDJSON_PATH}
 )
 
-# rlottie
-# rlottie/CMakeLists.txt is too hard to adapt
-add_library(rlottie STATIC)
-
-set(RLOTTIE_CONFIG_PATH ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/vector/config.h)
-# we could do file(TOUCH filename), but that requires CMake 3.12
-if (NOT EXISTS ${RLOTTIE_CONFIG_PATH})
-    file(WRITE ${RLOTTIE_CONFIG_PATH} "")
-endif()
-
-set(CMAKE_THREAD_PREFER_PTHREAD ON)
-find_package(Threads)
-
-set_target_properties(rlottie PROPERTIES POSITION_INDEPENDENT_CODE ON)
-target_link_libraries(rlottie PUBLIC ${CMAKE_THREAD_LIBS_INIT})
-
-add_definitions(-DLOTTIE_THREAD_SUPPORT)
-target_include_directories(rlottie PUBLIC
-    rlottie/inc
-    rlottie/src/vector
-    rlottie/src/vector/freetype
-)
-target_sources(rlottie
-    PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/lottie/lottieanimation.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/lottie/lottieitem.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/lottie/lottieitem_capi.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/lottie/lottiekeypath.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/lottie/lottieloader.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/lottie/lottiemodel.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/lottie/lottieparser.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/lottie/zip/zip.cpp
-
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/vector/freetype/v_ft_math.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/vector/freetype/v_ft_raster.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/vector/freetype/v_ft_stroker.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/vector/stb/stb_image.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/vector/varenaalloc.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/vector/vbezier.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/vector/vbitmap.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/vector/vbrush.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/vector/vdasher.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/vector/vdrawable.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/vector/vdrawhelper.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/vector/vdrawhelper_common.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/vector/vdrawhelper_neon.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/vector/vdrawhelper_sse2.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/vector/vmatrix.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/vector/vimageloader.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/vector/vinterpolator.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/vector/vpainter.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/vector/vpath.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/vector/vpathmesure.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/vector/vraster.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/vector/vrle.cpp
-)
-
-include(CheckCXXSourceCompiles)
-check_cxx_source_compiles("#ifdef __ARM_NEON__
-int main() { return 0; }
-#else
-#error \"NEON not available\"
-#endif
-" HAVE_NEON)
-if (HAVE_NEON)
-    message("Using NEON render functions")
-    SET(CMAKE_ASM_FLAGS "${CFLAGS} -x assembler-with-cpp")
-    target_sources(rlottie PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/rlottie/src/vector/pixman/pixman-arm-neon-asm.S
-    )
-else()
-    message("Using default render functions")
-endif()
-
+add_subdirectory(libfernie)
 
 add_executable(${CMAKE_PROJECT_NAME} src/${CMAKE_PROJECT_NAME}.cpp)
 # target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
 #     $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>
 # )
-target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
-    QT_STATICPLUGIN
-)
-target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
-    ${NEMONOTIFICATIONS_INCLUDE_DIRS}
-    ${ZLIB_INCLUDE_DIRS}
-    tdlib/include
-    src
-)
+target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE src)
+target_link_libraries(libfernie TDLib)
 target_link_libraries(${CMAKE_PROJECT_NAME}
     Qt5::Quick
-    Qt5::DBus
-    Qt5::Multimedia
-    Qt5::Positioning
-    ${NEMONOTIFICATIONS_LIBRARIES}
-    ${ZLIB_LIBRARIES}
     SortFilterProxyModel
-    TDLib
-    rlottie
+    libfernie
 )
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     src/${CMAKE_PROJECT_NAME}.cpp
-    src/appsettings.cpp
-    src/boolfiltermodel.cpp
-    src/chat/jumpablemessagesmodel.cpp
-    src/chatdata.cpp
-    src/chatfoldersmodel.cpp
-    src/chat/chatmanager.cpp
-    src/chatpermissionfiltermodel.cpp
-    src/chatlistmodel.cpp
-    src/contactsmodel.cpp
-    src/dbusadaptor.cpp
-    src/dbusinterface.cpp
-    src/folderchatlistmodel.cpp
-    src/chat/forumtopicsmodel.cpp
-    src/chat/invertedmessagesmodel.cpp
-    src/chat/mediamessagesmodel.cpp
-    src/chat/messagedata.cpp
-    src/chat/messagesmodel.cpp
-    src/chat/readablemessagesmodel.cpp
-    src/invertedproxymodel.cpp
-    src/suggestedactionsmanager.cpp
-    src/utilities.cpp
-    src/knownusersmodel.cpp
-    src/mceinterface.cpp
-    src/notificationmanager.cpp
-    src/processlauncher.cpp
-    src/platformapp.cpp
-    src/stickermanager.cpp
-    src/tdlib/tdlibfile.cpp
-    src/tdlib/tdlibreceiver.cpp
-    src/tdlib/tdlibwrapper.cpp
-    src/tdlib/tdlibresponse.cpp
-    src/textfiltermodel.cpp
-    src/tgsplugin.cpp
-    src/waveformmanager.cpp
-    src/lottieitem.cpp
-    src/basemessagabledata.cpp
-    src/chat/forumtopicmessagesmodel.cpp
-    src/chat/forumtopic.cpp
-    
     src/mainshared.h
-    src/appsettings.h
-    src/boolfiltermodel.h
-    src/chat/jumpablemessagesmodel.h
-    src/chatdata.h
-    src/chatfoldersmodel.h
-    src/chat/chatmanager.h
-    src/chatpermissionfiltermodel.h
-    src/chatlistmodel.h
-    src/contactsmodel.h
-    src/dbusadaptor.h
-    src/dbusinterface.h
-    src/debuglog.h
-    src/debuglogjs.h
-    src/folderchatlistmodel.h
-    src/chat/forumtopicsmodel.h
-    src/chat/invertedmessagesmodel.h
-    src/chat/mediamessagesmodel.h
-    src/chat/messagedata.h
-    src/chat/messagesmodel.h
-    src/chat/readablemessagesmodel.h
-    src/invertedproxymodel.h
-    src/suggestedactionsmanager.h
-    src/utilities.h
-    src/knownusersmodel.h
-    src/mceinterface.h
-    src/notificationmanager.h
-    src/processlauncher.h
-    src/platformapp.h
-    src/stickermanager.h
-    src/tdlib/tdlibfile.h
-    src/tdlib/tdlibreceiver.h
-    src/tdlibsecrets.h
-    src/tdlib/tdlibwrapper.h
-    src/tdlib/tdlibresponse.h
-    src/textfiltermodel.h
-    src/tgsplugin.h
-    src/waveformmanager.h
-    src/lottieitem.h
-    src/basemessagabledata.h
-    src/chat/forumtopicmessagesmodel.h
-    src/chat/forumtopic.h
 )
 
 if (EDITION_SAILFISH)
+    target_sources(libfernie PRIVATE
+        src/sailfishplatformapp.cpp
+        src/tdlibsecrets.h
+    )
+    target_include_directories(libfernie PRIVATE
+        $<BUILD_INTERFACE:
+        ${SAILFISH_INCLUDE_DIRS}>
+    )
+    target_link_libraries(libfernie ${SAILFISH_LDFLAGS})
+
     target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
         $<BUILD_INTERFACE:
         ${SAILFISH_INCLUDE_DIRS}>
@@ -264,8 +108,7 @@ if (EDITION_SAILFISH)
 
     add_definitions(-DEDITION_SAILFISH)
 
-
-    option(HARBOUR_COMPLIANCE "Harbour compliance" OFF)
+    option(HARBOUR_COMPLIANCE "Harbour compliance" ON) # TODO: allow using GstAudioRecorder again
 
     if(HARBOUR_COMPLIANCE)
         message(STATUS "Harbour compliance enabled")
@@ -284,6 +127,12 @@ if (EDITION_SAILFISH)
     endif()
 
 elseif (EDITION_ASTEROID)
+    target_sources(libfernie PRIVATE
+        src/asteroidplatformapp.cpp
+        src/sailfishyasteroidapp.h
+        src/sailfishyasteroidapp.cpp
+    )
+    target_link_libraries(libfernie AsteroidApp)
     target_link_libraries(${CMAKE_PROJECT_NAME} AsteroidApp)
 
     add_definitions(-DEDITION_ASTEROID)

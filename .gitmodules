@@ -2,3 +2,6 @@
 	path = rlottie
 	url = https://github.com/Samsung/rlottie.git
 	ignore = all
+[submodule "libfernie"]
+	path = libfernie
+	url = https://github.com/ferniegram/libfernie

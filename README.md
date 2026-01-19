@@ -58,7 +58,7 @@ Licensed under GNU GPLv3
 
 This contains information about building Ferniegram for SailfishOS. If you want to build for AsteroidOS, some information can be found in the `recipe/` subdirectory.
 
-Simply clone this repository and ensure to have all [submodules](https://git-scm.com/docs/git-submodule) imported as well (e.g. by using `git submodule update --init`). Then use the project file `CMakeLists.txt` to import the sources in your SailfishOS IDE. To build and run Fernschreiber or an application which is based on Fernschreiber, you need to create the file `harbour-fernschreiber2/src/tdlibsecrets.h` and enter the required constants in the following format:
+Simply clone this repository and ensure to have all [submodules](https://git-scm.com/docs/git-submodule) imported as well (e.g. by using `git submodule update --init --recursive`). Then use the project file `CMakeLists.txt` to import the sources in your SailfishOS IDE. To build and run Fernschreiber or an application which is based on Fernschreiber, you need to create the file `harbour-fernschreiber2/src/tdlibsecrets.h` and enter the required constants in the following format:
 
 ```
 #ifndef TDLIBSECRETS_H

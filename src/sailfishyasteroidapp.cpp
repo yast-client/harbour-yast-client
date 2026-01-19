@@ -1,4 +1,3 @@
-#ifdef EDITION_ASTEROID
 /*
  * Copyright (C) 2025 roundedrectangle
  * Copyright (C) 2013 - 2014 Jolla Ltd.
@@ -25,8 +24,8 @@
  *
  */
 
-#include "platformapp.h"
-
+#include <QSharedPointer>
+#include <QGuiApplication>
 #include <QLocale>
 #include <QTranslator>
 #include <QDir>
@@ -52,24 +51,20 @@ static QString dataDir() {
     return applicationPath().section('/', 0, -3) + "/share/" + appName();
 }
 
-namespace PlatformApp {
-    QUrl pathTo(const QString &filename) {
-        return QUrl::fromLocalFile(QDir::cleanPath(dataDir() + '/' + filename));
-    }
 
-    QUrl pathToMainQml() {
-        return pathTo("qml/" + appName() + ".qml");
-    }
+QUrl SailfishyAsteroidApp::pathTo(const QString &filename) {
+    return QUrl::fromLocalFile(QDir::cleanPath(dataDir() + '/' + filename));
 }
 
-namespace SailfishyAsteroidApp {
-    void configureApp(QSharedPointer<QGuiApplication> app) {
-        QString translations = PlatformApp::pathTo("translations").toString();
-        if (QDir(translations).exists()) {
-            QTranslator *translator = new QTranslator();
-            translator->load(QLocale::system(), appName(), "-", translations, ".qm");
-            app->installTranslator(translator);
-        }
+QUrl SailfishyAsteroidApp::pathToMainQml() {
+    return pathTo("qml/" + appName() + ".qml");
+}
+
+void SailfishyAsteroidApp::configureApp(QSharedPointer<QGuiApplication> app) {
+    QString translations = PlatformApp::pathTo("translations").toString();
+    if (QDir(translations).exists()) {
+        QTranslator *translator = new QTranslator();
+        translator->load(QLocale::system(), appName(), "-", translations, ".qm");
+        app->installTranslator(translator);
     }
 }
-#endif
