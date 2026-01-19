@@ -115,9 +115,6 @@ add_dependencies(${CMAKE_PROJECT_NAME} translations)
 install(TARGETS ${CMAKE_PROJECT_NAME}
     RUNTIME DESTINATION bin
 )
-install(DIRECTORY qml/shared/
-    DESTINATION share/${CMAKE_PROJECT_NAME}/qml
-)
 install(DIRECTORY ${TRANSLATIONS_OUT_DIR}
     DESTINATION share/${CMAKE_PROJECT_NAME}
     FILES_MATCHING PATTERN "*.qm"
@@ -132,8 +129,8 @@ install(DIRECTORY tdlib/${TARGET_ARCHITECTURE}/lib
     DESTINATION share/${CMAKE_PROJECT_NAME}
 )
 
-install(DIRECTORY qml/harbour/
-    DESTINATION share/${CMAKE_PROJECT_NAME}/qml
+install(DIRECTORY qml
+    DESTINATION share/${CMAKE_PROJECT_NAME}
 )
 
 install(FILES icons/86x86/${CMAKE_PROJECT_NAME}.png
