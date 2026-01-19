@@ -126,7 +126,7 @@ Column {
                 else if (attachmentPreviewRow.isDocument)
                     sendFile('inputMessageDocument', 'document')
                 else if (attachmentPreviewRow.isVoiceNote)
-                    sendFile('inputMessageVoiceNote', 'voice_note', utilities.voiceNotePath)
+                    sendFile('inputMessageVoiceNote', 'voice_note', voiceNoteRecorder.voiceNotePath)
                 else if (attachmentPreviewRow.isLocation)
                     tdLibWrapper.sendLocationMessage(chatInformation.id, attachmentPreviewRow.locationData.latitude, attachmentPreviewRow.locationData.longitude, attachmentPreviewRow.locationData.horizontalAccuracy, newMessageColumn.replyToMessageId, topicId)
 

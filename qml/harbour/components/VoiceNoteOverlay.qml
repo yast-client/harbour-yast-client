@@ -27,7 +27,7 @@ Item {
     id: voiceNoteOverlayItem
     anchors.fill: parent
 
-    property int recordingDuration: Math.round(utilities.voiceNoteDuration / 1000)
+    property int recordingDuration: Math.round(voiceNoteRecorder.voiceNoteDuration / 1000)
     property bool recordingDone: false;
 
     function getTwoDigitString(numberToBeConverted) {
@@ -42,7 +42,7 @@ Item {
     }
 
     onRecordingDurationChanged: {
-        if (utilities.voiceNoteDuration === -1)
+        if (voiceNoteRecorder.voiceNoteDuration === -1)
             return
 
         var minutes = Math.floor(recordingDuration / 60);
@@ -146,12 +146,12 @@ Item {
                 horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: Theme.fontSizeMedium
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: switch (utilities.voiceNoteRecordingState) {
-                case Utilities.Unavailable: return qsTr("Unavailable")
-                case Utilities.Ready: return qsTr("Ready")
-                case Utilities.Starting: return qsTr("Starting")
-                case Utilities.Recording: return qsTr("Recording")
-                case Utilities.Stopping: return qsTr("Stopping")
+                text: switch (voiceNoteRecorder.voiceNoteRecordingState) {
+                case VoiceNoteRecorder.Unavailable: return qsTr("Unavailable")
+                case VoiceNoteRecorder.Ready: return qsTr("Ready")
+                case VoiceNoteRecorder.Starting: return qsTr("Starting")
+                case VoiceNoteRecorder.Recording: return qsTr("Recording")
+                case VoiceNoteRecorder.Stopping: return qsTr("Stopping")
                 }
             }
 

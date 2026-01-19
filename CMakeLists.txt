@@ -87,6 +87,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     src/${CMAKE_PROJECT_NAME}.cpp
     src/mainshared.h
+    src/voicenoterecorder.cpp
 )
 
 if (EDITION_SAILFISH)
@@ -108,7 +109,7 @@ if (EDITION_SAILFISH)
 
     add_definitions(-DEDITION_SAILFISH)
 
-    option(HARBOUR_COMPLIANCE "Harbour compliance" ON) # TODO: allow using GstAudioRecorder again
+    option(HARBOUR_COMPLIANCE "Harbour compliance" OFF)
 
     if(HARBOUR_COMPLIANCE)
         message(STATUS "Harbour compliance enabled")

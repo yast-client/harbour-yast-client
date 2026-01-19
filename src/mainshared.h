@@ -53,6 +53,8 @@
 #include "lottieitem.h"
 #include "chat/forumtopicmessagesmodel.h"
 
+#include "voicenoterecorder.h"
+
 // The default filter can be overridden by QT_LOGGING_RULES envinronment variable, e.g.
 // QT_LOGGING_RULES="fernschreiber2.*=true" harbour-fernschreiber2
 #if defined (QT_DEBUG) || defined(DEBUG)
@@ -111,7 +113,7 @@ namespace MainShared {
         qmlRegisterUncreatableType<AppSettings>(uri, 1, 0, "AppSettings", QString());
 
         MceInterface *mceInterface = new MceInterface(view.data());
-        TDLibWrapper *tdLibWrapper = new TDLibWrapper(argc, argv, appSettings, mceInterface, view.data());
+        TDLibWrapper *tdLibWrapper = new TDLibWrapper(appSettings, mceInterface, view.data());
         context->setContextProperty("tdLibWrapper", tdLibWrapper);
         qmlRegisterUncreatableType<TDLibWrapper>(uri, 1, 0, "TDLibAPI", QString());
 
@@ -121,9 +123,12 @@ namespace MainShared {
         context->setContextProperty("utilities", utilities);
         qmlRegisterUncreatableType<Utilities>(uri, 1, 0, "Utilities", QString());
 
+        VoiceNoteRecorder *voiceNoteRecorder = new VoiceNoteRecorder(argc, argv, appSettings, view.data());
+        context->setContextProperty("voiceNoteRecorder", voiceNoteRecorder);
+        qmlRegisterUncreatableType<VoiceNoteRecorder>(uri, 1, 0, "VoiceNoteRecorder", QString());
+
         DBusAdaptor *dBusAdaptor = tdLibWrapper->getDBusAdaptor();
         context->setContextProperty("dBusAdaptor", dBusAdaptor);
-
 
         AppContext *appContext = new AppContext(view, tdLibWrapper, appSettings, utilities, mceInterface);
 
