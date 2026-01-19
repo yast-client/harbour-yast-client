@@ -153,6 +153,7 @@ set(Qt5_LUPDATE_EXECUTABLE Qt5::lupdate -no-obsolete)
 qt5_create_translation(TRANSLATION_QM_FILES
     "qml/"
     "src/"
+    "libfernie/src/"
     ${TsFiles})
 
 add_custom_target(translations ALL DEPENDS ${TRANSLATION_QM_FILES})
