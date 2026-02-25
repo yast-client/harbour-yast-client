@@ -1,17 +1,19 @@
 # Ferniegram
 A Telegram client for Sailfish OS
 
-## Credits (Ferniegram)
+## Credits
 
 Author: roundedrectangle
 
 Icon is based on Fernschreiber's icon.
 
+## Fernschreiber PRs included in Ferniegram
+
 Thanks to the following people who created PRs for Fernschreiber which were not merged to it:
 - [#576](https://github.com/Wunderfitz/harbour-fernschreiber/pull/576) by @jgibbon: albums and C2 notch fixes
 - [#565](https://github.com/Wunderfitz/harbour-fernschreiber/pull/565) by @jgibbon: emoji/twemoji update to 15.1
 
-## Credits (Fernschreiber)
+## Fernschreiber credits
 
 Ferniegram wouldn't be possible without everyone who contributed to Fernschreiber. You can see the full, up-to-date list of contributors on [Fernschreiber's README](https://github.com/Wunderfitz/harbour-fernschreiber/blob/master/README.md). Here is a brief list of the contributors:
 
@@ -39,16 +41,12 @@ Translations:
 - Spanish: [carlosgonz](https://github.com/GNUuser)
 - Swedish: [Åke Engelbrektson](https://github.com/eson57)
 
-## Credits (libraries and other things)
-
-This project uses
+This project uses the following libraries:
 
 - The Telegram Database Library (TDLib) - available on [GitHub.com](https://github.com/tdlib/td). Thanks for making it available under the conditions of the Boost Software License 1.0! Details about the license of TDLib in [its license file](https://github.com/tdlib/td/blob/master/LICENSE_1_0.txt).
 - Emoji parsing and artwork by [Twitter Emoji (Twemoji)](http://twitter.github.io/twemoji/), copyright 2018 Twitter, Inc and other contributors, Code licensed under the [MIT License](http://opensource.org/licenses/MIT), Graphics licensed under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 - Animated sticker parsing and animation by [rlottie](https://github.com/Samsung/rlottie), copyright 2020 Samsung Electronics Co., Ltd. and [other contributors](https://github.com/Samsung/rlottie/blob/master/AUTHORS), Code licensed under the [MIT License](https://github.com/Samsung/rlottie/blob/master/licenses/COPYING.MIT), some rlottie components [licensed under other licenses](https://github.com/Samsung/rlottie/blob/master/COPYING).
 - Reverse geocoding for location attachments by [OpenStreetMap Nominatim](https://wiki.openstreetmap.org/wiki/Nominatim).
-
-Thanks to the maintainers of the used components and - again - all contributors to Fernschreiber!
 
 ## License
 Licensed under GNU GPLv3
