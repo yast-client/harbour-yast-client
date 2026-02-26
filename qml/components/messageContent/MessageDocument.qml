@@ -44,10 +44,17 @@ MessageContentFileInfoBase {
         }
     }
 
+    property alias openMouseArea: openMouseArea
+
+    function download() {
+        if (file.isDownloadingCompleted)
+            tdLibWrapper.copyFileToDownloads(file.path, true)
+    }
+
     states: [
         State {
             when: file.isDownloadingCompleted
-            PropertyChanges { target: openMouseArea; enabled: true }
+            //PropertyChanges { target: openMouseArea; enabled: true }
             PropertyChanges {
                 target: primaryLabel
                 color: (contentItem.highlighted || openMouseArea.pressed) ? Theme.highlightColor : Theme.primaryColor
@@ -75,8 +82,6 @@ MessageContentFileInfoBase {
             fill: primaryItem
             rightMargin: copyButton.width
         }
-        onClicked: {
-            tdLibWrapper.copyFileToDownloads(file.path, true);
-        }
+        onClicked: download()
     }
 }

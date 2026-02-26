@@ -97,12 +97,12 @@ ChatInformationTabItemBase {
         Timer {
             id: cooldownTimer
             interval: 2000
-            onTriggered: Debug.log("[ChatInformationTabItemMedia] Cooldown completed...")
+            onTriggered: Debug.log("[ChatInformationTabItemMediaGrid] Cooldown completed...")
         }
 
         onContentYChanged: {
             if (active && !cooldownTimer.running && gridView.indexAt(gridView.contentX, gridView.contentY) > Math.max(0, gridView.count - 10*columnCount)) {
-                Debug.log("[ChatInformationTabItemMedia] Trying to get older history items...")
+                Debug.log("[ChatInformationTabItemMediaGrid] Trying to get older history items...")
                 cooldownTimer.restart()
                 tabBase.model.loadMoreHistory()
             }

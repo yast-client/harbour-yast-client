@@ -346,7 +346,14 @@
     </message>
 </context>
 <context>
-    <name>ChatInformationTabItemMediaBase</name>
+    <name>ChatInformationTabItemFiles</name>
+    <message>
+        <source>Jump to message</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChatInformationTabItemMediaGrid</name>
     <message>
         <source>Jump to message</source>
         <translation type="unfinished"></translation>
@@ -437,6 +444,11 @@
     <message>
         <source>Video Messages</source>
         <comment>Button: Chat video messages</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Files</source>
+        <comment>Button: Chat files</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>

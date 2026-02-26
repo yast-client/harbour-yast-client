@@ -347,10 +347,17 @@
     </message>
 </context>
 <context>
-    <name>ChatInformationTabItemMediaBase</name>
+    <name>ChatInformationTabItemFiles</name>
     <message>
         <source>Jump to message</source>
-        <translation>Перейти к сообщению</translation>
+        <translation type="unfinished">Перейти к сообщению</translation>
+    </message>
+</context>
+<context>
+    <name>ChatInformationTabItemMediaGrid</name>
+    <message>
+        <source>Jump to message</source>
+        <translation type="unfinished">Перейти к сообщению</translation>
     </message>
 </context>
 <context>
@@ -439,6 +446,11 @@
         <source>Video Messages</source>
         <comment>Button: Chat video messages</comment>
         <translation>Видеосообщения</translation>
+    </message>
+    <message>
+        <source>Files</source>
+        <comment>Button: Chat files</comment>
+        <translation type="unfinished">Файлы</translation>
     </message>
 </context>
 <context>

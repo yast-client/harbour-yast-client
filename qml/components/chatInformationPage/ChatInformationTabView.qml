@@ -39,16 +39,46 @@ TabView {
     model: ListModel {}
 
     tabComponent: Component {
-        ChatInformationTabItemMediaBase {
-            model:
+        Loader {
+            id: tabLoader
+
+            // FIXME: this could probably be done in a better way by patching Opal.Tabs
+            property real _yOffset: item && item._yOffset || 0
+            opacity: 0
+
+            sourceComponent:
                 switch (tabModel.tabData.filter) {
-                case TDLibAPI.SearchMessagesFilterPhotoAndVideo:
-                    return photoAndVideoModel
-                case TDLibAPI.SearchMessagesFilterAnimation:
-                    return animationModel
-                case TDLibAPI.SearchMessagesFilterVideoNote:
-                    return videoNoteModel
+                case TDLibAPI.SearchMessagesFilterDocument:
+                    return filesComponent
+                default:
+                    return mediaGridComponent
                 }
+
+            Component {
+                id: mediaGridComponent
+                ChatInformationTabItemMediaGrid {
+                    model:
+                        switch (tabModel.tabData.filter) {
+                        case TDLibAPI.SearchMessagesFilterPhotoAndVideo:
+                            return photoAndVideoModel
+                        case TDLibAPI.SearchMessagesFilterAnimation:
+                            return animationModel
+                        case TDLibAPI.SearchMessagesFilterVideoNote:
+                            return videoNoteModel
+                        }
+
+                    focus: tabLoader.focus
+                    opacity: tabLoader.opacity
+                }
+            }
+            Component {
+                id: filesComponent
+                ChatInformationTabItemFiles {
+                    model: filesModel
+                    focus: tabLoader.focus
+                    opacity: tabLoader.opacity
+                }
+            }
         }
     }
 
@@ -63,6 +93,7 @@ TabView {
         var tabOrder = [
                     'MembersGroups',
                     'Media',
+                    'Files',
                     'Gifs',
                     'VideoNotes',
                     'Settings',
@@ -126,6 +157,13 @@ TabView {
         onNotEmptyDetected: insertTab('VideoNotes', qsTr("Video Messages", "Button: Chat video messages"), 'image://theme/icon-m-file-video', {filter: TDLibAPI.SearchMessagesFilterVideoNote})
     }
 
+    InvertedMediaMessagesModel {
+        id: filesModel
+        tdlib: tdLibWrapper
+        filter: TDLibAPI.SearchMessagesFilterDocument
+        onNotEmptyDetected: insertTab('Files', qsTr("Files", "Button: Chat files"), 'image://theme/icon-m-file-document', {filter: TDLibAPI.SearchMessagesFilterDocument})
+    }
+
     // FIXME: this works for now (required because groupFullInformation is not yet initialized when Component.onCompleted is called), but this is too clunky
     function insertMembersGroupsTab() {
         var i = insertTab('MembersGroups',
@@ -154,5 +192,6 @@ TabView {
         photoAndVideoModel.init(chatManager.chatId)
         animationModel.init(chatManager.chatId)
         videoNoteModel.init(chatManager.chatId)
+        filesModel.init(chatManager.chatId)
     }
 }
