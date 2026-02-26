@@ -185,7 +185,6 @@ MessageContentBase {
                         }(),
                         singleElement: isSponsored
                     })
-                    Component.onCompleted: console.log(rawMessage.message_id, isSponsored)
                 }
             }
         }

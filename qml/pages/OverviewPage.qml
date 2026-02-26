@@ -267,7 +267,6 @@ Page {
 
         property real originalYOffset: currentItem && currentItem._yOffset || 0
         yOffset: originalYOffset - header.height
-        //onYOffsetChanged: console.log(yOffset)
 
         Component.onCompleted: {
             tabView.tabBarItem.countRole = Qt.binding(function() { return appSettings.showFolderUnreadCount ? 'count' : '' })
