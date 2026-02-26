@@ -127,6 +127,8 @@ You can then proceed with adding required breakpoints via `b ../harbour-fernschr
 
 After that you can run the program with `run`. It will pause at your specified breakpoints. In those cases you can use `step` to jump to the next part of the code, `next` to jump to next code line directly (without diving into functions) or `continue` to run the program normally (for example, if you only need to debug the second time the program reaches a specific code block). If the program crashes, it will also be possible to read the stack trace using `bt` (`backtrace`).
 
+Alternatively, GDB can be used from Sailfish IDE. To ensure OpenSSL false errors will be ignored, go to Options in it, then Debugging, GDB and add the following to startup commands: `handle SIGILL nostop noprint`. Then run the program in debug mode as usual. Note that it might not always work correctly, so using GDB from command line is preferred.
+
 ## Contribute
 
 If you want to contribute bug fixes, improvements, new features etc. please create a pull request (PR). PRs are always welcome and will be reviewed as soon as possible, but may take some time. :)
