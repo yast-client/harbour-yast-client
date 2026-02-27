@@ -28,30 +28,23 @@ Item {
     opacity: isActive ? 1.0 : 0.0
     Behavior on opacity { FadeAnimation {} }
 
-    SlideshowView {
+    PagedView {
         id: bigProfilePictureList
-        width: parent.width
-        height: parent.height
+        anchors.fill: parent
         clip: true
-        itemWidth: width
-        itemHeight: height
         interactive: parent.isActive
         model: imageContainer.thumbnailModel
-        delegate: Item {
-            width: bigProfilePictureList.itemWidth
-            height: bigProfilePictureList.itemHeight
-            ProfileThumbnail {
-                id: chatPictureDetail
-                photoData: utilities.findBiggestPhotoSize(modelData.sizes).photo
-                replacementStringHint: ""
-                radius: imageContainer.thumbnailRadius
-                anchors.fill: parent
-            }
+        delegate: ProfileThumbnail {
+            width: PagedView.contentWidth
+            height: PagedView.contentHeight
+            photoData: utilities.findBiggestPhotoSize(modelData.sizes).photo
+            replacementStringHint: ''
+            radius: imageContainer.thumbnailRadius
+
             MouseArea {
                 anchors.fill: parent
-                onClicked: {
-                    pageStack.push(Qt.resolvedUrl("../pages/ImagePage.qml"), { "photoData" : modelData });
-                }
+                onClicked:
+                    pageStack.push(Qt.resolvedUrl("../pages/ImagePage.qml"), {photoData: modelData})
             }
         }
     }

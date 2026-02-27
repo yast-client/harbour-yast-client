@@ -78,9 +78,8 @@ Item {
                 autoTransform: true
                 asynchronous: true
                 visible: false
-                onStatusChanged: {
+                onStatusChanged:
                     profileThumbnail.imageStatus = status
-                }
             }
 
             Rectangle {

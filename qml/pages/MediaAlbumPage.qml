@@ -36,6 +36,7 @@ Page {
     property var message
     property var messageId: message ? message.id : 0
     property alias overlayActive: overlay.active
+    property alias pagedView: pagedView
     property alias index: pagedView.currentIndex
     property alias delegate: pagedView.delegate
     property bool singleElement: false

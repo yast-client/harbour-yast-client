@@ -26,9 +26,9 @@ Item {
     property ListItem messageListItem
     property MessageOverlayFlickable overlayFlickable
     property var rawMessage: messageListItem ? messageListItem.myMessage : overlayFlickable.overlayMessage
-    property bool isSponsored: !!messageListItem && messageListItem.isSponsored
-    property bool isUnread: !!messageListItem && messageListItem.isUnread
-    property bool generatedContentUnread: !!messageListItem && messageListItem.generatedContentUnread
+    property bool isSponsored: !!messageListItem && !!messageListItem.isSponsored
+    property bool isUnread: !!messageListItem && !!messageListItem.isUnread
+    property bool generatedContentUnread: !!messageListItem && !!messageListItem.generatedContentUnread
     property int messageIndex: messageListItem ? messageListItem.messageIndex : -1
     property bool highlighted
     signal clicked()

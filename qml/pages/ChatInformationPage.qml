@@ -41,7 +41,7 @@ Page {
     property bool isSuperGroup: false
     property bool isChannel: false
 
-    property string chatUserOrGroupId
+    property var chatUserOrGroupId
 
     property bool isInitialized: false
 
@@ -65,6 +65,7 @@ Page {
     property var privateChatUserInformation: chatManager.userInfo
     property var chatPartnerFullInformation:({})
     property var chatPartnerProfilePhotos:([])
+    property bool chatPartnerProfilePhotosRequested
     property var groupInformation: chatManager.groupInfo
     property var groupFullInformation: ({})
 

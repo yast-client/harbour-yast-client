@@ -29,19 +29,17 @@ SilicaFlickable {
     property alias membersList: membersList
 
     function scrollUp(force) {
-        if(force) {
+        if (force)
             // animation does not always work while quick scrolling
             scrollUpTimer.start()
-        } else {
+        else
             scrollUpAnimation.start()
-        }
     }
     function scrollDown(force) {
-        if(force) {
+        if (force)
             scrollDownTimer.start()
-        } else {
+        else
             scrollDownAnimation.start()
-        }
     }
     function handleBasicGroupFullInfo(groupFullInfo, groupId) {
         if(!chatInformationPage.isBasicGroup || chatInformationPage.chatUserOrGroupId !== groupId) return
@@ -61,65 +59,50 @@ SilicaFlickable {
         }
     }
 
+    function handleSupergroupFullInfo(groupId, groupFullInfo, updated) {
+        Debug.log(updated ? "onSupergroupFullInfoUpdated" : "onSupergroupFullInfoReceived",
+                  chatInformationPage.isSuperGroup, chatInformationPage.chatUserOrGroupId, groupId)
+        if(chatInformationPage.isSuperGroup && chatInformationPage.chatUserOrGroupId === groupId) {
+            chatInformationPage.groupFullInformation = groupFullInfo
+            fullInfoReady = true
+        }
+    }
+
+    function handleUserFullInfo(userId, userFullInfo) {
+        if (chatInformationPage.isPrivateOrSecretChat && userId === chatInformationPage.chatUserOrGroupId) {
+            chatInformationPage.chatPartnerFullInformation = userFullInfo
+            fullInfoReady = true
+        }
+    }
+
     Connections {
         target: tdLibWrapper
 
-        onUserUpdated: {
-            if ((chatInformationPage.isPrivateChat || chatInformationPage.isSecretChat) && chatInformationPage.privateChatUserInformation.id.toString() === userId) {
+        onUserUpdated:
+            if (chatInformationPage.isPrivateOrSecretChat && chatInformationPage.privateChatUserInformation.id === userId)
                 chatInformationPage.privateChatUserInformation = userInformation
-            }
-        }
-        onBasicGroupUpdated: {
-            if (chatInformationPage.isBasicGroup && chatInformationPage.groupInformation.id === groupId) {
+        onBasicGroupUpdated:
+            if (chatInformationPage.isBasicGroup && chatInformationPage.groupInformation.id === groupId)
                 chatInformationPage.groupInformation = tdLibWrapper.getBasicGroup(groupId)
-            }
-        }
-        onSuperGroupUpdated: {
-            if (chatInformationPage.isSuperGroup && chatInformationPage.groupInformation.id === groupId) {
+        onSuperGroupUpdated:
+            if (chatInformationPage.isSuperGroup && chatInformationPage.groupInformation.id === groupId)
                 chatInformationPage.groupInformation = tdLibWrapper.getSuperGroup(groupId)
-            }
-        }
 
-        onChatOnlineMemberCountUpdated: {
-            if ((chatInformationPage.isSuperGroup || chatInformationPage.isBasicGroup) && chatInformationPage.chatInformation.id.toString() === chatId) {
+        onChatOnlineMemberCountUpdated:
+            if (chatInformationPage.isGroup && chatInformationPage.chatInformation.id === chatId)
                 chatInformationPage.chatOnlineMemberCount = onlineMemberCount
-            }
-        }
-        onSupergroupFullInfoReceived: {
-            Debug.log("onSupergroupFullInfoReceived", chatInformationPage.isSuperGroup, chatInformationPage.chatUserOrGroupId, groupId)
-            if(chatInformationPage.isSuperGroup && chatInformationPage.chatUserOrGroupId === groupId) {
-                chatInformationPage.groupFullInformation = groupFullInfo
-                fullInfoReady = true
-            }
-        }
-        onSupergroupFullInfoUpdated: {
-            Debug.log("onSupergroupFullInfoUpdated", chatInformationPage.isSuperGroup, chatInformationPage.chatUserOrGroupId, groupId)
-            if(chatInformationPage.isSuperGroup && chatInformationPage.chatUserOrGroupId === groupId) {
-                chatInformationPage.groupFullInformation = groupFullInfo
-                fullInfoReady = true
-            }
-        }
+
+        onSupergroupFullInfoReceived: handleSupergroupFullInfo(groupId, groupFullInfo, false)
+        onSupergroupFullInfoUpdated: handleSupergroupFullInfo(groupId, groupFullInfo, true)
         onBasicGroupFullInfoReceived: handleBasicGroupFullInfo(groupFullInfo, groupId)
         onBasicGroupFullInfoUpdated: handleBasicGroupFullInfo(groupFullInfo, groupId)
 
-        onUserFullInfoReceived: {
-            if(chatInformationPage.isPrivateOrSecretChat && userFullInfo["@extra"] === chatInformationPage.chatUserOrGroupId) {
-                chatInformationPage.chatPartnerFullInformation = userFullInfo
-                fullInfoReady = true
-            }
-        }
-        onUserFullInfoUpdated: {
-            if(chatInformationPage.isPrivateOrSecretChat && userId === chatInformationPage.chatUserOrGroupId) {
-                chatInformationPage.chatPartnerFullInformation = userFullInfo
-                fullInfoReady = true
-            }
-        }
+        onUserFullInfoReceived: handleUserFullInfo(userId, userFullInfo)
+        onUserFullInfoUpdated: handleUserFullInfo(userId, userFullInfo)
 
-        onUserProfilePhotosReceived: {
-            if(chatInformationPage.isPrivateOrSecretChat && extra === chatInformationPage.chatUserOrGroupId) {
-                chatInformationPage.chatPartnerProfilePhotos = photos
-            }
-        }
+        onUserProfilePhotosReceived:
+            if (chatInformationPage.isPrivateOrSecretChat && extra === chatInformationPage.chatUserOrGroupId)
+                chatInformationPage.chatPartnerProfilePhotos = chatInformationPage.chatPartnerProfilePhotos.concat(photos)
         onChatPermissionsUpdated: {
             if (chatInformationPage.chatInformation.id == chatId) {
                 chatInformationPage.chatInformation.permissions = permissions
@@ -153,42 +136,33 @@ SilicaFlickable {
 
     Component.onCompleted: {
         membersList.clear()
-        switch(chatInformation.type["@type"]) {
-        case "chatTypePrivate":
-            chatInformationPage.isPrivateChat = true;
-            chatInformationPage.chatUserOrGroupId = chatInformationPage.chatInformation.type.user_id.toString();
-            if(!chatInformationPage.privateChatUserInformation.id) {
-                chatInformationPage.privateChatUserInformation = tdLibWrapper.getUserInformation(chatInformationPage.chatUserOrGroupId);
-            }
-            tdLibWrapper.getUserFullInfo(chatInformationPage.chatUserOrGroupId);
-            tdLibWrapper.getUserProfilePhotos(chatInformationPage.chatUserOrGroupId, 100, 0);
+        switch (chatInformation.type['@type']) {
+        case 'chatTypePrivate':
+        case 'chatTypeSecret':
+            if (chatInformation.type['@type'] === 'chatTypeSecret')
+                chatInformationPage.isSecretChat = true
+            else
+                chatInformationPage.isPrivateChat = true
+            chatInformationPage.chatUserOrGroupId = chatInformationPage.chatInformation.type.user_id
+            if (!chatInformationPage.privateChatUserInformation.id)
+                chatInformationPage.privateChatUserInformation = tdLibWrapper.getUserInformation(chatInformationPage.chatUserOrGroupId)
+            tdLibWrapper.getUserFullInfo(chatInformationPage.chatUserOrGroupId)
+            tdLibWrapper.getUserProfilePhotos(chatInformationPage.chatUserOrGroupId, 100, 0) // TODO FIXME
+            break
+        case 'chatTypeBasicGroup':
+            chatInformationPage.isBasicGroup = true
+            chatInformationPage.chatUserOrGroupId = chatInformation.type.basic_group_id
+            if (!chatInformationPage.groupInformation.id)
+                chatInformationPage.groupInformation = tdLibWrapper.getBasicGroup(chatInformationPage.chatUserOrGroupId)
+            tdLibWrapper.getGroupFullInfo(chatInformationPage.chatUserOrGroupId, false)
             break;
-        case "chatTypeSecret":
-            chatInformationPage.isSecretChat = true;
-            chatInformationPage.chatUserOrGroupId = chatInformationPage.chatInformation.type.user_id.toString();
-            if(!chatInformationPage.privateChatUserInformation.id) {
-                chatInformationPage.privateChatUserInformation = tdLibWrapper.getUserInformation(chatInformationPage.chatUserOrGroupId);
-            }
-            tdLibWrapper.getUserFullInfo(chatInformationPage.chatUserOrGroupId);
-            tdLibWrapper.getUserProfilePhotos(chatInformationPage.chatUserOrGroupId, 100, 0);
-            break;
-        case "chatTypeBasicGroup":
-            chatInformationPage.isBasicGroup = true;
-            chatInformationPage.chatUserOrGroupId = chatInformation.type.basic_group_id.toString();
-            if(!chatInformationPage.groupInformation.id) {
-                chatInformationPage.groupInformation = tdLibWrapper.getBasicGroup(chatInformationPage.chatUserOrGroupId);
-            }
-            tdLibWrapper.getGroupFullInfo(chatInformationPage.chatUserOrGroupId, false);
-            break;
-        case "chatTypeSupergroup":
-            chatInformationPage.isSuperGroup = true;
-            chatInformationPage.chatUserOrGroupId = chatInformation.type.supergroup_id.toString();
-            if(!chatInformationPage.groupInformation.id) {
-                chatInformationPage.groupInformation = tdLibWrapper.getSuperGroup(chatInformationPage.chatUserOrGroupId);
-            }
-
-            tdLibWrapper.getGroupFullInfo(chatInformationPage.chatUserOrGroupId, true);
-            chatInformationPage.isChannel = chatInformationPage.groupInformation.is_channel;
+        case 'chatTypeSupergroup':
+            chatInformationPage.isSuperGroup = true
+            chatInformationPage.chatUserOrGroupId = chatInformation.type.supergroup_id
+            if (!chatInformationPage.groupInformation.id)
+                chatInformationPage.groupInformation = tdLibWrapper.getSuperGroup(chatInformationPage.chatUserOrGroupId)
+            tdLibWrapper.getGroupFullInfo(chatInformationPage.chatUserOrGroupId, true)
+            chatInformationPage.isChannel = chatInformationPage.groupInformation.is_channel
             break;
         }
         Debug.log("is set up", chatInformationPage.isPrivateChat, chatInformationPage.isSecretChat, chatInformationPage.isBasicGroup, chatInformationPage.isSuperGroup, chatInformationPage.chatUserOrGroupId)
