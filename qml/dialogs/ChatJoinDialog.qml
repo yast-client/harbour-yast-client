@@ -61,7 +61,7 @@ Dialog {
                 }
 
                 Label {
-                    text: isChannel ? qsTr("%Ln subscribers", '', invite.member_count) : qsTr("%Ln members", '', invite.member_count)
+                    text: Functions.getGroupStatusText(invite.member_count, isChannel)
                     width: parent.width
                     wrapMode: Text.Wrap
                     font.pixelSize: Theme.fontSizeSmall

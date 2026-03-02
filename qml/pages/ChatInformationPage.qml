@@ -48,9 +48,9 @@ Page {
     readonly property bool isPrivateOrSecretChat: isPrivateChat || isSecretChat
     readonly property bool isGroup: isBasicGroup || isSuperGroup
 
-    readonly property bool isSavedMessages: isPrivateOrSecretChat && chatUserOrGroupId == myUserId
+    readonly property bool isSavedMessages: isPrivateOrSecretChat && chatUserOrGroupId === myUserId
 
-    readonly property bool canGetMembers: ("can_get_members" in groupFullInformation) && groupFullInformation.can_get_members
+    readonly property bool canGetMembers: !!(groupFullInformation && groupFullInformation.can_get_members)
     readonly property bool userIsMember: (isPrivateOrSecretChat && chatInformation["@type"]) || // should be optimized
                                 isGroup && (
                                     (groupInformation.status["@type"] === "chatMemberStatusMember")
@@ -74,8 +74,6 @@ Page {
                                   (privateChatUserInformation.usernames.editable_username ? "@"+privateChatUserInformation.usernames.editable_username : "")
                                 : ((groupInformation && groupInformation.usernames && groupInformation.usernames.editable_username)
                                    ? "@"+groupInformation.usernames.editable_username : "")
-
-//    property alias membersList: membersList
 
     ChatManagerLoader {
         id: chatManagerLoader

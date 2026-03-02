@@ -26,7 +26,6 @@ import "../../js/debug.js" as Debug
 
 SilicaFlickable {
     id: pageContent
-    property alias membersList: membersList
 
     function scrollUp(force) {
         if (force)
@@ -41,20 +40,32 @@ SilicaFlickable {
         else
             scrollDownAnimation.start()
     }
+
+    function handleGroupMembers(members, clearFirst) {
+        clearFirst = typeof clearFirst !== 'undefined' ? clearFirst : true
+        if (clearFirst)
+            membersList.clear()
+
+        if (members && members.length > 0) {
+            for (var i=0; i < members.length; i++)
+                membersList.append(members[i])
+        }
+    }
+
+    function handleGroupsInCommon(chatIds, totalCount) {
+        groupsInCommonList.totalCount = totalCount
+        for (var i=0; i < chatIds.length; i++)
+            groupsInCommonList.append({chatId: chatIds[i]})
+    }
+
     function handleBasicGroupFullInfo(groupFullInfo, groupId) {
-        if(!chatInformationPage.isBasicGroup || chatInformationPage.chatUserOrGroupId !== groupId) return
-        chatInformationPage.groupFullInformation = groupFullInfo;
+        if (!chatInformationPage.isBasicGroup || chatInformationPage.chatUserOrGroupId !== groupId)
+            return
+        chatInformationPage.groupFullInformation = groupFullInfo
         fullInfoReady = true
-        membersList.clear();
-        if(groupFullInfo.members && groupFullInfo.members.length > 0) {
-            for(var memberIndex in groupFullInfo.members) {
-                var memberData = groupFullInfo.members[memberIndex];
-                var userInfo = tdLibWrapper.getUserInformation(memberData.member_id.user_id) || {user:{}, bot_info:{}};
-                memberData.user = userInfo;
-                memberData.bot_info = memberData.bot_info || {};
-                membersList.append(memberData);
-            }
-            chatInformationPage.groupInformation.member_count = groupFullInfo.members.length
+        handleGroupMembers(groupFullInfo.members)
+        if (groupFullInfo.members) {
+            chatInformationPage.groupInformation.member_count = groupFullInformation.members.length
             chatInformationPage.groupInformationChanged()
         }
     }
@@ -84,7 +95,7 @@ SilicaFlickable {
         onBasicGroupUpdated:
             if (chatInformationPage.isBasicGroup && chatInformationPage.groupInformation.id === groupId)
                 chatInformationPage.groupInformation = tdLibWrapper.getBasicGroup(groupId)
-        onSuperGroupUpdated:
+        onSupergroupUpdated:
             if (chatInformationPage.isSuperGroup && chatInformationPage.groupInformation.id === groupId)
                 chatInformationPage.groupInformation = tdLibWrapper.getSuperGroup(groupId)
 
@@ -104,13 +115,13 @@ SilicaFlickable {
             if (chatInformationPage.isPrivateOrSecretChat && extra === chatInformationPage.chatUserOrGroupId)
                 chatInformationPage.chatPartnerProfilePhotos = chatInformationPage.chatPartnerProfilePhotos.concat(photos)
         onChatPermissionsUpdated: {
-            if (chatInformationPage.chatInformation.id == chatId) {
+            if (chatInformationPage.chatInformation.id === chatId) {
                 chatInformationPage.chatInformation.permissions = permissions
                 chatInformationPage.chatInformationChanged()
             }
         }
         onChatTitleUpdated: {
-            if (chatInformationPage.chatInformation.id == chatId) {
+            if (chatInformationPage.chatInformation.id === chatId) {
                 // set whole object to trigger change
                 var newInformation = chatInformation;
                 newInformation.title = title
@@ -118,7 +129,7 @@ SilicaFlickable {
             }
         }
         onChatNotificationSettingsUpdated: {
-            if (chatInformationPage.chatInformation.id == chatId) {
+            if (chatInformationPage.chatInformation.id === chatId) {
                 // set whole object to trigger change
                 var newInformation = chatInformation;
                 newInformation.notification_settings = chatNotificationSettings;
@@ -135,7 +146,6 @@ SilicaFlickable {
     }
 
     Component.onCompleted: {
-        membersList.clear()
         switch (chatInformation.type['@type']) {
         case 'chatTypePrivate':
         case 'chatTypeSecret':
@@ -170,8 +180,10 @@ SilicaFlickable {
         isInitialized = true
     }
 
+    ListModel { id: membersList }
     ListModel {
-        id: membersList
+        id: groupsInCommonList
+        property int totalCount
     }
 
     PullDownMenu {
@@ -274,7 +286,7 @@ SilicaFlickable {
         title: chatInformationPage.chatInformation.title !== "" ? Emoji.emojify(chatInformationPage.chatInformation.title, Theme.fontSizeLarge) : qsTr("Unknown")
         description: {
             if (chatInformationPage.isGroup)
-                return Functions.getGroupStatusText(chatInformationPage.groupInformation.member_count, chatInformationPage.chatOnlineMemberCount, isChannel)
+                return Functions.getGroupStatusText(chatInformationPage.groupInformation.member_count, isChannel, chatInformationPage.chatOnlineMemberCount)
 
 
             var status = Functions.getChatPartnerStatusText(chatInformationPage.privateChatUserInformation.status['@type'], chatInformationPage.privateChatUserInformation.status.was_online, chatInformationPage.privateChatUserInformation.is_support, chatInformationPage.chatUserOrGroupId)

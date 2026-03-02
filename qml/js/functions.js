@@ -127,14 +127,19 @@ function getChatActionText(action, privateOrSecretChat, single) {
     return ''
 }
 
-function getGroupStatusText(memberCount, onlineCount, isChannel) {
-    if (onlineCount > 0) {
+function getGroupStatusText(memberCount, isChannel, onlineCount, emptyIfNoMembers) {
+    // FIXME: we've also used the following member count formatting techniques:
+    // - .arg(Number(memberCount).toLocaleString(Qt.locale(), "f", 0))
+    // - %Ln instead of %1
+    // Now we only use this function, but is always using getShortenedCount really correct?
+    if (onlineCount)
         return qsTr("%1, %2", "combination of '[x members], [y online]', which are separate translations")
             .arg(qsTr("%1 members", "", memberCount)
                 .arg(getShortenedCount(memberCount)))
             .arg(qsTr("%1 online", "", onlineCount)
                 .arg(getShortenedCount(onlineCount)))
-    }
+    if (memberCount == 0)
+        return emptyIfNoMembers ? '' : (isChannel ? qsTr("Channel") : qsTr("Group"))
     return (isChannel ? qsTr("%1 subscribers", "", memberCount) : qsTr("%1 members", "", memberCount))
         .arg(getShortenedCount(memberCount))
 }

@@ -18,193 +18,62 @@
 */
 import QtQuick 2.6
 import Sailfish.Silica 1.0
-import QtQml.Models 2.3
 
 import "../"
 import "../../pages"
 import "../../js/twemoji.js" as Emoji
 import "../../js/functions.js" as Functions
+import "../../js/debug.js" as Debug
 
 ChatInformationTabItemBase {
     id: tabBase
-    loadingText:  (isPrivateChat || isSecretChat) ? qsTr("Loading common chats…", "chats you have in common with a user") : qsTr("Loading group members…")
-    loading: ( chatInformationPage.isSuperGroup || chatInformationPage.isPrivateChat || chatInformationPage.isSecretChat) && !chatInformationPage.isChannel
-    loadingVisible: loading && membersView.count === 0
+    loading: loadInitial
+    loadingVisible: loading && listView.count === 0
 
-    scrollableView: membersView
+    scrollableView: listView
+    property alias view: listView
+    property alias model: listView.model
+    property alias delegate: listView.delegate
 
-    property var chatPartnerCommonGroupsIds: ([]);
+    property bool loadInitial: true
+    property string placeholderText
+
+    signal loadMore(bool initial)
+
+    property alias loadedTimer: loadedTimer
 
     SilicaListView {
-        id: membersView
-        model: (chatInformationPage.isPrivateChat || chatInformationPage.isSecretChat) ? (chatPartnerCommonGroupsIds.length > 0 ? delegateModel : null) : pageContent.membersList
+        id: listView
         clip: true
         height: tabBase.height
         width: tabBase.width
         opacity: tabBase.loading ? (count > 0 ? 0.5 : 0.0) : 1.0
         Behavior on opacity { FadeAnimation {} }
-        onAtYEndChanged: {
-            if(tabBase.active && !tabBase.loading && chatInformationPage.isSuperGroup && !chatInformationPage.isChannel && (chatInformationPage.groupInformation.member_count > membersView.count) && membersView.atYEnd) {
-                tabBase.loading = true;
-                fetchMoreMembersTimer.start()
+        onContentYChanged: {
+            if (active && !loading && listView.indexAt(listView.contentX, listView.contentY) > Math.max(0, listView.count - 20)) {
+                Debug.log("[ChatInformationTabItemChatsBase] Trying to get more items...")
+                loading = true
+                loadMore(false)
+                // keep loading as true forever if there's nothing more to load
             }
         }
         ViewPlaceholder {
             y: Theme.paddingLarge
-            enabled: membersView.count === 0
-            text: (chatInformationPage.isPrivateChat || chatInformationPage.isSecretChat) ? qsTr("You don't have any groups in common with this user.") : ( chatInformationPage.isChannel ? qsTr("Channel members are anonymous.") : qsTr("This group is empty.") )
-        }
-        delegate: PhotoTextsListItem {
-            pictureThumbnail {
-                photoData: user.profile_photo ? user.profile_photo.small : null
-            }
-            width: parent.width
-
-            // chat title
-            primaryText.text: Emoji.emojify(Functions.getUserName(user), primaryText.font.pixelSize)
-            // last user
-            prologSecondaryText.text: "@"+(user.username ? user.username : member_id.user_id) + (member_id.user_id === chatInformationPage.myUserId ? " " + qsTr("You") : "")
-            secondaryText {
-                horizontalAlignment: Text.AlignRight
-                property string statusText: Functions.getChatMemberStatusText(model.status["@type"])
-                property string customText: model.status.custom_title ? Emoji.emojify(model.status.custom_title, secondaryText.font.pixelSize) : ""
-                text: (statusText !== "" && customText !== "") ? statusText + ", " + customText : statusText + customText
-            }
-            tertiaryText {
-                maximumLineCount: 1
-                text: user.type["@type"] === "userTypeBot" ? (Emoji.emojify("🤖 "+bot_info.description, tertiaryText.font.pixelSize)) : Functions.getChatPartnerStatusText(user.status["@type"], user.status.was_online, user.is_support, member_id.user_id);
-            }
-
-            onClicked: {
-                tdLibWrapper.createPrivateChat(member_id.user_id, "openDirectly");
-            }
-        }
-        footer: Component {
-            Item {
-                property bool active: tabBase.active && chatInformationPage.isSuperGroup && (chatInformationPage.groupInformation.member_count > membersView.count)
-                width: tabBase.width
-                height: active ? Theme.itemSizeLarge : Theme.paddingMedium
-
-                BusyIndicator {
-                    id: loadMoreIndicator
-                    anchors.centerIn: parent
-                    size: BusyIndicatorSize.Small
-                    running: tabBase.loading
-                }
-            }
+            enabled: listView.count === 0
+            text: placeholderText
         }
 
         VerticalScrollDecorator {}
     }
 
-
-    DelegateModel {
-        id: delegateModel
-        model: chatListModel
-        groups: [
-            DelegateModelGroup {
-                name: "filterGroup"; includeByDefault: true
-            }
-        ]
-        filterOnGroup: "filterGroup"
-        function hasMatch(searchInArray) {
-            for (var i = 0; i < searchInArray.length; i++) {
-                if(searchInArray[i].toLowerCase().indexOf(chatInformationPage.searchString) > -1) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        function applyFilter(){
-            var numberOfEntries = chatListModel.rowCount();
-            var hasFilterString = !!chatInformationPage.searchString && chatInformationPage.searchString !== ""
-            for (var i = 0; i < numberOfEntries; i++){
-                var metadata = chatListModel.get(i);
-                if(tabBase.chatPartnerCommonGroupsIds.indexOf(metadata.chat_id) > -1) {
-                    items.addGroups(i, 1, "filterGroup");
-                } else {
-                    items.removeGroups(i, 1, "filterGroup");
-                }
-
-            }
-        }
-
-        delegate: ChatListViewItem {
-            ownUserId: chatInformationPage.myUserId
-
-            unreadCount: unread_count
-            onClicked: {
-                //pageStack.pop(pageStack.find( function(page){ return(page._depth === 0)} ), PageStackAction.Immediate);
-                // TODO: allow maximum of 3 chats in the page stack at the same time, also see OverviewPage: tdLibWrapper.onChatReceived
-                pageStack.push(Qt.resolvedUrl("../../pages/ChatPage.qml"), { "chatInformation" : display });
-            }
-        }
-    }
-
-    Timer {
-        id: fetchMoreMembersTimer
-        interval: 600
-        property int fetchLimit: 50
-        onTriggered: {
-            if(chatInformationPage.isSuperGroup && (!chatInformationPage.isChannel || chatInformationPage.canGetMembers) && (chatInformationPage.groupInformation.member_count > membersView.count)) {
-                tabBase.loading = true
-                tdLibWrapper.getSupergroupMembers(chatInformationPage.chatUserOrGroupId, fetchLimit, pageContent.membersList.count);
-                fetchLimit = 200
-                interval = 400
-            }
-        }
-    }
-
-    Connections {
-        target: tdLibWrapper
-
-        onChatMembersReceived: {
-            if (chatInformationPage.isSuperGroup && chatInformationPage.chatUserOrGroupId === extra) {
-                if(members && members.length > 0 && chatInformationPage.groupInformation.member_count > membersView.count) {
-                    for(var memberIndex in members) {
-                        var memberData = members[memberIndex];
-                        var userInfo = tdLibWrapper.getUserInformation(memberData.member_id.user_id) || {user:{}, bot_info:{}};
-                        if (!userInfo.username && userInfo.usernames && userInfo.usernames.active_usernames) {
-                            userInfo.username = userInfo.usernames.active_usernames[0]
-                        }
-                        memberData.user = userInfo;
-                        memberData.bot_info = memberData.bot_info || {};
-                        pageContent.membersList.append(memberData);
-                    }
-                    chatInformationPage.groupInformation.member_count = totalMembers
-                    chatInformationPage.groupInformationChanged()
-//                    if(pageContent.membersList.count < totalMembers) {
-//                        fetchMoreMembersTimer.start()
-//                    }
-                }
-                // if we set it directly, the views start scrolling
-                loadedTimer.start();
-            }
-        }
-        onChatsReceived: {// common chats with user
-            if((isPrivateChat || isSecretChat) && extra === chatInformationPage.chatUserOrGroupId.toString()) {
-                tabBase.chatPartnerCommonGroupsIds = chatIds;
-                delegateModel.applyFilter();
-                // if we set it directly, the views start scrolling
-                loadedTimer.start();
-            }
-        }
-    }
     Timer {
         id: loadedTimer
+        // if we set it directly, the views start scrolling
         interval: 50
-        onTriggered: {
+        onTriggered:
             tabBase.loading = false
-        }
     }
 
-    Component.onCompleted: {
-        if(chatInformationPage.isPrivateChat || chatInformationPage.isSecretChat) {
-            tdLibWrapper.getGroupsInCommon(chatInformationPage.chatUserOrGroupId, 200, 0); // we only use the first 200
-        } else if(chatInformationPage.isSuperGroup) {
-            fetchMoreMembersTimer.start();
-        }
-    }
-
+    Component.onCompleted:
+        if (loadInitial) loadMore(true)
 }

@@ -91,11 +91,12 @@ TabView {
     function insertTab(name, title, icon, data) {
         var insertIndex = 0
         var tabOrder = [
-                    'MembersGroups',
+                    'Members',
                     'Media',
                     'Files',
                     'Gifs',
                     'VideoNotes',
+                    'GroupsInCommon',
                     'Settings',
                     'Debug'
                 ]
@@ -129,7 +130,7 @@ TabView {
 
     function removeTab(name) {
         for (var i=0; i < model.count; i++)
-            if (model.get(i).name == name)
+            if (model.get(i).name === name)
                 model.remove(i)
     }
 
@@ -165,25 +166,42 @@ TabView {
     }
 
     // FIXME: this works for now (required because groupFullInformation is not yet initialized when Component.onCompleted is called), but this is too clunky
-    function insertMembersGroupsTab() {
-        var i = insertTab('MembersGroups',
-                  chatInformationPage.isPrivateOrSecretChat ? qsTr("Groups", "Button: groups in common (short)") : qsTr("Members", "Button: Group Members"),
-                  'image://theme/icon-m-people')
+    function insertMembersTab() {
+        var i = insertTab('Members',
+                          (chatInformationPage.isChannel ? qsTr("Subscribers", "Button: channel subscribers") : qsTr("Members", "Button: Group Members")),
+                          'image://theme/icon-m-people')
         if (i > -1)
             currentIndex = i
     }
-    property bool showMembersGroupsTab: !isSavedMessages && (isPrivateOrSecretChat || groupFullInformation.can_get_members)
-    onShowMembersGroupsTabChanged:
-        if (showMembersGroupsTab)
-            insertMembersGroupsTab()
-        else removeTab('MembersGroups')
+    property bool showMembersTab: canGetMembers
+    onShowMembersTabChanged:
+        if (showMembersTab)
+            insertMembersTab()
+        else removeTab('Members')
 
+    Connections {
+        id: groupsInCommonConnections
+        target: tdLibWrapper
+        ignoreUnknownSignals: true
+        onChatsReceived:
+            if (extra === "getGroupsInCommon:"+chatUserOrGroupId) {
+                handleGroupsInCommon(chatIds, totalCount)
+                if (groupsInCommonList.count > 0) {
+                    insertTab('GroupsInCommon', qsTr("Groups", "Button: groups in common (short)"), 'image://theme/icon-m-people')
+                    groupsInCommonConnections.target = null
+                }
+            }
+    }
 
     Component.onCompleted: {
-        if(showMembersGroupsTab)
-            insertMembersGroupsTab()
+        if (showMembersTab)
+            insertMembersTab()
 
-        if(isGroup && (groupInformation.status.can_restrict_members || isGroupCreator))
+        if (!isSavedMessages && isPrivateOrSecretChat)
+            // check if the tab needs to be added
+            tdLibWrapper.getGroupsInCommon(chatUserOrGroupId, 50)
+
+        if (isGroup && (groupInformation.status.can_restrict_members || isGroupCreator))
             insertTab('Settings', qsTr("Settings", "Button: Chat Settings"), 'image://theme/icon-m-developer-mode')
 
         if (DebugLog.enabled)

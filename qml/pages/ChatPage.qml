@@ -411,7 +411,7 @@ Page {
                         if (status) return status
 
                         if (isBasicGroup || isSuperGroup)
-                            return Functions.getGroupStatusText(chatGroupInformation.member_count, chatOnlineMemberCount, isChannel)
+                            return Functions.getGroupStatusText(chatGroupInformation.member_count, isChannel, chatOnlineMemberCount)
 
 
                         status = Functions.getChatPartnerStatusText(chatPartnerInformation.status['@type'], chatPartnerInformation.status.was_online, chatPartnerInformation.is_support, chatInformation.id, timepointStatus)
