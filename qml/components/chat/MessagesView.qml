@@ -894,7 +894,7 @@ Column {
             height: active ? parent.height : 0
             source: "../VoiceNoteOverlay.qml"
             onActiveChanged: if (!active)
-                utilities.stopRecordingVoiceNote()
+                voiceNoteRecorder.stopRecordingVoiceNote()
         }
 
         Loader {

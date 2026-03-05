@@ -116,7 +116,7 @@ Item {
                             recordButton.visible = false;
                             recordingDone = false;
                             recordingDurationLabel.text = "00:00"
-                            utilities.startRecordingVoiceNote();
+                            voiceNoteRecorder.startRecordingVoiceNote()
                         }
                     }
                 }
@@ -131,9 +131,9 @@ Item {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            recordButton.visible = true;
-                            utilities.stopRecordingVoiceNote();
-                            recordingDone = true;
+                            recordButton.visible = true
+                            voiceNoteRecorder.stopRecordingVoiceNote()
+                            recordingDone = true
                         }
                     }
                 }
