@@ -20,7 +20,7 @@
 .pragma library
 .import "debug.js" as Debug
 .import "twemoji.js" as Emoji
-.import "platform-functions.js" as PlatformFunctions
+.import Sailfish.Silica 1.0 as Silica
 .import App.Logic 1.0 as Logic
 
 var tdLibWrapper, appNotification, utilities
@@ -183,14 +183,32 @@ function getShortenedCount(count) {
     return count
 }
 
-var getDateTimeElapsed = PlatformFunctions.getDateTimeElapsed
+function formatDate(timestamp, formatType) {
+    return Silica.Format.formatDate(new Date(timestamp * 1000), formatType)
+}
+
+function getDateTimeElapsed(timestamp) {
+    return formatDate(timestamp, Silica.Formatter.DurationElapsed)
+}
 
 function getDateTimeTranslated(timestamp) {
     return new Date(timestamp * 1000).toLocaleString()
 }
 
-var getDateTimeTimepoint = PlatformFunctions.getDateTimeTimepoint
-var getDateTimeTimepointRelative = PlatformFunctions.getDateTimeTimepointRelative
+function getDateTimeTimepoint(timestamp) {
+    return formatDate(timestamp, Silica.Formatter.Timepoint)
+}
+
+function getDateTimeTimepointRelative(timestamp) {
+    return formatDate(timestamp, Silica.Formatter.TimepointRelative)
+}
+
+function getDurationToFuture(timestamp) {
+    var diff = timestamp - new Date().getTime() / 1000
+    if (diff <= 0)
+        return ''
+    return Silica.Format.formatDuration(diff)
+}
 
 
 function enhanceMessageText(formattedText, ignoreEntities, emojiSize, reloader) {
@@ -299,4 +317,6 @@ function getMessagesNeededForwardPermissions(messages) {
     return neededPermissions
 }
 
-var isWidescreen = PlatformFunctions.isWidescreen
+function isWidescreen(appWindow) {
+    return (appWindow.deviceOrientation & Silica.Orientation.LandscapeMask) || Silica.Screen.sizeCategory === Silica.Screen.Large || Silica.Screen.sizeCategory === Silica.Screen.ExtraLarge
+}
