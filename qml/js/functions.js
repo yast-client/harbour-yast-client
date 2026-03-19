@@ -39,7 +39,12 @@ function formatUnreadCount(value) {
 }
 
 function getUserName(userInformation) {
-    return ((userInformation.first_name || "") + " " + (userInformation.last_name || "")).trim();
+    var name = ((userInformation.first_name || "") + " " + (userInformation.last_name || "")).trim()
+    if (name)
+        return name
+
+    var userType = userInformation.type['@type']
+    return userType === 'userTypeDeleted' || userType === 'userTypeUnknown' ? qsTr("Deleted User") : qsTr("Unknown", "A user with an unknown name")
 }
 
 function getMessageText(message, simple, currentUserId, ignoreEntities, asFormattedText, emojiSize) {
