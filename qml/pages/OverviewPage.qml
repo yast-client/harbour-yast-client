@@ -260,13 +260,18 @@ Page {
     Component.onCompleted:
         overviewPage.handleAuthorizationState(true)
 
+    function openSearch() {
+        pageStack.push(Qt.resolvedUrl("SearchChatsPage.qml"), {fromTitleBar: true}, PageStackAction.Immediate)
+    }
+
     OverviewPageHeader {
         id: header
         y: Math.max(0, -tabView.pulleyYOffset)
 
+        // in case MoueArea here fails, we also have one inside the tab's flickable
         MouseArea {
             anchors.fill: parent
-            onClicked: pageStack.push(Qt.resolvedUrl("SearchChatsPage.qml"), {fromTitleBar: true}, PageStackAction.Immediate)
+            onClicked: openSearch()
         }
     }
 
@@ -320,6 +325,13 @@ Page {
                             tdLibWrapper.readFolderChatList(tabModel.id)
                         else
                             tdLibWrapper.readChatList(tabModel.type === ChatFoldersModel.FolderArchive)
+                    }
+
+                    MouseArea {
+                        width: header.width
+                        y: header.y
+                        height: header.height
+                        onClicked: openSearch()
                     }
 
                     Loader {
