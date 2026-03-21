@@ -6,30 +6,30 @@ Item {
 
     property real paddingDifference: Theme.paddingMedium
     property bool inverted
-    property alias model: reactorsRepeater.model
-    property alias count: reactorsRepeater.count
+    property alias model: repeater.model
+    property alias count: repeater.count
     property bool userIds // specifies if the model contains user ids instead of messageSender objects
 
     Repeater {
-        id: reactorsRepeater
+        id: repeater
         ProfileThumbnail {
-            id: reactorProfileThumbnail
+            id: profileThumbnail
 
             height: parent.height
             width: height
-            x: paddingDifference * (inverted ? reactorsRepeater.count - index - 1 : index)
+            x: paddingDifference * (inverted ? repeater.count - index - 1 : index)
 
             photoData: isChat
                        ? tdLibWrapper.getChat(modelData.chat_id).photo.small
-                       : reactorUserInfoLoader.info.profile_photo.small
+                       : userInfoLoader.info.profile_photo.small
             replacementStringHint: isChat
                                    ? tdLibWrapper.getChat(modelData.chat_id).title
-                                   : utilities.getUserName(reactorUserInfoLoader.info)
+                                   : utilities.getUserName(userInfoLoader.info)
 
             property bool isChat: !userIds && modelData['@type'] === 'messageSenderChat'
 
             TDLibUser {
-                id: reactorUserInfoLoader
+                id: userInfoLoader
                 userId: isChat ? 0 : (userIds ? modelData : modelData.user_id)
             }
 
@@ -38,10 +38,10 @@ Item {
                 target: isChat ? tdLibWrapper : null
                 onChatTitleUpdated:
                     if (chatId === modelData.chat_id)
-                        reactorProfileThumbnail.replacementStringHint = title
+                        profileThumbnail.replacementStringHint = title
                 onChatPhotoUpdated:
                     if (chatId === modelData.chat_id)
-                        reactorProfileThumbnail.photoData = photo.small
+                        profileThumbnail.photoData = photo.small
             }
         }
     }
