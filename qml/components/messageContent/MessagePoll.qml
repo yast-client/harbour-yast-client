@@ -76,6 +76,10 @@ MessageContentBase {
         chosenIndexesChanged()
     }
 
+    Component.onCompleted:
+        if (!hasAnswered)
+            chosenIndexes = pollData.options.filter(function(option){ return option.is_being_chosen })
+
     Component {
         id: pollResultsPageComponent
         PollResultsPage {
@@ -90,7 +94,7 @@ MessageContentBase {
         width: parent.width
         spacing: Theme.paddingSmall
 
-        // Poll type (<Anynymous> Poll/Quiz) is placed in the message text by Utilities.
+        // Poll type text (<Anynymous> Poll/Quiz) is placed in the message text by utilities
 
         Row {
             width: parent.width
@@ -164,6 +168,7 @@ MessageContentBase {
                 automaticCheck: false
                 text: Emoji.emojify(Functions.enhanceMessageText(modelData.text), Theme.fontSizeMedium)
                 checked: pollMessageComponent.chosenIndexes.indexOf(index) > -1
+                busy: checked && modelData.is_being_chosen
                 highlighted: pollMessageComponent.highlighted || down
                 onClicked: handleChoose(index)
             }
