@@ -5,6 +5,7 @@ import App.Logic 1.0
 PageHeader {
     id: pageHeader
 
+    property alias statusItem: pageStatus
     property string defaultTitle: qsTr("Ferniegram")
 
     title: tdLibWrapper.connectionStateText || defaultTitle

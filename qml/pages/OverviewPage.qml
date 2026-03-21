@@ -105,6 +105,7 @@ Page {
             tdLibWrapper.getUserPrivacySettingRules(TDLibAPI.SettingShowPhoneNumber)
             tdLibWrapper.getUserPrivacySettingRules(TDLibAPI.SettingShowProfilePhoto)
             tdLibWrapper.getUserPrivacySettingRules(TDLibAPI.SettingShowStatus)
+            tdLibWrapper.getProxies()
         }
     }
 
@@ -255,6 +256,14 @@ Page {
             else
                 pageStack.push(Qt.resolvedUrl("../dialogs/ChatJoinDialog.qml"), {link: link, invite: info})
         }
+        onInternalLinkTypeProxyReceived:
+            pageStack.push(Qt.resolvedUrl("../dialogs/AddProxyDialog.qml"), {server: server, port: port, proxyType: type, openAfterAdding: true})
+        onAddedProxyReceived:
+            if (extra == 'open')
+                openProxySettings()
+        onAddedProxiesReceived:
+            if (proxies.length > 0)
+                proxySettingsButton.visible = true
     }
 
     Component.onCompleted:
@@ -262,6 +271,10 @@ Page {
 
     function openSearch() {
         pageStack.push(Qt.resolvedUrl("SearchChatsPage.qml"), {fromTitleBar: true}, PageStackAction.Immediate)
+    }
+    function openProxySettings() {
+        pageStack.completeAnimation()
+        pageStack.push(Qt.resolvedUrl("ProxiesPage.qml"))
     }
 
     OverviewPageHeader {
@@ -273,6 +286,27 @@ Page {
             anchors.fill: parent
             onClicked: openSearch()
         }
+
+        // this does not follow sailfish guidelines at all,
+        // but having 6 pulley menu items doesn't either and this seems better
+        // better ideas are always welcome
+        IconButton {
+            id: proxySettingsButton
+            anchors {
+                left: header.statusItem.right
+                verticalCenter: parent.verticalCenter
+            }
+            visible: false
+            enabled: visible
+            icon.source: 'image://theme/icon-m-browser-permissions'
+
+            property bool externalMouseAreaDown
+            highlighted: down || externalMouseAreaDown
+
+            onClicked: openProxySettings()
+        }
+        // don't add additional paddings, both icon and statusItem have enough of them
+        leftMargin: Theme.itemSizeMedium + (proxySettingsButton.visible ? proxySettingsButton.width : 0)
     }
 
     TabView {
@@ -328,10 +362,23 @@ Page {
                     }
 
                     MouseArea {
-                        width: header.width
                         y: header.y
+                        width: header.width
                         height: header.height
                         onClicked: openSearch()
+                    }
+                    MouseArea {
+                        x: proxySettingsButton.x
+                        y: proxySettingsButton.y
+                        width: proxySettingsButton.width
+                        height: proxySettingsButton.height
+                        enabled: proxySettingsButton.enabled
+                        onClicked: openProxySettings()
+
+                        // not sure why but Binding didn't work
+                        onContainsPressChanged:
+                            if (isCurrentItem)
+                                proxySettingsButton.externalMouseAreaDown = containsPress
                     }
 
                     Loader {

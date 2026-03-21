@@ -23,7 +23,7 @@ import App.Logic 1.0
 
 AccordionItem {
     name: "storage"
-    title: qsTr("Storage")
+    title: qsTr("Data and Storage")
     Component {
         ResponsiveGrid {
             bottomPadding: Theme.paddingMedium
@@ -112,6 +112,14 @@ AccordionItem {
                     onStorageStatisticsReceived: statisticsLoader.fullStatistics = statistics // After cache is cleared
                 }
                 Component.onCompleted: tdLibWrapper.getStorageStatisticsFast()
+            }
+
+            ButtonLayout {
+                width: parent.columnWidth
+                Button {
+                    text: qsTr("Proxy settings")
+                    onClicked: pageStack.push(Qt.resolvedUrl("../../pages/ProxiesPage.qml"))
+                }
             }
         }
     }
