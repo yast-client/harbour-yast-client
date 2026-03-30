@@ -45,6 +45,7 @@ Item {
     property bool forwardButtonVisible: true
     property bool deleteButtonVisible
     property bool applyButtonVisible
+    property bool applyButtonEnabled: true
 
     property Component previewComponent: Component {
         Loader {
@@ -338,6 +339,7 @@ Item {
 
         IconButton {
             visible: applyButtonVisible
+            enabled: applyButtonEnabled
             icon.source: 'image://theme/icon-m-acknowledge'
             icon.color: buttons.iconColor
             onClicked: applied()

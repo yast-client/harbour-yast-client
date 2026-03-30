@@ -20,6 +20,7 @@ MediaAlbumPage {
         height: PagedView.contentHeight
 
         property string photoId: photo_id
+        property bool isCurrent: is_current
 
         photoData: null
         photoSize: big_photo
@@ -56,7 +57,8 @@ MediaAlbumPage {
 
     overlay.forwardButtonVisible: false
     overlay.deleteButtonVisible: isMyself
-    overlay.applyButtonVisible: isMyself
+    overlay.applyButtonVisible: true
+    overlay.applyButtonEnabled: !pagedView.currentItem.isCurrent // public photo can be set as main too
 
     overlay.onDeleted:
         tdLibWrapper.deleteProfilePhoto(pagedView.currentItem.photoId)
