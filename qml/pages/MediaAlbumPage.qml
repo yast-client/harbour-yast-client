@@ -138,6 +138,8 @@ Page {
         message: (modelIsMedia && pagedView.currentItem) ? pagedView.currentItem._model : page.message
         hidePreview: singleElement
         previewModel: modelIsMedia ? previewModelLoader.item : null
+        previewCurrentIndex: previewModel ? previewModel.mapFromSource(page.index) : -1
+        previewInverted: pagedView.direction == PagedView.RightToLeft
 
         Loader {
             id: previewModelLoader

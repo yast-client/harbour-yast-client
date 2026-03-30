@@ -32,14 +32,11 @@ MediaAlbumPage {
     // TODO: deleting own picture seems to be broken (deletes, but the model isn't affected)
     // and ideally the viewer should open the current photo if it's not the first one when possible
 
-    // TODO: make photos preview a ListView so only currently needed items would be loaded (see also ChatPhotosPage)
     overlay.previewModel: profilePicturesModel
     overlay.previewComponent: Component {
         TDLibPhoto {
-            readonly property bool current: pagedView.currentItem.photoId == photo_id
-
             height: parent.height
-            width: current ? height : (height / 2)
+            width: ListView.isCurrentItem ? height : (height / 2)
             Behavior on width { NumberAnimation { duration: 150 } }
 
             fileInformation: small_photo.photo
@@ -53,6 +50,7 @@ MediaAlbumPage {
             }
         }
     }
+    overlay.previewCurrentIndex: index
 
     overlay.file.fileInformation: pagedView.currentItem.photoSize.photo
 

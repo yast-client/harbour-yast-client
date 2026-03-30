@@ -34,6 +34,8 @@ Item {
     property var message
     property bool hidePreview
     property var previewModel
+    property int previewCurrentIndex: -1
+    property bool previewInverted
     property alias propertiesLoader: propertiesLoader
     property alias buttonsRow: buttons
     property alias file: file
@@ -48,12 +50,11 @@ Item {
         Loader {
             id: singlePreviewLoader
 
-            readonly property bool current: message.id === message_id
             readonly property bool isVideo: content_type === 'messageVideo'
             readonly property var minithumbnail: (isVideo ? (display.content.cover || display.content.video) : display.content.photo).minithumbnail
 
             height: parent.height
-            width: current ? height : (height / 2)
+            width: ListView.isCurrentItem ? height : (height / 2)
             Behavior on width { NumberAnimation { duration: 150 } }
 
             sourceComponent: isVideo && !display.content.cover ? thumbnailComponent : photoComponent
@@ -238,6 +239,7 @@ Item {
         id: previewsLoader
         asynchronous: true
         active: !!previewModel && (typeof previewModel.count == 'undefined' || previewModel.count > 1)
+        width: parent.width
         height: hidePreview ? 0 : Theme.itemSizeExtraSmall
         anchors {
             horizontalCenter: parent.horizontalCenter
@@ -246,14 +248,20 @@ Item {
         }
 
         sourceComponent: Component {
-            Row {
+            ListView {
                 height: Theme.itemSizeExtraSmall
+                width: parent.width
                 spacing: Theme.paddingMedium
 
-                Repeater {
-                    model: previewModel
-                    delegate: previewComponent
-                }
+                orientation: Qt.Horizontal
+                layoutDirection: previewInverted ? Qt.RightToLeft : Qt.LeftToRight
+                preferredHighlightBegin: (width - Theme.itemSizeExtraSmall)/2
+                preferredHighlightEnd: (width + Theme.itemSizeExtraSmall)/2
+                highlightRangeMode: ListView.StrictlyEnforceRange
+
+                currentIndex: previewCurrentIndex
+                model: previewModel
+                delegate: previewComponent
             }
         }
     }

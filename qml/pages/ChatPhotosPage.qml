@@ -27,15 +27,13 @@ MediaAlbumPage {
         if (index >= count - 1 - 10)
             model.loadMoreHistory()
 
-    // TODO: make photos preview a ListView so only currently needed items would be loaded (see also ProfilePicturesPage)
     overlay.previewModel: chatPhotosModel
     overlay.previewComponent: Component {
         TDLibPhoto {
-            readonly property bool current: overlay.message.id === message_id
             property var chatPhoto: model.display.content.photo
 
             height: parent.height
-            width: current ? height : (height / 2)
+            width: ListView.isCurrentItem ? height : (height / 2)
             Behavior on width { NumberAnimation { duration: 150 } }
 
             fileInformation: utilities.findSmallestPhotoSize(chatPhoto.sizes).photo
@@ -49,6 +47,7 @@ MediaAlbumPage {
             }
         }
     }
+    overlay.previewCurrentIndex: index
 
     overlay.message: pagedView.currentItem._model
     overlay.forwardButtonVisible: false
