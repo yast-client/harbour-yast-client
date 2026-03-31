@@ -43,12 +43,6 @@ ApplicationWindow {
         onLinkUnsupportedByApp: appNotification.show(qsTr("Link unsupported: %1").arg(type))
         onDeepLinkInfoReceived:
             appNotification.show(utilities.getMessageContentText(text, Utilities.MessageTextSimple))
-        onOkReceived:
-            switch (extra) {
-            case 'setPreviousProfilePhoto':
-                appNotification.show(qsTr("This is your main profile photo now.", "Indicates that a previous profile photo was set for the current user."))
-                break
-            }
     }
 
     Connections {

@@ -30,9 +30,6 @@ MediaAlbumPage {
         if (index >= count - 1 - 10)
             profilePicturesModel.loadMore()
 
-    // TODO: deleting own picture seems to be broken (deletes, but the model isn't affected)
-    // and ideally the viewer should open the current photo if it's not the first one when possible
-
     overlay.previewModel: profilePicturesModel
     overlay.previewComponent: Component {
         TDLibPhoto {
@@ -64,4 +61,11 @@ MediaAlbumPage {
         tdLibWrapper.deleteProfilePhoto(pagedView.currentItem.photoId)
     overlay.onApplied:
         tdLibWrapper.setPreviousProfilePhoto(pagedView.currentItem.photoId)
+
+    Connections {
+        target: tdLibWrapper
+        onOkReceived:
+            if (extra == 'setPreviousProfilePhoto')
+                pageStack.pop()
+    }
 }
