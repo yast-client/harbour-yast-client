@@ -54,7 +54,7 @@ MediaAlbumPage {
 
     overlay.forwardButtonVisible: false
     overlay.deleteButtonVisible: isMyself
-    overlay.applyButtonVisible: true
+    overlay.applyButtonVisible: isMyself
     overlay.applyButtonEnabled: !pagedView.currentItem.isCurrent // public photo can be set as main too
 
     overlay.onDeleted:
