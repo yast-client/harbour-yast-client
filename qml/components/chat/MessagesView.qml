@@ -721,7 +721,7 @@ Column {
                             interval: 0
                             onTriggered: messageIndex = Qt.binding(function() { return chatProxyModel.mapRowToSource(originalIndex) })
                         }
-                        hasContentComponent: !!myMessage.content && !utilities.messageContentIsService(model.content_type, true)
+                        hasContentComponent: !!myMessage.content && model.content_type != "messageText" && !utilities.messageContentIsService(model.content_type)
                         fullWidthWidescreenContent: !!myMessage.content && chatView.fullWidthWidescreenContentMessages.indexOf(model.content_type) > -1
                         contentAboveMedia: !!myMessage.content && chatView.contentAboveMediaByDefaultMessages.indexOf(model.content_type) > -1
                         onReplyToMessage: {
