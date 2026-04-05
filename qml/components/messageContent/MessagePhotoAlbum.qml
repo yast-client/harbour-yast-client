@@ -24,7 +24,7 @@ import "../"
 AlbumMessageContentBase {
     id: messageContent
     readonly property int heightUnit: Math.round(width * 0.66666666)
-    property bool firstLarge: albumMessages.length % 2 !== 0;
+    property bool firstLarge: albumMessages.length % 2 !== 0
 
     clip: true
 
@@ -92,10 +92,10 @@ AlbumMessageContentBase {
 
     Flow {
         id: contentGrid
-        property int firstWidth: firstLarge ? contentGrid.width : normalWidth
-        property int firstHeight: firstLarge ? heightUnit - contentGrid.spacing : normalHeight
-        property int normalWidth: (contentGrid.width - contentGrid.spacing) / 2
-        property int normalHeight: (heightUnit / 2) - contentGrid.spacing
+        property int firstWidth: firstLarge ? width : normalWidth
+        property int firstHeight: firstLarge ? heightUnit - spacing : normalHeight
+        property int normalWidth: (width - spacing) / 2
+        property int normalHeight: (heightUnit / 2) - spacing
 
         anchors.fill: parent
         spacing: Theme.paddingMedium
@@ -130,7 +130,7 @@ AlbumMessageContentBase {
                     property bool _highlighted: mediaBackgroundItem.highlighted
                     sourceComponent: albumMessages[index].content["@type"] === 'messageVideo' ? videoPreviewComponent : photoPreviewComponent
                     opacity: status === Loader.Ready
-                    Behavior on opacity {FadeAnimator{}}
+                    Behavior on opacity { FadeAnimator {} }
                 }
 
                 Rectangle {
