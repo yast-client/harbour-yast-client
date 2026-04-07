@@ -134,6 +134,7 @@ Page {
     // overlay
     FullscreenOverlay {
         id: overlay
+        active: count > 0
         currentIndex: page.index
         message: (modelIsMedia && pagedView.currentItem) ? pagedView.currentItem._model : page.message
         hidePreview: singleElement

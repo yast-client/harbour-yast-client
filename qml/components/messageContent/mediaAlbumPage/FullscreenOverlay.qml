@@ -272,7 +272,7 @@ Item {
         id: file
         autoLoad: false
         tdlib: tdLibWrapper
-        readonly property bool isPhoto: message.content['@type'] === 'messagePhoto'
+        readonly property bool isPhoto: message.content['@type'] === 'messagePhoto' || message.content['@type'] === 'messageChatChangePhoto'
         property var videoData: isPhoto ? null : message.content['@type'] === "messageVideo"
                                           ? message.content.video
                                           : (
@@ -298,7 +298,6 @@ Item {
     Row {
         id: buttons
         height: Theme.itemSizeSmall
-        width: childrenRect.width
         spacing: visibleChildren.length > 2 ? Theme.paddingLarge : Theme.paddingLarge*2 + Theme.itemSizeSmall
         anchors {
             horizontalCenter: parent.horizontalCenter

@@ -8,11 +8,11 @@ MediaAlbumPage {
     id: page
     property var chatManager
 
-    model: InvertedMediaMessagesModel {
+    model: ChatPhotosModel {
         id: chatPhotosModel
         tdlib: tdLibWrapper
+        chatId: chatManager.chatId
         filter: TDLibAPI.SearchMessagesFilterChatPhoto
-        Component.onCompleted: init(chatManager.chatId) //, messageId
     }
 
     pagedView.direction: PagedView.LeftToRight
@@ -51,11 +51,15 @@ MediaAlbumPage {
 
     overlay.message: pagedView.currentItem._model
     overlay.forwardButtonVisible: false
+    // TODO: allow deleting currently set photo if it does not have a message
     overlay.deleteButtonVisible: !!overlay.propertiesLoader.properties.can_be_deleted_for_all_users
     overlay.applyButtonVisible: false // TODO
 
     overlay.onDeleted:
-        tdLibWrapper.deleteMessages(chatManager.chatId, [overlay.message.id], true)
+        if (overlay.message.id === 0)
+            tdLibWrapper.setChatPhoto(chatManager.chatId)
+        else
+            tdLibWrapper.deleteMessages(chatManager.chatId, [overlay.message.id], true)
     overlay.onApplied:
         tdLibWrapper.setPreviousChatPhoto(chatManager.chatId, overlay.message.content.photo.id)
 }
