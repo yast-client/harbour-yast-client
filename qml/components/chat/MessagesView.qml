@@ -468,6 +468,16 @@ Column {
             previousHeight = height
         }
 
+        function initializeIfNeeded() {
+            if (!chatPage.isInitialized) {
+                log("Page is initialized!")
+                chatPage.isInitialized = true
+                chatView.handleScrollPositionChanged()
+                if (chatPage.isChannel || chatPage.isBot)
+                    tdLibWrapper.getChatSponsoredMessages(chatInformation.id)
+            }
+        }
+
         Timer {
             id: chatViewCooldownTimer
             interval: 2000
@@ -475,26 +485,14 @@ Column {
                 log("Cooldown completed...")
                 chatView.inCooldown = false
 
-                if (!chatPage.isInitialized) {
-                    log("Page is initialized!")
-                    chatPage.isInitialized = true
-                    chatView.handleScrollPositionChanged()
-                }
+                chatViewItem.initializeIfNeeded()
             }
         }
 
         Timer {
             id: chatViewStartupReadTimer
             interval: 200
-            onTriggered: {
-                if (!chatPage.isInitialized) {
-                    log("Page is initialized!")
-                    chatPage.isInitialized = true
-                    chatView.handleScrollPositionChanged()
-                    if (chatPage.isChannel || chatPage.isBot)
-                        tdLibWrapper.getChatSponsoredMessages(chatInformation.id)
-                }
-            }
+            onTriggered: chatViewItem.initializeIfNeeded()
         }
 
         Loader {
@@ -739,6 +737,10 @@ Column {
                         onForwardMessage: {
                             startForwardingMessages([myMessage])
                         }
+
+                        // TODO: when a delegate's height changes, the view should be moved up
+                        // this can be achieved by setting verticalLayoutDirection to ListView.BottomToTop (not feasible here) or by using some hack
+                        // perhaps monitor contentHeight change of each delegate and reflect its changes on the view's contentY?
                     }
                 }
                 Component {
