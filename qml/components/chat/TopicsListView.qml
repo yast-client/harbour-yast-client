@@ -51,7 +51,7 @@ Item {
             property string previewText: showDraft ? draft_message_text : last_message_text
 
             primaryText.text: name
-            prologSecondaryText.text: showDraft ? "<i>"+qsTr("Draft")+"</i>" : (last_message_sender_id ? (last_message_sender_id !== ownUserId ? Emoji.emojify(utilities.getUserName(tdLibWrapper.getUserInformation(last_message_sender_id)), Theme.fontSizeExtraSmall) : qsTr("You")) : "")
+            prologSecondaryText.text: showDraft ? "<i>"+qsTr("Draft")+"</i>" : (last_message_sender_id ? (last_message_sender_id !== tdLibWrapper.myUserId ? Emoji.emojify(utilities.getUserName(tdLibWrapper.getUserInformation(last_message_sender_id)), Theme.fontSizeExtraSmall) : qsTr("You")) : "")
             secondaryText.text: previewText ? Emoji.emojify(utilities.fixReservedHtmlCharacters(previewText), Theme.fontSizeExtraSmall) : "<i>" + qsTr("This topic was created") + "</i>"
             minithumbnail: showDraft ? null : last_message_minithumbnail
             tertiaryText.text: showDraft ? Functions.getDateTimeElapsed(draft_message_date) : (last_message_date ? (last_message_date.length === 0 ? "" : Functions.getDateTimeElapsed(last_message_date) + Emoji.emojify(last_message_status, tertiaryText.font.pixelSize)) : "")

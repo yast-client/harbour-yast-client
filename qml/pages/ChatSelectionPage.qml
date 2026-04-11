@@ -35,7 +35,6 @@ Dialog {
         chatSelectionPage.currentDepth = chatSelectionPage.currentDepth - 1;
         return(chatSelectionPage.currentDepth === 0);
     } )
-    property int myUserId: tdLibWrapper.getUserInformation().id
     property alias headerTitle: pageHeader.title
     property alias headerDescription: pageHeader.description
 
@@ -84,7 +83,6 @@ Dialog {
         }
 
         delegate: ChatListViewItem {
-            ownUserId: chatSelectionPage.myUserId
             onClicked: {
                 var chat = tdLibWrapper.getChat(display.id);
                 switch(chatSelectionPage.state) {

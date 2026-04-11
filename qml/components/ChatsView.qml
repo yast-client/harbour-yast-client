@@ -51,7 +51,6 @@ SilicaListView {
     }
 
     delegate: ChatListViewItem {
-        ownUserId: overviewPage.ownUserId
         verificationStatus: verification_status
         chatListType: chatListView.chatListType
         folderId: chatListView.folderId
