@@ -166,7 +166,6 @@ Page {
 
     function handleAuthorizationState() {
         switch (tdLibWrapper.authorizationState) {
-        case TDLibAPI.WaitTdlibParameters:
         case TDLibAPI.WaitPhoneNumber:
         case TDLibAPI.WaitPremiumPurchase:
         case TDLibAPI.WaitEmailAddress:
