@@ -20,7 +20,7 @@ QtObject {
     }
 
     function load() {
-        if (!message || messageId === 0) {
+        if (!chatId || !messageId) {
             properties = {stub: true}
             return
         }
