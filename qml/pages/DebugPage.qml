@@ -30,6 +30,13 @@ Page {
 
     property var overviewPage
 
+    function showResult(res) {
+        customDataLabel.text = res
+    }
+    function showJsonResult(res) {
+        showResult(JSON.stringify(res, null, '\t'))
+    }
+
     SilicaFlickable {
         id: aboutContainer
         contentHeight: column.height
@@ -58,6 +65,7 @@ Page {
                     anchors.bottom: parent.bottom
                     width: column.width - joinButton.width - Theme.horizontalPageMargin
                     placeholderText: "Chat id"
+                    inputMethodHints: Qt.ImhDigitsOnly
                     labelVisible: false
                     EnterKey.iconSource: "image://theme/icon-m-enter-accept"
                     EnterKey.enabled: text.length > 0
@@ -79,6 +87,7 @@ Page {
                     anchors.bottom: parent.bottom
                     width: parent.width / 2
                     placeholderText: "Chat id"
+                    inputMethodHints: Qt.ImhDigitsOnly
                     labelVisible: false
                     EnterKey.iconSource: "image://theme/icon-m-enter-next"
                     EnterKey.enabled: text.length > 0
@@ -89,6 +98,7 @@ Page {
                     anchors.bottom: parent.bottom
                     width: parent.width / 2
                     placeholderText: "Message id"
+                    inputMethodHints: Qt.ImhDigitsOnly
                     labelVisible: false
                     EnterKey.iconSource: "image://theme/icon-m-enter-accept"
                     EnterKey.enabled: text.length > 0
@@ -106,34 +116,46 @@ Page {
             }
 
             SectionHeader { text: "Translating" }
+            function translate() {
+                pageStack.push(Qt.resolvedUrl("TranslatePage.qml"), {
+                                                              getExtra: function() { return "debug" },
+                                                              sourceText: utilities.newFormattedText(translateArea.text)
+                                                          })
+            }
             TextArea {
                 id: translateArea
                 width: parent.width
                 label: "Text to translate"
+                EnterKey.iconSource: "image://theme/icon-m-enter-accept"
+                EnterKey.enabled: text.length > 0
+                EnterKey.onClicked: translate()
             }
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: "Translate"
-                onClicked: pageStack.push(Qt.resolvedUrl("TranslatePage.qml"), {
-                                              getExtra: function() { return "debug" },
-                                              sourceText: utilities.newFormattedText(translateArea.text)
-                                          })
+                onClicked: translate()
             }
 
 
             SectionHeader { text: "Execute custom request" }
+            function executeCustom() {
+                tdLibWrapper.sendRequestWithId(JSON.parse(customRequestArea.text)).finished.connect(function(response) {
+                    customRequestResponseLabel.text = JSON.stringify(response, null, '\t')
+                })
+            }
             TextArea {
                 id: customRequestArea
                 width: parent.width
                 label: "JSON-encoded request"
+                inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhNoAutoUppercase
+                EnterKey.iconSource: "image://theme/icon-m-enter-accept"
+                EnterKey.enabled: text.length > 0
+                EnterKey.onClicked: executeCustom()
             }
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: "Execute"
-                onClicked:
-                    tdLibWrapper.sendRequestWithId(JSON.parse(customRequestArea.text)).finished.connect(function(response) {
-                        customRequestResponseLabel.text = JSON.stringify(response, null, '\t')
-                    })
+                onClicked: executeCustom()
             }
 
             Label {
@@ -153,6 +175,7 @@ Page {
 
 
             SectionHeader { text: "Custom request (no response)" }
+
             Label {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2*x
@@ -161,16 +184,54 @@ Page {
                 color: Theme.secondaryHighlightColor
             }
 
+            function executeCustomNoResponse() {
+                tdLibWrapper.sendRequest(JSON.parse(customRequestNoResponseArea.text))
+            }
+
             TextArea {
                 id: customRequestNoResponseArea
                 width: parent.width
                 label: "JSON-encoded request"
+                inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhNoAutoUppercase
+                EnterKey.iconSource: "image://theme/icon-m-enter-accept"
+                EnterKey.enabled: text.length > 0
+                EnterKey.onClicked: executeCustomNoResponse()
             }
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: "Execute"
-                onClicked:
-                    tdLibWrapper.sendRequest(JSON.parse(customRequestNoResponseArea.text))
+                onClicked: executeCustomNoResponse()
+            }
+
+            SectionHeader { text: "Execute JS" }
+            TextArea {
+                id: jsArea
+                width: parent.width
+                label: "Code"
+                inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhNoAutoUppercase
+                text: 'showJsonResult("Hello from JS!")'
+                EnterKey.iconSource: "image://theme/icon-m-enter-accept"
+                EnterKey.enabled: text.length > 0
+                EnterKey.onClicked: eval(jsArea.text)
+            }
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "Execute"
+                onClicked: eval(jsArea.text)
+            }
+            Label {
+                id: customDataLabel
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2*x
+                wrapMode: Text.Wrap
+                text: "Use `showResult(text)` from JS to show text here, or the showJsonResult shorthand to show it in JSON."
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        Clipboard.text = parent.text
+                        appNotification.show("Copied")
+                    }
+                }
             }
 
 
