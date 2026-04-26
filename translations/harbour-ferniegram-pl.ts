@@ -650,19 +650,27 @@
         <translation>Przypnij czat</translation>
     </message>
     <message>
-        <source>Unmute chat</source>
-        <translation>Wyłącz wyciszenie czatu</translation>
-    </message>
-    <message>
-        <source>Mute chat</source>
-        <translation>Wycisz czat</translation>
-    </message>
-    <message>
         <source>Archive</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unarchive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unmute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mute notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mute for %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mute forever</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1473,13 +1481,30 @@
 </context>
 <context>
     <name>NotificationManager</name>
-    <message numerus="yes">
-        <source>%Ln unread messages</source>
-        <translation>
-            <numerusform>%Ln nieprzeczytana wiadomość</numerusform>
-            <numerusform>%Ln nieprzeczytane wiadomości</numerusform>
-            <numerusform>%Ln nieprzeczytanych wiadomośći</numerusform>
-        </translation>
+    <message>
+        <source>This secret chat was created</source>
+        <comment>Notification</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <comment>Notification button for closing a newly created secret chat</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have a new message</source>
+        <comment>Notification</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mark as read</source>
+        <comment>Notification button</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reply</source>
+        <comment>Reply to a message in a notification</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2083,10 +2108,6 @@
         <translation>Ferniegram odczeka chwilę, zanim wiadomości zostaną oznaczone jako przeczytane</translation>
     </message>
     <message>
-        <source>Open-with menu integration</source>
-        <translation>Integracja z menu &quot;otwórz za pomocą&quot;</translation>
-    </message>
-    <message>
         <source>Notification feedback</source>
         <translation>Rodzaj powiadomienia</translation>
     </message>
@@ -2119,14 +2140,6 @@
         <translation>Gdy dźwięki są włączone, Ferniegram użyje bieżącego dźwięku powiadomienia Sailfish OS do czatów, które można skonfigurować w ustawieniach systemu.</translation>
     </message>
     <message>
-        <source>Always append message preview to notifications</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>In addition to showing the number of unread messages, the latest message will also be appended to notifications.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Highlight unread messages</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2149,10 +2162,6 @@
     <message>
         <source>Send attachments by enter</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Integrate Ferniegram into open-with menu of Sailfish OS</source>
-        <translation>Zintegruj Ferniegram z menu &quot;otwórz za pomocą&quot; w SailfishOS</translation>
     </message>
     <message>
         <source>Show translate option for messages</source>
@@ -2317,14 +2326,6 @@
     <message>
         <source>Privacy setting for managing whether your online status is visible.</source>
         <translation>Ustawienie prywatności umożliwiające zarządzanie widocznością statusu online.</translation>
-    </message>
-    <message>
-        <source>Allow sending Location to inline bots</source>
-        <translation>Zezwalaj na wysyłanie lokalizacji do wbudowanych botów</translation>
-    </message>
-    <message>
-        <source>Some inline bots request location data when using them</source>
-        <translation>Niektóre roboty wbudowane żądają danych o lokalizacji podczas ich używania</translation>
     </message>
 </context>
 <context>
@@ -3180,6 +3181,11 @@
     <message>
         <source>Unknown</source>
         <comment>A user without a known name</comment>
+        <translation type="unfinished">Nieznany</translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <comment>A chat without a known name</comment>
         <translation type="unfinished">Nieznany</translation>
     </message>
 </context>

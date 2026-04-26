@@ -647,19 +647,27 @@
         <translation>Anclar charla</translation>
     </message>
     <message>
-        <source>Unmute chat</source>
-        <translation>Notificar</translation>
-    </message>
-    <message>
-        <source>Mute chat</source>
-        <translation>No notificar</translation>
-    </message>
-    <message>
         <source>Archive</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unarchive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unmute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mute notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mute for %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mute forever</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1458,12 +1466,30 @@
 </context>
 <context>
     <name>NotificationManager</name>
-    <message numerus="yes">
-        <source>%Ln unread messages</source>
-        <translation>
-            <numerusform>%Ln mensaje no leído</numerusform>
-            <numerusform>%Ln mensajes no leídos</numerusform>
-        </translation>
+    <message>
+        <source>This secret chat was created</source>
+        <comment>Notification</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <comment>Notification button for closing a newly created secret chat</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have a new message</source>
+        <comment>Notification</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mark as read</source>
+        <comment>Notification button</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reply</source>
+        <comment>Reply to a message in a notification</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2058,10 +2084,6 @@
         <translation>Si esta habilitado, Apl espera un segundo hasta que mensaje que está en monitor se marque como leído. Si deshabilita esta función,  mensajes se marcarán inmediatamente como leído una vez que esté en monitor sin desplazarse a mensaje</translation>
     </message>
     <message>
-        <source>Open-with menu integration</source>
-        <translation>Integrar opción Abrir-Con</translation>
-    </message>
-    <message>
         <source>Notification feedback</source>
         <translation>Notificar en</translation>
     </message>
@@ -2094,14 +2116,6 @@
         <translation>Cuando los sonidos están habilitados, Ferni utilizará sonido de notificación actual de Sailfish OS para los grupos, que se puede ajustar a configuración del sistema.</translation>
     </message>
     <message>
-        <source>Always append message preview to notifications</source>
-        <translation>Vista previa de mensaje en Notificaciones</translation>
-    </message>
-    <message>
-        <source>In addition to showing the number of unread messages, the latest message will also be appended to notifications.</source>
-        <translation>Mostrará cantidad mensajes no leídos, el último mensaje se agregará a notificaciones.</translation>
-    </message>
-    <message>
         <source>Highlight unread messages</source>
         <translation>Resaltar mensajes no Leídos</translation>
     </message>
@@ -2124,10 +2138,6 @@
     <message>
         <source>Send attachments by enter</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Integrate Ferniegram into open-with menu of Sailfish OS</source>
-        <translation>Ferniegram usa opción Abrir-Con de Sailfish SO</translation>
     </message>
     <message>
         <source>Show translate option for messages</source>
@@ -2292,14 +2302,6 @@
     <message>
         <source>Privacy setting for managing whether your online status is visible.</source>
         <translation>Ajustes de privacidad administrar si el estado en línea es visible.</translation>
-    </message>
-    <message>
-        <source>Allow sending Location to inline bots</source>
-        <translation>Enviar ubicación de Robot Enlínea</translation>
-    </message>
-    <message>
-        <source>Some inline bots request location data when using them</source>
-        <translation>Algunos Robot en línea solicitan datos de ubicación al usarlos</translation>
     </message>
 </context>
 <context>
@@ -3148,6 +3150,11 @@
     <message>
         <source>Unknown</source>
         <comment>A user without a known name</comment>
+        <translation type="unfinished">Desconocido</translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <comment>A chat without a known name</comment>
         <translation type="unfinished">Desconocido</translation>
     </message>
 </context>

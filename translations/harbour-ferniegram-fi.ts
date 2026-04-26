@@ -194,78 +194,78 @@
 <context>
     <name>AddProxyDialog</name>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="82"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="84"/>
         <source>Check status</source>
         <comment>Check proxy status when adding</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="89"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="91"/>
         <source>Add proxy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="90"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="92"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="120"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="122"/>
         <source>Server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="130"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="132"/>
         <source>Port</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="133"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="135"/>
         <source>TCP/UDP port number must be within the 0-65535 range</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="143"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="145"/>
         <source>Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="145"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="147"/>
         <source>MTPROTO</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="146"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="148"/>
         <source>SOCKS5</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="147"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="149"/>
         <source>HTTP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="155"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="157"/>
         <source>Secret</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="165"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="167"/>
         <source>Transparent TCP connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="172"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="174"/>
         <source>Credentials (optional)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="178"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="180"/>
         <source>Username</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="188"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="190"/>
         <source>Password</source>
         <translation type="unfinished"></translation>
     </message>
@@ -404,107 +404,107 @@
 <context>
     <name>ChatInformationPageContent</name>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="178"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="155"/>
         <source>Leave Chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="178"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="155"/>
         <source>Join Chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="183"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="160"/>
         <source>Left chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="201"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="178"/>
         <source>Unmute Chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="201"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="178"/>
         <source>Mute Chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="208"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="185"/>
         <source>New Secret Chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="212"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="189"/>
         <source>View discussion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="212"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="189"/>
         <source>View linked channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="288"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="265"/>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="387"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="364"/>
         <source>ID has been copied to the clipboard.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="395"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="372"/>
         <source>Chat Title</source>
         <comment>group title header</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="412"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="389"/>
         <source>Enter 1-128 characters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="420"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="397"/>
         <source>There is no information text available, yet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="421"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="398"/>
         <source>Info</source>
         <comment>group or user infotext header</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="434"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="411"/>
         <source>Phone Number</source>
         <comment>user phone number header</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="448"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="425"/>
         <source>Username</source>
         <comment>header</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="453"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="430"/>
         <source>Username has been copied to the clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="458"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="435"/>
         <source>Date of birth</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="473"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="450"/>
         <source>Invite Link</source>
         <comment>header</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="491"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="468"/>
         <source>The Invite Link has been copied to the clipboard.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -726,77 +726,87 @@
 <context>
     <name>ChatListViewItem</name>
     <message>
-        <location filename="../qml/components/ChatListViewItem.qml" line="21"/>
+        <location filename="../qml/components/ChatListViewItem.qml" line="22"/>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/ChatListViewItem.qml" line="23"/>
+        <location filename="../qml/components/ChatListViewItem.qml" line="24"/>
         <source>Draft</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/ChatListViewItem.qml" line="23"/>
+        <location filename="../qml/components/ChatListViewItem.qml" line="24"/>
         <source>You</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/ChatListViewItem.qml" line="25"/>
+        <location filename="../qml/components/ChatListViewItem.qml" line="26"/>
         <source>No message in this chat.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/ChatListViewItem.qml" line="80"/>
+        <location filename="../qml/components/ChatListViewItem.qml" line="91"/>
         <source>Mark all messages as read</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/ChatListViewItem.qml" line="88"/>
+        <location filename="../qml/components/ChatListViewItem.qml" line="99"/>
         <source>Mark chat as read</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/ChatListViewItem.qml" line="88"/>
+        <location filename="../qml/components/ChatListViewItem.qml" line="99"/>
         <source>Mark chat as unread</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/ChatListViewItem.qml" line="92"/>
+        <location filename="../qml/components/ChatListViewItem.qml" line="103"/>
         <source>Unpin chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/ChatListViewItem.qml" line="92"/>
+        <location filename="../qml/components/ChatListViewItem.qml" line="103"/>
         <source>Pin chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/ChatListViewItem.qml" line="104"/>
+        <location filename="../qml/components/ChatListViewItem.qml" line="115"/>
         <source>Archive</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/ChatListViewItem.qml" line="104"/>
+        <location filename="../qml/components/ChatListViewItem.qml" line="115"/>
         <source>Unarchive</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/ChatListViewItem.qml" line="119"/>
-        <source>Unmute chat</source>
+        <location filename="../qml/components/ChatListViewItem.qml" line="135"/>
+        <source>Unmute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/ChatListViewItem.qml" line="119"/>
-        <source>Mute chat</source>
+        <location filename="../qml/components/ChatListViewItem.qml" line="136"/>
+        <source>Mute notifications</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/ChatListViewItem.qml" line="130"/>
+        <location filename="../qml/components/ChatListViewItem.qml" line="158"/>
+        <source>Mute for %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/ChatListViewItem.qml" line="168"/>
+        <source>Mute forever</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/ChatListViewItem.qml" line="147"/>
         <source>User Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/ChatListViewItem.qml" line="130"/>
+        <location filename="../qml/components/ChatListViewItem.qml" line="147"/>
         <source>Group Info</source>
         <translation type="unfinished"></translation>
     </message>
@@ -822,79 +832,79 @@
         </translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="285"/>
+        <location filename="../qml/pages/ChatPage.qml" line="286"/>
         <source>You joined the chat %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="324"/>
+        <location filename="../qml/pages/ChatPage.qml" line="325"/>
         <source>View as Messages</source>
         <comment>view a forum chat in full chat mode</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="324"/>
+        <location filename="../qml/pages/ChatPage.qml" line="325"/>
         <source>View as Topics</source>
         <comment>view a forum chat as topics</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="334"/>
+        <location filename="../qml/pages/ChatPage.qml" line="335"/>
         <source>Chat deleted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="336"/>
+        <location filename="../qml/pages/ChatPage.qml" line="337"/>
         <source>Delete Chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="344"/>
+        <location filename="../qml/pages/ChatPage.qml" line="345"/>
         <source>Closing chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="346"/>
+        <location filename="../qml/pages/ChatPage.qml" line="347"/>
         <source>Close Chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="355"/>
+        <location filename="../qml/pages/ChatPage.qml" line="356"/>
         <source>Left chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="358"/>
+        <location filename="../qml/pages/ChatPage.qml" line="359"/>
         <source>Leave Chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="358"/>
+        <location filename="../qml/pages/ChatPage.qml" line="359"/>
         <source>Join Chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="373"/>
+        <location filename="../qml/pages/ChatPage.qml" line="374"/>
         <source>Unmute Chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="373"/>
+        <location filename="../qml/pages/ChatPage.qml" line="374"/>
         <source>Mute Chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="384"/>
+        <location filename="../qml/pages/ChatPage.qml" line="385"/>
         <source>Search in Chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="479"/>
+        <location filename="../qml/pages/ChatPage.qml" line="480"/>
         <source>Search in chat...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="552"/>
+        <location filename="../qml/pages/ChatPage.qml" line="553"/>
         <source>Double-tap on a message to choose a reaction</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1314,111 +1324,111 @@
 <context>
     <name>MessageListViewItem</name>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="78"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="79"/>
         <source>Message deleted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="78"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="79"/>
         <source>Message deleted only for yourself</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="96"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="97"/>
         <source>Message unpinned</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="248"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="249"/>
         <source>Forward</source>
         <comment>Short version for &quot;Forward Message&quot;</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="249"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="250"/>
         <source>Forward Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="255"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="256"/>
         <source>Reply</source>
         <comment>Short version for &quot;Reply to Message&quot;</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="256"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="257"/>
         <source>Reply to Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="266"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="267"/>
         <source>Delete</source>
         <comment>Short version for &quot;Delete Message&quot;</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="267"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="268"/>
         <source>Delete Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="278"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="279"/>
         <source>Edit</source>
         <comment>Short version for &quot;Edit Message&quot;</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="279"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="280"/>
         <source>Edit Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="316"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="317"/>
         <source>Delete for me and %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="316"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="317"/>
         <source>Delete for everyone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="320"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="321"/>
         <source>Delete just for me</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="328"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="329"/>
         <source>Copy Message to Clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="328"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="329"/>
         <source>Select Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="328"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="329"/>
         <source>More Options...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="328"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="329"/>
         <source>Unpin Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="328"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="329"/>
         <source>Pin Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="505"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="506"/>
         <source>You</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageListViewItem.qml" line="617"/>
+        <location filename="../qml/components/MessageListViewItem.qml" line="618"/>
         <source>Forwarded Message</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1745,13 +1755,35 @@
 </context>
 <context>
     <name>NotificationManager</name>
-    <message numerus="yes">
-        <location filename="../libfernie/src/notificationmanager.cpp" line="350"/>
-        <location filename="../libfernie/src/notificationmanager.cpp" line="388"/>
-        <source>%Ln unread messages</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-        </translation>
+    <message>
+        <location filename="../libfernie/src/notificationmanager.cpp" line="295"/>
+        <source>This secret chat was created</source>
+        <comment>Notification</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../libfernie/src/notificationmanager.cpp" line="298"/>
+        <source>Close</source>
+        <comment>Notification button for closing a newly created secret chat</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../libfernie/src/notificationmanager.cpp" line="317"/>
+        <source>You have a new message</source>
+        <comment>Notification</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../libfernie/src/notificationmanager.cpp" line="324"/>
+        <source>Mark as read</source>
+        <comment>Notification button</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../libfernie/src/notificationmanager.cpp" line="332"/>
+        <source>Reply</source>
+        <comment>Reply to a message in a notification</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1922,68 +1954,68 @@
 <context>
     <name>OverviewPage</name>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="421"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="428"/>
         <source>Loading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="421"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="428"/>
         <source>Logging out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="170"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="177"/>
         <source>Download of %1 successful.</source>
         <comment>in-app notification text</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="172"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="179"/>
         <source>Open</source>
         <comment>in-app notification button: open downloaded file</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="175"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="182"/>
         <source>Download failed.</source>
         <comment>in-app notification text</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="178"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="185"/>
         <source>Unable to open link.</source>
         <comment>in-app notification text</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="329"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="336"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="333"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="340"/>
         <source>Search</source>
         <comment>pulley menu option for opening search page</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="337"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="344"/>
         <source>New Chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="341"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="348"/>
         <source>Archive</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="366"/>
-        <location filename="../qml/pages/OverviewPage.qml" line="379"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="373"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="386"/>
         <source>Mark as read</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="427"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="434"/>
         <source>Tap on the title bar to quickly open search</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2490,126 +2522,106 @@
     </message>
     <message>
         <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="95"/>
-        <source>Open-with menu integration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="96"/>
-        <source>Integrate Ferniegram into open-with menu of Sailfish OS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="106"/>
-        <source>Always append message preview to notifications</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="107"/>
-        <source>In addition to showing the number of unread messages, the latest message will also be appended to notifications.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="117"/>
         <source>Go to quoted message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="118"/>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="96"/>
         <source>When tapping a quoted message, open it in chat instead of showing it in an overlay.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="128"/>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="106"/>
         <source>Notification feedback</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="129"/>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="107"/>
         <source>Use non-graphical feedback (sound, vibration) for notifications</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="137"/>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="115"/>
         <source>All events</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="144"/>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="122"/>
         <source>Only new events</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="151"/>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="129"/>
         <source>None</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="198"/>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="176"/>
         <source>Hide content in notifications</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="208"/>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="186"/>
         <source>Notification turns on the display</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="218"/>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="196"/>
         <source>Enable notification sounds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="219"/>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="197"/>
         <source>When sounds are enabled, Ferniegram will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="230"/>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="208"/>
         <source>Include muted chats in unread count</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="237"/>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="215"/>
         <source>Show unread chat count in folders</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="245"/>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="223"/>
         <source>Include muted chats in folders unread count</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="263"/>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="241"/>
         <source>Voice messages volume</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="273"/>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="251"/>
         <source>Show translate option for messages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="282"/>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="260"/>
         <source>Translate formatted text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="283"/>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="261"/>
         <source>Without Telegram Premium</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="291"/>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="269"/>
         <source>Parse markdown in messages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="299"/>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="277"/>
         <source>Force QtMultimedia-based audio recorder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="308"/>
+        <location filename="../qml/components/settingsPage/SettingsBehavior.qml" line="286"/>
         <source>Forcefully allow AI summary</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2777,16 +2789,6 @@
     <message>
         <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="225"/>
         <source>Privacy setting for managing whether your online status is visible.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="258"/>
-        <source>Allow sending Location to inline bots</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/components/settingsPage/SettingsPrivacy.qml" line="259"/>
-        <source>Some inline bots request location data when using them</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3089,22 +3091,22 @@
 <context>
     <name>TDLibWrapper</name>
     <message>
-        <location filename="../libfernie/src/tdlib/tdlibwrapper.cpp" line="2933"/>
+        <location filename="../libfernie/src/tdlib/tdlibwrapper.cpp" line="2809"/>
         <source>Waiting for network...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/tdlib/tdlibwrapper.cpp" line="2935"/>
+        <location filename="../libfernie/src/tdlib/tdlibwrapper.cpp" line="2811"/>
         <source>Connecting to network...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/tdlib/tdlibwrapper.cpp" line="2937"/>
+        <location filename="../libfernie/src/tdlib/tdlibwrapper.cpp" line="2813"/>
         <source>Connecting to proxy...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/tdlib/tdlibwrapper.cpp" line="2939"/>
+        <location filename="../libfernie/src/tdlib/tdlibwrapper.cpp" line="2815"/>
         <source>Updating content...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3200,355 +3202,355 @@
 <context>
     <name>Utilities</name>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="411"/>
+        <location filename="../libfernie/src/utilities.cpp" line="413"/>
         <source>Sticker</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="421"/>
+        <location filename="../libfernie/src/utilities.cpp" line="423"/>
         <source>Photo: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="422"/>
+        <location filename="../libfernie/src/utilities.cpp" line="424"/>
         <source>Photo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="428"/>
+        <location filename="../libfernie/src/utilities.cpp" line="430"/>
         <source>Video: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="429"/>
+        <location filename="../libfernie/src/utilities.cpp" line="431"/>
         <source>Video</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="432"/>
+        <location filename="../libfernie/src/utilities.cpp" line="434"/>
         <source>Video message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="437"/>
+        <location filename="../libfernie/src/utilities.cpp" line="439"/>
         <source>GIF: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="438"/>
+        <location filename="../libfernie/src/utilities.cpp" line="440"/>
         <source>GIF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="442"/>
+        <location filename="../libfernie/src/utilities.cpp" line="444"/>
         <source>%1: %2</source>
         <comment>Audio message. %1 is the audio file name, %2 is the caption</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="443"/>
+        <location filename="../libfernie/src/utilities.cpp" line="445"/>
         <source>Audio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="447"/>
+        <location filename="../libfernie/src/utilities.cpp" line="449"/>
         <source>%1: %2</source>
         <comment>A message with a file attached. %1 is the audio file name, %2 is the caption</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="448"/>
+        <location filename="../libfernie/src/utilities.cpp" line="450"/>
         <source>File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="451"/>
+        <location filename="../libfernie/src/utilities.cpp" line="453"/>
         <source>Voice message: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="452"/>
+        <location filename="../libfernie/src/utilities.cpp" line="454"/>
         <source>Voice message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="455"/>
+        <location filename="../libfernie/src/utilities.cpp" line="457"/>
         <source>sent a location</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="455"/>
+        <location filename="../libfernie/src/utilities.cpp" line="457"/>
         <source>sent a location</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="459"/>
+        <location filename="../libfernie/src/utilities.cpp" line="461"/>
         <source>Venue: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="459"/>
+        <location filename="../libfernie/src/utilities.cpp" line="461"/>
         <source>Venue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="467"/>
+        <location filename="../libfernie/src/utilities.cpp" line="469"/>
         <source>sent an anonymous quiz</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="467"/>
+        <location filename="../libfernie/src/utilities.cpp" line="469"/>
         <source>sent an anonymous quiz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="467"/>
+        <location filename="../libfernie/src/utilities.cpp" line="469"/>
         <source>Anonymous Quiz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="468"/>
+        <location filename="../libfernie/src/utilities.cpp" line="470"/>
         <source>Quiz: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="468"/>
+        <location filename="../libfernie/src/utilities.cpp" line="470"/>
         <source>Quiz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="471"/>
+        <location filename="../libfernie/src/utilities.cpp" line="473"/>
         <source>Anonymous Poll: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="471"/>
+        <location filename="../libfernie/src/utilities.cpp" line="473"/>
         <source>Anonymous Poll</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="472"/>
+        <location filename="../libfernie/src/utilities.cpp" line="474"/>
         <source>Poll: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="472"/>
+        <location filename="../libfernie/src/utilities.cpp" line="474"/>
         <source>Poll</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="476"/>
+        <location filename="../libfernie/src/utilities.cpp" line="478"/>
         <source>Game: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="476"/>
+        <location filename="../libfernie/src/utilities.cpp" line="478"/>
         <source>Game</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="481"/>
+        <location filename="../libfernie/src/utilities.cpp" line="483"/>
         <source>joined Telegram</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="481"/>
+        <location filename="../libfernie/src/utilities.cpp" line="483"/>
         <source>joined Telegram</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="483"/>
+        <location filename="../libfernie/src/utilities.cpp" line="485"/>
         <source>joined this chat</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="483"/>
+        <location filename="../libfernie/src/utilities.cpp" line="485"/>
         <source>joined this chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="486"/>
+        <location filename="../libfernie/src/utilities.cpp" line="488"/>
         <source>were added to this chat</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="486"/>
+        <location filename="../libfernie/src/utilities.cpp" line="488"/>
         <source>was added to this chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="496"/>
+        <location filename="../libfernie/src/utilities.cpp" line="498"/>
         <source>have added %1 to the chat</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="496"/>
+        <location filename="../libfernie/src/utilities.cpp" line="498"/>
         <source>has added %1 to the chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="501"/>
+        <location filename="../libfernie/src/utilities.cpp" line="503"/>
         <source>left this chat</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="501"/>
+        <location filename="../libfernie/src/utilities.cpp" line="503"/>
         <source>left this chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="503"/>
+        <location filename="../libfernie/src/utilities.cpp" line="505"/>
         <source>have removed %1 from the chat</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="503"/>
+        <location filename="../libfernie/src/utilities.cpp" line="505"/>
         <source>has removed %1 from the chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="507"/>
+        <location filename="../libfernie/src/utilities.cpp" line="509"/>
         <source>changed the chat title to %1</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="507"/>
+        <location filename="../libfernie/src/utilities.cpp" line="509"/>
         <source>changed the chat title to %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="509"/>
+        <location filename="../libfernie/src/utilities.cpp" line="511"/>
         <source>created this group</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="509"/>
+        <location filename="../libfernie/src/utilities.cpp" line="511"/>
         <source>created this group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="511"/>
+        <location filename="../libfernie/src/utilities.cpp" line="513"/>
         <source>changed the chat photo</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="511"/>
+        <location filename="../libfernie/src/utilities.cpp" line="513"/>
         <source>changed the chat photo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="513"/>
+        <location filename="../libfernie/src/utilities.cpp" line="515"/>
         <source>deleted the chat photo</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="513"/>
+        <location filename="../libfernie/src/utilities.cpp" line="515"/>
         <source>deleted the chat photo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="516"/>
+        <location filename="../libfernie/src/utilities.cpp" line="518"/>
         <source>changed the secret chat TTL setting</source>
         <comment>myself; TTL = Time To Live</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="516"/>
+        <location filename="../libfernie/src/utilities.cpp" line="518"/>
         <source>changed the secret chat TTL setting</source>
         <comment>TTL = Time To Live</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="518"/>
+        <location filename="../libfernie/src/utilities.cpp" line="520"/>
         <source>upgraded this group to a supergroup</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="518"/>
+        <location filename="../libfernie/src/utilities.cpp" line="520"/>
         <source>upgraded this group to a supergroup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="523"/>
+        <location filename="../libfernie/src/utilities.cpp" line="525"/>
         <source>pinned a message</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="523"/>
+        <location filename="../libfernie/src/utilities.cpp" line="525"/>
         <source>pinned a message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="525"/>
+        <location filename="../libfernie/src/utilities.cpp" line="527"/>
         <source>sent a self-destructing photo that is expired</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="525"/>
+        <location filename="../libfernie/src/utilities.cpp" line="527"/>
         <source>sent a self-destructing photo that is expired</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="527"/>
+        <location filename="../libfernie/src/utilities.cpp" line="529"/>
         <source>sent a self-destructing video that is expired</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="527"/>
+        <location filename="../libfernie/src/utilities.cpp" line="529"/>
         <source>sent a self-destructing video that is expired</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="529"/>
+        <location filename="../libfernie/src/utilities.cpp" line="531"/>
         <source>sent a self-destructing voice message that is expired</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="529"/>
+        <location filename="../libfernie/src/utilities.cpp" line="531"/>
         <source>sent a self-destructing voice message that is expired</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../libfernie/src/utilities.cpp" line="531"/>
-        <source>sent a self-destructing video message that is expired</source>
-        <comment>myself</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../libfernie/src/utilities.cpp" line="531"/>
-        <source>sent a self-destructing video message that is expired</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../libfernie/src/utilities.cpp" line="533"/>
+        <source>sent a self-destructing video message that is expired</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../libfernie/src/utilities.cpp" line="533"/>
+        <source>sent a self-destructing video message that is expired</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../libfernie/src/utilities.cpp" line="535"/>
         <source>created a screenshot in this chat</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="533"/>
+        <location filename="../libfernie/src/utilities.cpp" line="535"/>
         <source>created a screenshot in this chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../libfernie/src/utilities.cpp" line="536"/>
+        <location filename="../libfernie/src/utilities.cpp" line="538"/>
         <source>scored %Ln points</source>
         <comment>myself</comment>
         <translation type="unfinished">
@@ -3556,34 +3558,34 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../libfernie/src/utilities.cpp" line="536"/>
+        <location filename="../libfernie/src/utilities.cpp" line="538"/>
         <source>scored %Ln points</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="542"/>
+        <location filename="../libfernie/src/utilities.cpp" line="544"/>
         <source>you allowed this bot to message you when you added it to your attachment menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="544"/>
+        <location filename="../libfernie/src/utilities.cpp" line="546"/>
         <source>you allowed this bot to message you when you logged in on %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="546"/>
+        <location filename="../libfernie/src/utilities.cpp" line="548"/>
         <source>you allowed this bot to message you in its web-app</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="547"/>
+        <location filename="../libfernie/src/utilities.cpp" line="549"/>
         <source>you allowed this bot to message you</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../libfernie/src/utilities.cpp" line="550"/>
+        <location filename="../libfernie/src/utilities.cpp" line="552"/>
         <source>boosted this chat %Ln times</source>
         <comment>myself</comment>
         <translation type="unfinished">
@@ -3591,231 +3593,237 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../libfernie/src/utilities.cpp" line="551"/>
+        <location filename="../libfernie/src/utilities.cpp" line="553"/>
         <source>boosted this chat %Ln times</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="554"/>
+        <location filename="../libfernie/src/utilities.cpp" line="556"/>
         <source>sent a gift</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="554"/>
+        <location filename="../libfernie/src/utilities.cpp" line="556"/>
         <source>sent a gift</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="557"/>
+        <location filename="../libfernie/src/utilities.cpp" line="559"/>
         <source>started a giveaway</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="557"/>
+        <location filename="../libfernie/src/utilities.cpp" line="559"/>
         <source>started a giveaway</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="559"/>
+        <location filename="../libfernie/src/utilities.cpp" line="561"/>
         <source>a giveaway was completed</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="559"/>
+        <location filename="../libfernie/src/utilities.cpp" line="561"/>
         <source>a giveaway was completed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="564"/>
+        <location filename="../libfernie/src/utilities.cpp" line="566"/>
         <source>created this topic</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="564"/>
+        <location filename="../libfernie/src/utilities.cpp" line="566"/>
         <source>created this topic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="565"/>
+        <location filename="../libfernie/src/utilities.cpp" line="567"/>
         <source>created the topic &quot;%1&quot;</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="565"/>
+        <location filename="../libfernie/src/utilities.cpp" line="567"/>
         <source>created the topic &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="571"/>
+        <location filename="../libfernie/src/utilities.cpp" line="573"/>
         <source>renamed this topic to &quot;%1&quot;</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="571"/>
+        <location filename="../libfernie/src/utilities.cpp" line="573"/>
         <source>renamed this topic to &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="572"/>
+        <location filename="../libfernie/src/utilities.cpp" line="574"/>
         <source>renamed the topic &quot;%1&quot;</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="572"/>
+        <location filename="../libfernie/src/utilities.cpp" line="574"/>
         <source>renamed the topic &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="576"/>
+        <location filename="../libfernie/src/utilities.cpp" line="578"/>
         <source>changed this topic&apos;s icon</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="576"/>
+        <location filename="../libfernie/src/utilities.cpp" line="578"/>
         <source>changed this topic&apos;s icon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="577"/>
+        <location filename="../libfernie/src/utilities.cpp" line="579"/>
         <source>changed the icon of the topic &quot;%1&quot;</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="577"/>
+        <location filename="../libfernie/src/utilities.cpp" line="579"/>
         <source>changed the icon of the topic &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="583"/>
+        <location filename="../libfernie/src/utilities.cpp" line="585"/>
         <source>closed this topic</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="583"/>
+        <location filename="../libfernie/src/utilities.cpp" line="585"/>
         <source>closed this topic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="584"/>
+        <location filename="../libfernie/src/utilities.cpp" line="586"/>
         <source>closed the topic &quot;%1&quot;</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="584"/>
+        <location filename="../libfernie/src/utilities.cpp" line="586"/>
         <source>closed the topic &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="587"/>
+        <location filename="../libfernie/src/utilities.cpp" line="589"/>
         <source>reopened this topic</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="587"/>
+        <location filename="../libfernie/src/utilities.cpp" line="589"/>
         <source>reopened this topic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="588"/>
+        <location filename="../libfernie/src/utilities.cpp" line="590"/>
         <source>reopened the topic &quot;%1&quot;</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="588"/>
+        <location filename="../libfernie/src/utilities.cpp" line="590"/>
         <source>reopened the topic &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="593"/>
+        <location filename="../libfernie/src/utilities.cpp" line="595"/>
         <source>hid this topic</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="593"/>
+        <location filename="../libfernie/src/utilities.cpp" line="595"/>
         <source>hid this topic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="594"/>
+        <location filename="../libfernie/src/utilities.cpp" line="596"/>
         <source>hid the general topic</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="594"/>
+        <location filename="../libfernie/src/utilities.cpp" line="596"/>
         <source>hid the general topic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="597"/>
+        <location filename="../libfernie/src/utilities.cpp" line="599"/>
         <source>unhid this topic</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="597"/>
+        <location filename="../libfernie/src/utilities.cpp" line="599"/>
         <source>unhid this topic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="598"/>
+        <location filename="../libfernie/src/utilities.cpp" line="600"/>
         <source>unhid the general topic</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="598"/>
+        <location filename="../libfernie/src/utilities.cpp" line="600"/>
         <source>unhid the general topic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="601"/>
+        <location filename="../libfernie/src/utilities.cpp" line="603"/>
         <source>sent an unsupported message</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="601"/>
+        <location filename="../libfernie/src/utilities.cpp" line="603"/>
         <source>sent an unsupported message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="604"/>
+        <location filename="../libfernie/src/utilities.cpp" line="606"/>
         <source>sent an unsupported message: %1</source>
         <comment>myself; %1 is message type</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="605"/>
+        <location filename="../libfernie/src/utilities.cpp" line="607"/>
         <source>sent an unsupported message: %1</source>
         <comment>%1 is message type</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="740"/>
+        <location filename="../libfernie/src/utilities.cpp" line="736"/>
         <source>Deleted Account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="740"/>
+        <location filename="../libfernie/src/utilities.cpp" line="736"/>
         <source>Unknown</source>
         <comment>A user without a known name</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../libfernie/src/utilities.cpp" line="760"/>
+        <source>Unknown</source>
+        <comment>A chat without a known name</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>

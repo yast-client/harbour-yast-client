@@ -650,20 +650,28 @@
         <translation>Закрепить чат</translation>
     </message>
     <message>
-        <source>Unmute chat</source>
-        <translation>Включить уведомления</translation>
-    </message>
-    <message>
-        <source>Mute chat</source>
-        <translation>Выключить уведомления</translation>
-    </message>
-    <message>
         <source>Archive</source>
         <translation>В Архив</translation>
     </message>
     <message>
         <source>Unarchive</source>
         <translation>Из Архива</translation>
+    </message>
+    <message>
+        <source>Unmute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mute notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mute for %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mute forever</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1476,13 +1484,30 @@
 </context>
 <context>
     <name>NotificationManager</name>
-    <message numerus="yes">
-        <source>%Ln unread messages</source>
-        <translation>
-            <numerusform>%Ln новое сообщение</numerusform>
-            <numerusform>%Ln новых сообщения</numerusform>
-            <numerusform>%Ln новых сообщений</numerusform>
-        </translation>
+    <message>
+        <source>This secret chat was created</source>
+        <comment>Notification</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <comment>Notification button for closing a newly created secret chat</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have a new message</source>
+        <comment>Notification</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mark as read</source>
+        <comment>Notification button</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reply</source>
+        <comment>Reply to a message in a notification</comment>
+        <translation type="unfinished">Ответить</translation>
     </message>
 </context>
 <context>
@@ -2086,10 +2111,6 @@
         <translation>Отмечать сообщения как прочитанные с задержкой, а не сразу как только они показываются на экране</translation>
     </message>
     <message>
-        <source>Open-with menu integration</source>
-        <translation>Меню &quot;Открыть с помощью&quot;</translation>
-    </message>
-    <message>
         <source>Notification feedback</source>
         <translation>Уведомления</translation>
     </message>
@@ -2122,14 +2143,6 @@
         <translation>Если звуки разрешены, то используется звук, выбранный для чатов в настройках Sailfish OS.</translation>
     </message>
     <message>
-        <source>Always append message preview to notifications</source>
-        <translation>Всегда показывать последнее сообщение на экране событий</translation>
-    </message>
-    <message>
-        <source>In addition to showing the number of unread messages, the latest message will also be appended to notifications.</source>
-        <translation>Включать в текст на экране событий не только количество непрочитанных сообщений, но и содержимое последнего сообщения.</translation>
-    </message>
-    <message>
         <source>Highlight unread messages</source>
         <translation>Выделять непрочитанные сообщения</translation>
     </message>
@@ -2152,10 +2165,6 @@
     <message>
         <source>Send attachments by enter</source>
         <translation>Отправлять вложения клавишей ввода</translation>
-    </message>
-    <message>
-        <source>Integrate Ferniegram into open-with menu of Sailfish OS</source>
-        <translation>Встроить Ferniegram в системное меню &quot;Открыть с помощью&quot;</translation>
     </message>
     <message>
         <source>Show translate option for messages</source>
@@ -2320,14 +2329,6 @@
     <message>
         <source>Privacy setting for managing whether your online status is visible.</source>
         <translation>Виден ли мой статус другим пользователям.</translation>
-    </message>
-    <message>
-        <source>Allow sending Location to inline bots</source>
-        <translation>Отправлять мои координаты инлайн-ботам</translation>
-    </message>
-    <message>
-        <source>Some inline bots request location data when using them</source>
-        <translation>Некоторые инлайн-боты просят отправить свои координаты при обращении к ним</translation>
     </message>
 </context>
 <context>
@@ -3183,6 +3184,11 @@
     <message>
         <source>Unknown</source>
         <comment>A user without a known name</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <comment>A chat without a known name</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>

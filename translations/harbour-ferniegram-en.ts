@@ -647,19 +647,27 @@
         <translation>Pin chat</translation>
     </message>
     <message>
-        <source>Unmute chat</source>
-        <translation>Unmute chat</translation>
-    </message>
-    <message>
-        <source>Mute chat</source>
-        <translation>Mute chat</translation>
-    </message>
-    <message>
         <source>Archive</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Unarchive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unmute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mute notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mute for %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mute forever</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1460,12 +1468,30 @@ messages</numerusform>
 </context>
 <context>
     <name>NotificationManager</name>
-    <message numerus="yes">
-        <source>%Ln unread messages</source>
-        <translation>
-            <numerusform>%Ln unread message</numerusform>
-            <numerusform>%Ln unread messages</numerusform>
-        </translation>
+    <message>
+        <source>This secret chat was created</source>
+        <comment>Notification</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <comment>Notification button for closing a newly created secret chat</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have a new message</source>
+        <comment>Notification</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mark as read</source>
+        <comment>Notification button</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reply</source>
+        <comment>Reply to a message in a notification</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2060,10 +2086,6 @@ messages</numerusform>
         <translation>Ferniegram will wait a bit before messages are marked as read</translation>
     </message>
     <message>
-        <source>Open-with menu integration</source>
-        <translation>Open-with menu integration</translation>
-    </message>
-    <message>
         <source>Notification feedback</source>
         <translation>Notification feedback</translation>
     </message>
@@ -2096,14 +2118,6 @@ messages</numerusform>
         <translation>When sounds are enabled, Ferniegram will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</translation>
     </message>
     <message>
-        <source>Always append message preview to notifications</source>
-        <translation>Always append message preview to notifications</translation>
-    </message>
-    <message>
-        <source>In addition to showing the number of unread messages, the latest message will also be appended to notifications.</source>
-        <translation>In addition to showing the number of unread messages, the latest message will also be appended to notifications.</translation>
-    </message>
-    <message>
         <source>Highlight unread messages</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2126,10 +2140,6 @@ messages</numerusform>
     <message>
         <source>Send attachments by enter</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Integrate Ferniegram into open-with menu of Sailfish OS</source>
-        <translation>Integrate Ferniegram into open-with menu of Sailfish OS</translation>
     </message>
     <message>
         <source>Show translate option for messages</source>
@@ -2294,14 +2304,6 @@ messages</numerusform>
     <message>
         <source>Privacy setting for managing whether your online status is visible.</source>
         <translation>Privacy setting for managing whether your online status is visible.</translation>
-    </message>
-    <message>
-        <source>Allow sending Location to inline bots</source>
-        <translation>Allow sending Location to inline bots</translation>
-    </message>
-    <message>
-        <source>Some inline bots request location data when using them</source>
-        <translation>Some inline bots request location data when using them</translation>
     </message>
 </context>
 <context>
@@ -3150,6 +3152,11 @@ messages</numerusform>
     <message>
         <source>Unknown</source>
         <comment>A user without a known name</comment>
+        <translation type="unfinished">Unknown</translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <comment>A chat without a known name</comment>
         <translation type="unfinished">Unknown</translation>
     </message>
 </context>
