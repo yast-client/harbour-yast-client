@@ -47,7 +47,7 @@ void VoiceNoteRecorder::setupAudioRecorder() {
     bool needSetupQt = true;
 
 #ifdef NO_HARBOUR_COMPLIANCE
-    if (!opusSupportedByQt && !settings->forceQtAudioRecorder()) {
+    if (!opusSupportedByQt && !forceQtAudioRecorder) {
         LOG("Opus codec not provided by QtMultimedia, trying to setup custom GStreamer backend");
         bool error = false;
         this->gstAudioRecorder = new GstAudioRecorder(argc, argv, &error, this);
@@ -58,7 +58,7 @@ void VoiceNoteRecorder::setupAudioRecorder() {
             delete this->qAudioRecorder;
             this->qAudioRecorder = nullptr;
 
-            this->gstAudioRecorder->setVolume(settings->voiceNoteVolume());
+            this->gstAudioRecorder->setVolume(this->volume);
             connect(gstAudioRecorder, &GstAudioRecorder::stateChanged, this, &VoiceNoteRecorder::voiceNoteRecordingStateChanged);
             connect(gstAudioRecorder, &GstAudioRecorder::durationChanged, this, &VoiceNoteRecorder::voiceNoteDurationChanged);
         } else {
@@ -77,7 +77,7 @@ void VoiceNoteRecorder::setupAudioRecorder() {
 
         this->qAudioRecorder->setEncodingSettings(encoderSettings);
         this->qAudioRecorder->setContainerFormat("ogg");
-        this->qAudioRecorder->setVolume(settings->voiceNoteVolume());
+        this->qAudioRecorder->setVolume(this->volume);
 
         connect(qAudioRecorder, &QAudioRecorder::statusChanged, this, &VoiceNoteRecorder::voiceNoteRecordingStateChanged);
         connect(qAudioRecorder, &QAudioRecorder::durationChanged, this, &VoiceNoteRecorder::voiceNoteDurationChanged);
@@ -88,9 +88,8 @@ void VoiceNoteRecorder::setupAudioRecorder() {
     LOG("Audio recorder initialized");
 }
 
-VoiceNoteRecorder::VoiceNoteRecorder(int argc, char *argv[], Settings *settings, QObject *parent) :
+VoiceNoteRecorder::VoiceNoteRecorder(int argc, char *argv[], QObject *parent) :
     QObject(parent),
-    settings(settings),
     argc(argc),
     argv(argv)
 {
@@ -100,8 +99,6 @@ VoiceNoteRecorder::VoiceNoteRecorder(int argc, char *argv[], Settings *settings,
         temporaryDirectory.mkpath(temporaryDirectoryPath);
 
     this->setupAudioRecorder();
-    connect(settings, &Settings::voiceNoteVolumeChanged, this, &VoiceNoteRecorder::handleVoiceNoteVolumeChanged);
-    connect(settings, &Settings::forceQtAudioRecorderChanged, this, &VoiceNoteRecorder::setupAudioRecorder);
 }
 
 VoiceNoteRecorder::~VoiceNoteRecorder() {
@@ -111,6 +108,31 @@ VoiceNoteRecorder::~VoiceNoteRecorder() {
         if (QFile::remove(nextFilePath))
             LOG("Temporary file removed" << nextFilePath);
         else LOG("Error removing temporary file" << nextFilePath);
+    }
+}
+
+void VoiceNoteRecorder::setForceQtAudioRecorder(bool value) {
+    if (forceQtAudioRecorder != value) {
+        forceQtAudioRecorder = value;
+        emit forceQtAudioRecorderChanged();
+
+        setupAudioRecorder();
+    }
+}
+
+void VoiceNoteRecorder::setVolume(qreal value) {
+    if (volume != value) {
+        volume = value;
+        emit volumeChanged();
+        LOG("Volume set" << volume);
+
+#ifdef NO_HARBOUR_COMPLIANCE
+        if (gstAudioRecorder)
+            this->gstAudioRecorder->setVolume(this->volume);
+        else
+#endif
+        if (qAudioRecorder)
+            this->qAudioRecorder->setVolume(this->volume);
     }
 }
 
@@ -137,16 +159,6 @@ void VoiceNoteRecorder::stopRecordingVoiceNote() {
 #endif
     if (qAudioRecorder)
         qAudioRecorder->stop();
-}
-
-void VoiceNoteRecorder::handleVoiceNoteVolumeChanged() {
-#ifdef NO_HARBOUR_COMPLIANCE
-    if (gstAudioRecorder)
-        this->gstAudioRecorder->setVolume(settings->voiceNoteVolume());
-    else
-#endif
-    if (qAudioRecorder)
-        this->qAudioRecorder->setVolume(settings->voiceNoteVolume());
 }
 
 VoiceNoteRecorder::VoiceNoteRecordingState VoiceNoteRecorder::getVoiceNoteRecordingState() const {

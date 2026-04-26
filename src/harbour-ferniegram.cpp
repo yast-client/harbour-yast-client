@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
     // but the dbus service isn't unregistered yet, in which clicking the application doesn't open it.
     // Seems like SailfishOS uses X-Maemo-Method not only for opening URLs, but for opening the app itself too
 
-    VoiceNoteRecorder *voiceNoteRecorder = new VoiceNoteRecorder(argc, argv, appContext->settings, view.data());
+    VoiceNoteRecorder *voiceNoteRecorder = new VoiceNoteRecorder(argc, argv, view.data());
     context->setContextProperty("voiceNoteRecorder", voiceNoteRecorder);
     qmlRegisterUncreatableType<VoiceNoteRecorder>(appContext->uri, 1, 0, "VoiceNoteRecorder", QString());
 

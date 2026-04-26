@@ -231,18 +231,18 @@ AccordionItem {
                 minimumValue: 1
                 maximumValue: 15.0
                 stepSize: 1
-                value: fernieSettings.voiceNoteVolume
+                value: appSettings.voiceNoteVolume
                 valueText: value
-                onValueChanged: fernieSettings.voiceNoteVolume = sliderValue
+                onValueChanged: appSettings.voiceNoteVolume = sliderValue
             }*/
 
             TextField {
                 width: parent.columnWidth
                 label: qsTr("Voice messages volume")
                 validator: RegExpValidator { regExp: /^((?:\d|[1-9]\d+)(?:\.\d+)?)$/ }
-                text: fernieSettings.voiceNoteVolume
-                onTextChanged: if (acceptableInput) fernieSettings.voiceNoteVolume = text
-                onAcceptableInputChanged: if (acceptableInput) fernieSettings.voiceNoteVolume = text
+                text: appSettings.voiceNoteVolume
+                onTextChanged: if (acceptableInput) appSettings.voiceNoteVolume = text
+                onAcceptableInputChanged: if (acceptableInput) appSettings.voiceNoteVolume = text
             }
 
             TextSwitch {
@@ -273,10 +273,10 @@ AccordionItem {
 
             TextSwitch {
                 width: parent.columnWidth
-                checked: fernieSettings.forceQtAudioRecorder
+                checked: appSettings.forceQtAudioRecorder
                 text: qsTr("Force QtMultimedia-based audio recorder")
                 automaticCheck: false
-                onClicked: fernieSettings.forceQtAudioRecorder = !checked
+                onClicked: appSettings.forceQtAudioRecorder = !checked
                 visible: NO_HARBOUR_COMPLIANCE
             }
 

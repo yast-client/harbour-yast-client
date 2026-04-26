@@ -97,6 +97,9 @@ ApplicationWindow {
             property bool delayMessageRead: true
             property bool highlightUnreadConversations
 
+            property bool forceQtAudioRecorder
+            property real voiceNoteVolume: 1
+
             property bool showTranslateOption
             property bool formattedTranslate
             property bool forceAllowAISummary
@@ -105,6 +108,17 @@ ApplicationWindow {
             property bool chatFoldersTabBarOnBottom
             property bool chatFoldersTabBarShowIcons
         }
+    }
+
+    Binding {
+        target: voiceNoteRecorder
+        property: 'forceQtAudioRecorder'
+        value: appSettings.forceQtAudioRecorder
+    }
+    Binding {
+        target: voiceNoteRecorder
+        property: 'volume'
+        value: appSettings.voiceNoteVolume
     }
 
     Component.onCompleted: {

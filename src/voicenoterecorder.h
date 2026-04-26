@@ -32,11 +32,14 @@
 class VoiceNoteRecorder : public QObject {
     Q_OBJECT
 
+    Q_PROPERTY(bool forceQtAudioRecorder MEMBER forceQtAudioRecorder WRITE setForceQtAudioRecorder NOTIFY forceQtAudioRecorderChanged)
+    Q_PROPERTY(qreal volume MEMBER volume WRITE setVolume NOTIFY volumeChanged)
+
     Q_PROPERTY(VoiceNoteRecordingState voiceNoteRecordingState READ getVoiceNoteRecordingState NOTIFY voiceNoteRecordingStateChanged)
     Q_PROPERTY(QString voiceNotePath READ getVoiceNotePath)
     Q_PROPERTY(qlonglong voiceNoteDuration READ getVoiceNoteDuration NOTIFY voiceNoteDurationChanged)
 public:
-    explicit VoiceNoteRecorder(int argc, char *argv[], Settings *settings, QObject *parent = nullptr);
+    explicit VoiceNoteRecorder(int argc, char *argv[], QObject *parent = nullptr);
     ~VoiceNoteRecorder();
 
     enum VoiceNoteRecordingState {
@@ -48,6 +51,9 @@ public:
     };
     Q_ENUM(VoiceNoteRecordingState)
 
+    void setForceQtAudioRecorder(bool value);
+    void setVolume(qreal value);
+
     VoiceNoteRecordingState getVoiceNoteRecordingState() const;
     QString getVoiceNotePath() const;
     qlonglong getVoiceNoteDuration() const;
@@ -56,15 +62,18 @@ public:
     Q_INVOKABLE void stopRecordingVoiceNote();
 
 signals:
+    void forceQtAudioRecorderChanged();
+    void volumeChanged();
+
     void voiceNoteDurationChanged();
     void voiceNoteRecordingStateChanged();
 
-private slots:
-    void handleVoiceNoteVolumeChanged();
+private:
     void setupAudioRecorder();
 
 private:
-    Settings *settings;
+    bool forceQtAudioRecorder = false;
+    qreal volume = 1;
 
     int argc;
     char **argv;
