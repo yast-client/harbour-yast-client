@@ -1756,34 +1756,50 @@
 <context>
     <name>NotificationManager</name>
     <message>
-        <location filename="../libfernie/src/notificationmanager.cpp" line="295"/>
+        <location filename="../libfernie/src/notificationmanager.cpp" line="327"/>
         <source>This secret chat was created</source>
         <comment>Notification</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/notificationmanager.cpp" line="298"/>
+        <location filename="../libfernie/src/notificationmanager.cpp" line="330"/>
         <source>Close</source>
         <comment>Notification button for closing a newly created secret chat</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/notificationmanager.cpp" line="317"/>
+        <location filename="../libfernie/src/notificationmanager.cpp" line="351"/>
         <source>You have a new message</source>
         <comment>Notification</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/notificationmanager.cpp" line="324"/>
+        <location filename="../libfernie/src/notificationmanager.cpp" line="358"/>
         <source>Mark as read</source>
         <comment>Notification button</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/notificationmanager.cpp" line="332"/>
+        <location filename="../libfernie/src/notificationmanager.cpp" line="364"/>
         <source>Reply</source>
         <comment>Reply to a message in a notification</comment>
         <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../libfernie/src/notificationmanager.cpp" line="383"/>
+        <source>Mentions in %1</source>
+        <comment>Title for a notification containing messages with mentions from a group chat. Mention count is displayed separately</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location filename="../libfernie/src/notificationmanager.cpp" line="387"/>
+        <source>Mentions from %1</source>
+        <comment>Title for a notification containing messages with mentions from a private chat. Mention count is displayed separately</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -3202,355 +3218,355 @@
 <context>
     <name>Utilities</name>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="413"/>
+        <location filename="../libfernie/src/utilities.cpp" line="415"/>
         <source>Sticker</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="423"/>
+        <location filename="../libfernie/src/utilities.cpp" line="425"/>
         <source>Photo: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="424"/>
+        <location filename="../libfernie/src/utilities.cpp" line="426"/>
         <source>Photo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="430"/>
+        <location filename="../libfernie/src/utilities.cpp" line="432"/>
         <source>Video: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="431"/>
+        <location filename="../libfernie/src/utilities.cpp" line="433"/>
         <source>Video</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="434"/>
+        <location filename="../libfernie/src/utilities.cpp" line="436"/>
         <source>Video message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="439"/>
+        <location filename="../libfernie/src/utilities.cpp" line="441"/>
         <source>GIF: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="440"/>
+        <location filename="../libfernie/src/utilities.cpp" line="442"/>
         <source>GIF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="444"/>
+        <location filename="../libfernie/src/utilities.cpp" line="446"/>
         <source>%1: %2</source>
         <comment>Audio message. %1 is the audio file name, %2 is the caption</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="445"/>
+        <location filename="../libfernie/src/utilities.cpp" line="447"/>
         <source>Audio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="449"/>
+        <location filename="../libfernie/src/utilities.cpp" line="451"/>
         <source>%1: %2</source>
         <comment>A message with a file attached. %1 is the audio file name, %2 is the caption</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="450"/>
+        <location filename="../libfernie/src/utilities.cpp" line="452"/>
         <source>File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="453"/>
+        <location filename="../libfernie/src/utilities.cpp" line="455"/>
         <source>Voice message: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="454"/>
+        <location filename="../libfernie/src/utilities.cpp" line="456"/>
         <source>Voice message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="457"/>
+        <location filename="../libfernie/src/utilities.cpp" line="459"/>
         <source>sent a location</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="457"/>
+        <location filename="../libfernie/src/utilities.cpp" line="459"/>
         <source>sent a location</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="461"/>
+        <location filename="../libfernie/src/utilities.cpp" line="463"/>
         <source>Venue: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="461"/>
+        <location filename="../libfernie/src/utilities.cpp" line="463"/>
         <source>Venue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="469"/>
+        <location filename="../libfernie/src/utilities.cpp" line="471"/>
         <source>sent an anonymous quiz</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="469"/>
+        <location filename="../libfernie/src/utilities.cpp" line="471"/>
         <source>sent an anonymous quiz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="469"/>
+        <location filename="../libfernie/src/utilities.cpp" line="471"/>
         <source>Anonymous Quiz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="470"/>
+        <location filename="../libfernie/src/utilities.cpp" line="472"/>
         <source>Quiz: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="470"/>
+        <location filename="../libfernie/src/utilities.cpp" line="472"/>
         <source>Quiz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="473"/>
+        <location filename="../libfernie/src/utilities.cpp" line="475"/>
         <source>Anonymous Poll: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="473"/>
+        <location filename="../libfernie/src/utilities.cpp" line="475"/>
         <source>Anonymous Poll</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="474"/>
+        <location filename="../libfernie/src/utilities.cpp" line="476"/>
         <source>Poll: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="474"/>
+        <location filename="../libfernie/src/utilities.cpp" line="476"/>
         <source>Poll</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="478"/>
+        <location filename="../libfernie/src/utilities.cpp" line="480"/>
         <source>Game: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="478"/>
+        <location filename="../libfernie/src/utilities.cpp" line="480"/>
         <source>Game</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="483"/>
+        <location filename="../libfernie/src/utilities.cpp" line="485"/>
         <source>joined Telegram</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="483"/>
+        <location filename="../libfernie/src/utilities.cpp" line="485"/>
         <source>joined Telegram</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="485"/>
+        <location filename="../libfernie/src/utilities.cpp" line="487"/>
         <source>joined this chat</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="485"/>
+        <location filename="../libfernie/src/utilities.cpp" line="487"/>
         <source>joined this chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="488"/>
+        <location filename="../libfernie/src/utilities.cpp" line="490"/>
         <source>were added to this chat</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="488"/>
+        <location filename="../libfernie/src/utilities.cpp" line="490"/>
         <source>was added to this chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="498"/>
+        <location filename="../libfernie/src/utilities.cpp" line="500"/>
         <source>have added %1 to the chat</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="498"/>
+        <location filename="../libfernie/src/utilities.cpp" line="500"/>
         <source>has added %1 to the chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="503"/>
+        <location filename="../libfernie/src/utilities.cpp" line="505"/>
         <source>left this chat</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="503"/>
+        <location filename="../libfernie/src/utilities.cpp" line="505"/>
         <source>left this chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="505"/>
+        <location filename="../libfernie/src/utilities.cpp" line="507"/>
         <source>have removed %1 from the chat</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="505"/>
+        <location filename="../libfernie/src/utilities.cpp" line="507"/>
         <source>has removed %1 from the chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="509"/>
+        <location filename="../libfernie/src/utilities.cpp" line="511"/>
         <source>changed the chat title to %1</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="509"/>
+        <location filename="../libfernie/src/utilities.cpp" line="511"/>
         <source>changed the chat title to %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="511"/>
+        <location filename="../libfernie/src/utilities.cpp" line="513"/>
         <source>created this group</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="511"/>
+        <location filename="../libfernie/src/utilities.cpp" line="513"/>
         <source>created this group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="513"/>
+        <location filename="../libfernie/src/utilities.cpp" line="515"/>
         <source>changed the chat photo</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="513"/>
+        <location filename="../libfernie/src/utilities.cpp" line="515"/>
         <source>changed the chat photo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="515"/>
+        <location filename="../libfernie/src/utilities.cpp" line="517"/>
         <source>deleted the chat photo</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="515"/>
+        <location filename="../libfernie/src/utilities.cpp" line="517"/>
         <source>deleted the chat photo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="518"/>
+        <location filename="../libfernie/src/utilities.cpp" line="520"/>
         <source>changed the secret chat TTL setting</source>
         <comment>myself; TTL = Time To Live</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="518"/>
+        <location filename="../libfernie/src/utilities.cpp" line="520"/>
         <source>changed the secret chat TTL setting</source>
         <comment>TTL = Time To Live</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="520"/>
+        <location filename="../libfernie/src/utilities.cpp" line="522"/>
         <source>upgraded this group to a supergroup</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="520"/>
+        <location filename="../libfernie/src/utilities.cpp" line="522"/>
         <source>upgraded this group to a supergroup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="525"/>
+        <location filename="../libfernie/src/utilities.cpp" line="527"/>
         <source>pinned a message</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="525"/>
+        <location filename="../libfernie/src/utilities.cpp" line="527"/>
         <source>pinned a message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="527"/>
+        <location filename="../libfernie/src/utilities.cpp" line="529"/>
         <source>sent a self-destructing photo that is expired</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="527"/>
+        <location filename="../libfernie/src/utilities.cpp" line="529"/>
         <source>sent a self-destructing photo that is expired</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="529"/>
+        <location filename="../libfernie/src/utilities.cpp" line="531"/>
         <source>sent a self-destructing video that is expired</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="529"/>
+        <location filename="../libfernie/src/utilities.cpp" line="531"/>
         <source>sent a self-destructing video that is expired</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="531"/>
+        <location filename="../libfernie/src/utilities.cpp" line="533"/>
         <source>sent a self-destructing voice message that is expired</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="531"/>
+        <location filename="../libfernie/src/utilities.cpp" line="533"/>
         <source>sent a self-destructing voice message that is expired</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../libfernie/src/utilities.cpp" line="533"/>
-        <source>sent a self-destructing video message that is expired</source>
-        <comment>myself</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../libfernie/src/utilities.cpp" line="533"/>
-        <source>sent a self-destructing video message that is expired</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../libfernie/src/utilities.cpp" line="535"/>
+        <source>sent a self-destructing video message that is expired</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../libfernie/src/utilities.cpp" line="535"/>
+        <source>sent a self-destructing video message that is expired</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../libfernie/src/utilities.cpp" line="537"/>
         <source>created a screenshot in this chat</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="535"/>
+        <location filename="../libfernie/src/utilities.cpp" line="537"/>
         <source>created a screenshot in this chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../libfernie/src/utilities.cpp" line="538"/>
+        <location filename="../libfernie/src/utilities.cpp" line="540"/>
         <source>scored %Ln points</source>
         <comment>myself</comment>
         <translation type="unfinished">
@@ -3558,34 +3574,34 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../libfernie/src/utilities.cpp" line="538"/>
+        <location filename="../libfernie/src/utilities.cpp" line="540"/>
         <source>scored %Ln points</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="544"/>
+        <location filename="../libfernie/src/utilities.cpp" line="546"/>
         <source>you allowed this bot to message you when you added it to your attachment menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="546"/>
+        <location filename="../libfernie/src/utilities.cpp" line="548"/>
         <source>you allowed this bot to message you when you logged in on %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="548"/>
+        <location filename="../libfernie/src/utilities.cpp" line="550"/>
         <source>you allowed this bot to message you in its web-app</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="549"/>
+        <location filename="../libfernie/src/utilities.cpp" line="551"/>
         <source>you allowed this bot to message you</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../libfernie/src/utilities.cpp" line="552"/>
+        <location filename="../libfernie/src/utilities.cpp" line="554"/>
         <source>boosted this chat %Ln times</source>
         <comment>myself</comment>
         <translation type="unfinished">
@@ -3593,235 +3609,235 @@
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../libfernie/src/utilities.cpp" line="553"/>
+        <location filename="../libfernie/src/utilities.cpp" line="555"/>
         <source>boosted this chat %Ln times</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="556"/>
+        <location filename="../libfernie/src/utilities.cpp" line="558"/>
         <source>sent a gift</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="556"/>
+        <location filename="../libfernie/src/utilities.cpp" line="558"/>
         <source>sent a gift</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="559"/>
+        <location filename="../libfernie/src/utilities.cpp" line="561"/>
         <source>started a giveaway</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="559"/>
+        <location filename="../libfernie/src/utilities.cpp" line="561"/>
         <source>started a giveaway</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="561"/>
+        <location filename="../libfernie/src/utilities.cpp" line="563"/>
         <source>a giveaway was completed</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="561"/>
+        <location filename="../libfernie/src/utilities.cpp" line="563"/>
         <source>a giveaway was completed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="566"/>
+        <location filename="../libfernie/src/utilities.cpp" line="568"/>
         <source>created this topic</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="566"/>
+        <location filename="../libfernie/src/utilities.cpp" line="568"/>
         <source>created this topic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="567"/>
+        <location filename="../libfernie/src/utilities.cpp" line="569"/>
         <source>created the topic &quot;%1&quot;</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="567"/>
+        <location filename="../libfernie/src/utilities.cpp" line="569"/>
         <source>created the topic &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="573"/>
+        <location filename="../libfernie/src/utilities.cpp" line="575"/>
         <source>renamed this topic to &quot;%1&quot;</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="573"/>
+        <location filename="../libfernie/src/utilities.cpp" line="575"/>
         <source>renamed this topic to &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="574"/>
+        <location filename="../libfernie/src/utilities.cpp" line="576"/>
         <source>renamed the topic &quot;%1&quot;</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="574"/>
+        <location filename="../libfernie/src/utilities.cpp" line="576"/>
         <source>renamed the topic &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="578"/>
+        <location filename="../libfernie/src/utilities.cpp" line="580"/>
         <source>changed this topic&apos;s icon</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="578"/>
+        <location filename="../libfernie/src/utilities.cpp" line="580"/>
         <source>changed this topic&apos;s icon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="579"/>
+        <location filename="../libfernie/src/utilities.cpp" line="581"/>
         <source>changed the icon of the topic &quot;%1&quot;</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="579"/>
+        <location filename="../libfernie/src/utilities.cpp" line="581"/>
         <source>changed the icon of the topic &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="585"/>
+        <location filename="../libfernie/src/utilities.cpp" line="587"/>
         <source>closed this topic</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="585"/>
+        <location filename="../libfernie/src/utilities.cpp" line="587"/>
         <source>closed this topic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="586"/>
+        <location filename="../libfernie/src/utilities.cpp" line="588"/>
         <source>closed the topic &quot;%1&quot;</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="586"/>
+        <location filename="../libfernie/src/utilities.cpp" line="588"/>
         <source>closed the topic &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="589"/>
+        <location filename="../libfernie/src/utilities.cpp" line="591"/>
         <source>reopened this topic</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="589"/>
+        <location filename="../libfernie/src/utilities.cpp" line="591"/>
         <source>reopened this topic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="590"/>
+        <location filename="../libfernie/src/utilities.cpp" line="592"/>
         <source>reopened the topic &quot;%1&quot;</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="590"/>
+        <location filename="../libfernie/src/utilities.cpp" line="592"/>
         <source>reopened the topic &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="595"/>
+        <location filename="../libfernie/src/utilities.cpp" line="597"/>
         <source>hid this topic</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="595"/>
+        <location filename="../libfernie/src/utilities.cpp" line="597"/>
         <source>hid this topic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="596"/>
+        <location filename="../libfernie/src/utilities.cpp" line="598"/>
         <source>hid the general topic</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="596"/>
+        <location filename="../libfernie/src/utilities.cpp" line="598"/>
         <source>hid the general topic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="599"/>
+        <location filename="../libfernie/src/utilities.cpp" line="601"/>
         <source>unhid this topic</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="599"/>
+        <location filename="../libfernie/src/utilities.cpp" line="601"/>
         <source>unhid this topic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="600"/>
+        <location filename="../libfernie/src/utilities.cpp" line="602"/>
         <source>unhid the general topic</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="600"/>
+        <location filename="../libfernie/src/utilities.cpp" line="602"/>
         <source>unhid the general topic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="603"/>
+        <location filename="../libfernie/src/utilities.cpp" line="605"/>
         <source>sent an unsupported message</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="603"/>
+        <location filename="../libfernie/src/utilities.cpp" line="605"/>
         <source>sent an unsupported message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="606"/>
+        <location filename="../libfernie/src/utilities.cpp" line="608"/>
         <source>sent an unsupported message: %1</source>
         <comment>myself; %1 is message type</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="607"/>
+        <location filename="../libfernie/src/utilities.cpp" line="609"/>
         <source>sent an unsupported message: %1</source>
         <comment>%1 is message type</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="736"/>
+        <location filename="../libfernie/src/utilities.cpp" line="738"/>
         <source>Deleted Account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="736"/>
+        <location filename="../libfernie/src/utilities.cpp" line="738"/>
         <source>Unknown</source>
         <comment>A user without a known name</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../libfernie/src/utilities.cpp" line="760"/>
+        <location filename="../libfernie/src/utilities.cpp" line="762"/>
         <source>Unknown</source>
         <comment>A chat without a known name</comment>
         <translation type="unfinished"></translation>

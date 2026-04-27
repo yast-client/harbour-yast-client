@@ -1493,6 +1493,22 @@ messages</numerusform>
         <comment>Reply to a message in a notification</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message numerus="yes">
+        <source>Mentions in %1</source>
+        <comment>Title for a notification containing messages with mentions from a group chat. Mention count is displayed separately</comment>
+        <translation>
+            <numerusform>Mention in %1</numerusform>
+            <numerusform>Mentions in %1</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>Mentions from %1</source>
+        <comment>Title for a notification containing messages with mentions from a private chat. Mention count is displayed separately</comment>
+        <translation>
+            <numerusform>Mention from %1</numerusform>
+            <numerusform>Mentions from %1</numerusform>
+        </translation>
+    </message>
 </context>
 <context>
     <name>Opal.About</name>

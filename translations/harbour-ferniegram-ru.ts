@@ -1509,6 +1509,24 @@
         <comment>Reply to a message in a notification</comment>
         <translation type="unfinished">Ответить</translation>
     </message>
+    <message numerus="yes">
+        <source>Mentions in %1</source>
+        <comment>Title for a notification containing messages with mentions from a group chat. Mention count is displayed separately</comment>
+        <translation>
+            <numerusform>Упоминание в %1</numerusform>
+            <numerusform>Упоминания в %1</numerusform>
+            <numerusform>Упоминания в %1</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>Mentions from %1</source>
+        <comment>Title for a notification containing messages with mentions from a private chat. Mention count is displayed separately</comment>
+        <translation>
+            <numerusform>Упоминание от %1</numerusform>
+            <numerusform>Упоминания от %1</numerusform>
+            <numerusform>Упоминания от %1</numerusform>
+        </translation>
+    </message>
 </context>
 <context>
     <name>Opal.About</name>
