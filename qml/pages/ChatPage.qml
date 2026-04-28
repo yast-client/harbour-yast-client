@@ -328,7 +328,6 @@ Page {
             }
 
             MenuItem {
-                id: deleteChatMenuItem
                 visible: chatPage.isPrivateChat
                 onClicked: {
                     var privateChatId = chatInformation.id
@@ -338,7 +337,6 @@ Page {
             }
 
             MenuItem {
-                id: closeSecretChatMenuItem
                 visible: chatPage.isSecretChat && chatPage.secretChatDetails.state["@type"] !== "secretChatStateClosed"
                 onClicked: {
                     var secretChatId = chatPage.secretChatDetails.id
@@ -348,7 +346,6 @@ Page {
             }
 
             MenuItem {
-                id: joinLeaveChatMenuItem
                 visible: (chatPage.isSupergroup || chatPage.isBasicGroup) && chatGroupInformation && chatGroupInformation.status["@type"] !== "chatMemberStatusBanned"
                 onClicked: {
                     if (chatPage.userIsMember) {
@@ -360,22 +357,12 @@ Page {
             }
 
             MenuItem {
-                id: muteChatMenuItem
                 visible: chatPage.userIsMember
-                onClicked: {
-                    var newNotificationSettings = chatInformation.notification_settings
-                    if (newNotificationSettings.mute_for > 0)
-                        newNotificationSettings.mute_for = 0
-                    else
-                        newNotificationSettings.mute_for = 6666666
-                    newNotificationSettings.use_default_mute_for = false
-                    tdLibWrapper.setChatNotificationSettings(chatInformation.id, newNotificationSettings)
-                }
-                text: chatInformation.notification_settings.mute_for > 0 ? qsTr("Unmute Chat") : qsTr("Mute Chat")
+                text: Functions.getMuteButtonTitle(tdLibWrapper.chatIsMuted(chatInformation.id, chatInformation.notification_settings), chatInformation.notification_settings)
+                onClicked: Functions.toggleChatIsMuted(chatInformation.id, chatInformation.notification_settings)
             }
 
             MenuItem {
-                id: searchInChatMenuItem
                 visible: !chatPage.isSecretChat && !chatPage.viewAsTopics && !searchInChatItem.visible
                 onClicked: {
                     // This automatically shows the search field as well

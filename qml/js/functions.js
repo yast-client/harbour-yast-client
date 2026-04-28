@@ -332,3 +332,29 @@ function getProxyPingDescription(ping) {
                     : qsTr("Available", "Indicates that the proxy is available")
     }
 }
+
+function getMuteButtonTitle(muted, settings) {
+    return muted ? qsTr("Unmute") + (settings.use_default_mute_for || settings.mute_for > 31622400
+                                     ? '' : ' <font color="'+(highlighted ? palette.secondaryHighlightColor : palette.secondaryColor) + '">' + Format.formatDuration(settings.mute_for) + '</font>')
+                 : qsTr("Mute notifications")
+}
+
+function setChatIsMuted(chatId, notificationSettings, doMute) {
+    // If chat is muted for more than 366 days, it's considered muted forever
+
+    var newNotificationSettings = JSON.parse(JSON.stringify(notificationSettings))
+    var scopeMuteFor = tdLibWrapper.getChatScopeNotificationSettings(chatId).mute_for
+
+    if (doMute ? (scopeMuteFor > 31622400) : (scopeMuteFor === 0))
+        newNotificationSettings.use_default_mute_for = true
+    else {
+        newNotificationSettings.use_default_mute_for = false
+        newNotificationSettings.mute_for = doMute ? 31622401 : 0
+    }
+
+    tdLibWrapper.setChatNotificationSettings(chatId, newNotificationSettings)
+}
+
+function toggleChatIsMuted(chatId, notificationSettings) {
+    setChatIsMuted(chatId, notificationSettings, !tdLibWrapper.chatIsMuted(chatId, notificationSettings))
+}

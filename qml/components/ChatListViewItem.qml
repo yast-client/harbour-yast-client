@@ -117,24 +117,12 @@ PhotoTextsListItem {
 
                 MenuItem {
                     visible: chat_id != tdLibWrapper.myUserId
-                    onClicked: {
-                        if (tdLibWrapper.chatIsMuted(chat_id, notification_settings)) {
-                            var newNotificationSettings = notification_settings
-                            if (tdLibWrapper.getChatScopeNotificationSettings(chat_id).mute_for == 0)
-                                newNotificationSettings.use_default_mute_for = true
-                            else {
-                                newNotificationSettings.use_default_mute_for = false
-                                newNotificationSettings.mute_for = 0
-                            }
-
-                            tdLibWrapper.setChatNotificationSettings(chat_id, newNotificationSettings)
-                        } else
+                    onClicked:
+                        if (tdLibWrapper.chatIsMuted(chat_id, notification_settings))
+                            Functions.setChatIsMuted(chat_id, notification_settings, false)
+                        else
                             contextMenuLoader.sourceComponent = notificationsContextMenuComponent
-                    }
-                    text: tdLibWrapper.chatIsMuted(chat_id, notification_settings)
-                            ? (qsTr("Unmute") + (notification_settings.use_default_mute_for || notification_settings.mute_for > 31622400
-                                                 ? '' : ' <font color="'+(highlighted ? palette.secondaryHighlightColor : palette.secondaryColor) + '">' + Format.formatDuration(notification_settings.mute_for) + '</font>'))
-                            : qsTr("Mute notifications")
+                    text: Functions.getMuteButtonTitle(tdLibWrapper.chatIsMuted(chat_id, notification_settings), notification_settings)
                 }
 
                 MenuItem {
