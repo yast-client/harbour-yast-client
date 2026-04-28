@@ -164,20 +164,6 @@ SilicaFlickable {
             }
         }
         MenuItem {
-            visible: chatInformationPage.userIsMember
-            onClicked: {
-                var newNotificationSettings = chatInformationPage.chatInformation.notification_settings;
-                if (newNotificationSettings.mute_for > 0) {
-                    newNotificationSettings.mute_for = 0;
-                } else {
-                    newNotificationSettings.mute_for = 6666666;
-                }
-                newNotificationSettings.use_default_mute_for = false;
-                tdLibWrapper.setChatNotificationSettings(chatInformationPage.chatInformation.id, newNotificationSettings);
-            }
-            text: chatInformation.notification_settings.mute_for > 0 ? qsTr("Unmute Chat") : qsTr("Mute Chat")
-        }
-        MenuItem {
             visible: chatInformationPage.isPrivateChat
             onClicked: {
                 tdLibWrapper.createNewSecretChat(chatInformationPage.chatUserOrGroupId, "openDirectly");
@@ -468,6 +454,54 @@ SilicaFlickable {
                             appNotification.show(qsTr("The Invite Link has been copied to the clipboard."))
                         }
                     }
+                }
+            }
+
+            ListItem {
+                id: notificationsItem
+                visible: !isSavedMessages
+                contentHeight: notificationsSwitch.height
+
+                highlighted: notificationsSwitch.down || menuOpen
+                _backgroundColor: 'transparent'
+                openMenuOnPressAndHold: false
+
+                TextSwitch {
+                    id: notificationsSwitch
+                    text: qsTr("Notifications")
+                    highlighted: notificationsSwitch.highlighted
+
+                    readonly property var settings: chatInformation.notification_settings
+                    readonly property var scope: tdLibWrapper.getChatNotificationSettingsScope(chatInformation.id)
+                    property var scopeSettings: tdLibWrapper.scopeNotificationSettings(scope)
+                    readonly property int muteFor: (settings.use_default_mute_for ? scopeSettings : settings).mute_for
+
+                    Connections {
+                        target: tdLibWrapper
+                        onScopeNotificationSettingsChanged:
+                            if (scope === notificationsSwitch.scope)
+                                scopeSettings = tdLibWrapper.scopeNotificationSettings(scope)
+                    }
+
+                    description: muteFor > 0
+                                 ? (muteFor > 31622400
+                                    ? qsTr("Muted") : qsTr("Muted for %1").arg(Format.formatDuration(muteFor)))
+                                 : qsTr("Unmuted")
+
+                    checked: muteFor == 0
+                    automaticCheck: false
+
+                    onClicked: {
+                        busy = true
+                        Functions.toggleChatIsMuted(chatInformation.id, settings)
+                    }
+                    onCheckedChanged: busy = false
+                    onPressAndHold: notificationsItem.openMenu()
+                }
+
+                menu: ChatNotificationsContextMenu {
+                    chatId: chatInformation.id
+                    notificationSettings: chatInformation.notification_settings
                 }
             }
 

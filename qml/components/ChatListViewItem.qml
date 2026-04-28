@@ -2,7 +2,6 @@ import QtQuick 2.6
 import Sailfish.Silica 1.0
 import App.Logic 1.0
 
-import "../pages"
 import "../js/twemoji.js" as Emoji
 import "../js/functions.js" as Functions
 
@@ -140,53 +139,9 @@ PhotoTextsListItem {
 
         Component {
             id: notificationsContextMenuComponent
-            ContextMenu {
-                MenuItem {
-                    text: qsTr("Mute forever")
-                    onClicked: Functions.setChatIsMuted(chat_id, notification_settings, true)
-                }
-
-                Repeater {
-                    model: [1, 8, 24]
-                    MenuItem {
-                        text: qsTr("Mute for %Ln hours", '', modelData)
-                        onClicked: {
-                            var newNotificationSettings = notification_settings
-                            newNotificationSettings.use_default_mute_for = false
-                            newNotificationSettings.mute_for = modelData * 60
-                            tdLibWrapper.setChatNotificationSettings(chat_id, newNotificationSettings)
-                        }
-                    }
-                }
-
-                MenuItem {
-                    text: qsTr("Mute for...")
-                    onClicked: {
-                        var dialog = pageStack.push(Qt.resolvedUrl("../dialogs/DurationPickerDialog.qml"), {
-                                                        title: qsTr("Mute notifications"),
-                                                        maxDays: 365
-                                                    })
-                        dialog.accepted.connect(function() {
-                            var newNotificationSettings = notification_settings
-                            newNotificationSettings.use_default_mute_for = false
-                            newNotificationSettings.mute_for = Math.min(dialog.allSeconds, 31622400) // Not more than 366 days
-                            tdLibWrapper.setChatNotificationSettings(chat_id, newNotificationSettings)
-                        })
-                    }
-                }
-
-                MenuItem {
-                    text: qsTr("Customize")
-                    onClicked: pageStack.push(customizeNotificationsPageComponent)
-                    Component {
-                        id: customizeNotificationsPageComponent
-                        CustomizeNotificationsPage {
-                            // Pass as bindings
-                            chatId: chat_id
-                            notificationSettings: notification_settings
-                        }
-                    }
-                }
+            ChatNotificationsContextMenu {
+                chatId: chat_id
+                notificationSettings: notification_settings
             }
         }
     }
