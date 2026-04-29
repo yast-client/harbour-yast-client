@@ -358,7 +358,7 @@ Page {
 
             MenuItem {
                 visible: chatPage.userIsMember
-                text: Functions.getMuteButtonTitle(tdLibWrapper.chatIsMuted(chatInformation.id, chatInformation.notification_settings), chatInformation.notification_settings)
+                text: Functions.getMuteButtonTitle(tdLibWrapper.chatIsMuted(chatInformation.id, chatInformation.notification_settings), chatInformation.notification_settings, highlighted)
                 onClicked: Functions.toggleChatIsMuted(chatInformation.id, chatInformation.notification_settings)
             }
 

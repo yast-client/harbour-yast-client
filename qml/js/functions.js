@@ -333,9 +333,10 @@ function getProxyPingDescription(ping) {
     }
 }
 
-function getMuteButtonTitle(muted, settings) {
+function getMuteButtonTitle(muted, settings, highlighted) {
+    // TODO: save current time every time notification settings are received/updated for keeping the mute duration up to date
     return muted ? qsTr("Unmute") + (settings.use_default_mute_for || settings.mute_for > 31622400
-                                     ? '' : ' <font color="'+(highlighted ? palette.secondaryHighlightColor : palette.secondaryColor) + '">' + Format.formatDuration(settings.mute_for) + '</font>')
+                                     ? '' : ' <font color="'+(highlighted ? Silica.Theme.secondaryHighlightColor : Silica.Theme.secondaryColor) + '">' + Silica.Format.formatDuration(settings.mute_for) + '</font>')
                  : qsTr("Mute notifications")
 }
 

@@ -121,7 +121,7 @@ PhotoTextsListItem {
                             Functions.setChatIsMuted(chat_id, notification_settings, false)
                         else
                             contextMenuLoader.sourceComponent = notificationsContextMenuComponent
-                    text: Functions.getMuteButtonTitle(tdLibWrapper.chatIsMuted(chat_id, notification_settings), notification_settings)
+                    text: Functions.getMuteButtonTitle(tdLibWrapper.chatIsMuted(chat_id, notification_settings), notification_settings, highlighted)
                 }
 
                 MenuItem {
