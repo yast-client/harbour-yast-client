@@ -1,6 +1,8 @@
 # Ferniegram
 A Telegram client for Sailfish OS
 
+**Ferniegram is still work-in-progress.** Public releases will not be made for now.
+
 ## Credits
 
 Author: roundedrectangle
