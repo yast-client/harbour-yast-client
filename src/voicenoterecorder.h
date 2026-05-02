@@ -17,8 +17,7 @@
     along with Fernschreiber. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef VOICENOTERECORDER_H
-#define VOICENOTERECORDER_H
+#pragma once
 
 #include <QObject>
 #include <QAudioRecorder>
@@ -85,5 +84,3 @@ private:
 
     QString getTemporaryDirectoryPath();
 };
-
-#endif // VOICENOTERECORDER_H

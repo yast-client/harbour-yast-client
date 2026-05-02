@@ -176,4 +176,3 @@ add_custom_target(distfiles
 # format.
 file(WRITE "${CMAKE_BINARY_DIR}/QtCreatorDeployment.txt"
     "${CMAKE_INSTALL_PREFIX}\n${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}:bin\n")
-

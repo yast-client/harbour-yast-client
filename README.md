@@ -66,11 +66,9 @@ This contains information about building Ferniegram for SailfishOS. AsteroidOS v
 Simply clone this repository and ensure to have all [submodules](https://git-scm.com/docs/git-submodule) imported as well (e.g. by using `git submodule update --init --recursive`). Then use the project file `CMakeLists.txt` to import the sources in your SailfishOS IDE. To build and run Fernschreiber or an application which is based on Fernschreiber, you need to create the file `harbour-ferniegram/src/tdlibsecrets.h` and enter the required constants in the following format:
 
 ```
-#ifndef TDLIBSECRETS_H
-#define TDLIBSECRETS_H
+#pragma once
 const char TDLIB_API_ID[] = "42424242";
 const char TDLIB_API_HASH[] = "1234567890abcdef1234567890abcdef";
-#endif // TDLIBSECRETS_H
 ```
 
 You get the Telegram API ID and hash as soon as you've registered your own application on [https://my.telegram.org](https://my.telegram.org).

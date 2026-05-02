@@ -1,5 +1,4 @@
-#ifndef GSTAUDIORECORDER_H
-#define GSTAUDIORECORDER_H
+#pragma once
 
 #include <QObject>
 #include <QThread>
@@ -51,5 +50,3 @@ private:
     int64_t duration; // duration means duration recorded so far
     QString location;
 };
-
-#endif // GSTAUDIORECORDER_H
