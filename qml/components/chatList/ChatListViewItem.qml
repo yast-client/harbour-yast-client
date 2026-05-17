@@ -83,10 +83,11 @@ PhotoTextsListItem {
                 MenuItem {
                     visible: unread_count > 0 || unread_reaction_count > 0 || unread_mention_count > 0
                     onClicked: {
-                        tdLibWrapper.viewMessage(chat_id, display.last_message.id, true);
-                        tdLibWrapper.readAllChatMentions(chat_id);
-                        tdLibWrapper.readAllChatReactions(chat_id);
-                        tdLibWrapper.toggleChatIsMarkedAsUnread(chat_id, false);
+                        tdLibWrapper.viewMessage(chat_id, display.last_message.id, true)
+                        tdLibWrapper.readAllChatMentions(chat_id)
+                        tdLibWrapper.readAllChatReactions(chat_id)
+                        tdLibWrapper.readAllChatPollVotes(chat_id)
+                        tdLibWrapper.toggleChatIsMarkedAsUnread(chat_id, false)
                     }
                     text: qsTr("Mark all messages as read")
                 }

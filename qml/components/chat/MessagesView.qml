@@ -433,6 +433,7 @@ Column {
             if (unreadCount === 0) {
                 tdLibWrapper.readAllChatMentions(chatInformation.id)
                 tdLibWrapper.readAllChatReactions(chatInformation.id)
+                tdLibWrapper.readAllChatPollVotes(chatInformation.id)
             }
         }
     }
@@ -549,6 +550,7 @@ Column {
                 } else {
                     tdLibWrapper.readAllChatMentions(chatInformation.id)
                     tdLibWrapper.readAllChatReactions(chatInformation.id)
+                    tdLibWrapper.readAllChatPollVotes(chatInformation.id)
                 }
                 manuallyScrolledToBottom = chatView.atYEnd
             }

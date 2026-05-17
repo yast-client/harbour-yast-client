@@ -300,11 +300,12 @@ Column {
                 visible: !(chatPage.isPrivateChat || chatPage.isSecretChat) && chatPage.hasSendPrivilege("can_send_polls")
                 icon.source: "image://theme/icon-m-question"
                 onClicked: {
-                    pageStack.push(Qt.resolvedUrl("../../pages/PollCreationPage.qml"), {
+                    pageStack.push(Qt.resolvedUrl("../../dialogs/NewPollDialog.qml"), {
                                         chatId: chatInformation.id,
+                                        chatTitle: chatInformation.title,
+                                        isChannel: isChannel,
                                         replyToMessageId: newMessageColumn.replyToMessageId,
-                                        topicId: topicId,
-                                        groupName: chatInformation.title
+                                        topicId: topicId
                                     })
                     attachmentOptionsFlickable.show = false
                 }

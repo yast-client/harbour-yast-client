@@ -63,7 +63,7 @@ MessageContentBase {
         tdLibWrapper.setPollAnswer(chatId, messageId, chosenIndexes)
     }
     function handleChoose(index) {
-        if (!pollData.type.allow_multiple_answers) {
+        if (!pollData.allows_multiple_answers) {
             chosenIndexes = [index]
             sendResponse()
             return
@@ -95,74 +95,85 @@ MessageContentBase {
         width: parent.width
         spacing: Theme.paddingSmall
 
-        // Poll type text (<Anynymous> Poll/Quiz) is placed in the message text by utilities
-
         Row {
             width: parent.width
             layoutDirection: isOwnMessage ? Qt.RightToLeft : Qt.LeftToRight
 
             Column {
                 width: parent.width - pollDurationRow.width
+                bottomPadding: pollMessageComponent.canAnswer ? Theme.paddingSmall : 0
+
                 Label {
-                    font.pixelSize: Theme.fontSizeSmall
                     width: parent.width
-                    visible: !!text
                     text: Emoji.emojify(Functions.enhanceMessageText(pollData.question), Theme.fontSizeSmall)
-                    wrapMode: Text.Wrap
-                    textFormat: Text.StyledText
-                    color: pollMessageComponent.isOwnMessage || pollMessageComponent.highlighted ? Theme.highlightColor : Theme.primaryColor
-                }
-
-                Label {
-                    font.pixelSize: Theme.fontSizeTiny
-                    width: parent.width
                     visible: !!text
-                    text: pollData.is_closed ? qsTr("Final results") : (pollData.type.allow_multiple_answers ? qsTr("Multiple answers are allowed") : '')
                     wrapMode: Text.Wrap
-                    color: pollMessageComponent.isOwnMessage || pollMessageComponent.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
+                    font.pixelSize: Theme.fontSizeSmall
+                    color: pollMessageComponent.isOwnMessage || pollMessageComponent.highlighted ? Theme.highlightColor : Theme.primaryColor
+                    textFormat: Text.StyledText
                 }
 
-                RecentActorsList {
-                    width: implicitWidth + (recentVotersButton.visible ? recentVotersButton.width : 0)
-                    model: pollData.recent_voter_ids.reverse()
-                    inverted: true
-                    visible: model && model.length > 0
-                    height: Theme.iconSizeSmallPlus
-                    paddingDifference: Theme.iconSizeSmall
-                    highlighted: recentVotersMouseArea.containsPress
+                Row {
+                    spacing: Theme.paddingMedium
 
-                    Icon {
-                        id: recentVotersButton
-                        anchors.right: parent.right
-                        width: parent.height
-                        height: width
-                        visible: !pollMessageComponent.canAnswer && !pollData.is_anonymous && pollData.total_voter_count > 0
-                        source: "image://theme/icon-m-media-artists"
-                        highlighted: parent.highlighted
+                    Label {
+                        width: recentVotersList.visible
+                               ? Math.min(implicitWidth, parent.width - (recentVotersList.visible ? recentVotersList.width + parent.spacing : 0))
+                               : implicitWidth
+                        visible: !!text
+                        text: pollData.is_closed ? qsTr("Final results") : (isQuiz
+                                                                            ? (pollData.is_anonymous ? qsTr("Anonymous Quiz") : qsTr("Quiz"))
+                                                                            : (pollData.is_anonymous ? qsTr("Anonymous Poll") : qsTr("Poll")))
+                        wrapMode: Text.Wrap
+                        font.pixelSize: Theme.fontSizeTiny
+                        color: pollMessageComponent.isOwnMessage || pollMessageComponent.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
+                    }
+
+                    RecentActorsList {
+                        id: recentVotersList
+                        width: implicitWidth + (recentVotersButton.visible ? recentVotersButton.width : 0)
+                        model: pollData.recent_voter_ids.reverse()
+                        inverted: true
+                        visible: count > 0 || recentVotersButton.visible
+                        height: Theme.iconSizeSmallPlus
+                        paddingDifference: Theme.iconSizeSmall
+                        highlighted: recentVotersMouseArea.containsPress
+
                         Icon {
-                            width: Theme.iconSizeExtraSmall
+                            id: recentVotersButton
+                            anchors.right: parent.right
+                            width: parent.height
                             height: width
-                            anchors {
-                                right: parent.right
-                                top: parent.top
-                            }
-                            opacity: 0.8
-                            source: "image://theme/icon-s-maybe"
+                            visible: !!pollData.can_get_voters && recentVotersList.count == 0
+                            source: 'image://theme/icon-m-media-artists'
                             highlighted: parent.highlighted
+                            Icon {
+                                width: Theme.iconSizeExtraSmall
+                                height: width
+                                anchors {
+                                    top: parent.top
+                                    right: parent.right
+                                }
+                                opacity: 0.8
+                                source: 'image://theme/icon-s-maybe'
+                                highlighted: parent.highlighted
+                            }
+                        }
+
+                        MouseArea {
+                            id: recentVotersMouseArea
+                            anchors.fill: parent
+                            onClicked: pageStack.push(pollResultsPageComponent)
                         }
                     }
-
-                    MouseArea {
-                        id: recentVotersMouseArea
-                        anchors.fill: parent
-                        onClicked: pageStack.push(pollResultsPageComponent)
-                    }
                 }
 
-                Item {
-                    visible: !pollMessageComponent.canAnswer
-                    width: 1
-                    height: Theme.paddingSmall
+                Label {
+                    width: parent.width
+                    text: Emoji.emojify(Functions.enhanceMessageText(rawMessage.description), Theme.fontSizeSmall)
+                    visible: !!text
+                    font.pixelSize: Theme.fontSizeSmall
+                    wrapMode: Text.Wrap
                 }
             }
 
@@ -305,13 +316,11 @@ MessageContentBase {
             }
         }
 
-        ListView {
+        Repeater {
             id: list
             model: pollData.options
             x: -Theme.horizontalPageMargin/2
             width: parent.width - x
-            height: contentHeight
-            interactive: false
             delegate: pollMessageComponent.canAnswer ? canAnswerDelegate : resultDelegate
         }
 
@@ -339,42 +348,20 @@ MessageContentBase {
             }
         }
 
-        Item {
-            x: -Theme.horizontalPageMargin/2
-            width: parent.width - x
-            height: Math.max(voteButtons.height, totalVoterCount.height + Theme.paddingSmall)
+        Label {
+            font.pixelSize: Theme.fontSizeTiny
+            anchors.right: parent.right
+            text: qsTr("%Ln vote(s) total", "number of total votes", pollData.total_voter_count)
+            horizontalAlignment: Text.AlignRight
+            color: pollMessageComponent.isOwnMessage || pollMessageComponent.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
+        }
 
-            Row {
-                id: voteButtons
-                spacing: Theme.paddingSmall
-                width: parent.width - totalVoterCount.width - parent.spacing
-                anchors {
-                    left: parent.left
-                    bottom: parent.bottom
-                }
-
-                IconButton {
-                    visible: !!pollData.type.allow_multiple_answers && !pollData.is_closed && pollMessageComponent.chosenIndexes.length > 0 && !pollMessageComponent.hasAnswered ? 1.0 : 0.0
-                    icon.source: "image://theme/icon-m-send"
-                    onClicked: sendResponse()
-                }
-            }
-
-            Label {
-                id: totalVoterCount
-                font.pixelSize: Theme.fontSizeTiny
-                anchors {
-                    top: parent.top
-                    right: parent.right
-                    left: voteButtons.right
-                    leftMargin: Theme.paddingMedium
-                }
-                text: qsTr("%Ln vote(s) total", "number of total votes", pollData.total_voter_count)
-                width: contentWidth
-                height: contentHeight
-                horizontalAlignment: Text.AlignRight
-                color: pollMessageComponent.isOwnMessage || pollMessageComponent.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
-            }
+        SecondaryButton {
+            anchors.horizontalCenter: parent.horizontalCenter
+            visible: !!pollData.allows_multiple_answers && !pollData.is_closed && !pollMessageComponent.hasAnswered
+            enabled: pollMessageComponent.chosenIndexes.length > 0
+            text: qsTr("Vote")
+            icon.source: 'image://theme/icon-m-send'
         }
     }
 }
