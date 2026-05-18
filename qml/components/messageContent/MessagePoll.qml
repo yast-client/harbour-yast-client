@@ -362,6 +362,7 @@ MessageContentBase {
             enabled: pollMessageComponent.chosenIndexes.length > 0
             text: qsTr("Vote")
             icon.source: 'image://theme/icon-m-send'
+            onClicked: sendResponse()
         }
     }
 }
