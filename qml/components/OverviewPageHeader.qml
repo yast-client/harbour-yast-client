@@ -8,7 +8,7 @@ PageHeader {
     property alias statusItem: pageStatus
     property string defaultTitle: qsTr("Ferniegram")
 
-    title: tdLibWrapper.connectionStateText || defaultTitle
+    title: tdLibState.connectionStateText || defaultTitle
     leftMargin: Theme.itemSizeMedium
 
     GlassItem {
@@ -25,27 +25,27 @@ PageHeader {
     states: [
         State {
             name: "WaitingForNetwork"
-            when: tdLibWrapper.connectionState == TDLibAPI.WaitingForNetwork
+            when: tdLibState.connectionState == TDLibState.WaitingForNetwork
             PropertyChanges { target: pageStatus; color: "red" }
         },
         State {
             name: "Connecting"
-            when: tdLibWrapper.connectionState == TDLibAPI.Connecting
+            when: tdLibState.connectionState == TDLibState.Connecting
             PropertyChanges { target: pageStatus; color: "gold" }
         },
         State {
             name: "ConnectingToProxy"
-            when: tdLibWrapper.connectionState == TDLibAPI.ConnectingToProxy
+            when: tdLibState.connectionState == TDLibState.ConnectingToProxy
             PropertyChanges { target: pageStatus; color: "gold" }
         },
         State {
             name: "ConnectionReady"
-            when: tdLibWrapper.connectionState == TDLibAPI.ConnectionReady
+            when: tdLibState.connectionState == TDLibState.ConnectionReady
             PropertyChanges { target: pageStatus; color: "green" }
         },
         State {
             name: "Updating"
-            when: tdLibWrapper.connectionState == TDLibAPI.Updating
+            when: tdLibState.connectionState == TDLibState.Updating
             PropertyChanges { target: pageStatus; color: "lightblue" }
         }
     ]
