@@ -14,17 +14,23 @@ PhotoTextsListItem {
         highlighted: listItem.highlighted && !listItem.menuOpen
     }
     property bool showDraft: !!draft_message_text && draft_message_date > last_message_date
-    property string previewText: showDraft ? draft_message_text : last_message_text
+    property string previewText: chat_actions_text || (showDraft ? draft_message_text : last_message_text)
     property int chatListType: ChatFoldersModel.FolderMain
     property int folderId
 
     // chat title
     primaryText.text: title ? Emoji.emojify(utilities.fixReservedHtmlCharacters(title), Theme.fontSizeMedium) : qsTr("Unknown")
     // last user
-    prologSecondaryText.text: showDraft ? "<i>"+qsTr("Draft")+"</i>" : (is_channel || ((chat_type == TDLibAPI.ChatTypePrivate || chat_type == TDLibAPI.ChatTypeSecret) && !last_message_is_service) ? "" : ( last_message_sender_id ? ( last_message_sender_id !== tdLibWrapper.myUserId ? Emoji.emojify(utilities.getUserName(tdLibWrapper.getUserInformation(last_message_sender_id)), Theme.fontSizeExtraSmall) : qsTr("You") ) : "" ))
+    prologSecondaryText.text: chat_actions_text ? '' : showDraft ? "<i>"+qsTr("Draft")+"</i>" : (is_channel || ((chat_type == TDLibAPI.ChatTypePrivate || chat_type == TDLibAPI.ChatTypeSecret) && !last_message_is_service) ? "" : ( last_message_sender_id ? ( last_message_sender_id !== tdLibWrapper.myUserId ? Emoji.emojify(utilities.getUserName(tdLibWrapper.getUserInformation(last_message_sender_id)), Theme.fontSizeExtraSmall) : qsTr("You") ) : "" ))
     // last message
     secondaryText.text: previewText ? Emoji.emojify(utilities.fixReservedHtmlCharacters(previewText), Theme.fontSizeExtraSmall) : "<i>" + qsTr("No message in this chat.") + "</i>"
-    minithumbnail: showDraft ? null : last_message_minithumbnail
+    secondaryText.highlighted: listItem.highlighted || !!chat_actions_text
+    minithumbnail: showDraft || chat_actions_text ? null : last_message_minithumbnail
+    chatActionIcon {
+        type: chat_main_action_type
+        actionProgress: chat_actions_progress
+    }
+    onPreviewTextChanged: if (chat_actions_text) console.log(chat_actions_text)
     // message date
     tertiaryText.text: showDraft ? Functions.getDateTimeElapsed(draft_message_date) : (last_message_date ? (last_message_date.length === 0 ? "" : Functions.getDateTimeElapsed(last_message_date) + Emoji.emojify(last_message_status, tertiaryText.font.pixelSize)) : "")
     unreadCount: unread_count

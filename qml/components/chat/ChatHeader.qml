@@ -11,6 +11,7 @@ BackgroundItem {
     property bool isSecret
     property alias chatNameText: chatNameText
     property alias chatStatusText: chatStatusText
+    property alias chatActionIcon: chatActionIcon
     property alias chatBadges: chatBadges
     property alias chatPictureContainer: chatPictureContainer
     property alias textContainer: textContainer
@@ -85,22 +86,33 @@ BackgroundItem {
                 }
             }
 
-            Label {
-                id: chatStatusText
-                width: Math.min(implicitWidth, parent.width)
+            Row {
+                width: Math.min(chatStatusText.implicitWidth + (chatActionIcon.active ? chatActionIcon.width + spacing : 0), parent.width)
+                spacing: Theme.paddingSmall
                 anchors {
                     right: parent.right
                     bottom: parent.bottom
                 }
 
-                textFormat: Text.StyledText
-                font.pixelSize: isPortrait ? Theme.fontSizeExtraSmall : Theme.fontSizeTiny
-                minimumPixelSize: Theme.fontSizeTiny
-                fontSizeMode: Text.Fit
-                font.family: Theme.fontFamilyHeading
-                color: header.pressed ? Theme.secondaryHighlightColor : Theme.secondaryColor
-                truncationMode: TruncationMode.Fade
-                maximumLineCount: 1
+                ChatActionIcon {
+                    id: chatActionIcon
+                }
+
+                Label {
+                    id: chatStatusText
+
+                    property bool isError
+
+                    width: parent.width - (chatActionIcon.active ? chatActionIcon.width + spacing : 0)
+                    textFormat: Text.StyledText
+                    font.pixelSize: isPortrait ? Theme.fontSizeExtraSmall : Theme.fontSizeTiny
+                    minimumPixelSize: Theme.fontSizeTiny
+                    fontSizeMode: Text.Fit
+                    font.family: Theme.fontFamilyHeading
+                    color: isError ? Theme.errorColor : highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
+                    truncationMode: TruncationMode.Fade
+                    maximumLineCount: 1
+                }
             }
         }
     }

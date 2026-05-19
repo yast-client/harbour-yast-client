@@ -26,6 +26,8 @@ ListItem {
     property var minithumbnail
     property int minithumbnailRadius: Theme.paddingSmall / 2
 
+    property alias chatActionIcon: chatActionIcon
+
     property real leftMargin: Theme.horizontalPageMargin
     property real rightMargin: Theme.horizontalPageMargin
 
@@ -86,10 +88,15 @@ ListItem {
         Row {
             width: parent.width
             spacing: Theme.paddingSmall
+
+            opacity: chatActionItem.active ? 0 : 1
+            Behavior on opacity { FadeAnimator {} }
+
             Label {
                 id: prologSecondaryText
                 font.pixelSize: Theme.fontSizeExtraSmall
                 width: Math.min(implicitWidth, parent.width)
+                anchors.verticalCenter: parent.verticalCenter
                 color: Theme.highlightColor
                 textFormat: Text.StyledText
                 truncationMode: TruncationMode.Fade
@@ -100,7 +107,6 @@ ListItem {
                 active: !!minithumbnail
                 width: active ? Theme.fontSizeExtraSmall : 0
                 height: width
-                anchors.verticalCenter: parent.verticalCenter
 
                 sourceComponent: Component {
                     OpacityMask {
@@ -125,14 +131,17 @@ ListItem {
                     }
                 }
             }
+            ChatActionIcon {
+                id: chatActionIcon
+            }
             Label {
                 id: secondaryText
                 font.pixelSize: Theme.fontSizeExtraSmall
-                width: parent.width - Theme.paddingMedium - prologSecondaryText.width
+                width: parent.width - (prologSecondaryText.width + (parent.visibleChildren.length-1)*parent.spacing + minithumbnailLoader.width + chatActionIcon.width)
                 truncationMode: TruncationMode.Fade
                 maximumLineCount: 1
                 textFormat: Text.StyledText
-                linkColor: Theme.highlightColor
+                linkColor: highlighted ? Theme.primaryColor : Theme.highlightColor
                 visible: prologSecondaryText.width < ( parent.width - Theme.paddingLarge )
             }
         }

@@ -395,14 +395,17 @@ Page {
                         // https://stackoverflow.com/questions/48325115/qml-programmatically-update-binding
                         if (_reloadStatus && !_reloadStatus) return ''
 
-                        var status = Functions.getChatActionsText(chatManager.chatActionsByChats, chatManager.chatActionsByUsers, isPrivateChat || isSecretChat)
-                        if (status) return status
+                        if (tdLibWrapper.connectionState != TDLibAPI.ConnectionReady)
+                            return tdLibWrapper.connectionStateText
+
+                        var chatActionsText = chatManager.chatActionsText
+                        if (chatActionsText)
+                            return chatActionsText
 
                         if (isBasicGroup || isSupergroup)
                             return Functions.getGroupStatusText(chatGroupInformation.member_count, isChannel, chatOnlineMemberCount)
 
-
-                        status = Functions.getChatPartnerStatusText(chatPartnerInformation.status['@type'], chatPartnerInformation.status.was_online, chatPartnerInformation.is_support, chatInformation.id, timepointStatus)
+                        var status = Functions.getChatPartnerStatusText(chatPartnerInformation.status['@type'], chatPartnerInformation.status.was_online, chatPartnerInformation.is_support, chatInformation.id, timepointStatus)
                         if (chatPage.secretChatDetails) {
                             var secretChatStatus = Functions.getSecretChatStatus(chatPage.secretChatDetails)
                             if (status && secretChatStatus)
@@ -412,6 +415,14 @@ Page {
                         }
                         return status
                     }
+
+                    chatActionIcon {
+                        type: chatManager.chatMainActionType
+                        actionProgress: chatManager.chatActionsProgress
+                    }
+                    chatStatusText.highlighted: chatHeader.highlighted || chatManager.chatActionsText
+                                                || (chatPartnerInformation && chatPartnerInformation.status && chatPartnerInformation['@type'] === 'userStatusOnline')
+                    //chatStatusText.isError: tdLibWrapper.connectionState != TDLibAPI.ConnectionReady
 
                     ProfileThumbnail {
                         id: chatPictureThumbnail

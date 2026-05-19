@@ -833,14 +833,14 @@ Column {
 
         Timer {
             id: chatActionTimer
-            property string action
+            property int action
             triggeredOnStart: true
             interval: 5000 // from https://core.telegram.org/constructor/updateChatUserTyping: chat action update is valid for 6 seconds
             repeat: true
             onTriggered: if (Qt.application.active)
                              tdLibWrapper.sendChatAction(chatInformation.id, action, topicId)
             onRunningChanged: if (!running)
-                                  tdLibWrapper.sendChatAction(chatInformation.id, "chatActionCancel", topicId)
+                                  tdLibWrapper.sendChatAction(chatInformation.id, topicId)
             function run(action) {
                 this.action = action
                 restart()
@@ -855,7 +855,7 @@ Column {
             height: active ? parent.height : 0
             source: "StickerPicker.qml"
             onStatusChanged: if (status == Loader.Ready)
-                                 chatActionTimer.run("chatActionChoosingSticker")
+                                 chatActionTimer.run(TDLibWrapper.ChoosingSticker)
                              else chatActionTimer.stop()
         }
 

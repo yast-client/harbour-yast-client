@@ -42,7 +42,7 @@ function getMessageText(message, simple, currentUserId, ignoreEntities, asFormat
     return utilities.getMessageText(message, simple ? Logic.Utilities.MessageTextSimple : Logic.Utilities.MessageTextDefault, ignoreEntities)
 }
 
-function getChatPartnerStatusText(statusType, was_online, isSupport, userId, asTimepoint) {
+function getChatPartnerStatusText(statusType, wasOnline, isSupport, userId, asTimepoint) {
     if (isSupport) return userId == tdLibWrapper.options.telegram_service_notifications_chat_id
                    ? qsTr("service notifications", "used as a status for the service notifications chat")
                    : qsTr("support", "used as a status for support chats, excluding the service notifications chat")
@@ -54,7 +54,7 @@ function getChatPartnerStatusText(statusType, was_online, isSupport, userId, asT
     case "userStatusLastWeek":
         return qsTr("last online: last week");
     case "userStatusOffline":
-        return qsTr("last online: %1").arg(asTimepoint ? getDateTimeTimepoint(was_online) : getDateTimeElapsed(was_online));
+        return qsTr("last online: %1").arg(asTimepoint ? getDateTimeTimepoint(wasOnline) : getDateTimeElapsed(wasOnline));
     case "userStatusOnline":
         return qsTr("online");
     case "userStatusRecently":
@@ -89,40 +89,6 @@ function getChatMemberStatusText(statusType) {
     return statusType || "";
 }
 
-function getChatActionText(action, privateOrSecretChat, single) {
-    switch (action) {
-    case "chatActionTyping":
-        return privateOrSecretChat ? qsTr("typing") : (single ? qsTr("%1 is typing") : qsTr("%1 are typing"))
-    case "chatActionChoosingContact":
-        return privateOrSecretChat ? qsTr("choosing a contact") : (single ? qsTr("%1 is choosing a contact") : qsTr("%1 are choosing a contact"))
-    case "chatActionChoosingLocation":
-        return privateOrSecretChat ? qsTr("choosing a location") : (single ? qsTr("%1 is choosing a location") : qsTr("%1 are choosing a location"))
-    case "chatActionChoosingSticker":
-        return privateOrSecretChat ? qsTr("choosing a sticker") : (single ? qsTr("%1 is choosing a sticker") : qsTr("%1 are choosing a sticker"))
-    case "chatActionRecordingVideo":
-        return privateOrSecretChat ? qsTr("recording a video") : (single ? qsTr("%1 is recording a video") : qsTr("%1 are recording a video"))
-    case "chatActionRecordingVideoNote":
-        return privateOrSecretChat ? qsTr("recording a video message") : (single ? qsTr("%1 is recording a video message") : qsTr("%1 are recording a video message"))
-    case "chatActionRecordingVoiceNote":
-        return privateOrSecretChat ? qsTr("recording a voice message") : (single ? qsTr("%1 is recording a voice message") : qsTr("%1 are recording a voice message"))
-    case "chatActionStartPlayingGame":
-        return privateOrSecretChat ? qsTr("playing a game") : (single ? qsTr("%1 is playing a game") : qsTr("%1 are playing a game"))
-    case "chatActionUploadingDocument":
-        return privateOrSecretChat ? qsTr("sending a file") : (single ? qsTr("%1 is sending a file") : qsTr("%1 are sending a file"))
-    case "chatActionUploadingPhoto":
-        return privateOrSecretChat ? qsTr("sending a photo") : (single ? qsTr("%1 is sending a photo") : qsTr("%1 are sending a photo"))
-    case "chatActionUploadingVideo":
-        return privateOrSecretChat ? qsTr("sending a video") : (single ? qsTr("%1 is sending a video") : qsTr("%1 are is sending a video"))
-    case "chatActionUploadingVideoNote":
-        return privateOrSecretChat ? qsTr("sending a video message") : (single ? qsTr("%1 is sending a video message") : qsTr("%1 are sending a video message"))
-    case "chatActionUploadingVoiceNote":
-        return privateOrSecretChat ? qsTr("sending a voice message") : (single ? qsTr("%1 is sending a voice message") : qsTr("%1 are sending a voice message"))
-    //case "chatActionWatchingAnimations":
-    //    return single ? qsTr("%1 is watching animations") : qsTr("%1 are watching animations")
-    }
-    return ''
-}
-
 function getGroupStatusText(memberCount, isChannel, onlineCount, emptyIfNoMembers) {
     // FIXME: we've also used the following member count formatting techniques:
     // - .arg(Number(memberCount).toLocaleString(Qt.locale(), "f", 0))
@@ -138,37 +104,6 @@ function getGroupStatusText(memberCount, isChannel, onlineCount, emptyIfNoMember
         return emptyIfNoMembers ? '' : (isChannel ? qsTr("Channel") : qsTr("Group"))
     return (isChannel ? qsTr("%1 subscribers", "", memberCount) : qsTr("%1 members", "", memberCount))
         .arg(getShortenedCount(memberCount))
-}
-
-function getChatActionsObject(chatActionsByChats, chatActionsByUsers) {
-    var result = {}
-    for (var chatId in chatActionsByChats) {
-        if (!(chatActionsByChats[chatId] in result))
-            result[chatActionsByChats[chatId]] = []
-        result[chatActionsByChats[chatId]].push(tdLibWrapper.getChat(chatId).title);
-    }
-    for (var userId in chatActionsByUsers) {
-        if (!(chatActionsByUsers[userId] in result))
-            result[chatActionsByUsers[userId]] = []
-        result[chatActionsByUsers[userId]].push(getUserName(tdLibWrapper.getUserInformation(userId)))
-    }
-
-    return result
-}
-
-function getChatActionsText(chatActionsByChats, chatActionsByUsers, privateOrSecretChat) {
-    var result = ''
-    var actions = getChatActionsObject(chatActionsByChats, chatActionsByUsers)
-    for (var action in actions) {
-        var senders = ''
-        for (var i=0; i < actions[action].length; i++)
-            senders += actions[action][i] + ', '
-        senders = senders.slice(0, -2)
-        var text = getChatActionText(action, privateOrSecretChat, actions[action].length <= 1)
-        if (text) result += text.arg(senders)
-    }
-
-    return result
 }
 
 function getShortenedCount(count) {
