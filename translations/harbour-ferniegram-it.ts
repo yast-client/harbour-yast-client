@@ -1352,8 +1352,24 @@
         <translation>Risultato finale</translation>
     </message>
     <message>
-        <source>Multiple answers are allowed</source>
-        <translation>Risposte multiple</translation>
+        <source>Anonymous Quiz</source>
+        <translation type="unfinished">Quiz anonimo</translation>
+    </message>
+    <message>
+        <source>Quiz</source>
+        <translation type="unfinished">Quiz</translation>
+    </message>
+    <message>
+        <source>Anonymous Poll</source>
+        <translation type="unfinished">Sondaggio anonimo</translation>
+    </message>
+    <message>
+        <source>Poll</source>
+        <translation type="unfinished">Sondaggio</translation>
+    </message>
+    <message>
+        <source>Vote</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1560,6 +1576,163 @@
         <source>Message</source>
         <comment>placeholder for sending a message</comment>
         <translation>Messaggio</translation>
+    </message>
+</context>
+<context>
+    <name>NewPollDialog</name>
+    <message>
+        <source>A poll requires %1-%2 options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please choose at least one correct answer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New poll</source>
+        <comment>header</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>in %1</source>
+        <comment>After dialog header… New Poll in [group name]</comment>
+        <translation type="unfinished">in %1</translation>
+    </message>
+    <message>
+        <source>Question</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter your question here</source>
+        <translation type="unfinished">Scrivi la tua domanda</translation>
+    </message>
+    <message>
+        <source>You have to enter a question</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%Ln characters left</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Poll options</source>
+        <comment>Section header</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add an option</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Option can&apos;t be empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add an answer</source>
+        <translation type="unfinished">Aggiungi una risposta</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation type="unfinished">Impostazioni</translation>
+    </message>
+    <message>
+        <source>Anonymous answers</source>
+        <translation type="unfinished">Risposte anonime</translation>
+    </message>
+    <message>
+        <source>Multiple answers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow adding options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow revoting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow users to change their vote</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shuffle options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make answer appear in random order</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quiz Mode</source>
+        <translation type="unfinished">Modalità quiz</translation>
+    </message>
+    <message>
+        <source>Mark one or more options as the correct answer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shown when the user selects a wrong answer.</source>
+        <translation type="unfinished">Mostra quando l&apos;utente sceglie una risposta errata.</translation>
+    </message>
+    <message>
+        <source>Enter an optional explanation</source>
+        <translation type="unfinished">Inserisci una spiegazione ozionale</translation>
+    </message>
+    <message>
+        <source>Limit duration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Automatically close the poll at a set time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close in</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1 hour</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>3 hours</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>8 hours</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1 day</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>3 days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close poll in</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide results</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide results until the poll closes</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1837,103 +2010,6 @@
     <message>
         <source>Message unpinned</source>
         <translation>Messaggio non più in evidenza</translation>
-    </message>
-</context>
-<context>
-    <name>PollCreationPage</name>
-    <message>
-        <source>All answers have to contain 1-100 characters.</source>
-        <translation>Le risposte devono avere da 1 a 100 caratteri.</translation>
-    </message>
-    <message>
-        <source>To send a quiz, you have to specify the right answer.</source>
-        <translation>Per inviare un quiz devi indicare una risposta esatta.</translation>
-    </message>
-    <message>
-        <source>You have to enter a question.</source>
-        <translation>Inserisci una domanda.</translation>
-    </message>
-    <message>
-        <source>The question has to be shorter than 256 characters.</source>
-        <translation>La domanda non deve superare 256 caratteri.</translation>
-    </message>
-    <message>
-        <source>A poll requires 2-10 answers.</source>
-        <translation>Un sondaggio richiede tra 2 e 10 risposte.</translation>
-    </message>
-    <message>
-        <source>Create a Poll</source>
-        <comment>Dialog Header</comment>
-        <translation>Crea un sondaggio</translation>
-    </message>
-    <message>
-        <source>in %1</source>
-        <comment>After dialog header… Create a Poll in [group name]</comment>
-        <translation>in %1</translation>
-    </message>
-    <message>
-        <source>Enter your question here</source>
-        <translation>Scrivi la tua domanda</translation>
-    </message>
-    <message numerus="yes">
-        <source>Question (%Ln characters left)</source>
-        <translation>
-            <numerusform>Domanda (%Ln carattere rimanente)</numerusform>
-            <numerusform>Domanda (%Ln caratteri rimanenti)</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Answers</source>
-        <comment>Section header</comment>
-        <translation>Risposte</translation>
-    </message>
-    <message>
-        <source>Enter an answer here</source>
-        <translation>Scrivi una risposta</translation>
-    </message>
-    <message numerus="yes">
-        <source>Answer (%Ln characters left)</source>
-        <translation>
-            <numerusform>Risposta (%Ln carattere rimanente)</numerusform>
-            <numerusform>Risposta (%Ln caratteri rimanenti)</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Add an answer</source>
-        <translation>Aggiungi una risposta</translation>
-    </message>
-    <message>
-        <source>Poll Options</source>
-        <comment>Section header</comment>
-        <translation>Opzioni sondaggio</translation>
-    </message>
-    <message>
-        <source>Anonymous answers</source>
-        <translation>Risposte anonime</translation>
-    </message>
-    <message>
-        <source>Multiple answers allowed</source>
-        <translation>Risposte multiple consentite</translation>
-    </message>
-    <message>
-        <source>Quiz Mode</source>
-        <translation>Modalità quiz</translation>
-    </message>
-    <message>
-        <source>Quizzes have one correct answer. Participants can&apos;t revoke their responses.</source>
-        <translation>I quiz hanno una sola risposta corretta. I partecipanti non possono revocare le risposte.</translation>
-    </message>
-    <message>
-        <source>Enter an optional explanation</source>
-        <translation>Inserisci una spiegazione ozionale</translation>
-    </message>
-    <message>
-        <source>Shown when the user selects a wrong answer.</source>
-        <translation>Mostra quando l&apos;utente sceglie una risposta errata.</translation>
-    </message>
-    <message>
-        <source>An explanation can be up to 200 characters long.</source>
-        <translation>Una spiegazione può contenere massimo 200 caratteri.</translation>
     </message>
 </context>
 <context>
@@ -2800,15 +2876,6 @@
         <translation>Nota vocale: %1</translation>
     </message>
     <message>
-        <source>sent a location</source>
-        <comment>myself</comment>
-        <translation>hai inviato la posizione</translation>
-    </message>
-    <message>
-        <source>sent a location</source>
-        <translation>ha inviato la posizione</translation>
-    </message>
-    <message>
         <source>joined this chat</source>
         <comment>myself</comment>
         <translation>sei entrato nella chat</translation>
@@ -2861,15 +2928,6 @@
     <message>
         <source>changed the chat title to %1</source>
         <translation>ha cambiato il titolo della chat in %1</translation>
-    </message>
-    <message>
-        <source>sent an anonymous quiz</source>
-        <comment>myself</comment>
-        <translation>hai inviato un quiz anonimo</translation>
-    </message>
-    <message>
-        <source>sent an anonymous quiz</source>
-        <translation>ha inviato un quiz anonimo</translation>
     </message>
     <message>
         <source>Anonymous Quiz</source>
@@ -3306,6 +3364,186 @@
         <comment>A chat without a known name</comment>
         <translation>Sconosciuto</translation>
     </message>
+    <message>
+        <source>Location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Anonymous Quiz: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>, </source>
+        <comment>Separator for names</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 and %2</source>
+        <comment>names</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 and %Ln others</source>
+        <comment>names</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>typing</source>
+        <translation type="unfinished">Sta scrivendo</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is typing</source>
+        <translation type="unfinished">
+            <numerusform>%1 sta scrivendo</numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>recording a video</source>
+        <translation type="unfinished">sta registrando un video</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is recording a video</source>
+        <translation type="unfinished">
+            <numerusform>%1 sta registrando un video</numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>sending a video</source>
+        <translation type="unfinished">sta inviando un video</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is sending a video</source>
+        <translation type="unfinished">
+            <numerusform>%1 sta inviando un video</numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>recording a voice message</source>
+        <translation type="unfinished">sta registrando una nota vocale</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is recording a voice message</source>
+        <translation type="unfinished">
+            <numerusform>%1 sta registrando una nota vocale</numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>sending a voice message</source>
+        <translation type="unfinished">sta inviando una nota vocale</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is sending a voice message</source>
+        <translation type="unfinished">
+            <numerusform>%1 sta inviando una nota vocale</numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>sending a photo</source>
+        <translation type="unfinished">sta inviando una foto</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is sending a photo</source>
+        <translation type="unfinished">
+            <numerusform>%1 sta inviando una foto</numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>sending a file</source>
+        <translation type="unfinished">sta inviando un file</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is sending a file</source>
+        <translation type="unfinished">
+            <numerusform>%1 sta inviando un file</numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>choosing a sticker</source>
+        <translation type="unfinished">sta scegliendo un adesivo</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is choosing a sticker</source>
+        <translation type="unfinished">
+            <numerusform>%1 sta scegliendo un adesivo</numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>choosing location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is choosing location</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>choosing a contact</source>
+        <translation type="unfinished">sta scegliendo un contatto</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is choosing a contact</source>
+        <translation type="unfinished">
+            <numerusform>%1 sta scegliendo un contatto</numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>playing a game</source>
+        <translation type="unfinished">sta giocando ad un gioco</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is playing a game</source>
+        <translation type="unfinished">
+            <numerusform>%1 sta giocando ad un gioco</numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>recording a video message</source>
+        <translation type="unfinished">sta registrando un videomessaggio</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is recording a video message</source>
+        <translation type="unfinished">
+            <numerusform>%1 sta registrando un videomessaggio</numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>sending a video message</source>
+        <translation type="unfinished">sta inviando un videomessaggio</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is sending a video message</source>
+        <translation type="unfinished">
+            <numerusform>%1 sta inviando un videomessaggio</numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>watching %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is watching %2</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
 </context>
 <context>
     <name>VoiceNoteOverlay</name>
@@ -3422,162 +3660,6 @@
         <source>Owner</source>
         <comment>channel user role</comment>
         <translation>Proprietario</translation>
-    </message>
-    <message>
-        <source>typing</source>
-        <translation>Sta scrivendo</translation>
-    </message>
-    <message>
-        <source>%1 is typing</source>
-        <translation>%1 sta scrivendo</translation>
-    </message>
-    <message>
-        <source>%1 are typing</source>
-        <translation>%1 stanno scrivendo</translation>
-    </message>
-    <message>
-        <source>choosing a contact</source>
-        <translation>sta scegliendo un contatto</translation>
-    </message>
-    <message>
-        <source>%1 is choosing a contact</source>
-        <translation>%1 sta scegliendo un contatto</translation>
-    </message>
-    <message>
-        <source>%1 are choosing a contact</source>
-        <translation>%1 stanno scegliendo un contatto</translation>
-    </message>
-    <message>
-        <source>choosing a location</source>
-        <translation>sta scegliendo una posizione</translation>
-    </message>
-    <message>
-        <source>%1 is choosing a location</source>
-        <translation>%1 sta scegliendo una posizione</translation>
-    </message>
-    <message>
-        <source>%1 are choosing a location</source>
-        <translation>%1 stanno scegliendo una posizione</translation>
-    </message>
-    <message>
-        <source>choosing a sticker</source>
-        <translation>sta scegliendo un adesivo</translation>
-    </message>
-    <message>
-        <source>%1 is choosing a sticker</source>
-        <translation>%1 sta scegliendo un adesivo</translation>
-    </message>
-    <message>
-        <source>%1 are choosing a sticker</source>
-        <translation>%1 stanno scegliendo un adesivo</translation>
-    </message>
-    <message>
-        <source>recording a video</source>
-        <translation>sta registrando un video</translation>
-    </message>
-    <message>
-        <source>%1 is recording a video</source>
-        <translation>%1 sta registrando un video</translation>
-    </message>
-    <message>
-        <source>%1 are recording a video</source>
-        <translation>%1 stanno registrando un video</translation>
-    </message>
-    <message>
-        <source>recording a video message</source>
-        <translation>sta registrando un videomessaggio</translation>
-    </message>
-    <message>
-        <source>%1 is recording a video message</source>
-        <translation>%1 sta registrando un videomessaggio</translation>
-    </message>
-    <message>
-        <source>%1 are recording a video message</source>
-        <translation>%1 stanno registrando un videomessaggio</translation>
-    </message>
-    <message>
-        <source>recording a voice message</source>
-        <translation>sta registrando una nota vocale</translation>
-    </message>
-    <message>
-        <source>%1 is recording a voice message</source>
-        <translation>%1 sta registrando una nota vocale</translation>
-    </message>
-    <message>
-        <source>%1 are recording a voice message</source>
-        <translation>%1 stanno registrando una nota vocale</translation>
-    </message>
-    <message>
-        <source>playing a game</source>
-        <translation>sta giocando ad un gioco</translation>
-    </message>
-    <message>
-        <source>%1 is playing a game</source>
-        <translation>%1 sta giocando ad un gioco</translation>
-    </message>
-    <message>
-        <source>%1 are playing a game</source>
-        <translation>%1 stanno giocando ad un gioco</translation>
-    </message>
-    <message>
-        <source>sending a file</source>
-        <translation>sta inviando un file</translation>
-    </message>
-    <message>
-        <source>%1 is sending a file</source>
-        <translation>%1 sta inviando un file</translation>
-    </message>
-    <message>
-        <source>%1 are sending a file</source>
-        <translation>%1 stanno inviando un file</translation>
-    </message>
-    <message>
-        <source>sending a photo</source>
-        <translation>sta inviando una foto</translation>
-    </message>
-    <message>
-        <source>%1 is sending a photo</source>
-        <translation>%1 sta inviando una foto</translation>
-    </message>
-    <message>
-        <source>%1 are sending a photo</source>
-        <translation>%1 stanno inviando una foto</translation>
-    </message>
-    <message>
-        <source>sending a video</source>
-        <translation>sta inviando un video</translation>
-    </message>
-    <message>
-        <source>%1 is sending a video</source>
-        <translation>%1 sta inviando un video</translation>
-    </message>
-    <message>
-        <source>%1 are is sending a video</source>
-        <translation>%1 stanno inviando un video</translation>
-    </message>
-    <message>
-        <source>sending a video message</source>
-        <translation>sta inviando un videomessaggio</translation>
-    </message>
-    <message>
-        <source>%1 is sending a video message</source>
-        <translation>%1 sta inviando un videomessaggio</translation>
-    </message>
-    <message>
-        <source>%1 are sending a video message</source>
-        <translation>%1 stanno inviando un videomessaggio</translation>
-    </message>
-    <message>
-        <source>sending a voice message</source>
-        <translation>sta inviando una nota vocale</translation>
-    </message>
-    <message>
-        <source>%1 is sending a voice message</source>
-        <translation>%1 sta inviando una nota vocale</translation>
-    </message>
-    <message>
-        <source>%1 are sending a voice message</source>
-        <translation>%1 stanno inviando una nota vocale</translation>
     </message>
     <message>
         <source>%1, %2</source>

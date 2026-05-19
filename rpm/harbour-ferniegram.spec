@@ -5,7 +5,7 @@ Name:       harbour-ferniegram
 %define _binary_payload w6.xzdio
 
 Summary:    Ferniegram is a Telegram client for Sailfish OS
-Version:    0.0.01pa4
+Version:    0.0.01pa6
 Release:    1
 Group:      Qt/Qt
 License:    LICENSE
