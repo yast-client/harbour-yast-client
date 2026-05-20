@@ -89,13 +89,11 @@ ListItem {
             width: parent.width
             spacing: Theme.paddingSmall
 
-            opacity: chatActionItem.active ? 0 : 1
-            Behavior on opacity { FadeAnimator {} }
-
             Label {
                 id: prologSecondaryText
                 font.pixelSize: Theme.fontSizeExtraSmall
-                width: Math.min(implicitWidth, parent.width)
+                width: Math.min(implicitWidth, parent.parent.width)
+                visible: !!text
                 anchors.verticalCenter: parent.verticalCenter
                 color: Theme.highlightColor
                 textFormat: Text.StyledText
@@ -105,6 +103,7 @@ ListItem {
             Loader {
                 id: minithumbnailLoader
                 active: !!minithumbnail
+                visible: active
                 width: active ? Theme.fontSizeExtraSmall : 0
                 height: width
 
@@ -137,7 +136,8 @@ ListItem {
             Label {
                 id: secondaryText
                 font.pixelSize: Theme.fontSizeExtraSmall
-                width: parent.width - (prologSecondaryText.width + (parent.visibleChildren.length-1)*parent.spacing + minithumbnailLoader.width + chatActionIcon.width)
+                width: parent.width - (prologSecondaryText.width + minithumbnailLoader.width + chatActionIcon.width
+                                       + (prologSecondaryText.visible + minithumbnailLoader.visible + chatActionIcon.visible) * parent.spacing)
                 truncationMode: TruncationMode.Fade
                 maximumLineCount: 1
                 textFormat: Text.StyledText
@@ -169,5 +169,4 @@ ListItem {
         color: Theme.primaryColor
         horizontalAlignment: Qt.AlignHCenter
     }
-
 }

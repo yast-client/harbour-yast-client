@@ -50,7 +50,6 @@ SilicaListView {
     }
 
     delegate: ChatListViewItem {
-        verificationStatus: verification_status
         chatListType: chatListView.chatListType
         folderId: chatListView.folderId
         onClicked: {

@@ -17,6 +17,7 @@ Row {
         id: verifiedImage
         anchors.verticalCenter: parent.verticalCenter
         source: verified ? "../../images/icon-verified.svg" : ''
+        asynchronous: true
         sourceSize: Qt.size(Theme.iconSizeExtraSmall, Theme.iconSizeExtraSmall)
         width: Theme.iconSizeSmall
         height: Theme.iconSizeSmall
@@ -27,6 +28,7 @@ Row {
         id: mutedImage
         anchors.verticalCenter: parent.verticalCenter
         source: muted ? "../js/emoji/1f507.svg" : ''
+        asynchronous: true
         sourceSize: Qt.size(Theme.iconSizeExtraSmall, Theme.iconSizeExtraSmall)
         width: Theme.iconSizeSmall
         height: Theme.iconSizeSmall

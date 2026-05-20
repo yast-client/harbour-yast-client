@@ -40,6 +40,7 @@ PhotoTextsListItem {
     isMarkedAsUnread: is_marked_as_unread
     isPinned: is_pinned
     muted: tdLibWrapper.chatIsMuted(chat_id, notification_settings) //notification_settings.mute_for > 0
+    verificationStatus: verification_status
 
     onPressAndHold:
         if (menu && menu.isMain)
