@@ -18,8 +18,8 @@
 */
 import QtQuick 2.6
 import Sailfish.Silica 1.0
-import "../components"
-import "../js/twemoji.js" as Emoji
+import ".."
+import "../../js/twemoji.js" as Emoji
 
 Item {
     id: stickerPickerOverlayItem
