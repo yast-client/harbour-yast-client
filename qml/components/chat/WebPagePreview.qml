@@ -139,7 +139,7 @@ Item {
                 photo: linkPreviewData.type.photo
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: pageStack.push(Qt.resolvedUrl("../../pages/ImagePage.qml"), {photoData: photo})
+                    onClicked: pageStack.push(Qt.resolvedUrl("../../pages/MediaAlbumPage.qml"), {singleElement: true, message: photo})
                 }
             }
         }

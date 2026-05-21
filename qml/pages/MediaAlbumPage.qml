@@ -33,7 +33,7 @@ Page {
     id: page
 
     property var chatManager
-    property var message
+    property var message // despite the name, can be either a message or a photo object
     property var messageId: message ? message.id : 0
     property alias overlay: overlay
     property alias overlayActive: overlay.active
@@ -104,7 +104,7 @@ Page {
 
                 states: [
                     State {
-                        when: _model.content['@type'] === 'messagePhoto'
+                        when: _model['@type'] === 'photo' || _model.content['@type'] === 'messagePhoto'
                         PropertyChanges {
                             target: loader
                             source: "../components/messageContent/mediaAlbumPage/PhotoComponent.qml"
@@ -138,6 +138,7 @@ Page {
         currentIndex: page.index
         message: (modelIsMedia && pagedView.currentItem) ? pagedView.currentItem._model : page.message
         hidePreview: singleElement
+        forwardButtonVisible: !(singleElement && message && message['@type'] === 'photo')
         previewModel: modelIsMedia ? previewModelLoader.item : null
         previewCurrentIndex: previewModel ? previewModel.mapFromSource(page.index) : -1
         previewInverted: pagedView.direction == PagedView.RightToLeft

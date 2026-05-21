@@ -272,18 +272,27 @@ Item {
         id: file
         autoLoad: false
         tdlib: tdLibWrapper
-        readonly property bool isPhoto: message.content['@type'] === 'messagePhoto' || message.content['@type'] === 'messageChatChangePhoto'
-        property var videoData: isPhoto ? null : message.content['@type'] === "messageVideo"
-                                          ? message.content.video
-                                          : (
-                                                message.content['@type'] === "messageAnimation"
-                                                ? message.content.animation
-                                                : message.content.video_note)
 
         fileInformation: {
-            if (isPhoto) {
+            if (message['@type'] === 'photo')
+                return utilities.findBiggestPhotoSize(message.sizes).photo || {}
+
+            if (message.content['@type'] === 'messagePhoto' || message.content['@type'] === 'messageChatChangePhoto')
                 return utilities.findBiggestPhotoSize(message.content.photo.sizes).photo || {}
+
+            var videoData
+            switch (message.content['@type']) {
+            case 'messageVideo':
+                videoData = message.content.video
+                break
+            case 'messageAnimation':
+                videoData = message.content.animation
+                break
+            default:
+                videoData = message.content.video_note
+                break
             }
+
             return videoData[message.content['@type'] === 'messageVideoNote' ? "video" : videoData['@type']]
         }
         // Progress is already displayed on play button
@@ -292,7 +301,7 @@ Item {
     MessagePropertiesLoader {
         id: propertiesLoader
         message: overlay.message
-        autoLoad: !!message
+        autoLoad: !!message && message['@type'] !== 'photo'
     }
 
     Row {

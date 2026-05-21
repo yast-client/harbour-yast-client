@@ -1,7 +1,7 @@
 import QtQuick 2.6
 
 ZoomImage {
-    photoData: _model.content.photo
+    photoData: _model.content && _model.content['@type'] === 'messagePhoto' ? _model.content.photo : _model
     onClicked: {
         if(zoomed) {
             zoomOut(true)
