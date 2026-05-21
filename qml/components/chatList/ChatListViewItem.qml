@@ -35,7 +35,7 @@ PhotoTextsListItem {
         target: appSettings.compactChatList ? additionalPrimaryText : tertiaryText
         property: 'text'
         value: {
-            var dateFormatter = appSettings.compactChatList ? Functions.getDateTimeTimepointRelative : Functions.getDateTimeElapsed()
+            var dateFormatter = appSettings.compactChatList ? Functions.getDateTimeTimepointRelative : Functions.getDateTimeElapsed
 
             if (showDraft)
                 return dateFormatter(draft_message_date)
@@ -46,6 +46,11 @@ PhotoTextsListItem {
             var status = Emoji.emojify(last_message_status, tertiaryText.font.pixelSize)
             return appSettings.compactChatList ? status + date : date + status
         }
+    }
+    Binding {
+        target: appSettings.compactChatList ? tertiaryText : additionalPrimaryText
+        property: 'text'
+        value: ''
     }
 
     unreadCount: unread_count
