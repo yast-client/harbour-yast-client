@@ -102,6 +102,8 @@ ApplicationWindow {
             property bool showFolderUnreadCount
             property bool chatFoldersTabBarOnBottom
             property bool chatFoldersTabBarShowIcons
+
+            property bool compactChatList: true
         }
     }
 

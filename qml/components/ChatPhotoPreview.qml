@@ -7,6 +7,10 @@ ShaderEffectSource {
     height: Theme.itemSizeLarge
     width: height
 
+    property real iconSize: Theme.iconSizeExtraSmall
+    property real backgroundSize: Theme.fontSizeLarge
+    property alias unreadFontSize: chatUnreadMessagesCount.font.pixelSize
+
     property bool highlighted
     property int unreadCount: 0
     property int unreadMentionCount: 0
@@ -32,8 +36,8 @@ ShaderEffectSource {
         Rectangle {
             id: chatPinnedBackground
             color: Theme.rgba(Theme.overlayBackgroundColor, Theme.opacityFaint)
-            width: Theme.fontSizeLarge
-            height: Theme.fontSizeLarge
+            width: backgroundSize
+            height: backgroundSize
             anchors.top: parent.top
             radius: parent.width / 2
             visible: pictureItem.isPinned
@@ -41,10 +45,10 @@ ShaderEffectSource {
 
         Icon {
             source: "../../images/icon-s-pin.svg"
-            height: Theme.iconSizeExtraSmall
-            width: Theme.iconSizeExtraSmall
+            height: iconSize
+            width: iconSize
             highlighted: pictureItem.highlighted
-            sourceSize: Qt.size(Theme.iconSizeExtraSmall, Theme.iconSizeExtraSmall)
+            sourceSize: Qt.size(width, height)
             anchors.centerIn: chatPinnedBackground
             visible: pictureItem.isPinned
         }
@@ -52,8 +56,8 @@ ShaderEffectSource {
         Rectangle {
             id: chatSecretBackground
             color: Theme.rgba(Theme.overlayBackgroundColor, Theme.opacityFaint)
-            width: Theme.fontSizeLarge
-            height: Theme.fontSizeLarge
+            width: backgroundSize
+            height: backgroundSize
             anchors.bottom: parent.bottom
             radius: parent.width / 2
             visible: pictureItem.isSecret
@@ -61,8 +65,8 @@ ShaderEffectSource {
 
         Icon {
             source: "image://theme/icon-s-secure"
-            height: Theme.iconSizeExtraSmall
-            width: Theme.iconSizeExtraSmall
+            height: iconSize
+            width: iconSize
             highlighted: pictureItem.highlighted
             anchors.centerIn: chatSecretBackground
             visible: pictureItem.isSecret
@@ -71,8 +75,8 @@ ShaderEffectSource {
         Rectangle {
             id: chatUnreadMessagesCountBackground
             color: muted ? ((Theme.colorScheme === Theme.DarkOnLight) ? "lightgray" : "dimgray") : Theme.highlightBackgroundColor
-            width: Theme.fontSizeLarge
-            height: Theme.fontSizeLarge
+            width: backgroundSize
+            height: backgroundSize
             anchors.right: parent.right
             anchors.bottom: parent.bottom
             radius: parent.width / 2
@@ -92,8 +96,8 @@ ShaderEffectSource {
 
         Rectangle {
             color: muted ? ((Theme.colorScheme === Theme.DarkOnLight) ? "lightgray" : "dimgray") : Theme.highlightBackgroundColor
-            width: Theme.fontSizeLarge
-            height: Theme.fontSizeLarge
+            width: backgroundSize
+            height: backgroundSize
             anchors.right: parent.right
             anchors.top: parent.top
             radius: parent.width / 2
@@ -101,8 +105,8 @@ ShaderEffectSource {
 
             Icon {
                 source: "image://theme/icon-s-favorite"
-                height: Theme.iconSizeExtraSmall
-                width: Theme.iconSizeExtraSmall
+                height: iconSize
+                width: iconSize
                 highlighted: pictureItem.highlighted
                 anchors.centerIn: parent
                 visible: pictureItem.unreadReactionCount > 0 && !pictureItem.unreadMentionCount
@@ -110,7 +114,7 @@ ShaderEffectSource {
 
             Text {
                 font {
-                    pixelSize: Theme.iconSizeExtraSmall
+                    pixelSize: iconSize
                     bold: true
                 }
                 color: Theme.primaryColor

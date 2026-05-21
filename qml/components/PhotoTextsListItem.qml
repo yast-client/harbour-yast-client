@@ -6,6 +6,7 @@ ListItem {
     id: chatItem
 
     property alias primaryText: primaryText //usually chat name
+    property alias additionalPrimaryText: additionalPrimaryText
     property alias prologSecondaryText: prologSecondaryText //usually last sender name
     property alias secondaryText: secondaryText //usually last message
     property alias tertiaryText: tertiaryText //usually last message date
@@ -63,25 +64,46 @@ ListItem {
         }
         spacing: Theme.paddingSmall / 2
 
-        Row {
-            id: primaryTextRow
-            spacing: Theme.paddingMedium
+        Item {
+            width: parent.width
+            height: Math.max(primaryTextRow.height, additionalPrimaryText.height)
 
-            Label {
-                id: primaryText
-                textFormat: Text.StyledText
-                font.pixelSize: Theme.fontSizeMedium
-                truncationMode: TruncationMode.Fade
+            Row {
+                id: primaryTextRow
+                spacing: Theme.paddingMedium
+                width: parent.width - (additionalPrimaryText.visible ? additionalPrimaryText.width + Theme.paddingMedium : 0)
                 anchors.verticalCenter: parent.verticalCenter
-                width: Math.min(contentColumn.width - chatBadges.width - parent.spacing, implicitWidth)
-                font.bold: appSettings.highlightUnreadConversations && ( !chatItem.muted && (chatItem.unreadCount > 0 || chatItem.isMarkedAsUnread) )
-                font.italic: appSettings.highlightUnreadConversations  && (chatItem.unreadReactionCount > 0)
-                color: (appSettings.highlightUnreadConversations && (chatItem.unreadCount > 0)) ? Theme.highlightColor : Theme.primaryColor
+
+                Label {
+                    id: primaryText
+                    textFormat: Text.StyledText
+                    font.pixelSize: Theme.fontSizeMedium
+                    truncationMode: TruncationMode.Fade
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: Math.min(contentColumn.width - chatBadges.width - parent.spacing - (additionalPrimaryText.visible ? additionalPrimaryText.width + parent.spacing : 0), implicitWidth)
+                    font.bold: appSettings.highlightUnreadConversations && ( !chatItem.muted && (chatItem.unreadCount > 0 || chatItem.isMarkedAsUnread) )
+                    font.italic: appSettings.highlightUnreadConversations  && (chatItem.unreadReactionCount > 0)
+                    color: (appSettings.highlightUnreadConversations && (chatItem.unreadCount > 0)) ? Theme.highlightColor : Theme.primaryColor
+                }
+
+                ChatBadges {
+                    id: chatBadges
+                    anchors.verticalCenter: parent.verticalCenter
+                }
             }
 
-            ChatBadges {
-                id: chatBadges
-                anchors.verticalCenter: parent.verticalCenter
+            Label {
+                id: additionalPrimaryText
+                visible: !!text
+                anchors {
+                    right: parent.right
+                    verticalCenter: parent.verticalCenter
+                }
+                width: Math.min(implicitWidth, parent.width)
+                font.pixelSize: Theme.fontSizeTiny
+                color: Theme.secondaryColor
+                linkColor: Theme.highlightColor
+                truncationMode: TruncationMode.Fade
             }
         }
 

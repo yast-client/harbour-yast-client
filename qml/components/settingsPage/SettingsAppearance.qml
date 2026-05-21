@@ -42,6 +42,15 @@ AccordionItem {
 
             TextSwitch {
                 width: parent.columnWidth
+                checked: appSettings.compactChatList
+                text: qsTr("Compact chat list")
+                description: qsTr("Make chats in the list smaller")
+                automaticCheck: false
+                onClicked: appSettings.compactChatList = !checked
+            }
+
+            TextSwitch {
+                width: parent.columnWidth
                 checked: appSettings.chatFoldersTabBarOnBottom
                 text: qsTr("Move chat folders panel to bottom")
                 automaticCheck: false

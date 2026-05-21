@@ -31,7 +31,23 @@ PhotoTextsListItem {
         actionProgress: chat_actions_progress
     }
     // message date
-    tertiaryText.text: showDraft ? Functions.getDateTimeElapsed(draft_message_date) : (last_message_date ? (last_message_date.length === 0 ? "" : Functions.getDateTimeElapsed(last_message_date) + Emoji.emojify(last_message_status, tertiaryText.font.pixelSize)) : "")
+    Binding {
+        target: appSettings.compactChatList ? additionalPrimaryText : tertiaryText
+        property: 'text'
+        value: {
+            var dateFormatter = appSettings.compactChatList ? Functions.getDateTimeTimepointRelative : Functions.getDateTimeElapsed()
+
+            if (showDraft)
+                return dateFormatter(draft_message_date)
+            if (!last_message_date)
+                return ''
+
+            var date = dateFormatter(last_message_date)
+            var status = Emoji.emojify(last_message_status, tertiaryText.font.pixelSize)
+            return appSettings.compactChatList ? status + date : date + status
+        }
+    }
+
     unreadCount: unread_count
     unreadReactionCount: unread_reaction_count
     unreadMentionCount: unread_mention_count
@@ -40,6 +56,10 @@ PhotoTextsListItem {
     isPinned: is_pinned
     muted: tdLibWrapper.chatIsMuted(chat_id, notification_settings) //notification_settings.mute_for > 0
     verificationStatus: verification_status
+
+    showSeparator: !appSettings.compactChatList
+    contentHeight: appSettings.compactChatList ? Theme.itemSizeLarge : Theme.itemSizeExtraLarge
+    pictureThumbnailItem.height: appSettings.compactChatList ? Theme.itemSizeMedium : Theme.itemSizeLarge
 
     onPressAndHold:
         if (menu && menu.isMain)
