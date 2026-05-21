@@ -52,8 +52,7 @@ SilicaListView {
     }
 
     Component.onCompleted:
-        if (view.count == 0)
-            model.load()
+        model.load()
 
     onContentYChanged: {
         if (view.count == 0) return
