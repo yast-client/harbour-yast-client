@@ -1076,13 +1076,6 @@
     </message>
 </context>
 <context>
-    <name>ImagePage</name>
-    <message>
-        <source>Download Picture</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>InReplyToRow</name>
     <message>
         <source>You</source>
@@ -1934,16 +1927,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Download failed.</source>
-        <comment>in-app notification text</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unable to open link.</source>
-        <comment>in-app notification text</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1966,6 +1949,16 @@
     </message>
     <message>
         <source>Tap on the title bar to quickly open search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Download failed</source>
+        <comment>in-app notification text</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to open link</source>
+        <comment>in-app notification text</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>

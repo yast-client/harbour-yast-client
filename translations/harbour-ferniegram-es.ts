@@ -1085,13 +1085,6 @@
     </message>
 </context>
 <context>
-    <name>ImagePage</name>
-    <message>
-        <source>Download Picture</source>
-        <translation>Bajar imagen</translation>
-    </message>
-</context>
-<context>
     <name>InReplyToRow</name>
     <message>
         <source>You</source>
@@ -1959,16 +1952,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Download failed.</source>
-        <comment>in-app notification text</comment>
-        <translation type="unfinished">Error a bajar</translation>
-    </message>
-    <message>
-        <source>Unable to open link.</source>
-        <comment>in-app notification text</comment>
-        <translation type="unfinished">No se pudo abrir enlace.</translation>
-    </message>
-    <message>
         <source>Archive</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1988,6 +1971,16 @@
     <message>
         <source>Loading</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Download failed</source>
+        <comment>in-app notification text</comment>
+        <translation>Error a bajar</translation>
+    </message>
+    <message>
+        <source>Unable to open link</source>
+        <comment>in-app notification text</comment>
+        <translation>No se pudo abrir enlace</translation>
     </message>
 </context>
 <context>

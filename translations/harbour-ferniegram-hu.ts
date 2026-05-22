@@ -1076,13 +1076,6 @@
     </message>
 </context>
 <context>
-    <name>ImagePage</name>
-    <message>
-        <source>Download Picture</source>
-        <translation>Kép letöltése</translation>
-    </message>
-</context>
-<context>
     <name>InReplyToRow</name>
     <message>
         <source>You</source>
@@ -1938,16 +1931,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Download failed.</source>
-        <comment>in-app notification text</comment>
-        <translation type="unfinished">A letöltés nem sikerült.</translation>
-    </message>
-    <message>
-        <source>Unable to open link.</source>
-        <comment>in-app notification text</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Archive</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1966,6 +1949,16 @@
     </message>
     <message>
         <source>Loading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Download failed</source>
+        <comment>in-app notification text</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to open link</source>
+        <comment>in-app notification text</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -1097,13 +1097,6 @@
     </message>
 </context>
 <context>
-    <name>ImagePage</name>
-    <message>
-        <source>Download Picture</source>
-        <translation>Скачать картинку</translation>
-    </message>
-</context>
-<context>
     <name>InReplyToRow</name>
     <message>
         <source>You</source>
@@ -1987,16 +1980,6 @@
         <translation>Открыть</translation>
     </message>
     <message>
-        <source>Download failed.</source>
-        <comment>in-app notification text</comment>
-        <translation>Ошибка скачивания.</translation>
-    </message>
-    <message>
-        <source>Unable to open link.</source>
-        <comment>in-app notification text</comment>
-        <translation>Не удаётся открыть ссылку.</translation>
-    </message>
-    <message>
         <source>Search</source>
         <comment>pulley menu option for opening search page</comment>
         <translation>Поиск</translation>
@@ -2011,6 +1994,16 @@
     </message>
     <message>
         <source>Loading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Download failed</source>
+        <comment>in-app notification text</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to open link</source>
+        <comment>in-app notification text</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>

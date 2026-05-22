@@ -1087,13 +1087,6 @@ messages</numerusform>
     </message>
 </context>
 <context>
-    <name>ImagePage</name>
-    <message>
-        <source>Download Picture</source>
-        <translation>Download Picture</translation>
-    </message>
-</context>
-<context>
     <name>InReplyToRow</name>
     <message>
         <source>You</source>
@@ -1961,16 +1954,6 @@ messages</numerusform>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Download failed.</source>
-        <comment>in-app notification text</comment>
-        <translation type="unfinished">Download failed.</translation>
-    </message>
-    <message>
-        <source>Unable to open link.</source>
-        <comment>in-app notification text</comment>
-        <translation type="unfinished">Unable to open link.</translation>
-    </message>
-    <message>
         <source>Archive</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1990,6 +1973,16 @@ messages</numerusform>
     <message>
         <source>Loading</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Download failed</source>
+        <comment>in-app notification text</comment>
+        <translation>Download failed</translation>
+    </message>
+    <message>
+        <source>Unable to open link</source>
+        <comment>in-app notification text</comment>
+        <translation>Unable to open link</translation>
     </message>
 </context>
 <context>

@@ -1085,13 +1085,6 @@
     </message>
 </context>
 <context>
-    <name>ImagePage</name>
-    <message>
-        <source>Download Picture</source>
-        <translation>Bild herunterladen</translation>
-    </message>
-</context>
-<context>
     <name>InReplyToRow</name>
     <message>
         <source>You</source>
@@ -1959,16 +1952,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Download failed.</source>
-        <comment>in-app notification text</comment>
-        <translation type="unfinished">Download fehlgeschlagen.</translation>
-    </message>
-    <message>
-        <source>Unable to open link.</source>
-        <comment>in-app notification text</comment>
-        <translation type="unfinished">Kann Link nicht öffnen.</translation>
-    </message>
-    <message>
         <source>Archive</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1988,6 +1971,16 @@
     <message>
         <source>Loading</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Download failed</source>
+        <comment>in-app notification text</comment>
+        <translation>Download fehlgeschlagen</translation>
+    </message>
+    <message>
+        <source>Unable to open link</source>
+        <comment>in-app notification text</comment>
+        <translation>Kann Link nicht öffnen.</translation>
     </message>
 </context>
 <context>
