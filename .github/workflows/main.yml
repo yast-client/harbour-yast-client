@@ -88,7 +88,7 @@ jobs:
       uses: actions/download-artifact@v8
       with:
         path: RPMS
-        pattern: *.rpm
+        pattern: harbour-ferniegram-*
         merge-multiple: true
 
     - name: Upload the nightly release
