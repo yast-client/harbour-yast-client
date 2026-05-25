@@ -145,6 +145,24 @@ AboutPageBase {
             name: "Nominatim"
             description: qsTr("This project uses OpenStreetMap Nominatim for reverse geocoding of location attachments. Thanks for making it available as web service!")
             sources: "https://wiki.openstreetmap.org/wiki/Nominatim"
+        },
+        Attribution {
+            name: "tgcalls"
+            entries: "2020 The Telegram Calls Library Authors"
+            licenses: License { spdxId: 'LGPL-3.0-only' }
+            sources: "https://github.com/TelegramMessenger/tgcalls"
+        },
+        Attribution {
+            name: "WebRTC (tg_owt)"
+            entries: "2011, The WebRTC project authors"
+            licenses: License { spdxId: 'BSD-3-Clause' }
+            sources: "https://github.com/desktop-app/tg_owt"
+        },
+        Attribution {
+            name: "openh264"
+            entries: "2013, Cisco Systems"
+            licenses: License { spdxId: 'BSD-2-Clause' }
+            sources: "https://github.com/cisco/openh264"
         }
     ]
 

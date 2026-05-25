@@ -54,6 +54,9 @@ This project uses the following libraries:
 - Emoji parsing and artwork by [Twitter Emoji (Twemoji)](http://twitter.github.io/twemoji/), copyright 2018 Twitter, Inc and other contributors, Code licensed under the [MIT License](http://opensource.org/licenses/MIT), Graphics licensed under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 - Animated sticker parsing and animation by [rlottie](https://github.com/Samsung/rlottie), copyright 2020 Samsung Electronics Co., Ltd. and [other contributors](https://github.com/Samsung/rlottie/blob/master/AUTHORS), Code licensed under the [MIT License](https://github.com/Samsung/rlottie/blob/master/licenses/COPYING.MIT), some rlottie components [licensed under other licenses](https://github.com/Samsung/rlottie/blob/master/COPYING).
 - Reverse geocoding for location attachments by [OpenStreetMap Nominatim](https://wiki.openstreetmap.org/wiki/Nominatim).
+- Calls work through [tgcalls](https://github.com/TelegramMessenger/tgcalls) - the Telegram Calls Library. Thanks for making it available under the [GNU LGPL V3 license](https://github.com/TelegramMessenger/tgcalls/tree/master/LICENSE)!
+- tgcalls relies internally on WebRTC, and Ferniegram packages WebRTC using [tg_owt](https://github.com/desktop-app/tg_owt). Thanks for making it available under the [BSD 3-Clause license](https://github.com/desktop-app/tg_owt/blob/master/LICENSE)!
+- WebRTC relies on [openh264](https://github.com/cisco/openh264) for working with the H264 codec. Thanks for making it available under the [BSD 2-Clause license](https://github.com/cisco/openh264/blob/master/LICENSE)!
 
 ## License
 Licensed under GNU GPLv3
@@ -95,6 +98,8 @@ In case of errors try to remove `CMakeCache.txt` file from the build directory.
 
 You'll find the compiled library in the directory `td/tdlib`. You might also need to copy the `td/tdlib/include` folder to the `tdlib/` folder in the root of this project
 
+Unless harbour compatibility is enabled, Ferniegram also requites tg_owt (WebRTC) for calls. You can just download it from [our fork](https://github.com/ferniegram/tg_owt/releases/tag/v1) and extract to the tg_owt/ folder in the root of this project. If you want to compile tg_owt manually, see [here](doc/tg_owt.md).
+
 Ferniegram is now built with CMake. Here are issues related to it which are not yet solved:
 - If you're using an older version of the Sailfish SDK, it might be required to open projects panel in Qt Creator and replace `-GUnix Makefiles` with `-GNinja` in every build cofiguration and then select "Re-configure with initial parameters".
 
@@ -102,6 +107,7 @@ Ferniegram is now built with CMake. Here are issues related to it which are not 
 Some Ferniegram features are not harbour-compatible. In the harbour version, they can be stripped out by changing the `HARBOUR_COMPLIANCE` value to `on` in the SPEC file. Currently, such features include:
 
 1. Audio recording backend based on the GStreamer C API
+2. Calls (see above)
 
 ### Github Action
 Warning: this section was not changed from the one in Fernschreiber. It may have outdated information which does not apply for Ferniegram.
