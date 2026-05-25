@@ -125,4 +125,12 @@ ApplicationWindow {
             utilities: utilities,
         })
     }
+
+    Button {
+        visible: callsManager.currentCallState == CallsManager.Ready
+        enabled: visible
+        anchors.centerIn: parent
+        text: "[DEBUG] Call active, tap to discard"
+        onClicked: callsManager.discardCurrentCall()
+    }
 }

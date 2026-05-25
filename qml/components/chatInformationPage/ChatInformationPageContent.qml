@@ -177,6 +177,12 @@ SilicaFlickable {
                                           chatInformation: tdLibWrapper.getChat(groupFullInformation.linked_chat_id)
                                       })
         }
+        MenuItem {
+            visible: isPrivateOrSecretChat
+            text: qsTr("Call")
+            onClicked:
+                callsManager.createCall(chatInformation.id)
+        }
     }
     // header
     PageHeader {
