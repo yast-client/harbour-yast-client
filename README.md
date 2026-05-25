@@ -98,7 +98,7 @@ In case of errors try to remove `CMakeCache.txt` file from the build directory.
 
 You'll find the compiled library in the directory `td/tdlib`. You might also need to copy the `td/tdlib/include` folder to the `tdlib/` folder in the root of this project
 
-Unless harbour compatibility is enabled, Ferniegram also requites tg_owt (WebRTC) for calls. You can just download it from [our fork](https://github.com/ferniegram/tg_owt/releases/tag/v1) and extract to the tg_owt/ folder in the root of this project. If you want to compile tg_owt manually, see [here](doc/tg_owt.md).
+Unless harbour compatibility is enabled, Ferniegram also requites tg_owt (WebRTC) for calls. You can just download it from [our fork](https://github.com/ferniegram/tg_owt/releases/latest) and extract to the tg_owt/ folder in the root of this project. If you want to compile tg_owt manually, see [here](doc/tg_owt.md).
 
 Ferniegram is now built with CMake. Here are issues related to it which are not yet solved:
 - If you're using an older version of the Sailfish SDK, it might be required to open projects panel in Qt Creator and replace `-GUnix Makefiles` with `-GNinja` in every build cofiguration and then select "Re-configure with initial parameters".

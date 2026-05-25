@@ -108,6 +108,8 @@ if(NOT HARBOUR_COMPLIANCE)
         ${CMAKE_CURRENT_SOURCE_DIR}/tg_owt/${TARGET_ARCHITECTURE}/lib/libopenh264.a
         avcodec
         avutil
+        pulse
+        dl
     )
     target_link_libraries(tgcalls PUBLIC
         libtg_owt

@@ -1,6 +1,6 @@
 # tg_owt
 
-Ferniegram supports calls. They are implemented through tgcalls - the Telegram Calls Library. Telegram calls rely on WebRTC, specifically [tg_owt](https://github.com/desktop-app/tg_owt). You can skip building it by downloading a prebuilt version from [here](https://github.com/ferniegram/tg_owt/releases/tag/v1) and extracting the archive to tg_owt/ (`include` directory can be omitted). If you'd like to compile it manually, keep reading.
+Ferniegram supports calls. They are implemented through tgcalls - the Telegram Calls Library. Telegram calls rely on WebRTC, specifically [tg_owt](https://github.com/desktop-app/tg_owt). You can skip building it by downloading a prebuilt version from [here](https://github.com/ferniegram/tg_owt/releases/latest) and extracting the archive to tg_owt/ (`include` directory can be omitted). If you'd like to compile it manually, keep reading.
 
 ## openh264
 
@@ -41,16 +41,9 @@ sfdk build-init
 # Instal necessary packages
 sfdk build-shell --maintain zypper install -y ninja ccache \
     libjpeg-turbo-devel ffmpeg-devel opus-devel libvpx-devel \
-    libsrtp-devel
-```
+    pulseaudio-devel libsrtp-devel
 
-If you have system libabsl installed, remove it so a packaged version would be used:
-```bash
-sfdk build-shell --maintain zypper remove -y abseil-cpp-devel
-```
 
-Now, go ahed and actually compile tg_owt using:
-```bash
 sfdk build-shell cmake .. -GNinja \
     -DCMAKE_C_COMPILER_LAUNCHER=ccache \
     -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
@@ -62,6 +55,7 @@ sfdk build-shell cmake .. -GNinja \
     -DCMAKE_CXX_FLAGS="-fPIC" \
     -DTG_OWT_USE_PIPEWIRE=OFF \
     -DTG_OWT_USE_X11=OFF \
+    -DTG_OWT_BUILD_AUDIO_BACKENDS=ON \
     -DTG_OWT_OPENH264_INCLUDE_PATH=../../openh264/codec/api \
     -DTG_OWT_OPENH264_LIB_PATH=../../openh264/libopenh264.a \
     -DCMAKE_INSTALL_PREFIX:PATH=../out
