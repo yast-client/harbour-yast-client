@@ -178,7 +178,7 @@ SilicaFlickable {
                                       })
         }
         MenuItem {
-            visible: NO_HARBOUR_COMPLIANCE && isPrivateOrSecretChat
+            visible: NO_HARBOUR_COMPLIANCE && isPrivateOrSecretChat && !isSavedMessages && !privateChatUserInformation.is_support
             text: qsTr("Call")
             onClicked:
                 callsManager.createCall(chatInformation.id)
