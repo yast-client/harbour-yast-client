@@ -35,7 +35,7 @@ BuildRequires:  gperf
 BuildRequires:  desktop-file-utils
 
 # Calls
-BuildRequires:  abseil-cpp-devel
+BuildRequires:  pkgconfig(libpulse)
 # Calls (incompatible with harbour)
 BuildRequires:  opus-devel
 BuildRequires:  libsrtp-devel
