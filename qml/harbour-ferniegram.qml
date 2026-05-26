@@ -55,7 +55,8 @@ ApplicationWindow {
     property var callWindowInstance
 
     Connections {
-        target: callsManager
+        target: NO_HARBOUR_COMPLIANCE ? callsManager : null
+        ignoreUnknownSignals: true
         onCallStarted: {
             if (!callWindowInstance)
                 callWindowInstance = Qt.createComponent(Qt.resolvedUrl("CallWindow.qml")).createObject()
