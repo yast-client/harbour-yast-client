@@ -3,7 +3,7 @@ import Sailfish.Silica 1.0
 import io.libfernie 1.0
 
 Loader {
-    active: !!sourceComponent
+    active: !!sourceComponent // FIXME: binding loop here
     visible: active
     width: active ? (item ? item.width : Theme.iconSizeSmall) : 0
     height: Theme.iconSizeExtraSmall

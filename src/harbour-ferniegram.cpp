@@ -53,6 +53,10 @@ int main(int argc, char *argv[]) {
     context->setContextProperty("NO_HARBOUR_COMPLIANCE", false);
 #endif
 
+    // Disable quitOnLastWindowClosed so closing a call window wouldn't quit the application
+    app->setQuitOnLastWindowClosed(false);
+    QObject::connect(view.data(), SIGNAL(closing(QQuickCloseEvent*)), app.data(), SLOT(quit()));
+
     view->setSource(SailfishApp::pathToMainQml());
     view->show();
     return app->exec();

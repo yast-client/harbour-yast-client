@@ -52,6 +52,17 @@ ApplicationWindow {
             tdLibWrapper.options.online = Qt.application.state === Qt.ApplicationActive
     }
 
+    property var callWindowInstance
+
+    Connections {
+        target: callsManager
+        onCallStarted: {
+            if (!callWindowInstance)
+                callWindowInstance = Qt.createComponent(Qt.resolvedUrl("CallWindow.qml")).createObject()
+            callWindowInstance.show()
+        }
+    }
+
     AppNotification {
         id: appNotification
         parent: contentItem
@@ -124,13 +135,5 @@ ApplicationWindow {
             appNotification: appNotification,
             utilities: utilities,
         })
-    }
-
-    Button {
-        visible: callsManager.currentCallState == CallsManager.Ready
-        enabled: visible
-        anchors.centerIn: parent
-        text: "[DEBUG] Call active, tap to discard"
-        onClicked: callsManager.discardCurrentCall()
     }
 }
