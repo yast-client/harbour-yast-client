@@ -12,7 +12,7 @@ Page {
         PageHeader {
             title: utilities.getUserName(user.info)
             description: callsManager.currentCallState === CallsManager.Connected
-                         ? Emoji.emojify(callsManager.currentCallEmojis.join(''), Theme.fontSizeSmall)
+                         ? Emoji.emojify(callsManager.currentCallEmojis.join(' '), Theme.fontSizeSmall)
                          : callWindow.callStatus
 
             Item {

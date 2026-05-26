@@ -82,7 +82,7 @@ CoverBackground {
                 color: Theme.highlightColor
                 textFormat: Text.StyledText
                 text: callsManager.currentCallState === CallsManager.Connected
-                      ? Emoji.emojify(callsManager.currentCallEmojis.join(''), Theme.fontSizeSmall)
+                      ? Emoji.emojify(callsManager.currentCallEmojis.join(' '), Theme.fontSizeSmall)
                       : callWindow.callStatus
             }
             Icon {
