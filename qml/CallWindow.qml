@@ -63,7 +63,10 @@ Window {
             case CallsManager.Discarded:
                 return qsTr("Call ended")
             case CallsManager.Error:
-                return qsTr("An error occured")
+                var error = callsManager.currentCallError
+                if (error.code === 4005000)
+                    return qsTr("Connection timed out")
+                return error.message ? qsTr("An error occured: %1").arg(error.message) : qsTr("An error occured")
             case CallsManager.Connecting:
                 return qsTr("Connecting...")
             case CallsManager.Connected:

@@ -178,10 +178,13 @@ SilicaFlickable {
                                       })
         }
         MenuItem {
-            visible: NO_HARBOUR_COMPLIANCE && isPrivateOrSecretChat && !isSavedMessages && !privateChatUserInformation.is_support
+            visible: NO_HARBOUR_COMPLIANCE && isPrivateOrSecretChat && (chatPartnerFullInformation.has_private_calls || chatPartnerFullInformation.can_be_called)
             text: qsTr("Call")
             onClicked:
-                callsManager.createCall(chatInformation.id)
+                if (chatPartnerFullInformation.has_private_calls)
+                    appNotification.show(qsTr("Unfortunately, you cannot call %1 because of their privacy settings. You can ask them to modify their setting or to call you instead").arg(headerItem.title))
+                else
+                    callsManager.createCall(chatInformation.id)
         }
     }
     // header
