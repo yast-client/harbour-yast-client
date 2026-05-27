@@ -32,6 +32,18 @@ Window {
             default:
                 return true
             }
+        readonly property bool canCallBack:
+            switch (callsManager.currentCallState) {
+            case CallsManager.Declined:
+            case CallsManager.Disconnected:
+            case CallsManager.HungUp:
+            case CallsManager.Discarded:
+            case CallsManager.Error:
+            case CallsManager.UnknownError:
+                return true
+            default:
+                return false
+            }
 
         readonly property string callStatus:
             switch (callsManager.currentCallState) {
@@ -44,7 +56,7 @@ Window {
             case CallsManager.HangingUp:
                 return qsTr("Hanging up...")
             case CallsManager.Declined:
-                return qsTr("Call declined")
+                return qsTr("Line busy")
             case CallsManager.Disconnected:
                 return qsTr("Disconnected")
             case CallsManager.HungUp:

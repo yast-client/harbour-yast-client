@@ -54,8 +54,10 @@ Page {
             bottom: parent.bottom
             bottomMargin: Theme.paddingLarge
         }
-        enabled: callWindow.canHangUp
-        text: qsTr("End call")
-        onClicked: callsManager.discardCurrentCall()
+        enabled: callWindow.canHangUp || callWindow.canCallBack
+        text: callWindow.canCallBack ? qsTr("Call back") : qsTr("End call")
+        onClicked: if (callWindow.canHangUp)
+                       callsManager.discardCurrentCall()
+                   else callsManager.createCall(callsManager.currentCallUserId)
     }
 }

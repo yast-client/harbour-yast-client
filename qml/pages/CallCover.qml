@@ -98,10 +98,17 @@ CoverBackground {
 
     CoverActionList {
         enabled: callWindow.canHangUp
-
         CoverAction {
             iconSource: "image://theme/icon-cover-hangup"
             onTriggered: callsManager.discardCurrentCall()
+        }
+    }
+
+    CoverActionList {
+        enabled: callWindow.canCallBack
+        CoverAction {
+            iconSource: "image://theme/icon-cover-answer"
+            onTriggered: callsManager.createCall(callsManager.currentCallUserId)
         }
     }
 }
