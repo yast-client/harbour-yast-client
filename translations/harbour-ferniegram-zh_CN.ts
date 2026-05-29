@@ -290,6 +290,64 @@
     </message>
 </context>
 <context>
+    <name>CallPage</name>
+    <message>
+        <source>End call</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Call back</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CallWindow</name>
+    <message>
+        <source>Connecting...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ringing...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exchanging keys...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hanging up...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disconnected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Call ended</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error occured</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connection error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line busy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connection timed out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error occured: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ChatBadges</name>
     <message>
         <source>SCAM</source>
@@ -420,6 +478,14 @@
     </message>
     <message>
         <source>Unmuted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Call</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unfortunately, you cannot call %1 because of their privacy settings. You can ask them to modify their setting or to call you instead</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1753,6 +1819,26 @@
             <numerusform></numerusform>
         </translation>
     </message>
+    <message>
+        <source>Incoming video call</source>
+        <comment>notification</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Incoming call</source>
+        <comment>notification</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Accept</source>
+        <comment>Accept a call</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Decline</source>
+        <comment>Decline a call</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NotificationSoundSelectionPage</name>
@@ -2172,6 +2258,18 @@
     </message>
     <message>
         <source>Forcefully allow AI summary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save call logs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save logs from tgcalls to Downloads</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
