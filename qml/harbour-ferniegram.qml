@@ -52,6 +52,12 @@ ApplicationWindow {
             tdLibWrapper.options.online = Qt.application.state === Qt.ApplicationActive
     }
 
+    Connections {
+        target: dBusAdaptor
+        onActivateWindow:
+            appWindow.activate()
+    }
+
     property var callWindowInstance
 
     Connections {
