@@ -31,22 +31,13 @@ int main(int argc, char *argv[]) {
 
     QQmlContext *context = view->rootContext();
 
-    const QString dbusPath = "/io/ferniegram/ferniegram",
-            dbusServiceName = "io.ferniegram.ferniegram",
-            // Lipstick opens the app when DBus service name matches the one in the .desktop file
-            dbusServiceName2 = "io.ferniegram.ferniegram2";
+    const QString dbusPath = "/io/ferniegram/ferniegram";
+    const QString dbusServiceName = "io.ferniegram.ferniegram";
 
     const QUrl appIconPath = SailfishApp::pathTo("images/ferniegram-notification.png");
-    QScopedPointer<FernieMain::AppContext> appContext(FernieMain::registerTypes(argc, argv, view, "Ferniegram", appIconPath, dbusPath, dbusServiceName2));
+    QScopedPointer<FernieMain::AppContext> appContext(FernieMain::registerTypes(argc, argv, view, "Ferniegram", appIconPath, dbusPath, dbusServiceName));
 
-    QObject::connect(app.data(), &QGuiApplication::aboutToQuit, [&appContext, dbusServiceName]() {
-        LOG("Setting normal DBus service name");
-        // TODO: mark as read and reply with app closed still doesn't work because of a race condition
-        appContext->notificationManager.setDbusServiceName(dbusServiceName);
-    });
-
-    FernieMain::registerDBusService(app, view, dbusServiceName, dbusPath);
-    FernieMain::registerDBusService(app, view, dbusServiceName2);
+    FernieMain::registerDBusService(app, view, dbusPath, dbusServiceName);
 
     FernieMain::registerDebugLogJS(appContext.data());
 
