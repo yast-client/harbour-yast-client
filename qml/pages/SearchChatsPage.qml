@@ -386,7 +386,7 @@ Page {
                 }
 
                 BusyLabel {
-                    text: qsTr("Searching chats...")
+                    text: qsTr("Searching chats")
                     running: searchChatsPage.isLoading
                 }
             }

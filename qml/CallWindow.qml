@@ -48,13 +48,13 @@ Window {
         readonly property string callStatus:
             switch (callsManager.currentCallState) {
             case CallsManager.Pending:
-                return qsTr("Connecting...")
+                return qsTr("Connecting…")
             case CallsManager.Ringing:
-                return qsTr("Ringing...")
+                return qsTr("Ringing…")
             case CallsManager.ExchangingKeys:
-                return qsTr("Exchanging keys...")
+                return qsTr("Exchanging keys…")
             case CallsManager.HangingUp:
-                return qsTr("Hanging up...")
+                return qsTr("Hanging up…")
             case CallsManager.Declined:
                 return qsTr("Line busy")
             case CallsManager.Disconnected:
@@ -68,7 +68,7 @@ Window {
                     return qsTr("Connection timed out")
                 return error.message ? qsTr("An error occured: %1").arg(error.message) : qsTr("An error occured")
             case CallsManager.Connecting:
-                return qsTr("Connecting...")
+                return qsTr("Connecting…")
             case CallsManager.Connected:
                 return ""
             case CallsManager.UnknownError:

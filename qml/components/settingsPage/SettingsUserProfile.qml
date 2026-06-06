@@ -251,7 +251,7 @@ AccordionItem {
                     Text {
                         id: uploadingText
                         font.pixelSize: Theme.fontSizeSmall
-                        text: qsTr("Uploading...")
+                        text: qsTr("Uploading…")
                         horizontalAlignment: Text.AlignHCenter
                         color: Theme.secondaryColor
                         width: parent.width

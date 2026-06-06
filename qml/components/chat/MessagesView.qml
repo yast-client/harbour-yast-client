@@ -777,7 +777,7 @@ Column {
             Behavior on opacity { FadeAnimator {} }
             anchors.centerIn: parent
             //spacing: Theme.paddingMedium
-            text: qsTr("Loading messages...")
+            text: qsTr("Loading messages")
             running: chatPage.loading
         }
 

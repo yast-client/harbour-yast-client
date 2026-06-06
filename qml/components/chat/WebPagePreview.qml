@@ -190,7 +190,7 @@ Item {
 
     Label {
         width: parent.width
-        text: qsTr("Preview not supported for this link...")
+        text: qsTr("Preview not supported for this link")
         font.pixelSize: webPagePreviewItem.largerFontSize ? Theme.fontSizeExtraSmall : Theme.fontSizeTiny
         font.italic: true
         color: Theme.secondaryColor

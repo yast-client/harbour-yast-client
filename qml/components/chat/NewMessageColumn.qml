@@ -322,7 +322,7 @@ Column {
                     utilities.startGeoLocationUpdates()
                     attachmentOptionsFlickable.show = false
                     attachmentPreviewRow.isLocation = true
-                    attachmentPreviewRow.attachmentDescription = qsTr("Location: Obtaining position...")
+                    attachmentPreviewRow.attachmentDescription = qsTr("Location: Obtaining position…")
                 }
             }
             IconButton {
@@ -426,7 +426,7 @@ Column {
         Text {
             id: uploadingText
             font.pixelSize: Theme.fontSizeSmall
-            text: qsTr("Uploading...")
+            text: qsTr("Uploading…")
             anchors.verticalCenter: parent.verticalCenter
             color: Theme.secondaryColor
             visible: uploadStatusRow.visible

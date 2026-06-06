@@ -79,7 +79,7 @@ Page {
             SearchField {
                 id: search
                 width: parent.width
-                placeholderText: qsTr("Search a contact...")
+                placeholderText: qsTr("Search a contact")
                 active: parent.visible // `visible` doesn't work because changing `active` affects `visible`
 
                 onTextChanged: contactsModel.setFilterWildcard("*" + text + "*")
@@ -155,7 +155,7 @@ Page {
         BusyLabel {
             id: busyLabel
             anchors.verticalCenter: contentContainer.verticalCenter
-            text: qsTr("Loading contacts...")
+            text: qsTr("Loading contacts…")
         }
     }
 }

@@ -28,7 +28,7 @@ ContextMenu {
     }
 
     MenuItem {
-        text: qsTr("Mute for...")
+        text: qsTr("Mute for…")
         onClicked: {
             var dialog = pageStack.push(Qt.resolvedUrl("../dialogs/DurationPickerDialog.qml"), {
                                             title: qsTr("Mute notifications"),

@@ -142,7 +142,6 @@ Page {
             }
 
             BusyLabel {
-                text: qsTr("Loading...")
                 running: initializationPage.loading
                 Behavior on opacity { FadeAnimation {} }
                 visible: opacity > 0
