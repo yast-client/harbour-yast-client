@@ -21,7 +21,7 @@ ContextMenu {
             onClicked: {
                 var newNotificationSettings = notificationSettings
                 newNotificationSettings.use_default_mute_for = false
-                newNotificationSettings.mute_for = modelData * 60
+                newNotificationSettings.mute_for = modelData * 3600
                 tdLibWrapper.setChatNotificationSettings(chatId, newNotificationSettings)
             }
         }
