@@ -103,6 +103,7 @@ if(NOT HARBOUR_COMPLIANCE)
         crypto
         opus
         libabsl
+        ${CMAKE_CURRENT_SOURCE_DIR}/tg_owt/${TARGET_ARCHITECTURE}/lib/libvpx.a
         avcodec
         avutil
         pulse
