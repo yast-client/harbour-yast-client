@@ -5,14 +5,11 @@ import "../../js/functions.js" as Functions
 
 ChatInformationTabItemMediaList {
     messageDelegate: Component {
-        MessageDocument {
+        MessageVoiceNote {
             width: parent.width
             messageListItem: parent.listItem
             rawMessage: parent.listItem.message
-            tertiaryText: Functions.getDateTimeElapsed(rawMessage.date)
-            openMouseArea.enabled: false
-
-            onClicked: messageDocument.download()
+            secondaryText: Functions.getDateTimeElapsed(rawMessage.date)
         }
     }
 }

@@ -4,17 +4,11 @@ import Sailfish.Silica 1.0
 import ".."
 import "../../js/debug.js" as Debug
 
-ChatInformationTabItemBase {
+ChatInformationTabItemMediaBase {
     id: tabBase
-    loading: gridView.count == 0
     scrollableView: gridView
 
     property alias model: gridView.model
-
-    function jumpToMessage(id) {
-        chatManager.model.loadHistoryForMessage(id) // FIXME: need to use chatPage.showMessage (improves performance in case message is already loaded and shows an animation after message is shown). Need to map album messages to main album message though
-        appWindow.pageStack.navigateBack()
-    }
 
     function loadMessage(index) {
         appWindow.pageStack.push(Qt.resolvedUrl("../../pages/MediaAlbumPage.qml"), {

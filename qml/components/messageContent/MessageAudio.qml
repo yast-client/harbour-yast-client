@@ -32,10 +32,12 @@ MessageContentFileInfoBase {
     thumbnail: rawMessage.content.audio.album_cover_thumbnail
     minithumbnail: rawMessage.content.audio.album_cover_minithumbnail
 
+    property string durationText: (audioPlayer.position > 0 || audioPlayer.playbackState === Audio.PlayingState ? (Format.formatDuration(audioPlayer.position/1000, Formatter.DurationShort)+" / ") : "") + Format.formatDuration(contentItem.duration > 0 ? contentItem.duration : (audioPlayer.duration/1000), Formatter.DurationShort)
+
     primaryText: Emoji.emojify(rawMessage.content.audio.performer, primaryLabel.font.pixelSize)
     secondaryText: Emoji.emojify(rawMessage.content.audio.title, secondaryLabel.font.pixelSize)
     tertiaryLabel.visible: (duration || (audioPlayer.duration/1000)) > 0
-    tertiaryText: (audioPlayer.position > 0 || audioPlayer.playbackState === Audio.PlayingState ? (Format.formatDuration(audioPlayer.position/1000, Formatter.DurationShort)+" / ") : "") + Format.formatDuration(contentItem.duration > 0 ? contentItem.duration : (audioPlayer.duration/1000), Formatter.DurationShort)
+    tertiaryText: durationText
 
     property alias slider: slider
 

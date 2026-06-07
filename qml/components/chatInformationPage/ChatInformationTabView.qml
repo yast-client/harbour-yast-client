@@ -50,6 +50,12 @@ TabView {
                 switch (tabModel.tabData.filter) {
                 case TDLibAPI.SearchMessagesFilterDocument:
                     return filesComponent
+                case TDLibAPI.SearchMessagesFilterAudio:
+                    return audiosComponent
+                case TDLibAPI.SearchMessagesFilterVoiceNote:
+                    return voiceNotesComponent
+                case TDLibAPI.SearchMessagesFilterUrl:
+                    return linksComponent
                 default:
                     return mediaGridComponent
                 }
@@ -79,6 +85,30 @@ TabView {
                     opacity: tabLoader.opacity
                 }
             }
+            Component {
+                id: audiosComponent
+                ChatInformationTabItemAudios {
+                    model: audiosModel
+                    focus: tabLoader.focus
+                    opacity: tabLoader.opacity
+                }
+            }
+            Component {
+                id: voiceNotesComponent
+                ChatInformationTabItemVoiceNotes {
+                    model: voiceNotesModel
+                    focus: tabLoader.focus
+                    opacity: tabLoader.opacity
+                }
+            }
+            Component {
+                id: linksComponent
+                ChatInformationTabItemLinks {
+                    model: linksModel
+                    focus: tabLoader.focus
+                    opacity: tabLoader.opacity
+                }
+            }
         }
     }
 
@@ -94,6 +124,9 @@ TabView {
                     'Members',
                     'Media',
                     'Files',
+                    'Audios',
+                    'Links',
+                    'VoiceNotes',
                     'Gifs',
                     'VideoNotes',
                     'GroupsInCommon',
@@ -165,6 +198,27 @@ TabView {
         tdlib: tdLibWrapper
         filter: TDLibAPI.SearchMessagesFilterDocument
         onNotEmptyDetected: insertTab('Files', qsTr("Files", "Button: Chat files"), 'image://theme/icon-m-file-document', {filter: TDLibAPI.SearchMessagesFilterDocument})
+    }
+
+    InvertedMediaMessagesModel {
+        id: audiosModel
+        tdlib: tdLibWrapper
+        filter: TDLibAPI.SearchMessagesFilterAudio
+        onNotEmptyDetected: insertTab('Audios', qsTr("Audio", "Button: Chat audio files"), 'image://theme/icon-m-file-audio', {filter: TDLibAPI.SearchMessagesFilterAudio})
+    }
+
+    InvertedMediaMessagesModel {
+        id: voiceNotesModel
+        tdlib: tdLibWrapper
+        filter: TDLibAPI.SearchMessagesFilterVoiceNote
+        onNotEmptyDetected: insertTab('VoiceNotes', qsTr("Voice messages", "Button: Chat voice messages"), 'image://theme/icon-m-browser-microphone', {filter: TDLibAPI.SearchMessagesFilterVoiceNote})
+    }
+
+    InvertedMediaMessagesModel {
+        id: linksModel
+        tdlib: tdLibWrapper
+        filter: TDLibAPI.SearchMessagesFilterUrl
+        onNotEmptyDetected: insertTab('Links', qsTr("Links", "Button: Chat shared links"), 'image://theme/icon-m-link', {filter: TDLibAPI.SearchMessagesFilterUrl})
     }
 
     // FIXME: this works for now (required because groupFullInformation is not yet initialized when Component.onCompleted is called), but this is too clunky
@@ -240,8 +294,11 @@ TabView {
             tdLibWrapper.getBotSimilarBots(chatUserOrGroupId)
 
         photoAndVideoModel.init(chatManager.chatId)
+        filesModel.init(chatManager.chatId)
+        audiosModel.init(chatManager.chatId)
+        linksModel.init(chatManager.chatId)
+        voiceNotesModel.init(chatManager.chatId)
         animationModel.init(chatManager.chatId)
         videoNoteModel.init(chatManager.chatId)
-        filesModel.init(chatManager.chatId)
     }
 }

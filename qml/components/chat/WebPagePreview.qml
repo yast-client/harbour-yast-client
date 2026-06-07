@@ -30,10 +30,14 @@ Item {
     property bool largerFontSize
     property bool highlighted
     readonly property int fontSize: largerFontSize ? Theme.fontSizeSmall : Theme.fontSizeExtraSmall
+    property bool showLargeMedia: linkPreviewData.show_large_media
 
-    implicitHeight: linkPreviewData.show_large_media
-            ? infoColumn.height + mediaItem.height + mediaItem.anchors.topMargin + mediaItem.anchors.bottomMargin
-            : Math.max(infoColumn.height, mediaItem.height + mediaItem.anchors.topMargin + mediaItem.anchors.bottomMargin)
+    property alias descriptionText: descriptionText
+    property alias infoColumnMouseArea: infoColumnMouseArea
+
+    implicitHeight: showLargeMedia
+                    ? infoColumn.height + mediaItem.height + mediaItem.anchors.topMargin + mediaItem.anchors.bottomMargin
+                    : Math.max(infoColumn.height, mediaItem.height + mediaItem.anchors.topMargin + mediaItem.anchors.bottomMargin)
 
     function clicked() {
         descriptionText.toggleMaxLineCount()
@@ -42,7 +46,7 @@ Item {
     Column {
         id: infoColumn
         spacing: Theme.paddingSmall
-        width: linkPreviewData.show_large_media ? parent.width : parent.width - (mediaItem.width + mediaItem.anchors.leftMargin + mediaItem.anchors.rightMargin)
+        width: showLargeMedia ? parent.width : parent.width - (mediaItem.width + mediaItem.anchors.leftMargin + mediaItem.anchors.rightMargin)
         opacity: (siteNameText.rawText || titleText.rawText || descriptionText.rawText) ? 1 : 0
 
         MultilineEmojiLabel {
@@ -83,19 +87,20 @@ Item {
     }
 
     MouseArea {
+        id: infoColumnMouseArea
         anchors.fill: infoColumn
         onClicked: utilities.handleLink(linkPreviewData.url)
     }
 
     Loader {
         id: mediaItem
-        width: !sourceComponent ? 0 : linkPreviewData.show_large_media ? parent.width : Theme.iconSizeLarge
-        height: !sourceComponent ? 0 : linkPreviewData.show_large_media ? width * 2 / 3 : width
+        width: !sourceComponent ? 0 : showLargeMedia ? parent.width : Theme.iconSizeLarge
+        height: !sourceComponent ? 0 : showLargeMedia ? width * 2 / 3 : width
         anchors {
-            top: sourceComponent && linkPreviewData.show_large_media ? infoColumn.bottom : undefined
-            left: !sourceComponent || linkPreviewData.show_large_media ? undefined : infoColumn.right
-            topMargin: !sourceComponent ? undefined : (Theme.paddingSmall + linkPreviewData.show_large_media ? Theme.paddingMedium : 0)
-            leftMargin: !sourceComponent ? undefined : (Theme.paddingSmall + linkPreviewData.show_large_media ? 0 : Theme.paddingMedium)
+            top: sourceComponent && showLargeMedia ? infoColumn.bottom : undefined
+            left: !sourceComponent || showLargeMedia ? undefined : infoColumn.right
+            topMargin: !sourceComponent ? undefined : (Theme.paddingSmall + showLargeMedia ? Theme.paddingMedium : 0)
+            leftMargin: !sourceComponent ? undefined : (Theme.paddingSmall + showLargeMedia ? 0 : Theme.paddingMedium)
             margins: sourceComponent ? Theme.paddingSmall : 0
         }
 
