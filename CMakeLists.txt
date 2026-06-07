@@ -102,10 +102,7 @@ if(NOT HARBOUR_COMPLIANCE)
         ssl
         crypto
         opus
-        srtp2
         libabsl
-        vpx
-        ${CMAKE_CURRENT_SOURCE_DIR}/tg_owt/${TARGET_ARCHITECTURE}/lib/libopenh264.a
         avcodec
         avutil
         pulse

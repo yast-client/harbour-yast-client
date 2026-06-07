@@ -26,7 +26,7 @@ cd build
 sfdk build-init
 
 # Instal necessary packages
-sfdk build-shell --maintain zypper install -y ninja ccache \
+sfdk build-shell --maintain zypper install -y ninja ccache git \
     libjpeg-turbo-devel ffmpeg-devel opus-devel libvpx-devel \
     pulseaudio-devel
 
