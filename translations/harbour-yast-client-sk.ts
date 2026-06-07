@@ -28,8 +28,8 @@
         <translation>Tento projekt využíva OpenStreetMap Nominatim na reverzné geokódovanie príloh umiestnenia. Ďakujeme, že je sprístupnený ako webová služba!</translation>
     </message>
     <message>
-        <source>About Ferniegram</source>
-        <translation>O aplikácii Ferniegram</translation>
+        <source>About YAST</source>
+        <translation>O aplikácii YAST</translation>
     </message>
     <message>
         <source>Translations</source>
@@ -305,22 +305,6 @@
 <context>
     <name>CallWindow</name>
     <message>
-        <source>Connecting...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ringing...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Exchanging keys...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hanging up...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Disconnected</source>
         <translation type="unfinished"></translation>
     </message>
@@ -346,6 +330,22 @@
     </message>
     <message>
         <source>An error occured: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connecting…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ringing…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exchanging keys…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hanging up…</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -747,15 +747,15 @@
         </translation>
     </message>
     <message>
-        <source>Mute for...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Mute notifications</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Customize</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mute for…</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -829,8 +829,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Search in chat...</source>
-        <translation type="unfinished">Hľadanie v čete...</translation>
+        <source>Search in chat</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1181,10 +1181,6 @@
         <translation>V poriadku</translation>
     </message>
     <message>
-        <source>Welcome to Ferniegram!</source>
-        <translation>Vitajte vo Ferniegram!</translation>
-    </message>
-    <message>
         <source>Please enter your phone number to continue.</source>
         <translation>Pre pokračovanie zadajte Vaše telefónne číslo.</translation>
     </message>
@@ -1195,10 +1191,6 @@
     <message>
         <source>Please enter the code that you received:</source>
         <translation>Zadajte kód, ktorý ste dostali:</translation>
-    </message>
-    <message>
-        <source>Loading...</source>
-        <translation>Načítanie...</translation>
     </message>
     <message>
         <source>Unable to authenticate you with the entered code.</source>
@@ -1237,11 +1229,15 @@
         <translation>Použite medzinárodný formát, napr. %1</translation>
     </message>
     <message>
-        <source>About Ferniegram</source>
-        <translation>O aplikácii Ferniegram</translation>
+        <source>About YAST</source>
+        <translation>O aplikácii YAST</translation>
     </message>
     <message>
         <source>Proxy settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Welcome to YAST Client!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1525,10 +1521,6 @@
         <source>This chat is empty.</source>
         <translation type="unfinished">Tento čet je prázdny.</translation>
     </message>
-    <message>
-        <source>Loading messages...</source>
-        <translation type="unfinished">Načítanie správ...</translation>
-    </message>
     <message numerus="yes">
         <source>%Ln messages have been copied</source>
         <translation type="unfinished">
@@ -1544,6 +1536,10 @@
             <numerusform>%Ln správy odstránené</numerusform>
             <numerusform>%Ln správ odstránených</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Loading messages</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1569,16 +1565,8 @@
         <translation>Šifrované bez prerušenia, je prístupné iba na tomto zariadení</translation>
     </message>
     <message>
-        <source>Loading contacts...</source>
-        <translation>Načítanie kontaktov...</translation>
-    </message>
-    <message>
         <source>Transport-encrypted, uses Telegram Cloud, sharable across devices</source>
         <translation>Transportne šifrované, využíva Telegram Cloud, prístupné medzi zariadeniami</translation>
-    </message>
-    <message>
-        <source>Search a contact...</source>
-        <translation>Vyhľadať kontakt...</translation>
     </message>
     <message>
         <source>Synchronize Contacts with Telegram</source>
@@ -1608,13 +1596,17 @@
         <source>contact has not joined telegram yet</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Search a contact</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Loading contacts…</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NewMessageColumn</name>
-    <message>
-        <source>Location: Obtaining position...</source>
-        <translation type="unfinished">Poloha: Získavanie pozície...</translation>
-    </message>
     <message>
         <source>Unknown address</source>
         <translation type="unfinished">Neznáma adresa</translation>
@@ -1626,10 +1618,6 @@
     <message>
         <source>Accuracy: %1m</source>
         <translation type="unfinished">Presnosť: %1 m</translation>
-    </message>
-    <message>
-        <source>Uploading...</source>
-        <translation type="unfinished">Zapisovanie...</translation>
     </message>
     <message>
         <source>Edit Message</source>
@@ -1658,6 +1646,14 @@
     <message>
         <source>Message</source>
         <comment>placeholder for sending a message</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Location: Obtaining position…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Uploading…</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2101,7 +2097,7 @@
 <context>
     <name>OverviewPageHeader</name>
     <message>
-        <source>Ferniegram</source>
+        <source>YAST Client</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2241,10 +2237,6 @@
         <translation>Nebol nenájdený žiaden čet.</translation>
     </message>
     <message>
-        <source>Searching chats...</source>
-        <translation>Hľadanie četov...</translation>
-    </message>
-    <message>
         <source>Enter your query to start searching (at least 5 characters needed)</source>
         <translation>Pre spustenie hľadania zadajte podmienku (vyžaduje sa najmenej 5 znakov)</translation>
     </message>
@@ -2283,6 +2275,10 @@
     </message>
     <message>
         <source>Global search results</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searching chats</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2453,10 +2449,6 @@
         <translation>Oneskorenie pred označením správ ako prečítaných</translation>
     </message>
     <message>
-        <source>Ferniegram will wait a bit before messages are marked as read</source>
-        <translation>Ferniegram chvíľu počká, kým budú správy označené ako prečítané</translation>
-    </message>
-    <message>
         <source>Notification feedback</source>
         <translation>Reakcia oznámenia</translation>
     </message>
@@ -2483,10 +2475,6 @@
     <message>
         <source>Enable notification sounds</source>
         <translation>Povoliť zvukové oznamy</translation>
-    </message>
-    <message>
-        <source>When sounds are enabled, Ferniegram will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</source>
-        <translation>Keď sú povolené zvukové oznamy, Ferniegram použije aktuálne zvukové oznamy Sailfish OS pre čety, ktoré môžu byť upravené v nastaveniach systému.</translation>
     </message>
     <message>
         <source>Highlight unread messages</source>
@@ -2536,6 +2524,14 @@
         <source>Parse markdown when sending messages</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>There will be a slight delay before the messages will be read</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When sounds are enabled, the current Sailfish OS notification sound will be used for chats, which can be configured in the system settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsPage</name>
@@ -2544,8 +2540,8 @@
         <translation>Nastavenia</translation>
     </message>
     <message>
-        <source>About Ferniegram</source>
-        <translation type="unfinished">O aplikácii Ferniegram</translation>
+        <source>About YAST</source>
+        <translation>O aplikácii YAST</translation>
     </message>
     <message>
         <source>Is %1 still your number?</source>
@@ -2731,10 +2727,6 @@
         <translation>Povoliť režim &quot;iba pripojený&quot;</translation>
     </message>
     <message>
-        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Ferniegram to take effect.</source>
-        <translation>Zakázať ukladanie do off-line vyrovnávacej pamäte. Niektoré funkcie môžu byť v tomto režime obmedzené alebo môžu chýbať. Zmeny sa prejavia až po reštartovaní Ferniegram.</translation>
-    </message>
-    <message>
         <source>Enable storage optimizer</source>
         <translation>Povoliť optimalizátor pamäte</translation>
     </message>
@@ -2778,6 +2770,10 @@
         <source>Proxy settings</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of the app to take effect.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsUserProfile</name>
@@ -2817,10 +2813,6 @@
         <translation>Pridať fotografiu</translation>
     </message>
     <message>
-        <source>Uploading...</source>
-        <translation>Zapisovanie...</translation>
-    </message>
-    <message>
         <source>Log Out</source>
         <translation>Odhlásiť</translation>
     </message>
@@ -2847,6 +2839,10 @@
     <message>
         <source>Add</source>
         <comment>Add the birthday to your profile</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Uploading…</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3749,8 +3745,8 @@
 <context>
     <name>WebPagePreview</name>
     <message>
-        <source>Preview not supported for this link...</source>
-        <translation>Pre tento odkaz nie je podporovaný náhľad...</translation>
+        <source>Preview not supported for this link</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3909,7 +3905,7 @@
     </message>
 </context>
 <context>
-    <name>harbour-ferniegram</name>
+    <name>harbour-yast-client</name>
     <message>
         <source>Link unsupported: %1</source>
         <translation type="unfinished"></translation>

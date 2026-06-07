@@ -28,8 +28,8 @@
         <translation>该项目使用 OpenStreetMap Nominatim 对位置附件进行反向地理编码。感谢把它作为网络服务提供给我们！</translation>
     </message>
     <message>
-        <source>About Ferniegram</source>
-        <translation>关于 Ferniegram</translation>
+        <source>About YAST</source>
+        <translation>关于 YAST</translation>
     </message>
     <message>
         <source>Translations</source>
@@ -303,22 +303,6 @@
 <context>
     <name>CallWindow</name>
     <message>
-        <source>Connecting...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ringing...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Exchanging keys...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hanging up...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Disconnected</source>
         <translation type="unfinished"></translation>
     </message>
@@ -344,6 +328,22 @@
     </message>
     <message>
         <source>An error occured: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connecting…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ringing…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exchanging keys…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hanging up…</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -739,15 +739,15 @@
         </translation>
     </message>
     <message>
-        <source>Mute for...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Mute notifications</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Customize</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mute for…</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -819,8 +819,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Search in chat...</source>
-        <translation type="unfinished">搜索对话内容…</translation>
+        <source>Search in chat</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1164,10 +1164,6 @@
         <translation>确认</translation>
     </message>
     <message>
-        <source>Welcome to Ferniegram!</source>
-        <translation>欢迎使用 Ferniegram ！</translation>
-    </message>
-    <message>
         <source>Please enter your phone number to continue.</source>
         <translation>请输入你的电话号码以继续。</translation>
     </message>
@@ -1178,10 +1174,6 @@
     <message>
         <source>Please enter the code that you received:</source>
         <translation>请输入你收到的验证码:</translation>
-    </message>
-    <message>
-        <source>Loading...</source>
-        <translation>正在加载…</translation>
     </message>
     <message>
         <source>Unable to authenticate you with the entered code.</source>
@@ -1220,11 +1212,15 @@
         <translation>请使用国际区号格式，例如 %1</translation>
     </message>
     <message>
-        <source>About Ferniegram</source>
-        <translation>关于 Ferniegram</translation>
+        <source>About YAST</source>
+        <translation>关于 YAST</translation>
     </message>
     <message>
         <source>Proxy settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Welcome to YAST Client!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1498,10 +1494,6 @@
         <source>This chat is empty.</source>
         <translation type="unfinished">此对话为空。</translation>
     </message>
-    <message>
-        <source>Loading messages...</source>
-        <translation type="unfinished">正在加载消息…</translation>
-    </message>
     <message numerus="yes">
         <source>%Ln messages have been copied</source>
         <translation type="unfinished">
@@ -1513,6 +1505,10 @@
         <translation type="unfinished">
             <numerusform>已删除 %Ln 则消息</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Loading messages</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1538,16 +1534,8 @@
         <translation>端对端加密，仅能通过此设备访问。</translation>
     </message>
     <message>
-        <source>Loading contacts...</source>
-        <translation>正在加载联系人…</translation>
-    </message>
-    <message>
         <source>Transport-encrypted, uses Telegram Cloud, sharable across devices</source>
         <translation>传输加密，使用 Telegram 云，可以在设备之间共享</translation>
-    </message>
-    <message>
-        <source>Search a contact...</source>
-        <translation>搜索联系人…</translation>
     </message>
     <message>
         <source>Synchronize Contacts with Telegram</source>
@@ -1577,13 +1565,17 @@
         <source>contact has not joined telegram yet</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Search a contact</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Loading contacts…</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NewMessageColumn</name>
-    <message>
-        <source>Location: Obtaining position...</source>
-        <translation type="unfinished">位置:正在获取位置…</translation>
-    </message>
     <message>
         <source>Unknown address</source>
         <translation type="unfinished">未知位置</translation>
@@ -1595,10 +1587,6 @@
     <message>
         <source>Accuracy: %1m</source>
         <translation type="unfinished">精度: %1m</translation>
-    </message>
-    <message>
-        <source>Uploading...</source>
-        <translation type="unfinished">正在上传…</translation>
     </message>
     <message>
         <source>Edit Message</source>
@@ -1627,6 +1615,14 @@
     <message>
         <source>Message</source>
         <comment>placeholder for sending a message</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Location: Obtaining position…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Uploading…</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2060,7 +2056,7 @@
 <context>
     <name>OverviewPageHeader</name>
     <message>
-        <source>Ferniegram</source>
+        <source>YAST Client</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2190,10 +2186,6 @@
         <translation>没有找到对话。</translation>
     </message>
     <message>
-        <source>Searching chats...</source>
-        <translation>正在搜索对话…</translation>
-    </message>
-    <message>
         <source>Enter your query to start searching (at least 5 characters needed)</source>
         <translation>输入你要搜索的内容（至少需要输入5个字符）</translation>
     </message>
@@ -2232,6 +2224,10 @@
     </message>
     <message>
         <source>Global search results</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searching chats</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2402,10 +2398,6 @@
         <translation>标记消息已读前延迟</translation>
     </message>
     <message>
-        <source>Ferniegram will wait a bit before messages are marked as read</source>
-        <translation>Ferniegram 将会在标记消息已读之前延迟一下</translation>
-    </message>
-    <message>
         <source>Notification feedback</source>
         <translation>通知反馈</translation>
     </message>
@@ -2432,10 +2424,6 @@
     <message>
         <source>Enable notification sounds</source>
         <translation>开启通知声音</translation>
-    </message>
-    <message>
-        <source>When sounds are enabled, Ferniegram will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</source>
-        <translation>如果开启声音，Ferniegram 会采用当前旗鱼系统通知声音作为对话通知声音，你可以在系统设置进行配置。</translation>
     </message>
     <message>
         <source>Highlight unread messages</source>
@@ -2485,6 +2473,14 @@
         <source>Parse markdown when sending messages</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>There will be a slight delay before the messages will be read</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When sounds are enabled, the current Sailfish OS notification sound will be used for chats, which can be configured in the system settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsPage</name>
@@ -2493,8 +2489,8 @@
         <translation>设置</translation>
     </message>
     <message>
-        <source>About Ferniegram</source>
-        <translation type="unfinished">关于 Ferniegram</translation>
+        <source>About YAST</source>
+        <translation>关于 YAST</translation>
     </message>
     <message>
         <source>Is %1 still your number?</source>
@@ -2678,10 +2674,6 @@
         <translation>开启仅在线模式</translation>
     </message>
     <message>
-        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Ferniegram to take effect.</source>
-        <translation>禁用离线缓存。某些特定功能会在此模式中受限或消失。切换模式需要重启 fernschreiber 才能生效。</translation>
-    </message>
-    <message>
         <source>Enable storage optimizer</source>
         <translation>开启储存加速器</translation>
     </message>
@@ -2723,6 +2715,10 @@
         <source>Proxy settings</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of the app to take effect.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsUserProfile</name>
@@ -2762,10 +2758,6 @@
         <translation>添加图片</translation>
     </message>
     <message>
-        <source>Uploading...</source>
-        <translation>正在上传…</translation>
-    </message>
-    <message>
         <source>Log Out</source>
         <translation>登出</translation>
     </message>
@@ -2792,6 +2784,10 @@
     <message>
         <source>Add</source>
         <comment>Add the birthday to your profile</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Uploading…</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3654,8 +3650,8 @@
 <context>
     <name>WebPagePreview</name>
     <message>
-        <source>Preview not supported for this link...</source>
-        <translation>不支持预览此链接…</translation>
+        <source>Preview not supported for this link</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3806,7 +3802,7 @@
     </message>
 </context>
 <context>
-    <name>harbour-ferniegram</name>
+    <name>harbour-yast-client</name>
     <message>
         <source>Link unsupported: %1</source>
         <translation type="unfinished"></translation>

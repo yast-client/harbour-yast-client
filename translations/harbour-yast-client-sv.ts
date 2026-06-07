@@ -28,8 +28,8 @@
         <translation>Detta projekt använder OpenStreetMap Nominatim för omvänd geokodning av platsbilagor. Tack för att ni gjorde den tillgänglig som webbtjänst!</translation>
     </message>
     <message>
-        <source>About Ferniegram</source>
-        <translation>Om Ferniegram</translation>
+        <source>About YAST</source>
+        <translation>Om YAST</translation>
     </message>
     <message>
         <source>Translations</source>
@@ -304,22 +304,6 @@
 <context>
     <name>CallWindow</name>
     <message>
-        <source>Connecting...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ringing...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Exchanging keys...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hanging up...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Disconnected</source>
         <translation type="unfinished"></translation>
     </message>
@@ -345,6 +329,22 @@
     </message>
     <message>
         <source>An error occured: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connecting…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ringing…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exchanging keys…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hanging up…</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -743,15 +743,15 @@
         </translation>
     </message>
     <message>
-        <source>Mute for...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Mute notifications</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Customize</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mute for…</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -824,8 +824,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Search in chat...</source>
-        <translation type="unfinished">Sök i chatten...</translation>
+        <source>Search in chat</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1172,10 +1172,6 @@
         <translation>OK</translation>
     </message>
     <message>
-        <source>Welcome to Ferniegram!</source>
-        <translation>Välkommen till Ferniegram!</translation>
-    </message>
-    <message>
         <source>Please enter your phone number to continue.</source>
         <translation>Ange ditt telefonnummer för att fortsätta.</translation>
     </message>
@@ -1186,10 +1182,6 @@
     <message>
         <source>Please enter the code that you received:</source>
         <translation>Ange koden du mottog:</translation>
-    </message>
-    <message>
-        <source>Loading...</source>
-        <translation>Läser in...</translation>
     </message>
     <message>
         <source>Unable to authenticate you with the entered code.</source>
@@ -1228,11 +1220,15 @@
         <translation>Använd internationellt format, t.ex. %1</translation>
     </message>
     <message>
-        <source>About Ferniegram</source>
-        <translation>Om Ferniegram</translation>
+        <source>About YAST</source>
+        <translation>Om YAST</translation>
     </message>
     <message>
         <source>Proxy settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Welcome to YAST Client!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1511,10 +1507,6 @@
         <source>This chat is empty.</source>
         <translation type="unfinished">Denna chatt är tom.</translation>
     </message>
-    <message>
-        <source>Loading messages...</source>
-        <translation type="unfinished">Läser in meddelanden...</translation>
-    </message>
     <message numerus="yes">
         <source>%Ln messages have been copied</source>
         <translation type="unfinished">
@@ -1528,6 +1520,10 @@
             <numerusform>%Ln meddelande borttaget</numerusform>
             <numerusform>%Ln meddelanden borttagna</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Loading messages</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1553,16 +1549,8 @@
         <translation>Slutpunkt till slutpunktskrypterad, åtkomlig endast på denna enhet.</translation>
     </message>
     <message>
-        <source>Loading contacts...</source>
-        <translation>Läser in kontakter...</translation>
-    </message>
-    <message>
         <source>Transport-encrypted, uses Telegram Cloud, sharable across devices</source>
         <translation>Transportkrypterad, använder Telegram Cloud, kan delas mellan enheter.</translation>
-    </message>
-    <message>
-        <source>Search a contact...</source>
-        <translation>Sök en kontakt</translation>
     </message>
     <message>
         <source>Synchronize Contacts with Telegram</source>
@@ -1592,13 +1580,17 @@
         <source>contact has not joined telegram yet</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Search a contact</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Loading contacts…</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NewMessageColumn</name>
-    <message>
-        <source>Location: Obtaining position...</source>
-        <translation type="unfinished">Plats: Hämtar position...</translation>
-    </message>
     <message>
         <source>Unknown address</source>
         <translation type="unfinished">Okänd adress</translation>
@@ -1610,10 +1602,6 @@
     <message>
         <source>Accuracy: %1m</source>
         <translation type="unfinished">Noggrannhet: %1m</translation>
-    </message>
-    <message>
-        <source>Uploading...</source>
-        <translation type="unfinished">Ladda upp...</translation>
     </message>
     <message>
         <source>Edit Message</source>
@@ -1642,6 +1630,14 @@
     <message>
         <source>Message</source>
         <comment>placeholder for sending a message</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Location: Obtaining position…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Uploading…</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2080,7 +2076,7 @@
 <context>
     <name>OverviewPageHeader</name>
     <message>
-        <source>Ferniegram</source>
+        <source>YAST Client</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2215,10 +2211,6 @@
         <translation>Inga chattar hittades.</translation>
     </message>
     <message>
-        <source>Searching chats...</source>
-        <translation>Söker chattar...</translation>
-    </message>
-    <message>
         <source>Enter your query to start searching (at least 5 characters needed)</source>
         <translation>Ange din söksträng för att starta sökning (minst 5 tecken behövs)</translation>
     </message>
@@ -2257,6 +2249,10 @@
     </message>
     <message>
         <source>Global search results</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searching chats</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2427,10 +2423,6 @@
         <translation>Fördröjning innan meddelanden markeras som lästa</translation>
     </message>
     <message>
-        <source>Ferniegram will wait a bit before messages are marked as read</source>
-        <translation>Ferniegram väntar en stund innan meddelanden markeras som lästa</translation>
-    </message>
-    <message>
         <source>Notification feedback</source>
         <translation>Aviseringsåterkoppling</translation>
     </message>
@@ -2457,10 +2449,6 @@
     <message>
         <source>Enable notification sounds</source>
         <translation>Aktivera aviseringsljud</translation>
-    </message>
-    <message>
-        <source>When sounds are enabled, Ferniegram will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</source>
-        <translation>När ljud är aktiverat, använder Ferniegram aktuell Sailfish-signal för chatt-avisering, vilken kan ställas in i systemets ljudinställningar.</translation>
     </message>
     <message>
         <source>Highlight unread messages</source>
@@ -2510,6 +2498,14 @@
         <source>Parse markdown when sending messages</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>There will be a slight delay before the messages will be read</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When sounds are enabled, the current Sailfish OS notification sound will be used for chats, which can be configured in the system settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsPage</name>
@@ -2518,8 +2514,8 @@
         <translation>Inställningar</translation>
     </message>
     <message>
-        <source>About Ferniegram</source>
-        <translation type="unfinished">Om Ferniegram</translation>
+        <source>About YAST</source>
+        <translation>Om YAST</translation>
     </message>
     <message>
         <source>Is %1 still your number?</source>
@@ -2704,10 +2700,6 @@
         <translation>Aktivera endast-online-läge</translation>
     </message>
     <message>
-        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Ferniegram to take effect.</source>
-        <translation>Inaktiverar cachelagring offline. Vissa funktioner kan vara begränsade eller saknas helt i det här läget. Ändringar kräver omstart av Ferniegram för att träda i kraft.</translation>
-    </message>
-    <message>
         <source>Enable storage optimizer</source>
         <translation>Aktivera lagringsoptimering</translation>
     </message>
@@ -2750,6 +2742,10 @@
         <source>Proxy settings</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of the app to take effect.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsUserProfile</name>
@@ -2789,10 +2785,6 @@
         <translation>Lägg till bild</translation>
     </message>
     <message>
-        <source>Uploading...</source>
-        <translation>Ladda upp...</translation>
-    </message>
-    <message>
         <source>Log Out</source>
         <translation>Logga ut</translation>
     </message>
@@ -2819,6 +2811,10 @@
     <message>
         <source>Add</source>
         <comment>Add the birthday to your profile</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Uploading…</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3701,8 +3697,8 @@
 <context>
     <name>WebPagePreview</name>
     <message>
-        <source>Preview not supported for this link...</source>
-        <translation>Stöd för förhandsvisning av denna länk saknas...</translation>
+        <source>Preview not supported for this link</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3857,7 +3853,7 @@
     </message>
 </context>
 <context>
-    <name>harbour-ferniegram</name>
+    <name>harbour-yast-client</name>
     <message>
         <source>Link unsupported: %1</source>
         <translation type="unfinished"></translation>

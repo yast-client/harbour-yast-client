@@ -28,8 +28,8 @@
         <translation>This project uses OpenStreetMap Nominatim for reverse geocoding of location attachments. Thanks for making it available as web service!</translation>
     </message>
     <message>
-        <source>About Ferniegram</source>
-        <translation>About Ferniegram</translation>
+        <source>About YAST</source>
+        <translation>About YAST</translation>
     </message>
     <message>
         <source>Translations</source>
@@ -304,22 +304,6 @@
 <context>
     <name>CallWindow</name>
     <message>
-        <source>Connecting...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ringing...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Exchanging keys...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hanging up...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Disconnected</source>
         <translation type="unfinished"></translation>
     </message>
@@ -345,6 +329,22 @@
     </message>
     <message>
         <source>An error occured: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Connecting…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ringing…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exchanging keys…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hanging up…</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -743,15 +743,15 @@
         </translation>
     </message>
     <message>
-        <source>Mute for...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Mute notifications</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Customize</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mute for…</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -824,8 +824,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Search in chat...</source>
-        <translation type="unfinished">Search in chat...</translation>
+        <source>Search in chat</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1174,10 +1174,6 @@ messages</numerusform>
         <translation>OK</translation>
     </message>
     <message>
-        <source>Welcome to Ferniegram!</source>
-        <translation>Welcome to Ferniegram!</translation>
-    </message>
-    <message>
         <source>Please enter your phone number to continue.</source>
         <translation>Please enter your phone number to continue.</translation>
     </message>
@@ -1188,10 +1184,6 @@ messages</numerusform>
     <message>
         <source>Please enter the code that you received:</source>
         <translation>Please enter the code that you received:</translation>
-    </message>
-    <message>
-        <source>Loading...</source>
-        <translation>Loading...</translation>
     </message>
     <message>
         <source>Unable to authenticate you with the entered code.</source>
@@ -1230,11 +1222,15 @@ messages</numerusform>
         <translation>Use the international format, e.g. %1</translation>
     </message>
     <message>
-        <source>About Ferniegram</source>
-        <translation>About Ferniegram</translation>
+        <source>About YAST</source>
+        <translation>About YAST</translation>
     </message>
     <message>
         <source>Proxy settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Welcome to YAST Client!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1513,10 +1509,6 @@ messages</numerusform>
         <source>This chat is empty.</source>
         <translation type="unfinished">This chat is empty.</translation>
     </message>
-    <message>
-        <source>Loading messages...</source>
-        <translation type="unfinished">Loading messages...</translation>
-    </message>
     <message numerus="yes">
         <source>%Ln messages have been copied</source>
         <translation type="unfinished">
@@ -1530,6 +1522,10 @@ messages</numerusform>
             <numerusform>%Ln Message deleted</numerusform>
             <numerusform>%Ln Messages deleted</numerusform>
         </translation>
+    </message>
+    <message>
+        <source>Loading messages</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1553,14 +1549,6 @@ messages</numerusform>
     <message>
         <source>End-to-end-encrypted, accessible on this device only</source>
         <translation>End-to-end-encrypted, accessible on this device only</translation>
-    </message>
-    <message>
-        <source>Search a contact...</source>
-        <translation>Search a contact...</translation>
-    </message>
-    <message>
-        <source>Loading contacts...</source>
-        <translation>Loading contacts...</translation>
     </message>
     <message>
         <source>Transport-encrypted, uses Telegram Cloud, sharable across devices</source>
@@ -1594,13 +1582,17 @@ messages</numerusform>
         <source>contact has not joined telegram yet</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Search a contact</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Loading contacts…</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NewMessageColumn</name>
-    <message>
-        <source>Location: Obtaining position...</source>
-        <translation type="unfinished">Location: Obtaining position...</translation>
-    </message>
     <message>
         <source>Unknown address</source>
         <translation type="unfinished">Unknown address</translation>
@@ -1612,10 +1604,6 @@ messages</numerusform>
     <message>
         <source>Accuracy: %1m</source>
         <translation type="unfinished">Accuracy: %1m</translation>
-    </message>
-    <message>
-        <source>Uploading...</source>
-        <translation type="unfinished">Uploading...</translation>
     </message>
     <message>
         <source>Edit Message</source>
@@ -1644,6 +1632,14 @@ messages</numerusform>
     <message>
         <source>Message</source>
         <comment>placeholder for sending a message</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Location: Obtaining position…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Uploading…</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2082,7 +2078,7 @@ messages</numerusform>
 <context>
     <name>OverviewPageHeader</name>
     <message>
-        <source>Ferniegram</source>
+        <source>YAST Client</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2217,10 +2213,6 @@ messages</numerusform>
         <translation>No chats found.</translation>
     </message>
     <message>
-        <source>Searching chats...</source>
-        <translation>Searching chats...</translation>
-    </message>
-    <message>
         <source>Enter your query to start searching (at least 5 characters needed)</source>
         <translation>Enter your query to start searching (at least 5 characters needed)</translation>
     </message>
@@ -2259,6 +2251,10 @@ messages</numerusform>
     </message>
     <message>
         <source>Global search results</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Searching chats</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2429,10 +2425,6 @@ messages</numerusform>
         <translation>Delay before marking messages as read</translation>
     </message>
     <message>
-        <source>Ferniegram will wait a bit before messages are marked as read</source>
-        <translation>Ferniegram will wait a bit before messages are marked as read</translation>
-    </message>
-    <message>
         <source>Notification feedback</source>
         <translation>Notification feedback</translation>
     </message>
@@ -2459,10 +2451,6 @@ messages</numerusform>
     <message>
         <source>Enable notification sounds</source>
         <translation>Enable notification sounds</translation>
-    </message>
-    <message>
-        <source>When sounds are enabled, Ferniegram will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</source>
-        <translation>When sounds are enabled, Ferniegram will use the current Sailfish OS notification sound for chats, which can be configured in the system settings.</translation>
     </message>
     <message>
         <source>Highlight unread messages</source>
@@ -2512,6 +2500,14 @@ messages</numerusform>
         <source>Parse markdown when sending messages</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>There will be a slight delay before the messages will be read</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When sounds are enabled, the current Sailfish OS notification sound will be used for chats, which can be configured in the system settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsPage</name>
@@ -2520,8 +2516,8 @@ messages</numerusform>
         <translation>Settings</translation>
     </message>
     <message>
-        <source>About Ferniegram</source>
-        <translation type="unfinished">About Ferniegram</translation>
+        <source>About YAST</source>
+        <translation>About YAST</translation>
     </message>
     <message>
         <source>Is %1 still your number?</source>
@@ -2706,10 +2702,6 @@ messages</numerusform>
         <translation>Enable online-only mode</translation>
     </message>
     <message>
-        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Ferniegram to take effect.</source>
-        <translation>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of Ferniegram to take effect.</translation>
-    </message>
-    <message>
         <source>Enable storage optimizer</source>
         <translation>Enable storage optimizer</translation>
     </message>
@@ -2752,6 +2744,10 @@ messages</numerusform>
         <source>Proxy settings</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of the app to take effect.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsUserProfile</name>
@@ -2791,10 +2787,6 @@ messages</numerusform>
         <translation>Add Picture</translation>
     </message>
     <message>
-        <source>Uploading...</source>
-        <translation>Uploading...</translation>
-    </message>
-    <message>
         <source>Log Out</source>
         <translation>Log Out</translation>
     </message>
@@ -2821,6 +2813,10 @@ messages</numerusform>
     <message>
         <source>Add</source>
         <comment>Add the birthday to your profile</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Uploading…</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3703,8 +3699,8 @@ messages</numerusform>
 <context>
     <name>WebPagePreview</name>
     <message>
-        <source>Preview not supported for this link...</source>
-        <translation>Preview not supported for this link...</translation>
+        <source>Preview not supported for this link</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3859,7 +3855,7 @@ messages</numerusform>
     </message>
 </context>
 <context>
-    <name>harbour-ferniegram</name>
+    <name>harbour-yast-client</name>
     <message>
         <source>Link unsupported: %1</source>
         <translation type="unfinished"></translation>
