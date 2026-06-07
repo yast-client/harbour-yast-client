@@ -47,9 +47,7 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Decompress TDLib
-      uses: TonyBogdanov/zip@1.0
-      with:
-        args: unzip -qq -n ./tdlib/tdlib.zip -d ./tdlib
+      run: unzip -qq -n ./tdlib/tdlib.zip -d ./tdlib
 
     - name: Fetch tg_owt
       if: ${{ matrix.variant != 'harbour' }}
@@ -62,9 +60,7 @@ jobs:
 
     - name: Decompress tg_owt
       if: ${{ matrix.variant != 'harbour' }}
-      uses: TonyBogdanov/zip@1.0
-      with:
-        args: unzip -qq -n ./tg_owt/tg_owt.zip -d ./tg_owt
+      run: unzip -qq -n ./tg_owt/tg_owt.zip -d ./tg_owt
 
     - name: Prepare build variant
       run: |
