@@ -1,0 +1,30 @@
+name: Update translations
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update-translations:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v6
+      with:
+        submodules: 'true'
+
+    - name: Install lupdate
+      run: |
+        sudo apt update
+        sudo apt install -y qttools5-dev-tools
+
+    - name: Update translation files
+      run: lupdate -no-obsolete qml/ src/ libfernie/src/ -ts translations/*.ts
+
+    - name: Commit and push translation updates
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git add translations/*.ts
+        git commit -m "Automatic translation files update"
+        git push
