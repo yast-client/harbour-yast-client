@@ -28,7 +28,7 @@ import "../../modules/Opal/FancyMenus"
 
 ListItem {
     id: messageListItem
-    contentHeight: messageBackground.height + Theme.paddingMedium + (reactionsColumn.visible ? reactionsColumn.height : 0)
+    contentHeight: messageBackground.height + messageTextRow.y + Theme.paddingSmall/2 + (reactionsColumn.visible ? reactionsColumn.height : 0)
     Behavior on contentHeight { NumberAnimation { duration: 200 } }
     property var chatId
     property var messageId
@@ -38,11 +38,9 @@ ListItem {
     property var messageAlbumMessageIds
     property var messageAlbumMessages
     property var reactions
-    readonly property bool isAnonymous: myMessage.sender_id["@type"] === "messageSenderChat"
-    readonly property var userInformation: tdLibWrapper.getUserInformation(myMessage.sender_id.user_id)
     property QtObject precalculatedValues: ListView.view.precalculatedValues
-    readonly property color textColor: isOwnMessage ? Theme.highlightColor : Theme.primaryColor
-    readonly property int textAlign: isOwnMessage ? Text.AlignRight : Text.AlignLeft
+    readonly property color textColor: isOutgoing ? Theme.highlightColor : Theme.primaryColor
+    readonly property int textAlign: isOutgoing ? Text.AlignRight : Text.AlignLeft
     readonly property Page page: precalculatedValues.page
     readonly property Item view: precalculatedValues.view
     readonly property bool isSelected: messageListItem.precalculatedValues.pageIsSelecting
@@ -56,6 +54,7 @@ ListItem {
     readonly property bool isAlbum: myMessage.media_album_id && myMessage.media_album_id !== '0'
 
     readonly property bool isOwnMessage: tdLibWrapper.myUserId === myMessage.sender_id.user_id
+    readonly property bool isOutgoing: myMessage.is_outgoing && !myMessage.is_channel_post
     property bool hasContentComponent
     property bool fullWidthWidescreenContent
     property bool contentAboveMedia
@@ -82,7 +81,7 @@ ListItem {
     }
 
     function copyMessageToClipboard() {
-        Clipboard.text = Functions.getMessageText(myMessage, true, userInformation.id, true)
+        Clipboard.text = utilities.getMessageText(myMessage, Utilities.MessageTextSimple, true)
     }
 
     function translate() {
@@ -325,6 +324,11 @@ ListItem {
         }
     }
 
+    TDLibMessageSender {
+        id: messageSenderInfo
+        messageSender: isOwnMessage ? undefined : myMessage.sender_id
+    }
+
     // Just in case we will need them back
     property bool __otherTranslations: qsTr("Copy Message to Clipboard") + qsTr("Select Message") + qsTr("More Options...") + qsTr("Unpin Message") + qsTr("Pin Message")
 
@@ -428,14 +432,16 @@ ListItem {
         id: messageTextRow
         spacing: Theme.paddingSmall
         width: precalculatedValues.entryWidth
-        anchors.horizontalCenter: Functions.isWidescreen(appWindow) ? undefined : parent.horizontalCenter
-        anchors.left: Functions.isWidescreen(appWindow) ? parent.left : undefined
-        y: Theme.paddingSmall
-        anchors.leftMargin: Functions.isWidescreen(appWindow) ? Theme.paddingMedium : undefined
+        y: isFirstInSequence ? Theme.paddingMedium : Theme.paddingSmall/2
+        anchors {
+            horizontalCenter: Functions.isWidescreen(appWindow) ? undefined : parent.horizontalCenter
+            left: Functions.isWidescreen(appWindow) ? parent.left : undefined
+            leftMargin: Functions.isWidescreen(appWindow) ? Theme.paddingMedium : undefined
+        }
 
         Loader {
             id: profileThumbnailLoader
-            active: precalculatedValues.showUserInfo && !messageListItem.isOwnMessage && isLastInSequence
+            active: precalculatedValues.showUserInfo && !isOutgoing && isLastInSequence
             asynchronous: true
             width: precalculatedValues.profileThumbnailDimensions
             height: width
@@ -443,17 +449,15 @@ ListItem {
             anchors.bottomMargin: Theme.paddingSmall
             sourceComponent: Component {
                 ProfileThumbnail {
-                    id: messagePictureThumbnail
-                    photoData: messageListItem.isAnonymous ? ((typeof page.chatInformation.photo !== "undefined") ? page.chatInformation.photo.small : {}) : ((typeof messageListItem.userInformation.profile_photo !== "undefined") ? messageListItem.userInformation.profile_photo.small : ({}))
-                    replacementStringHint: userText.text
-                    width: Theme.itemSizeSmall
-                    height: Theme.itemSizeSmall
-                    visible: precalculatedValues.showUserInfo && !messageListItem.isOwnMessage && isLastInSequence
+                    anchors.fill: parent
+                    photoData: messageSenderInfo.smallPhoto
+                    replacementStringHint: messageSenderText.text
+                    highlighted: profileThumbnailMouseArea.containsPress
                     MouseArea {
+                        id: profileThumbnailMouseArea
                         anchors.fill: parent
-                        enabled: !(messageListItem.precalculatedValues.pageIsSelecting || messageListItem.isAnonymous)
-                        onClicked:
-                            tdLibWrapper.createPrivateChat(messageListItem.userInformation.id, "openDirectly")
+                        enabled: !messageListItem.precalculatedValues.pageIsSelecting
+                        onClicked: messageSenderInfo.open()
                     }
                 }
             }
@@ -470,7 +474,7 @@ ListItem {
 
                 anchors {
                     left: parent.left
-                    leftMargin: messageListItem.isOwnMessage ? precalculatedValues.pageMarginDouble : 0
+                    leftMargin: isOutgoing ? precalculatedValues.pageMarginDouble : 0
                     verticalCenter: parent.verticalCenter
                 }
                 height: messageTextColumn.height + precalculatedValues.paddingMediumDouble
@@ -489,29 +493,25 @@ ListItem {
                 spacing: Theme.paddingSmall
 
                 Label {
-                    id: userText
+                    id: messageSenderText
 
                     width: parent.width
-                    text: messageListItem.isOwnMessage
-                          ? qsTr("You")
-                          : Emoji.emojify(isSponsored
-                                          ? myMessage.title
-                                          : (messageListItem.isAnonymous
-                                                ? page.chatInformation.title
-                                                : utilities.getUserName(messageListItem.userInformation)), font.pixelSize)
+                    text: Emoji.emojify(isSponsored ? myMessage.title : messageSenderInfo.title, font.pixelSize)
                     font.pixelSize: Theme.fontSizeExtraSmall
                     font.weight: Font.ExtraBold
-                    color: messageListItem.textColor
+                    highlighted: messageSenderMouseArea.containsPress
+                    color: highlighted ? Theme.highlightColor : messageListItem.textColor
                     maximumLineCount: 1
                     truncationMode: TruncationMode.Fade
                     textFormat: Text.StyledText
                     horizontalAlignment: messageListItem.textAlign
-                    visible: (precalculatedValues.showUserInfo && !messageListItem.isOwnMessage && isFirstInSequence) || isSponsored
+                    visible: (precalculatedValues.showUserInfo && !isOwnMessage && isFirstInSequence) || isSponsored
+
                     MouseArea {
+                        id: messageSenderMouseArea
                         anchors.fill: parent
-                        enabled: !(messageListItem.precalculatedValues.pageIsSelecting || messageListItem.isAnonymous)
-                        onClicked:
-                            tdLibWrapper.createPrivateChat(messageListItem.userInformation.id, "openDirectly")
+                        enabled: !messageListItem.precalculatedValues.pageIsSelecting
+                        onClicked: messageSenderInfo.open()
                     }
                 }
 
@@ -533,7 +533,6 @@ ListItem {
                             height: messageInReplyToRow.height
                             InReplyToRow {
                                 id: messageInReplyToRow
-                                myUserId: tdLibWrapper.myUserId
                                 layer.enabled: messageInReplyToMouseArea.pressed && !messageListItem.highlighted && !messageListItem.menuOpen
                                 layer.effect: PressEffect { source: messageInReplyToRow }
                                 inReplyToMessage: messageInReplyToLoader.inReplyToMessage
@@ -746,7 +745,7 @@ ListItem {
                     id: messageStatusText
                     width: parent.width
                     font.pixelSize: Theme.fontSizeTiny
-                    color: isOwnMessage ? Theme.secondaryHighlightColor : Theme.secondaryColor
+                    color: isOutgoing ? Theme.secondaryHighlightColor : Theme.secondaryColor
                     horizontalAlignment: messageListItem.textAlign
 
                     property bool useElapsed: true
@@ -788,7 +787,7 @@ ListItem {
                             verticalCenter: parent.verticalCenter
                         }
                         visible: !!source
-                        source: isOwnMessage ? Functions.getMessageSendingStateIcon(messageIndex, messagesModel.lastReadSentMessageIndex, myMessage.sending_state) : ''
+                        source: isOutgoing ? Functions.getMessageSendingStateIcon(messageIndex, messagesModel.lastReadSentMessageIndex, myMessage.sending_state) : ''
                     }
                     rightPadding: statusIcon.visible ? statusIcon.width + Theme.paddingSmall : 0
 
@@ -805,14 +804,14 @@ ListItem {
                     id: interactionLoader
                     width: parent.width
                     asynchronous: true
-                    active: (chatPage.isChannel && messageViewCount > 0) || reactions.length > 0
+                    active: reactions.length > 0
                     height: active ? implicitHeight : 0
 
                     sourceComponent: Component {
                         Flow {
                             width: parent.width
                             spacing: Theme.paddingSmall
-                            layoutDirection: isOwnMessage ? Qt.RightToLeft : Qt.LeftToRight
+                            layoutDirection: isOutgoing ? Qt.RightToLeft : Qt.LeftToRight
                             Repeater {
                                 model: reactions
                                 Rectangle {
@@ -912,7 +911,7 @@ ListItem {
                 opacity: visible ? 0.5 : 0.0
                 Behavior on opacity { NumberAnimation {} }
                 anchors {
-                    horizontalCenter: messageListItem.isOwnMessage ? messageBackground.left : messageBackground.right
+                    horizontalCenter: messageListItem.isOutgoing ? messageBackground.left : messageBackground.right
                     verticalCenter: messageBackground.verticalCenter
                 }
                 height: Theme.itemSizeExtraSmall

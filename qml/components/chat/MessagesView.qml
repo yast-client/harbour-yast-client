@@ -724,7 +724,6 @@ Column {
         BusyLabel {
             Behavior on opacity { FadeAnimator {} }
             anchors.centerIn: parent
-            //spacing: Theme.paddingMedium
             text: qsTr("Loading messages")
             running: chatPage.loading
         }
