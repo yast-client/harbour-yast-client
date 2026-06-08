@@ -329,14 +329,6 @@ ListItem {
     property bool __otherTranslations: qsTr("Copy Message to Clipboard") + qsTr("Select Message") + qsTr("More Options...") + qsTr("Unpin Message") + qsTr("Pin Message")
 
     Connections {
-        target: messagesModel
-        onLastReadSentMessageUpdated: {
-            Debug.log("[ChatModel] Messages in this chat were read (last read changed), updating description for index ", index)
-            messageDateText.text = getMessageStatusText(myMessage, messageIndex, messageViewCount, messageDateText.useElapsed)
-        }
-    }
-
-    Connections {
         target: tdLibWrapper
         onReceivedMessage:
             if (messageId === myMessage.reply_to_message_id)
@@ -410,8 +402,6 @@ ListItem {
 
     onMyMessageChanged: {
         Debug.log("[ChatModel] This message was updated, index", messageIndex, ", updating content...")
-        messageDateText.text = getMessageStatusText(myMessage, messageIndex, messageViewCount, messageDateText.useElapsed)
-        Emoji.emojify(Functions.getMessageText(myMessage, false, tdLibWrapper.myUserId, false, Theme.fontSizeSmall), Theme.fontSizeSmall)
         if (webPagePreviewLoader.item)
             webPagePreviewLoader.item.linkPreviewData = myMessage.content.link_preview
     }
@@ -749,26 +739,64 @@ ListItem {
                     running: true
                     repeat: true
                     onTriggered:
-                        messageDateText.text = getMessageStatusText(myMessage, messageIndex, messageViewCount, messageDateText.useElapsed)
+                        messageStatusText.update()
                 }
 
                 Text {
+                    id: messageStatusText
                     width: parent.width
+                    font.pixelSize: Theme.fontSizeTiny
+                    color: isOwnMessage ? Theme.secondaryHighlightColor : Theme.secondaryColor
+                    horizontalAlignment: messageListItem.textAlign
 
                     property bool useElapsed: true
+                    property bool _reloadText
+                    function update() { _reloadText = !_reloadText }
+                    text: {
+                        // https://stackoverflow.com/questions/48325115/qml-programmatically-update-binding
+                        if (_reloadText && !_reloadText) return ''
+                        //return getMessageStatusText(myMessage, messageIndex, messageViewCount, useElapsed)
 
-                    id: messageDateText
-                    font.pixelSize: Theme.fontSizeTiny
-                    color: messageListItem.isOwnMessage ? Theme.secondaryHighlightColor : Theme.secondaryColor
-                    horizontalAlignment: messageListItem.textAlign
-                    text: getMessageStatusText(myMessage, messageIndex, messageViewCount, messageDateText.useElapsed)
+                        if (!myMessage) return ''
+                        if (myMessage['@type'] === 'sponsoredMessage')
+                            return myMessage.is_recommended ? qsTr("Recommended Message") : qsTr("Sponsored Message")
+
+                        var messageStatusSuffix = ''
+                        if (myMessage.edit_date > 0)
+                            messageStatusSuffix += ' - ' + qsTr("edited")
+                        if (myMessage.author_signature && !messageListItem.precalculatedValues.showUserInfo)
+                            messageStatusSuffix += " - " + message.myMessage
+
+                        if (Debug.enabled)
+                            messageStatusSuffix += " (ID: " + message.id + ")"
+
+                        return (messageViewCount ? (Emoji.emojify('👁️ ', Theme.fontSizeTiny) + Functions.getShortenedCount(messageViewCount) + ' ') : '')
+                                + (useElapsed ? Functions.getDateTimeElapsed : Functions.getDateTimeTranslated)(myMessage.date)
+                                + messageStatusSuffix
+                    }
+
+                    Icon {
+                        id: statusIcon
+                        width: Theme.iconSizeSmall
+                        height: Theme.iconSizeSmall
+                        sourceSize: {
+                            width: width
+                            height: height
+                        }
+                        anchors {
+                            right: parent.right
+                            verticalCenter: parent.verticalCenter
+                        }
+                        visible: !!source
+                        source: isOwnMessage ? Functions.getMessageSendingStateIcon(messageIndex, messagesModel.lastReadSentMessageIndex, myMessage.sending_state) : ''
+                    }
+                    rightPadding: statusIcon.visible ? statusIcon.width + Theme.paddingSmall : 0
+
                     MouseArea {
                         anchors.fill: parent
                         enabled: !messageListItem.precalculatedValues.pageIsSelecting
-                        onClicked: {
-                            messageDateText.useElapsed = !messageDateText.useElapsed
-                            messageDateText.text = getMessageStatusText(myMessage, messageIndex, messageViewCount, messageDateText.useElapsed)
-                        }
+                        onClicked:
+                            messageStatusText.useElapsed = !messageStatusText.useElapsed
                     }
                 }
 
