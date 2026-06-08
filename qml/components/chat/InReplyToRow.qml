@@ -18,6 +18,7 @@
 */
 import QtQuick 2.6
 import Sailfish.Silica 1.0
+import io.yaqtlib 1.0
 import "../../js/functions.js" as Functions
 import "../../js/twemoji.js" as Emoji
 
@@ -27,7 +28,6 @@ Row {
     width: parent.width
     height: inReplyToMessageColumn.height
 
-    property string myUserId;
     property var inReplyToMessage;
     property bool editable: false;
     property bool inReplyToMessageDeleted: false;
@@ -36,8 +36,8 @@ Row {
 
     onInReplyToMessageChanged: {
         if (inReplyToMessage) {
-            inReplyToUserText.text = (inReplyToMessage.sender_id["@type"] === "messageSenderChat" ? page.chatInformation.title : (inReplyToRow.inReplyToMessage.sender_id.user_id !== inReplyToRow.myUserId) ? Emoji.emojify(utilities.getUserName(tdLibWrapper.getUserInformation(inReplyToRow.inReplyToMessage.sender_id.user_id)), inReplyToUserText.font.pixelSize) : qsTr("You"));
-            inReplyToMessageText.text = Emoji.emojify(Functions.getMessageText(inReplyToRow.inReplyToMessage, true, inReplyToRow.myUserId, false), inReplyToMessageText.font.pixelSize);
+            inReplyToUserText.text = (inReplyToMessage.sender_id["@type"] === "messageSenderChat" ? page.chatInformation.title : (inReplyToRow.inReplyToMessage.sender_id.user_id !== tdLibWrapper.myUserId) ? Emoji.emojify(utilities.getUserName(tdLibWrapper.getUserInformation(inReplyToRow.inReplyToMessage.sender_id.user_id)), inReplyToUserText.font.pixelSize) : qsTr("You"));
+            inReplyToMessageText.text = Emoji.emojify(utilities.getMessageText(inReplyToRow.inReplyToMessage, Utilities.MessageTextSimple), inReplyToMessageText.font.pixelSize);
         }
     }
 

@@ -33,7 +33,6 @@ Page {
     property string searchString
 
     property int chatOnlineMemberCount: 0;
-    property var myUserId: tdLibWrapper.getUserInformation().id;
 
     property bool isPrivateChat: false
     property bool isSecretChat: false
@@ -48,7 +47,7 @@ Page {
     readonly property bool isPrivateOrSecretChat: isPrivateChat || isSecretChat
     readonly property bool isGroup: isBasicGroup || isSupergroup
 
-    readonly property bool isSavedMessages: isPrivateOrSecretChat && chatUserOrGroupId === myUserId
+    readonly property bool isSavedMessages: isPrivateOrSecretChat && chatUserOrGroupId === tdLibWrapper.myUserId
 
     readonly property bool canGetMembers: !!(groupFullInformation && groupFullInformation.can_get_members)
     readonly property bool userIsMember: (isPrivateOrSecretChat && chatInformation["@type"]) || // should be optimized

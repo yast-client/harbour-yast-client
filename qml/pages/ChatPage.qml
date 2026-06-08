@@ -33,7 +33,6 @@ Page {
 
     property bool loading: true
     property bool isInitialized: false
-    readonly property var myUserId: tdLibWrapper.getUserInformation().id
     property alias chatManager: chatManagerLoader.chatManager
     property var chatInformation
     property var secretChatDetails
@@ -52,7 +51,7 @@ Page {
     property var chatGroupInformation: chatManager.groupInfo
     property int chatOnlineMemberCount: 0
     property var messageIdToShow
-    readonly property bool isSavedMessages: chatInformation.id === myUserId
+    readonly property bool isSavedMessages: chatInformation.id === tdLibWrapper.myUserId
     readonly property bool userIsMember: ((isPrivateChat || isSecretChat) &&
                                           chatInformation["@type"] &&
                                           !isSavedMessages) || // should be optimized
@@ -102,7 +101,6 @@ Page {
         var neededPermissions = Functions.getMessagesNeededForwardPermissions(messages)
         var chatId = chatInformation.id
         pageStack.push(Qt.resolvedUrl("../pages/ChatSelectionPage.qml"), {
-            myUserId: chatPage.myUserId,
             headerDescription: qsTr("Forward %Ln messages", "dialog header", ids.length),
             payload: {fromChatId: chatId, messageIds:ids, neededPermissions: neededPermissions},
             state: "forwardMessages"

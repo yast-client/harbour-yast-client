@@ -18,7 +18,6 @@ Column {
     Behavior on height { SmoothedAnimation { duration: 200 } }
 
     property int allowedOrientations
-    property var myUserId
     property bool show
     property string replyToMessageId: "0"
     property string editMessageId: "0"
@@ -120,7 +119,6 @@ Column {
             newMessageInReplyToRow.inReplyToMessage = null
 
         id: newMessageInReplyToRow
-        myUserId: newMessageColumn.myUserId
         visible: false
     }
 

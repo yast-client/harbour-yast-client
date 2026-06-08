@@ -28,7 +28,7 @@ Item {
     property var myMessage: display
     property bool senderIsUser: myMessage.sender_id["@type"] === "messageSenderUser"
     property var userInformation: senderIsUser ? tdLibWrapper.getUserInformation(myMessage.sender_id.user_id) : null
-    property bool isOwnMessage: senderIsUser && chatPage.myUserId === myMessage.sender_id.user_id
+    property bool isOwnMessage: myMessage.sender_id.user_id == tdLibWrapper.myUserId
     property var linkedMessage
     height: backgroundRectangle.height + Theme.paddingMedium
 

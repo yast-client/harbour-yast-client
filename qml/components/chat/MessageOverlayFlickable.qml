@@ -24,6 +24,7 @@ import "../../js/functions.js" as Functions
 import "../../js/twemoji.js" as Emoji
 import "../../js/debug.js" as Debug
 
+// TODO: get rid of this
 Flickable {
     id: messageOverlayFlickable
     anchors.fill: parent
@@ -144,7 +145,7 @@ Flickable {
         Text {
             id: overlayMessageText
             width: parent.width
-            text: Emoji.emojify(Functions.getMessageText(overlayMessage, false, tdLibWrapper.getUserInformation().id, false), font.pixelSize)
+            text: Emoji.emojify(utilities.getMessageText(overlayMessage), font.pixelSize)
             font.pixelSize: Theme.fontSizeMedium
             color: Theme.primaryColor
             wrapMode: Text.Wrap

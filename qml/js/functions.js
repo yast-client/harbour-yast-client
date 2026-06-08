@@ -185,7 +185,7 @@ function getMessagesArrayText(messages) {
             lines.push(senderName);
         }
         lastSenderName = senderName;
-        lines.push(getMessageText(messages[i], true, tdLibWrapper.getUserInformation().id, false));
+        lines.push(utilities.getMessageText(messages[i], Logic.Utilities.MessageTextSimple));
         lines.push("");
     }
     return lines.join("\n");

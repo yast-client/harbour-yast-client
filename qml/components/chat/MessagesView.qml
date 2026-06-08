@@ -290,7 +290,7 @@ Column {
 
         }
         onNewMessageReceived: {
-            if ((chatView.manuallyScrolledToBottom && Qt.application.state === Qt.ApplicationActive) || message.sender_id.user_id === chatPage.myUserId) {
+            if ((chatView.manuallyScrolledToBottom && Qt.application.state === Qt.ApplicationActive) || (message.is_outgoing && !message.is_channel_post)) {
                 log("Own message received or was scrolled to bottom, scrolling down to see it...")
                 chatView.scrollToIndex(chatView.count - 1)
                 viewMessageTimer.queueViewMessage(chatView.count - 1)
@@ -707,16 +707,6 @@ Column {
                     id: messageListViewItemSimpleComponent
                     MessageListViewItemSimple {}
                 }
-                Component {
-                    id: messageListViewItemHiddenComponent
-                    Item {
-                        property var myMessage: display
-                        property bool senderIsUser: myMessage.sender_id["@type"] === "messageSenderUser"
-                        property var userInformation: senderIsUser ? tdLibWrapper.getUserInformation(myMessage.sender_id.user_id) : null
-                        property bool isOwnMessage: senderIsUser && chatPage.myUserId === myMessage.sender_id.user_id
-                        height: 1
-                    }
-                }
                 sourceComponent: utilities.messageContentIsService(model.content_type)
                                     ? messageListViewItemSimpleComponent
                                     : messageListViewItemComponent
@@ -897,7 +887,6 @@ Column {
 
     NewMessageColumn {
         id: newMessageColumn
-        myUserId: chatPage.myUserId
         show: !messagesView.isSelecting && chatPage.canSendMessages
         allowedOrientations: chatPage.allowedOrientations
     }
@@ -955,7 +944,7 @@ Column {
                     }
                     IconButton {
                         icon.source: "image://theme/icon-m-delete"
-                        visible: chatInformation.id === chatPage.myUserId || selectedMessages.every(function(message) {
+                        visible: chatInformation.id === tdLibWrapper.myUserId || selectedMessages.every(function(message) {
                             return message.properties.can_be_deleted_for_all_users
                         })
                         icon.sourceSize: Qt.size(Theme.iconSizeMedium, Theme.iconSizeMedium)

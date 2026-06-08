@@ -388,7 +388,7 @@ SilicaFlickable {
                     }
                 }
                 InformationEditArea {
-                    canEdit: (chatInformationPage.isPrivateOrSecretChat && chatInformationPage.privateChatUserInformation.id === chatInformationPage.myUserId) || ((chatInformationPage.isBasicGroup || chatInformationPage.isSupergroup) && chatInformationPage.groupInformation && (chatInformationPage.groupInformation.status.can_change_info || chatInformationPage.groupInformation.status["@type"] === "chatMemberStatusCreator"))
+                    canEdit: isSavedMessages
                     emptyPlaceholderText: qsTr("There is no information text available, yet.")
                     headerText: qsTr("Info", "group or user infotext header")
                     multiLine: true

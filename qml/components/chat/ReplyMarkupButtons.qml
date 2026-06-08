@@ -64,7 +64,6 @@ Column {
                             } else {
 
                                 pageStack.push(Qt.resolvedUrl("../pages/ChatSelectionPage.qml"), {
-                                    myUserId: chatPage.myUserId,
                                     payload: { neededPermissions: ["can_send_other_messages"], text:"@" + userInformation.usernames.editable_username + " "+(modelData.type.query || "")},
                                     state: "fillTextArea"
                                 })

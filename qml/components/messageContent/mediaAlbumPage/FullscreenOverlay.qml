@@ -98,7 +98,6 @@ Item {
     function forwardMessage() {
         var neededPermissions = Functions.getMessagesNeededForwardPermissions([message]);
         pageStack.push(Qt.resolvedUrl("../../../pages/ChatSelectionPage.qml"), {
-            myUserId: tdLibWrapper.getUserInformation().id,
             headerDescription: qsTr("Forward %Ln messages", "dialog header", 1),
             payload: {fromChatId: message.chat_id, messageIds:[message.id], neededPermissions: neededPermissions},
             state: "forwardMessages"
