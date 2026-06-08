@@ -78,7 +78,6 @@ Page {
             // Proxy links are the only deep links with a separate page which can be viewed from login page (as of now)
             var page = pageStack.pop(overviewPage, PageStackAction.Immediate)
             var proxyPageData
-            console.log(page, page ? page.objectName : '??')
             if (page && page.objectName === 'addProxyDialog')
                 proxyPageData = {server: page.server, port: page.port, proxyType: page.getTypeObject(), openAfterAdding: true}
 

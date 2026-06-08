@@ -111,7 +111,6 @@ Page {
             TDLibFile {
                 id: file
                 fileInformation: modelData.sound
-                onIsDownloadingActiveChanged: console.log(modelData.title, "active", isDownloadingActive)
             }
 
             Audio {
