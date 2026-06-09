@@ -55,6 +55,7 @@ ListItem {
 
     readonly property bool isOwnMessage: tdLibWrapper.myUserId === myMessage.sender_id.user_id
     readonly property bool isOutgoing: myMessage.is_outgoing && !myMessage.is_channel_post
+    readonly property bool isOutgoingRead: isOutgoing && messagesModel.lastReadSentMessageIndex >= messageIndex
     property bool hasContentComponent
     property bool fullWidthWidescreenContent
     property bool contentAboveMedia
@@ -799,6 +800,7 @@ ListItem {
                         }
                         visible: !!source
                         source: isOutgoing ? Functions.getMessageSendingStateIcon(messageIndex, messagesModel.lastReadSentMessageIndex, myMessage.sending_state) : ''
+                        highlighted: isOutgoingRead
                     }
                     rightPadding: statusIcon.visible ? statusIcon.width + Theme.paddingSmall : 0
 
