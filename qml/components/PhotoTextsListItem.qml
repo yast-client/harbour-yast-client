@@ -110,7 +110,7 @@ ListItem {
                     id: additionalPrimaryTextIcon
                     width: Theme.iconSizeSmall
                     height: Theme.iconSizeSmall
-                    sourceSize: {
+                    sourceSize {
                         width: width
                         height: height
                     }
