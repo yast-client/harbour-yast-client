@@ -60,6 +60,8 @@ PhotoTextsListItem {
     isPinned: is_pinned
 
     showSeparator: !appSettings.compactChatList
-    contentHeight: appSettings.compactChatList ? Theme.itemSizeLarge : Theme.itemSizeExtraLarge
-    pictureThumbnailItem.height: appSettings.compactChatList ? Theme.itemSizeMedium : Theme.itemSizeLarge
+    contentHeight: appSettings.compactChatList ? Theme.itemSizeLarge + Theme.paddingMedium : Theme.itemSizeExtraLarge
+    pictureThumbnailItem.height: appSettings.compactChatList ? Theme.iconSizeLarge : Theme.itemSizeLarge
+    secondaryText.maximumLineCount: appSettings.compactChatList ? 2 : 1
+    secondaryText.wrapMode: appSettings.compactChatList ? Text.Wrap : Text.NoWrap
 }

@@ -121,64 +121,84 @@ ListItem {
             }
         }
 
-        Row {
+        Item {
             width: parent.width
-            spacing: Theme.paddingSmall
+            height: Math.max(prologSecondaryTextRow.height, secondaryText.height)
+            Row {
+                id: prologSecondaryTextRow
+                spacing: Theme.paddingSmall
 
-            Label {
-                id: prologSecondaryText
-                font.pixelSize: Theme.fontSizeExtraSmall
-                width: Math.min(implicitWidth, parent.parent.width)
-                visible: !!text
-                anchors.verticalCenter: parent.verticalCenter
-                color: Theme.highlightColor
-                textFormat: Text.StyledText
-                truncationMode: TruncationMode.Fade
-                maximumLineCount: 1
-            }
-            Loader {
-                id: minithumbnailLoader
-                active: !!minithumbnail
-                visible: active
-                width: active ? Theme.fontSizeExtraSmall : 0
-                height: width
+                onWidthChanged: secondaryText.doLayout()
 
-                sourceComponent: Component {
-                    OpacityMask {
-                        anchors.fill: parent
-                        source: minithumbnailItem.image
-                        maskSource: minithumbnailMask
+                Label {
+                    id: prologSecondaryText
+                    font.pixelSize: Theme.fontSizeExtraSmall
+                    width: Math.min(implicitWidth, parent.parent.width)
+                    visible: !!text
+                    anchors.verticalCenter: parent.verticalCenter
+                    color: Theme.highlightColor
+                    textFormat: Text.StyledText
+                    truncationMode: TruncationMode.Fade
+                    maximumLineCount: 1
+                }
+                Loader {
+                    id: minithumbnailLoader
+                    active: !!minithumbnail
+                    visible: active
+                    width: active ? Theme.fontSizeExtraSmall : 0
+                    height: width
 
-                        TDLibMinithumbnail {
-                            id: minithumbnailItem
-                            minithumbnail: chatItem.minithumbnail
-                            visible: false
-                        }
+                    sourceComponent: Component {
+                        OpacityMask {
+                            anchors.fill: parent
+                            source: minithumbnailItem.image
+                            maskSource: minithumbnailMask
 
-                        Rectangle {
-                            id: minithumbnailMask
-                            color: Theme.primaryColor
-                            width: parent.width - Theme.paddingSmall
-                            height: parent.height - Theme.paddingSmall
-                            radius: minithumbnailRadius
-                            visible: false
+                            TDLibMinithumbnail {
+                                id: minithumbnailItem
+                                minithumbnail: chatItem.minithumbnail
+                                visible: false
+                            }
+
+                            Rectangle {
+                                id: minithumbnailMask
+                                color: Theme.primaryColor
+                                width: parent.width - Theme.paddingSmall
+                                height: parent.height - Theme.paddingSmall
+                                radius: minithumbnailRadius
+                                visible: false
+                            }
                         }
                     }
                 }
+                ChatActionIcon {
+                    id: chatActionIcon
+                }
             }
-            ChatActionIcon {
-                id: chatActionIcon
-            }
+
             Label {
                 id: secondaryText
+                width: parent.width
                 font.pixelSize: Theme.fontSizeExtraSmall
-                width: parent.width - (prologSecondaryText.width + minithumbnailLoader.width + chatActionIcon.width
-                                       + (prologSecondaryText.visible + minithumbnailLoader.visible + chatActionIcon.visible) * parent.spacing)
                 truncationMode: TruncationMode.Fade
                 maximumLineCount: 1
                 textFormat: Text.StyledText
                 linkColor: highlighted ? Theme.primaryColor : Theme.highlightColor
                 visible: prologSecondaryText.width < ( parent.width - Theme.paddingLarge )
+                onLineLaidOut:
+                    if (line.number == 0 && prologSecondaryTextRow.width) {
+                        var offset = prologSecondaryTextRow.width + Theme.paddingMedium
+                        line.x += offset
+                        line.width -= offset
+                    }
+            }
+
+            OpacityRampEffect {
+                sourceItem: secondaryText
+                enabled: secondaryText.lineCount > 1
+                offset: 0.8
+                slope: 5
+                direction: OpacityRamp.LeftToRight
             }
         }
 
