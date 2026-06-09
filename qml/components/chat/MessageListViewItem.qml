@@ -193,9 +193,26 @@ ListItem {
             chatId: messageListItem.chatId
             messageId: messageListItem.messageId
             autoLoad: false
+
+            onLoadedChanged:
+                if (loaded) {
+                    if (properties.can_get_read_date && isOutgoingRead)
+                        tdLibWrapper.getMessageReadDate(chatId, messageId)
+                } else
+                    contextMenuLoader.messageReadDate = 0
         }
         property alias messageProperties: propertiesLoader.properties
         readonly property bool canDeleteMessage: !!(messageProperties.can_be_deleted_for_all_users || messageProperties.can_be_deleted_only_for_self)
+
+        property int messageReadDate
+
+        Connections {
+            target: tdLibWrapper
+            onMessageReadDateReceived: {
+                if (messageListItem.chatId === chatId && messageListItem.messageId === messageId)
+                    contextMenuLoader.messageReadDate = typeof readDate == 'number' ? readDate : -1
+            }
+        }
 
         onStatusChanged: {
             if (status == Loader.Loading || status == Loader.Ready)
@@ -282,6 +299,19 @@ ListItem {
                         onClicked: editMessage()
                     }
                 }
+
+                MenuLabel {
+                    visible: !!messageProperties.can_get_read_date && isOutgoingRead && messageReadDate >= 0
+                    text: messageReadDate
+                          ? qsTr("Read %1", "Message read date").arg(Functions.getDateTimeTimepointRelative(messageReadDate))
+                          : qsTr("Loading", "Indicates that the message read date is being loaded")
+                }
+
+                MenuLabel {
+                    visible: !!myMessage.edit_date
+                    text: qsTr("Edited %1", "Message edit date").arg(Functions.getDateTimeTimepointRelative(myMessage.edit_date))
+                }
+
                 FancyMenuItem {
                     text: "Copy debug info"
                     icon.source: "image://theme/icon-m-diagnostic"
