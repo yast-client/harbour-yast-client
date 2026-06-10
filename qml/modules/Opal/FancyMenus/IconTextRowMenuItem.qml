@@ -2,28 +2,19 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import "private"
 
-Item {
+BaseRowMenuItem {
     id: root
     property alias icon: icon
     property alias text: label.text
     property alias direction: row.layoutDirection
-
-    property real size: 1
-    width: parent.itemWidth * size
-    height: Theme.itemSizeSmall
 
     property bool _useIconOnly: parent._checkIconOnly(size)
     property bool _useShort: parent._checkShort(size)
     property string shortText
     property string longText
 
-    property bool _calculateWidth: true
-    onVisibleChanged: if (parent.calculateItemWidth && _calculateWidth) parent.calculateItemWidth()
-
-    property bool down
     property bool highlighted
     property bool _invertColors
-    signal clicked
 
     property alias _menuItem: label
     property alias _content: row

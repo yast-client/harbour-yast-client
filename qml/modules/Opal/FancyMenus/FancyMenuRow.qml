@@ -22,6 +22,7 @@ import Sailfish.Silica 1.0
 Row {
     id: menuRow
 
+    width: menu.width
     spacing: 0
 
     property var checkIconOnly: function() { return false }
@@ -36,7 +37,7 @@ Row {
 
     property int count: visibleChildren.length
     property real sizedCount
-    property real itemWidth // calculated item width, equally divided
+    property real itemWidth: (width - spacing*(count-1)) / Math.max(sizedCount, 0) // calculated item width, equally divided
 
     // these get fed from ContextMenu/PullDownMenu
     property bool down
@@ -74,18 +75,10 @@ Row {
     }
 
     function calculateItemWidth() {
-        var count = menuRow.visibleChildren.length
-        if (count === 0) {
-            itemWidth = width
-            return
-        }
-
         var _sizedCount = 0
-        for (var i=0; i<count; i++)
+        for (var i=0; i < count; i++)
             _sizedCount += menuRow.visibleChildren[i].size
         sizedCount = _sizedCount
-
-        itemWidth = (width - (count-1) * spacing) / sizedCount
     }
 
     // TODO: pulley menus: shared XPos when switching stuff
@@ -143,12 +136,6 @@ Row {
             if (item.enabled)
                 item.clicked();
             // else: prevent menu from being closed, because the Row is always enabled
-    }
-
-    Binding {
-        target: menuRow
-        property: "width"
-        value: menu.width
     }
 
     onWidthChanged: calculateItemWidth()
