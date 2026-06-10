@@ -3,6 +3,7 @@ import Sailfish.Silica 1.0
 
 Item {
     property bool down
+    property bool highlight: true
     signal clicked
 
     property real size: 1

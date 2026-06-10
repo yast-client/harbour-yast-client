@@ -71,7 +71,7 @@ Row {
 
     function updateHighlightbarFor(item) {
         menu._highlightBar.x = item ? item.x : parent.x
-        menu._highlightBar.width = item && item.enabled ? item.width : 0
+        menu._highlightBar.width = item && item.enabled && item.highlight ? item.width : 0
     }
 
     function resetHighlightbar() {
@@ -107,21 +107,21 @@ Row {
         if (item !== _highlightedItem) {
             if (_highlightedItem)
                 _highlightedItem.down = false
-            updateHighlightbarFor(item);
             _highlightedItem = item
             if (_highlightedItem)
                 _highlightedItem.down = down
+            updateHighlightbarFor(item)
         }
     }
 
     onSelectedChanged: {
         if (selected) {
-            updateXPosFromMenu();
-            var item = childAt(xPos, 0);
-            updateHighlightbarFor(item);
+            updateXPosFromMenu()
+            var item = childAt(xPos, 0)
             _highlightedItem = item
             if (_highlightedItem)
                 _highlightedItem.down = true
+            updateHighlightbarFor(item)
         } else {
             resetXPos()
             resetHighlightbar();
