@@ -36,7 +36,16 @@ Row {
     property real xPos: width / 2 // the x position we need to track
 
     property int count: visibleChildren.length
-    property real sizedCount
+    property real sizedCount: {
+        var result = 0
+        for (var i=0; i < count; i++) {
+            var item = menuRow.visibleChildren[i]
+            if (item && item.size) // needed for Repeater
+                result += item.size
+        }
+        return result
+    }
+
     property real itemWidth: (width - spacing*(count-1)) / Math.max(sizedCount, 0) // calculated item width, equally divided
 
     // these get fed from ContextMenu/PullDownMenu
@@ -72,16 +81,6 @@ Row {
 
     function resetXPos() {
         xPos = width / 2
-    }
-
-    function calculateItemWidth() {
-        var _sizedCount = 0
-        for (var i=0; i < count; i++) {
-            var item = menuRow.visibleChildren[i]
-            if (item && item.size) // fix for Repeater
-                _sizedCount += item.size
-        }
-        sizedCount = _sizedCount
     }
 
     // TODO: pulley menus: shared XPos when switching stuff
@@ -140,6 +139,4 @@ Row {
                 item.clicked();
             // else: prevent menu from being closed, because the Row is always enabled
     }
-
-    onWidthChanged: calculateItemWidth()
 }
