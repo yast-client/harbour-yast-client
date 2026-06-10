@@ -76,8 +76,11 @@ Row {
 
     function calculateItemWidth() {
         var _sizedCount = 0
-        for (var i=0; i < count; i++)
-            _sizedCount += menuRow.visibleChildren[i].size
+        for (var i=0; i < count; i++) {
+            var item = menuRow.visibleChildren[i]
+            if (item && item.size) // fix for Repeater
+                _sizedCount += item.size
+        }
         sizedCount = _sizedCount
     }
 
