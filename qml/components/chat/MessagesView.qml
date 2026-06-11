@@ -667,7 +667,6 @@ Column {
                         messageAlbumMessages: model.album_messages
                         messageViewCount: model.view_count
                         reactions: model.reactions
-                        chatReactions: availableReactions
                         generatedContentUnread: model.generated_content_unread
                         isFirstInSequence: model.is_first_in_sequence
                         isLastInSequence: model.is_last_in_sequence

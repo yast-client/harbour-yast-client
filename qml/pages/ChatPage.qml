@@ -64,7 +64,6 @@ Page {
     readonly property bool canSendMessages: hasSendPrivilege("can_send_basic_messages")
     property bool doSendBotStartMessage
     property string sendBotStartMessageParameter
-    property var availableReactions
     property bool timepointStatus
 
     readonly property MessagesView messagesView: viewAsTopics ? null : contentLoader.item
@@ -198,7 +197,6 @@ Page {
 
         tdLibWrapper.getChatPinnedMessage(chatInformation.id)
         tdLibWrapper.toggleChatIsMarkedAsUnread(chatInformation.id, false)
-        availableReactions = tdLibWrapper.getChatReactions(chatInformation.id)
     }
 
     Component.onDestruction: {
@@ -275,7 +273,6 @@ Page {
             if ((isPrivateChat || isSecretChat) && userId === chatPartnerInformation.id)
                 chatPage.botInformation = userFullInfo.bot_info
         }
-        onReactionsUpdated: availableReactions = tdLibWrapper.getChatReactions(chatInformation.id)
     }
 
     Connections {

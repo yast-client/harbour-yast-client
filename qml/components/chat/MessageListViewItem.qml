@@ -28,7 +28,7 @@ import "../../modules/Opal/FancyMenus"
 
 ListItem {
     id: messageListItem
-    contentHeight: messageBackground.height + messageTextRow.y + Theme.paddingSmall/2 + (reactionsColumn.visible ? reactionsColumn.height : 0)
+    contentHeight: messageBackground.height + messageTextRow.y + Theme.paddingSmall/2
     Behavior on contentHeight { NumberAnimation { duration: 200 } }
     property var chatId
     property var messageId
@@ -62,9 +62,6 @@ ListItem {
     property bool isFirstInSequence: true
     property bool isLastInSequence: true
     property bool wasNavigatedTo: false
-
-    property var chatReactions
-    property var messageReactions
 
     highlighted: wasNavigatedTo
     _showPress: false // Highlighting is provided by the rounded rectangle :D
@@ -111,19 +108,6 @@ ListItem {
         }
     }
 
-    function openReactions() {
-        if (messageListItem.chatReactions) {
-            Debug.log("Using chat reactions")
-            messageListItem.messageReactions = chatReactions
-            showItemCompletelyTimer.requestedIndex = index
-            showItemCompletelyTimer.start()
-        } else {
-            Debug.log("Obtaining message reactions")
-            tdLibWrapper.getMessageAvailableReactions(messageListItem.chatId, messageListItem.messageId)
-        }
-        selectReactionBubble.visible = false
-    }
-
     function getContentWidthMultiplier() {
         return !fullWidthWidescreenContent && Functions.isWidescreen(appWindow) ? 0.4 : 1.0
     }
@@ -140,42 +124,24 @@ ListItem {
                 webPagePreviewLoader.item.clicked()
             }
 
-            if (messageListItem.messageReactions) {
-                messageListItem.messageReactions = null
-                selectReactionBubble.visible = false
-            } else {
-                selectReactionBubble.visible = !selectReactionBubble.visible
-                elementSelected(index)
-            }
+            elementSelected(index)
         }
     }
 
-    onDoubleClicked: openReactions()
-
-    onPressAndHold: {
-        if (openMenuOnPressAndHold) {
+    onPressAndHold:
+        if (openMenuOnPressAndHold)
             openContextMenu()
-        } else {
+        else {
             view.selectedMessages = []
             view.state = ""
         }
-    }
 
-    onMenuOpenChanged: {
+    onMenuOpenChanged:
         // When opening/closing the context menu, we no longer scroll automatically
         chatView.manuallyScrolledToBottom = false
-    }
 
     Connections {
         target: view
-        onResetElements: {
-            messageListItem.messageReactions = null
-            selectReactionBubble.visible = false
-        }
-        onElementSelected:
-            if (elementIndex !== index) {
-                selectReactionBubble.visible = false
-            }
         onNavigatedTo:
             if (targetIndex === index) {
                 messageListItem.wasNavigatedTo = true
@@ -198,34 +164,81 @@ ListItem {
                 if (loaded) {
                     if (properties.can_get_read_date && isOutgoingRead)
                         tdLibWrapper.getMessageReadDate(chatId, messageId)
-                } else
+                } else {
                     contextMenuLoader.messageReadDate = 0
+                }
         }
         property alias messageProperties: propertiesLoader.properties
         readonly property bool canDeleteMessage: !!(messageProperties.can_be_deleted_for_all_users || messageProperties.can_be_deleted_only_for_self)
 
         property int messageReadDate
+        property var messageReactions
+        property int reactionsRowSize: Math.floor(width / Theme.itemSizeSmall)
 
-        Connections {
-            target: tdLibWrapper
-            onMessageReadDateReceived: {
-                if (messageListItem.chatId === chatId && messageListItem.messageId === messageId)
-                    contextMenuLoader.messageReadDate = typeof readDate == 'number' ? readDate : -1
-            }
+        function getAvailableReactions() {
+            Debug.log("Obtaining message reactions, row size:", reactionsRowSize)
+            tdLibWrapper.getMessageAvailableReactions(chatId, messageId, reactionsRowSize)
         }
+        onReactionsRowSizeChanged: // width changed
+            if (status == Loader.Loading || status == Loader.Ready)
+                getAvailableReactions()
 
         onStatusChanged: {
-            if (status == Loader.Loading || status == Loader.Ready)
+            if (status == Loader.Loading || status == Loader.Ready) {
                 propertiesLoader.load()
+                getAvailableReactions()
+            }
 
             if (status === Loader.Ready) {
                 messageListItem.menu = item
                 messageListItem.openMenu()
-            } else if (status != Loader.Loading)
+            } else if (status != Loader.Loading) {
                 propertiesLoader.reset()
+                contextMenuLoader.messageReactions = null
+            }
         }
 
         sourceComponent: mainContextMenuComponent
+
+        function toggleReaction(type) {
+            if (type['@type'] === 'reactionTypePaid') {
+                // TODO
+                return
+            }
+
+            for (var i = 0; i < reactions.length; i++) {
+                var reaction = reactions[i]
+                if (JSON.stringify(reaction.type) === JSON.stringify(type)) {
+                    if (reaction.is_chosen) {
+                        // Reaction is already selected
+                        tdLibWrapper.removeMessageReaction(chatId, messageId, reaction.type)
+                        return
+                    }
+                    break
+                }
+            }
+            // Reaction is not yet selected
+            tdLibWrapper.addMessageReaction(chatId, messageId, type, true)
+            messageReactions = null
+        }
+
+        Component {
+            id: reactionMenuItemComponent
+            BaseRowMenuItem {
+                id: reactionMenuItem
+                visible: reactionLoader.supported
+                //highlight: false
+
+                MessageReaction {
+                    id: reactionLoader
+                    anchors.centerIn: parent
+                    type: modelData.type
+                    highlighted: reactionMenuItem.down
+                }
+
+                onClicked: contextMenuLoader.toggleReaction(modelData.type)
+            }
+        }
 
         Component {
             id: mainContextMenuComponent
@@ -235,6 +248,22 @@ ListItem {
                 onClosed: propertiesLoader.reset() // closed is called at end of animation, and active is set to false at the start, so we use closed() for tracking close and active for tracking open
 
                 readonly property bool isMessageListViewItemMainContextMenu: true
+
+                FancyMenuRow {
+                    visible: messageReactions.top_reactions && messageReactions.top_reactions.length
+
+                    Repeater {
+                        model: messageReactions.top_reactions.slice(0, reactionsRowSize - 1)
+                        delegate: reactionMenuItemComponent
+                    }
+
+                    IconRowMenuItem {
+                        icon.source: "image://theme/icon-m-left"
+                        icon.rotation: 270
+                        onClicked:
+                            contextMenuLoader.sourceComponent = reactionsContextMenuComponent
+                    }
+                }
 
                 FancyMenuRow {
                     // NOTE: In places like this we should generally use `enabled` instead of `visible` so people can rely on spatial memory.
@@ -322,20 +351,59 @@ ListItem {
                                + "\n\n\nMessage properties:\n" + JSON.stringify(messageProperties, null, 2)
                 }
 
-                Component.onCompleted: {
+
+                function handleExtraContextMenuItems(properties, parent) {
                     if (!extraContentLoader.item || !extraContentLoader.item.extraContextMenuItems) return
                     for (var i=0; i<extraContentLoader.item.extraContextMenuItems.length; i++) {
-                        if (extraContentLoader.item.extraContextMenuItems[i].processProperties)
-                            extraContentLoader.item.extraContextMenuItems[i].processProperties(messageProperties)
-                        extraContentLoader.item.extraContextMenuItems[i].parent = _contentColumn
+                        var item = extraContentLoader.item.extraContextMenuItems[i]
+                        if (item.processProperties)
+                            item.processProperties(properties)
+                        item.parent = parent
                     }
                 }
-                Component.onDestruction: {
-                    if (!extraContentLoader.item || !extraContentLoader.item.extraContextMenuItems) return
-                    for (var i=0; i<extraContentLoader.item.extraContextMenuItems.length; i++) {
-                        if (extraContentLoader.item.extraContextMenuItems[i].processProperties)
-                            extraContentLoader.item.extraContextMenuItems[i].processProperties({})
-                        extraContentLoader.item.extraContextMenuItems[i].parent = null
+
+                Component.onCompleted: handleExtraContextMenuItems(messageProperties, _contentColumn)
+                Component.onDestruction: handleExtraContextMenuItems({}, null)
+            }
+        }
+
+        Component {
+            id: reactionsContextMenuComponent
+
+            ContextMenu {
+                Flickable {
+                    id: reactionsFlickable
+                    width: parent.width
+                    height: Theme.itemSizeLarge*3
+                    contentHeight: reactionsGrid.height
+
+                    Grid {
+                        id: reactionsGrid
+                        width: parent.width
+                        columns: reactionsRowSize
+
+                        Repeater {
+                            model: messageReactions.top_reactions
+                            delegate: BackgroundItem {
+                                visible: reactionLoader.supported
+                                width: parent.width / parent.columns
+                                height: Theme.itemSizeSmall
+
+                                MessageReaction {
+                                    id: reactionLoader
+                                    anchors.centerIn: parent
+                                    type: modelData.type
+                                    highlighted: down
+                                }
+
+                                onClicked: {
+                                    contextMenuLoader.toggleReaction(modelData.type)
+                                    close()
+                                }
+                            }
+                        }
+
+                        VerticalScrollDecorator { flickable: reactionsFlickable }
                     }
                 }
             }
@@ -372,48 +440,22 @@ ListItem {
         onMessageNotFound:
             if (messageId === myMessage.reply_to_message_id)
                 messageInReplyToLoader.inReplyToMessageDeleted = true
-        onAvailableReactionsReceived: {
-            if (messageListItem.messageId === messageId && pageStack.currentPage === chatPage) {
-                Debug.log("Available reactions for this message: " + reactions)
-                messageListItem.messageReactions = reactions
-                showItemCompletelyTimer.requestedIndex = messageIndex
-                showItemCompletelyTimer.start()
-            } else messageListItem.messageReactions = null
-        }
-        onReactionsUpdated:
-            chatReactions = tdLibWrapper.getChatReactions(page.chatInformation.id)
-    }
-
-    Timer {
-        id: showItemCompletelyTimer
-
-        property int requestedIndex: (chatView.count - 1)
-
-        repeat: false
-        running: false
-        interval: 200
-        triggeredOnStart: false
-        onTriggered: {
-            if (requestedIndex === messageIndex) {
-                chatView.highlightMoveDuration = -1
-                chatView.highlightResizeDuration = -1
-                chatView.scrollToIndex(requestedIndex)
-                chatView.highlightMoveDuration = 0
-                chatView.highlightResizeDuration = 0
-            }
-            Debug.log("Show item completely timer triggered, requested index: " + requestedIndex + ", current index: " + index)
-            if (requestedIndex === index) {
-                var p = chatView.contentItem.mapFromItem(reactionsColumn, 0, 0)
-                if (chatView.contentY > p.y || p.y + reactionsColumn.height > chatView.contentY + chatView.height) {
-                    Debug.log("Moving reactions for item at", requestedIndex, "info the view")
-                    chatView.highlightMoveDuration = -1
-                    chatView.highlightResizeDuration = -1
-                    chatView.scrollToIndex(requestedIndex, height <= chatView.height ? ListView.Contain : ListView.End)
-                    chatView.highlightMoveDuration = 0
-                    chatView.highlightResizeDuration = 0
+        onAvailableReactionsReceived:
+            if (messageListItem.chatId === chatId && messageListItem.messageId === messageId) {
+                Debug.log("Message reactions received")
+                if (unavailabilityReason !== TDLibAPI.None) {
+                    Debug.log("Reactions are unavailable", unavailabilityReason)
+                    contextMenuLoader.messageReactions = null
+                    return
                 }
+
+                contextMenuLoader.messageReactions = reactions
             }
-        }
+        onMessageReadDateReceived:
+            if (messageListItem.chatId === chatId && messageListItem.messageId === messageId) {
+                Debug.log("Message read date received")
+                contextMenuLoader.messageReadDate = typeof readDate == 'number' ? readDate : -1
+            }
     }
 
     Timer {
@@ -858,46 +900,20 @@ ListItem {
                             Repeater {
                                 model: reactions
                                 Rectangle {
-                                    property bool isSupported: !!reactionLoader.sourceComponent
-
-                                    visible: isSupported
+                                    visible: reactionLoader.supported
                                     height: Theme.fontSizeSmall + Theme.paddingSmall
                                     width: childrenRect.width + Theme.paddingSmall
                                     radius: width
 
                                     color: modelData.is_chosen ? Theme.rgba(Theme.highlightBackgroundColor, 0.6) : Theme.rgba(Theme.secondaryColor, Theme.highlightBackgroundOpacity)
 
-                                    Loader {
+                                    MessageReaction {
                                         id: reactionLoader
                                         x: Theme.paddingSmall/2
                                         y: x
                                         height: parent.height - y*2
                                         width: height
-
-                                        sourceComponent:
-                                            switch (modelData.type['@type']) {
-                                            case 'reactionTypeEmoji':
-                                                return emojiReactionComponent
-                                            //case 'reactionTypePaid':
-                                            //    return paidReactionComponent
-                                            //case 'reactionTypeCustomEmoji':
-                                            //    return customEmojiReactionComponent
-                                            default:
-                                                return undefined
-                                            }
-
-                                        Component {
-                                            id: emojiReactionComponent
-                                            Image {
-                                                id: emojiPicture
-                                                anchors.fill: parent
-                                                sourceSize: {
-                                                    width: width
-                                                    height: height
-                                                }
-                                                source: Emoji.getEmojiPath(modelData.type.emoji)
-                                            }
-                                        }
+                                        type: modelData.type
                                     }
 
                                     RecentActorsList {
@@ -929,15 +945,14 @@ ListItem {
                                         onClicked:
                                             switch (modelData.type['@type']) {
                                             case 'reactionTypeEmoji':
+                                            case 'reactionTypeCustomEmoji':
                                                 if (modelData.is_chosen)
-                                                    tdLibWrapper.removeMessageReaction(chatId, messageId, modelData.type.emoji)
+                                                    tdLibWrapper.removeMessageReaction(chatId, messageId, modelData.type)
                                                 else
-                                                    tdLibWrapper.addMessageReaction(chatId, messageId, modelData.type.emoji)
+                                                    tdLibWrapper.addMessageReaction(chatId, messageId, modelData.type)
                                                 break
                                             //case 'reactionTypePaid':
-                                            //    return paidReactionComponent
-                                            //case 'reactionTypeCustomEmoji':
-                                            //    return customEmojiReactionComponent
+                                            //    ...
                                             }
                                     }
                                 }
@@ -946,99 +961,6 @@ ListItem {
                     }
                 }
 
-            }
-
-            Rectangle {
-                id: selectReactionBubble
-                visible: false
-                opacity: visible ? 0.5 : 0.0
-                Behavior on opacity { NumberAnimation {} }
-                anchors {
-                    horizontalCenter: messageListItem.isOutgoing ? messageBackground.left : messageBackground.right
-                    verticalCenter: messageBackground.verticalCenter
-                }
-                height: Theme.itemSizeExtraSmall
-                width: Theme.itemSizeExtraSmall
-                color: Theme.primaryColor
-                radius: parent.width / 2
-            }
-
-            IconButton {
-                id: selectReactionButton
-                visible: selectReactionBubble.visible
-                opacity: visible ? 1.0 : 0.0
-                Behavior on opacity { NumberAnimation {} }
-                icon.source: "image://theme/icon-s-favorite"
-                anchors.centerIn: selectReactionBubble
-                onClicked: openReactions()
-            }
-        }
-    }
-
-    Column {
-        id: reactionsColumn
-        width: parent.width - ( 2 * Theme.horizontalPageMargin )
-        anchors.top: messageTextRow.bottom
-        anchors.topMargin: Theme.paddingMedium
-        anchors.horizontalCenter: parent.horizontalCenter
-        visible: messageListItem.messageReactions ? (messageListItem.messageReactions.length > 0 ? true : false) : false
-        opacity: visible ? 1 : 0
-        Behavior on opacity { NumberAnimation {} }
-        spacing: Theme.paddingMedium
-
-        Flickable {
-            width: parent.width
-            height: reactionsResultRow.height + 2 * Theme.paddingMedium
-            anchors.horizontalCenter: parent.horizontalCenter
-            contentWidth: reactionsResultRow.width
-            clip: true
-            Row {
-                id: reactionsResultRow
-                spacing: Theme.paddingMedium
-                Repeater {
-                    model: messageListItem.messageReactions
-
-                    Item {
-                        height: singleReactionRow.height
-                        width: singleReactionRow.width
-
-                        Row {
-                            id: singleReactionRow
-                            spacing: Theme.paddingMedium
-
-                            Image {
-                                id: emojiPicture
-                                source: Emoji.getEmojiPath(modelData)
-                                width: status === Image.Ready ? Theme.fontSizeExtraLarge : 0
-                                height: Theme.fontSizeExtraLarge
-                            }
-
-                        }
-
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                for (var i = 0; i < reactions.length; i++) {
-                                    var reaction = reactions[i]
-                                    var reactionText = reaction.reaction ? reaction.reaction : (reaction.type && reaction.type.emoji) ? reaction.type.emoji : ""
-                                    if (reactionText === modelData) {
-                                        if (reaction.is_chosen) {
-                                            // Reaction is already selected
-                                            tdLibWrapper.removeMessageReaction(chatId, messageId, reactionText)
-                                            messageReactions = null
-                                            return
-                                        }
-                                        break
-                                    }
-                                }
-                                // Reaction is not yet selected
-                                tdLibWrapper.addMessageReaction(chatId, messageId, modelData)
-                                messageReactions = null
-                                selectReactionBubble.visible = false
-                            }
-                        }
-                    }
-                }
             }
         }
     }
