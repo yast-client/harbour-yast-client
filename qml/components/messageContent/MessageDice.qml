@@ -249,7 +249,7 @@ MessageContentBase {
         var canSend = hasSendPrivilege('can_send_other_messages')
         var chatId = chatInformation.id, emojiCopy = emoji // So if the message item is deleted, notification would still work
         appNotification.show(qsTr("Send a %1 emoji to any chat to try your luck.", "in-app notification text").arg(emoji),
-                             canSend ? function() { tdLibWrapper.sendDiceMessage(chatId, emojiCopy) } : null,
+                             canSend ? function() { tdLibWrapper.sendDiceMessage(chatId, emojiCopy, 0, topicId) } : null,
                              canSend ? qsTr("Send", 'in-app notification button for "Send a %1 emoji to any chat to try your luck."') : null)
     }
 }
