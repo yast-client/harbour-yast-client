@@ -90,14 +90,13 @@ Column {
 
                 messagesView.clearAttachmentPreviewRow()
             } else if (chatPage.hasSendPrivilege('can_send_other_messages') && tdLibWrapper.isDiceEmoji(newMessageTextField.text))
-                tdLibWrapper.sendDiceMessage(chatInformation.id, newMessageTextField.text, newMessageColumn.replyToMessageId, topicId)
+                tdLibWrapper.sendDiceMessage(chatInformation.id, newMessageTextField.text, newMessageColumn.replyToMessageId, topicId, true)
             else
-                tdLibWrapper.sendTextMessage(chatInformation.id, newMessageTextField.text, newMessageColumn.replyToMessageId, topicId)
+                tdLibWrapper.sendTextMessage(chatInformation.id, newMessageTextField.text, newMessageColumn.replyToMessageId, topicId, true)
 
             if(appSettings.focusTextAreaAfterSend)
                 lostFocusTimer.start()
         }
-        tdLibWrapper.setChatDraftMessage(chatInformation.id, 0, '', topicId)
         newMessageInReplyToRow.inReplyToMessage = null
         newMessageColumn.editMessageId = "0"
         newMessageColumn.editIsCaption = false
