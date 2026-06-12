@@ -8,20 +8,7 @@ CoverBackground {
     id: coverPage
     readonly property bool authenticated: tdLibWrapper.authorizationState === TDLibAPI.AuthorizationReady
 
-    BackgroundImage {
-        id: backgroundImage
-        width: parent.height - Theme.paddingLarge
-        height: width
-        sourceDimension: width
-        anchors {
-            verticalCenter: parent.verticalCenter
-            centerIn: undefined
-            bottom: parent.bottom
-            bottomMargin: Theme.paddingMedium
-            right: parent.right
-            rightMargin: Theme.paddingMedium
-        }
-    }
+    CoverBackgroundImage {}
 
     Icon {
         source: "image://theme/icon-l-dialer"
