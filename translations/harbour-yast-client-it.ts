@@ -2947,6 +2947,10 @@
         <source>This topic was created</source>
         <translation>Il topic è stato creato</translation>
     </message>
+    <message>
+        <source>Forum topic not found</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TranslatePage</name>

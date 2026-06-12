@@ -2948,6 +2948,10 @@ messages</numerusform>
         <source>This topic was created</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Forum topic not found</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TranslatePage</name>
