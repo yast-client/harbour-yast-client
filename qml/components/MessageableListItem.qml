@@ -8,7 +8,8 @@ import "../js/functions.js" as Functions
 
 PhotoTextsListItem {
     property string titleText
-    property bool showDraft: !!draft_message_text && draft_message_date > last_message_date
+    property bool hideDraft
+    property bool showDraft: !!draft_message_text && draft_message_date > last_message_date && !hideDraft
     readonly property string draftText: '<i>'+qsTr("Draft")+'</i>'
     property bool hideAuthor
     property string previewText: showDraft ? draft_message_text : last_message_text
