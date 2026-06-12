@@ -19,7 +19,7 @@ MessageableListItem {
 
     titleText: title
     previewText: chat_actions_text || (showDraft ? draft_message_text : last_message_text)
-    hideAuthor: is_channel || ((chat_type == TDLibAPI.ChatTypePrivate || chat_type == TDLibAPI.ChatTypeSecret) && !last_message_is_service)
+    hideAuthor: chat_actions_text || is_channel || ((chat_type == TDLibAPI.ChatTypePrivate || chat_type == TDLibAPI.ChatTypeSecret) && !last_message_is_service)
     showSendingState: !is_channel && chat_id != tdLibWrapper.myUserId
 
     secondaryText.highlighted: listItem.highlighted || !!chat_actions_text
