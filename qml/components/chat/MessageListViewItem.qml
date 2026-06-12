@@ -725,7 +725,7 @@ ListItem {
                         wrapMode: Text.Wrap
                         textFormat: Text.StyledText
                         onLinkActivated:
-                            utilities.handleLink(link, chatInformation.id)
+                            utilities.handleLink(link, chatInformation.id, topicId)
                         horizontalAlignment: messageListItem.textAlign
                         linkColor: Theme.highlightColor
                         height: text.length > 0 ? implicitHeight : 0
