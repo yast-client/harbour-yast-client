@@ -12,6 +12,6 @@ Item {
 
     property bool _calculateWidth: true
     onVisibleChanged:
-        if (parent.itemWidthChanged && _calculateWidth)
+        if (parent && parent.itemWidthChanged && _calculateWidth)
             parent.itemWidthChanged()
 }
