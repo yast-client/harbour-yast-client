@@ -63,6 +63,7 @@ ChatInformationTabItemBase {
             }
 
             Loader {
+                width: parent.width
                 active: chatInformationPage.isSupergroup
                         && (chatInformationPage.groupInformation.status.can_change_info || chatInformationPage.isGroupCreator)
                 // todo: only show this for private groups
@@ -87,8 +88,8 @@ ChatInformationTabItemBase {
             }
 
             Loader {
-                active: chatInformationPage.isSupergroup && chatInformationPage.isGroupCreator
                 width: parent.width
+                active: chatInformationPage.isSupergroup && chatInformationPage.isGroupCreator
                 // todo: only show this for private groups
                 sourceComponent: Component {
                     Column {
