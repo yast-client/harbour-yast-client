@@ -751,7 +751,7 @@ Column {
                 bottom: parent.bottom
                 bottomMargin: Theme.paddingMedium
             }
-            visible: !chatPage.loading && chatHeader.visible && (unreadCount > 0 || (!messagesModel.endReached && chatView.count > 0))
+            visible: !chatPage.loading && chatHeader.visible && !messagesModel.searchQuery && (unreadCount > 0 || (!messagesModel.endReached && chatView.count > 0))
             property bool highlighted: chatUnreadMessagesMouseArea.containsPress
 
             // not ideal:
