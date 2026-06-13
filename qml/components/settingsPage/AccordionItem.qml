@@ -33,7 +33,7 @@ Item {
     states: [
         State {
             when: area.expanded
-            PropertyChanges { target: image; rotation: 90 }
+            PropertyChanges { target: image; rotation: 180 }
             PropertyChanges { target: content; height: content.implicitHeight + Theme.paddingLarge; opacity: 1.0 }
         }
     ]
@@ -94,8 +94,7 @@ Item {
             }
             width: visible ? Theme.iconSizeMedium : 0
             highlighted: parent.highlighted
-            source: "image://theme/icon-m-left"
-            rotation: -90
+            source: "image://theme/icon-m-down"
         }
     }
     Loader {

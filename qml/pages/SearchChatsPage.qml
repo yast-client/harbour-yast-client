@@ -195,8 +195,8 @@ Page {
                                                 highlighted: parent.highlighted
                                                 color: Theme.highlightColor
                                                 highlightColor: Theme.secondaryHighlightColor
-                                                source: "image://theme/icon-m-left"
-                                                rotation: expanded ? 90 : -90
+                                                source: "image://theme/icon-m-down"
+                                                rotation: expanded ? 180 : 0
                                                 Behavior on rotation { NumberAnimation { duration: 150 } }
                                             }
 

@@ -260,8 +260,7 @@ ListItem {
                     IconRowMenuItem {
                         id: moreReactionsMenuItem
                         visible: messageReactions && messageReactions.top_reactions && reactionsRowSize < messageReactions.top_reactions.length
-                        icon.source: "image://theme/icon-m-left"
-                        icon.rotation: 270
+                        icon.source: "image://theme/icon-m-down"
                         onClicked:
                             contextMenuLoader.sourceComponent = reactionsContextMenuComponent
                     }
