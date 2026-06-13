@@ -5,7 +5,7 @@ Name:       harbour-yast-client
 %define _binary_payload w6.xzdio
 
 Summary:    YAST Client is a yet another SailfishOS Telegram client
-Version:    0.0.0.3
+Version:    0.0.0.4
 Release:    custom
 Group:      Qt/Qt
 License:    LICENSE
