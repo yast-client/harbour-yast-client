@@ -561,8 +561,12 @@ ListItem {
                 }
                 height: messageTextColumn.height + precalculatedValues.paddingMediumDouble
                 width: precalculatedValues.backgroundWidth
-                readonly property color highlightColor: Theme.rgba(Theme.highlightBackgroundColor, Theme.highlightBackgroundOpacity)
-                color: (down || isSelected) && !menuOpen ? highlightColor : Theme.rgba(Theme.primaryColor, Theme.opacityFaint)
+
+                readonly property color highlightColor: Theme.rgba(Theme.highlightBackgroundColor, Theme.opacityFaint * (isOutgoing ? 0.7 : 1.0))
+                color: (down || isSelected) && !menuOpen
+                       ? highlightColor
+                       : Theme.rgba(Theme.secondaryColor, Theme.opacityFaint * (isOutgoing ? 0.4 : 0.8))
+
                 radius: parent.width / 50
                 visible: appSettings.showStickersAsImages || (myMessage.content['@type'] !== "messageSticker" && myMessage.content['@type'] !== "messageAnimatedEmoji" && myMessage.content['@type'] !== "messageDice")
                 Behavior on opacity { FadeAnimation {} }
