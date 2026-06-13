@@ -51,6 +51,8 @@ YAST Client is a yet another SailfishOS Telegram client
 %build
 
 %cmake -GNinja \
+  -DAPP_VERSION="%{version}" \
+  -DAPP_RELEASE="%{release}" \
   -DHARBOUR_COMPLIANCE=off
 
 %ninja_build

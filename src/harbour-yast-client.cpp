@@ -53,6 +53,9 @@ int main(int argc, char *argv[]) {
     context->setContextProperty("voiceNoteRecorder", voiceNoteRecorder);
     qmlRegisterUncreatableType<VoiceNoteRecorder>(uri, 1, 0, "VoiceNoteRecorder", QString());
 
+    view->rootContext()->setContextProperty("APP_VERSION", QString(APP_VERSION));
+    view->rootContext()->setContextProperty("APP_RELEASE", QString(APP_RELEASE));
+
 #ifdef NO_HARBOUR_COMPLIANCE
     context->setContextProperty("NO_HARBOUR_COMPLIANCE", true);
 #else

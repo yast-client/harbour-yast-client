@@ -59,6 +59,10 @@ add_executable(${CMAKE_PROJECT_NAME} src/${CMAKE_PROJECT_NAME}.cpp)
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
     $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>
 )
+target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
+    APP_VERSION="${APP_VERSION}"
+    APP_RELEASE="${APP_RELEASE}"
+)
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE src)
 target_link_libraries(yaqtlib TDLib)
 target_link_libraries(${CMAKE_PROJECT_NAME}

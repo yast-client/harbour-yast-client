@@ -30,6 +30,8 @@ AboutPageBase {
     _pageHeaderItem.title: qsTr("About YAST")
     appName: "YAST Client"
     appIcon: Qt.resolvedUrl("../../images/yast-client.svg")
+    appVersion: APP_VERSION
+    appRelease: APP_RELEASE
     _iconItem.width: Math.min(2 * Theme.itemSizeHuge, Math.min(aboutPage.width, aboutPage.height) / 2)
     _iconItem.height: _iconItem.width
     _iconItem.asynchronous: true
