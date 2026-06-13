@@ -174,7 +174,7 @@ Item {
                         isExpanded = !isExpanded
                     TDLibThumbnail {
                         id: stickerSetThumbnail
-                        thumbnail: modelData.thumbnail ? modelData.thumbnail : modelData.stickers[0].thumbnail
+                        thumbnail: modelData.thumbnail ? modelData.thumbnail : modelData.covers[0].thumbnail
                         anchors {
                             left: parent.left
                             verticalCenter: parent.verticalCenter
