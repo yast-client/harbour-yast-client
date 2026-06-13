@@ -50,12 +50,12 @@ ListItem {
                                        }))
     property bool isSponsored: myMessage['@type'] === 'sponsoredMessage'
     property bool generatedContentUnread
-    readonly property bool isUnread: messageIndex > messagesModel.lastReadMessageIndexInBounds && !isSponsored
+    readonly property bool isUnread: !isOutgoing && !isSponsored && messageId > messagesModel.lastReadInboxMessageId
     readonly property bool isAlbum: myMessage.media_album_id && myMessage.media_album_id !== '0'
 
     readonly property bool isOwnMessage: tdLibWrapper.myUserId === myMessage.sender_id.user_id
     readonly property bool isOutgoing: myMessage.is_outgoing && !myMessage.is_channel_post
-    readonly property bool isOutgoingRead: isOutgoing && messagesModel.lastReadSentMessageIndex >= messageIndex
+    readonly property bool isOutgoingRead: isOutgoing && messageId > messagesModel.lastReadOutboxMessageId
     property bool hasContentComponent
     property bool fullWidthWidescreenContent
     property bool contentAboveMedia
@@ -842,7 +842,6 @@ ListItem {
                     text: {
                         // https://stackoverflow.com/questions/48325115/qml-programmatically-update-binding
                         if (_reloadText && !_reloadText) return ''
-                        //return getMessageStatusText(myMessage, messageIndex, messageViewCount, useElapsed)
 
                         if (!myMessage) return ''
                         if (myMessage['@type'] === 'sponsoredMessage')
@@ -875,7 +874,7 @@ ListItem {
                             verticalCenter: parent.verticalCenter
                         }
                         visible: !!source
-                        source: isOutgoing ? Functions.getMessageSendingStateIcon(messageIndex, messagesModel.lastReadSentMessageIndex, myMessage.sending_state) : ''
+                        source: isOutgoing ? Functions.getMessageSendingStateIcon(messageId, messagesModel.lastReadOutboxMessageId, myMessage.sending_state) : ''
                         highlighted: isOutgoingRead
                     }
                     rightPadding: statusIcon.visible ? statusIcon.width + Theme.paddingSmall : 0
