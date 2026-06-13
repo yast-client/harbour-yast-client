@@ -158,9 +158,8 @@ SilicaFlickable {
                 if (chatInformationPage.userIsMember) {
                     var chatId = chatInformationPage.chatInformation.id;
                     Remorse.popupAction(chatInformationPage, qsTr("Left chat"), function() { tdLibWrapper.leaveChat(chatId) })
-                } else {
-                    tdLibWrapper.joinChat(chatInformationPage.chatInformation.id);
-                }
+                } else
+                    tdLibWrapper.joinChat(chatInformationPage.chatInformation.id, isChannel)
             }
         }
         MenuItem {

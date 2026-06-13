@@ -209,9 +209,6 @@ function handleErrorMessage(code, message, extra) {
     case 'USER_ALREADY_PARTICIPANT':
         appNotification.show(qsTr("You are already a member of this chat."))
         break
-    case 'INVITE_REQUEST_SENT':
-        appNotification.show(extra.isChannel ? qsTr("Request to join sent", "channel") : qsTr("Request to join sent", "group"))
-        break
     default:
         appNotification.show(message)
     }

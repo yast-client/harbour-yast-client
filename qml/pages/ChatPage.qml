@@ -285,12 +285,6 @@ Page {
         }
     }
 
-    Connections {
-        target: chatListModel
-        onChatJoined:
-            appNotification.show(qsTr("You joined the chat %1").arg(chatTitle))
-    }
-
     Timer {
         id: chatContactTimeUpdater
         interval: 60000
@@ -356,7 +350,8 @@ Page {
                     if (chatPage.userIsMember) {
                         var chatId = chatInformation.id
                         Remorse.popupAction(chatPage, qsTr("Left chat"), function() { tdLibWrapper.leaveChat(chatId) })
-                    } else tdLibWrapper.joinChat(chatInformation.id)
+                    } else
+                        tdLibWrapper.joinChat(chatInformation.id, isChannel)
                 }
                 text: chatPage.userIsMember ? qsTr("Leave Chat") : qsTr("Join Chat")
             }

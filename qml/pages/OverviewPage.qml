@@ -107,6 +107,10 @@ Page {
         }
     }
 
+    function chatIsOpen(chatId) {
+        return pageStack.currentPage.objectName === 'chatPage' && pageStack.currentPage.chatId === chatId
+    }
+
     function openChat(chatId, options, doPop) {
         if (chatId && tdLibWrapper.hasChatData(chatId)) {
             Debug.log("[OverviewPage] Opening chat", chatId, "options:", JSON.stringify(options))
@@ -202,6 +206,24 @@ Page {
             // FIXME: we could use options.enabled_proxy_id instead, but then button would not show up when a proxy is added but not currently enabled
             if (proxies.length > 0)
                 proxySettingsButton.visible = true
+        onChatJoinResultReceived:
+            switch (type) {
+            case 'chatJoinResultSuccess':
+                if (!chatIsOpen(info.chat_id))
+                    openChat(info.chat_id)
+                appNotification.show(isChannel ? qsTr("You joined this channel", "channel") : qsTr("You joined this group", "group"))
+                break
+            case 'chatJoinResultRequestSent':
+                appNotification.show(isChannel ? qsTr("Request to join sent", "channel") : qsTr("Request to join sent", "group"))
+                break
+            case 'chatJoinResultDeclined':
+                appNotification.show(isChannel ? qsTr("Your request to join the channel was declined", "channel") : qsTr("Your request to join the group was declined", "group"))
+                break
+            case 'chatJoinResultGuardBotApprovalRequired':
+                // TODO (requires web apps support)
+                appNotification.show(qsTr("An approval from a guard bot is required to join the chat, but guard bots are not yet supported"))
+                break
+            }
     }
 
     Component.onCompleted:
