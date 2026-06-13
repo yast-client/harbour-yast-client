@@ -235,12 +235,8 @@ Item {
                 height: stickerSetColumn.isExpanded ? Theme.itemSizeExtraLarge + Theme.paddingSmall : 0
                 opacity: stickerSetColumn.isExpanded ? 1.0 : 0.0
 
-                Behavior on height {
-                    NumberAnimation { duration: 200 }
-                }
-                Behavior on opacity {
-                    NumberAnimation { duration: 200 }
-                }
+                Behavior on height { NumberAnimation { duration: 200 } }
+                Behavior on opacity { NumberAnimation { duration: 200 } }
 
                 sourceComponent: Component {
                     SilicaListView {
@@ -251,7 +247,6 @@ Item {
                         orientation: Qt.Horizontal
                         visible: count > 0
 
-                        model: stickerSetLoader.myStickerSet
                         delegate: stickerComponent
 
                         Component.onCompleted: {
