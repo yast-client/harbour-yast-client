@@ -551,25 +551,24 @@ ListItem {
             width: precalculatedValues.textItemWidth
             height: messageBackground.height
 
-            Rectangle {
+            RoundedRect {
                 id: messageBackground
-
+                height: messageTextColumn.height + precalculatedValues.paddingMediumDouble
+                width: precalculatedValues.backgroundWidth
                 anchors {
                     left: parent.left
                     leftMargin: isOutgoing ? precalculatedValues.pageMarginDouble : 0
                     verticalCenter: parent.verticalCenter
                 }
-                height: messageTextColumn.height + precalculatedValues.paddingMediumDouble
-                width: precalculatedValues.backgroundWidth
 
                 readonly property color highlightColor: Theme.rgba(Theme.highlightBackgroundColor, Theme.opacityFaint * (isOutgoing ? 0.7 : 1.0))
                 color: (down || isSelected) && !menuOpen
                        ? highlightColor
                        : Theme.rgba(Theme.secondaryColor, Theme.opacityFaint * (isOutgoing ? 0.4 : 0.8))
 
-                radius: parent.width / 50
+                roundedCorners: isOutgoing ? bottomLeft | topRight : bottomRight | topLeft
+                radius: Theme.paddingLarge
                 visible: appSettings.showStickersAsImages || (myMessage.content['@type'] !== "messageSticker" && myMessage.content['@type'] !== "messageAnimatedEmoji" && myMessage.content['@type'] !== "messageDice")
-                Behavior on opacity { FadeAnimation {} }
 
                 // Only animate color for isUnread
                 states: State {
