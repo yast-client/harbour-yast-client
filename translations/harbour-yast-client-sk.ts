@@ -292,6 +292,13 @@
     </message>
 </context>
 <context>
+    <name>CallCover</name>
+    <message>
+        <source>Connected</source>
+        <translation type="unfinished">Pripojené</translation>
+    </message>
+</context>
+<context>
     <name>CallPage</name>
     <message>
         <source>End call</source>
@@ -299,6 +306,14 @@
     </message>
     <message>
         <source>Call back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1&apos;s microphone is off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1&apos;s battery level is low</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
