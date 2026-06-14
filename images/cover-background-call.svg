@@ -10,19 +10,6 @@
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
      id="defs3" />
-  <mask
-     id="mask0"
-     mask-type="alpha"
-     maskUnits="userSpaceOnUse"
-     x="0"
-     y="0"
-     width="97"
-     height="96">
-    <path
-       d="M 48.1433,0.416016 96.0001,48.2728 48.8386,95.4343 0.981834,47.5775 Z"
-       fill="#c4c4c4"
-       id="path2" />
-  </mask>
   <path
      fill-rule="evenodd"
      clip-rule="evenodd"
@@ -39,15 +26,10 @@
        fill="#ffffff"
        id="path1"
        style="stroke-width:3.47424" />
-    <g
-       mask="url(#mask0)"
-       id="g3"
-       transform="matrix(-2.456655,-2.456655,2.456655,-2.456655,327.67358,730.97708)">
-      <path
-         d="M 142.796,95.0693 C 117.35,120.515 75.7587,120.233 49.8992,94.374 24.0397,68.5145 23.7577,26.9232 49.2039,1.47702 74.6501,-23.9692 116.241,-23.6871 142.101,2.17234 167.96,28.0318 168.242,69.6231 142.796,95.0693 Z"
-         stroke="#ffffff"
-         stroke-width="3"
-         id="path3" />
-    </g>
+    <path
+       id="path3"
+       style="baseline-shift:baseline;display:inline;overflow:visible;opacity:1;vector-effect:none;fill:#ffffff;enable-background:accumulate;stop-color:#000000;stop-opacity:1"
+       d="m 50.959554,93.313358 -6.75e-4,-6.75e-4 C 25.664164,68.017967 25.399331,27.401419 50.263736,2.5370338 l 3.38e-4,-3.373e-4 -2.120843,-2.12084286 -0.185506,0.18550629 C 22.217969,26.543116 22.474025,68.739926 48.527735,95.123225 l 0.310976,0.310976 z"
+       transform="matrix(-2.456655,-2.456655,2.456655,-2.456655,327.67358,730.97708)" />
   </g>
 </svg>
