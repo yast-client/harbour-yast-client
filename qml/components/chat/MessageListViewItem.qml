@@ -614,6 +614,30 @@ ListItem {
                 }
 
                 Loader {
+                    width: parent.width
+                    active: !!myMessage.guest_bot_caller_id
+                    sourceComponent: Component {
+                        Label {
+                            TDLibMessageSender {
+                                id: guestBotCaller
+                                messageSender: myMessage.guest_bot_caller_id
+                            }
+
+                            width: parent.width
+                            text: qsTr("for %1", "guest bot caller").arg('<a style="text-decoration: none; font-weight: bold; color:'+Theme.primaryColor+'" href="guestBotCallerId://">' + Emoji.emojify(guestBotCaller.title, font.pixelSize)+'</a>')
+                            font.pixelSize: Theme.fontSizeExtraSmall
+                            textFormat: Text.RichText
+                            color: highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
+                            truncationMode: TruncationMode.Fade
+                            onLinkActivated:
+                                if (link == 'guestBotCallerId://')
+                                    guestBotCaller.open()
+                                else utilities.handleLink(link)
+                        }
+                    }
+                }
+
+                Loader {
                     id: messageInReplyToLoader
                     active: typeof myMessage.reply_to_message_id !== "undefined" && myMessage.reply_to_message_id !== 0
                     width: parent.width
