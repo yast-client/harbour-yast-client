@@ -42,7 +42,7 @@ Page {
                 topMargin: Theme.paddingLarge
                 horizontalCenter: parent.horizontalCenter
             }
-            photoData: user.info.profile_photo.small
+            photoData: typeof user.info.profile_photo.small !== 'undefined' ? user.info.profile_photo.small : null
             replacementStringHint: userName
         }
 

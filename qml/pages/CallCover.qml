@@ -28,7 +28,7 @@ CoverBackground {
                 width: Theme.iconSizeMedium
                 height: width
                 anchors.verticalCenter: parent.verticalCenter
-                photoData: user.info.profile_photo.small
+                photoData: typeof user.info.profile_photo.small !== 'undefined' ? user.info.profile_photo.small : null
                 replacementStringHint: userName
             }
 
@@ -54,7 +54,7 @@ CoverBackground {
 
             Label {
                 id: statusLabel
-                width: Math.min(column.width - signalBarsIconAdditionalWidth, implicitWidth)
+                width: Math.min(column.width - parent.signalBarsIconAdditionalWidth, implicitWidth)
                 anchors.verticalCenter: parent.verticalCenter
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.Wrap
