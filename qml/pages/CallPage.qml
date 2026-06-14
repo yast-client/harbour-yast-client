@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.6
 import Sailfish.Silica 1.0
 import io.yaqtlib 1.0
 import "../components"
@@ -7,13 +7,11 @@ import "../js/twemoji.js" as Emoji
 Page {
     Column {
         width: parent.width
-        spacing: Theme.paddingLarge
 
         PageHeader {
-            title: utilities.getUserName(user.info)
-            description: callsManager.currentCallState === CallsManager.Connected
-                         ? Emoji.emojify(callsManager.currentCallEmojis.join(' '), Theme.fontSizeSmall)
-                         : callWindow.callStatus
+            title: userName
+            description: callWindow.callStatus
+            height: implicitHeight
 
             Item {
                 width: Theme.iconSizeMedium + 2*Theme.paddingMedium
@@ -28,22 +26,81 @@ Page {
             }
         }
 
+        Label {
+            anchors {
+                right: parent.right
+                rightMargin: Theme.horizontalPageMargin
+            }
+            text: Emoji.emojify(callsManager.currentCallEmojis.join(' '), Theme.fontSizeSmall)
+            font.pixelSize: Theme.fontSizeExtraSmall
+        }
+
         ProfileThumbnail {
             width: Theme.itemSizeHuge
             height: width
-            anchors.horizontalCenter: parent.horizontalCenter
+            anchors {
+                topMargin: Theme.paddingLarge
+                horizontalCenter: parent.horizontalCenter
+            }
             photoData: user.info.profile_photo.small
-            replacementStringHint: utilities.getUserName(user.info)
+            replacementStringHint: userName
+        }
+
+        Column {
+            width: parent.width
+            anchors.topMargin: Theme.paddingLarge
+            spacing: Theme.paddingMedium
+
+            Repeater {
+                model: [
+                    [callsManager.remoteAudioMuted, qsTr("%1's microphone is off"), 'image://theme/icon-m-mic-mute'],
+                    [callsManager.remoteBatteryLevelIsLow, qsTr("%1's battery level is low"), 'image://theme/icon-m-battery-saver']
+                ]
+
+                Label {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    opacity: modelData[0] ? 1 : 0
+                    Behavior on opacity { FadeAnimator {} }
+                    text: modelData[1].arg(userName)
+                    color: Theme.highlightColor
+                    font.pixelSize: Theme.fontSizeExtraSmall
+
+                    leftPadding: Theme.iconSizeSmall + Theme.paddingSmall
+                    Icon {
+                        anchors.verticalCenter: parent.verticalCenter
+                        source: modelData[2]
+                        width: Theme.iconSizeSmall
+                        height: width
+                        sourceSize {
+                            width: width
+                            height: height
+                        }
+                    }
+                }
+            }
         }
 
         Row {
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: Theme.paddingLarge
-            visible: callsManager.currentCallState === CallsManager.Connected
+            visible: callsManager.currentCallState === CallsManager.Connected || callsManager.currentCallState === CallsManager.Connecting
 
             Switch {
+                id: speakerphoneSwitch
                 icon.source: 'image://theme/icon-m-speaker' + (checked ? '-on' : '')
                 onCheckedChanged: callsManager.toggleSpeakerphone(checked)
+            }
+
+            Switch {
+                id: muteSwitch
+                icon.source: 'image://theme/icon-m-mic' + (checked ? '-mute' : '')
+                onCheckedChanged: callsManager.toggleMicrophoneIsMuted(checked)
+            }
+
+            Connections {
+                target: callsManager
+                onCallDiscarded:
+                    speakerphoneSwitch.checked = muteSwitch.checked = false
             }
         }
     }

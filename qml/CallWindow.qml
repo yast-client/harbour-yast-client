@@ -75,6 +75,8 @@ Window {
                 return qsTr("Connection error")
             }
 
+        property string userName: utilities.getUserName(user.info)
+
         Component.onCompleted: activate()
         Component.onDestruction:
             if (canHangUp)

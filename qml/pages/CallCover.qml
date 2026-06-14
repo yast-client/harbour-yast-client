@@ -8,18 +8,8 @@ CoverBackground {
     id: coverPage
     readonly property bool authenticated: tdLibWrapper.authorizationState === TDLibAPI.AuthorizationReady
 
-    CoverBackgroundImage {}
-
-    Icon {
-        source: "image://theme/icon-l-dialer"
-        opacity: 0.3
-        width: Theme.iconSizeExtraLarge*1.5
-        height: width
-        sourceSize: {
-            width: width
-            height: height
-        }
-        anchors.centerIn: parent
+    CoverBackgroundImage {
+        source: Qt.resolvedUrl('../../images/cover-background-call.svg')
     }
 
     Column {
@@ -27,7 +17,6 @@ CoverBackground {
         y: Theme.paddingLarge
         x: Theme.paddingMedium
         width: parent.width - 2*x
-        spacing: Theme.paddingLarge
 
         Row {
             id: row
@@ -40,7 +29,7 @@ CoverBackground {
                 height: width
                 anchors.verticalCenter: parent.verticalCenter
                 photoData: user.info.profile_photo.small
-                replacementStringHint: utilities.getUserName(user.info)
+                replacementStringHint: userName
             }
 
             Label {
@@ -49,7 +38,7 @@ CoverBackground {
                 font.pixelSize: Theme.fontSizeMedium
                 color: Theme.highlightColor
                 truncationMode: TruncationMode.Fade
-                text: utilities.getUserName(user.info)
+                text: userName
             }
         }
 
@@ -57,7 +46,10 @@ CoverBackground {
             property real signalBarsIconAdditionalWidth: signalBarsIcon.visible ? signalBarsIcon.width + spacing : 0
 
             width: statusLabel.width + signalBarsIconAdditionalWidth
-            anchors.horizontalCenter: parent.horizontalCenter
+            anchors {
+                topMargin: Theme.paddingLarge
+                horizontalCenter: parent.horizontalCenter
+            }
             spacing: Theme.paddingMedium
 
             Label {
@@ -67,9 +59,8 @@ CoverBackground {
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.Wrap
                 color: Theme.highlightColor
-                textFormat: Text.StyledText
                 text: callsManager.currentCallState === CallsManager.Connected
-                      ? Emoji.emojify(callsManager.currentCallEmojis.join(' '), Theme.fontSizeSmall)
+                      ? qsTr("Connected")
                       : callWindow.callStatus
             }
             Icon {
@@ -80,6 +71,15 @@ CoverBackground {
                 source: "image://theme/icon-m-wlan-" + callsManager.signalBars
                 anchors.verticalCenter: parent.verticalCenter
             }
+        }
+
+        Label {
+            anchors {
+                topMargin: Theme.paddingMedium
+                horizontalCenter: parent.horizontalCenter
+            }
+            text: Emoji.emojify(callsManager.currentCallEmojis.join(' '), Theme.fontSizeSmall)
+            font.pixelSize: Theme.fontSizeExtraSmall
         }
     }
 
