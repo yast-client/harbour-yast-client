@@ -1387,6 +1387,11 @@
         <comment>Message edit date</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>for %1</source>
+        <comment>guest bot caller</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MessageListViewItemSimple</name>
