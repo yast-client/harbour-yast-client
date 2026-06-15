@@ -3682,6 +3682,54 @@
         <source>removed &quot;%1&quot; from the poll</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Canceled Video Call</source>
+        <comment>outgoing</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Missed Video Call</source>
+        <comment>incoming</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outgoing Video Call</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Incoming Video Call</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Canceled Call</source>
+        <comment>outgoing</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Missed Call</source>
+        <comment>incoming</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outgoing Call</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Incoming Call</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outgoing Group Call</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Missed Group Call</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Incoming Group Call</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VoiceNoteOverlay</name>
