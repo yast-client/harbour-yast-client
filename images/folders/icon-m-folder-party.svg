@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="64"
+   height="64"
+   viewBox="0 0 24 24"
+   fill="none"
+   stroke="currentColor"
+   stroke-width="0.75"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   class="lucide lucide-martini-icon lucide-martini"
+   version="1.1"
+   id="svg3"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs3" />
+  <path
+     style="opacity:0.5;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.0454192;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:0;stroke-opacity:1"
+     d="M 10.26236,10.023336 8.3845388,8.0624465 h 3.7557402 3.755741 l -1.877823,1.9608895 c -1.0328,1.078489 -1.877863,1.960891 -1.877918,1.960891 -5.5e-5,0 -0.845118,-0.882402 -1.877919,-1.960891 z"
+     id="path5" />
+  <path
+     d="M 12,12 4.207,4.207 A 0.707,0.707 0 0 1 4.707,3 h 14.586 a 0.707,0.707 0 0 1 0.5,1.207 z"
+     id="path1"
+     style="stroke:#ffffff;stroke-opacity:1" />
+  <path
+     d="M 12,12 V 22"
+     id="path2"
+     style="stroke:#ffffff;stroke-opacity:1" />
+  <path
+     d="M 7,22 H 17"
+     id="path3"
+     style="stroke:#ffffff;stroke-opacity:1" />
+</svg>

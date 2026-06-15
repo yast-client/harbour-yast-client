@@ -2,19 +2,19 @@
 #include "sailfishapp.h"
 
 namespace {
-    const QString FOLDER_ICON_PATH_PREFIX("images/folders/icon-m-folder-");
-    const QString SVG_EXTENSION_SUFFIX(".svg");
     const QString THEME_ICON_PREFIX("image://theme/icon-m-");
 }
 
 QUrl PlatformApp::pathToChatFolderIcon(ChatFoldersModel::Icon icon) {
     auto pathToIcon = [](const QString &name) {
-        return SailfishApp::pathTo(FOLDER_ICON_PATH_PREFIX + name + SVG_EXTENSION_SUFFIX);
+        return SailfishApp::pathTo("images/folders/icon-m-folder-" + name + ".svg");
     };
+
+    // FIXME: decide if chat and like icons should use outline versions
 
     switch (icon) {
     case ChatFoldersModel::Icon::IconAll:
-        return THEME_ICON_PREFIX + "chat"; // FIXME: should this be outline-chat?
+        return THEME_ICON_PREFIX + "outline-chat";
     case ChatFoldersModel::Icon::IconHome:
         return THEME_ICON_PREFIX + "home";
     case ChatFoldersModel::Icon::IconFavorite:
@@ -24,24 +24,26 @@ QUrl PlatformApp::pathToChatFolderIcon(ChatFoldersModel::Icon icon) {
     case ChatFoldersModel::Icon::IconGame:
         return THEME_ICON_PREFIX + "game-controller";
     case ChatFoldersModel::Icon::IconLike:
-        return THEME_ICON_PREFIX + "like"; // FIXME: should this be outline-like?
+        return THEME_ICON_PREFIX + "outline-like";
     case ChatFoldersModel::Icon::IconNote:
         return THEME_ICON_PREFIX + "media-songs";
     case ChatFoldersModel::Icon::IconWork:
         return THEME_ICON_PREFIX + "company";
+    case ChatFoldersModel::Icon::IconTravel:
+        return THEME_ICON_PREFIX + "airplane-mode";
+    case ChatFoldersModel::Icon::IconPrivate:
+        return THEME_ICON_PREFIX + "contact";
+    case ChatFoldersModel::Icon::IconGroups:
+        return THEME_ICON_PREFIX + "users";
+    case ChatFoldersModel::Icon::IconUnmuted:
+        return THEME_ICON_PREFIX + "browser-notifications";
 
 
     // possibly FIXME for these:
     case ChatFoldersModel::Icon::IconLight:
         return THEME_ICON_PREFIX + "flashlight";
-    case ChatFoldersModel::Icon::IconGroups:
-        return THEME_ICON_PREFIX + "people";
     case ChatFoldersModel::Icon::IconMask:
         return THEME_ICON_PREFIX + "incognito";
-
-    //case ChatFoldersModel::Icon::IconAirplane: // LOOOOOOL
-    //    return THEME_ICON_PREFIX + "airplane-mode";
-
 
     case ChatFoldersModel::Icon::IconBook:
         return pathToIcon("book");
@@ -65,8 +67,6 @@ QUrl PlatformApp::pathToChatFolderIcon(ChatFoldersModel::Icon icon) {
         return pathToIcon("palette");
     case ChatFoldersModel::Icon::IconParty:
         return pathToIcon("party");
-    case ChatFoldersModel::Icon::IconPrivate:
-        return pathToIcon("private");
     case ChatFoldersModel::Icon::IconSetup:
         return pathToIcon("setup");
     case ChatFoldersModel::Icon::IconSport:
@@ -75,12 +75,8 @@ QUrl PlatformApp::pathToChatFolderIcon(ChatFoldersModel::Icon icon) {
         return pathToIcon("study");
     case ChatFoldersModel::Icon::IconTrade:
         return pathToIcon("trade");
-    case ChatFoldersModel::Icon::IconTravel:
-        return pathToIcon("travel");
-    case ChatFoldersModel::Icon::IconUnmuted:
-        return pathToIcon("unmuted");
     case ChatFoldersModel::Icon::IconUnread:
-        return pathToIcon("unread");
+        return pathToIcon("unread"); // or icon-m-notifications?
     }
 
     return QString();
