@@ -649,6 +649,9 @@ Column {
                     return Functions.getVideoHeight(parentWidth, content.video)
                 case "messageVideoNote":
                     return parentWidth
+                case 'messageCall':
+                case 'messageGroupCall':
+                    return Theme.itemSizeLarge
                 }
             }
 
