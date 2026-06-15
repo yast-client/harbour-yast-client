@@ -56,7 +56,7 @@ AboutPageBase {
                 },
                 ContributionGroup {
                     title: qsTr("Russian")
-                    entries: "roundedrectangle"
+                    entries: ["roundedrectangle", "windes14"]
                 }
 
             ]
