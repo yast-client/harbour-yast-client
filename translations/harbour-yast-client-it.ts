@@ -1378,7 +1378,7 @@
     <message>
         <source>for %1</source>
         <comment>guest bot caller</comment>
-        <translation type="unfinished"></translation>
+        <translation>per %1</translation>
     </message>
 </context>
 <context>
@@ -3733,50 +3733,50 @@
     <message>
         <source>Canceled Video Call</source>
         <comment>outgoing</comment>
-        <translation type="unfinished"></translation>
+        <translation>Videochiamata cancellata</translation>
     </message>
     <message>
         <source>Missed Video Call</source>
         <comment>incoming</comment>
-        <translation type="unfinished"></translation>
+        <translation>Videochiamata persa</translation>
     </message>
     <message>
         <source>Outgoing Video Call</source>
-        <translation type="unfinished"></translation>
+        <translation>Videochiamata in uscita</translation>
     </message>
     <message>
         <source>Incoming Video Call</source>
-        <translation type="unfinished"></translation>
+        <translation>Videochiamata in entrata</translation>
     </message>
     <message>
         <source>Canceled Call</source>
         <comment>outgoing</comment>
-        <translation type="unfinished"></translation>
+        <translation>Chiamata cancellata</translation>
     </message>
     <message>
         <source>Missed Call</source>
         <comment>incoming</comment>
-        <translation type="unfinished"></translation>
+        <translation>Chiamata persa</translation>
     </message>
     <message>
         <source>Outgoing Call</source>
-        <translation type="unfinished"></translation>
+        <translation>Chiamata in uscita</translation>
     </message>
     <message>
         <source>Incoming Call</source>
-        <translation type="unfinished"></translation>
+        <translation>Chiamata in entrata</translation>
     </message>
     <message>
         <source>Outgoing Group Call</source>
-        <translation type="unfinished"></translation>
+        <translation>Chiamata di gruppo in uscita</translation>
     </message>
     <message>
         <source>Missed Group Call</source>
-        <translation type="unfinished"></translation>
+        <translation>Chiamata di gruppo persa</translation>
     </message>
     <message>
         <source>Incoming Group Call</source>
-        <translation type="unfinished"></translation>
+        <translation>Chiamata di gruppo in entrata</translation>
     </message>
 </context>
 <context>
