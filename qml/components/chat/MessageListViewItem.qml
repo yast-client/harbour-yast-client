@@ -816,7 +816,7 @@ ListItem {
                     target: extraContentLoader.item
                     when: extraContentLoader.item && ("highlighted" in extraContentLoader.item) && (typeof extraContentLoader.item.highlighted === "boolean")
                     property: "highlighted"
-                    value: messageListItem.highlighted
+                    value: messageListItem.highlighted || messageListItem.down || messageListItem.isSelected
                 }
 
                 Loader {
