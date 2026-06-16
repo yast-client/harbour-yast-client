@@ -28,7 +28,7 @@ ApplicationWindow {
     id: appWindow
 
     initialPage: Qt.resolvedUrl("pages/OverviewPage.qml")
-    cover: Qt.resolvedUrl("pages/CoverPage.qml")
+    cover: Qt.resolvedUrl("cover/CoverPage.qml")
     allowedOrientations: defaultAllowedOrientations
 
     Connections {

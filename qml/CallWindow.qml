@@ -11,7 +11,7 @@ Window {
 
     ApplicationWindow {
         id: callWindow
-        cover: Qt.resolvedUrl("pages/CallCover.qml")
+        cover: Qt.resolvedUrl("cover/CallCover.qml")
         initialPage: Qt.resolvedUrl("pages/CallPage.qml")
 
         TDLibUser {

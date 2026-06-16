@@ -5,7 +5,6 @@ import "../components"
 import "../js/twemoji.js" as Emoji
 
 CoverBackground {
-    id: coverPage
     readonly property bool authenticated: tdLibWrapper.authorizationState === TDLibAPI.AuthorizationReady
 
     CoverBackgroundImage {
