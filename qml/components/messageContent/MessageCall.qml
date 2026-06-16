@@ -10,15 +10,18 @@ MessageContentBase {
     property alias text: label.text
     property bool defaultOnClicked: true
 
+    property bool isOutgoing: rawMessage.is_outgoing
+
     Row {
         width: parent.width
-        height: Theme.itemSizeLarge
+        height: Theme.itemSizeMedium
         spacing: Theme.paddingMedium
+        layoutDirection: isOutgoing ? Qt.RightToLeft : Qt.LeftToRight
 
         Icon {
             id: icon
             anchors.verticalCenter: parent.verticalCenter
-            source: rawMessage.is_outgoing ? 'image://theme/icon-m-outgoing-call' : Qt.resolvedUrl('../../../images/icon-m-missed-call.svg')
+            source: 'image://theme/icon-m-' + (rawMessage.content.is_video ? 'video' : 'call')
             color: highlighted ? Theme.primaryColor : Theme.highlightColor
             highlighted: message.highlighted
             width: Theme.iconSizeMedium
@@ -37,19 +40,35 @@ MessageContentBase {
             Label {
                 id: label
                 width: parent.width
-                text: utilities.getMessageCallText(rawMessage.content, rawMessage.is_outgoing)
+                text: utilities.getMessageCallText(rawMessage.content, isOutgoing)
+                font.pixelSize: Theme.fontSizeSmall
                 color: highlighted ? Theme.primaryColor : Theme.highlightColor
                 highlighted: message.highlighted
                 truncationMode: TruncationMode.Fade
+                horizontalAlignment: isOutgoing ? Text.AlignRight : Text.AlignLeft
             }
 
-            Label {
+            Row {
                 width: parent.width
-                text: Functions.formatDuration(rawMessage.content.duration)
-                visible: !!rawMessage.content.duration
-                color: highlighted ? Theme.secondaryColor : Theme.secondaryHighlightColor
-                highlighted: message.highlighted
-                truncationMode: TruncationMode.Fade
+                layoutDirection: isOutgoing ? Qt.RightToLeft : Qt.LeftToRight
+                spacing: Theme.paddingSmall
+
+                Icon {
+                    anchors.verticalCenter: parent.verticalCenter
+                    source: 'image://theme/icon-s-' + (isOutgoing ? 'outgoing-call' : 'incoming-call')
+                    color: highlighted ? Theme.primaryColor : Theme.highlightColor
+                }
+
+                Label {
+                    width: parent.width - Theme.iconSizeSmall - parent.spacing
+                    text: Format.formatDuration(rawMessage.content.duration)
+                    //visible: !!rawMessage.content.duration // FIXME?
+                    color: highlighted ? Theme.secondaryColor : Theme.secondaryHighlightColor
+                    font.pixelSize: Theme.fontSizeExtraSmall
+                    highlighted: message.highlighted
+                    truncationMode: TruncationMode.Fade
+                    horizontalAlignment: isOutgoing ? Text.AlignRight : Text.AlignLeft
+                }
             }
         }
     }

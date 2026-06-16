@@ -651,7 +651,7 @@ Column {
                     return parentWidth
                 case 'messageCall':
                 case 'messageGroupCall':
-                    return Theme.itemSizeLarge
+                    return Theme.itemSizeMedium
                 }
             }
 
