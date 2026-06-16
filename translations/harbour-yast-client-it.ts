@@ -1380,6 +1380,11 @@
         <comment>guest bot caller</comment>
         <translation>per %1</translation>
     </message>
+    <message>
+        <source>The account was hidden by the user</source>
+        <comment>Forwarded message</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MessageListViewItemSimple</name>
@@ -3712,17 +3717,6 @@
         </translation>
     </message>
     <message>
-        <source>watching %1</source>
-        <translation>sta guardando %1</translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 is watching %2</source>
-        <translation>
-            <numerusform>%1 sta guardando %2</numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message>
         <source>added &quot;%1&quot; to the poll</source>
         <translation>ha aggiunto %1 al sondaggio</translation>
     </message>
@@ -3777,6 +3771,29 @@
     <message>
         <source>Incoming Group Call</source>
         <translation>Chiamata di gruppo in entrata</translation>
+    </message>
+    <message>
+        <source>watching %1</source>
+        <comment>The other party is watching an animation, %1 is the emoji describing the animation being watched</comment>
+        <translation type="unfinished">sta guardando %1</translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is watching %2</source>
+        <comment>%1 is watching an animation, %2 is the emoji describing the animation being watched</comment>
+        <translation type="unfinished">
+            <numerusform>%1 sta guardando %2</numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>added &quot;%1&quot; to the poll</source>
+        <comment>myself</comment>
+        <translation type="unfinished">ha aggiunto %1 al sondaggio</translation>
+    </message>
+    <message>
+        <source>removed &quot;%1&quot; from the poll</source>
+        <comment>myself</comment>
+        <translation type="unfinished">ha rimosso %1 dal sondaggio</translation>
     </message>
 </context>
 <context>

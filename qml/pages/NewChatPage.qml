@@ -155,7 +155,7 @@ Page {
         BusyLabel {
             id: busyLabel
             anchors.verticalCenter: contentContainer.verticalCenter
-            text: qsTr("Loading contacts…")
+            text: qsTr("Loading contacts")
         }
     }
 }

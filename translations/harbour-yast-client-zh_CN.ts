@@ -1372,6 +1372,11 @@
         <comment>guest bot caller</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>The account was hidden by the user</source>
+        <comment>Forwarded message</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MessageListViewItemSimple</name>
@@ -3665,16 +3670,6 @@
         </translation>
     </message>
     <message>
-        <source>watching %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message numerus="yes">
-        <source>%1 is watching %2</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message>
         <source>added &quot;%1&quot; to the poll</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3728,6 +3723,28 @@
     </message>
     <message>
         <source>Incoming Group Call</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>watching %1</source>
+        <comment>The other party is watching an animation, %1 is the emoji describing the animation being watched</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is watching %2</source>
+        <comment>%1 is watching an animation, %2 is the emoji describing the animation being watched</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>added &quot;%1&quot; to the poll</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>removed &quot;%1&quot; from the poll</source>
+        <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
