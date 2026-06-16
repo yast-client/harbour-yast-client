@@ -63,8 +63,9 @@ ListItem {
     property bool isLastInSequence: true
     property bool wasNavigatedTo: false
 
+    // Highlighting is provided by the rounded rectangle :D (except for navigation)
     highlighted: wasNavigatedTo
-    _showPress: false // Highlighting is provided by the rounded rectangle :D
+    contentItem.color: highlighted ? highlightedColor : 'transparent' // by default it's binded to _showPress, which is also true when pressTimer is running, which doesn't suit us
     openMenuOnPressAndHold: !messageListItem.precalculatedValues.pageIsSelecting
 
     signal replyToMessage()
@@ -561,9 +562,10 @@ ListItem {
                 }
 
                 readonly property color highlightColor: Theme.rgba(Theme.highlightBackgroundColor, Theme.opacityFaint * (isOutgoing ? 0.7 : 1.0))
-                color: (down || isSelected) && !menuOpen
+                color: (messageListItem.highlighted || down || isSelected) && !menuOpen
                        ? highlightColor
                        : Theme.rgba(Theme.secondaryColor, Theme.opacityFaint * (isOutgoing ? 0.4 : 0.8))
+                layer.enabled: messageListItem.highlighted // make corners highlighted too
 
                 roundedCorners: isOutgoing ? bottomLeft | topRight : bottomRight | topLeft
                 radius: Theme.paddingLarge
