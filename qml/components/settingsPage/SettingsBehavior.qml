@@ -232,6 +232,19 @@ AccordionItem {
                 automaticCheck: false
                 onClicked: fernieSettings.sendMarkdown = !checked
             }
+
+            Column {
+                width: parent.columnWidth
+                visible: NO_HARBOUR_COMPLIANCE
+
+                SectionHeader { text: qsTr("Calls") }
+
+                TextSwitch {
+                    text: qsTr("Ringtone for incoming calls in Do not disturb mode")
+                    description: qsTr("Allow incoming calls to play ringtones in 'Do not disturb' mode")
+                    checked: fernieSettings.dnbCallRingtone
+                }
+            }
         }
     }
 }

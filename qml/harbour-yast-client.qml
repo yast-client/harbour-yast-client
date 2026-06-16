@@ -58,18 +58,6 @@ ApplicationWindow {
             appWindow.activate()
     }
 
-    property var callWindowInstance
-
-    Connections {
-        target: NO_HARBOUR_COMPLIANCE ? callsManager : null
-        ignoreUnknownSignals: true
-        onCallStarted: {
-            if (!callWindowInstance)
-                callWindowInstance = Qt.createComponent(Qt.resolvedUrl("CallWindow.qml")).createObject()
-            callWindowInstance.show()
-        }
-    }
-
     AppNotification {
         id: appNotification
         parent: contentItem
@@ -121,6 +109,8 @@ ApplicationWindow {
             property bool chatFoldersTabBarShowIcons
 
             property bool compactChatList: true
+
+            property bool dnbCallRingtone: true
         }
     }
 
@@ -134,6 +124,31 @@ ApplicationWindow {
         property: 'volume'
         value: appSettings.voiceNoteVolume
     }
+
+
+    property var callWindowInstance
+
+    Connections {
+        target: NO_HARBOUR_COMPLIANCE ? callsManager : null
+        ignoreUnknownSignals: true
+        onCallStarted: {
+            if (!callWindowInstance)
+                callWindowInstance = Qt.createComponent(Qt.resolvedUrl("CallWindow.qml")).createObject()
+            callWindowInstance.show()
+        }
+    }
+
+    ConfigurationValue {
+        id: doNotDisturbKey
+        key: '/lipstick/do_not_disturb'
+        defaultValue: false
+    }
+    Binding {
+        target: notificationManager
+        property: 'enableNgfCallsRingtone'
+        value: fernieSettings.dnbCallRingtone || !doNotDisturbKey.value
+    }
+
 
     Component.onCompleted: {
         Functions.setGlobals({

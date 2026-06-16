@@ -76,6 +76,7 @@ AccordionItem {
 
             Column {
                 width: parent.columnWidth
+                visible: NO_HARBOUR_COMPLIANCE
 
                 SectionHeader { text: qsTr("Calls") }
 
