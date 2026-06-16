@@ -112,7 +112,7 @@ ApplicationWindow {
             property bool forceQtAudioRecorder
             property real voiceNoteVolume: 1
 
-            property bool showTranslateOption
+            property bool showTranslateOption: true
             property bool formattedTranslate
             property bool forceAllowAISummary
 

@@ -50,6 +50,7 @@ AccordionItem {
 
             TextSwitch {
                 width: parent.columnWidth
+                visible: appSettings.showTranslateOption
                 checked: appSettings.formattedTranslate
                 text: qsTr("Translate formatted text")
                 automaticCheck: false
