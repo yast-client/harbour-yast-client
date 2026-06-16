@@ -30,10 +30,14 @@ QtObject {
                 userInformation = tdLibWrapper.getUserInformation(userId)
     }
 
-    function open(replace) {
-        if (isChat)
-            (replace ? pageStack.replace : pageStack.push)(Qt.resolvedUrl("../pages/ChatPage.qml"), {chatInformation: chatInformation})
-        else if (isUser)
+    function open(chatOptions, replace) {
+        if (isChat) {
+            var options = chatOptions || {}
+            options.chatInformation = chatInformation
+
+            var f = replace ? pageStack.replace : pageStack.push // FIXME: why is this needed?
+            f(Qt.resolvedUrl("../pages/ChatPage.qml"), options)
+        } else if (isUser)
             tdLibWrapper.createPrivateChat(userId, 'openDirectly')
     }
 }

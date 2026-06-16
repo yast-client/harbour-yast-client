@@ -680,56 +680,67 @@ ListItem {
                     width: parent.width
                     height: active ? (item ? item.height : Theme.itemSizeExtraSmall) : 0
                     sourceComponent: Component {
-                        Row {
-                            id: forwardedMessageInformationRow
-                            spacing: Theme.paddingSmall
-                            width: parent.width
+                        MouseArea {
+                            id: forwardedMouseArea
 
-                            Component.onCompleted: {
-                                var originType = myMessage.forward_info.origin["@type"]
-                                if (originType === "messageOriginChannel" || originType === "messageForwardOriginChannel") {
-                                    var otherChatInformation = tdLibWrapper.getChat(myMessage.forward_info.origin.chat_id)
-                                    forwardedThumbnail.photoData = (typeof otherChatInformation.photo !== "undefined") ? otherChatInformation.photo.small : {}
-                                    forwardedChannelText.text = Emoji.emojify(otherChatInformation.title, Theme.fontSizeExtraSmall)
-                                } else if (originType === "messageOriginUser" || originType === "messageForwardOriginUser") {
-                                    var otherUserInformation = tdLibWrapper.getUserInformation(myMessage.forward_info.origin.sender_user_id)
-                                    forwardedThumbnail.photoData = (typeof otherUserInformation.profile_photo !== "undefined") ? otherUserInformation.profile_photo.small : {}
-                                    forwardedChannelText.text = Emoji.emojify(utilities.getUserName(otherUserInformation), Theme.fontSizeExtraSmall)
-                                } else {
-                                    forwardedChannelText.text = Emoji.emojify(myMessage.forward_info.origin.sender_name, Theme.fontSizeExtraSmall)
-                                    forwardedThumbnail.photoData = {}
-                                }
+                            property var origin: myMessage.forward_info.origin
+                            property string originType: origin["@type"]
+                            property bool isChannel: originType === 'messageOriginChannel'
+                            property bool isHiddenUser: originType === 'messageOriginHiddenUser'
+
+                            TDLibMessageSender {
+                                id: forwardedOriginSender
+                                isChat: forwardedMouseArea.isChannel || forwardedMouseArea.originType == 'messageOriginChat'
+                                chatId: isChat ? (forwardedMouseArea.isChannel ? forwardedMouseArea.origin.chat_id : forwardedMouseArea.origin.sender_chat_id) : null
+                                isUser: forwardedMouseArea.originType == 'messageOriginUser'
+                                userId: isUser ? forwardedMouseArea.origin.sender_user_id : null
                             }
 
-                            ProfileThumbnail {
-                                id: forwardedThumbnail
-                                replacementStringHint: forwardedChannelText.text
-                                width: Theme.itemSizeExtraSmall
-                                height: Theme.itemSizeExtraSmall
-                            }
-
-                            Column {
+                            Row {
                                 spacing: Theme.paddingSmall
-                                width: parent.width - forwardedThumbnail.width - Theme.paddingSmall
-                                Label {
-                                    font.pixelSize: Theme.fontSizeExtraSmall
-                                    width: parent.width
-                                    font.italic: true
-                                    truncationMode: TruncationMode.Fade
-                                    textFormat: Text.StyledText
-                                    text: qsTr("Forwarded Message")
+                                width: parent.width
+
+                                ProfileThumbnail {
+                                    id: forwardedThumbnail
+                                    photoData: forwardedOriginSender.smallPhoto
+                                    replacementStringHint: forwardedChannelText.text
+                                    width: Theme.itemSizeExtraSmall
+                                    height: Theme.itemSizeExtraSmall
+                                    highlighted: forwardedMouseArea.containsPress
                                 }
-                                Label {
-                                    id: forwardedChannelText
-                                    font.pixelSize: Theme.fontSizeExtraSmall
-                                    color: Theme.primaryColor
-                                    width: parent.width
-                                    font.bold: true
-                                    truncationMode: TruncationMode.Fade
-                                    textFormat: Text.StyledText
-                                    text: Emoji.emojify(forwardedMessageInformationRow.otherChatInformation.title, font.pixelSize)
+
+                                Column {
+                                    spacing: Theme.paddingSmall
+                                    width: parent.width - forwardedThumbnail.width - Theme.paddingSmall
+                                    Label {
+                                        width: parent.width
+                                        text: qsTr("Forwarded Message")
+                                        font.pixelSize: Theme.fontSizeExtraSmall
+                                        font.italic: true
+                                        truncationMode: TruncationMode.Fade
+                                        textFormat: Text.StyledText
+                                        highlighted: forwardedMouseArea.containsPress
+                                    }
+                                    Label {
+                                        width: parent.width
+                                        id: forwardedChannelText
+                                        text: Emoji.emojify(forwardedMouseArea.isHiddenUser
+                                                            ? forwardedMouseArea.origin.sender_name
+                                                            : forwardedOriginSender.title, font.pixelSize)
+                                        font.pixelSize: Theme.fontSizeExtraSmall
+                                        font.bold: true
+                                        truncationMode: TruncationMode.Fade
+                                        textFormat: Text.StyledText
+                                        highlighted: forwardedMouseArea.containsPress
+                                    }
                                 }
                             }
+
+                            onClicked:
+                                if (isHiddenUser)
+                                    appNotification.show(qsTr("The account was hidden by the user", "Forwarded message"))
+                                else
+                                    forwardedOriginSender.open(isChannel ? {messageIdToShow: origin.message_id} : {})
                         }
                     }
                 }
