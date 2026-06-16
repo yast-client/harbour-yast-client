@@ -42,6 +42,13 @@ Page {
         contentHeight: column.height
         anchors.fill: parent
 
+        PullDownMenu {
+            MenuItem {
+                text: "Reopen TDLib instance"
+                onClicked: tdLibWrapper.close()
+            }
+        }
+
         Column {
             id: column
             width: parent.width
