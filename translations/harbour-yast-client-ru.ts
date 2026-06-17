@@ -180,7 +180,7 @@
     </message>
     <message>
         <source>Type</source>
-        <translation></translation>
+        <translation>Тип</translation>
     </message>
     <message>
         <source>MTPROTO</source>
@@ -1475,7 +1475,7 @@
     </message>
     <message>
         <source>Anonymous Poll</source>
-        <translation >Анонимный опрос</translation>
+        <translation>Анонимный опрос</translation>
     </message>
     <message>
         <source>Poll</source>
@@ -2611,6 +2611,18 @@
         <source>When sounds are enabled, the current Sailfish OS notification sound will be used for chats, which can be configured in the system settings.</source>
         <translation>Когда звуки включены, текущий звук уведомлений Sailfish OS будет использован для чатов, который можно выбрать в системный настройках.</translation>
     </message>
+    <message>
+        <source>Calls</source>
+        <translation>Звонки</translation>
+    </message>
+    <message>
+        <source>Ringtone for incoming calls in Do not disturb mode</source>
+        <translation>Рингтон для входящих вызовов в режиме Не беспокоить</translation>
+    </message>
+    <message>
+        <source>Allow incoming calls to play ringtones in &apos;Do not disturb&apos; mode</source>
+        <translation>Разрешить входящим вызовам играть рингтоны в режиме &apos;Не беспокоить&apos;</translation>
+    </message>
 </context>
 <context>
     <name>SettingsPage</name>
@@ -2648,7 +2660,7 @@
     <message>
         <source>https://telegram.org/faq#q-i-have-a-new-phone-number-what-do-i-do</source>
         <comment>URL to the Telegram&apos;s FAQ about changing the phone number for this language. Keep unfinished if not available for your language</comment>
-        <translation></translation>
+        <translation>https://telegram.org/faq#q-i-have-a-new-phone-number-what-do-i-do?setln=ru</translation>
     </message>
     <message>
         <source>Do you still remember your password?</source>

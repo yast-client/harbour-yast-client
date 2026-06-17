@@ -1620,7 +1620,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Loading contacts…</source>
+        <source>Loading contacts</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2555,6 +2555,18 @@
     </message>
     <message>
         <source>When sounds are enabled, the current Sailfish OS notification sound will be used for chats, which can be configured in the system settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ringtone for incoming calls in Do not disturb mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow incoming calls to play ringtones in &apos;Do not disturb&apos; mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
