@@ -165,38 +165,48 @@ ListItem {
                 if (loaded) {
                     if (properties.can_get_read_date && isOutgoingRead)
                         tdLibWrapper.getMessageReadDate(chatId, messageId)
-                } else {
-                    contextMenuLoader.messageReadDate = 0
                 }
         }
         property alias messageProperties: propertiesLoader.properties
         readonly property bool canDeleteMessage: !!(messageProperties.can_be_deleted_for_all_users || messageProperties.can_be_deleted_only_for_self)
 
         property int messageReadDate
-        property var messageReactions
+
         property int reactionsRowSize: Math.floor(width / Theme.itemSizeSmall)
+        property var messageReactions
+        property bool reactionsLoading
 
         function getAvailableReactions() {
+            if (reactionsLoading) return
+
             Debug.log("Obtaining message reactions, row size:", reactionsRowSize)
+            reactionsLoading = true
             tdLibWrapper.getMessageAvailableReactions(chatId, messageId, reactionsRowSize)
         }
         onReactionsRowSizeChanged: // width changed
             if (status == Loader.Loading || status == Loader.Ready)
                 getAvailableReactions()
 
+        function loadData() {
+            propertiesLoader.load()
+            getAvailableReactions()
+        }
+        function reset() {
+            propertiesLoader.reset()
+            contextMenuLoader.messageReactions = null
+            contextMenuLoader.reactionsLoading = false
+            contextMenuLoader.messageReadDate = 0
+        }
+
         onStatusChanged: {
-            if (status == Loader.Loading || status == Loader.Ready) {
-                propertiesLoader.load()
-                getAvailableReactions()
-            }
+            if (status == Loader.Loading || status == Loader.Ready)
+                loadData()
 
             if (status === Loader.Ready) {
                 messageListItem.menu = item
                 messageListItem.openMenu()
-            } else if (status != Loader.Loading) {
-                propertiesLoader.reset()
-                contextMenuLoader.messageReactions = null
-            }
+            } else if (status != Loader.Loading)
+                reset()
         }
 
         sourceComponent: mainContextMenuComponent
@@ -220,7 +230,6 @@ ListItem {
             }
             // Reaction is not yet selected
             tdLibWrapper.addMessageReaction(chatId, messageId, type, true)
-            messageReactions = null
         }
 
         Component {
@@ -244,26 +253,34 @@ ListItem {
         Component {
             id: mainContextMenuComponent
             FancyContextMenu {
+                id: mainContextMenu
                 listItem: messageListItem
-                onActiveChanged: if (active) propertiesLoader.load()
-                onClosed: propertiesLoader.reset() // closed is called at end of animation, and active is set to false at the start, so we use closed() for tracking close and active for tracking open
 
                 readonly property bool isMessageListViewItemMainContextMenu: true
 
-                FancyMenuRow {
-                    visible: messageReactions && messageReactions.top_reactions && messageReactions.top_reactions.length
+                onActiveChanged:
+                    if (active) contextMenuLoader.loadData()
+                onClosed: // closed is called at end of animation, and active is set to false at the start
+                    contextMenuLoader.reset()
 
-                    Repeater {
-                        model: messageReactions.top_reactions.slice(0, reactionsRowSize - moreReactionsMenuItem.visible)
-                        delegate: reactionMenuItemComponent
-                    }
+                MenuItemLoader {
+                    sourceComponent: Component {
+                        FancyMenuRow {
+                            visible: messageReactions && messageReactions.top_reactions && messageReactions.top_reactions.length
 
-                    IconRowMenuItem {
-                        id: moreReactionsMenuItem
-                        visible: messageReactions && messageReactions.top_reactions && reactionsRowSize < messageReactions.top_reactions.length
-                        icon.source: "image://theme/icon-m-down"
-                        onClicked:
-                            contextMenuLoader.sourceComponent = reactionsContextMenuComponent
+                            Repeater {
+                                model: messageReactions.top_reactions.slice(0, reactionsRowSize - moreReactionsMenuItem.visible)
+                                delegate: reactionMenuItemComponent
+                            }
+
+                            IconRowMenuItem {
+                                id: moreReactionsMenuItem
+                                visible: messageReactions && messageReactions.top_reactions && reactionsRowSize < messageReactions.top_reactions.length
+                                icon.source: "image://theme/icon-m-down"
+                                onClicked:
+                                    contextMenuLoader.sourceComponent = reactionsContextMenuComponent
+                            }
+                        }
                     }
                 }
 
@@ -451,6 +468,7 @@ ListItem {
         onAvailableReactionsReceived:
             if (messageListItem.chatId === chatId && messageListItem.messageId === messageId) {
                 Debug.log("Message reactions received")
+                contextMenuLoader.reactionsLoading = false
                 if (unavailabilityReason !== TDLibAPI.None) {
                     Debug.log("Reactions are unavailable", unavailabilityReason)
                     contextMenuLoader.messageReactions = null

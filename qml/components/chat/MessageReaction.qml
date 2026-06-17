@@ -34,6 +34,7 @@ Loader {
                 height: height
             }
             source: Emoji.getEmojiPath(type.emoji)
+            asynchronous: true
 
             layer.enabled: highlighted
             layer.effect: PressEffect { source: emojiReaction }
