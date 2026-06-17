@@ -55,6 +55,7 @@ CoverBackground {
                 id: statusLabel
                 width: Math.min(column.width - parent.signalBarsIconAdditionalWidth, implicitWidth)
                 anchors.verticalCenter: parent.verticalCenter
+                horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.Wrap
                 color: Theme.highlightColor
@@ -73,10 +74,9 @@ CoverBackground {
         }
 
         Label {
-            anchors {
-                topMargin: Theme.paddingMedium
-                horizontalCenter: parent.horizontalCenter
-            }
+            anchors.topMargin: Theme.paddingMedium
+            width: parent.width
+            horizontalAlignment: Text.AlignHCenter
             text: Emoji.emojify(callsManager.currentCallEmojis.join(' '), Theme.fontSizeSmall)
             font.pixelSize: Theme.fontSizeExtraSmall
         }
