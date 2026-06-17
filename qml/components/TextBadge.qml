@@ -14,6 +14,7 @@ Rectangle {
 
     property alias text: text.text
     property bool error: true
+    property alias textColor: text.color
 
     Text {
         id: text

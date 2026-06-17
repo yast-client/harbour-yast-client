@@ -324,6 +324,17 @@ Page {
                 text: viewAsTopics ? qsTr("View as Messages", "view a forum chat in full chat mode") : qsTr("View as Topics", "view a forum chat as topics")
                 onClicked:
                     tdLibWrapper.toggleChatViewAsTopics(chatInformation.id, !viewAsTopics)
+
+                rightPadding: viewAsTopics ? 0 : forumTopicsBetaIndicator.width + Theme.paddingLarge
+                TextBadge {
+                    id: forumTopicsBetaIndicator
+                    visible: !viewAsTopics
+                    anchors.verticalCenter: parent.verticalCenter
+                    x: (parent.width + parent.contentWidth - width)/2
+                    border.color: Theme.highlightColor
+                    textColor: Theme.highlightColor
+                    text: "BETA"
+                }
             }
 
             MenuItem {
