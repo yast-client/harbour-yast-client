@@ -38,6 +38,7 @@ Item {
     implicitHeight: showLargeMedia
                     ? infoColumn.height + mediaItem.height + mediaItem.anchors.topMargin + mediaItem.anchors.bottomMargin
                     : Math.max(infoColumn.height, mediaItem.height + mediaItem.anchors.topMargin + mediaItem.anchors.bottomMargin)
+    height: Math.max(implicitHeight, unsupportedLabel.height)
 
     function clicked() {
         descriptionText.toggleMaxLineCount()
@@ -194,13 +195,16 @@ Item {
     }
 
     Label {
+        id: unsupportedLabel
         width: parent.width
+        height: visible ? implicitHeight : 0
         text: qsTr("Preview not supported for this link")
         font.pixelSize: webPagePreviewItem.largerFontSize ? Theme.fontSizeExtraSmall : Theme.fontSizeTiny
         font.italic: true
+        horizontalAlignment: Text.AlignHCenter
+        wrapMode: Text.Wrap
         color: Theme.secondaryColor
-        truncationMode: TruncationMode.Fade
         opacity: (infoColumn.opacity < 1 && !mediaItem.sourceComponent) ? 1 : 0
+        anchors.verticalCenter: parent.verticalCenter
     }
-
 }

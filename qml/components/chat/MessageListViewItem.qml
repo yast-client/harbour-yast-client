@@ -832,7 +832,7 @@ ListItem {
                     active: false
                     asynchronous: true
                     width: parent.width * getContentWidthMultiplier()
-                    height: (status === Loader.Ready) ? item.implicitHeight : myMessage.content.link_preview ? precalculatedValues.webPagePreviewHeight : 0
+                    height: (status === Loader.Ready) ? item.height : myMessage.content.link_preview ? precalculatedValues.webPagePreviewHeight : 0
 
                     sourceComponent: Component {
                         WebPagePreview {
