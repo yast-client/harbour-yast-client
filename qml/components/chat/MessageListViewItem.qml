@@ -308,7 +308,7 @@ ListItem {
                     }
                 }
                 FancyMenuRow {
-                    visible: !fernieSettings.superCompactMessageMenu
+                    visible: !yaqtSettings.superCompactMessageMenu
                     checkShort: function (ratio, size) { return Screen.sizeCategory <= Screen.Large && ratio > 1 }
                     IconTextRowMenuItem {
                         visible: canDeleteMessage

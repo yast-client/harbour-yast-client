@@ -83,9 +83,9 @@ AccordionItem {
                 TextSwitch {
                     text: qsTr("Save call logs")
                     description: qsTr("Save logs from tgcalls to Downloads")
-                    checked: fernieSettings.saveCallLogs
+                    checked: yaqtSettings.saveCallLogs
                     automaticCheck: false
-                    onClicked: fernieSettings.saveCallLogs = !checked
+                    onClicked: yaqtSettings.saveCallLogs = !checked
                 }
             }
         }

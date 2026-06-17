@@ -282,7 +282,7 @@ Page {
         yOffset: pulleyYOffset - header.height
 
         Component.onCompleted: {
-            tabView.tabBarItem.countRole = Qt.binding(function() { return fernieSettings.showFolderUnreadCount ? 'count' : '' })
+            tabView.tabBarItem.countRole = Qt.binding(function() { return yaqtSettings.showFolderUnreadCount ? 'count' : '' })
             tabView.tabBarItem.iconRole = Qt.binding(function() { return appSettings.chatFoldersTabBarShowIcons ? 'icon' : '' })
 
             tabView.tabBarItem.iconSize = Qt.size(Theme.iconSizeMedium, Theme.iconSizeMedium)

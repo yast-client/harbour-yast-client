@@ -102,24 +102,24 @@ AccordionItem {
                         width: feedbackComboBox.width
 
                         MenuItem {
-                            readonly property int value: FernieSettings.NotificationFeedbackAll
+                            readonly property int value: YaqtSettings.NotificationFeedbackAll
                             text: qsTr("All events")
                             onClicked: {
-                                fernieSettings.notificationFeedback = value
+                                yaqtSettings.notificationFeedback = value
                             }
                         }
                         MenuItem {
-                            readonly property int value: FernieSettings.NotificationFeedbackNew
+                            readonly property int value: YaqtSettings.NotificationFeedbackNew
                             text: qsTr("Only new events")
                             onClicked: {
-                                fernieSettings.notificationFeedback = value
+                                yaqtSettings.notificationFeedback = value
                             }
                         }
                         MenuItem {
-                            readonly property int value: FernieSettings.NotificationFeedbackNone
+                            readonly property int value: YaqtSettings.NotificationFeedbackNone
                             text: qsTr("None")
                             onClicked: {
-                                fernieSettings.notificationFeedback = value
+                                yaqtSettings.notificationFeedback = value
                             }
                         }
                     }
@@ -130,7 +130,7 @@ AccordionItem {
                         var menuItems = feedbackMenu.children
                         var n = menuItems.length
                         for (var i=0; i<n; i++) {
-                            if (menuItems[i].value === fernieSettings.notificationFeedback) {
+                            if (menuItems[i].value === yaqtSettings.notificationFeedback) {
                                 currentIndex = i
                                 return
                             }
@@ -138,7 +138,7 @@ AccordionItem {
                     }
 
                     Connections {
-                        target: fernieSettings
+                        target: yaqtSettings
                         onNotificationFeedbackChanged: {
                             feedbackComboBox.updateFeedbackSelection()
                         }
@@ -146,7 +146,7 @@ AccordionItem {
                 }
 
                 Column {
-                    enabled: fernieSettings.notificationFeedback !== FernieSettings.NotificationFeedbackNone
+                    enabled: yaqtSettings.notificationFeedback !== YaqtSettings.NotificationFeedbackNone
                     width: parent.width
                     height: enabled ? implicitHeight: 0
                     clip: height < implicitHeight
@@ -155,65 +155,65 @@ AccordionItem {
                     Behavior on height { SmoothedAnimation { duration: 200 } }
 
                     TextSwitch {
-                        checked: fernieSettings.notificationTurnsDisplayOn && enabled
+                        checked: yaqtSettings.notificationTurnsDisplayOn && enabled
                         text: qsTr("Notification turns on the display")
                         enabled: parent.enabled
                         automaticCheck: false
                         onClicked: {
-                            fernieSettings.notificationTurnsDisplayOn = !checked
+                            yaqtSettings.notificationTurnsDisplayOn = !checked
                         }
                     }
 
                     TextSwitch {
-                        checked: fernieSettings.notificationSoundsEnabled && enabled
+                        checked: yaqtSettings.notificationSoundsEnabled && enabled
                         text: qsTr("Enable notification sounds")
                         description: qsTr("When sounds are enabled, the current Sailfish OS notification sound will be used for chats, which can be configured in the system settings.")
                         enabled: parent.enabled
                         automaticCheck: false
                         onClicked: {
-                            fernieSettings.notificationSoundsEnabled = !checked
+                            yaqtSettings.notificationSoundsEnabled = !checked
                         }
                     }
                 }
 
                 TextSwitch {
-                    checked: fernieSettings.notificationSuppressContent && enabled
+                    checked: yaqtSettings.notificationSuppressContent && enabled
                     text: qsTr("Hide content in notifications")
                     automaticCheck: false
-                    onClicked: fernieSettings.notificationSuppressContent = !checked
+                    onClicked: yaqtSettings.notificationSuppressContent = !checked
                 }
 
                 TextSwitch {
-                    checked: fernieSettings.notificationShowDefaultReaction && enabled
+                    checked: yaqtSettings.notificationShowDefaultReaction && enabled
                     text: qsTr("Setting quick reaction from notifications")
                     automaticCheck: false
-                    onClicked: fernieSettings.notificationShowDefaultReaction = !checked
+                    onClicked: yaqtSettings.notificationShowDefaultReaction = !checked
                 }
             }
 
             TextSwitch {
                 width: parent.columnWidth
-                checked: fernieSettings.unreadCountIncludeMuted
+                checked: yaqtSettings.unreadCountIncludeMuted
                 text: qsTr("Include muted chats in unread count")
                 automaticCheck: false
-                onClicked: fernieSettings.unreadCountIncludeMuted = !checked
+                onClicked: yaqtSettings.unreadCountIncludeMuted = !checked
             }
 
             TextSwitch {
                 width: parent.columnWidth
-                checked: fernieSettings.showFolderUnreadCount
+                checked: yaqtSettings.showFolderUnreadCount
                 text: qsTr("Show unread chat count in folders")
                 automaticCheck: false
-                onClicked: fernieSettings.showFolderUnreadCount = !checked
+                onClicked: yaqtSettings.showFolderUnreadCount = !checked
             }
 
             TextSwitch {
                 width: parent.columnWidth
-                enabled: fernieSettings.showFolderUnreadCount
-                checked: fernieSettings.foldersUnreadCountIncludeMuted
+                enabled: yaqtSettings.showFolderUnreadCount
+                checked: yaqtSettings.foldersUnreadCountIncludeMuted
                 text: qsTr("Include muted chats in folders unread count")
                 automaticCheck: false
-                onClicked: fernieSettings.foldersUnreadCountIncludeMuted = !checked
+                onClicked: yaqtSettings.foldersUnreadCountIncludeMuted = !checked
             }
 
             TextSwitch {
@@ -227,10 +227,10 @@ AccordionItem {
 
             TextSwitch {
                 width: parent.columnWidth
-                checked: fernieSettings.sendMarkdown
+                checked: yaqtSettings.sendMarkdown
                 text: qsTr("Parse markdown when sending messages")
                 automaticCheck: false
-                onClicked: fernieSettings.sendMarkdown = !checked
+                onClicked: yaqtSettings.sendMarkdown = !checked
             }
 
             Column {
