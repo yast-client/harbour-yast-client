@@ -242,7 +242,7 @@ AccordionItem {
                 TextSwitch {
                     text: qsTr("Ringtone for incoming calls in Do not disturb mode")
                     description: qsTr("Allow incoming calls to play ringtones in 'Do not disturb' mode")
-                    checked: fernieSettings.dnbCallRingtone
+                    checked: appSettings.dnbCallRingtone
                 }
             }
         }

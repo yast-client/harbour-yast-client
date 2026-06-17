@@ -146,7 +146,7 @@ ApplicationWindow {
     Binding {
         target: notificationManager
         property: 'enableNgfCallsRingtone'
-        value: fernieSettings.dnbCallRingtone || !doNotDisturbKey.value
+        value: appSettings.dnbCallRingtone || !doNotDisturbKey.value
     }
 
 
