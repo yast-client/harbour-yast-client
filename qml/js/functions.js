@@ -134,7 +134,7 @@ function getDateTimeTimepointRelative(timestamp) {
     return formatDate(timestamp, Silica.Formatter.TimepointRelative)
 }
 
-function getDurationToFuture(timestamp) {
+function formatDurationToFuture(timestamp) {
     var diff = timestamp - new Date().getTime() / 1000
     if (diff <= 0)
         return ''

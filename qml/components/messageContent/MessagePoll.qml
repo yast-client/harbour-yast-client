@@ -185,7 +185,7 @@ MessageContentBase {
                 Label {
                     id: pollDurationLabel
                     font.pixelSize: Theme.fontSizeMedium
-                    text: Functions.getDurationToFuture(pollData.close_date)
+                    text: Functions.formatDurationToFuture(pollData.close_date)
                     color: pollMessageComponent.isOwnMessage || pollMessageComponent.highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
                     anchors.verticalCenter: parent.verticalCenter
 
@@ -194,7 +194,7 @@ MessageContentBase {
                         running: pollDurationRow.visible
                         repeat: true
                         onTriggered:
-                            pollDurationLabel.text = Functions.getDurationToFuture(pollData.close_date)
+                            pollDurationLabel.text = Functions.formatDurationToFuture(pollData.close_date)
                     }
                 }
 
