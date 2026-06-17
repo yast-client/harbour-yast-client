@@ -41,6 +41,16 @@ CoverBackground {
             }
         }
 
+        Label {
+            topPadding: Theme.paddingMedium
+            width: parent.width
+            horizontalAlignment: Text.AlignHCenter
+            text: callDurationString
+            font.pixelSize: Theme.fontSizeLarge
+            color: Theme.highlightColor
+            visible: !!text
+        }
+
         Row {
             property real signalBarsIconAdditionalWidth: signalBarsIcon.visible ? signalBarsIcon.width + spacing : 0
 

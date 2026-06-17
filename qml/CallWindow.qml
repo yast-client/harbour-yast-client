@@ -2,7 +2,7 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtQuick.Window 2.2
 import io.yaqtlib 1.0
-import "components"
+import 'components'
 
 Window {
     onClosing: destroy()
@@ -76,6 +76,19 @@ Window {
             }
 
         property string userName: utilities.getUserName(user.info)
+
+        property string _callDuration
+        property string callDurationString: callsManager.currentCallReadyTimestamp ? _callDuration : ''
+
+        Timer {
+            interval: 1000
+            repeat: true
+            running: !!callsManager.currentCallReadyTimestamp
+                     && (callsManager.currentCallState == CallsManager.Connected || callsManager.currentCallState == CallsManager.Connecting)
+            triggeredOnStart: true
+            onTriggered:
+                callWindow._callDuration = Format.formatDuration(new Date().getTime() / 1000 - callsManager.currentCallReadyTimestamp)
+        }
 
         Component.onCompleted: activate()
         Component.onDestruction:

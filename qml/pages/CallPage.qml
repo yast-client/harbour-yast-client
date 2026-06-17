@@ -46,6 +46,40 @@ Page {
             replacementStringHint: userName
         }
 
+        Label {
+            topPadding: Theme.paddingMedium
+            width: parent.width
+            horizontalAlignment: Text.AlignHCenter
+            text: callDurationString
+            font.pixelSize: Theme.fontSizeExtraLarge
+            color: Theme.highlightColor
+            visible: !!text
+        }
+
+        Row {
+            anchors.horizontalCenter: parent.horizontalCenter
+            spacing: Theme.paddingLarge
+            visible: callsManager.currentCallState === CallsManager.Connected || callsManager.currentCallState === CallsManager.Connecting
+
+            Switch {
+                id: speakerphoneSwitch
+                icon.source: 'image://theme/icon-m-speaker' + (checked ? '-on' : '')
+                onCheckedChanged: callsManager.toggleSpeakerphone(checked)
+            }
+
+            Switch {
+                id: muteSwitch
+                icon.source: 'image://theme/icon-m-mic' + (checked ? '-mute' : '')
+                onCheckedChanged: callsManager.toggleMicrophoneIsMuted(checked)
+            }
+
+            Connections {
+                target: callsManager
+                onCallDiscarded:
+                    speakerphoneSwitch.checked = muteSwitch.checked = false
+            }
+        }
+
         Column {
             width: parent.width
             anchors.topMargin: Theme.paddingLarge
@@ -77,30 +111,6 @@ Page {
                         }
                     }
                 }
-            }
-        }
-
-        Row {
-            anchors.horizontalCenter: parent.horizontalCenter
-            spacing: Theme.paddingLarge
-            visible: callsManager.currentCallState === CallsManager.Connected || callsManager.currentCallState === CallsManager.Connecting
-
-            Switch {
-                id: speakerphoneSwitch
-                icon.source: 'image://theme/icon-m-speaker' + (checked ? '-on' : '')
-                onCheckedChanged: callsManager.toggleSpeakerphone(checked)
-            }
-
-            Switch {
-                id: muteSwitch
-                icon.source: 'image://theme/icon-m-mic' + (checked ? '-mute' : '')
-                onCheckedChanged: callsManager.toggleMicrophoneIsMuted(checked)
-            }
-
-            Connections {
-                target: callsManager
-                onCallDiscarded:
-                    speakerphoneSwitch.checked = muteSwitch.checked = false
             }
         }
     }
