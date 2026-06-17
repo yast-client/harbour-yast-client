@@ -294,7 +294,8 @@
     <name>CallCover</name>
     <message>
         <source>Connected</source>
-        <translation>Connesso</translation>
+        <comment>Call status</comment>
+        <translation type="unfinished">Connesso</translation>
     </message>
 </context>
 <context>

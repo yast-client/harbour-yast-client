@@ -70,7 +70,7 @@ CoverBackground {
                 wrapMode: Text.Wrap
                 color: Theme.highlightColor
                 text: callsManager.currentCallState === CallsManager.Connected
-                      ? qsTr("Connected")
+                      ? qsTr("Connected", "Call status")
                       : callWindow.callStatus
             }
             Icon {

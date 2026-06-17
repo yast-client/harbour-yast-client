@@ -295,7 +295,8 @@
     <name>CallCover</name>
     <message>
         <source>Connected</source>
-        <translation>В сети</translation>
+        <comment>Call status</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

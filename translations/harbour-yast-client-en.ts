@@ -294,6 +294,7 @@
     <name>CallCover</name>
     <message>
         <source>Connected</source>
+        <comment>Call status</comment>
         <translation type="unfinished">Connected</translation>
     </message>
 </context>
