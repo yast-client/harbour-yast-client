@@ -25,6 +25,8 @@ Row {
     width: menu.width
     spacing: 0
 
+    property bool __opal__fancy_menus__fancy_menu_row: true
+
     property var checkIconOnly: function() { return false }
     property var checkShort: function() { return false }
 
@@ -32,6 +34,7 @@ Row {
     function _checkShort(size) { return checkShort(sizedCount / size, size) }
 
     property Item menu: parent.parent // FancyContextMenu/FancyPullDownMenu
+    property Item menuContainer: parent
     property bool isPulley: menu && (typeof menu._isPullDownMenu !== 'undefined')
     property real xPos: width / 2 // the x position we need to track
 
@@ -70,12 +73,12 @@ Row {
     property bool enabled: !_highlightedItem || _highlightedItem.enabled // makes the menu know if the item is enabled (only makes visual improvemenyd)
 
     function updateHighlightbarFor(item) {
-        menu._highlightBar.x = item ? item.x : parent.x
+        menu._highlightBar.x = item ? item.x : menuContainer.x
         menu._highlightBar.width = item && item.enabled && item.highlight ? item.width : 0
     }
 
     function resetHighlightbar() {
-        menu._highlightBar.x = 0 //parent.x // or simply 0? pulleyMenu/*(parent here)*/.x breaks landscape in FancyPullDownMenu
+        menu._highlightBar.x = 0 //menuContainer.x // or simply 0? pulleyMenu/*(parent here)*/.x breaks landscape in FancyPullDownMenu
         menu._highlightBar.width = menu.width
     }
 
