@@ -70,7 +70,7 @@ Page {
     }
 
     Timer {
-        id: openInitializationPageTimer
+        id: openInitializationDialogTimer
         interval: 0
         onTriggered: {
             pageStack.completeAnimation()
@@ -81,11 +81,14 @@ Page {
             if (page && page.objectName === 'addProxyDialog')
                 proxyPageData = {server: page.server, port: page.port, proxyType: page.getTypeObject(), openAfterAdding: true}
 
-            pageStack.push(Qt.resolvedUrl("../pages/InitializationPage.qml"), PageStackAction.Immediate)
+            if (appConfig.welcomeTourCompleted)
+                pageStack.push(Qt.resolvedUrl('../dialogs/InitializationDialog.qml'), {initial: true})
+            else
+                pageStack.push(Qt.resolvedUrl('../dialogs/WelcomeDialog.qml'))
 
             if (proxyPageData) {
                 pageStack.completeAnimation()
-                pageStack.push(Qt.resolvedUrl("../dialogs/AddProxyDialog.qml"), proxyPageData)
+                pageStack.push(Qt.resolvedUrl('../dialogs/AddProxyDialog.qml'), proxyPageData)
             }
         }
     }
@@ -144,7 +147,8 @@ Page {
         case TDLibAPI.WaitCode:
         case TDLibAPI.WaitOtherDeviceConfirmation:
         case TDLibAPI.WaitRegistration:
-            openInitializationPageTimer.start() // pageStack isn't ready on start
+        case TDLibAPI.WaitPassword:
+            openInitializationDialogTimer.start() // pageStack isn't ready on start
             break;
         case TDLibAPI.LoggingOut:
             chatListCreatedTimer.stop()

@@ -73,7 +73,7 @@ Page {
                     text: "Reset hints"
                     onClicked: {
                         appConfig.remainingInteractionHints = appConfig.remainingDoubleTapHints = 3
-                        appConfig.archiveChatListHintCompleted = false
+                        appConfig.archiveChatListHintCompleted = appConfig.welcomeTourCompleted = false
                         appNotification.show("Reopen the app to view the hints")
                     }
                 }
