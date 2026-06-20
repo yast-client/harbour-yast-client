@@ -1168,11 +1168,7 @@
     </message>
 </context>
 <context>
-    <name>InitializationPage</name>
-    <message>
-        <source>User Registration</source>
-        <translation type="unfinished"></translation>
-    </message>
+    <name>InitializationDialog</name>
     <message>
         <source>About YAST</source>
         <translation type="unfinished"></translation>
@@ -1182,55 +1178,154 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please enter your phone number to continue.</source>
+        <source>Visit telegram.org</source>
+        <comment>Visit telegram.org to download an official app for purchasing the Telegram Premium subscription</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your Phone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirmation Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Two-Step Verification</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your Email</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirmation code</source>
+        <comment>email</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Registration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm</source>
+        <comment>confirmation code</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirm</source>
+        <comment>email code</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Register</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Phone number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Use the international format, e.g. %1</source>
         <translation type="unfinished"></translation>
     </message>
+    <message numerus="yes">
+        <source>Last %Ln digits</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
     <message>
-        <source>Continue</source>
+        <source>Code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>OK</source>
+        <source>Calling your phone %1 to dictate the code.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please enter your password:</source>
+        <source>Get the code in the Numbers section on Fragment.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please enter the code that you received:</source>
+        <source>Within next few seconds you should receive a short call from a phone number which starts with %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unable to authenticate you with the entered code.</source>
+        <source>We&apos;ve sent the code to the Telegram app on your other device.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enter code again</source>
+        <source>Open Fragment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Restart authentication</source>
+        <source>Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enter your First Name</source>
+        <source>Hint: %1</source>
+        <comment>Password hint</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enter your Last Name</source>
+        <source>You have enabled Two-Step Verification, so your account is protected with an additional password.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Register User</source>
+        <source>Email address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Welcome to YAST Client!</source>
+        <source>Please enter your valid email address.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Code</source>
+        <comment>email</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>We&apos;ve sent a 6-digit recovery code to %1. Please check your email and enter it here.</source>
+        <comment>%1 is the email address</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Telegram Premium required</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Telegram Premium is required to proceed. Unfortunately, it&apos;s currently not possible to make in-app purchases through YAST. Please use one of Telegram&apos;s official apps and enter the same phone number to set up the subscription, after which you can return to singing in to YAST.
+
+Pull down to visit telegram.org</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>By accepting, you agree to the Telegram Terms of Service:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Notify my contacts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Notify your contacts that you joined Telegram</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>First name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unsupported authorization mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sorry, this authorization mode is not yet supported: %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3803,6 +3898,45 @@
     <name>WebPagePreview</name>
     <message>
         <source>Preview not supported for this link</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>WelcomeDialog</name>
+    <message>
+        <source>Start Messaging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>YAST Client is a yet another SailfishOS Telegram client</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>YAST is not an official Telegram client, but it uses the official Telegram API through TDLib</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Free</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Telegram provides free unlimited cloud storage for chats and media</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Secure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Telegram keeps your messages safe from hacker attacks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cloud-Based</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Telegram lets you access your messages from multiple devices</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
