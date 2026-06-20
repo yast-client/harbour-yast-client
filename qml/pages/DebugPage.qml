@@ -44,6 +44,10 @@ Page {
 
         PullDownMenu {
             MenuItem {
+                text: "Destroy TDLib instance"
+                onClicked: tdLibWrapper.destroyInstance()
+            }
+            MenuItem {
                 text: "Reopen TDLib instance"
                 onClicked: tdLibWrapper.close()
             }
@@ -60,6 +64,19 @@ Page {
                              : ('<font color="%1">Warning</color>: '.arg(Theme.highlightColor)
                                 + "You are not currently unauthorized. Certain feautres, including but not limited to opening chats and translating, are unlikely to work in this state.")
                 descriptionWrapMode: Text.Wrap
+            }
+
+            SectionHeader { text: "Settings" }
+
+            ButtonLayout {
+                Button {
+                    text: "Reset hints"
+                    onClicked: {
+                        appConfig.remainingInteractionHints = appConfig.remainingDoubleTapHints = 3
+                        appConfig.archiveChatListHintCompleted = false
+                        appNotification.show("Reopen the app to view the hints")
+                    }
+                }
             }
 
             SectionHeader {
