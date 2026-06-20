@@ -30,7 +30,7 @@ Page {
                 proxiesToCopy.push(url)
                 if (proxiesToCopy.length == proxiesToCopyCount) {
                     Clipboard.text = proxiesToCopy.join('\n')
-                    appNotification.show(qsTr("Proxy list copied to clipboard"))
+                    appNotification.show(qsTr("Proxy List copied to clipboard"))
                 }
             }
     }

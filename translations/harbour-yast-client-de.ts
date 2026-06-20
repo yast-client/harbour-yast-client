@@ -2256,6 +2256,10 @@ Pull down to visit telegram.org</source>
         <source>An approval from a guard bot is required to join the chat, but guard bots are not yet supported</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Link copied to clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OverviewPageHeader</name>
@@ -2385,6 +2389,19 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>Pull down to add a new proxy server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy Proxy List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy link</source>
+        <comment>proxy</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Proxy List copied to clipboard</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3079,16 +3096,16 @@ Pull down to visit telegram.org</source>
         <translation>Warte auf Netzwerk…</translation>
     </message>
     <message>
-        <source>Connecting to network...</source>
-        <translation>Verbinde zum Netzwerk…</translation>
+        <source>Connecting to network…</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Connecting to proxy...</source>
-        <translation>Verbinde zum Proxy…</translation>
+        <source>Connecting to proxy…</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Updating content...</source>
-        <translation>Aktualisiere Inhalte…</translation>
+        <source>Updating content…</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

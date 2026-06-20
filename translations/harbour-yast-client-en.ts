@@ -2260,6 +2260,10 @@ Pull down to visit telegram.org</translation>
         <source>An approval from a guard bot is required to join the chat, but guard bots are not yet supported</source>
         <translation>An approval from a guard bot is required to join the chat, but guard bots are not yet supported</translation>
     </message>
+    <message>
+        <source>Link copied to clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OverviewPageHeader</name>
@@ -2390,6 +2394,19 @@ Pull down to visit telegram.org</translation>
     <message>
         <source>Pull down to add a new proxy server</source>
         <translation>Pull down to add a new proxy server</translation>
+    </message>
+    <message>
+        <source>Copy Proxy List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy link</source>
+        <comment>proxy</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Proxy List copied to clipboard</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
