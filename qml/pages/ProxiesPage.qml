@@ -179,6 +179,10 @@ Page {
                             onClicked: pageStack.push(Qt.resolvedUrl("../dialogs/AddProxyDialog.qml"),
                                                       {editProxyId: model.id, server: proxy.server, port: proxy.port, proxyType: proxy.type})
                         }
+                        MenuItem {
+                            text: qsTr("Copy link", "proxy")
+                            onClicked: tdLibWrapper.getInternalLink({'@type': 'internalLinkTypeProxy', proxy: proxy}, 'copy')
+                        }
                     }
                 }
             }

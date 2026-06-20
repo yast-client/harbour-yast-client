@@ -228,6 +228,11 @@ Page {
                 appNotification.show(qsTr("An approval from a guard bot is required to join the chat, but guard bots are not yet supported"))
                 break
             }
+        onHttpUrlReceived:
+            if (extra == 'copy') {
+                Clipboard.text = url
+                appNotification.show(qsTr("Link copied to clipboard"))
+            }
     }
 
     Component.onCompleted:
