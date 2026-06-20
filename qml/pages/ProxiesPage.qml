@@ -47,7 +47,7 @@ Page {
             }
         }
 
-        BusyIndicator {
+        BusyLabel {
             running: loading
         }
 
