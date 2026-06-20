@@ -296,7 +296,7 @@
     <message>
         <source>Connected</source>
         <comment>Call status</comment>
-        <translation type="unfinished">В сети</translation>
+        <translation>Подключено</translation>
     </message>
 </context>
 <context>
@@ -1192,164 +1192,170 @@
     <name>InitializationDialog</name>
     <message>
         <source>About YAST</source>
-        <translation type="unfinished">О программе</translation>
+        <translation>О программе</translation>
     </message>
     <message>
         <source>Proxy settings</source>
-        <translation type="unfinished">Настройки прокси</translation>
+        <translation>Настройки прокси</translation>
     </message>
     <message>
         <source>Visit telegram.org</source>
         <comment>Visit telegram.org to download an official app for purchasing the Telegram Premium subscription</comment>
-        <translation type="unfinished"></translation>
+        <translation>Открыть telegram.org</translation>
     </message>
     <message>
         <source>Your Phone</source>
-        <translation type="unfinished"></translation>
+        <translation>Ваш телефон</translation>
     </message>
     <message>
         <source>Confirmation Code</source>
-        <translation type="unfinished"></translation>
+        <translation>Код подтверждения</translation>
     </message>
     <message>
         <source>Two-Step Verification</source>
-        <translation type="unfinished"></translation>
+        <translation>Облачный пароль</translation>
     </message>
     <message>
         <source>Your Email</source>
-        <translation type="unfinished"></translation>
+        <translation>Адрес электронной почты</translation>
     </message>
     <message>
         <source>Confirmation code</source>
         <comment>email</comment>
-        <translation type="unfinished"></translation>
+        <translation>Код подтверждения</translation>
     </message>
     <message>
         <source>Registration</source>
-        <translation type="unfinished"></translation>
+        <translation>Регистрация</translation>
     </message>
     <message>
         <source>Confirm</source>
         <comment>confirmation code</comment>
-        <translation type="unfinished"></translation>
+        <translation>Подтвердить</translation>
     </message>
     <message>
         <source>Confirm</source>
         <comment>email code</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Register</source>
-        <translation type="unfinished"></translation>
+        <translation>Подтвердить</translation>
     </message>
     <message>
         <source>Phone number</source>
-        <translation type="unfinished">Номер телефона</translation>
+        <translation>Номер телефона</translation>
     </message>
     <message>
         <source>Use the international format, e.g. %1</source>
-        <translation type="unfinished">Используйте международный формат, например %1</translation>
+        <translation>Используйте международный формат, например %1</translation>
     </message>
     <message numerus="yes">
         <source>Last %Ln digits</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Последняя %Ln цифра</numerusform>
+            <numerusform>Последние %Ln цифры</numerusform>
+            <numerusform>Последних %Ln цифр</numerusform>
         </translation>
     </message>
     <message>
         <source>Code</source>
-        <translation type="unfinished"></translation>
+        <translation>Код</translation>
     </message>
     <message>
         <source>Calling your phone %1 to dictate the code.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Get the code in the Numbers section on Fragment.</source>
-        <translation type="unfinished"></translation>
+        <translation>Мы звоним Вам по номеру %1, чтобы продиктовать код.</translation>
     </message>
     <message>
         <source>Within next few seconds you should receive a short call from a phone number which starts with %1.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>We&apos;ve sent the code to the Telegram app on your other device.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Open Fragment</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished">Пароль</translation>
+        <translation>Пароль</translation>
     </message>
     <message>
         <source>Hint: %1</source>
         <comment>Password hint</comment>
-        <translation type="unfinished"></translation>
+        <translation>Подсказка: %1</translation>
     </message>
     <message>
         <source>You have enabled Two-Step Verification, so your account is protected with an additional password.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вы включили двухэтапную аутентификацию. Теперь Ваш аккаунт защищён дополнительным облачным паролем.</translation>
     </message>
     <message>
         <source>Email address</source>
-        <translation type="unfinished"></translation>
+        <translation>Адрес электронной почты</translation>
     </message>
     <message>
         <source>Please enter your valid email address.</source>
-        <translation type="unfinished"></translation>
+        <translation>Пожалуста, введите корректный адрес электронной почты.</translation>
     </message>
     <message>
         <source>Code</source>
         <comment>email</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>We&apos;ve sent a 6-digit recovery code to %1. Please check your email and enter it here.</source>
-        <comment>%1 is the email address</comment>
-        <translation type="unfinished"></translation>
+        <translation>Код</translation>
     </message>
     <message>
         <source>Telegram Premium required</source>
-        <translation type="unfinished"></translation>
+        <translation> Только с Telegram Premium </translation>
     </message>
     <message>
         <source>Telegram Premium is required to proceed. Unfortunately, it&apos;s currently not possible to make in-app purchases through YAST. Please use one of Telegram&apos;s official apps and enter the same phone number to set up the subscription, after which you can return to singing in to YAST.
 
 Pull down to visit telegram.org</source>
-        <translation type="unfinished"></translation>
+        <translation>Чтобы продолжить, Вам необходимо оформить Telegram Premium. К сожалению, YAST пока не поддерживает покупки в приложении. Для оформления подписки перейдите в одно из официальных приложений Telegram и укажите тот же номер телефона.
+
+Потяните вниз, чтобы открыть telegram.org</translation>
     </message>
     <message>
         <source>By accepting, you agree to the Telegram Terms of Service:</source>
-        <translation type="unfinished"></translation>
+        <translation>Продолжая, вы соглашаетесь с пользовательское соглашением Telegram</translation>
     </message>
     <message>
         <source>Notify my contacts</source>
-        <translation type="unfinished"></translation>
+        <translation>Уведомить контакты</translation>
     </message>
     <message>
         <source>Notify your contacts that you joined Telegram</source>
-        <translation type="unfinished"></translation>
+        <translation>Уведомить контакты о том, что вы теперь в Telegram</translation>
     </message>
     <message>
         <source>First name</source>
-        <translation type="unfinished">Имя</translation>
+        <translation>Имя</translation>
     </message>
     <message>
         <source>Last name</source>
-        <translation type="unfinished">Фамилия</translation>
+        <translation>Фамилия</translation>
     </message>
     <message>
         <source>Unsupported authorization mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим авторизации не поддерживается</translation>
     </message>
     <message>
         <source>Sorry, this authorization mode is not yet supported: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>К сожалению, этот режим авторизации пока не поддерживается: %1</translation>
+    </message>
+    <message>
+        <source>Sign Up</source>
+        <translation>Зарегистрироваться</translation>
+    </message>
+    <message>
+        <source>Get the code for %1 in the Numbers section on Fragment.</source>
+        <translation> Получите код для %1 в разделе Numbers платформы Fragment.</translation>
+    </message>
+    <message numerus="yes">
+        <source>We&apos;ve sent a %Ln-digit recovery code to %1. Please check your email and enter it here.</source>
+        <comment>%1 is the email address</comment>
+        <translation>
+            <numerusform>Мы отправили %Ln-значный код восстановления на указанный Вами адрес электронной почты. Проверьте почту и введите его здесь.</numerusform>
+            <numerusform>Мы отправили %Ln-значный код восстановления на указанный Вами адрес электронной почты. Проверьте почту и введите его здесь.</numerusform>
+            <numerusform>Мы отправили %Ln-значный код восстановления на указанный Вами адрес электронной почты. Проверьте почту и введите его здесь.</numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -1364,12 +1370,12 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Send a %1 emoji to any chat to try your luck.</source>
         <comment>in-app notification text</comment>
-        <translation>Отправьте %1 эмоджи в любой чат чтобы испытать удачу.</translation>
+        <translation>Отправьте эмодзи %1, чтобы испытать удачу.</translation>
     </message>
     <message>
         <source>Send</source>
         <comment>in-app notification button for &quot;Send a %1 emoji to any chat to try your luck.&quot;</comment>
-        <translation>На удачу!</translation>
+        <translation>Отправить</translation>
     </message>
 </context>
 <context>
@@ -3018,10 +3024,6 @@ Pull down to visit telegram.org</source>
         <translation>Контакты успешно синхронизированы с Телеграм.</translation>
     </message>
     <message>
-        <source>Synchronize Contacts with Telegram</source>
-        <translation>Синхронизировать с Телеграм</translation>
-    </message>
-    <message>
         <source>Birthday</source>
         <translation>День рождения</translation>
     </message>
@@ -3033,6 +3035,10 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Uploading…</source>
         <translation>Загрузка…</translation>
+    </message>
+    <message>
+        <source>Sync contacts</source>
+        <translation>Синхронизировать контакты</translation>
     </message>
 </context>
 <context>
@@ -4006,39 +4012,39 @@ Pull down to visit telegram.org</source>
     <name>WelcomeDialog</name>
     <message>
         <source>Start Messaging</source>
-        <translation type="unfinished"></translation>
+        <translation>Начать общение</translation>
     </message>
     <message>
         <source>YAST Client is a yet another SailfishOS Telegram client</source>
-        <translation type="unfinished"></translation>
+        <translation>YAST Client - ещё один клиент Telegram для SailfishOS</translation>
     </message>
     <message>
         <source>YAST is not an official Telegram client, but it uses the official Telegram API through TDLib</source>
-        <translation type="unfinished"></translation>
+        <translation>YAST - неофициальный клиент Telegram, но использует официальный API Telegram, используя TDLib</translation>
     </message>
     <message>
         <source>Free</source>
-        <translation type="unfinished"></translation>
+        <translation>Бесплатный</translation>
     </message>
     <message>
         <source>Telegram provides free unlimited cloud storage for chats and media</source>
-        <translation type="unfinished"></translation>
+        <translation>Telegram предоставляет бесплатное безлимитное облачное хранилище для чатов и медиа.</translation>
     </message>
     <message>
         <source>Secure</source>
-        <translation type="unfinished"></translation>
+        <translation>Безопасный</translation>
     </message>
     <message>
         <source>Telegram keeps your messages safe from hacker attacks</source>
-        <translation type="unfinished"></translation>
+        <translation>Telegram защищает Вашу переписку от злоумышленников.</translation>
     </message>
     <message>
         <source>Cloud-Based</source>
-        <translation type="unfinished"></translation>
+        <translation>Облачный</translation>
     </message>
     <message>
         <source>Telegram lets you access your messages from multiple devices</source>
-        <translation type="unfinished"></translation>
+        <translation>В Telegram можно переписываться с любого количества устройств.</translation>
     </message>
 </context>
 <context>

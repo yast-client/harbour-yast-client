@@ -1227,10 +1227,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Register</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Phone number</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1251,10 +1247,6 @@
     </message>
     <message>
         <source>Calling your phone %1 to dictate the code.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Get the code in the Numbers section on Fragment.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1296,11 +1288,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>We&apos;ve sent a 6-digit recovery code to %1. Please check your email and enter it here.</source>
-        <comment>%1 is the email address</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Telegram Premium required</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1337,6 +1324,22 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Sorry, this authorization mode is not yet supported: %1</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sign Up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Get the code for %1 in the Numbers section on Fragment.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>We&apos;ve sent a %Ln-digit recovery code to %1. Please check your email and enter it here.</source>
+        <comment>%1 is the email address</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
     </message>
 </context>
 <context>
@@ -2986,10 +2989,6 @@ Pull down to visit telegram.org</source>
         <translation>Die Kontakte wurden erfolgreich mit Telegram synchronisiert.</translation>
     </message>
     <message>
-        <source>Synchronize Contacts with Telegram</source>
-        <translation>Kontakte mit Telegram synchronisieren</translation>
-    </message>
-    <message>
         <source>Birthday</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3000,6 +2999,10 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>Uploading…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sync contacts</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

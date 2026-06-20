@@ -101,7 +101,7 @@ Dialog {
                 case TDLibAPI.WaitEmailAddress:
                     return qsTr("Confirm", "email code")
                 case TDLibAPI.WaitRegistration:
-                    return qsTr("Register")
+                    return qsTr("Sign Up")
                 default:
                     return defaultAcceptText
                 }
@@ -222,13 +222,15 @@ Dialog {
                         inputMethodHints: Qt.ImhDigitsOnly
 
                         description: {
+                            var phoneText = '<b>' + tdLibWrapper.authorizationStateData.code_info.phone_number + '</b>'
+
                             switch (tdLibWrapper.authorizationStateData.code_info.type['@type']) {
                             case 'authenticationCodeTypeCall':
-                                return qsTr("Calling your phone %1 to dictate the code.").arg('<b>' + tdLibWrapper.authorizationStateData.code_info.phone_number + '</b>')
+                                return qsTr("Calling your phone %1 to dictate the code.").arg(phoneText)
                             case 'authenticationCodeTypeFragment':
-                                return qsTr("Get the code in the Numbers section on Fragment.")
+                                return qsTr("Get the code for %1 in the Numbers section on Fragment.").arg(phoneText)
                             case 'authenticationCodeTypeMissedCall':
-                                return qsTr("Within next few seconds you should receive a short call from a phone number which starts with %1.").arg(tdLibWrapper.authorizationStateData.code_info.type.phone_number_prefix)
+                                return qsTr("Within next few seconds you should receive a short call from a phone number which starts with %1.").arg(phoneText)
                             case 'authenticationCodeTypeTelegramMessage':
                                 return qsTr("We've sent the code to the Telegram app on your other device.")
                             default:
@@ -326,8 +328,9 @@ Dialog {
                     TextField {
                         id: emailCodeField
                         placeholderText: qsTr("Code", "email")
-                        description: qsTr("We've sent a 6-digit recovery code to %1. Please check your email and enter it here.",
-                                          "%1 is the email address").arg(tdLibWrapper.authorizationStateData.type.code_info.email_address_pattern)
+                        description: qsTr("We've sent a %Ln-digit recovery code to %1. Please check your email and enter it here.",
+                                          "%1 is the email address", tdLibWrapper.authorizationStateData.type.code_info.length)
+                            .arg(tdLibWrapper.authorizationStateData.type.code_info.email_address_pattern)
                         focus: true
 
                         validator: IntValidator {

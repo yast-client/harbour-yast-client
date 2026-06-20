@@ -176,7 +176,7 @@ AccordionItem {
 
                     Button {
                         id: syncContactsButton
-                        text: qsTr("Synchronize Contacts with Telegram")
+                        text: qsTr("Sync contacts")
                         visible: !contactSyncItem.syncInProgress
                         anchors.horizontalCenter: parent.horizontalCenter
                         onClicked: contactSyncLoader.item.synchronize()
