@@ -2,6 +2,7 @@ import QtQuick 2.6
 import Sailfish.Silica 1.0
 import QtQml.Models 2.3
 import io.yaqtlib 1.0
+import '../js/debug.js' as Debug
 
 Dialog {
     id: dialog
@@ -16,8 +17,13 @@ Dialog {
     acceptDestination: Qt.resolvedUrl('InitializationDialog.qml')
     canAccept: false
 
+    signal doneAccepted
+    onAccepted:
+        if (tdLibWrapper.authorizationState != TDLibAPI.AuthorizationReady)
+            doneAccepted()
+
     function handleAuthorizationState() {
-        console.log(tdLibWrapper.authorizationState, JSON.stringify(tdLibWrapper.authorizationStateData))
+        Debug.log("Authorization state updated", tdLibWrapper.authorizationState, JSON.stringify(tdLibWrapper.authorizationStateData))
         if (tdLibWrapper.authorizationState == TDLibAPI.AuthorizationReady) {
             acceptDestination = null
             canAccept = true
@@ -130,7 +136,7 @@ Dialog {
 
                 asynchronous: true
                 sourceComponent: {
-                    if (_loading)
+                    if (_loading || !wasActive)
                         return null
 
                     switch (tdLibWrapper.authorizationState) {
@@ -179,7 +185,7 @@ Dialog {
                             }
                             Connections {
                                 target: dialog
-                                onAccepted:
+                                onDoneAccepted:
                                     tdLibWrapper.setAuthenticationPhoneNumber(phoneField.text)
                             }
                         }
@@ -261,7 +267,7 @@ Dialog {
                         }
                         Connections {
                             target: dialog
-                            onAccepted:
+                            onDoneAccepted:
                                 tdLibWrapper.checkAuthenticationCode(codeField.text)
                         }
                     }
@@ -290,7 +296,7 @@ Dialog {
                         }
                         Connections {
                             target: dialog
-                            onAccepted:
+                            onDoneAccepted:
                                 tdLibWrapper.checkAuthenticationPassword(passwordField.text)
                         }
                     }
@@ -317,7 +323,7 @@ Dialog {
                         }
                         Connections {
                             target: dialog
-                            onAccepted:
+                            onDoneAccepted:
                                 tdLibWrapper.setAuthenticationEmailAddress(emailField.text)
                         }
                     }
@@ -351,7 +357,7 @@ Dialog {
                         }
                         Connections {
                             target: dialog
-                            onAccepted:
+                            onDoneAccepted:
                                 tdLibWrapper.checkAuthenticationEmailCode(emailCodeField.text)
                         }
                     }
@@ -439,7 +445,7 @@ Dialog {
                         }
                         Connections {
                             target: dialog
-                            onAccepted:
+                            onDoneAccepted:
                                 tdLibWrapper.registerUser(firstNameField.text, lastNameField.text, !disableNotificationSwitch.checked)
                         }
                     }
