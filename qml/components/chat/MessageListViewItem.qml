@@ -399,7 +399,7 @@ ListItem {
                 SilicaFlickable {
                     id: reactionsFlickable
                     width: parent.width
-                    height: Theme.itemSizeLarge*3
+                    height: Math.min(contentHeight, Theme.itemSizeLarge*3)
                     contentHeight: reactionsGrid.height
 
                     Grid {
