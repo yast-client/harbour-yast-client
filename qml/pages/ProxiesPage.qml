@@ -6,6 +6,9 @@ Page {
     property bool loading: true
     property bool isEmpty: !loading && proxiesModel.count == 0
 
+    property var proxiesToCopy
+    property int proxiesToCopyCount
+
     ListModel {
         id: proxiesModel
     }
@@ -21,6 +24,15 @@ Page {
         onAddedProxyReceived:
             if (extra == 'new')
                 proxiesModel.append(proxy)
+
+        onHttpUrlReceived:
+            if (proxiesToCopy && extra == 'copyProxyList') {
+                proxiesToCopy.push(url)
+                if (proxiesToCopy.length == proxiesToCopyCount) {
+                    Clipboard.text = proxiesToCopy.join('\n')
+                    appNotification.show(qsTr("Proxy list copied to clipboard"))
+                }
+            }
     }
 
     Component.onCompleted: tdLibWrapper.getProxies()
@@ -41,6 +53,16 @@ Page {
         contentHeight: column.height
 
         PullDownMenu {
+            MenuItem {
+                visible: !loading
+                text: qsTr("Copy Proxy List")
+                onClicked: {
+                    proxiesToCopy = []
+                    proxiesToCopyCount = proxiesModel.count
+                    for (var i=0; i < proxiesToCopyCount; i++)
+                        tdLibWrapper.getInternalLink({'@type': 'internalLinkTypeProxy', proxy: proxiesModel.get(i).proxy}, 'copyProxyList')
+                }
+            }
             MenuItem {
                 text: qsTr("Add proxy")
                 onClicked: pageStack.push(Qt.resolvedUrl("../dialogs/AddProxyDialog.qml"))
