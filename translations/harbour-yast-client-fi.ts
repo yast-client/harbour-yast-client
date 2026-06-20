@@ -3044,19 +3044,19 @@ Pull down to visit telegram.org</source>
 <context>
     <name>TDLibWrapper</name>
     <message>
-        <source>Waiting for network...</source>
+        <source>Waiting for network…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Connecting to network...</source>
+        <source>Connecting to network…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Connecting to proxy...</source>
+        <source>Connecting to proxy…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Updating content...</source>
+        <source>Updating content…</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

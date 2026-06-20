@@ -3044,20 +3044,20 @@ Pull down to visit telegram.org</source>
 <context>
     <name>TDLibWrapper</name>
     <message>
-        <source>Waiting for network...</source>
-        <translation type="unfinished">Hálózatra várakozás...</translation>
+        <source>Waiting for network…</source>
+        <translation>Hálózatra várakozás…</translation>
     </message>
     <message>
-        <source>Connecting to network...</source>
-        <translation type="unfinished">Csatlakozás a hálózathoz...</translation>
+        <source>Connecting to network…</source>
+        <translation>Csatlakozás a hálózathoz…</translation>
     </message>
     <message>
-        <source>Connecting to proxy...</source>
-        <translation type="unfinished">Csatlakozás a proxy-hoz...</translation>
+        <source>Connecting to proxy…</source>
+        <translation>Csatlakozás a proxy-hoz…</translation>
     </message>
     <message>
-        <source>Updating content...</source>
-        <translation type="unfinished">Tartalom frissítése...</translation>
+        <source>Updating content…</source>
+        <translation>Tartalom frissítése…</translation>
     </message>
 </context>
 <context>

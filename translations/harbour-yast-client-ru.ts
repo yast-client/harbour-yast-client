@@ -3111,20 +3111,20 @@ Pull down to visit telegram.org</source>
 <context>
     <name>TDLibWrapper</name>
     <message>
-        <source>Waiting for network...</source>
-        <translation>Ожидание сети...</translation>
+        <source>Waiting for network…</source>
+        <translation>Ожидание сети…</translation>
     </message>
     <message>
-        <source>Connecting to network...</source>
-        <translation>Подключение к сети...</translation>
+        <source>Connecting to network…</source>
+        <translation>Подключение к сети…</translation>
     </message>
     <message>
-        <source>Connecting to proxy...</source>
-        <translation>Подключение к прокси...</translation>
+        <source>Connecting to proxy…</source>
+        <translation>Подключение к прокси…</translation>
     </message>
     <message>
-        <source>Updating content...</source>
-        <translation>Обновление контента...</translation>
+        <source>Updating content…</source>
+        <translation>Обновление контента…</translation>
     </message>
 </context>
 <context>

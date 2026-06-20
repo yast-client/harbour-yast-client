@@ -3106,20 +3106,20 @@ Pull down to visit telegram.org</source>
 <context>
     <name>TDLibWrapper</name>
     <message>
-        <source>Waiting for network...</source>
-        <translation type="unfinished">Čakanie na sieť...</translation>
+        <source>Waiting for network…</source>
+        <translation>Čakanie na sieť…</translation>
     </message>
     <message>
-        <source>Connecting to network...</source>
-        <translation type="unfinished">Pripájanie k sieti...</translation>
+        <source>Connecting to network…</source>
+        <translation>Pripájanie k sieti…</translation>
     </message>
     <message>
-        <source>Connecting to proxy...</source>
-        <translation type="unfinished">Pripájanie k proxy...</translation>
+        <source>Connecting to proxy…</source>
+        <translation>Pripájanie k proxy…</translation>
     </message>
     <message>
-        <source>Updating content...</source>
-        <translation type="unfinished">Aktualizácia obsahu...</translation>
+        <source>Updating content…</source>
+        <translation>Aktualizácia obsahu…</translation>
     </message>
 </context>
 <context>

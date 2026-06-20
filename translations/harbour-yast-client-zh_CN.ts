@@ -3045,20 +3045,20 @@ Pull down to visit telegram.org</source>
 <context>
     <name>TDLibWrapper</name>
     <message>
-        <source>Waiting for network...</source>
-        <translation type="unfinished">等候网络连接…</translation>
+        <source>Waiting for network…</source>
+        <translation>等候网络连接…</translation>
     </message>
     <message>
-        <source>Connecting to network...</source>
-        <translation type="unfinished">正在连接到网络…</translation>
+        <source>Connecting to network…</source>
+        <translation>正在连接到网络…</translation>
     </message>
     <message>
-        <source>Connecting to proxy...</source>
-        <translation type="unfinished">正在连接到代理…</translation>
+        <source>Connecting to proxy…</source>
+        <translation>正在连接到代理…</translation>
     </message>
     <message>
-        <source>Updating content...</source>
-        <translation type="unfinished">正在更新内容…</translation>
+        <source>Updating content…</source>
+        <translation>正在更新内容…</translation>
     </message>
 </context>
 <context>

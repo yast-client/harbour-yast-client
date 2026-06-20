@@ -3075,20 +3075,20 @@ Pull down to visit telegram.org</source>
 <context>
     <name>TDLibWrapper</name>
     <message>
-        <source>Waiting for network...</source>
-        <translation type="unfinished">Esperando red...</translation>
+        <source>Waiting for network…</source>
+        <translation>Esperando red…</translation>
     </message>
     <message>
-        <source>Connecting to network...</source>
-        <translation type="unfinished">Conectando a servidor...</translation>
+        <source>Connecting to network…</source>
+        <translation>Conectando a servidor…</translation>
     </message>
     <message>
-        <source>Connecting to proxy...</source>
-        <translation type="unfinished">Conectando a proxy...</translation>
+        <source>Connecting to proxy…</source>
+        <translation>Conectando a proxy…</translation>
     </message>
     <message>
-        <source>Updating content...</source>
-        <translation type="unfinished">Actualizando contenido...</translation>
+        <source>Updating content…</source>
+        <translation>Actualizando contenido…</translation>
     </message>
 </context>
 <context>
