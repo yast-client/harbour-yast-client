@@ -73,7 +73,7 @@ ApplicationWindow {
 
     ConfigurationGroup {
         id: appConfig
-        path: '/apps/io.roundedrectangle.yast-client'
+        path: '/apps/yast-client'
 
         property int remainingInteractionHints: 3
         property int remainingDoubleTapHints: 3
