@@ -80,10 +80,6 @@ ListItem {
         })
     }
 
-    function copyMessageToClipboard() {
-        Clipboard.text = utilities.getMessageText(myMessage, Utilities.MessageTextSimple, true)
-    }
-
     function translate() {
         pageStack.push(Qt.resolvedUrl("../../pages/TranslatePage.qml"), {
                            messageId: messageId,
@@ -293,7 +289,11 @@ ListItem {
                     }
                     IconRowMenuItem {
                         icon.source: "image://theme/icon-m-clipboard"
-                        onClicked: copyMessageToClipboard()
+                        visible: messageText.height > 0
+                        onClicked:
+                            Clipboard.text = isAlbum
+                                                ? utilities.getAlbumMessagesText(messageAlbumMessages, Utilities.MessageTextDefault, true)
+                                                : utilities.getMessageText(myMessage, Utilities.MessageTextDefault, true)
                     }
                     IconRowMenuItem {
                         visible: !!messageProperties.can_be_pinned // FIXME: should we use enabled or visible here? for spatial memory
