@@ -56,7 +56,7 @@ Dialog {
     }
 
     signal proxyChanged
-    onProxyChanged: statusLabel.visible = false
+    onProxyChanged: ping = -1
 
     canAccept: serverField.acceptableInput && portField.acceptableInput
     onAccepted:
