@@ -9,8 +9,26 @@ Page {
     property var proxiesToCopy
     property int proxiesToCopyCount
 
+    property int proxiesToImportDone
+    property int proxiesToImportFailed
+    property int proxiesToImportTotal
+
     ListModel {
         id: proxiesModel
+    }
+
+    function handleProxyToImportReceived() {
+        if (proxiesToImportDone + proxiesToImportFailed == proxiesToImportTotal) {
+            if (proxiesToImportDone && proxiesToImportFailed)
+                appNotification.show(qsTr("%1, %2", 'Combines the "Added %Ln proxies" and "%Ln failed" strings')
+                    .arg(qsTr("Added %Ln proxies", 'First part of "Added %Ln proxies, %Ln failed"', proxiesToImportDone))
+                    .arg(qsTr("%Ln failed", 'Second part of "Added %Ln proxies, %Ln failed"', proxiesToImportFailed))
+                    )
+            else if (proxiesToImportFailed)
+                appNotification.show(qsTr("Failed to add %Ln proxies", '', proxiesToImportFailed))
+            else
+                appNotification.show(qsTr("Added %Ln proxies", '', proxiesToImportDone))
+        }
     }
 
     Connections {
@@ -33,6 +51,21 @@ Page {
                     appNotification.show(qsTr("Proxy List copied to clipboard"))
                 }
             }
+        onInternalLinkTypeReceived:
+            if (extra == 'proxyLinkImport') {
+                if (type['@type'] == 'internalLinkTypeProxy') {
+                    proxiesToImportDone++
+                    tdLibWrapper.addProxy(type.proxy, 'new')
+                } else
+                    proxiesToImportFailed++
+
+                handleProxyToImportReceived()
+            }
+        onErrorReceived:
+            if (extra == 'proxyLinkImport') {
+                proxiesToImportFailed++
+                handleProxyToImportReceived()
+            }
     }
 
     Component.onCompleted: tdLibWrapper.getProxies()
@@ -53,6 +86,17 @@ Page {
         contentHeight: column.height
 
         PullDownMenu {
+            MenuItem {
+                visible: !!Clipboard.text
+                text: qsTr("Add proxy from clipboard")
+                onClicked: {
+                    var proxyLinks = Clipboard.text.split('\n').map(function (el) { return el.trim() }).filter(function (el) { return el })
+                    proxiesToImportDone = proxiesToImportFailed = 0
+                    proxiesToImportTotal = proxyLinks.length
+                    for (var i=0; i < proxiesToImportTotal; i++)
+                        tdLibWrapper.getInternalLinkType(proxyLinks[i], 'proxyLinkImport')
+                }
+            }
             MenuItem {
                 visible: !loading
                 text: qsTr("Copy Proxy List")
