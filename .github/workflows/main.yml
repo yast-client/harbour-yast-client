@@ -151,19 +151,27 @@ jobs:
         MEDIA_ARRAY_CONTENT=""
 
         for i in "${!FILES[@]}"; do
-          ATTACH_NAME="file_$i"
-          MEDIA_ARRAY_CONTENT+="{\"type\":\"document\",\"media\":\"attach://$ATTACH_NAME\"}"
+          echo "Uploading ${FILES[$i]}"
+
+          RESPONSE=$(curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument" \
+            -F "chat_id=${{ secrets.TELEGRAM_TEMP_CHAT_ID }}" \
+            -F "document=@${FILES[$i]}")
+          FILE_ID=$(echo "$RESPONSE" | jq -r '.result.document.file_id')
+
+          if [[ "$FILE_ID" == "null" ]]; then
+            echo "Couldn't upload ${FILES[$i]}: $RESPONSE"
+            exit 1
+          fi
+
+          MEDIA_ARRAY_CONTENT+="{\"type\":\"document\",\"media\":\"${FILE_ID}\"}"
           if [ $i -lt $(( ${#FILES[@]} - 1 )) ]; then
             MEDIA_ARRAY_CONTENT+=","
           fi
-
-          CURL_ARGS+=("-F" "$ATTACH_NAME=@${FILES[$i]}")
         done
 
         curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMediaGroup" \
           -F "chat_id=${CHAT_ID}" \
-          -F "media=[${MEDIA_ARRAY_CONTENT}]" \
-          "${CURL_ARGS[@]}"
+          -F "media=[${MEDIA_ARRAY_CONTENT}]"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
