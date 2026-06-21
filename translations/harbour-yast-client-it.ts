@@ -2,128 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="it_IT">
 <context>
-    <name>AboutPage</name>
-    <message>
-        <source>A Telegram client for Sailfish OS</source>
-        <translation>Un client Telegram per Sailfish OS</translation>
-    </message>
-    <message>
-        <source>Terms of Service</source>
-        <translation>Termini di servizio</translation>
-    </message>
-    <message>
-        <source>Privacy Policy</source>
-        <translation>Accordo sulla riservatezza</translation>
-    </message>
-    <message>
-        <source>About Telegram</source>
-        <translation>Informazioni su Telegram</translation>
-    </message>
-    <message>
-        <source>This product uses the Telegram API but is not endorsed or certified by Telegram.</source>
-        <translation>Questo prodotto utilizza le API di Telegram ma non è né supportato né certificato da Telegram.</translation>
-    </message>
-    <message>
-        <source>This project uses OpenStreetMap Nominatim for reverse geocoding of location attachments. Thanks for making it available as web service!</source>
-        <translation>Questo progetto usa OpenStreetMap Nominatim per la geocodifica della condivisione della posizione. Grazie per averlo reso disponibile come servizio in rete!</translation>
-    </message>
-    <message>
-        <source>About YAST</source>
-        <translation>Info su YAST</translation>
-    </message>
-    <message>
-        <source>Translations</source>
-        <translation>Traduzioni</translation>
-    </message>
-    <message>
-        <source>Fernschreiber translations</source>
-        <translation>Traduzioni Yast</translation>
-    </message>
-    <message>
-        <source>Chinese</source>
-        <translation>Cinese</translation>
-    </message>
-    <message>
-        <source>Finnish</source>
-        <translation>Finlandese</translation>
-    </message>
-    <message>
-        <source>French</source>
-        <translation>Francese</translation>
-    </message>
-    <message>
-        <source>Hungarian</source>
-        <translation>Ungherese</translation>
-    </message>
-    <message>
-        <source>Italian</source>
-        <translation>Italiano</translation>
-    </message>
-    <message>
-        <source>Polish</source>
-        <translation>Polacco</translation>
-    </message>
-    <message>
-        <source>Russian</source>
-        <translation>Russo</translation>
-    </message>
-    <message>
-        <source>Slovak</source>
-        <translation>Slovacco</translation>
-    </message>
-    <message>
-        <source>Spanish</source>
-        <translation>Spagnolo</translation>
-    </message>
-    <message>
-        <source>Swedish</source>
-        <translation>Svedese</translation>
-    </message>
-    <message>
-        <source>This application is a fork of Fernschreiber, and wouldn&apos;t be possible without it. Thanks to everyone who developed and contributed to it!</source>
-        <translation>Questa applicazione è un fork di Fernschreiber, e non sarebbe stata possibile senza di esso. Grazie a tutti quelli che lo hanno sviluppato ed hanno contribuito ad esso!</translation>
-    </message>
-    <message>
-        <source>Telegram Database Library (TDLib)</source>
-        <translation>Telegram Database Library (TDLib)</translation>
-    </message>
-    <message>
-        <source>This project uses twemoji. Thanks for making it available under the conditions of the MIT License (coding) and CC-BY 4.0 (graphics)!</source>
-        <translation>Questo progetto usa Twemoji. Grazie per averlo reso possibile sotto Licenza  MIT (codice) e CC-BY 4.0 (grafiche)!</translation>
-    </message>
-    <message>
-        <source>Coding</source>
-        <translation>Codice</translation>
-    </message>
-    <message>
-        <source>Graphics</source>
-        <translation>Grafiche</translation>
-    </message>
-    <message>
-        <source>other contributors</source>
-        <translation>altri contributori</translation>
-    </message>
-    <message numerus="yes">
-        <source>You are now %n steps away from enabling debug mode</source>
-        <translation>
-            <numerusform>Ti manca %n passo per abilitare la modalità di debug</numerusform>
-            <numerusform>Ti mancano %n passi per abilitare la modalità di debug</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Not needed, debug mode is already enabled.</source>
-        <translation>Non serve, la modalità di debug è già abilitata.</translation>
-    </message>
-    <message>
-        <source>Debug mode is now enabled!</source>
-        <translation>La modalità di debug è stata abilitata!</translation>
-    </message>
-    <message>
-        <source>TDLib version %1 (commit hash %2)</source>
-        <translation>Versione TDLib %1 (hash commit %2)</translation>
-    </message>
-</context>
-<context>
     <name>AddContactDialog</name>
     <message>
         <source>First name</source>
@@ -2402,6 +2280,45 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>Proxy List copied to clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1, %2</source>
+        <comment>Combines the &quot;Added %Ln proxies&quot; and &quot;%Ln failed&quot; strings</comment>
+        <translation type="unfinished">%1, %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>Added %Ln proxies</source>
+        <comment>First part of &quot;Added %Ln proxies, %Ln failed&quot;</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%Ln failed</source>
+        <comment>Second part of &quot;Added %Ln proxies, %Ln failed&quot;</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>Failed to add %Ln proxies</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>Added %Ln proxies</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Add proxy from clipboard</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

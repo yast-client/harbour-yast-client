@@ -2,129 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="ru">
 <context>
-    <name>AboutPage</name>
-    <message>
-        <source>A Telegram client for Sailfish OS</source>
-        <translation>Telegram-клиент для Sailfish OS</translation>
-    </message>
-    <message>
-        <source>Terms of Service</source>
-        <translation>Условия обслуживания</translation>
-    </message>
-    <message>
-        <source>Privacy Policy</source>
-        <translation>Конфиденциальность</translation>
-    </message>
-    <message>
-        <source>About Telegram</source>
-        <translation>Телеграм</translation>
-    </message>
-    <message>
-        <source>This product uses the Telegram API but is not endorsed or certified by Telegram.</source>
-        <translation>Этот продукт использует Telegram API, но не одобрен или сертифицирован Telegram FZ-LLC</translation>
-    </message>
-    <message>
-        <source>This project uses OpenStreetMap Nominatim for reverse geocoding of location attachments. Thanks for making it available as web service!</source>
-        <translation>Этот проект использует OpenStreetMap Nominatim для обратного геокодирования вложений местоположения. Спасибо, что сделали его доступным в качестве веб-сервиса!</translation>
-    </message>
-    <message>
-        <source>About YAST</source>
-        <translation>О программе</translation>
-    </message>
-    <message>
-        <source>Translations</source>
-        <translation>Перевод</translation>
-    </message>
-    <message>
-        <source>Fernschreiber translations</source>
-        <translation>Перевод Fernschreiber</translation>
-    </message>
-    <message>
-        <source>Chinese</source>
-        <translation>Китайский</translation>
-    </message>
-    <message>
-        <source>Finnish</source>
-        <translation>Финский</translation>
-    </message>
-    <message>
-        <source>French</source>
-        <translation>Французский</translation>
-    </message>
-    <message>
-        <source>Hungarian</source>
-        <translation>Венгерский</translation>
-    </message>
-    <message>
-        <source>Italian</source>
-        <translation>Итальянский</translation>
-    </message>
-    <message>
-        <source>Polish</source>
-        <translation>Польский</translation>
-    </message>
-    <message>
-        <source>Russian</source>
-        <translation>Русский</translation>
-    </message>
-    <message>
-        <source>Slovak</source>
-        <translation>Словацкий</translation>
-    </message>
-    <message>
-        <source>Spanish</source>
-        <translation>Испанский</translation>
-    </message>
-    <message>
-        <source>Swedish</source>
-        <translation>Шведский</translation>
-    </message>
-    <message>
-        <source>This application is a fork of Fernschreiber, and wouldn&apos;t be possible without it. Thanks to everyone who developed and contributed to it!</source>
-        <translation>Это приложение - форк Fernschreiber, и не было бы возможно без него. Спасибо всем, кто разрабатывал его!</translation>
-    </message>
-    <message>
-        <source>Telegram Database Library (TDLib)</source>
-        <translation>Библиотека базы данных Telegram (TDLib)</translation>
-    </message>
-    <message>
-        <source>This project uses twemoji. Thanks for making it available under the conditions of the MIT License (coding) and CC-BY 4.0 (graphics)!</source>
-        <translation>Этот проект использует twemoji. Спасибо, что сделали её доступной на условиях лицензии MIT License (программирование) und CC-BY 4.0 (графика)!</translation>
-    </message>
-    <message>
-        <source>Coding</source>
-        <translation>Программирование</translation>
-    </message>
-    <message>
-        <source>Graphics</source>
-        <translation>Графика</translation>
-    </message>
-    <message>
-        <source>other contributors</source>
-        <translation>другие участники</translation>
-    </message>
-    <message numerus="yes">
-        <source>You are now %n steps away from enabling debug mode</source>
-        <translation>
-            <numerusform>Вы теперь в %n шаге от включения режима отладки</numerusform>
-            <numerusform>Вы теперь в %n шагах от включения режима отладки</numerusform>
-            <numerusform>Вы теперь в %n шагах от включения режима отладки</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Not needed, debug mode is already enabled.</source>
-        <translation>Не требуется, режим отладки уже включён</translation>
-    </message>
-    <message>
-        <source>Debug mode is now enabled!</source>
-        <translation>Режим отладки теперь включён!</translation>
-    </message>
-    <message>
-        <source>TDLib version %1 (commit hash %2)</source>
-        <translation>Версия TDLib %1 (хэш коммита %2)</translation>
-    </message>
-</context>
-<context>
     <name>AddContactDialog</name>
     <message>
         <source>First name</source>
@@ -2436,6 +2313,49 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Proxy List copied to clipboard</source>
         <translation>Список прокси скопирован</translation>
+    </message>
+    <message>
+        <source>%1, %2</source>
+        <comment>Combines the &quot;Added %Ln proxies&quot; and &quot;%Ln failed&quot; strings</comment>
+        <translation>%1, %2</translation>
+    </message>
+    <message numerus="yes">
+        <source>Added %Ln proxies</source>
+        <comment>First part of &quot;Added %Ln proxies, %Ln failed&quot;</comment>
+        <translation>
+            <numerusform>Добавлен %Ln прокси-сервер</numerusform>
+            <numerusform>Добавлено %Ln прокси-сервера</numerusform>
+            <numerusform>Добавлено %Ln прокси-серверов</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%Ln failed</source>
+        <comment>Second part of &quot;Added %Ln proxies, %Ln failed&quot;</comment>
+        <translation>
+            <numerusform>не удалось добавить %Ln</numerusform>
+            <numerusform>не удалось добавить %Ln</numerusform>
+            <numerusform>не удалось добавить %Ln</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>Failed to add %Ln proxies</source>
+        <translation>
+            <numerusform>Не удалось добавить %Ln прокси-сервер</numerusform>
+            <numerusform>Не удалось добавить %Ln прокси-сервера</numerusform>
+            <numerusform>Не удалось добавить %Ln прокси-серверов</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>Added %Ln proxies</source>
+        <translation>
+            <numerusform>Добавлен %Ln прокси-сервер</numerusform>
+            <numerusform>Добавлено %Ln прокси-сервера</numerusform>
+            <numerusform>Добавлено %Ln прокси-серверов</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Add proxy from clipboard</source>
+        <translation>Добавить прокси из буфера обмена</translation>
     </message>
 </context>
 <context>

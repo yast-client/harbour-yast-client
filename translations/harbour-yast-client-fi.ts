@@ -2,127 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.1">
 <context>
-    <name>AboutPage</name>
-    <message>
-        <source>About YAST</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>A Telegram client for Sailfish OS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Translations</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Italian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Russian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fernschreiber translations</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Chinese</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Finnish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>French</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hungarian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Polish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Slovak</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Spanish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Swedish</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This application is a fork of Fernschreiber, and wouldn&apos;t be possible without it. Thanks to everyone who developed and contributed to it!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Telegram Database Library (TDLib)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This project uses twemoji. Thanks for making it available under the conditions of the MIT License (coding) and CC-BY 4.0 (graphics)!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Coding</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Graphics</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>other contributors</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This project uses OpenStreetMap Nominatim for reverse geocoding of location attachments. Thanks for making it available as web service!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>About Telegram</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This product uses the Telegram API but is not endorsed or certified by Telegram.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Terms of Service</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Privacy Policy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>TDLib version %1 (commit hash %2)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Not needed, debug mode is already enabled.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message numerus="yes">
-        <source>You are now %n steps away from enabling debug mode</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Debug mode is now enabled!</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>AddContactDialog</name>
     <message>
         <source>First name</source>
@@ -2374,6 +2253,41 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>Proxy List copied to clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1, %2</source>
+        <comment>Combines the &quot;Added %Ln proxies&quot; and &quot;%Ln failed&quot; strings</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>Added %Ln proxies</source>
+        <comment>First part of &quot;Added %Ln proxies, %Ln failed&quot;</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>%Ln failed</source>
+        <comment>Second part of &quot;Added %Ln proxies, %Ln failed&quot;</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>Failed to add %Ln proxies</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>Added %Ln proxies</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Add proxy from clipboard</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
