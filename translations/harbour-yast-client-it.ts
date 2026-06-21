@@ -173,7 +173,7 @@
     <message>
         <source>Connected</source>
         <comment>Call status</comment>
-        <translation type="unfinished">Connesso</translation>
+        <translation>Connesso</translation>
     </message>
 </context>
 <context>
@@ -1058,164 +1058,166 @@
     <name>InitializationDialog</name>
     <message>
         <source>About YAST</source>
-        <translation type="unfinished">Info su YAST</translation>
+        <translation>Info su YAST</translation>
     </message>
     <message>
         <source>Proxy settings</source>
-        <translation type="unfinished">Impostazioni proxy</translation>
+        <translation>Impostazioni proxy</translation>
     </message>
     <message>
         <source>Visit telegram.org</source>
         <comment>Visit telegram.org to download an official app for purchasing the Telegram Premium subscription</comment>
-        <translation type="unfinished"></translation>
+        <translation>Vai su telegram.org per scaricare un&apos;app ufficiale per comprare una sottoscrizione Premium</translation>
     </message>
     <message>
         <source>Your Phone</source>
-        <translation type="unfinished"></translation>
+        <translation>Il tuo telefono</translation>
     </message>
     <message>
         <source>Confirmation Code</source>
-        <translation type="unfinished"></translation>
+        <translation>Codice di verifica</translation>
     </message>
     <message>
         <source>Two-Step Verification</source>
-        <translation type="unfinished"></translation>
+        <translation>Verifica a due fattori</translation>
     </message>
     <message>
         <source>Your Email</source>
-        <translation type="unfinished"></translation>
+        <translation>Il tuo indirizzo mail</translation>
     </message>
     <message>
         <source>Confirmation code</source>
         <comment>email</comment>
-        <translation type="unfinished"></translation>
+        <translation>Codice di verifica</translation>
     </message>
     <message>
         <source>Registration</source>
-        <translation type="unfinished"></translation>
+        <translation>Registrazione</translation>
     </message>
     <message>
         <source>Confirm</source>
         <comment>confirmation code</comment>
-        <translation type="unfinished"></translation>
+        <translation>Conferma</translation>
     </message>
     <message>
         <source>Confirm</source>
         <comment>email code</comment>
-        <translation type="unfinished"></translation>
+        <translation>Conferma</translation>
     </message>
     <message>
         <source>Phone number</source>
-        <translation type="unfinished">Numero di telefono</translation>
+        <translation>Numero di telefono</translation>
     </message>
     <message>
         <source>Use the international format, e.g. %1</source>
-        <translation type="unfinished">Utilizza il formato internazionale, es. %1</translation>
+        <translation>Utilizza il formato internazionale, es. %1</translation>
     </message>
     <message numerus="yes">
         <source>Last %Ln digits</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Ultime %Ln cifre</numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
         <source>Code</source>
-        <translation type="unfinished"></translation>
+        <translation>Codice</translation>
     </message>
     <message>
         <source>Calling your phone %1 to dictate the code.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sto chiamando il tuo numero %1 per dettare il codice.</translation>
     </message>
     <message>
         <source>Within next few seconds you should receive a short call from a phone number which starts with %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nei prossimi secondi dovresti ricevere una breve chiamata da un numero che inizia per %1.</translation>
     </message>
     <message>
         <source>We&apos;ve sent the code to the Telegram app on your other device.</source>
-        <translation type="unfinished"></translation>
+        <translation>Abbiamo inviato il codice nell&apos;app di Telegram sul tuo altro dispositivo.</translation>
     </message>
     <message>
         <source>Open Fragment</source>
-        <translation type="unfinished"></translation>
+        <translation>Apri Fragment</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation type="unfinished">Password</translation>
+        <translation>Password</translation>
     </message>
     <message>
         <source>Hint: %1</source>
         <comment>Password hint</comment>
-        <translation type="unfinished"></translation>
+        <translation>Suggerimento: %1</translation>
     </message>
     <message>
         <source>You have enabled Two-Step Verification, so your account is protected with an additional password.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hai abilitato la verifica a due fattori, per cui il tuo account è protetto da una password addizionale.</translation>
     </message>
     <message>
         <source>Email address</source>
-        <translation type="unfinished"></translation>
+        <translation>Indirizzo mail</translation>
     </message>
     <message>
         <source>Please enter your valid email address.</source>
-        <translation type="unfinished"></translation>
+        <translation>Per favore inserisci un indirizzo mail valido.</translation>
     </message>
     <message>
         <source>Code</source>
         <comment>email</comment>
-        <translation type="unfinished"></translation>
+        <translation>mail</translation>
     </message>
     <message>
         <source>Telegram Premium required</source>
-        <translation type="unfinished"></translation>
+        <translation>È richiesto Telegram Premium</translation>
     </message>
     <message>
         <source>Telegram Premium is required to proceed. Unfortunately, it&apos;s currently not possible to make in-app purchases through YAST. Please use one of Telegram&apos;s official apps and enter the same phone number to set up the subscription, after which you can return to singing in to YAST.
 
 Pull down to visit telegram.org</source>
-        <translation type="unfinished"></translation>
+        <translation>È richiesto Telegram Premium per procedere. Purtroppo non è ancora possibile acquistarlo tramite YAST. Per favore usa uno dei client ufficiali ed inserisci lo stesso numero di telefono per acquistare la sottoscrizione, dopo la quale, potrai felicemente tornare su YAST.
+
+Trascina in basso per visitare telegram.org</translation>
     </message>
     <message>
         <source>By accepting, you agree to the Telegram Terms of Service:</source>
-        <translation type="unfinished"></translation>
+        <translation>Accettando, acconsenti ai Termini di Servizio di Telegram:</translation>
     </message>
     <message>
         <source>Notify my contacts</source>
-        <translation type="unfinished"></translation>
+        <translation>Invia notifica ai miei contatti</translation>
     </message>
     <message>
         <source>Notify your contacts that you joined Telegram</source>
-        <translation type="unfinished"></translation>
+        <translation>Invia notifica ai tuoi contatti che ti sei unito a Telegram</translation>
     </message>
     <message>
         <source>First name</source>
-        <translation type="unfinished">Nome</translation>
+        <translation>Nome</translation>
     </message>
     <message>
         <source>Last name</source>
-        <translation type="unfinished">Cognome</translation>
+        <translation>Cognome</translation>
     </message>
     <message>
         <source>Unsupported authorization mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modalità di autorizzazione non supportata</translation>
     </message>
     <message>
         <source>Sorry, this authorization mode is not yet supported: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ci dispiace, questa modalità di autorizzazione non è ancora supportata: %1</translation>
     </message>
     <message>
         <source>Sign Up</source>
-        <translation type="unfinished"></translation>
+        <translation>Registrati</translation>
     </message>
     <message>
         <source>Get the code for %1 in the Numbers section on Fragment.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ottieni il codice per %1 nella sezione Numeri di Fragment.</translation>
     </message>
     <message numerus="yes">
         <source>We&apos;ve sent a %Ln-digit recovery code to %1. Please check your email and enter it here.</source>
         <comment>%1 is the email address</comment>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Ti abbiamo inviato un codice di recupero a %Ln cifre su %1. Per favore controlla la tua mail e inseriscilo qui.</numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -1361,7 +1363,7 @@ Pull down to visit telegram.org</source>
     <message>
         <source>The account was hidden by the user</source>
         <comment>Forwarded message</comment>
-        <translation type="unfinished"></translation>
+        <translation>Messaggio inoltrato</translation>
     </message>
 </context>
 <context>
@@ -1614,7 +1616,7 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>Loading contacts</source>
-        <translation type="unfinished"></translation>
+        <translation>Caricamento contatti</translation>
     </message>
 </context>
 <context>
@@ -2136,7 +2138,7 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>Link copied to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Collegamento copiato negli appunti</translation>
     </message>
 </context>
 <context>
@@ -2271,55 +2273,55 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>Copy Proxy List</source>
-        <translation type="unfinished"></translation>
+        <translation>Copia lista Proxy</translation>
     </message>
     <message>
         <source>Copy link</source>
         <comment>proxy</comment>
-        <translation type="unfinished"></translation>
+        <translation>Copia collegamento</translation>
     </message>
     <message>
         <source>Proxy List copied to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista Proxy copiata negli appunti</translation>
     </message>
     <message>
         <source>%1, %2</source>
         <comment>Combines the &quot;Added %Ln proxies&quot; and &quot;%Ln failed&quot; strings</comment>
-        <translation type="unfinished">%1, %2</translation>
+        <translation>%1, %2</translation>
     </message>
     <message numerus="yes">
         <source>Added %Ln proxies</source>
         <comment>First part of &quot;Added %Ln proxies, %Ln failed&quot;</comment>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Aggiunti %Ln proxy</numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%Ln failed</source>
         <comment>Second part of &quot;Added %Ln proxies, %Ln failed&quot;</comment>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%Ln falliti</numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Failed to add %Ln proxies</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Aggiunta di %Ln proxy fallita</numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Added %Ln proxies</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Aggiunti %Ln proxy</numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
         <source>Add proxy from clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Aggiungi proxy dagli appunti</translation>
     </message>
 </context>
 <context>
@@ -2618,15 +2620,15 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>Calls</source>
-        <translation type="unfinished">Chiamate</translation>
+        <translation>Chiamate</translation>
     </message>
     <message>
         <source>Ringtone for incoming calls in Do not disturb mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Suoneria per chiamate in arrivo in modalità Non disturbare</translation>
     </message>
     <message>
         <source>Allow incoming calls to play ringtones in &apos;Do not disturb&apos; mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Consenti suoneria per chiamate in arrivo anche in modalità &quot;Non disturbare&quot;</translation>
     </message>
 </context>
 <context>
@@ -2938,7 +2940,7 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>Sync contacts</source>
-        <translation type="unfinished"></translation>
+        <translation>Sincronizza contatti</translation>
     </message>
 </context>
 <context>
@@ -3821,12 +3823,12 @@ Pull down to visit telegram.org</source>
     <message>
         <source>watching %1</source>
         <comment>The other party is watching an animation, %1 is the emoji describing the animation being watched</comment>
-        <translation type="unfinished">sta guardando %1</translation>
+        <translation>sta guardando %1</translation>
     </message>
     <message numerus="yes">
         <source>%1 is watching %2</source>
         <comment>%1 is watching an animation, %2 is the emoji describing the animation being watched</comment>
-        <translation type="unfinished">
+        <translation>
             <numerusform>%1 sta guardando %2</numerusform>
             <numerusform></numerusform>
         </translation>
@@ -3834,12 +3836,12 @@ Pull down to visit telegram.org</source>
     <message>
         <source>added &quot;%1&quot; to the poll</source>
         <comment>myself</comment>
-        <translation type="unfinished">ha aggiunto %1 al sondaggio</translation>
+        <translation>ha aggiunto %1 al sondaggio</translation>
     </message>
     <message>
         <source>removed &quot;%1&quot; from the poll</source>
         <comment>myself</comment>
-        <translation type="unfinished">ha rimosso %1 dal sondaggio</translation>
+        <translation>ha rimosso %1 dal sondaggio</translation>
     </message>
 </context>
 <context>
@@ -3892,39 +3894,39 @@ Pull down to visit telegram.org</source>
     <name>WelcomeDialog</name>
     <message>
         <source>Start Messaging</source>
-        <translation type="unfinished"></translation>
+        <translation>Inizia a messaggiare</translation>
     </message>
     <message>
         <source>YAST Client is a yet another SailfishOS Telegram client</source>
-        <translation type="unfinished"></translation>
+        <translation>Il cliet YAST è un altro client di Telegram per SailfishOS</translation>
     </message>
     <message>
         <source>YAST is not an official Telegram client, but it uses the official Telegram API through TDLib</source>
-        <translation type="unfinished"></translation>
+        <translation>YAST non è un client Telegram ufficiale, ma usa le API ufficiali tramite TDLib</translation>
     </message>
     <message>
         <source>Free</source>
-        <translation type="unfinished"></translation>
+        <translation>Gratuito</translation>
     </message>
     <message>
         <source>Telegram provides free unlimited cloud storage for chats and media</source>
-        <translation type="unfinished"></translation>
+        <translation>Telegram ti da spazio illimitato di archiviazione per per conversazioni e media</translation>
     </message>
     <message>
         <source>Secure</source>
-        <translation type="unfinished"></translation>
+        <translation>Sicuro</translation>
     </message>
     <message>
         <source>Telegram keeps your messages safe from hacker attacks</source>
-        <translation type="unfinished"></translation>
+        <translation>Telegram tiene i tuoi messaggi al sicuro dagli attacchi hacker</translation>
     </message>
     <message>
         <source>Cloud-Based</source>
-        <translation type="unfinished"></translation>
+        <translation>Basato sul cloud</translation>
     </message>
     <message>
         <source>Telegram lets you access your messages from multiple devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Telegram ti consente di accedere ai tuoi messaggi da più dispositivi</translation>
     </message>
 </context>
 <context>
