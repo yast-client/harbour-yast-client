@@ -44,8 +44,15 @@ AboutPageBase {
 
     authors: ["roundedrectangle"]
     contributionSections: [
-        /*ContributionSection { // TODO: add this when necessary
+        /*ContributionSection {
             title: qsTr("Development")
+            groups: [
+                ContributionGroup {
+                    title: qsTr("A useful feature")
+                    entries: ["John Doe", "Jane Doe", "..."]
+                },
+                // ...
+            ]
         },*/
         ContributionSection {
             title: qsTr("Translations")
@@ -185,8 +192,24 @@ AboutPageBase {
         },
         InfoSection {
             text: qsTr("TDLib version %1 (commit hash %2)").arg(tdLibWrapper.options.version).arg(tdLibWrapper.options.commit_hash)
+        },
+        InfoSection {
+            visible: tdLibWrapper.authorizationState == TDLibAPI.AuthorizationReady
+            buttons: [
+                InfoButton {
+                    text: qsTr("News")
+                    onClicked: tdLibWrapper.getInternalLinkType("https://t.me/+klEzuTNf7iYyODYy")
+                },
+                InfoButton {
+                    text: qsTr("Tips")
+                    onClicked: tdLibWrapper.getInternalLinkType(qsTr('https://t.me/TelegramTips', "URL to the localized Telegram Tips channel. Keep unfinished if not available for your language"))
+                },
+                InfoButton {
+                    text: qsTr("Ask a Question", "Contact support")
+                    onClicked: pageStack.push(Qt.resolvedUrl('../dialogs/ContactSupportDialog.qml'))
+                }
+            ]
         }
-
     ]
 
     property int iconClicks
