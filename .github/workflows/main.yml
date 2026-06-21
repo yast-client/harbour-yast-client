@@ -125,6 +125,46 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  telegram:
+    name: Upload to Telegram
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+    - name: Download artifacts
+      uses: actions/download-artifact@v8
+      with:
+        path: RPMS
+        pattern: harbour-yast-client-*
+        merge-multiple: true
+
+    - name: Upload the release to Telegram
+      env:
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      run: |
+        if [[ "${{ github.ref }}" == *"v"* ]]; then
+          CHAT_ID=${{ secrets.TELEGRAM_CHAT_ID_RELEASE }}
+        else
+          CHAT_ID=${{ secrets.TELEGRAM_CHAT_ID_NIGHTLY }}
+        fi
+        FILES=( RPMS/harbour-yast-client-* )
+        MEDIA_ARRAY_CONTENT=""
+
+        for i in "${!FILES[@]}"; do
+          ATTACH_NAME="file_$i"
+          MEDIA_ARRAY_CONTENT+="{\"type\":\"document\",\"media\":\"attach://$ATTACH_NAME\"}"
+          if [ $i -lt $(( ${#FILES[@]} - 1 )) ]; then
+            MEDIA_ARRAY_CONTENT+=","
+          fi
+
+          CURL_ARGS+=("-F" "$ATTACH_NAME=@${FILES[$i]}")
+        done
+
+        curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMediaGroup" \
+          -F "chat_id=${CHAT_ID}" \
+          -F "media=[${MEDIA_ARRAY_CONTENT}]" \
+          "${CURL_ARGS[@]}"
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
