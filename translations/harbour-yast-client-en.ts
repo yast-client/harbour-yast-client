@@ -1850,7 +1850,7 @@ Pull down to visit telegram.org</translation>
     <message>
         <source>Mark as read</source>
         <comment>Notification button</comment>
-        <translation>Mark as read</translation>
+        <translation>Read</translation>
     </message>
     <message>
         <source>Reply</source>
