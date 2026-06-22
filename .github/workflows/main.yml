@@ -144,11 +144,13 @@ jobs:
       run: |
         if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
           CHAT_ID=${{ secrets.TELEGRAM_CHAT_ID_RELEASE }}
+          IS_NIGHTLY=false
         else
           CHAT_ID=${{ secrets.TELEGRAM_CHAT_ID_NIGHTLY }}
+          IS_NIGHTLY=true
         fi
-        FILES=( RPMS/harbour-yast-client-* )
-        MEDIA_ARRAY_CONTENT=""
+        FILES=(RPMS/harbour-yast-client-*)
+        MEDIA_ITEMS=()
 
         for i in "${!FILES[@]}"; do
           echo "Uploading ${FILES[$i]}"
@@ -163,15 +165,29 @@ jobs:
             exit 1
           fi
 
-          MEDIA_ARRAY_CONTENT+="{\"type\":\"document\",\"media\":\"${FILE_ID}\"}"
-          if [ $i -lt $(( ${#FILES[@]} - 1 )) ]; then
-            MEDIA_ARRAY_CONTENT+=","
+          CAPTION=""
+          if [ $i -eq $(( ${#FILES[@]} - 1 )) ]; then
+            if $IS_NIGHTLY; then
+              WORKFLOW_RUN_PATH="${{ github.repository }}/actions/runs/${{ github.run_id }}"
+              CAPTION="View the workflow run [on GitHub](https://github.com/$WORKFLOW_RUN_PATH) or [nightly.link](https://nightly.link/$WORKFLOW_RUN_PATH)"
+            else
+              tag_name="${GITHUB_REF##*/}"
+              CAPTION="[View the release on GitHub](https://github.com/${{ github.repository }}/releases/tag/${tag_name})"
+            fi
           fi
+
+          item=$(jq -nc \
+            --arg file_id "$FILE_ID" \
+            --arg caption "$CAPTION" \
+            '{type: "document", media: $file_id}
+              + (if $caption == "" then {} else {caption: $caption, parse_mode: "Markdown"} end)'
+          )
+          MEDIA_ITEMS+=("$item")
         done
 
         curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMediaGroup" \
           -F "chat_id=${CHAT_ID}" \
-          -F "media=[${MEDIA_ARRAY_CONTENT}]"
+          -F "media=$(printf '%s\n' "${MEDIA_ITEMS[@]}" | jq -cs .)"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
