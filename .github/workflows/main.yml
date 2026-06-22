@@ -187,7 +187,8 @@ jobs:
 
         curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMediaGroup" \
           -F "chat_id=${CHAT_ID}" \
-          -F "media=$(printf '%s\n' "${MEDIA_ITEMS[@]}" | jq -cs .)"
+          -F "media=$(printf '%s\n' "${MEDIA_ITEMS[@]}" | jq -cs .)" \
+          > /dev/null
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
