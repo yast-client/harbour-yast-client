@@ -57,7 +57,7 @@ Page {
                                 }
                                 MenuItem {
                                     text: qsTr("Learn More", "Learn more about the suggestion to check if the phone number is still yours")
-                                    onClicked: Qt.openUrlExternally(qsTr("https://telegram.org/faq#q-i-have-a-new-phone-number-what-do-i-do", "URL to the Telegram's FAQ about changing the phone number for this language. Keep unfinished if not available for your language"))
+                                    onClicked: Qt.openUrlExternally(qsTr("https://telegram.org/faq#q-i-have-a-new-phone-number-what-do-i-do", "URL to the Telegram's FAQ about changing the phone number for this language. Keep unfinished or as-is if not available for your language"))
                                 }
                             }
                         }

@@ -2,6 +2,145 @@
 <!DOCTYPE TS>
 <TS version="2.1">
 <context>
+    <name>AboutPage</name>
+    <message>
+        <source>About YAST</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A Telegram client for Sailfish OS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Translations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Italian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fernschreiber translations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chinese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Finnish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hungarian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slovak</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This application is a fork of Fernschreiber, and wouldn&apos;t be possible without it. Thanks to everyone who developed and contributed to it!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Telegram Database Library (TDLib)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This project uses twemoji. Thanks for making it available under the conditions of the MIT License (coding) and CC-BY 4.0 (graphics)!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Coding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>other contributors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This project uses OpenStreetMap Nominatim for reverse geocoding of location attachments. Thanks for making it available as web service!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About Telegram</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This product uses the Telegram API but is not endorsed or certified by Telegram.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Terms of Service</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Privacy Policy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TDLib version %1 (commit hash %2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>News</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tips</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ask a Question</source>
+        <comment>Contact support</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not needed, debug mode is already enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>You are now %n steps away from enabling debug mode</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Debug mode is now enabled!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>https://t.me/TelegramTips</source>
+        <comment>URL to the localized Telegram Tips channel. Keep unfinished or as-is if not available for your language</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AddContactDialog</name>
     <message>
         <source>First name</source>
@@ -802,6 +941,33 @@
     </message>
     <message>
         <source>Pull down to search public chats or create a new chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ContactSupportDialog</name>
+    <message>
+        <source>Ask a Question</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ask</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please note that Telegram Support is done by volunteers. We try to respond as quickly as possible, but it may take a while.
+
+Please take a look at the %1Telegram FAQ%2: it has answers to most questions and important tips for %3troubleshooting%4.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>https://telegram.org/faq#general-questions</source>
+        <comment>Localized Telegram FAQ URL. Keep unfinished or as-is if not available for your language</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>https://telegram.org/faq#troubleshooting</source>
+        <comment>Localized Telegram troubleshooting FAQ URL. Keep unfinished or as-is if not available for your language</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2632,11 +2798,6 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>https://telegram.org/faq#q-i-have-a-new-phone-number-what-do-i-do</source>
-        <comment>URL to the Telegram&apos;s FAQ about changing the phone number for this language. Keep unfinished if not available for your language</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Do you still remember your password?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2652,6 +2813,11 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Hide Suggestion</source>
         <comment>Button hiding the suggestion to check if you still remember your 2FA password</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>https://telegram.org/faq#q-i-have-a-new-phone-number-what-do-i-do</source>
+        <comment>URL to the Telegram&apos;s FAQ about changing the phone number for this language. Keep unfinished or as-is if not available for your language</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>

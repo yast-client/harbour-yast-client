@@ -183,7 +183,7 @@ AboutPageBase {
                 },
                 InfoButton {
                     text: qsTr("Tips")
-                    onClicked: tdLibWrapper.getInternalLinkType(qsTr('https://t.me/TelegramTips', "URL to the localized Telegram Tips channel. Keep unfinished if not available for your language"))
+                    onClicked: tdLibWrapper.getInternalLinkType(qsTr('https://t.me/TelegramTips', "URL to the localized Telegram Tips channel. Keep unfinished or as-is if not available for your language"))
                 },
                 InfoButton {
                     text: qsTr("Ask a Question", "Contact support")
