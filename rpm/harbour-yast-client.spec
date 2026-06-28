@@ -25,7 +25,7 @@ BuildRequires:  pkgconfig(Qt5Sql)
 BuildRequires:  pkgconfig(Qt5Multimedia)
 BuildRequires:  pkgconfig(Qt5Positioning)
 BuildRequires:  pkgconfig(nemonotifications-qt5)
-BuildRequires:  pkgconfig(openssl)
+BuildRequires:  pkgconfig(openssl) < 3.0
 BuildRequires:  pkgconfig(gstreamer-1.0)
 BuildRequires:  pkgconfig(gstreamer-pbutils-1.0)
 BuildRequires:  pkgconfig(glib-2.0)
