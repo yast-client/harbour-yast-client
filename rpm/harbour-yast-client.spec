@@ -15,7 +15,6 @@ Source100:  harbour-yast-client.yaml
 Requires:   sailfishsilica-qt5 >= 0.10.9
 Requires:   qml(org.nemomobile.contacts)
 BuildRequires:  cmake
-BuildRequires:  ninja
 BuildRequires:  ccache
 BuildRequires:  pkgconfig(sailfishapp) >= 1.0.2
 BuildRequires:  pkgconfig(Qt5Core)
@@ -50,16 +49,16 @@ YAST Client is a yet another SailfishOS Telegram client
 
 %build
 
-%cmake -GNinja \
+%cmake \
   -DAPP_VERSION="%{version}" \
   -DAPP_RELEASE="%{release}" \
   -DHARBOUR_COMPLIANCE=off
 
-%ninja_build
+%cmake_build
 
 %install
 rm -rf %{buildroot}
-%ninja_install
+%cmake_install
 
 desktop-file-install --delete-original       \
   --dir %{buildroot}%{_datadir}/applications             \

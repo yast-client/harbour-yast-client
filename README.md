@@ -88,7 +88,7 @@ In case you want to use the same codebase which was used to compile the library 
 - `cd build`
 - `sfdk build-init`
 - `sfdk build-shell --maintain zypper install ninja ccache`
-  - optional, this installs ninja, which is usually faster than make, and ccache which can speed up rebuilds
+  - optional, this installs ninja, which is usually faster than make, and ccache, which can speed up rebuilds
 - `sfdk build-shell cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../tdlib -DTD_ENABLE_LTO=ON ..`
   - if you don't have Ninja, remove the `-GNinja` flag, this will switch to make
   - in case of compilation issues, try removing the flag `-DTD_ENABLE_LTO=ON`
