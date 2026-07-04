@@ -274,8 +274,8 @@ ListItem {
                         visible: messageText.height > 0
                         onClicked:
                             Clipboard.text = isAlbum
-                                                ? utilities.getAlbumMessagesText(messageAlbumMessages, Utilities.MessageTextDefault, true)
-                                                : utilities.getMessageText(myMessage, Utilities.MessageTextDefault, true)
+                                                ? utilities.getAlbumMessagesText(messageAlbumMessages, Utilities.MessageTextDefault, true, false)
+                                                : utilities.getMessageText(myMessage, Utilities.MessageTextDefault, true, false)
                     }
                     IconRowMenuItem {
                         visible: !!messageProperties.can_be_pinned // FIXME: should we use enabled or visible here? for spatial memory
