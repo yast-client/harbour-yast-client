@@ -179,7 +179,6 @@ Page {
                 tdLibWrapper.getUserFullInfo(chatPartnerInformation.id)
         }
 
-        tdLibWrapper.getChatPinnedMessage(chatInformation.id)
         tdLibWrapper.toggleChatIsMarkedAsUnread(chatInformation.id, false)
     }
 

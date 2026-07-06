@@ -296,27 +296,12 @@ Column {
     }
 
     Connections {
-        target: chatManager
-        ignoreUnknownSignals: true
-        onPinnedMessageChanged: {
-            if (chatManager.pinnedMessageId !== 0) {
-                log("Loading pinned message ", chatManager.pinnedMessageId)
-                tdLibWrapper.getMessage(chatInformation.id, chatManager.pinnedMessageId)
-            } else pinnedMessageItem.pinnedMessage = undefined
-        }
-    }
-
-    Connections {
         target: tdLibWrapper
-        onReceivedMessage: {
-            if (message.is_pinned) {
-                log("Received pinned message")
-                pinnedMessageItem.pinnedMessage = message
-            }
-            if (draftMessage && messageId === draftMessage.reply_to_message_id) {
+        onMessageReceived: {
+            if (draftMessage && chatId === chatPage.chatId && messageId === draftMessage.reply_to_message_id) {
                 newMessageInReplyToRow.inReplyToMessage = message
             }
-            log("Received message ID: " + messageId)
+            log("Received message ID:", messageId)
         }
         onSponsoredMessagesReceived: messagesView.containsSponsoredMessages = true
     }

@@ -441,7 +441,7 @@ ListItem {
 
     Connections {
         target: tdLibWrapper
-        onReceivedMessage:
+        onMessageReceived:
             if (messageId === myMessage.reply_to_message_id)
                 messageInReplyToLoader.inReplyToMessage = message
         onMessageNotFound:
@@ -751,7 +751,7 @@ ListItem {
                     Text {
                         id: messageText
                         width: parent.width
-                        text: Emoji.emojify(isAlbum ? utilities.getAlbumMessagesText(messageAlbumMessages) : utilities.getMessageText(myMessage), Theme.fontSizeSmall)
+                        text: Emoji.emojify(isAlbum ? utilities.getAlbumMessagesText(messageAlbumMessages) : utilities.getMessageText(myMessage), font.pixelSize)
                         font.pixelSize: Theme.fontSizeSmall
                         color: messageListItem.textColor
                         wrapMode: Text.Wrap

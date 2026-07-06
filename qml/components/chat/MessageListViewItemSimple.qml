@@ -52,7 +52,7 @@ Item {
         sourceComponent: Component {
             Connections {
                 target: tdLibWrapper
-                onReceivedMessage: {
+                onMessageReceived: {
                     if(chatId === chatPage.chatInformation.id && messageId === myMessage.content.game_message_id) {
                         messageListItem.linkedMessage = message;
                         messageText.messageContentText = messageListItem.isOwnMessage ?
