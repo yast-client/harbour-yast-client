@@ -32,12 +32,12 @@ ListItem {
                                        }))
     property bool isSponsored: myMessage['@type'] === 'sponsoredMessage'
     property bool generatedContentUnread
-    readonly property bool isUnread: !isOutgoing && !isSponsored && messageId > messagesModel.lastReadInboxMessageId
+    readonly property bool isUnread: messagesView.readable && !isOutgoing && !isSponsored && messageId > messagesModel.lastReadInboxMessageId
     readonly property bool isAlbum: myMessage.media_album_id && myMessage.media_album_id !== '0'
 
     readonly property bool isOwnMessage: tdLibWrapper.myUserId === myMessage.sender_id.user_id
     readonly property bool isOutgoing: myMessage.is_outgoing && !myMessage.is_channel_post
-    readonly property bool isOutgoingRead: isOutgoing && messageId <= messagesModel.lastReadOutboxMessageId
+    readonly property bool isOutgoingRead: messagesView.readable && isOutgoing && messageId <= messagesModel.lastReadOutboxMessageId
     property bool hasContentComponent
     property bool fullWidthWidescreenContent
     property bool contentAboveMedia
@@ -73,7 +73,6 @@ ListItem {
         if (myMessage.is_pinned)
             Remorse.popupAction(page, qsTr("Message unpinned"), function() {
                 tdLibWrapper.unpinMessage(chatId, messageId)
-                pinnedMessageItem.requestCloseMessage()
             })
         else tdLibWrapper.pinMessage(chatId, messageId)
     }
@@ -910,7 +909,7 @@ ListItem {
                             verticalCenter: parent.verticalCenter
                         }
                         visible: !!source
-                        source: isOutgoing ? Functions.getMessageSendingStateIcon(messageId, messagesModel.lastReadOutboxMessageId, myMessage.sending_state) : ''
+                        source: messagesView.readable && isOutgoing ? Functions.getMessageSendingStateIcon(messageId, messagesModel.lastReadOutboxMessageId, myMessage.sending_state) : ''
                         highlighted: isOutgoingRead
                     }
                     rightPadding: statusIcon.visible ? statusIcon.width + Theme.paddingSmall : 0

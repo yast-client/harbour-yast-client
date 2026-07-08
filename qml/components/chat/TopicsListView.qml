@@ -117,6 +117,7 @@ Item {
                         messageSource: TDLibAPI.MessageSourceForumTopicHistory
                         draftMessage: forumTopicData.draft_message
                         unreadCount: forumTopicData.unread_count
+                        showPinnedMessage: false
 
                         ForumTopicMessagesModel {
                             id: topicMessagesModel

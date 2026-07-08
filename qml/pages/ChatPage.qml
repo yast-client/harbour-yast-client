@@ -17,7 +17,7 @@ Page {
     property bool isInitialized: false
     property alias chatManager: chatManagerLoader.chatManager
     property var chatInformation
-    readonly property var chatId: chatManager.chatId
+    readonly property alias chatId: chatManagerLoader.chatId
     property var secretChatDetails
     property alias chatPicture: chatPictureThumbnail.photoData
     property bool isPrivateChat: chatManagerLoader.chatManager.chatType === TDLibAPI.ChatTypePrivate
@@ -104,32 +104,6 @@ Page {
                     || groupStatusType === "chatMemberStatusCreator"
                     || (groupStatusType === "chatMemberStatusRestricted" && groupStatus.permissions[privilege])
                     || (chatPage.isSecretChat && chatPage.isSecretChatReady)
-    }
-    function canPinMessages() {
-        // TODO: remove this when we support multiple pinned messages
-        Debug.log("Can we pin messages?")
-        if (chatPage.isPrivateChat || chatPage.isSecretChat) {
-            Debug.log("Private/Secret Chat: No!")
-            return false
-        }
-        if (chatPage.chatGroupInformation.status["@type"] === "chatMemberStatusCreator") {
-            Debug.log("Creator of this chat: Yes!")
-            return true
-        }
-        if (chatManager.permissions.can_pin_messages) {
-            Debug.log("All people can pin: Yes!")
-            return true
-        }
-        if (chatPage.chatGroupInformation.status["@type"] === "chatMemberStatusAdministrator") {
-            Debug.log("Admin with privileges? ", chatPage.chatGroupInformation.status.can_pin_messages)
-            return chatPage.chatGroupInformation.status.can_pin_messages
-        }
-        if (chatPage.chatGroupInformation.status["@type"] === "chatMemberStatusRestricted") {
-            Debug.log("Restricted, but can pin messages? ", chatPage.chatGroupInformation.status.permissions.can_pin_messages)
-            return chatPage.chatGroupInformation.status.permissions.can_pin_messages
-        }
-        Debug.log("Something else: No!")
-        return false
     }
 
     function resetFocus() {

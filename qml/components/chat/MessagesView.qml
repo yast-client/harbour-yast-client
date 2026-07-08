@@ -16,6 +16,8 @@ Column {
     property string forumTopicName
     property int messageSource: TDLibAPI.MessageSourceAuto
     property var draftMessage: chatInformation.draft_message
+    property bool readable: true
+    property bool showPinnedMessage: readable
 
     property var selectedMessages: []
     readonly property bool isSelecting: selectedMessages.length > 0
@@ -298,9 +300,8 @@ Column {
     Connections {
         target: tdLibWrapper
         onMessageReceived: {
-            if (draftMessage && chatId === chatPage.chatId && messageId === draftMessage.reply_to_message_id) {
+            if (draftMessage && chatId === chatPage.chatId && messageId === draftMessage.reply_to_message_id)
                 newMessageInReplyToRow.inReplyToMessage = message
-            }
             log("Received message ID:", messageId)
         }
         onSponsoredMessagesReceived: messagesView.containsSponsoredMessages = true
@@ -378,22 +379,23 @@ Column {
         }
     }
 
-    PinnedMessageItem {
-        id: pinnedMessageItem
-        onRequestShowMessage: {
-            messageOverlayLoader.overlayMessage = pinnedMessageItem.pinnedMessage
-            messageOverlayLoader.active = true
-        }
-        onRequestCloseMessage: {
-            messageOverlayLoader.overlayMessage = undefined
-            messageOverlayLoader.active = false
+    Loader {
+        id: pinnedMessageLoader
+        width: parent.width
+        active: showPinnedMessage
+        source: Qt.resolvedUrl('PinnedMessageItem.qml')
+
+        Connections {
+            target: item
+            ignoreUnknownSignals: true
+            onHide: pinnedMessageLoader.active = false
         }
     }
 
     Item {
         id: chatViewItem
         width: parent.width
-        height: parent.height - pinnedMessageItem.height - newMessageColumn.height - selectedMessagesActions.height
+        height: parent.height - pinnedMessageLoader.height - newMessageColumn.height - selectedMessagesActions.height
 
         property int previousHeight
 
@@ -721,7 +723,7 @@ Column {
                 bottom: parent.bottom
                 bottomMargin: Theme.paddingMedium
             }
-            visible: !chatPage.loading && chatHeader.visible && !messagesModel.searchQuery && (unreadCount > 0 || (!messagesModel.endReached && chatView.count > 0))
+            visible: readable && !chatPage.loading && chatHeader.visible && !messagesModel.searchQuery && (unreadCount > 0 || (!messagesModel.endReached && chatView.count > 0))
             property bool highlighted: chatUnreadMessagesMouseArea.containsPress
 
             // not ideal:
