@@ -158,8 +158,7 @@ Item {
                     // TODO: media minithumbnail
                     Label {
                         width: parent.width
-                        text: Emoji.emojify(utilities.getMessageText(pinnedMessageItem.messageData, Utilities.MessageTextSimple, true, false), font.pixelSize)
-                        textFormat: Text.PlainText
+                        text: Emoji.emojify(utilities.getMessageText(pinnedMessageItem.messageData, Utilities.MessageTextSimple, true), font.pixelSize)
                         font.pixelSize: Theme.fontSizeExtraSmall
                         color: Theme.primaryColor
                         truncationMode: TruncationMode.Fade
