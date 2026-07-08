@@ -19,7 +19,7 @@
 #endif
 
 #define JS_DEBUG_ROOT_MODULE "yast-client.JS"
-#include "ferniemain.h"
+#include "mainhelper.h"
 
 #include "voicenoterecorder.h"
 
@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
     const QString dbusServiceName = "io.roundedrectangle.yast-client";
 
     const QUrl appIconPath = SailfishApp::pathTo("images/yast-client-notification.png");
-    QScopedPointer<FernieMain::AppContext> appContext(FernieMain::registerTypes(argc, argv, view, "YAST", appIconPath, dbusPath, dbusServiceName, true));
+    QScopedPointer<MainHelper::AppContext> appContext(MainHelper::registerTypes(argc, argv, view, "YAST", appIconPath, dbusPath, dbusServiceName, true));
 
     QObject::connect(app.data(), &QGuiApplication::aboutToQuit, [&appContext]() {
         LOG("Disabling signal actions");
@@ -43,9 +43,9 @@ int main(int argc, char *argv[]) {
         appContext->notificationManager.setUseSignalActions(false);
     });
 
-    FernieMain::registerDBusService(app, view, dbusServiceName, dbusPath);
+    MainHelper::registerDBusService(app, view, dbusServiceName, dbusPath);
 
-    FernieMain::registerDebugLogJS(appContext.data());
+    MainHelper::registerDebugLogJS(appContext.data());
 
     const char *uri = "App.Logic";
 
