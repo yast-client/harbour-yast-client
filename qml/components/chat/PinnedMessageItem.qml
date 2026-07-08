@@ -74,6 +74,10 @@ Item {
         anchors.fill: parent
         direction: PagedView.TopToBottom
         wrapMode: PagedView.NoWrap
+        // Workaround weird PagedView animation behavior with small height
+        moveDuration: 100
+        clip: moving
+        moveDragThreshold: height/3
 
         model: pinnedMessagesModel
 
