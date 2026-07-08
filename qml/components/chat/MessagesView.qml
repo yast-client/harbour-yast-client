@@ -18,6 +18,7 @@ Column {
     property var draftMessage: chatInformation.draft_message
     property bool readable: true
     property bool showPinnedMessage: readable
+    property bool preloaded: !readable
 
     property var selectedMessages: []
     readonly property bool isSelecting: selectedMessages.length > 0
@@ -256,12 +257,10 @@ Column {
             if (!fromIncrementalUpdate || (!chatPage.isInitialized && scrollPosition > -1))
                 chatView.scrollToIndex(scrollPosition)
 
-            if (!fromIncrementalUpdate) {
-                if (chatHeader.visible && scrollPosition >= (chatView.count - 10)) {
-                    log("Not far from the end, loading more future...")
-                    chatView.inCooldown = true
-                    messagesModel.loadMoreFuture()
-                }
+            if (!fromIncrementalUpdate && chatHeader.visible && scrollPosition >= (chatView.count - 10)) {
+                log("Not far from the end, loading more future...")
+                chatView.inCooldown = true
+                messagesModel.loadMoreFuture()
             }
 
             if (chatView.height > chatView.contentHeight) {
@@ -310,6 +309,15 @@ Column {
     Component.onCompleted: {
         log("Initializing")
         chatView.currentIndex = -1
+
+        if (preloaded) {
+            var originalScrollPosition = messagesModel.calculateScrollPosition()
+            var scrollPosition = chatProxyModel.mapRowFromSource(originalScrollPosition, -1)
+            log("Preloaded model, scrolling to", scrollPosition, "("+originalScrollPosition+")")
+
+            if (scrollPosition > -1)
+                chatView.scrollToIndex(scrollPosition)
+        }
     }
 
     Component.onDestruction: {
@@ -340,6 +348,7 @@ Column {
         interval: appSettings.delayMessageRead ? 1000 : 0
         property int lastQueuedIndex: -1
         function queueViewMessage(index) {
+            if (!readable) return
             if (index > lastQueuedIndex) {
                 lastQueuedIndex = index
                 start()
@@ -416,7 +425,7 @@ Column {
                 log("Page is initialized!")
                 chatPage.isInitialized = true
                 chatView.handleScrollPositionChanged()
-                if (chatPage.isChannel || chatPage.isBot)
+                if (readable && (chatPage.isChannel || chatPage.isBot))
                     tdLibWrapper.getChatSponsoredMessages(chatInformation.id)
             }
         }

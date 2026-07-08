@@ -7,7 +7,7 @@ import "../../js/twemoji.js" as Emoji
 Item {
     id: root
     width: parent.width
-    height: visible ? Theme.itemSizeMedium : 0
+    height: visible ? pinnedMessagesView.height : 0
 
     //property var beforeMessageId // TODO
     signal hide
@@ -44,6 +44,7 @@ Item {
                 }
 
                 MessagesView {
+                    id: pinnedMessagesView
                     width: parent.width
                     anchors {
                         top: header.bottom
@@ -58,11 +59,19 @@ Item {
                         parent: chatView
                         MenuItem {
                             text: qsTr("Unpin all messages")
-                            onClicked: {
-                                // todo..
-                                //Remorse.popupAction(chatPage, qsTr("Messages unpinned"), function() { tdLibWrapper.unpinAllChatMessages(..) })
-                            }
+                            onClicked:
+                                Remorse.popupAction(chatPage, qsTr("Messages unpinned"), function() {
+                                    tdLibWrapper.unpinAllChatMessages(chatPage.chatId)
+                                    pageStack.pop()
+                                })
                         }
+                    }
+
+                    Connections {
+                        target: chatView
+                        onCountChanged:
+                            if (!chatView.count)
+                                pageStack.pop()
                     }
                 }
             }
@@ -71,7 +80,8 @@ Item {
 
     PagedView {
         id: pinnedMessagesView
-        anchors.fill: parent
+        width: parent.width
+        height: currentItem ? currentItem.height : Theme.itemSizeMedium
         direction: PagedView.TopToBottom
         wrapMode: PagedView.NoWrap
         // Workaround weird PagedView animation behavior with small height
@@ -93,12 +103,11 @@ Item {
 
         //onCurrentIndexChanged: if (...) loadMoreHistory(..) else if (...) loadMoreFuture(..) .... // todo
 
-        delegate: BackgroundItem {
+        delegate: ListItem {
             id: pinnedMessageItem
             width: PagedView.contentWidth
-            height: PagedView.contentHeight
+            contentHeight: Theme.itemSizeMedium
 
-            //property bool isOwnMessage: tdLibWrapper.myUserId === myMessage.sender_id.user_id
             property var messageId: model.message_id
             property var messageData: model.display
 
@@ -110,11 +119,6 @@ Item {
                 chatId: chatPage.chatId
                 messageId: pinnedMessageItem.messageId
             }
-
-            /*TDLibMessageSender {
-                id: messageSenderInfo
-                messageSender: isOwnMessage ? undefined : myMessage.sender_id
-            }*/
 
             onClicked: messagesView.showMessage(messageId, true)
 
@@ -134,10 +138,9 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     spacing: Theme.paddingSmall
 
-                    // TODO (TBD): return sender name, perhaps also add profile photo?
+                    // TBD: should we use a sender name here, perhaps also with a profile photo?
                     Label {
                         width: parent.width
-                        //text: Emoji.emojify(isOwnMessage ? qsTr("You") : messageSenderInfo.title, font.pixelSize)
                         text: {
                             if (index === pinnedMessagesView.count - 1)
                                 return qsTr("Pinned message")
@@ -176,7 +179,7 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     icon.source: 'image://theme/icon-m-remove'
                     onClicked:
-                        Remorse.itemAction(pinnedMessageRow, qsTr("Message unpinned"), function() {
+                        pinnedMessageItem.remorseAction(qsTr("Message unpinned"), function() {
                             tdLibWrapper.unpinMessage(chatPage.chatId, messageId)
                         })
                 }
@@ -186,6 +189,15 @@ Item {
                     icon.source: "image://theme/icon-m-clear" // icon-splus-hide-password?
                     anchors.verticalCenter: parent.verticalCenter
                     onClicked: hide()
+                }
+            }
+
+            menu: Component {
+                ContextMenu {
+                    MenuItem {
+                        text: qsTr("All pinned messages")
+                        onClicked: pageStack.push(pinnedMessagesPageComponent)
+                    }
                 }
             }
         }
