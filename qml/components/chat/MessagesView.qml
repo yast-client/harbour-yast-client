@@ -20,6 +20,8 @@ Column {
     property bool showPinnedMessage: readable
     property bool preloaded: !readable
 
+    property bool forceViewPlaceholder
+
     property var selectedMessages: []
     readonly property bool isSelecting: selectedMessages.length > 0
     property bool containsSponsoredMessages: false
@@ -36,9 +38,15 @@ Column {
     property alias attachmentOptionsFlickable: newMessageColumn.attachmentOptionsFlickable
     property alias stickerPickerLoader: stickerPickerLoader
     property alias allowedOrientations: newMessageColumn.allowedOrientations
+    property alias viewPlaceholder: viewPlaceholder
+    property alias chatProxyModel: chatProxyModel
 
     property bool overlayActive: stickerPickerLoader.active || voiceNoteOverlayLoader.active || messageOverlayLoader.active || stickerSetOverlayLoader.active
+    property int bottomIndex: -1
+    property bool userMoving: chatView.moving || chatView.quickScrollAnimating
 
+    signal scrollPositionChanged
+    signal userStoppedMoving
     signal resetElements()
     signal elementSelected(int elementIndex)
     signal navigatedTo(int targetIndex)
@@ -245,6 +253,9 @@ Column {
         property: 'loading'
         value: !messagesModel || messagesModel.loading
     }
+
+    onUserMovingChanged:
+        if (!userMoving) userStoppedMoving()
 
     Connections {
         target: messagesModel
@@ -494,14 +505,15 @@ Column {
             function handleScrollPositionChanged() {
                 log("Current position: ", chatView.contentY)
                 log("Contains sponsored messages?", containsSponsoredMessages)
-                if (chatHeader.visible && ( unreadCount > 0 || containsSponsoredMessages ) ) {
-                    var bottomIndex = chatView.indexAt(chatView.contentX, ( chatView.contentY + chatView.height - Theme.horizontalPageMargin ))
+                scrollPositionChanged()
+                bottomIndex = chatView.indexAt(chatView.contentX, chatView.contentY + chatView.height - Theme.horizontalPageMargin)
+                if (unreadCount > 0 || containsSponsoredMessages) {
                     if (bottomIndex > -1)
                         viewMessageTimer.queueViewMessage(bottomIndex)
                 } else {
-                    tdLibWrapper.readAllChatMentions(chatInformation.id)
-                    tdLibWrapper.readAllChatReactions(chatInformation.id)
-                    tdLibWrapper.readAllChatPollVotes(chatInformation.id)
+                    tdLibWrapper.readAllChatMentions(chatId)
+                    tdLibWrapper.readAllChatReactions(chatId)
+                    tdLibWrapper.readAllChatPollVotes(chatId)
                 }
                 manuallyScrolledToBottom = chatView.atYEnd
             }
@@ -652,6 +664,7 @@ Column {
 
             delegate: Loader {
                 width: chatView.width
+                enabled: !forceViewPlaceholder
                 Component {
                     id: messageListViewItemComponent
                     MessageListViewItem {
@@ -709,10 +722,11 @@ Column {
             VerticalScrollDecorator { flickable: chatView }
 
             ViewPlaceholder {
-                id: chatViewPlaceholder
-                enabled: chatView.count === 0 && !(chatPage.botInformation && chatPage.botInformation.description.length > 0)
-                text: (chatPage.isSecretChat && !chatPage.isSecretChatReady) ? qsTr("This secret chat is not yet ready. Your chat partner needs to go online first.")
-                                                                             : searchInChatItem.visible ? qsTr("No results", "No messages search results found") : qsTr("This chat is empty.")
+                id: viewPlaceholder
+                enabled: forceViewPlaceholder || (chatView.count === 0 && !(chatPage.botInformation && chatPage.botInformation.description.length > 0))
+                text: (chatPage.isSecretChat && !chatPage.isSecretChatReady) ? qsTr("Waiting for %1 to come online…").arg(chatPage.getChatTitle(Theme.fontSizeExtraLarge))
+                                                                             : searchInChatItem.visible ? qsTr("No results", "No messages search results found") : qsTr("This chat is empty")
+                hintText: (chatPage.isSecretChat && !chatPage.isSecretChatReady) ? qsTr("The other user must come online for the secret chat to be created.") : ''
             }
         }
 

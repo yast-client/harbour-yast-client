@@ -9,8 +9,18 @@ Item {
     width: parent.width
     height: visible ? pinnedMessagesView.height : 0
 
-    //property var beforeMessageId // TODO
+    property int bottomIndexProxy: messagesView.bottomIndex
+    property int viewBottomModelIndex: chatProxyModel.mapRowFromSource(messagesView.bottomIndex, -1)
+    property var viewCurrentMessageId: messagesView.messagesModel.getMessage(viewBottomModelIndex).id || 0
     signal hide
+
+    Connections {
+        target: chatPage
+        onLoadingChanged:
+            viewBottomModelIndex = Qt.binding(function() {
+                return chatProxyModel.mapRowFromSource(messagesView.bottomIndex, -1)
+            })
+    }
 
     visible: !!pinnedMessagesView.count
 
@@ -20,9 +30,7 @@ Item {
             FadeAnimator { target: root }
             NumberAnimation { target: root; property: 'height'; to: 0; duration: 200 }
         }
-        ScriptAction {
-            script: hide()
-        }
+        ScriptAction { script: hide() }
     }
 
     Rectangle {
@@ -37,6 +45,10 @@ Item {
             objectName: 'pinnedMessagesPage'
             SilicaFlickable {
                 anchors.fill: parent
+
+                // Load from message ID 0 (the end). MediaMessagesModel will ignore the request if it's already the case
+                Component.onCompleted:
+                    pinnedMessagesModel.init(chatPage.chatId)
 
                 PageHeader {
                     id: header
@@ -55,15 +67,19 @@ Item {
                     newMessageColumn.show: false
                     readable: false
 
+                    viewPlaceholder.text: qsTr("No pinned messages")
                     PushUpMenu {
                         parent: chatView
                         MenuItem {
                             text: qsTr("Unpin all messages")
-                            onClicked:
-                                Remorse.popupAction(chatPage, qsTr("Messages unpinned"), function() {
-                                    tdLibWrapper.unpinAllChatMessages(chatPage.chatId)
+                            onClicked: {
+                                pinnedMessagesView.forceViewPlaceholder = true
+                                var remorse = Remorse.popupAction(chatPage, qsTr("Messages unpinned"), function() {
                                     pageStack.pop()
+                                    tdLibWrapper.unpinAllChatMessages(chatPage.chatId)
                                 })
+                                remorse.canceled.connect(function() { pinnedMessagesView.forceViewPlaceholder = false })
+                            }
                         }
                     }
 
@@ -84,6 +100,8 @@ Item {
         height: currentItem ? currentItem.height : Theme.itemSizeMedium
         direction: PagedView.TopToBottom
         wrapMode: PagedView.NoWrap
+        interactive: false
+        cacheSize: 2
         // Workaround weird PagedView animation behavior with small height
         moveDuration: 100
         clip: moving
@@ -96,12 +114,54 @@ Item {
             tdlib: tdLibWrapper
             filter: TDLibAPI.SearchMessagesFilterPinned
             maintainCount: true
-            Component.onCompleted: init(chatPage.chatId)
+
+            property bool locked
+            property bool lockedEnd
+            property var currentMessageIndex: messageIndexBeforeOrAtId(viewCurrentMessageId)
+            function updateCurrentMessageIndex() {
+                currentMessageIndex = Qt.binding(function() { return messageIndexBeforeOrAtId(viewCurrentMessageId) })
+            }
+
+            onMessagesReceived: {
+                updateCurrentMessageIndex()
+
+                if (!fromIncrementalUpdate) {
+                    if (lockedEnd)
+                        pinnedMessagesView.currentIndex = pinnedMessagesView.count - 1
+
+                    if (viewCurrentMessageId)
+                        // Load some more messages to ensure endReached is correctly set
+                        loadMoreFuture()
+                }
+            }
+
+            function handleCurrentMessageIndexChanged() {
+                if (locked) return
+
+                // don't use a property so there wouldn't be a need for special handling for when the message moves (e.g. due to deletion of another message)
+                pinnedMessagesView.currentIndex = currentMessageIndex
+
+                if (!loading && currentMessageIndex < 0 || (currentMessageIndex == pinnedMessagesView.count - 1 && !endReached))
+                    init(chatPage.chatId, viewCurrentMessageId) // re-initialize
+            }
+
+            Component.onCompleted: init(chatPage.chatId, viewCurrentMessageId)
+            onCurrentMessageIndexChanged: handleCurrentMessageIndexChanged()
         }
 
-        currentIndex: count - 1 // todo beforeMessageId
+        Connections {
+            target: messagesView
+            onUserStoppedMoving: {
+                pinnedMessagesModel.locked = pinnedMessagesModel.lockedEnd = false
+                pinnedMessagesModel.handleCurrentMessageIndexChanged()
+            }
+        }
 
-        //onCurrentIndexChanged: if (...) loadMoreHistory(..) else if (...) loadMoreFuture(..) .... // todo
+        onCurrentIndexChanged:
+            if (currentIndex <= 10)
+                model.loadMoreHistory()
+            else if (currentIndex >= count - 1 - 10)
+                model.loadMoreFuture()
 
         delegate: ListItem {
             id: pinnedMessageItem
@@ -120,7 +180,19 @@ Item {
                 messageId: pinnedMessageItem.messageId
             }
 
-            onClicked: messagesView.showMessage(messageId, true)
+            onClicked: {
+                pinnedMessagesModel.locked = true
+                if (pinnedMessagesView.currentIndex == 0) {
+                    if (pinnedMessagesModel.endReached)
+                        pinnedMessagesView.currentIndex = pinnedMessagesView.count - 1
+                    else {
+                        pinnedMessagesModel.lockedEnd = true
+                        pinnedMessagesModel.init(chatPage.chatId)
+                    }
+                } else
+                    pinnedMessagesView.currentIndex--
+                messagesView.showMessage(messageId, true)
+            }
 
             Row {
                 anchors.fill: parent
