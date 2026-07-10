@@ -23,7 +23,6 @@ AlbumMessageContentBase {
         id: photoPreviewComponent
         MessagePhoto {
             messageListItem: messageContent.messageListItem
-            overlayFlickable: messageContent.overlayFlickable
             rawMessage: albumMessages[modelIndex]
             highlighted: _highlighted
         }

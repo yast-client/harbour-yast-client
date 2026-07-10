@@ -20,7 +20,7 @@ MessageContentBase {
     ]
 
     property var stickerData: rawMessage.content.sticker
-    readonly property bool isOwnSticker: typeof messageListItem !== 'undefined' ? messageListItem.isOwnMessage : overlayFlickable.isOwnMessage
+    readonly property bool isOwnSticker: !!(messageListItem && messageListItem.isOwnMessage)
 
     implicitWidth: Theme.itemSizeLarge*3
     implicitHeight: implicitWidth * sticker.aspectRatio

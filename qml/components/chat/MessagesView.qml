@@ -41,7 +41,7 @@ Column {
     property alias viewPlaceholder: viewPlaceholder
     property alias chatProxyModel: chatProxyModel
 
-    property bool overlayActive: stickerPickerLoader.active || voiceNoteOverlayLoader.active || messageOverlayLoader.active || stickerSetOverlayLoader.active
+    property bool overlayActive: stickerPickerLoader.active || voiceNoteOverlayLoader.active || stickerSetOverlayLoader.active
     property int bottomIndex: -1
 
     signal resetElements()
@@ -469,7 +469,7 @@ Column {
             id: chatView
 
             visible: !blurred
-            property bool blurred: messageOverlayLoader.item || stickerPickerLoader.item || voiceNoteOverlayLoader.item || inlineQuery.hasOverlay || stickerSetOverlayLoader.item
+            property bool blurred: stickerPickerLoader.item || voiceNoteOverlayLoader.item || inlineQuery.hasOverlay || stickerSetOverlayLoader.item
 
             anchors.fill: parent
             opacity: chatPage.loading ? 0 : 1
@@ -824,25 +824,6 @@ Column {
                 newMessageInReplyToRow.inReplyToMessage = null
                 newMessageColumn.editMessageId = "0"
                 newMessageColumn.editIsCaption = false
-            }
-        }
-
-        Loader {
-            id: messageOverlayLoader
-
-            property var overlayMessage
-
-            active: false
-            asynchronous: true
-            width: parent.width
-            height: active ? parent.height : 0
-            sourceComponent: Component {
-                MessageOverlayFlickable {
-                    overlayMessage: messageOverlayLoader.overlayMessage
-                    showHeader: !chatPage.isChannel
-                    onRequestClose:
-                        messageOverlayLoader.active = false
-                }
             }
         }
 

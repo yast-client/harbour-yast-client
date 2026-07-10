@@ -28,7 +28,6 @@ AlbumMessageContentBase {
                     id: documentMessage
                     width: parent.width
                     messageListItem: messageContent.messageListItem
-                    overlayFlickable: messageContent.overlayFlickable
                     rawMessage: albumMessages[index]
                     highlighted: messageContent.highlighted
                 }

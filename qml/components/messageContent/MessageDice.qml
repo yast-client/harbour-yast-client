@@ -14,7 +14,7 @@ MessageContentBase {
     readonly property string emoji: rawMessage.content.emoji
     readonly property bool isSlotMachine: diceSticker['@type'] === "diceStickersSlotMachine"
     readonly property var stickerData: (isSlotMachine ? diceSticker.background : diceSticker.sticker) || {}
-    readonly property bool isOwnSticker: typeof messageListItem !== 'undefined' ? messageListItem.isOwnMessage : overlayFlickable.isOwnMessage
+    readonly property bool isOwnSticker: !!(messageListItem && messageListItem.isOwnMessage)
 
     // do not play animation when viewing history
     property bool completed

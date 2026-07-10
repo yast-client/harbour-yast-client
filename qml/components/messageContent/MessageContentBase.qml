@@ -6,8 +6,7 @@ import "../../js/debug.js" as Debug
 
 Item {
     property ListItem messageListItem
-    property MessageOverlayFlickable overlayFlickable
-    property var rawMessage: messageListItem ? messageListItem.myMessage : overlayFlickable.overlayMessage
+    property var rawMessage: messageListItem ? messageListItem.myMessage : null
     property bool isOwnMessage: !!messageListItem && !!messageListItem.isOwnMessage
     property bool isSponsored: !!messageListItem && !!messageListItem.isSponsored
     property bool isUnread: !!messageListItem && !!messageListItem.isUnread

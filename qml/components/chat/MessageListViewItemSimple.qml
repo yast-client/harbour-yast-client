@@ -36,14 +36,11 @@ Item {
             + Emoji.emojify(messageContentText, font.pixelSize)
         textFormat: Text.RichText
         wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-        onLinkActivated: {
-            if(link === "linkedmessage" && linkedMessage) {
-                messageOverlayLoader.overlayMessage = linkedMessage;
-                messageOverlayLoader.active = true;
-            } else
+        onLinkActivated:
+            if (link === 'linkedmessage' && linkedMessage)
+                messagesView.showMessage(linkedMessage.id)
+            else
                 utilities.handleLink(link)
-
-        }
     }
     Loader {
         id: gameScoreInfoLoader
