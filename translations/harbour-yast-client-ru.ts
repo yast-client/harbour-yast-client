@@ -1711,17 +1711,9 @@ Pull down to visit telegram.org</source>
         </translation>
     </message>
     <message>
-        <source>This secret chat is not yet ready. Your chat partner needs to go online first.</source>
-        <translation>Секретный чат не готов. Участники должны быть онлайн.</translation>
-    </message>
-    <message>
         <source>No results</source>
         <comment>No messages search results found</comment>
         <translation>Нет результатов</translation>
-    </message>
-    <message>
-        <source>This chat is empty.</source>
-        <translation>Пустой чат.</translation>
     </message>
     <message numerus="yes">
         <source>%Ln messages have been copied</source>
@@ -1742,6 +1734,18 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Loading messages</source>
         <translation>Загрузка сообщений</translation>
+    </message>
+    <message>
+        <source>Waiting for %1 to come online…</source>
+        <translation>Ждём, когда %s будет в сети…</translation>
+    </message>
+    <message>
+        <source>This chat is empty</source>
+        <translation>Чат пуст</translation>
+    </message>
+    <message>
+        <source>The other user must come online for the secret chat to be created.</source>
+        <translation>Пользователь должен появиться в сети, чтобы секрутный чат был создан.</translation>
     </message>
 </context>
 <context>
@@ -2032,7 +2036,7 @@ Pull down to visit telegram.org</source>
     <message>
         <source>You have a new message</source>
         <comment>Notification</comment>
-        <translation>Вам новое сообщение</translation>
+        <translation>Вам пришло сообщение</translation>
     </message>
     <message>
         <source>Mark as read</source>
@@ -2344,16 +2348,48 @@ Pull down to visit telegram.org</source>
 <context>
     <name>PinnedMessageItem</name>
     <message>
-        <source>You</source>
-        <translation>Вы</translation>
+        <source>Message unpinned</source>
+        <translation>Сообщение откреплено</translation>
+    </message>
+    <message numerus="yes">
+        <source>%Ln pinned messages</source>
+        <translation>
+            <numerusform>%Ln закреплённое сообщение</numerusform>
+            <numerusform>%Ln закреплённых сообщения</numerusform>
+            <numerusform>%Ln закреплённых сообщений</numerusform>
+        </translation>
     </message>
     <message>
-        <source>Pinned Message</source>
+        <source>Unpin all messages</source>
+        <translation>Открепить все сообщения</translation>
+    </message>
+    <message>
+        <source>Pinned message</source>
         <translation>Закреплённое сообщение</translation>
     </message>
     <message>
-        <source>Message unpinned</source>
-        <translation>Сообщение откреплено</translation>
+        <source>Previous message</source>
+        <translation>Предыдущее сообщение</translation>
+    </message>
+    <message numerus="yes">
+        <source>Pinned message #%Ln</source>
+        <translation>
+            <numerusform>Закреплённое сообщение #%Ln</numerusform>
+            <numerusform>Закреплённое сообщение #%Ln</numerusform>
+            <numerusform>Закреплённое сообщение #%Ln</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Messages unpinned</source>
+        <translation>Сообщения откреплены</translation>
+    </message>
+    <message>
+        <source>All pinned messages</source>
+        <translation>Все закреплённые сообщения</translation>
+    </message>
+    <message>
+        <source>No pinned messages</source>
+        <translation>Нет закреплённых сообщений</translation>
     </message>
 </context>
 <context>

@@ -1706,17 +1706,9 @@ Pull down to visit telegram.org</source>
         </translation>
     </message>
     <message>
-        <source>This secret chat is not yet ready. Your chat partner needs to go online first.</source>
-        <translation type="unfinished">Ten tajny czat nie jest jeszcze gotowy. Twój rozmówca musi być online.</translation>
-    </message>
-    <message>
         <source>No results</source>
         <comment>No messages search results found</comment>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This chat is empty.</source>
-        <translation type="unfinished">Ten czat jest pusty</translation>
     </message>
     <message numerus="yes">
         <source>%Ln messages have been copied</source>
@@ -1736,6 +1728,18 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>Loading messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Waiting for %1 to come online…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This chat is empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The other user must come online for the secret chat to be created.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2339,16 +2343,48 @@ Pull down to visit telegram.org</source>
 <context>
     <name>PinnedMessageItem</name>
     <message>
-        <source>You</source>
-        <translation>Ty</translation>
-    </message>
-    <message>
-        <source>Pinned Message</source>
-        <translation>Przypieta wiadomość</translation>
-    </message>
-    <message>
         <source>Message unpinned</source>
         <translation>Wiadomość opięta</translation>
+    </message>
+    <message numerus="yes">
+        <source>%Ln pinned messages</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Unpin all messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pinned message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Previous message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>Pinned message #%Ln</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Messages unpinned</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All pinned messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No pinned messages</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
