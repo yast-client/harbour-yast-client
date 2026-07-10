@@ -1,5 +1,5 @@
 import QtQuick 2.6
-import "../../"
+import '../../tdlib'
 
 InlineQueryResult {
     id: queryResultItem

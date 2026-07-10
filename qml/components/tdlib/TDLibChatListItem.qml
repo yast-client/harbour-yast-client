@@ -1,7 +1,8 @@
 import QtQuick 2.0
 import io.yaqtlib 1.0
-import "../js/twemoji.js" as Emoji
-import "../js/functions.js" as Functions
+import '..'
+import "../../js/twemoji.js" as Emoji
+import "../../js/functions.js" as Functions
 
 PhotoTextsListItem {
     id: chatItem

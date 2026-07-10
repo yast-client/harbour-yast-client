@@ -4,6 +4,7 @@ import QtMultimedia 5.6
 import io.yaqtlib 1.0
 import QtGraphicalEffects 1.0
 import "../"
+import '../tdlib'
 import "../../js/functions.js" as Functions
 import "../../js/twemoji.js" as Emoji
 import "../../js/debug.js" as Debug

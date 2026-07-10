@@ -1,9 +1,10 @@
 import QtQuick 2.6
 import Sailfish.Silica 1.0
 import io.yaqtlib 1.0
-import "../components"
-import "../js/debug.js" as Debug
-import "../js/twemoji.js" as Emoji
+import '../components'
+import '../components/tdlib'
+import '../js/debug.js' as Debug
+import '../js/twemoji.js' as Emoji
 
 Page {
     id: searchChatsPage

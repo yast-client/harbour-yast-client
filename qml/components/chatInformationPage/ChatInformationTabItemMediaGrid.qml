@@ -1,8 +1,8 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-
-import ".."
-import "../../js/debug.js" as Debug
+import '..'
+import '../tdlib'
+import '../../js/debug.js' as Debug
 
 ChatInformationTabItemMediaBase {
     id: tabBase

@@ -36,7 +36,7 @@ Item {
 
     Loader {
         active: loadBackgroundImage
-        source: Qt.resolvedUrl("BackgroundImage.qml")
+        source: Qt.resolvedUrl('../BackgroundImage.qml')
     }
 
     TDLibImage {

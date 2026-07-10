@@ -2,7 +2,7 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtQuick.Window 2.2
 import io.yaqtlib 1.0
-import 'components'
+import 'components/tdlib'
 
 Window {
     onClosing: destroy()

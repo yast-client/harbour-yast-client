@@ -1,7 +1,7 @@
 import QtQuick 2.6
 import Sailfish.Silica 1.0
-import ".."
-import "../../js/twemoji.js" as Emoji
+import '../tdlib'
+import '../../js/twemoji.js' as Emoji
 
 Item {
     id: stickerPickerOverlayItem
@@ -49,25 +49,24 @@ Item {
     Component {
         id: stickerComponent
         BackgroundItem {
-           id: stickerSetItem
-           width: Theme.itemSizeExtraLarge
-           height: Theme.itemSizeExtraLarge
+            id: stickerSetItem
+            width: Theme.itemSizeExtraLarge
+            height: Theme.itemSizeExtraLarge
 
-           onClicked: stickerPickerOverlayItem.stickerPicked(modelData.sticker.remote.id)
+            onClicked: stickerPickerOverlayItem.stickerPicked(modelData.sticker.remote.id)
 
-           TDLibThumbnail {
-               thumbnail: modelData.thumbnail
-               anchors.fill: parent
-               highlighted: stickerSetItem.highlighted
-           }
+            TDLibThumbnail {
+                thumbnail: modelData.thumbnail
+                anchors.fill: parent
+                highlighted: stickerSetItem.highlighted
+            }
 
-           Label {
-               font.pixelSize: Theme.fontSizeSmall
-               anchors.right: parent.right
-               anchors.bottom: parent.bottom
-               text: Emoji.emojify(modelData.emoji, font.pixelSize)
-           }
-
+            Label {
+                font.pixelSize: Theme.fontSizeSmall
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                text: Emoji.emojify(modelData.emoji, font.pixelSize)
+            }
        }
     }
 

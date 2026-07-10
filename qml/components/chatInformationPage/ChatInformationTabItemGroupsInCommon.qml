@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import '..'
+import '../tdlib'
 
 ChatInformationTabItemChatsBase {
     loading: false // initial request is already sent from the tab view

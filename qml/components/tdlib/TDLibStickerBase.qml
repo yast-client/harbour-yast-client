@@ -2,7 +2,7 @@ import QtQuick 2.6
 import Sailfish.Silica 1.0
 import QtMultimedia 5.6
 import io.yaqtlib 1.0
-import "../js/twemoji.js" as Emoji
+import "../../js/twemoji.js" as Emoji
 
 Item {
     id: sticker
@@ -30,9 +30,7 @@ Item {
 
     Loader {
         anchors.fill: parent
-        sourceComponent: Component {
-            BackgroundImage {}
-        }
+        source: Qt.resolvedUrl('../BackgroundImage.qml')
 
         active: opacity > 0
         opacity: !stickerVisible && !placeHolderDelayTimer.running ? 0.15 : 0

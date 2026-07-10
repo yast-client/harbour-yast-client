@@ -1,8 +1,7 @@
 import QtQuick 2.6
 import io.yaqtlib 1.0
 import Sailfish.Silica 1.0
-
-import "../js/debug.js" as Debug
+import '..'
 
 Image {
     id: tdLibImage
@@ -22,7 +21,7 @@ Image {
         height: height
     }
 
-    Behavior on opacity { FadeAnimation {} }
+    Behavior on opacity { FadeAnimator {} }
 
     layer {
         enabled: tdLibImage.enabled && tdLibImage.highlighted

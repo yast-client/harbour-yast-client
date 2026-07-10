@@ -1,7 +1,7 @@
 import QtQuick 2.6
 import Sailfish.Silica 1.0
 import io.yaqtlib 1.0
-import "../"
+import '../tdlib'
 
 MessageContentBase {
     height: Math.max(Theme.itemSizeExtraSmall, Math.min(Math.round(width * 0.66666666), width / getAspectRatio()))
