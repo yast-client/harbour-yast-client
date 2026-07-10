@@ -109,7 +109,6 @@ Item {
         height: currentItem ? currentItem.height : Theme.itemSizeMedium
         direction: PagedView.TopToBottom
         wrapMode: PagedView.NoWrap
-        interactive: false
         cacheSize: 2
         // Workaround weird PagedView animation behavior with small height
         moveDuration: 100
@@ -183,6 +182,14 @@ Item {
                 model.loadMoreHistory()
             else if (currentIndex >= count - 1 - 10)
                 model.loadMoreFuture()
+
+            if ((model.locked && (!model.lockedEnd || currentIndex == count - 1)) || currentIndex != model.currentMessageIndex) {
+                Debug.log("[PinnedMessageItem] Current index changed due to a drag")
+                model.locked = true
+                model.lockedEnd = false
+                if (currentItem)
+                    messagesView.showMessage(currentItem.messageId)
+            }
         }
 
         delegate: ListItem {
@@ -205,9 +212,10 @@ Item {
             onClicked: {
                 pinnedMessagesModel.locked = true
                 if (pinnedMessagesView.currentIndex == 0) {
-                    if (pinnedMessagesModel.endReached)
+                    if (pinnedMessagesModel.endReached) {
+                        pinnedMessagesModel.lockedEnd = false
                         pinnedMessagesView.currentIndex = pinnedMessagesView.count - 1
-                    else {
+                    } else {
                         pinnedMessagesModel.lockedEnd = true
                         pinnedMessagesModel.init(chatPage.chatId)
                     }
