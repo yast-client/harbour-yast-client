@@ -5,9 +5,7 @@ YAST Client is a yet another SailfishOS Telegram client
 
 ## Credits
 
-Author: roundedrectangle
-
-Icon is based on Fernschreiber's icon.
+Author: @roundedrectangle
 
 ### Translations
 
