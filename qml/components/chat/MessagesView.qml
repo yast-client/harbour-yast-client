@@ -43,10 +43,7 @@ Column {
 
     property bool overlayActive: stickerPickerLoader.active || voiceNoteOverlayLoader.active || messageOverlayLoader.active || stickerSetOverlayLoader.active
     property int bottomIndex: -1
-    property bool userMoving: chatView.moving || chatView.quickScrollAnimating
 
-    signal scrollPositionChanged
-    signal userStoppedMoving
     signal resetElements()
     signal elementSelected(int elementIndex)
     signal navigatedTo(int targetIndex)
@@ -254,9 +251,6 @@ Column {
         property: 'loading'
         value: !messagesModel || messagesModel.loading
     }
-
-    onUserMovingChanged:
-        if (!userMoving) userStoppedMoving()
 
     Connections {
         target: messagesModel
@@ -503,11 +497,14 @@ Column {
                 readonly property bool pageIsSelecting: messagesView.isSelecting
             }
 
+            function updateBottomIndex() {
+                bottomIndex = indexAt(contentX, contentY + height - Theme.horizontalPageMargin)
+            }
+
             function handleScrollPositionChanged() {
                 log("Current position: ", chatView.contentY)
                 log("Contains sponsored messages?", containsSponsoredMessages)
-                scrollPositionChanged()
-                bottomIndex = chatView.indexAt(chatView.contentX, chatView.contentY + chatView.height - Theme.horizontalPageMargin)
+                updateBottomIndex()
                 if (unreadCount > 0 || containsSponsoredMessages) {
                     if (bottomIndex > -1)
                         viewMessageTimer.queueViewMessage(bottomIndex)
@@ -531,8 +528,10 @@ Column {
                 }
             }
 
-            onContentYChanged: {
+            onContentYChanged:
                 if (!chatPage.loading && !chatView.inCooldown) {
+                    updateBottomIndex()
+
                     // check for startReached/endReached here so inCooldown won't be true forever
                     if (!messagesModel.startReached && chatView.indexAt(chatView.contentX, chatView.contentY) < 10) {
                         log("Trying to get older history items...")
@@ -548,7 +547,6 @@ Column {
                         // this was the previous behavior before endReached and startReached values were introduced
                     }
                 }
-            }
 
             onMovementEnded:
                 handleScrollPositionChanged()

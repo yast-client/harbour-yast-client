@@ -2,14 +2,14 @@ import QtQuick 2.6
 import Sailfish.Silica 1.0
 import io.yaqtlib 1.0
 import '..'
-import "../../js/twemoji.js" as Emoji
+import '../../js/twemoji.js' as Emoji
+import '../../js/debug.js' as Debug
 
 Item {
     id: root
     width: parent.width
     height: visible ? pinnedMessagesView.height : 0
 
-    property int bottomIndexProxy: messagesView.bottomIndex
     property int viewBottomModelIndex: chatProxyModel.mapRowFromSource(messagesView.bottomIndex, -1)
     property var viewCurrentMessageId: messagesView.messagesModel.getMessage(viewBottomModelIndex).id || 0
     signal hide
@@ -117,9 +117,14 @@ Item {
 
             property bool locked
             property bool lockedEnd
-            property var currentMessageIndex: messageIndexBeforeOrAtId(viewCurrentMessageId)
+            function unlock() {
+                Debug.log("[PinnedMessageItem] Unlocked")
+                locked = lockedEnd = false
+            }
+
+            property var currentMessageIndex: messageIndexBeforeId(viewCurrentMessageId)
             function updateCurrentMessageIndex() {
-                currentMessageIndex = Qt.binding(function() { return messageIndexBeforeOrAtId(viewCurrentMessageId) })
+                currentMessageIndex = Qt.binding(function() { return messageIndexBeforeId(viewCurrentMessageId) })
             }
 
             onMessagesReceived: {
@@ -134,14 +139,16 @@ Item {
                         loadMoreFuture()
                 }
             }
+            onTotalCountChanged: updateCurrentMessageIndex()
 
-            function handleCurrentMessageIndexChanged() {
-                if (locked) return
+            function handleCurrentMessageIndexChanged(doUnlock) {
+                if (doUnlock) unlock()
+                else if (locked) return
 
                 // don't use a property so there wouldn't be a need for special handling for when the message moves (e.g. due to deletion of another message)
                 pinnedMessagesView.currentIndex = currentMessageIndex
 
-                if (!loading && currentMessageIndex < 0 || (currentMessageIndex == pinnedMessagesView.count - 1 && !endReached))
+                if (!loading && currentMessageIndex < 0 || (currentMessageIndex === pinnedMessagesView.count - 1 && !endReached))
                     init(chatPage.chatId, viewCurrentMessageId) // re-initialize
             }
 
@@ -151,17 +158,23 @@ Item {
 
         Connections {
             target: messagesView
-            onUserStoppedMoving: {
-                pinnedMessagesModel.locked = pinnedMessagesModel.lockedEnd = false
-                pinnedMessagesModel.handleCurrentMessageIndexChanged()
-            }
+            onMovementEnded:
+                pinnedMessagesModel.handleCurrentMessageIndexChanged(true)
+        }
+        Connections {
+            target: chatView
+            onCountChanged:
+                if (pinnedMessagesModel.getMessageIndex(messagesView.messageIdToScrollTo) !== pinnedMessagesView.currentIndex + 1)
+                    pinnedMessagesModel.handleCurrentMessageIndexChanged(true)
         }
 
-        onCurrentIndexChanged:
+        onCurrentIndexChanged: {
+            Debug.log("[PinnedMessageItem] Current index changed", currentIndex)
             if (currentIndex <= 10)
                 model.loadMoreHistory()
             else if (currentIndex >= count - 1 - 10)
                 model.loadMoreFuture()
+        }
 
         delegate: ListItem {
             id: pinnedMessageItem
@@ -191,6 +204,7 @@ Item {
                     }
                 } else
                     pinnedMessagesView.currentIndex--
+
                 messagesView.showMessage(messageId)
             }
 
@@ -264,7 +278,8 @@ Item {
                 }
             }
 
-            menu: Component {
+            Component {
+                id: menuComponent
                 ContextMenu {
                     MenuItem {
                         text: qsTr("All pinned messages")
@@ -272,6 +287,7 @@ Item {
                     }
                 }
             }
+            menu: pinnedMessagesView.count ? menuComponent : null
         }
     }
 }
