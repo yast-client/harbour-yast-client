@@ -947,7 +947,7 @@ ListItem {
 
                                     MessageReaction {
                                         id: reactionLoader
-                                        x: Theme.paddingSmall/2
+                                        x: Theme.paddingSmall
                                         y: x
                                         height: parent.height - y*2
                                         width: height
