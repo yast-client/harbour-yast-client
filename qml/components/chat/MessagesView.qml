@@ -485,7 +485,6 @@ Column {
             property bool manuallyScrolledToBottom
             property QtObject precalculatedValues: QtObject {
                 readonly property var page: chatPage
-                readonly property alias view: messagesView
                 readonly property bool showUserInfo: page.isBasicGroup || (page.isSupergroup && (!page.isChannel || chatGroupInformation.show_message_sender))
                 readonly property int profileThumbnailDimensions: showUserInfo ? Theme.itemSizeSmall : 0
                 readonly property int pageMarginDouble: 2 * Theme.horizontalPageMargin
@@ -665,48 +664,59 @@ Column {
             ]
 
             delegate: Loader {
+                id: messageLoader
                 width: chatView.width
                 enabled: !forceViewPlaceholder
+                sourceComponent: utilities.messageContentIsService(model.content_type)
+                                    ? messageListViewItemSimpleComponent
+                                    : messageListViewItemComponent
+
+                function replyToMessage() {
+                    newMessageInReplyToRow.inReplyToMessage = model.display
+                    newMessageTextField.focus = true
+                }
+                function editMessage() {
+                    newMessageColumn.editMessageId = model.message_id
+                    newMessageColumn.editIsCaption = !!model.display && !!model.display.content && !!model.display.content.caption
+                    newMessageTextField.text = utilities.getMessageText(model.display, Utilities.MessageTextDefault, true, false)
+                    newMessageTextField.cursorPosition = newMessageTextField.text.length
+                    newMessageTextField.focus = true
+                }
+
+                property MessageData messageData: MessageData {
+                    message: model.display
+                    messageId: model.message_id
+                    messageIndex: chatProxyModel.mapRowToSource(originalIndex)
+                    messageAlbumMessageIds: model.album_message_ids
+                    messageAlbumMessages: model.album_messages
+                    messageViewCount: model.view_count
+                    reactions: model.reactions
+                    generatedContentUnread: model.generated_content_unread
+                    isFirstInSequence: model.is_first_in_sequence
+                    isLastInSequence: model.is_last_in_sequence
+
+                    readonly property int originalIndex: model.index
+                    onOriginalIndexChanged: messageIndexTimer.start()
+                    readonly property var _messageIndexTimer: Timer {
+                        // FIXME: find a better way to fix this
+                        id: messageIndexTimer
+                        interval: 0
+                        onTriggered: messageData.messageIndex = Qt.binding(function() { return chatProxyModel.mapRowToSource(originalIndex) })
+                    }
+                }
+
                 Component {
                     id: messageListViewItemComponent
                     MessageListViewItem {
                         precalculatedValues: chatView.precalculatedValues
-                        chatId: chatManager.chatId
-                        myMessage: model.display
-                        messageId: model.message_id
-                        messageAlbumMessageIds: model.album_message_ids
-                        messageAlbumMessages: model.album_messages
-                        messageViewCount: model.view_count
-                        reactions: model.reactions
-                        generatedContentUnread: model.generated_content_unread
-                        isFirstInSequence: model.is_first_in_sequence
-                        isLastInSequence: model.is_last_in_sequence
-                        readonly property int originalIndex: model.index
-                        messageIndex: chatProxyModel.mapRowToSource(originalIndex)
-                        onOriginalIndexChanged: messageIndexTimer.start()
-                        Timer {
-                            // FIXME: find a better way to fix this
-                            id: messageIndexTimer
-                            interval: 0
-                            onTriggered: messageIndex = Qt.binding(function() { return chatProxyModel.mapRowToSource(originalIndex) })
-                        }
-                        hasContentComponent: !!myMessage.content && model.content_type != "messageText" && !utilities.messageContentIsService(model.content_type)
+                        messageData: messageLoader.messageData
+                        hasContentComponent: !!myMessage.content && model.content_type !== 'messageText' && !utilities.messageContentIsService(model.content_type)
                         fullWidthWidescreenContent: !!myMessage.content && chatView.fullWidthWidescreenContentMessages.indexOf(model.content_type) > -1
                         contentAboveMedia: !!myMessage.content && chatView.contentAboveMediaByDefaultMessages.indexOf(model.content_type) > -1
-                        onReplyToMessage: {
-                            newMessageInReplyToRow.inReplyToMessage = myMessage
-                            newMessageTextField.focus = true
-                        }
-                        onEditMessage: {
-                            newMessageColumn.editMessageId = messageId
-                            newMessageColumn.editIsCaption = !!myMessage && !!myMessage.content && !!myMessage.content.caption
-                            newMessageTextField.text = utilities.getMessageText(myMessage, Utilities.MessageTextDefault, true, false)
-                            newMessageTextField.cursorPosition = newMessageTextField.text.length
-                            newMessageTextField.focus = true
-                        }
-                        onForwardMessage: {
-                            startForwardingMessages([myMessage])
-                        }
+
+                        onReplyToMessage: messageLoader.replyToMessage()
+                        onEditMessage: messageLoder.editMessage()
+                        onForwardMessage: startForwardingMessages([myMessage])
 
                         // TODO: when a delegate's height changes, the view should be moved up
                         // this can be achieved by setting verticalLayoutDirection to ListView.BottomToTop (not feasible here) or by using some hack
@@ -717,9 +727,6 @@ Column {
                     id: messageListViewItemSimpleComponent
                     MessageListViewItemSimple {}
                 }
-                sourceComponent: utilities.messageContentIsService(model.content_type)
-                                    ? messageListViewItemSimpleComponent
-                                    : messageListViewItemComponent
             }
             VerticalScrollDecorator { flickable: chatView }
 

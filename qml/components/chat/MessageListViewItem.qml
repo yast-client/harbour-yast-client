@@ -1,48 +1,52 @@
 import QtQuick 2.6
 import Sailfish.Silica 1.0
 import io.yaqtlib 1.0
-import ".."
-import "../messageContent"
-import "../../js/twemoji.js" as Emoji
-import "../../js/functions.js" as Functions
-import "../../js/debug.js" as Debug
-import "../../modules/Opal/FancyMenus"
+import '..'
+import '../messageContent'
+import '../../js/twemoji.js' as Emoji
+import '../../js/functions.js' as Functions
+import '../../js/debug.js' as Debug
 
 ListItem {
     id: messageListItem
+
     contentHeight: messageBackground.height + messageTextRow.y + Theme.paddingSmall/2
     Behavior on contentHeight { NumberAnimation { duration: 200 } }
-    property var chatId
-    property var messageId
-    property int messageIndex
-    property int messageViewCount
-    property var myMessage
-    property var messageAlbumMessageIds
-    property var messageAlbumMessages
-    property var reactions
+
     property QtObject precalculatedValues: ListView.view.precalculatedValues
+    property MessageData messageData: MessageData {}
+
+    readonly property var myMessage: messageData.message
+    readonly property var messageId: messageData.messageId
+    readonly property int messageIndex: messageData.messageIndex
+    readonly property var messageAlbumMessageIds: messageData.messageAlbumMessageIds
+    readonly property var messageAlbumMessages: messageData.messageAlbumMessages
+    readonly property int messageViewCount: messageData.messageViewCount
+    readonly property var reactions: messageData.reactions
+    readonly property bool generatedContentUnread: messageData.generatedContentUnread
+    readonly property bool isFirstInSequence: messageData.isFirstInSequence
+    readonly property bool isLastInSequence: messageData.isLastInSequence
+
+    readonly property bool isAlbum: messageData.isAlbum
+
+    readonly property bool isOwnMessage: messageData.isOwnMessage
+    readonly property bool isOutgoing: messageData.isOutgoing
+    readonly property bool isOutgoingRead: messageData.isOutgoingRead
+
     readonly property color textColor: isOutgoing ? Theme.highlightColor : Theme.primaryColor
     readonly property int textAlign: isOutgoing ? Text.AlignRight : Text.AlignLeft
     readonly property Page page: precalculatedValues.page
-    readonly property Item view: precalculatedValues.view
     readonly property bool isSelected: messageListItem.precalculatedValues.pageIsSelecting
-                                       && view.selectedMessages.some(function(existingMessage) { return existingMessage.id === messageId })
+                                       && messagesView.selectedMessages.some(function(existingMessage) { return existingMessage.id === messageId })
                                        && (messageAlbumMessageIds.length === 0 || messageAlbumMessageIds.every(function(id) {
-                                           return view.selectedMessages.some(function(m) { return m.id == id })
+                                           return messagesView.selectedMessages.some(function(m) { return m.id == id })
                                        }))
     property bool isSponsored: myMessage['@type'] === 'sponsoredMessage'
-    property bool generatedContentUnread
     readonly property bool isUnread: messagesView.readable && !isOutgoing && !isSponsored && messageId > messagesModel.lastReadInboxMessageId
-    readonly property bool isAlbum: myMessage.media_album_id && myMessage.media_album_id !== '0'
 
-    readonly property bool isOwnMessage: tdLibWrapper.myUserId === myMessage.sender_id.user_id
-    readonly property bool isOutgoing: myMessage.is_outgoing && !myMessage.is_channel_post
-    readonly property bool isOutgoingRead: messagesView.readable && isOutgoing && messageId <= messagesModel.lastReadOutboxMessageId
     property bool hasContentComponent
     property bool fullWidthWidescreenContent
     property bool contentAboveMedia
-    property bool isFirstInSequence: true
-    property bool isLastInSequence: true
     property bool wasNavigatedTo: false
 
     // Highlighting is provided by the rounded rectangle :D (except for navigation)
@@ -50,40 +54,15 @@ ListItem {
     contentItem.color: highlighted ? highlightedColor : 'transparent' // by default it's binded to _showPress, which is also true when pressTimer is running, which doesn't suit us
     openMenuOnPressAndHold: !messageListItem.precalculatedValues.pageIsSelecting
 
-    signal replyToMessage()
-    signal editMessage()
-    signal forwardMessage()
-
-    function deleteMessage(revoke) {
-        var chatId = page.chatInformation.id
-        var messageId = myMessage.id
-        Remorse.itemAction(messageListItem, (revoke || isSavedMessages) ? qsTr("Message deleted") : qsTr("Message deleted only for yourself"), function() {
-            tdLibWrapper.deleteMessages(chatId, [messageId], revoke)
-        })
-    }
-
-    function translate() {
-        pageStack.push(Qt.resolvedUrl("../../pages/TranslatePage.qml"), {
-                           messageId: messageId,
-                           message: myMessage,
-                       })
-    }
-
-    function togglePinned() {
-        if (myMessage.is_pinned)
-            Remorse.popupAction(page, qsTr("Message unpinned"), function() {
-                tdLibWrapper.unpinMessage(chatId, messageId)
-            })
-        else tdLibWrapper.pinMessage(chatId, messageId)
-    }
+    signal replyToMessage
+    signal editMessage
+    signal forwardMessage
 
     function openContextMenu() {
         if (menu && menu.isMessageListViewItemMainContextMenu)
             openMenu()
-        else {
-            contextMenuLoader.sourceComponent = mainContextMenuComponent
-            contextMenuLoader.active = true
-        }
+        else
+            contextMenuLoader.open()
     }
 
     function getContentWidthMultiplier() {
@@ -91,16 +70,15 @@ ListItem {
     }
 
     onClicked: {
-        if (messageListItem.precalculatedValues.pageIsSelecting) {
-            view.toggleMessageSelection(myMessage, messageAlbumMessageIds)
-        } else {
+        if (messageListItem.precalculatedValues.pageIsSelecting)
+            messagesView.toggleMessageSelection(myMessage, messageAlbumMessageIds)
+        else {
             // Allow extra context to react to click
             var extraContent = extraContentLoader.item
-            if (extraContent && extraContentLoader.contains(mapToItem(extraContentLoader, mouse.x, mouse.y))) {
+            if (extraContent && extraContentLoader.contains(mapToItem(extraContentLoader, mouse.x, mouse.y)))
                 extraContent.clicked()
-            } else if (webPagePreviewLoader.item) {
+            else if (webPagePreviewLoader.item)
                 webPagePreviewLoader.item.clicked()
-            }
 
             elementSelected(index)
         }
@@ -110,8 +88,8 @@ ListItem {
         if (openMenuOnPressAndHold)
             openContextMenu()
         else {
-            view.selectedMessages = []
-            view.state = ""
+            messagesView.selectedMessages = []
+            messagesView.state = ""
         }
 
     onMenuOpenChanged:
@@ -119,7 +97,7 @@ ListItem {
         chatView.manuallyScrolledToBottom = false
 
     Connections {
-        target: view
+        target: messagesView
         onNavigatedTo:
             if (targetIndex === index) {
                 messageListItem.wasNavigatedTo = true
@@ -127,313 +105,31 @@ ListItem {
             }
     }
 
-    Loader {
+    MessageContextMenu {
         id: contextMenuLoader
-        active: false
-        asynchronous: true
+        listItem: messageListItem
+        messageData: messageListItem.messageData
+        canCopy: messageText.height > 0
+        canTranslate: !!messageText.text
 
-        MessagePropertiesLoader {
-            id: propertiesLoader
-            chatId: messageListItem.chatId
-            messageId: messageListItem.messageId
-            autoLoad: false
-
-            onLoadedChanged:
-                if (loaded) {
-                    if (properties.can_get_read_date && isOutgoingRead)
-                        tdLibWrapper.getMessageReadDate(chatId, messageId)
-                }
-        }
-        property alias messageProperties: propertiesLoader.properties
-        readonly property bool canDeleteMessage: !!(messageProperties.can_be_deleted_for_all_users || messageProperties.can_be_deleted_only_for_self)
-
-        property int messageReadDate
-
-        property int reactionsRowSize: Math.floor(width / Theme.itemSizeSmall)
-        property var messageReactions
-        property bool reactionsLoading
-
-        function getAvailableReactions() {
-            if (reactionsLoading) return
-
-            Debug.log("Obtaining message reactions, row size:", reactionsRowSize)
-            reactionsLoading = true
-            tdLibWrapper.getMessageAvailableReactions(chatId, messageId, reactionsRowSize)
-        }
-        onReactionsRowSizeChanged: // width changed
-            if (status == Loader.Loading || status == Loader.Ready)
-                getAvailableReactions()
-
-        function loadData() {
-            propertiesLoader.load()
-            getAvailableReactions()
-        }
-        function reset() {
-            propertiesLoader.reset()
-            contextMenuLoader.messageReactions = null
-            contextMenuLoader.reactionsLoading = false
-            contextMenuLoader.messageReadDate = 0
+        onReady: {
+            messageListItem.menu = item
+            messageListItem.openMenu()
         }
 
-        onStatusChanged: {
-            if (status == Loader.Loading || status == Loader.Ready)
-                loadData()
-
-            if (status === Loader.Ready) {
-                messageListItem.menu = item
-                messageListItem.openMenu()
-            } else if (status != Loader.Loading)
-                reset()
-        }
-
-        sourceComponent: mainContextMenuComponent
-
-        function toggleReaction(type) {
-            if (type['@type'] === 'reactionTypePaid') {
-                // TODO
-                return
-            }
-
-            for (var i = 0; i < reactions.length; i++) {
-                var reaction = reactions[i]
-                if (JSON.stringify(reaction.type) === JSON.stringify(type)) {
-                    if (reaction.is_chosen) {
-                        // Reaction is already selected
-                        tdLibWrapper.removeMessageReaction(chatId, messageId, reaction.type)
-                        return
-                    }
-                    break
-                }
-            }
-            // Reaction is not yet selected
-            tdLibWrapper.addMessageReaction(chatId, messageId, type, true)
-        }
-
-        Component {
-            id: reactionMenuItemComponent
-            BaseRowMenuItem {
-                id: reactionMenuItem
-                visible: reactionLoader.supported
-                //highlight: false
-
-                MessageReaction {
-                    id: reactionLoader
-                    anchors.centerIn: parent
-                    type: modelData.type
-                    highlighted: reactionMenuItem.down
-                }
-
-                onClicked: contextMenuLoader.toggleReaction(modelData.type)
+        onHandleExtraContextMenuItems: {
+            if (!extraContentLoader.item || !extraContentLoader.item.extraContextMenuItems) return
+            for (var i=0; i<extraContentLoader.item.extraContextMenuItems.length; i++) {
+                var item = extraContentLoader.item.extraContextMenuItems[i]
+                if (item.processProperties)
+                    item.processProperties(properties)
+                item.parent = parent
             }
         }
 
-        Component {
-            id: mainContextMenuComponent
-            FancyContextMenu {
-                id: mainContextMenu
-                listItem: messageListItem
-
-                readonly property bool isMessageListViewItemMainContextMenu: true
-
-                onActiveChanged:
-                    if (active) contextMenuLoader.loadData()
-                onClosed: // closed is called at end of animation, and active is set to false at the start
-                    contextMenuLoader.reset()
-
-                MenuItem {
-                    visible: messagesView.canJumpToMessage
-                    text: qsTr("Jump to message")
-                    onClicked: jumpedTo(messageIndex, messageId)
-                }
-
-                MenuItemLoader {
-                    sourceComponent: Component {
-                        FancyMenuRow {
-                            visible: messageReactions && messageReactions.top_reactions && messageReactions.top_reactions.length
-
-                            Repeater {
-                                model: messageReactions.top_reactions.slice(0, reactionsRowSize - moreReactionsMenuItem.visible)
-                                delegate: reactionMenuItemComponent
-                            }
-
-                            IconRowMenuItem {
-                                id: moreReactionsMenuItem
-                                visible: messageReactions && messageReactions.top_reactions && reactionsRowSize < messageReactions.top_reactions.length
-                                icon.source: "image://theme/icon-m-down"
-                                onClicked:
-                                    contextMenuLoader.sourceComponent = reactionsContextMenuComponent
-                            }
-                        }
-                    }
-                }
-
-                FancyMenuRow {
-                    // NOTE: In places like this we should generally use `enabled` instead of `visible` so people can rely on spatial memory.
-                    // NOTE2: When a user selects a message, the finger first goes to the (horizontal) center of the message, so the most used options should be there
-                    IconRowMenuItem {
-                        icon.source: "image://theme/icon-m-select-all"
-                        onClicked: view.toggleMessageSelection(myMessage, messageAlbumMessageIds)
-                    }
-                    IconRowMenuItem {
-                        icon.source: "image://theme/icon-m-clipboard"
-                        visible: messageText.height > 0
-                        onClicked:
-                            Clipboard.text = isAlbum
-                                                ? utilities.getAlbumMessagesText(messageAlbumMessages, Utilities.MessageTextDefault, true, false)
-                                                : utilities.getMessageText(myMessage, Utilities.MessageTextDefault, true, false)
-                    }
-                    IconRowMenuItem {
-                        visible: !!messageProperties.can_be_pinned // FIXME: should we use enabled or visible here? for spatial memory
-                        icon.source: "../../../images/icon-m-" + (myMessage.is_pinned ? 'un' : '') + "pin.svg"
-                        onClicked: togglePinned()
-                    }
-                    IconRowMenuItem {
-                        visible: appSettings.showTranslateOption
-                        enabled: !!messageText.text
-                        icon.source: "image://theme/icon-m-region"
-                        onClicked: translate()
-                    }
-                }
-                FancyMenuRow {
-                    checkShort: function (ratio) { return Screen.sizeCategory <= Screen.Large && ratio > 1 }
-                    IconTextRowMenuItem {
-                        visible: !!messageProperties.can_be_forwarded
-                        icon.source: "image://theme/icon-m-message-forward"
-                        shortText: qsTr("Forward", 'Short version for "Forward Message"')
-                        longText: qsTr("Forward Message")
-                        onClicked: forwardMessage()
-                    }
-                    IconTextRowMenuItem {
-                        visible: !!messageProperties.can_be_replied
-                        icon.source: "image://theme/icon-m-message-reply"
-                        shortText: qsTr("Reply", 'Short version for "Reply to Message"')
-                        longText: qsTr("Reply to Message")
-                        onClicked: replyToMessage()
-                    }
-                }
-                FancyMenuRow {
-                    visible: !yaqtSettings.superCompactMessageMenu
-                    checkShort: function (ratio, size) { return Screen.sizeCategory <= Screen.Large && ratio > 1 }
-                    IconTextRowMenuItem {
-                        visible: canDeleteMessage
-                        icon.source: "image://theme/icon-m-delete"
-                        shortText: qsTr("Delete", 'Short version for "Delete Message"')
-                        longText: qsTr("Delete Message")
-                        onClicked: {
-                            if (messageProperties.can_be_deleted_only_for_self && messageProperties.can_be_deleted_for_all_users)
-                                contextMenuLoader.sourceComponent = deleteContextMenuComponent
-                            else
-                                deleteMessage(!!messageProperties.can_be_deleted_for_all_users)
-                        }
-                    }
-                    IconTextRowMenuItem {
-                        visible: !!messageProperties.can_be_edited
-                        icon.source: "image://theme/icon-m-edit"
-                        shortText: qsTr("Edit", 'Short version for "Edit Message"')
-                        longText: qsTr("Edit Message")
-                        onClicked: editMessage()
-                    }
-                }
-
-                MenuLabel {
-                    visible: !!messageProperties.can_get_read_date && isOutgoingRead && messageReadDate >= 0
-                    text: messageReadDate
-                          ? qsTr("Read %1", "Message read date").arg(Functions.getDateTimeTimepointRelative(messageReadDate))
-                          : qsTr("Loading", "Indicates that the message read date is being loaded")
-                }
-
-                MenuLabel {
-                    visible: !!myMessage.edit_date
-                    text: qsTr("Edited %1", "Message edit date").arg(Functions.getDateTimeTimepointRelative(myMessage.edit_date))
-                }
-
-                FancyMenuItem {
-                    text: "Copy debug info"
-                    icon.source: "image://theme/icon-m-diagnostic"
-                    visible: DebugLog.enabled
-                    onClicked: Clipboard.text =
-                               "Message ID: " + messageId
-                               + "\nMessage object:\n" + JSON.stringify(myMessage, null, 2)
-                               + "\n\n\nMessage properties:\n" + JSON.stringify(messageProperties, null, 2)
-                }
-
-
-                function handleExtraContextMenuItems(properties, parent) {
-                    if (!extraContentLoader.item || !extraContentLoader.item.extraContextMenuItems) return
-                    for (var i=0; i<extraContentLoader.item.extraContextMenuItems.length; i++) {
-                        var item = extraContentLoader.item.extraContextMenuItems[i]
-                        if (item.processProperties)
-                            item.processProperties(properties)
-                        item.parent = parent
-                    }
-                }
-
-                Component.onCompleted: handleExtraContextMenuItems(messageProperties, _contentColumn)
-                Component.onDestruction: handleExtraContextMenuItems({}, null)
-            }
-        }
-
-        Component {
-            id: reactionsContextMenuComponent
-
-            ContextMenu {
-                // HACK: disable animation when opening the menu
-                height: _contentHeight
-                on_DisplayHeightChanged:
-                    if (_contentHeight == _displayHeight)
-                        height = Qt.binding(function() { return _displayHeight })
-
-                SilicaFlickable {
-                    id: reactionsFlickable
-                    width: parent.width
-                    height: Math.min(contentHeight, Theme.itemSizeLarge*3)
-                    contentHeight: reactionsGrid.height
-
-                    Grid {
-                        id: reactionsGrid
-                        width: parent.width
-                        columns: reactionsRowSize
-
-                        Repeater {
-                            model: messageReactions.top_reactions
-                            delegate: BackgroundItem {
-                                visible: reactionLoader.supported
-                                width: parent.width / parent.columns
-                                height: Theme.itemSizeSmall
-
-                                MessageReaction {
-                                    id: reactionLoader
-                                    anchors.centerIn: parent
-                                    type: modelData.type
-                                    highlighted: down
-                                }
-
-                                onClicked: {
-                                    contextMenuLoader.toggleReaction(modelData.type)
-                                    close()
-                                }
-                            }
-                        }
-
-                        VerticalScrollDecorator { flickable: reactionsFlickable }
-                    }
-                }
-            }
-        }
-
-        Component {
-            id: deleteContextMenuComponent
-            ContextMenu {
-                MenuItem {
-                    text: (isPrivateChat || isSecretChat) ? qsTr("Delete for me and %1").arg(getChatTitle(font.pixelSize)) : qsTr("Delete for everyone")
-                    onClicked: deleteMessage(true)
-                }
-                MenuItem {
-                    text: qsTr("Delete just for me")
-                    onClicked: deleteMessage(false)
-                }
-            }
-        }
+        onReply: replyToMessage()
+        onEdit: editMessage()
+        onForward: forwardMessage()
     }
 
     TDLibMessageSender {
@@ -452,23 +148,6 @@ ListItem {
         onMessageNotFound:
             if (messageId === myMessage.reply_to_message_id)
                 messageInReplyToLoader.inReplyToMessageDeleted = true
-        onAvailableReactionsReceived:
-            if (messageListItem.chatId === chatId && messageListItem.messageId === messageId) {
-                Debug.log("Message reactions received")
-                contextMenuLoader.reactionsLoading = false
-                if (unavailabilityReason !== TDLibAPI.None) {
-                    Debug.log("Reactions are unavailable", unavailabilityReason)
-                    contextMenuLoader.messageReactions = null
-                    return
-                }
-
-                contextMenuLoader.messageReactions = reactions
-            }
-        onMessageReadDateReceived:
-            if (messageListItem.chatId === chatId && messageListItem.messageId === messageId) {
-                Debug.log("Message read date received")
-                contextMenuLoader.messageReadDate = typeof readDate == 'number' ? readDate : -1
-            }
     }
 
     Timer {
@@ -668,7 +347,7 @@ ListItem {
                                 anchors.fill: parent
                                 onClicked:
                                     if (precalculatedValues.pageIsSelecting)
-                                        view.toggleMessageSelection(myMessage, messageAlbumMessageIds)
+                                        messagesView.toggleMessageSelection(myMessage, messageAlbumMessageIds)
                                     else
                                         messagesView.showMessage(messageInReplyToRow.inReplyToMessage.id)
                                 onPressAndHold:
@@ -928,80 +607,9 @@ ListItem {
                     }
                 }
 
-                Loader {
-                    // TODO: animate choosing a reaction
-                    width: parent.width
-                    asynchronous: true
-                    active: reactions.length > 0
-                    height: active ? implicitHeight : 0
-
-                    sourceComponent: Component {
-                        Flow {
-                            width: parent.width
-                            spacing: Theme.paddingSmall
-                            layoutDirection: isOutgoing ? Qt.RightToLeft : Qt.LeftToRight
-                            Repeater {
-                                model: reactions
-                                Rectangle {
-                                    visible: reactionLoader.supported
-                                    height: Theme.fontSizeSmall + Theme.paddingSmall
-                                    width: childrenRect.width + Theme.paddingSmall
-                                    radius: width
-
-                                    color: modelData.is_chosen ? Theme.rgba(Theme.highlightBackgroundColor, 0.6) : Theme.rgba(Theme.secondaryColor, Theme.highlightBackgroundOpacity)
-
-                                    MessageReaction {
-                                        id: reactionLoader
-                                        x: Theme.paddingSmall
-                                        y: x
-                                        height: parent.height - y*2
-                                        width: height
-                                        type: modelData.type
-                                    }
-
-                                    RecentActorsList {
-                                        id: recentReactors
-                                        height: parent.height
-                                        anchors {
-                                            left: reactionLoader.right
-                                            leftMargin: Theme.paddingSmall/2
-                                        }
-                                        inverted: true
-                                        model: modelData.recent_sender_ids.reverse()
-                                    }
-
-                                    Text {
-                                        anchors {
-                                            left: reactionLoader.right
-                                            leftMargin: visible ? (recentReactors.count > 0 ? (Theme.paddingSmall + parent.height + Math.max(0, Theme.paddingMedium*(recentReactors.count - 1))) : Theme.paddingSmall/2) : 0
-                                        }
-                                        visible: (modelData.total_count - recentReactors.count) > 0
-                                        width: visible ? implicitWidth : 0
-                                        text: Functions.getShortenedCount(modelData.total_count)
-                                        font.pixelSize: Theme.fontSizeExtraSmall
-                                        color: modelData.is_chosen ? Theme.highlightColor : Theme.primaryColor
-                                    }
-
-                                    MouseArea {
-                                        anchors.fill: parent
-                                        // TODO: check if you can actually add the reaction
-                                        onClicked:
-                                            switch (modelData.type['@type']) {
-                                            case 'reactionTypeEmoji':
-                                            case 'reactionTypeCustomEmoji':
-                                                if (modelData.is_chosen)
-                                                    tdLibWrapper.removeMessageReaction(chatId, messageId, modelData.type)
-                                                else
-                                                    tdLibWrapper.addMessageReaction(chatId, messageId, modelData.type)
-                                                break
-                                            //case 'reactionTypePaid':
-                                            //    ...
-                                            }
-                                    }
-                                }
-                            }
-                        }
-                    }
+                MessageInteractionReactions {
+                    reactions: messageListItem.reactions
+                    invertLayout: isOutgoing
                 }
 
             }

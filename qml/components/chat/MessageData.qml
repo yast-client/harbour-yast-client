@@ -1,0 +1,20 @@
+import QtQuick 2.0
+
+QtObject {
+    property var message
+    property var messageId
+    property int messageIndex
+    property var messageAlbumMessageIds
+    property var messageAlbumMessages
+    property int messageViewCount
+    property var reactions
+    property bool generatedContentUnread
+    property bool isFirstInSequence: true
+    property bool isLastInSequence: true
+
+    readonly property bool isAlbum: myMessage.media_album_id && myMessage.media_album_id !== '0'
+
+    readonly property bool isOwnMessage: tdLibWrapper.myUserId === message.sender_id.user_id
+    readonly property bool isOutgoing: message.is_outgoing && !message.is_channel_post
+    readonly property bool isOutgoingRead: messagesView.readable && isOutgoing && messageId <= messagesModel.lastReadOutboxMessageId
+}
