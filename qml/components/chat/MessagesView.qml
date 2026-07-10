@@ -19,6 +19,7 @@ Column {
     property bool readable: true
     property bool showPinnedMessage: readable
     property bool preloaded: !readable
+    property bool canJumpToMessage: !readable
 
     property bool forceViewPlaceholder
 
@@ -45,8 +46,10 @@ Column {
     property int bottomIndex: -1
 
     signal resetElements()
-    signal elementSelected(int elementIndex)
     signal navigatedTo(int targetIndex)
+
+    signal elementSelected(int elementIndex)
+    signal jumpedTo(int index, var messageId)
 
     function log() {
         var a = Array.prototype.slice.call(arguments)

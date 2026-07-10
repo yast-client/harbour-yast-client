@@ -67,6 +67,13 @@ Item {
                     newMessageColumn.show: false
                     readable: false
 
+                    onJumpedTo: {
+                        pinnedMessagesModel.locked = true
+                        pinnedMessagesView.currentIndex = index == 0 ? pinnedMessagesView.count - 1 : index-1
+                        messagesView.showMessage(messageId)
+                        pageStack.pop()
+                    }
+
                     viewPlaceholder.text: qsTr("No pinned messages")
                     PushUpMenu {
                         parent: chatView

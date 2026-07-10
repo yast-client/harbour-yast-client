@@ -240,6 +240,12 @@ ListItem {
                 onClosed: // closed is called at end of animation, and active is set to false at the start
                     contextMenuLoader.reset()
 
+                MenuItem {
+                    visible: messagesView.canJumpToMessage
+                    text: qsTr("Jump to message")
+                    onClicked: jumpedTo(messageIndex, messageId)
+                }
+
                 MenuItemLoader {
                     sourceComponent: Component {
                         FancyMenuRow {
@@ -924,7 +930,6 @@ ListItem {
 
                 Loader {
                     // TODO: animate choosing a reaction
-                    id: interactionLoader
                     width: parent.width
                     asynchronous: true
                     active: reactions.length > 0
