@@ -56,7 +56,7 @@ Item {
                 }
 
                 MessagesView {
-                    id: pinnedMessagesView
+                    id: allPinnedMessagesView
                     width: parent.width
                     anchors {
                         top: header.bottom
@@ -76,24 +76,26 @@ Item {
 
                     viewPlaceholder.text: qsTr("No pinned messages")
                     PushUpMenu {
-                        parent: chatView
+                        parent: allPinnedMessagesView.chatView
                         MenuItem {
                             text: qsTr("Unpin all messages")
                             onClicked: {
-                                pinnedMessagesView.forceViewPlaceholder = true
+                                allPinnedMessagesView.forceViewPlaceholder = true
                                 var remorse = Remorse.popupAction(chatPage, qsTr("Messages unpinned"), function() {
                                     pageStack.pop()
                                     tdLibWrapper.unpinAllChatMessages(chatPage.chatId)
                                 })
-                                remorse.canceled.connect(function() { pinnedMessagesView.forceViewPlaceholder = false })
+                                remorse.canceled.connect(function() { allPinnedMessagesView.forceViewPlaceholder = false })
                             }
                         }
                     }
 
+                    chatView.footer: Item { width: 1; height: Theme.paddingLarge }
+
                     Connections {
-                        target: chatView
+                        target: allPinnedMessagesView.chatView
                         onCountChanged:
-                            if (!chatView.count)
+                            if (!allPinnedMessagesView.chatView.count)
                                 pageStack.pop()
                     }
                 }
@@ -164,7 +166,7 @@ Item {
         }
 
         Connections {
-            target: messagesView
+            target: chatView
             onMovementEnded:
                 pinnedMessagesModel.handleCurrentMessageIndexChanged(true)
         }
