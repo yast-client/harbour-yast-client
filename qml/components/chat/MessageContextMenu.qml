@@ -13,7 +13,9 @@ Loader {
 
     property Item listItem
     property MessageData messageData
+    property bool hideSelect
     property bool canCopy
+    property bool hideTranslate
     property bool canTranslate
 
     readonly property var messageId: messageData.messageId
@@ -27,10 +29,6 @@ Loader {
         contextMenuLoader.sourceComponent = mainContextMenuComponent
         contextMenuLoader.active = true
     }
-
-    signal reply
-    signal edit
-    signal forward
 
     function togglePinned() {
         if (message.is_pinned)
@@ -213,6 +211,7 @@ Loader {
                 // NOTE2: When a user selects a message, the finger first goes to the (horizontal) center of the message, so the most used options should be there
                 IconRowMenuItem {
                     icon.source: "image://theme/icon-m-select-all"
+                    visible: !hideSelect
                     onClicked: messagesView.toggleMessageSelection(message, messageData.messageAlbumMessageIds)
                 }
                 IconRowMenuItem {
@@ -229,7 +228,7 @@ Loader {
                     onClicked: togglePinned()
                 }
                 IconRowMenuItem {
-                    visible: appSettings.showTranslateOption
+                    visible: !hideTranslate && appSettings.showTranslateOption
                     enabled: canTranslate
                     icon.source: "image://theme/icon-m-region"
                     onClicked: translate()
@@ -242,14 +241,14 @@ Loader {
                     icon.source: "image://theme/icon-m-message-forward"
                     shortText: qsTr("Forward", 'Short version for "Forward Message"')
                     longText: qsTr("Forward Message")
-                    onClicked: forward()
+                    onClicked: messageData.forwardMessage()
                 }
                 IconTextRowMenuItem {
                     visible: !!messageProperties.can_be_replied
                     icon.source: "image://theme/icon-m-message-reply"
                     shortText: qsTr("Reply", 'Short version for "Reply to Message"')
                     longText: qsTr("Reply to Message")
-                    onClicked: reply()
+                    onClicked: messageData.replyToMessage()
                 }
             }
             FancyMenuRow {
@@ -260,19 +259,18 @@ Loader {
                     icon.source: "image://theme/icon-m-delete"
                     shortText: qsTr("Delete", 'Short version for "Delete Message"')
                     longText: qsTr("Delete Message")
-                    onClicked: {
+                    onClicked:
                         if (messageProperties.can_be_deleted_only_for_self && messageProperties.can_be_deleted_for_all_users)
                             contextMenuLoader.sourceComponent = deleteContextMenuComponent
                         else
                             deleteMessage(!!messageProperties.can_be_deleted_for_all_users)
-                    }
                 }
                 IconTextRowMenuItem {
                     visible: !!messageProperties.can_be_edited
                     icon.source: "image://theme/icon-m-edit"
                     shortText: qsTr("Edit", 'Short version for "Edit Message"')
                     longText: qsTr("Edit Message")
-                    onClicked: edit()
+                    onClicked: messageData.editMessage()
                 }
             }
 

@@ -703,6 +703,10 @@ Column {
                         interval: 0
                         onTriggered: messageData.messageIndex = Qt.binding(function() { return chatProxyModel.mapRowToSource(originalIndex) })
                     }
+
+                    onReplyToMessage: messageLoader.replyToMessage()
+                    onEditMessage: messageLoder.editMessage()
+                    onForwardMessage: startForwardingMessages([myMessage])
                 }
 
                 Component {
@@ -714,10 +718,6 @@ Column {
                         fullWidthWidescreenContent: !!myMessage.content && chatView.fullWidthWidescreenContentMessages.indexOf(model.content_type) > -1
                         contentAboveMedia: !!myMessage.content && chatView.contentAboveMediaByDefaultMessages.indexOf(model.content_type) > -1
 
-                        onReplyToMessage: messageLoader.replyToMessage()
-                        onEditMessage: messageLoder.editMessage()
-                        onForwardMessage: startForwardingMessages([myMessage])
-
                         // TODO: when a delegate's height changes, the view should be moved up
                         // this can be achieved by setting verticalLayoutDirection to ListView.BottomToTop (not feasible here) or by using some hack
                         // perhaps monitor contentHeight change of each delegate and reflect its changes on the view's contentY?
@@ -725,7 +725,9 @@ Column {
                 }
                 Component {
                     id: messageListViewItemSimpleComponent
-                    MessageListViewItemSimple {}
+                    MessageListViewItemSimple {
+                        messageData: messageLoader.messageData
+                    }
                 }
             }
             VerticalScrollDecorator { flickable: chatView }

@@ -17,4 +17,8 @@ QtObject {
     readonly property bool isOwnMessage: tdLibWrapper.myUserId === message.sender_id.user_id
     readonly property bool isOutgoing: message.is_outgoing && !message.is_channel_post
     readonly property bool isOutgoingRead: messagesView.readable && isOutgoing && messageId <= messagesModel.lastReadOutboxMessageId
+
+    signal replyToMessage
+    signal editMessage
+    signal forwardMessage
 }
