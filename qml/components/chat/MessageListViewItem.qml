@@ -664,7 +664,7 @@ ListItem {
                                     if (precalculatedValues.pageIsSelecting)
                                         view.toggleMessageSelection(myMessage, messageAlbumMessageIds)
                                     else
-                                        messagesView.showMessage(messageInReplyToRow.inReplyToMessage.id, true)
+                                        messagesView.showMessage(messageInReplyToRow.inReplyToMessage.id)
                                 onPressAndHold:
                                     if (openMenuOnPressAndHold) openContextMenu()
                             }

@@ -25,7 +25,7 @@ Column {
     property var selectedMessages: []
     readonly property bool isSelecting: selectedMessages.length > 0
     property bool containsSponsoredMessages: false
-    property string messageIdToScrollTo
+    property var messageIdToScrollTo
     property int unreadCount: chatInformation.unread_count
     property bool isPrepared
 
@@ -121,22 +121,23 @@ Column {
 
     }
 
-    function showMessage(messageId, initialRun) {
-        // Means we tapped a quoted message and had to load it.
-        if(initialRun)
-            messageIdToScrollTo = messageId
-
-        if (messageIdToScrollTo) {
-            var index = messagesModel.getMessageIndex(messagesView.messageIdToScrollTo)
-            var proxyIndex = chatProxyModel.mapRowFromSource(index, -1)
-            if(proxyIndex !== -1) {
-                messageIdToScrollTo = ""
-                chatView.scrollToIndex(proxyIndex)
-                navigatedTo(proxyIndex)
-            } else if(initialRun)
-                // we only want to do this once.
-                messagesModel.loadHistoryForMessage(messageIdToScrollTo)
+    function tryShowMessageToScrollTo() {
+        var index = messagesModel.getMessageIndex(messagesView.messageIdToScrollTo)
+        var proxyIndex = chatProxyModel.mapRowFromSource(index, -1)
+        if (proxyIndex !== -1) {
+            messageIdToScrollTo = 0
+            chatView.scrollToIndex(proxyIndex)
+            navigatedTo(proxyIndex)
+            return true
         }
+        return false
+    }
+
+    function showMessage(messageId) {
+        // Means we tapped a quoted message and had to load it.
+        messageIdToScrollTo = messageId
+        if (messageIdToScrollTo && !tryShowMessageToScrollTo())
+            messagesModel.loadHistoryForMessage(messageIdToScrollTo)
     }
 
     function clearAttachmentPreviewRow() {
@@ -277,8 +278,8 @@ Column {
             if (chatView.height > chatView.contentHeight) {
                 log("Chat content quite small...")
                 viewMessageTimer.queueViewMessage(chatView.count - 1)
-            } else if (fromIncrementalUpdate && messagesView.messageIdToScrollTo && messagesView.messageIdToScrollTo != "")
-                showMessage(messagesView.messageIdToScrollTo, false)
+            } else if (fromIncrementalUpdate && messagesView.messageIdToScrollTo)
+                tryShowMessageToScrollTo()
 
             chatViewCooldownTimer.restart()
             chatViewStartupReadTimer.restart()

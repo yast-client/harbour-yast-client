@@ -191,7 +191,7 @@ Item {
                     }
                 } else
                     pinnedMessagesView.currentIndex--
-                messagesView.showMessage(messageId, true)
+                messagesView.showMessage(messageId)
             }
 
             Row {
