@@ -30,7 +30,7 @@ AlbumMessageContentBase {
     Component {
         id: videoPreviewComponent
         Item {
-            property bool highlighted:_highlighted
+            property bool highlighted: _highlighted
             anchors.fill: parent
             clip: true
             TDLibThumbnail {

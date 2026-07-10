@@ -12,7 +12,7 @@ QtObject {
     property bool isFirstInSequence: true
     property bool isLastInSequence: true
 
-    readonly property bool isAlbum: myMessage.media_album_id && myMessage.media_album_id !== '0'
+    readonly property bool isAlbum: message.media_album_id && message.media_album_id !== '0'
 
     readonly property bool isOwnMessage: tdLibWrapper.myUserId === message.sender_id.user_id
     readonly property bool isOutgoing: message.is_outgoing && !message.is_channel_post
