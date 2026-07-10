@@ -51,7 +51,7 @@ ListItem {
     contentItem.color: highlighted ? highlightedColor : 'transparent' // by default it's binded to _showPress, which is also true when pressTimer is running, which doesn't suit us
     openMenuOnPressAndHold: !messageListItem.precalculatedValues.pageIsSelecting
 
-    signal clickedNormally
+    signal clickedNormally(real x, real y)
 
     function openContextMenu() {
         if (menu && menu.isMessageListViewItemMainContextMenu)
@@ -64,7 +64,7 @@ ListItem {
         if (messageListItem.precalculatedValues.pageIsSelecting)
             messagesView.toggleMessageSelection(myMessage, messageAlbumMessageIds)
         else {
-            clickedNormally()
+            clickedNormally(mouse.x, mouse.y)
             elementSelected(index)
         }
 

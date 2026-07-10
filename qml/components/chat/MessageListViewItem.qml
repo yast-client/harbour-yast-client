@@ -27,7 +27,7 @@ MessageListViewItemBase {
     onClickedNormally: {
         // Allow extra context to react to click
         var extraContent = extraContentLoader.item
-        if (extraContent && extraContentLoader.contains(mapToItem(extraContentLoader, mouse.x, mouse.y)))
+        if (extraContent && extraContentLoader.contains(mapToItem(extraContentLoader, x, y)))
             extraContent.clicked()
         else if (webPagePreviewLoader.item)
             webPagePreviewLoader.item.clicked()
