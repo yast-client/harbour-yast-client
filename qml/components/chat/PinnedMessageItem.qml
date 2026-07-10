@@ -213,9 +213,13 @@ Item {
 
                 Icon {
                     id: pinnedMessageButton
-                    width: Theme.itemSizeMedium
+                    width: Theme.iconSizeMedium
                     height: width
-                    anchors.verticalCenter: parent.verticalCenter
+                    anchors {
+                        verticalCenter: parent.verticalCenter
+                        leftMargin: Theme.paddingMedium
+                        rightMargin: Theme.paddingMedium
+                    }
                     source: 'image://theme/icon-m-mark-unread'
                 }
 
