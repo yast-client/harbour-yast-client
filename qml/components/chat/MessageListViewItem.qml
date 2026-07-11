@@ -38,7 +38,9 @@ MessageListViewItemBase {
 
     messageSenderInfo.messageSender: isOwnMessage ? undefined : myMessage.sender_id
 
-    contextMenuLoader.canCopy: messageText.height > 0
+    contextMenuLoader.canCopy: isAlbum // for document albums, there is no text in messageText
+                               ? !!utilities.getAlbumMessagesText(messageData.messageAlbumMessages, false)
+                               : messageText.height > 0
     contextMenuLoader.canTranslate: !!messageText.text
     contextMenuLoader.onHandleExtraContextMenuItems: {
         if (!extraContentLoader.item || !extraContentLoader.item.extraContextMenuItems) return
@@ -336,7 +338,7 @@ MessageListViewItemBase {
                         wrapMode: Text.Wrap
                         textFormat: Text.StyledText
                         onLinkActivated:
-                            utilities.handleLink(link, chatInformation.id, topicId)
+                            utilities.handleLink(link, chatId, topicId)
                         horizontalAlignment: messageListItem.textAlign
                         linkColor: Theme.highlightColor
                         height: text.length > 0 ? implicitHeight : 0

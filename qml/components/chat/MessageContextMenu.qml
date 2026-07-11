@@ -219,7 +219,7 @@ Loader {
                     visible: canCopy
                     onClicked:
                         Clipboard.text = messageData.isAlbum
-                                            ? utilities.getAlbumMessagesText(messageData.messageAlbumMessages, Utilities.MessageTextDefault, true, false)
+                                            ? utilities.getAlbumMessagesText(messageData.messageAlbumMessages, false, Utilities.MessageTextDefault, true, false)
                                             : utilities.getMessageText(message, Utilities.MessageTextDefault, true, false)
                 }
                 IconRowMenuItem {
@@ -252,7 +252,6 @@ Loader {
                 }
             }
             FancyMenuRow {
-                visible: !yaqtSettings.superCompactMessageMenu
                 checkShort: function (ratio, size) { return Screen.sizeCategory <= Screen.Large && ratio > 1 }
                 IconTextRowMenuItem {
                     visible: canDeleteMessage
