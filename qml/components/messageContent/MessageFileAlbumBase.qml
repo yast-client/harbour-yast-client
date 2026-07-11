@@ -22,10 +22,10 @@ AlbumMessageContentBase {
                     return existingMessage.id === albumMessages[index].id
                 })
                 highlighted: isSelected || down || messageContent.highlighted
-                onPressAndHold: page.toggleMessageSelection(albumMessages[index])
+                onPressAndHold: messagesView.toggleMessageSelection(albumMessages[index])
                 onClicked:
                     if(messageListItem.precalculatedValues.pageIsSelecting)
-                        page.toggleMessageSelection(albumMessages[index])
+                        messagesView.toggleMessageSelection(albumMessages[index])
 
                 Loader {
                     id: loader

@@ -95,14 +95,14 @@ AlbumMessageContentBase {
                 highlighted: isSelected || down || messageContent.highlighted
                 onClicked: {
                     if(messageListItem.precalculatedValues.pageIsSelecting) {
-                        page.toggleMessageSelection(albumMessages[index]);
+                        messagesView.toggleMessageSelection(albumMessages[index]);
                         return;
                     }
 
                     openDetail(index);
                 }
                 onPressAndHold: {
-                    page.toggleMessageSelection(albumMessages[index]);
+                    messagesView.toggleMessageSelection(albumMessages[index]);
                 }
 
                 Loader {
