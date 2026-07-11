@@ -19,6 +19,7 @@ AlbumMessageContentBase {
                 width: parent.width
                 height: loader.height + messageText.height
 
+                // FIXME this is broken (isn't highlighted when selected):
                 readonly property bool isSelected: messageListItem.precalculatedValues.pageIsSelecting && page.selectedMessages.some(function(existingMessage) {
                     return existingMessage.id === albumMessages[index].id
                 })
