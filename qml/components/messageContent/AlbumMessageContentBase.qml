@@ -6,7 +6,7 @@ MessageContentBase {
     id: messageContent
     property string chatId
     readonly property var albumId: rawMessage.media_album_id
-    property var albumMessages: messageListItem ? messageListItem.messageAlbumMessages : []
+    property var albumMessages: messageListItem.messageAlbumMessages
 
     height: defaultExtraContentHeight
 }
