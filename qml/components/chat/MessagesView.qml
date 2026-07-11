@@ -705,8 +705,8 @@ Column {
                     }
 
                     onReplyToMessage: messageLoader.replyToMessage()
-                    onEditMessage: messageLoder.editMessage()
-                    onForwardMessage: startForwardingMessages([myMessage])
+                    onEditMessage: messageLoader.editMessage()
+                    onForwardMessage: startForwardingMessages([message])
                 }
 
                 Component {
