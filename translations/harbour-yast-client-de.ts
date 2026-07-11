@@ -1395,67 +1395,22 @@ Pull down to visit telegram.org</source>
     </message>
 </context>
 <context>
-    <name>MessageDice</name>
-    <message>
-        <source>Send a %1 emoji to any chat to try your luck.</source>
-        <comment>in-app notification text</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Send</source>
-        <comment>in-app notification button for &quot;Send a %1 emoji to any chat to try your luck.&quot;</comment>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>MessageListViewItem</name>
-    <message>
-        <source>Reply to Message</source>
-        <translation>Auf Nachricht antworten</translation>
-    </message>
-    <message>
-        <source>Edit Message</source>
-        <translation>Nachricht bearbeiten</translation>
-    </message>
-    <message>
-        <source>Forwarded Message</source>
-        <translation>Weitergeleitete Nachricht</translation>
-    </message>
-    <message>
-        <source>Select Message</source>
-        <translation>Nachricht auswählen</translation>
-    </message>
-    <message>
-        <source>More Options...</source>
-        <translation>Mehr Optionen...</translation>
-    </message>
-    <message>
-        <source>Message deleted</source>
-        <translation>Nachricht gelöscht</translation>
-    </message>
-    <message>
-        <source>Copy Message to Clipboard</source>
-        <translation>Nachricht in die Zwischenablage kopieren</translation>
-    </message>
-    <message>
-        <source>Forward Message</source>
-        <translation>Nachricht weiterleiten</translation>
-    </message>
-    <message>
-        <source>Delete Message</source>
-        <translation>Nachricht löschen</translation>
-    </message>
+    <name>MessageContextMenu</name>
     <message>
         <source>Message unpinned</source>
         <translation type="unfinished">Nachricht losgeheftet</translation>
     </message>
     <message>
-        <source>Unpin Message</source>
-        <translation type="unfinished">Nachricht losheften</translation>
+        <source>Message deleted</source>
+        <translation type="unfinished">Nachricht gelöscht</translation>
     </message>
     <message>
-        <source>Pin Message</source>
-        <translation type="unfinished">Nachricht anheften</translation>
+        <source>Message deleted only for yourself</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Jump to message</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Forward</source>
@@ -1463,9 +1418,17 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Forward Message</source>
+        <translation type="unfinished">Nachricht weiterleiten</translation>
+    </message>
+    <message>
         <source>Reply</source>
         <comment>Short version for &quot;Reply to Message&quot;</comment>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reply to Message</source>
+        <translation type="unfinished">Auf Nachricht antworten</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -1473,37 +1436,17 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Delete Message</source>
+        <translation type="unfinished">Nachricht löschen</translation>
+    </message>
+    <message>
         <source>Edit</source>
         <comment>Short version for &quot;Edit Message&quot;</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Message deleted only for yourself</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete for me and %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete for everyone</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete just for me</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Recommended Message</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sponsored Message</source>
-        <translation type="unfinished">Gesponsorte Nachricht</translation>
-    </message>
-    <message>
-        <source>edited</source>
-        <translation type="unfinished">bearbeitet</translation>
+        <source>Edit Message</source>
+        <translation type="unfinished">Nachricht bearbeiten</translation>
     </message>
     <message>
         <source>Read %1</source>
@@ -1521,6 +1464,70 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Delete for me and %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete for everyone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete just for me</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MessageDice</name>
+    <message>
+        <source>Send a %1 emoji to any chat to try your luck.</source>
+        <comment>in-app notification text</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <comment>in-app notification button for &quot;Send a %1 emoji to any chat to try your luck.&quot;</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MessageListViewItem</name>
+    <message>
+        <source>Forwarded Message</source>
+        <translation>Weitergeleitete Nachricht</translation>
+    </message>
+    <message>
+        <source>Select Message</source>
+        <translation>Nachricht auswählen</translation>
+    </message>
+    <message>
+        <source>More Options...</source>
+        <translation>Mehr Optionen...</translation>
+    </message>
+    <message>
+        <source>Copy Message to Clipboard</source>
+        <translation>Nachricht in die Zwischenablage kopieren</translation>
+    </message>
+    <message>
+        <source>Unpin Message</source>
+        <translation type="unfinished">Nachricht losheften</translation>
+    </message>
+    <message>
+        <source>Pin Message</source>
+        <translation type="unfinished">Nachricht anheften</translation>
+    </message>
+    <message>
+        <source>Recommended Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sponsored Message</source>
+        <translation type="unfinished">Gesponsorte Nachricht</translation>
+    </message>
+    <message>
+        <source>edited</source>
+        <translation type="unfinished">bearbeitet</translation>
+    </message>
+    <message>
         <source>for %1</source>
         <comment>guest bot caller</comment>
         <translation type="unfinished"></translation>
@@ -1533,10 +1540,6 @@ Pull down to visit telegram.org</source>
 </context>
 <context>
     <name>MessageListViewItemSimple</name>
-    <message>
-        <source>You</source>
-        <translation>Sie</translation>
-    </message>
     <message numerus="yes">
         <source>scored %Ln points in %2</source>
         <comment>myself</comment>
@@ -1551,17 +1554,6 @@ Pull down to visit telegram.org</source>
             <numerusform>hat %Ln Punkt bei %2 erziehlt</numerusform>
             <numerusform>hat %Ln Punkte bei %2 erziehlt</numerusform>
         </translation>
-    </message>
-</context>
-<context>
-    <name>MessageOverlayFlickable</name>
-    <message>
-        <source>You</source>
-        <translation>Sie</translation>
-    </message>
-    <message>
-        <source>This message was forwarded. Original author: %1</source>
-        <translation>Diese Nachricht wurde weitergeleitet. Ursprünglicher Autor: %1</translation>
     </message>
 </context>
 <context>

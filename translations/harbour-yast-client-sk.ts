@@ -1406,67 +1406,22 @@ Pull down to visit telegram.org</source>
     </message>
 </context>
 <context>
-    <name>MessageDice</name>
-    <message>
-        <source>Send a %1 emoji to any chat to try your luck.</source>
-        <comment>in-app notification text</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Send</source>
-        <comment>in-app notification button for &quot;Send a %1 emoji to any chat to try your luck.&quot;</comment>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>MessageListViewItem</name>
-    <message>
-        <source>Reply to Message</source>
-        <translation>Odpovedať na správu</translation>
-    </message>
-    <message>
-        <source>Edit Message</source>
-        <translation>Upraviť správu</translation>
-    </message>
-    <message>
-        <source>Forwarded Message</source>
-        <translation>Postúpená správa</translation>
-    </message>
-    <message>
-        <source>Select Message</source>
-        <translation>Vybrať správu</translation>
-    </message>
-    <message>
-        <source>More Options...</source>
-        <translation>Ďalšie voľby...</translation>
-    </message>
-    <message>
-        <source>Message deleted</source>
-        <translation>Správa bola odstránená</translation>
-    </message>
-    <message>
-        <source>Copy Message to Clipboard</source>
-        <translation>Kopírovať správu do schránky</translation>
-    </message>
-    <message>
-        <source>Forward Message</source>
-        <translation>Postúpiť správu</translation>
-    </message>
-    <message>
-        <source>Delete Message</source>
-        <translation>Odstrániť správu</translation>
-    </message>
+    <name>MessageContextMenu</name>
     <message>
         <source>Message unpinned</source>
         <translation type="unfinished">Správa bola odopnutá</translation>
     </message>
     <message>
-        <source>Unpin Message</source>
-        <translation type="unfinished">Odopnúť správu</translation>
+        <source>Message deleted</source>
+        <translation type="unfinished">Správa bola odstránená</translation>
     </message>
     <message>
-        <source>Pin Message</source>
-        <translation type="unfinished">Pripnúť správu</translation>
+        <source>Message deleted only for yourself</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Jump to message</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Forward</source>
@@ -1474,9 +1429,17 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Forward Message</source>
+        <translation type="unfinished">Postúpiť správu</translation>
+    </message>
+    <message>
         <source>Reply</source>
         <comment>Short version for &quot;Reply to Message&quot;</comment>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reply to Message</source>
+        <translation type="unfinished">Odpovedať na správu</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -1484,37 +1447,17 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Delete Message</source>
+        <translation type="unfinished">Odstrániť správu</translation>
+    </message>
+    <message>
         <source>Edit</source>
         <comment>Short version for &quot;Edit Message&quot;</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Message deleted only for yourself</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete for me and %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete for everyone</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete just for me</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Recommended Message</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sponsored Message</source>
-        <translation type="unfinished">Sponzorovaná správa</translation>
-    </message>
-    <message>
-        <source>edited</source>
-        <translation type="unfinished">upravená</translation>
+        <source>Edit Message</source>
+        <translation type="unfinished">Upraviť správu</translation>
     </message>
     <message>
         <source>Read %1</source>
@@ -1532,6 +1475,70 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Delete for me and %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete for everyone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete just for me</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MessageDice</name>
+    <message>
+        <source>Send a %1 emoji to any chat to try your luck.</source>
+        <comment>in-app notification text</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <comment>in-app notification button for &quot;Send a %1 emoji to any chat to try your luck.&quot;</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MessageListViewItem</name>
+    <message>
+        <source>Forwarded Message</source>
+        <translation>Postúpená správa</translation>
+    </message>
+    <message>
+        <source>Select Message</source>
+        <translation>Vybrať správu</translation>
+    </message>
+    <message>
+        <source>More Options...</source>
+        <translation>Ďalšie voľby...</translation>
+    </message>
+    <message>
+        <source>Copy Message to Clipboard</source>
+        <translation>Kopírovať správu do schránky</translation>
+    </message>
+    <message>
+        <source>Unpin Message</source>
+        <translation type="unfinished">Odopnúť správu</translation>
+    </message>
+    <message>
+        <source>Pin Message</source>
+        <translation type="unfinished">Pripnúť správu</translation>
+    </message>
+    <message>
+        <source>Recommended Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sponsored Message</source>
+        <translation type="unfinished">Sponzorovaná správa</translation>
+    </message>
+    <message>
+        <source>edited</source>
+        <translation type="unfinished">upravená</translation>
+    </message>
+    <message>
         <source>for %1</source>
         <comment>guest bot caller</comment>
         <translation type="unfinished"></translation>
@@ -1544,10 +1551,6 @@ Pull down to visit telegram.org</source>
 </context>
 <context>
     <name>MessageListViewItemSimple</name>
-    <message>
-        <source>You</source>
-        <translation>Ja</translation>
-    </message>
     <message numerus="yes">
         <source>scored %Ln points in %2</source>
         <comment>myself</comment>
@@ -1564,17 +1567,6 @@ Pull down to visit telegram.org</source>
             <numerusform>získal %Ln body v %2</numerusform>
             <numerusform>získal %Ln bodov v %2</numerusform>
         </translation>
-    </message>
-</context>
-<context>
-    <name>MessageOverlayFlickable</name>
-    <message>
-        <source>You</source>
-        <translation>Ja</translation>
-    </message>
-    <message>
-        <source>This message was forwarded. Original author: %1</source>
-        <translation>Táto správa bola postúpená. Pôvodný autor: %1</translation>
     </message>
 </context>
 <context>

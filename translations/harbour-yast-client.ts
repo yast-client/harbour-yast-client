@@ -1384,20 +1384,11 @@ Pull down to visit telegram.org</source>
     </message>
 </context>
 <context>
-    <name>MessageDice</name>
+    <name>MessageContextMenu</name>
     <message>
-        <source>Send a %1 emoji to any chat to try your luck.</source>
-        <comment>in-app notification text</comment>
+        <source>Message unpinned</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Send</source>
-        <comment>in-app notification button for &quot;Send a %1 emoji to any chat to try your luck.&quot;</comment>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>MessageListViewItem</name>
     <message>
         <source>Message deleted</source>
         <translation type="unfinished"></translation>
@@ -1407,7 +1398,7 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Message unpinned</source>
+        <source>Jump to message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1447,6 +1438,21 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Read %1</source>
+        <comment>Message read date</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Loading</source>
+        <comment>Indicates that the message read date is being loaded</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edited %1</source>
+        <comment>Message edit date</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Delete for me and %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1458,6 +1464,22 @@ Pull down to visit telegram.org</source>
         <source>Delete just for me</source>
         <translation type="unfinished"></translation>
     </message>
+</context>
+<context>
+    <name>MessageDice</name>
+    <message>
+        <source>Send a %1 emoji to any chat to try your luck.</source>
+        <comment>in-app notification text</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <comment>in-app notification button for &quot;Send a %1 emoji to any chat to try your luck.&quot;</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MessageListViewItem</name>
     <message>
         <source>Copy Message to Clipboard</source>
         <translation type="unfinished"></translation>
@@ -1495,21 +1517,6 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Read %1</source>
-        <comment>Message read date</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Loading</source>
-        <comment>Indicates that the message read date is being loaded</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Edited %1</source>
-        <comment>Message edit date</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>for %1</source>
         <comment>guest bot caller</comment>
         <translation type="unfinished"></translation>
@@ -1522,10 +1529,6 @@ Pull down to visit telegram.org</source>
 </context>
 <context>
     <name>MessageListViewItemSimple</name>
-    <message>
-        <source>You</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message numerus="yes">
         <source>scored %Ln points in %2</source>
         <comment>myself</comment>
@@ -1538,17 +1541,6 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
-    </message>
-</context>
-<context>
-    <name>MessageOverlayFlickable</name>
-    <message>
-        <source>You</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This message was forwarded. Original author: %1</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

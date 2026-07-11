@@ -1384,38 +1384,9 @@ Pull down to visit telegram.org</source>
     </message>
 </context>
 <context>
-    <name>MessageDice</name>
+    <name>MessageContextMenu</name>
     <message>
-        <source>Send a %1 emoji to any chat to try your luck.</source>
-        <comment>in-app notification text</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Send</source>
-        <comment>in-app notification button for &quot;Send a %1 emoji to any chat to try your luck.&quot;</comment>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>MessageListViewItem</name>
-    <message>
-        <source>Reply to Message</source>
-        <translation type="unfinished">Válasz az üzenetre</translation>
-    </message>
-    <message>
-        <source>Edit Message</source>
-        <translation type="unfinished">Üzenet szerkesztése</translation>
-    </message>
-    <message>
-        <source>Forwarded Message</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Select Message</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>More Options...</source>
+        <source>Message unpinned</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1423,27 +1394,11 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Copy Message to Clipboard</source>
+        <source>Message deleted only for yourself</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Forward Message</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete Message</source>
-        <translation type="unfinished">Üzenet törlése</translation>
-    </message>
-    <message>
-        <source>Message unpinned</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unpin Message</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Pin Message</source>
+        <source>Jump to message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1452,9 +1407,17 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Forward Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Reply</source>
         <comment>Short version for &quot;Reply to Message&quot;</comment>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reply to Message</source>
+        <translation type="unfinished">Válasz az üzenetre</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -1462,37 +1425,17 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Delete Message</source>
+        <translation type="unfinished">Üzenet törlése</translation>
+    </message>
+    <message>
         <source>Edit</source>
         <comment>Short version for &quot;Edit Message&quot;</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Message deleted only for yourself</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete for me and %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete for everyone</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete just for me</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Recommended Message</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sponsored Message</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>edited</source>
-        <translation type="unfinished">Szerkesztett</translation>
+        <source>Edit Message</source>
+        <translation type="unfinished">Üzenet szerkesztése</translation>
     </message>
     <message>
         <source>Read %1</source>
@@ -1510,6 +1453,70 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Delete for me and %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete for everyone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete just for me</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MessageDice</name>
+    <message>
+        <source>Send a %1 emoji to any chat to try your luck.</source>
+        <comment>in-app notification text</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <comment>in-app notification button for &quot;Send a %1 emoji to any chat to try your luck.&quot;</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MessageListViewItem</name>
+    <message>
+        <source>Forwarded Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>More Options...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy Message to Clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unpin Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pin Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recommended Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sponsored Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>edited</source>
+        <translation type="unfinished">Szerkesztett</translation>
+    </message>
+    <message>
         <source>for %1</source>
         <comment>guest bot caller</comment>
         <translation type="unfinished"></translation>
@@ -1522,10 +1529,6 @@ Pull down to visit telegram.org</source>
 </context>
 <context>
     <name>MessageListViewItemSimple</name>
-    <message>
-        <source>You</source>
-        <translation type="unfinished">Te</translation>
-    </message>
     <message numerus="yes">
         <source>scored %Ln points in %2</source>
         <comment>myself</comment>
@@ -1538,17 +1541,6 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
-    </message>
-</context>
-<context>
-    <name>MessageOverlayFlickable</name>
-    <message>
-        <source>You</source>
-        <translation type="unfinished">Te</translation>
-    </message>
-    <message>
-        <source>This message was forwarded. Original author: %1</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

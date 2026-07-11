@@ -1399,6 +1399,88 @@ Pull down to visit telegram.org</translation>
     </message>
 </context>
 <context>
+    <name>MessageContextMenu</name>
+    <message>
+        <source>Message unpinned</source>
+        <translation type="unfinished">Message unpinned</translation>
+    </message>
+    <message>
+        <source>Message deleted</source>
+        <translation type="unfinished">Message deleted</translation>
+    </message>
+    <message>
+        <source>Message deleted only for yourself</source>
+        <translation type="unfinished">Message deleted only for yourself</translation>
+    </message>
+    <message>
+        <source>Jump to message</source>
+        <translation type="unfinished">Jump to message</translation>
+    </message>
+    <message>
+        <source>Forward</source>
+        <comment>Short version for &quot;Forward Message&quot;</comment>
+        <translation type="unfinished">Forward</translation>
+    </message>
+    <message>
+        <source>Forward Message</source>
+        <translation type="unfinished">Forward Message</translation>
+    </message>
+    <message>
+        <source>Reply</source>
+        <comment>Short version for &quot;Reply to Message&quot;</comment>
+        <translation type="unfinished">Reply</translation>
+    </message>
+    <message>
+        <source>Reply to Message</source>
+        <translation type="unfinished">Reply to Message</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <comment>Short version for &quot;Delete Message&quot;</comment>
+        <translation type="unfinished">Delete</translation>
+    </message>
+    <message>
+        <source>Delete Message</source>
+        <translation type="unfinished">Delete Message</translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <comment>Short version for &quot;Edit Message&quot;</comment>
+        <translation type="unfinished">Edit</translation>
+    </message>
+    <message>
+        <source>Edit Message</source>
+        <translation type="unfinished">Edit Message</translation>
+    </message>
+    <message>
+        <source>Read %1</source>
+        <comment>Message read date</comment>
+        <translation type="unfinished">Read %1</translation>
+    </message>
+    <message>
+        <source>Loading</source>
+        <comment>Indicates that the message read date is being loaded</comment>
+        <translation type="unfinished">Loading</translation>
+    </message>
+    <message>
+        <source>Edited %1</source>
+        <comment>Message edit date</comment>
+        <translation type="unfinished">Edited %1</translation>
+    </message>
+    <message>
+        <source>Delete for me and %1</source>
+        <translation type="unfinished">Delete for me and %1</translation>
+    </message>
+    <message>
+        <source>Delete for everyone</source>
+        <translation type="unfinished">Delete for everyone</translation>
+    </message>
+    <message>
+        <source>Delete just for me</source>
+        <translation type="unfinished">Delete just for me</translation>
+    </message>
+</context>
+<context>
     <name>MessageDice</name>
     <message>
         <source>Send a %1 emoji to any chat to try your luck.</source>
@@ -1414,14 +1496,6 @@ Pull down to visit telegram.org</translation>
 <context>
     <name>MessageListViewItem</name>
     <message>
-        <source>Reply to Message</source>
-        <translation>Reply to Message</translation>
-    </message>
-    <message>
-        <source>Edit Message</source>
-        <translation>Edit Message</translation>
-    </message>
-    <message>
         <source>Forwarded Message</source>
         <translation>Forwarded Message</translation>
     </message>
@@ -1434,24 +1508,8 @@ Pull down to visit telegram.org</translation>
         <translation>More Options...</translation>
     </message>
     <message>
-        <source>Message deleted</source>
-        <translation>Message deleted</translation>
-    </message>
-    <message>
         <source>Copy Message to Clipboard</source>
         <translation>Copy Message to Clipboard</translation>
-    </message>
-    <message>
-        <source>Forward Message</source>
-        <translation>Forward Message</translation>
-    </message>
-    <message>
-        <source>Delete Message</source>
-        <translation>Delete Message</translation>
-    </message>
-    <message>
-        <source>Message unpinned</source>
-        <translation>Message unpinned</translation>
     </message>
     <message>
         <source>Unpin Message</source>
@@ -1460,42 +1518,6 @@ Pull down to visit telegram.org</translation>
     <message>
         <source>Pin Message</source>
         <translation>Pin Message</translation>
-    </message>
-    <message>
-        <source>Forward</source>
-        <comment>Short version for &quot;Forward Message&quot;</comment>
-        <translation>Forward</translation>
-    </message>
-    <message>
-        <source>Reply</source>
-        <comment>Short version for &quot;Reply to Message&quot;</comment>
-        <translation>Reply</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <comment>Short version for &quot;Delete Message&quot;</comment>
-        <translation>Delete</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <comment>Short version for &quot;Edit Message&quot;</comment>
-        <translation>Edit</translation>
-    </message>
-    <message>
-        <source>Message deleted only for yourself</source>
-        <translation>Message deleted only for yourself</translation>
-    </message>
-    <message>
-        <source>Delete for me and %1</source>
-        <translation>Delete for me and %1</translation>
-    </message>
-    <message>
-        <source>Delete for everyone</source>
-        <translation>Delete for everyone</translation>
-    </message>
-    <message>
-        <source>Delete just for me</source>
-        <translation>Delete just for me</translation>
     </message>
     <message>
         <source>Recommended Message</source>
@@ -1510,21 +1532,6 @@ Pull down to visit telegram.org</translation>
         <translation>edited</translation>
     </message>
     <message>
-        <source>Read %1</source>
-        <comment>Message read date</comment>
-        <translation>Read %1</translation>
-    </message>
-    <message>
-        <source>Loading</source>
-        <comment>Indicates that the message read date is being loaded</comment>
-        <translation>Loading</translation>
-    </message>
-    <message>
-        <source>Edited %1</source>
-        <comment>Message edit date</comment>
-        <translation>Edited %1</translation>
-    </message>
-    <message>
         <source>for %1</source>
         <comment>guest bot caller</comment>
         <translation>for %1</translation>
@@ -1537,10 +1544,6 @@ Pull down to visit telegram.org</translation>
 </context>
 <context>
     <name>MessageListViewItemSimple</name>
-    <message>
-        <source>You</source>
-        <translation>You</translation>
-    </message>
     <message numerus="yes">
         <source>scored %Ln points in %2</source>
         <comment>myself</comment>
@@ -1555,17 +1558,6 @@ Pull down to visit telegram.org</translation>
             <numerusform>scored %Ln point in %2</numerusform>
             <numerusform>scored %Ln points in %2</numerusform>
         </translation>
-    </message>
-</context>
-<context>
-    <name>MessageOverlayFlickable</name>
-    <message>
-        <source>You</source>
-        <translation>You</translation>
-    </message>
-    <message>
-        <source>This message was forwarded. Original author: %1</source>
-        <translation>This message was forwarded. Original author: %1</translation>
     </message>
 </context>
 <context>
