@@ -480,8 +480,8 @@ MessageListViewItemBase {
 
                     Icon {
                         id: statusIcon
-                        width: Theme.iconSizeSmall
-                        height: Theme.iconSizeSmall
+                        width: visible ? Theme.iconSizeSmall : 0
+                        height: width
                         sourceSize: {
                             width: width
                             height: height
@@ -490,8 +490,8 @@ MessageListViewItemBase {
                             right: parent.right
                             verticalCenter: parent.verticalCenter
                         }
-                        visible: !!source
-                        source: messagesView.readable && isOutgoing ? Functions.getMessageSendingStateIcon(messageId, messagesModel.lastReadOutboxMessageId, myMessage.sending_state) : ''
+                        visible: messagesView.readable && isOutgoing
+                        source: visible ? Functions.getMessageSendingStateIcon(messageId, messagesModel.lastReadOutboxMessageId, myMessage.sending_state) : ''
                         highlighted: isOutgoingRead
                     }
                     rightPadding: statusIcon.visible ? statusIcon.width + Theme.paddingSmall : 0
