@@ -243,10 +243,8 @@ Page {
         // better ideas are always welcome
         IconButton {
             id: proxySettingsButton
-            anchors {
-                left: header.statusItem.right
-                verticalCenter: parent.verticalCenter
-            }
+            y: (parent.height - height) / 2 + Screen.topCutout.height
+            anchors.left: header.statusItem.right
             visible: false
             enabled: visible
             icon.source: 'image://theme/icon-m-browser-permissions'
