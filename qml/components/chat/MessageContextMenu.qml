@@ -244,7 +244,7 @@ Loader {
                     onClicked: messageData.forwardMessage()
                 }
                 IconTextRowMenuItem {
-                    visible: !!messageProperties.can_be_replied
+                    visible: newMessageColumn.show && !!messageProperties.can_be_replied
                     icon.source: "image://theme/icon-m-message-reply"
                     shortText: qsTr("Reply", 'Short version for "Reply to Message"')
                     longText: qsTr("Reply to Message")
@@ -265,7 +265,7 @@ Loader {
                             deleteMessage(!!messageProperties.can_be_deleted_for_all_users)
                 }
                 IconTextRowMenuItem {
-                    visible: !!messageProperties.can_be_edited
+                    visible: newMessageColumn.show && !!messageProperties.can_be_edited
                     icon.source: "image://theme/icon-m-edit"
                     shortText: qsTr("Edit", 'Short version for "Edit Message"')
                     longText: qsTr("Edit Message")
