@@ -29,7 +29,7 @@ Loader {
         Image {
             id: emojiReaction
             anchors.fill: parent
-            sourceSize: {
+            sourceSize {
                 width: width
                 height: height
             }

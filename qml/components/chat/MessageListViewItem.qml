@@ -481,7 +481,7 @@ MessageListViewItemBase {
                         id: statusIcon
                         width: visible ? Theme.iconSizeSmall : 0
                         height: width
-                        sourceSize: {
+                        sourceSize {
                             width: width
                             height: height
                         }
