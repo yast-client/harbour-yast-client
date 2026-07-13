@@ -8,7 +8,7 @@ Loader {
     property int __silica_menuitem
 
     width: parent.width
-    height: Theme.itemSizeSmall
+    height: active && visible ? Theme.itemSizeSmall : 0
 
     property bool down
     property bool highlighted

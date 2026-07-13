@@ -68,16 +68,21 @@ Loader {
 
     property int messageReadDate
 
-    property int reactionsRowSize: Math.floor(width / Theme.itemSizeSmall)
+    property int reactionsRowSize: Math.min(25, Math.floor(width / Theme.itemSizeSmall))
     property var messageReactions
     property bool reactionsLoading
+
+    readonly property var reactionsModel: messageReactions
+                                          ? messageReactions.recent_reactions.concat(messageReactions.top_reactions).concat(messageReactions.popular_reactions)
+                                          : []
 
     function getAvailableReactions() {
         if (reactionsLoading) return
 
-        Debug.log("Obtaining message reactions, row size:", reactionsRowSize)
+        var rowSize = Math.max(5, reactionsRowSize)
+        Debug.log("Obtaining message reactions, row size:", rowSize)
         reactionsLoading = true
-        tdLibWrapper.getMessageAvailableReactions(chatId, messageId, reactionsRowSize)
+        tdLibWrapper.getMessageAvailableReactions(chatId, messageId, rowSize)
     }
     onReactionsRowSizeChanged: // width changed
         if (status == Loader.Loading || status == Loader.Ready)
@@ -102,6 +107,10 @@ Loader {
                 contextMenuLoader.reactionsLoading = false
                 if (unavailabilityReason !== TDLibAPI.None) {
                     Debug.log("Reactions are unavailable", unavailabilityReason)
+                    contextMenuLoader.messageReactions = null
+                    return
+                }
+                if (reactions.are_tags) { // not supported yet (requires custom emoji reactions)
                     contextMenuLoader.messageReactions = null
                     return
                 }
@@ -186,18 +195,18 @@ Loader {
             }
 
             MenuItemLoader {
+                visible: !!reactionsModel.length
                 sourceComponent: Component {
                     FancyMenuRow {
-                        visible: messageReactions && messageReactions.top_reactions && messageReactions.top_reactions.length
-
                         Repeater {
-                            model: messageReactions.top_reactions.slice(0, reactionsRowSize - moreReactionsMenuItem.visible)
+                            id: reactionsRepeater
+                            model: reactionsModel.slice(0, reactionsRowSize - moreReactionsMenuItem.visible)
                             delegate: reactionMenuItemComponent
                         }
 
                         IconRowMenuItem {
                             id: moreReactionsMenuItem
-                            visible: messageReactions && messageReactions.top_reactions && reactionsRowSize < messageReactions.top_reactions.length
+                            visible: reactionsModel && reactionsRowSize < reactionsModel.length
                             icon.source: "image://theme/icon-m-down"
                             onClicked:
                                 contextMenuLoader.sourceComponent = reactionsContextMenuComponent
@@ -322,7 +331,7 @@ Loader {
                     columns: reactionsRowSize
 
                     Repeater {
-                        model: messageReactions.top_reactions
+                        model: reactionsModel
                         delegate: BackgroundItem {
                             visible: reactionLoader.supported
                             width: parent.width / parent.columns
