@@ -5,141 +5,141 @@
     <name>AboutPage</name>
     <message>
         <source>About YAST</source>
-        <translation type="unfinished">О программе</translation>
+        <translation>О программе</translation>
     </message>
     <message>
         <source>A Telegram client for Sailfish OS</source>
-        <translation type="unfinished"></translation>
+        <translation>Клиент Telegram для Sailfish OS</translation>
     </message>
     <message>
         <source>Translations</source>
-        <translation type="unfinished">Перевод</translation>
+        <translation>Перевод</translation>
     </message>
     <message>
         <source>Italian</source>
-        <translation type="unfinished"></translation>
+        <translation>Итальянский</translation>
     </message>
     <message>
         <source>Russian</source>
-        <translation type="unfinished"></translation>
+        <translation>Русский</translation>
     </message>
     <message>
         <source>Fernschreiber translations</source>
-        <translation type="unfinished"></translation>
+        <translation>Перевод Fernschreiber</translation>
     </message>
     <message>
         <source>Chinese</source>
-        <translation type="unfinished"></translation>
+        <translation>Китайский</translation>
     </message>
     <message>
         <source>Finnish</source>
-        <translation type="unfinished"></translation>
+        <translation>Финский</translation>
     </message>
     <message>
         <source>French</source>
-        <translation type="unfinished"></translation>
+        <translation>Французский</translation>
     </message>
     <message>
         <source>Hungarian</source>
-        <translation type="unfinished"></translation>
+        <translation>Венгерский</translation>
     </message>
     <message>
         <source>Polish</source>
-        <translation type="unfinished"></translation>
+        <translation>Польский</translation>
     </message>
     <message>
         <source>Slovak</source>
-        <translation type="unfinished"></translation>
+        <translation>Словацкий</translation>
     </message>
     <message>
         <source>Spanish</source>
-        <translation type="unfinished"></translation>
+        <translation>Испанский</translation>
     </message>
     <message>
         <source>Swedish</source>
-        <translation type="unfinished"></translation>
+        <translation>Шведский</translation>
     </message>
     <message>
         <source>This application is a fork of Fernschreiber, and wouldn&apos;t be possible without it. Thanks to everyone who developed and contributed to it!</source>
-        <translation type="unfinished"></translation>
+        <translation>Это приложение - форк Fernschreiber, и не было бы возможно без него. Спасибо всем, кто учавствовал в его разработке!</translation>
     </message>
     <message>
         <source>Telegram Database Library (TDLib)</source>
-        <translation type="unfinished"></translation>
+        <translation>Telegram Database Library (TDLib)</translation>
     </message>
     <message>
         <source>This project uses twemoji. Thanks for making it available under the conditions of the MIT License (coding) and CC-BY 4.0 (graphics)!</source>
-        <translation type="unfinished"></translation>
+        <translation>Этот проект использует twemoji. Спасибо, что сделали её доступной на условиях лицензии MIT License (программирование) und CC-BY 4.0 (графика)!</translation>
     </message>
     <message>
         <source>Coding</source>
-        <translation type="unfinished"></translation>
+        <translation>Программирование</translation>
     </message>
     <message>
         <source>Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Графика</translation>
     </message>
     <message>
         <source>other contributors</source>
-        <translation type="unfinished"></translation>
+        <translation>другие участники</translation>
     </message>
     <message>
         <source>This project uses OpenStreetMap Nominatim for reverse geocoding of location attachments. Thanks for making it available as web service!</source>
-        <translation type="unfinished"></translation>
+<translation>Этот проект использует OpenStreetMap Nominatim для обратного геокодирования вложений местоположения. Спасибо, что сделали его доступным в качестве веб-сервиса!</translation>
     </message>
     <message>
         <source>About Telegram</source>
-        <translation type="unfinished"></translation>
+        <translation>О Telegram</translation>
     </message>
     <message>
         <source>This product uses the Telegram API but is not endorsed or certified by Telegram.</source>
-        <translation type="unfinished"></translation>
+        <translation>Этот продукт использует Telegram API, но не одобрен или сертифицирован Telegram</translation>
     </message>
     <message>
         <source>Terms of Service</source>
-        <translation type="unfinished"></translation>
+        <translation>Условия использования</translation>
     </message>
     <message>
         <source>Privacy Policy</source>
-        <translation type="unfinished"></translation>
+        <translation>Политика конфиденциальности</translation>
     </message>
     <message>
         <source>TDLib version %1 (commit hash %2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Версия TDLib %1 (хэш коммита %2)</translation>
     </message>
     <message>
         <source>News</source>
-        <translation type="unfinished">Новости</translation>
+        <translation>Новости</translation>
     </message>
     <message>
         <source>Tips</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Ask a Question</source>
         <comment>Contact support</comment>
-        <translation type="unfinished"></translation>
+        <translation>Задать вопрос</translation>
     </message>
     <message>
         <source>Not needed, debug mode is already enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Не требуется, режим отладки уже включён</translation>
     </message>
     <message numerus="yes">
         <source>You are now %n steps away from enabling debug mode</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Вы теперь в %n шаге от включения режима отладки</numerusform>
+            <numerusform>Вы теперь в %n шагах от включения режима отладки</numerusform>
+            <numerusform>Вы теперь в %n шагах от включения режима отладки</numerusform>
         </translation>
     </message>
     <message>
         <source>Debug mode is now enabled!</source>
-        <translation type="unfinished"></translation>
+        <translation>Режим отладки теперь включён!</translation>
     </message>
     <message>
         <source>https://t.me/TelegramTips</source>
         <comment>URL to the localized Telegram Tips channel. Keep unfinished or as-is if not available for your language</comment>
-        <translation type="unfinished"></translation>
+        <translation>https://t.me/TelegramTips</translation>
     </message>
 </context>
 <context>
@@ -413,12 +413,12 @@
     <message>
         <source>All</source>
         <comment>all chats tab</comment>
-        <translation>Все</translation>
+        <translation type="vanished">Все</translation>
     </message>
     <message>
         <source>Archive</source>
         <comment>archived chats tab</comment>
-        <translation>Архив</translation>
+        <translation type="vanished">Архив</translation>
     </message>
 </context>
 <context>
@@ -960,27 +960,29 @@
     <name>ContactSupportDialog</name>
     <message>
         <source>Ask a Question</source>
-        <translation type="unfinished"></translation>
+        <translation>Задать вопрос</translation>
     </message>
     <message>
         <source>Ask</source>
-        <translation type="unfinished"></translation>
+        <translation>Задать</translation>
     </message>
     <message>
         <source>Please note that Telegram Support is done by volunteers. We try to respond as quickly as possible, but it may take a while.
 
 Please take a look at the %1Telegram FAQ%2: it has answers to most questions and important tips for %3troubleshooting%4.</source>
-        <translation type="unfinished"></translation>
+        <translation>Пожалуйста, обратите внимание, что в поддержке Telegram отвечают волонтеры. Мы постараемся помочь как можно быстрее, но ожидание может занять время.
+
+Пожалуйста, ознакомьтесь с %1часто задаваемыми вопросами о Telegram%2: там Вы найдёте ответы на большинство вопросов и важные советы по %3устранению неполадок%4.</translation>
     </message>
     <message>
         <source>https://telegram.org/faq#general-questions</source>
         <comment>Localized Telegram FAQ URL. Keep unfinished or as-is if not available for your language</comment>
-        <translation type="unfinished"></translation>
+        <translation>https://telegram.org/faq#general-questions</translation>
     </message>
     <message>
         <source>https://telegram.org/faq#troubleshooting</source>
         <comment>Localized Telegram troubleshooting FAQ URL. Keep unfinished or as-is if not available for your language</comment>
-        <translation type="unfinished"></translation>
+        <translation>https://telegram.org/faq#troubleshooting</translation>
     </message>
 </context>
 <context>
@@ -1414,82 +1416,82 @@ Pull down to visit telegram.org</source>
     <name>MessageContextMenu</name>
     <message>
         <source>Message unpinned</source>
-        <translation type="unfinished">Сообщение откреплено</translation>
+        <translation>Сообщение откреплено</translation>
     </message>
     <message>
         <source>Message deleted</source>
-        <translation type="unfinished">Сообщение удалено</translation>
+        <translation>Сообщение удалено</translation>
     </message>
     <message>
         <source>Message deleted only for yourself</source>
-        <translation type="unfinished">Удалить у себя</translation>
+        <translation>Удалить у себя</translation>
     </message>
     <message>
         <source>Jump to message</source>
-        <translation type="unfinished">Перейти к сообщению</translation>
+        <translation>Перейти к сообщению</translation>
     </message>
     <message>
         <source>Forward</source>
         <comment>Short version for &quot;Forward Message&quot;</comment>
-        <translation type="unfinished">Переслать</translation>
+        <translation>Переслать</translation>
     </message>
     <message>
         <source>Forward Message</source>
-        <translation type="unfinished">Переслать сообщение</translation>
+        <translation>Переслать сообщение</translation>
     </message>
     <message>
         <source>Reply</source>
         <comment>Short version for &quot;Reply to Message&quot;</comment>
-        <translation type="unfinished">Ответить</translation>
+        <translation>Ответить</translation>
     </message>
     <message>
         <source>Reply to Message</source>
-        <translation type="unfinished">Ответить</translation>
+        <translation>Ответить</translation>
     </message>
     <message>
         <source>Delete</source>
         <comment>Short version for &quot;Delete Message&quot;</comment>
-        <translation type="unfinished">Удалить</translation>
+        <translation>Удалить</translation>
     </message>
     <message>
         <source>Delete Message</source>
-        <translation type="unfinished">Удалить сообщение</translation>
+        <translation>Удалить сообщение</translation>
     </message>
     <message>
         <source>Edit</source>
         <comment>Short version for &quot;Edit Message&quot;</comment>
-        <translation type="unfinished"></translation>
+        <translation>Редактировать</translation>
     </message>
     <message>
         <source>Edit Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Редактирование</translation>
     </message>
     <message>
         <source>Read %1</source>
         <comment>Message read date</comment>
-        <translation type="unfinished">Прочитано %1</translation>
+        <translation>Прочитано %1</translation>
     </message>
     <message>
         <source>Loading</source>
         <comment>Indicates that the message read date is being loaded</comment>
-        <translation type="unfinished">Загрузка</translation>
+        <translation>Загрузка</translation>
     </message>
     <message>
         <source>Edited %1</source>
         <comment>Message edit date</comment>
-        <translation type="unfinished">Изменено %1</translation>
+        <translation>Изменено %1</translation>
     </message>
     <message>
         <source>Delete for me and %1</source>
-        <translation type="unfinished">Удалить у меня и у %1</translation>
+        <translation>Удалить у меня и у %1</translation>
     </message>
     <message>
         <source>Delete for everyone</source>
-        <translation type="unfinished">Удалить для всех</translation>
+        <translation>Удалить для всех</translation>
     </message>
     <message>
         <source>Delete just for me</source>
-        <translation type="unfinished">Удалить только у меня</translation>
+        <translation>Удалить только у меня</translation>
     </message>
 </context>
 <context>
@@ -2018,32 +2020,32 @@ Pull down to visit telegram.org</source>
     <message>
         <source>This secret chat was created</source>
         <comment>Notification</comment>
-        <translation>Секретный чат был создан</translation>
+        <translation type="vanished">Секретный чат был создан</translation>
     </message>
     <message>
         <source>Close</source>
         <comment>Notification button for closing a newly created secret chat</comment>
-        <translation>Закрыть</translation>
+        <translation type="vanished">Закрыть</translation>
     </message>
     <message>
         <source>You have a new message</source>
         <comment>Notification</comment>
-        <translation>Вам пришло сообщение</translation>
+        <translation type="vanished">Вам пришло сообщение</translation>
     </message>
     <message>
         <source>Mark as read</source>
         <comment>Notification button</comment>
-        <translation>Прочитать</translation>
+        <translation type="vanished">Прочитать</translation>
     </message>
     <message>
         <source>Reply</source>
         <comment>Reply to a message in a notification</comment>
-        <translation>Ответить</translation>
+        <translation type="vanished">Ответить</translation>
     </message>
     <message numerus="yes">
         <source>Mentions in %1</source>
         <comment>Title for a notification containing messages with mentions from a group chat. Mention count is displayed separately</comment>
-        <translation>
+        <translation type="vanished">
             <numerusform>Упоминание в %1</numerusform>
             <numerusform>Упоминания в %1</numerusform>
             <numerusform>Упоминания в %1</numerusform>
@@ -2052,7 +2054,7 @@ Pull down to visit telegram.org</source>
     <message numerus="yes">
         <source>Mentions from %1</source>
         <comment>Title for a notification containing messages with mentions from a private chat. Mention count is displayed separately</comment>
-        <translation>
+        <translation type="vanished">
             <numerusform>Упоминание от %1</numerusform>
             <numerusform>Упоминания от %1</numerusform>
             <numerusform>Упоминания от %1</numerusform>
@@ -2061,22 +2063,22 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Incoming video call</source>
         <comment>notification</comment>
-        <translation>Входящий видеозвонок</translation>
+        <translation type="vanished">Входящий видеозвонок</translation>
     </message>
     <message>
         <source>Incoming call</source>
         <comment>notification</comment>
-        <translation>Входящий звонок</translation>
+        <translation type="vanished">Входящий звонок</translation>
     </message>
     <message>
         <source>Accept</source>
         <comment>Accept a call</comment>
-        <translation>Принять</translation>
+        <translation type="vanished">Принять</translation>
     </message>
     <message>
         <source>Decline</source>
         <comment>Decline a call</comment>
-        <translation>Отклонить</translation>
+        <translation type="vanished">Отклонить</translation>
     </message>
 </context>
 <context>
@@ -2235,6 +2237,162 @@ Pull down to visit telegram.org</source>
         <source>Your contributions to translations or code would be most welcome.</source>
         <translation>Ваш вклад в перевод или код будет только приветствоваться.</translation>
     </message>
+    <message>
+        <source>Author</source>
+        <translation type="vanished">Автор</translation>
+    </message>
+    <message numerus="yes">
+        <source>Author(s)</source>
+        <translation type="vanished">
+            <numerusform>Автор</numerusform>
+            <numerusform>Авторы</numerusform>
+            <numerusform>Авторов</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Maintainer</source>
+        <translation type="vanished">Сопровождающий</translation>
+    </message>
+    <message numerus="yes">
+        <source>Maintainer(s)</source>
+        <translation type="vanished">
+            <numerusform>Сопровождающий</numerusform>
+            <numerusform>Сопровождающих</numerusform>
+            <numerusform>Сопровождающих</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Programming</source>
+        <translation type="vanished">Программирование</translation>
+    </message>
+    <message>
+        <source>Icon Design</source>
+        <translation type="vanished">Дизайн иконок</translation>
+    </message>
+    <message>
+        <source>Third-party libraries</source>
+        <translation type="vanished">Сторонние библиотеки</translation>
+    </message>
+    <message>
+        <source>Data</source>
+        <translation type="vanished">Данные</translation>
+    </message>
+    <message>
+        <source>Data License</source>
+        <translation type="vanished">Лицензия на работу с данными</translation>
+    </message>
+    <message numerus="yes">
+        <source>Data License(s)</source>
+        <translation type="vanished">
+            <numerusform>Лицензия на работу с данными</numerusform>
+            <numerusform>Лицензии на работу с данными</numerusform>
+            <numerusform>Лицензий на работу с данными</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Terms of Use</source>
+        <translation type="vanished">Условия использования</translation>
+    </message>
+    <message>
+        <source>Chinese</source>
+        <translation type="vanished">Китайский</translation>
+    </message>
+    <message>
+        <source>Czech</source>
+        <translation type="vanished">Чешский</translation>
+    </message>
+    <message>
+        <source>Dutch</source>
+        <translation type="vanished">Голландский</translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation type="vanished">Английский</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="vanished">Эстонский</translation>
+    </message>
+    <message>
+        <source>Finnish</source>
+        <translation type="vanished">Финский</translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation type="vanished">Французский</translation>
+    </message>
+    <message>
+        <source>German</source>
+        <translation type="vanished">Немецкий</translation>
+    </message>
+    <message>
+        <source>Greek</source>
+        <translation type="vanished">Греческий</translation>
+    </message>
+    <message>
+        <source>Hungarian</source>
+        <translation type="vanished">Венгерский</translation>
+    </message>
+    <message>
+        <source>Indonesian</source>
+        <translation type="vanished">Индонезийский</translation>
+    </message>
+    <message>
+        <source>Italian</source>
+        <translation type="vanished">Итальянский</translation>
+    </message>
+    <message>
+        <source>Norwegian Bokmål</source>
+        <translation type="obsolete">Норвежский букмол</translation>
+    </message>
+    <message>
+        <source>Polish</source>
+        <translation type="vanished">Польский</translation>
+    </message>
+    <message>
+        <source>Romanian</source>
+        <translation type="vanished">Румынский</translation>
+    </message>
+    <message>
+        <source>Russian</source>
+        <translation type="vanished">Русский</translation>
+    </message>
+    <message>
+        <source>Serbian</source>
+        <translation type="vanished">Сербский</translation>
+    </message>
+    <message>
+        <source>Slovak</source>
+        <translation type="vanished">Словацкий</translation>
+    </message>
+    <message>
+        <source>Spanish</source>
+        <translation type="vanished">Испанский</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation type="vanished">Шведский</translation>
+    </message>
+    <message>
+        <source>Turkish</source>
+        <translation type="vanished">Турецкий</translation>
+    </message>
+    <message>
+        <source>Ukrainian</source>
+        <translation type="vanished">Украинский</translation>
+    </message>
+    <message>
+        <source>Norwegian Nynorsk</source>
+        <translation type="vanished">Норвежский нюнорск</translation>
+    </message>
+    <message>
+        <source>Latvian</source>
+        <translation type="vanished">Латышский</translation>
+    </message>
+    <message>
+        <source>Dutch (Belgium)</source>
+        <translation type="vanished">Голландский (Бельгия)</translation>
+    </message>
 </context>
 <context>
     <name>OverviewPage</name>
@@ -2382,6 +2540,10 @@ Pull down to visit telegram.org</source>
     <message>
         <source>No pinned messages</source>
         <translation>Нет закреплённых сообщений</translation>
+    </message>
+    <message>
+        <source>Unpin message</source>
+        <translation>Открепить сообщение</translation>
     </message>
 </context>
 <context>
@@ -3245,19 +3407,19 @@ Pull down to visit telegram.org</source>
     <name>TDLibWrapper</name>
     <message>
         <source>Waiting for network…</source>
-        <translation>Ожидание сети…</translation>
+        <translation type="vanished">Ожидание сети…</translation>
     </message>
     <message>
         <source>Connecting to network…</source>
-        <translation>Подключение к сети…</translation>
+        <translation type="vanished">Подключение к сети…</translation>
     </message>
     <message>
         <source>Connecting to proxy…</source>
-        <translation>Подключение к прокси…</translation>
+        <translation type="vanished">Подключение к прокси…</translation>
     </message>
     <message>
         <source>Updating content…</source>
-        <translation>Обновление контента…</translation>
+        <translation type="vanished">Обновление контента…</translation>
     </message>
 </context>
 <context>
@@ -3332,186 +3494,186 @@ Pull down to visit telegram.org</source>
     <name>Utilities</name>
     <message>
         <source>Video: %1</source>
-        <translation>Видео: %1</translation>
+        <translation type="vanished">Видео: %1</translation>
     </message>
     <message>
         <source>Voice message: %1</source>
-        <translation>Голосовое сообщение: %1</translation>
+        <translation type="vanished">Голосовое сообщение: %1</translation>
     </message>
     <message>
         <source>joined this chat</source>
         <comment>myself</comment>
-        <translation>присоединились к чату</translation>
+        <translation type="vanished">присоединились к чату</translation>
     </message>
     <message>
         <source>joined this chat</source>
-        <translation>присоединил(ась)ся к чату</translation>
+        <translation type="vanished">присоединил(ась)ся к чату</translation>
     </message>
     <message>
         <source>were added to this chat</source>
         <comment>myself</comment>
-        <translation>были добавлены в чат</translation>
+        <translation type="vanished">были добавлены в чат</translation>
     </message>
     <message>
         <source>was added to this chat</source>
-        <translation>была добавлен(а) в чат</translation>
+        <translation type="vanished">была добавлен(а) в чат</translation>
     </message>
     <message>
         <source>have added %1 to the chat</source>
         <comment>myself</comment>
-        <translation>добавили %1 в чат</translation>
+        <translation type="vanished">добавили %1 в чат</translation>
     </message>
     <message>
         <source>has added %1 to the chat</source>
-        <translation>добавил(а) %1 в чат</translation>
+        <translation type="vanished">добавил(а) %1 в чат</translation>
     </message>
     <message>
         <source>left this chat</source>
         <comment>myself</comment>
-        <translation>покинули чат</translation>
+        <translation type="vanished">покинули чат</translation>
     </message>
     <message>
         <source>left this chat</source>
-        <translation>покинул(а) чат</translation>
+        <translation type="vanished">покинул(а) чат</translation>
     </message>
     <message>
         <source>have removed %1 from the chat</source>
         <comment>myself</comment>
-        <translation>удалили %1 из чата</translation>
+        <translation type="vanished">удалили %1 из чата</translation>
     </message>
     <message>
         <source>has removed %1 from the chat</source>
-        <translation>удалил(а) %1 из чата</translation>
+        <translation type="vanished">удалил(а) %1 из чата</translation>
     </message>
     <message>
         <source>changed the chat title to %1</source>
         <comment>myself</comment>
-        <translation>изменил название чата на %1</translation>
+        <translation type="vanished">изменил название чата на %1</translation>
     </message>
     <message>
         <source>changed the chat title to %1</source>
-        <translation>изменил(а) название чата на %1</translation>
+        <translation type="vanished">изменил(а) название чата на %1</translation>
     </message>
     <message>
         <source>Anonymous Quiz</source>
-        <translation>Анонимная викторина</translation>
+        <translation type="vanished">Анонимная викторина</translation>
     </message>
     <message>
         <source>Quiz</source>
-        <translation>Викторина</translation>
+        <translation type="vanished">Викторина</translation>
     </message>
     <message>
         <source>Anonymous Poll</source>
-        <translation>Анонимный опрос</translation>
+        <translation type="vanished">Анонимный опрос</translation>
     </message>
     <message>
         <source>Poll</source>
-        <translation>Опрос</translation>
+        <translation type="vanished">Опрос</translation>
     </message>
     <message>
         <source>created this group</source>
         <comment>myself</comment>
-        <translation>создали группу</translation>
+        <translation type="vanished">создали группу</translation>
     </message>
     <message>
         <source>created this group</source>
-        <translation>создал(а) группу</translation>
+        <translation type="vanished">создал(а) группу</translation>
     </message>
     <message>
         <source>changed the chat photo</source>
         <comment>myself</comment>
-        <translation>изменили фото чата</translation>
+        <translation type="vanished">изменили фото чата</translation>
     </message>
     <message>
         <source>changed the chat photo</source>
-        <translation>изменил(а) фото чата</translation>
+        <translation type="vanished">изменил(а) фото чата</translation>
     </message>
     <message>
         <source>deleted the chat photo</source>
         <comment>myself</comment>
-        <translation>удалили фото чата</translation>
+        <translation type="vanished">удалили фото чата</translation>
     </message>
     <message>
         <source>deleted the chat photo</source>
-        <translation>удалил(а) фото чата</translation>
+        <translation type="vanished">удалил(а) фото чата</translation>
     </message>
     <message>
         <source>changed the secret chat TTL setting</source>
         <comment>myself; TTL = Time To Live</comment>
-        <translation>изменил(а) настройки времени исчезновения сообщений секретного чата</translation>
+        <translation type="vanished">изменил(а) настройки времени исчезновения сообщений секретного чата</translation>
     </message>
     <message>
         <source>changed the secret chat TTL setting</source>
         <comment>TTL = Time To Live</comment>
-        <translation>изменил(а) настройки времени исчезновения сообщений секретного чата</translation>
+        <translation type="vanished">изменил(а) настройки времени исчезновения сообщений секретного чата</translation>
     </message>
     <message>
         <source>upgraded this group to a supergroup</source>
         <comment>myself</comment>
-        <translation>обновили эту группу до супергруппы</translation>
+        <translation type="vanished">обновили эту группу до супергруппы</translation>
     </message>
     <message>
         <source>upgraded this group to a supergroup</source>
-        <translation>обновил(а) эту группу до супергруппы</translation>
+        <translation type="vanished">обновил(а) эту группу до супергруппы</translation>
     </message>
     <message>
         <source>pinned a message</source>
         <comment>myself</comment>
-        <translation>закрепили сообщение</translation>
+        <translation type="vanished">закрепили сообщение</translation>
     </message>
     <message>
         <source>pinned a message</source>
-        <translation>закрепил(а) сообщение</translation>
+        <translation type="vanished">закрепил(а) сообщение</translation>
     </message>
     <message>
         <source>sent a self-destructing photo that is expired</source>
         <comment>myself</comment>
-        <translation>отправили самоисчезающее фото, срок которого истёк</translation>
+        <translation type="vanished">отправили самоисчезающее фото, срок которого истёк</translation>
     </message>
     <message>
         <source>sent a self-destructing photo that is expired</source>
-        <translation>отправил(а) самоисчезающее фото, срок которого истёк</translation>
+        <translation type="vanished">отправил(а) самоисчезающее фото, срок которого истёк</translation>
     </message>
     <message>
         <source>sent a self-destructing video that is expired</source>
         <comment>myself</comment>
-        <translation>отправили самоисчезающее видео, срок которого истёк</translation>
+        <translation type="vanished">отправили самоисчезающее видео, срок которого истёк</translation>
     </message>
     <message>
         <source>sent a self-destructing video that is expired</source>
-        <translation>отправил(а) самоисчезающее видео, срок которого истёк</translation>
+        <translation type="vanished">отправил(а) самоисчезающее видео, срок которого истёк</translation>
     </message>
     <message>
         <source>sent a self-destructing voice message that is expired</source>
         <comment>myself</comment>
-        <translation>отправили самоисчезающее голосовое сообщение, срок которого истёк</translation>
+        <translation type="vanished">отправили самоисчезающее голосовое сообщение, срок которого истёк</translation>
     </message>
     <message>
         <source>sent a self-destructing voice message that is expired</source>
-        <translation>отправил(а) самоисчезающее голосовое сообщение, срок которого истёк</translation>
+        <translation type="vanished">отправил(а) самоисчезающее голосовое сообщение, срок которого истёк</translation>
     </message>
     <message>
         <source>sent a self-destructing video message that is expired</source>
         <comment>myself</comment>
-        <translation>отправили самоисчезающее видеосообщение, срок которого истёк</translation>
+        <translation type="vanished">отправили самоисчезающее видеосообщение, срок которого истёк</translation>
     </message>
     <message>
         <source>sent a self-destructing video message that is expired</source>
-        <translation>отправил(а) самоисчезающее видеосообщение, срок которого истёк</translation>
+        <translation type="vanished">отправил(а) самоисчезающее видеосообщение, срок которого истёк</translation>
     </message>
     <message>
         <source>created a screenshot in this chat</source>
         <comment>myself</comment>
-        <translation>создали снимок экрана в этом чате</translation>
+        <translation type="vanished">создали снимок экрана в этом чате</translation>
     </message>
     <message>
         <source>created a screenshot in this chat</source>
-        <translation>создал(а) снимок экрана в этом чате</translation>
+        <translation type="vanished">создал(а) снимок экрана в этом чате</translation>
     </message>
     <message numerus="yes">
         <source>scored %Ln points</source>
         <comment>myself</comment>
-        <translation>
+        <translation type="vanished">
             <numerusform>набрал(а) %Ln очко</numerusform>
             <numerusform>набрал(а) %Ln очка</numerusform>
             <numerusform>набрал(а) %Ln очков</numerusform>
@@ -3519,7 +3681,7 @@ Pull down to visit telegram.org</source>
     </message>
     <message numerus="yes">
         <source>scored %Ln points</source>
-        <translation>
+        <translation type="vanished">
             <numerusform>набрал(а) %Ln очко</numerusform>
             <numerusform>набрал(а) %Ln очка</numerusform>
             <numerusform>набрал(а) %Ln очков</numerusform>
@@ -3527,24 +3689,24 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>you allowed this bot to message you when you added it to your attachment menu</source>
-        <translation>вы разрешили этому боту писать Вам, добавив его в меню вложений</translation>
+        <translation type="vanished">вы разрешили этому боту писать Вам, добавив его в меню вложений</translation>
     </message>
     <message>
         <source>you allowed this bot to message you when you logged in on %1</source>
-        <translation>вы разрешили этому боту писать Вам, когда авторизовались на %1</translation>
+        <translation type="vanished">вы разрешили этому боту писать Вам, когда авторизовались на %1</translation>
     </message>
     <message>
         <source>you allowed this bot to message you in its web-app</source>
-        <translation>вы разрешили этому боту писать Вам в его веб-приложении</translation>
+        <translation type="vanished">вы разрешили этому боту писать Вам в его веб-приложении</translation>
     </message>
     <message>
         <source>you allowed this bot to message you</source>
-        <translation>вы разрешили этому боту писать Вам</translation>
+        <translation type="vanished">вы разрешили этому боту писать Вам</translation>
     </message>
     <message numerus="yes">
         <source>boosted this chat %Ln times</source>
         <comment>myself</comment>
-        <translation>
+        <translation type="vanished">
             <numerusform>проголосовал за этот чат %Ln раз</numerusform>
             <numerusform>проголосовал за этот чат %Ln раза</numerusform>
             <numerusform>проголосовал за этот чат %Ln раз</numerusform>
@@ -3552,7 +3714,7 @@ Pull down to visit telegram.org</source>
     </message>
     <message numerus="yes">
         <source>boosted this chat %Ln times</source>
-        <translation>
+        <translation type="vanished">
             <numerusform>проголосовал за этот чат %Ln раз</numerusform>
             <numerusform>проголосовал за этот чат %Ln раза</numerusform>
             <numerusform>проголосовал за этот чат %Ln раз</numerusform>
@@ -3561,298 +3723,298 @@ Pull down to visit telegram.org</source>
     <message>
         <source>sent a gift</source>
         <comment>myself</comment>
-        <translation>отправили подарок</translation>
+        <translation type="vanished">отправили подарок</translation>
     </message>
     <message>
         <source>sent a gift</source>
-        <translation>отправил(а) подарок</translation>
+        <translation type="vanished">отправил(а) подарок</translation>
     </message>
     <message>
         <source>started a giveaway</source>
         <comment>myself</comment>
-        <translation>запустили бесплатную раздачу</translation>
+        <translation type="vanished">запустили бесплатную раздачу</translation>
     </message>
     <message>
         <source>started a giveaway</source>
-        <translation>запустил(а) бесплатную раздачу</translation>
+        <translation type="vanished">запустил(а) бесплатную раздачу</translation>
     </message>
     <message>
         <source>a giveaway was completed</source>
         <comment>myself</comment>
-        <translation>завершили бесплатную раздачу</translation>
+        <translation type="vanished">завершили бесплатную раздачу</translation>
     </message>
     <message>
         <source>a giveaway was completed</source>
-        <translation>завершил(а) бесплатную раздачу</translation>
+        <translation type="vanished">завершил(а) бесплатную раздачу</translation>
     </message>
     <message>
         <source>sent an unsupported message</source>
         <comment>myself</comment>
-        <translation>отправили неподдерживаемое сообщение</translation>
+        <translation type="vanished">отправили неподдерживаемое сообщение</translation>
     </message>
     <message>
         <source>sent an unsupported message</source>
-        <translation>отправил(а) неподдерживаемое сообщение</translation>
+        <translation type="vanished">отправил(а) неподдерживаемое сообщение</translation>
     </message>
     <message>
         <source>sent an unsupported message: %1</source>
         <comment>myself; %1 is message type</comment>
-        <translation>отправили неподдерживаемое сообщение: %1</translation>
+        <translation type="vanished">отправили неподдерживаемое сообщение: %1</translation>
     </message>
     <message>
         <source>sent an unsupported message: %1</source>
         <comment>%1 is message type</comment>
-        <translation>отправил(а) неподдерживаемое сообщение: %1</translation>
+        <translation type="vanished">отправил(а) неподдерживаемое сообщение: %1</translation>
     </message>
     <message>
         <source>Photo: %1</source>
-        <translation>Фото: %1</translation>
+        <translation type="vanished">Фото: %1</translation>
     </message>
     <message>
         <source>Photo</source>
-        <translation>Фото</translation>
+        <translation type="vanished">Фото</translation>
     </message>
     <message>
         <source>Video</source>
-        <translation>Видео</translation>
+        <translation type="vanished">Видео</translation>
     </message>
     <message>
         <source>Video message</source>
-        <translation>Видеосообщение</translation>
+        <translation type="vanished">Видеосообщение</translation>
     </message>
     <message>
         <source>GIF: %1</source>
-        <translation>GIF: %1</translation>
+        <translation type="vanished">GIF: %1</translation>
     </message>
     <message>
         <source>GIF</source>
-        <translation>GIF</translation>
+        <translation type="vanished">GIF</translation>
     </message>
     <message>
         <source>%1: %2</source>
         <comment>Audio message. %1 is the audio file name, %2 is the caption</comment>
-        <translation>%1: %2</translation>
+        <translation type="vanished">%1: %2</translation>
     </message>
     <message>
         <source>Audio</source>
-        <translation>Аудио</translation>
+        <translation type="vanished">Аудио</translation>
     </message>
     <message>
         <source>%1: %2</source>
         <comment>A message with a file attached. %1 is the audio file name, %2 is the caption</comment>
-        <translation>%1: %2</translation>
+        <translation type="vanished">%1: %2</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>Файл</translation>
+        <translation type="vanished">Файл</translation>
     </message>
     <message>
         <source>Voice message</source>
-        <translation>Голосовое сообщение</translation>
+        <translation type="vanished">Голосовое сообщение</translation>
     </message>
     <message>
         <source>Venue: %1</source>
-        <translation>Место встречи: %1</translation>
+        <translation type="vanished">Место встречи: %1</translation>
     </message>
     <message>
         <source>Venue</source>
-        <translation>Место встречи</translation>
+        <translation type="vanished">Место встречи</translation>
     </message>
     <message>
         <source>Game</source>
-        <translation>Игра</translation>
+        <translation type="vanished">Игра</translation>
     </message>
     <message>
         <source>joined Telegram</source>
         <comment>myself</comment>
-        <translation>присоединились к Телеграм</translation>
+        <translation type="vanished">присоединились к Телеграм</translation>
     </message>
     <message>
         <source>joined Telegram</source>
-        <translation>присоединился(ась) к Телеграм</translation>
+        <translation type="vanished">присоединился(ась) к Телеграм</translation>
     </message>
     <message>
         <source>Quiz: %1</source>
-        <translation>Викторина: %1</translation>
+        <translation type="vanished">Викторина: %1</translation>
     </message>
     <message>
         <source>Anonymous Poll: %1</source>
-        <translation>Анонимный опрос: %1</translation>
+        <translation type="vanished">Анонимный опрос: %1</translation>
     </message>
     <message>
         <source>Poll: %1</source>
-        <translation>Опрос: %1</translation>
+        <translation type="vanished">Опрос: %1</translation>
     </message>
     <message>
         <source>Game: %1</source>
-        <translation>Игра: %1</translation>
+        <translation type="vanished">Игра: %1</translation>
     </message>
     <message>
         <source>Sticker</source>
-        <translation>Стикер</translation>
+        <translation type="vanished">Стикер</translation>
     </message>
     <message>
         <source>created this topic</source>
         <comment>myself</comment>
-        <translation>создали эту тему</translation>
+        <translation type="vanished">создали эту тему</translation>
     </message>
     <message>
         <source>created this topic</source>
-        <translation>создал(а) эту тему</translation>
+        <translation type="vanished">создал(а) эту тему</translation>
     </message>
     <message>
         <source>created the topic &quot;%1&quot;</source>
         <comment>myself</comment>
-        <translation>создали тему &quot;%1&quot;</translation>
+        <translation type="vanished">создали тему &quot;%1&quot;</translation>
     </message>
     <message>
         <source>created the topic &quot;%1&quot;</source>
-        <translation>создал(а) тему &quot;%1&quot;</translation>
+        <translation type="vanished">создал(а) тему &quot;%1&quot;</translation>
     </message>
     <message>
         <source>renamed this topic to &quot;%1&quot;</source>
         <comment>myself</comment>
-        <translation>переименовали эту тему в &quot;%1&quot;</translation>
+        <translation type="vanished">переименовали эту тему в &quot;%1&quot;</translation>
     </message>
     <message>
         <source>renamed this topic to &quot;%1&quot;</source>
-        <translation>переименовал(а) эту тему в &quot;%1&quot;</translation>
+        <translation type="vanished">переименовал(а) эту тему в &quot;%1&quot;</translation>
     </message>
     <message>
         <source>renamed the topic &quot;%1&quot;</source>
         <comment>myself</comment>
-        <translation>переименовали тему &quot;%1&quot;</translation>
+        <translation type="vanished">переименовали тему &quot;%1&quot;</translation>
     </message>
     <message>
         <source>renamed the topic &quot;%1&quot;</source>
-        <translation>переименовал(а) тему &quot;%1&quot;</translation>
+        <translation type="vanished">переименовал(а) тему &quot;%1&quot;</translation>
     </message>
     <message>
         <source>changed this topic&apos;s icon</source>
         <comment>myself</comment>
-        <translation>изменили иконку этой темы</translation>
+        <translation type="vanished">изменили иконку этой темы</translation>
     </message>
     <message>
         <source>changed this topic&apos;s icon</source>
-        <translation>изменил(а) иконку этой темы</translation>
+        <translation type="vanished">изменил(а) иконку этой темы</translation>
     </message>
     <message>
         <source>changed the icon of the topic &quot;%1&quot;</source>
         <comment>myself</comment>
-        <translation>изменили иконку темы &quot;%1&quot;</translation>
+        <translation type="vanished">изменили иконку темы &quot;%1&quot;</translation>
     </message>
     <message>
         <source>changed the icon of the topic &quot;%1&quot;</source>
-        <translation>изменил(а) иконку темы &quot;%1&quot;</translation>
+        <translation type="vanished">изменил(а) иконку темы &quot;%1&quot;</translation>
     </message>
     <message>
         <source>closed this topic</source>
         <comment>myself</comment>
-        <translation>закрыли тему</translation>
+        <translation type="vanished">закрыли тему</translation>
     </message>
     <message>
         <source>closed this topic</source>
-        <translation>закрыл(а) тему</translation>
+        <translation type="vanished">закрыл(а) тему</translation>
     </message>
     <message>
         <source>closed the topic &quot;%1&quot;</source>
         <comment>myself</comment>
-        <translation>закрыли тему &quot;%1&quot;</translation>
+        <translation type="vanished">закрыли тему &quot;%1&quot;</translation>
     </message>
     <message>
         <source>closed the topic &quot;%1&quot;</source>
-        <translation>закрыл(а) тему &quot;%1&quot;</translation>
+        <translation type="vanished">закрыл(а) тему &quot;%1&quot;</translation>
     </message>
     <message>
         <source>reopened this topic</source>
         <comment>myself</comment>
-        <translation>переоткрыли эту тему</translation>
+        <translation type="vanished">переоткрыли эту тему</translation>
     </message>
     <message>
         <source>reopened this topic</source>
-        <translation>переоткрыл(а) эту тему</translation>
+        <translation type="vanished">переоткрыл(а) эту тему</translation>
     </message>
     <message>
         <source>reopened the topic &quot;%1&quot;</source>
         <comment>myself</comment>
-        <translation>переоткрыли тему &quot;%1&quot;</translation>
+        <translation type="vanished">переоткрыли тему &quot;%1&quot;</translation>
     </message>
     <message>
         <source>reopened the topic &quot;%1&quot;</source>
-        <translation>переоткрыл(а) тему &quot;%1&quot;</translation>
+        <translation type="vanished">переоткрыл(а) тему &quot;%1&quot;</translation>
     </message>
     <message>
         <source>hid this topic</source>
         <comment>myself</comment>
-        <translation>скрыли эту тему</translation>
+        <translation type="vanished">скрыли эту тему</translation>
     </message>
     <message>
         <source>hid this topic</source>
-        <translation>скрыл(а) эту тему</translation>
+        <translation type="vanished">скрыл(а) эту тему</translation>
     </message>
     <message>
         <source>hid the general topic</source>
         <comment>myself</comment>
-        <translation>скрыли основную тему</translation>
+        <translation type="vanished">скрыли основную тему</translation>
     </message>
     <message>
         <source>hid the general topic</source>
-        <translation>скрыл(а) основную тему</translation>
+        <translation type="vanished">скрыл(а) основную тему</translation>
     </message>
     <message>
         <source>unhid this topic</source>
         <comment>myself</comment>
-        <translation>показали эту тему</translation>
+        <translation type="vanished">показали эту тему</translation>
     </message>
     <message>
         <source>unhid this topic</source>
-        <translation>показал(а) эту тему</translation>
+        <translation type="vanished">показал(а) эту тему</translation>
     </message>
     <message>
         <source>unhid the general topic</source>
         <comment>myself</comment>
-        <translation>показали основную тему</translation>
+        <translation type="vanished">показали основную тему</translation>
     </message>
     <message>
         <source>unhid the general topic</source>
-        <translation>показал(а) основную тему</translation>
+        <translation type="vanished">показал(а) основную тему</translation>
     </message>
     <message>
         <source>Deleted Account</source>
-        <translation>Удалённый Аккаунт</translation>
+        <translation type="vanished">Удалённый Аккаунт</translation>
     </message>
     <message>
         <source>Unknown</source>
         <comment>A user without a known name</comment>
-        <translation>Неизвестный(ая)</translation>
+        <translation type="vanished">Неизвестный(ая)</translation>
     </message>
     <message>
         <source>Unknown</source>
         <comment>A chat without a known name</comment>
-        <translation>Неизвестно</translation>
+        <translation type="vanished">Неизвестно</translation>
     </message>
     <message>
         <source>Location</source>
-        <translation>Геопозиция</translation>
+        <translation type="vanished">Геопозиция</translation>
     </message>
     <message>
         <source>Anonymous Quiz: %1</source>
-        <translation>Анонимная викторина: %1</translation>
+        <translation type="vanished">Анонимная викторина: %1</translation>
     </message>
     <message>
         <source>, </source>
         <comment>Separator for names</comment>
-        <translation>,</translation>
+        <translation type="vanished">,</translation>
     </message>
     <message>
         <source>%1 and %2</source>
         <comment>names</comment>
-        <translation>%1 и %2</translation>
+        <translation type="vanished">%1 и %2</translation>
     </message>
     <message numerus="yes">
         <source>%1 and %Ln others</source>
         <comment>names</comment>
-        <translation>
+        <translation type="vanished">
             <numerusform>%1 и ещё %Ln</numerusform>
             <numerusform>%1 и ещё %Ln</numerusform>
             <numerusform>%1 и ещё %Ln</numerusform>
@@ -3860,11 +4022,11 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>typing</source>
-        <translation>печатает</translation>
+        <translation type="vanished">печатает</translation>
     </message>
     <message numerus="yes">
         <source>%1 is typing</source>
-        <translation>
+        <translation type="vanished">
             <numerusform>%1 печатает</numerusform>
             <numerusform>%1 печатают</numerusform>
             <numerusform>%1 печатают</numerusform>
@@ -3872,11 +4034,11 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>recording a video</source>
-        <translation>записывает видео</translation>
+        <translation type="vanished">записывает видео</translation>
     </message>
     <message numerus="yes">
         <source>%1 is recording a video</source>
-        <translation>
+        <translation type="vanished">
             <numerusform>%1 записывает видео</numerusform>
             <numerusform>%1 записывают видео</numerusform>
             <numerusform>%1 записывают видео</numerusform>
@@ -3884,11 +4046,11 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>sending a video</source>
-        <translation>отправляет видео</translation>
+        <translation type="vanished">отправляет видео</translation>
     </message>
     <message numerus="yes">
         <source>%1 is sending a video</source>
-        <translation>
+        <translation type="vanished">
             <numerusform>%1 отправляет видео</numerusform>
             <numerusform>%1 отправляют видео</numerusform>
             <numerusform>%1 отправляют видео</numerusform>
@@ -3896,11 +4058,11 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>recording a voice message</source>
-        <translation>записывает голосовое сообщение</translation>
+        <translation type="vanished">записывает голосовое сообщение</translation>
     </message>
     <message numerus="yes">
         <source>%1 is recording a voice message</source>
-        <translation>
+        <translation type="vanished">
             <numerusform>%1 записывает голосовое сообщение</numerusform>
             <numerusform>%1 записывают голосовые сообщения</numerusform>
             <numerusform>%1 записывают голосовые сообщения</numerusform>
@@ -3908,11 +4070,11 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>sending a voice message</source>
-        <translation>отправляет голосовое сообщение</translation>
+        <translation type="vanished">отправляет голосовое сообщение</translation>
     </message>
     <message numerus="yes">
         <source>%1 is sending a voice message</source>
-        <translation>
+        <translation type="vanished">
             <numerusform>%1 отправляет голосовое сообщение</numerusform>
             <numerusform>%1 отправляют голосовые сообщения</numerusform>
             <numerusform>%1 отправляют голосовые сообщения</numerusform>
@@ -3920,11 +4082,11 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>sending a photo</source>
-        <translation>отправляет фото</translation>
+        <translation type="vanished">отправляет фото</translation>
     </message>
     <message numerus="yes">
         <source>%1 is sending a photo</source>
-        <translation>
+        <translation type="vanished">
             <numerusform>%1 отправляет фото</numerusform>
             <numerusform>%1 отправляют фото</numerusform>
             <numerusform>%1 отправляют фото</numerusform>
@@ -3932,11 +4094,11 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>sending a file</source>
-        <translation>отправляет файл</translation>
+        <translation type="vanished">отправляет файл</translation>
     </message>
     <message numerus="yes">
         <source>%1 is sending a file</source>
-        <translation>
+        <translation type="vanished">
             <numerusform>%1 отправляет файл</numerusform>
             <numerusform>%1 отправляют файлы</numerusform>
             <numerusform>%1 отправляют файлы</numerusform>
@@ -3944,11 +4106,11 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>choosing a sticker</source>
-        <translation>выбирает стикер</translation>
+        <translation type="vanished">выбирает стикер</translation>
     </message>
     <message numerus="yes">
         <source>%1 is choosing a sticker</source>
-        <translation>
+        <translation type="vanished">
             <numerusform>%1 выбирает стикер</numerusform>
             <numerusform>%1 выбирают стикеры</numerusform>
             <numerusform>%1 выбирают стикеры</numerusform>
@@ -3956,11 +4118,11 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>choosing location</source>
-        <translation>выбирает геопозицию</translation>
+        <translation type="vanished">выбирает геопозицию</translation>
     </message>
     <message numerus="yes">
         <source>%1 is choosing location</source>
-        <translation>
+        <translation type="vanished">
             <numerusform>%1 выбирает геопозицию</numerusform>
             <numerusform>%1 выбирают геопозиции</numerusform>
             <numerusform>%1 выбирают геопозиции</numerusform>
@@ -3968,11 +4130,11 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>choosing a contact</source>
-        <translation>выбирает контакт</translation>
+        <translation type="vanished">выбирает контакт</translation>
     </message>
     <message numerus="yes">
         <source>%1 is choosing a contact</source>
-        <translation>
+        <translation type="vanished">
             <numerusform>%1 выбирает контакт</numerusform>
             <numerusform>%1 выбирают контакты</numerusform>
             <numerusform>%1 выбирают контакты</numerusform>
@@ -3980,11 +4142,11 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>playing a game</source>
-        <translation>сейчас играет</translation>
+        <translation type="vanished">сейчас играет</translation>
     </message>
     <message numerus="yes">
         <source>%1 is playing a game</source>
-        <translation>
+        <translation type="vanished">
             <numerusform>%1 сейчас играет</numerusform>
             <numerusform>%1 сейчас играют</numerusform>
             <numerusform>%1 сейчас играют</numerusform>
@@ -3992,11 +4154,11 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>recording a video message</source>
-        <translation>записывает видеосообщение</translation>
+        <translation type="vanished">записывает видеосообщение</translation>
     </message>
     <message numerus="yes">
         <source>%1 is recording a video message</source>
-        <translation>
+        <translation type="vanished">
             <numerusform>%1 записывает видеосообщение</numerusform>
             <numerusform>%1 записывают видеосообщения</numerusform>
             <numerusform>%1 записывают видеосообщения</numerusform>
@@ -4004,11 +4166,11 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>sending a video message</source>
-        <translation>отправляет видеосообщение</translation>
+        <translation type="vanished">отправляет видеосообщение</translation>
     </message>
     <message numerus="yes">
         <source>%1 is sending a video message</source>
-        <translation>
+        <translation type="vanished">
             <numerusform>%1 отправляет видеосообщение</numerusform>
             <numerusform>%1 отправляют видеосообщения</numerusform>
             <numerusform>%1 отправляют видеосообщения</numerusform>
@@ -4016,69 +4178,69 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>added &quot;%1&quot; to the poll</source>
-        <translation>добавил(а) в опрос &quot;%1&quot;</translation>
+        <translation type="vanished">добавил(а) в опрос &quot;%1&quot;</translation>
     </message>
     <message>
         <source>removed &quot;%1&quot; from the poll</source>
-        <translation>удалил(а) из опроса &quot;%1&quot;</translation>
+        <translation type="vanished">удалил(а) из опроса &quot;%1&quot;</translation>
     </message>
     <message>
         <source>Canceled Video Call</source>
         <comment>outgoing</comment>
-        <translation>Отменённый видеозвонок</translation>
+        <translation type="vanished">Отменённый видеозвонок</translation>
     </message>
     <message>
         <source>Missed Video Call</source>
         <comment>incoming</comment>
-        <translation>Пропущенный видеозвонок</translation>
+        <translation type="vanished">Пропущенный видеозвонок</translation>
     </message>
     <message>
         <source>Outgoing Video Call</source>
-        <translation>Исходящий видеозвонок</translation>
+        <translation type="vanished">Исходящий видеозвонок</translation>
     </message>
     <message>
         <source>Incoming Video Call</source>
-        <translation>Входящий видеозвонок</translation>
+        <translation type="vanished">Входящий видеозвонок</translation>
     </message>
     <message>
         <source>Canceled Call</source>
         <comment>outgoing</comment>
-        <translation>Отменённый звонок</translation>
+        <translation type="vanished">Отменённый звонок</translation>
     </message>
     <message>
         <source>Missed Call</source>
         <comment>incoming</comment>
-        <translation>Пропущенный звонок</translation>
+        <translation type="vanished">Пропущенный звонок</translation>
     </message>
     <message>
         <source>Outgoing Call</source>
-        <translation>Исходящий звонок</translation>
+        <translation type="vanished">Исходящий звонок</translation>
     </message>
     <message>
         <source>Incoming Call</source>
-        <translation>Входящий звонок</translation>
+        <translation type="vanished">Входящий звонок</translation>
     </message>
     <message>
         <source>Outgoing Group Call</source>
-        <translation>Исходящий групповой звонок</translation>
+        <translation type="vanished">Исходящий групповой звонок</translation>
     </message>
     <message>
         <source>Missed Group Call</source>
-        <translation>Пропущенный групповой звонок</translation>
+        <translation type="vanished">Пропущенный групповой звонок</translation>
     </message>
     <message>
         <source>Incoming Group Call</source>
-        <translation>Входящий групповой звонок</translation>
+        <translation type="vanished">Входящий групповой звонок</translation>
     </message>
     <message>
         <source>watching %1</source>
         <comment>The other party is watching an animation, %1 is the emoji describing the animation being watched</comment>
-        <translation>смотрит на %1</translation>
+        <translation type="vanished">смотрит на %1</translation>
     </message>
     <message numerus="yes">
         <source>%1 is watching %2</source>
         <comment>%1 is watching an animation, %2 is the emoji describing the animation being watched</comment>
-        <translation>
+        <translation type="vanished">
             <numerusform>%1 смотрит на %2</numerusform>
             <numerusform>%1 смотрят на %2</numerusform>
             <numerusform>%1 смотрят на %2</numerusform>
@@ -4087,12 +4249,12 @@ Pull down to visit telegram.org</source>
     <message>
         <source>added &quot;%1&quot; to the poll</source>
         <comment>myself</comment>
-        <translation>добавили в опрос &quot;%1&quot;</translation>
+        <translation type="vanished">добавили в опрос &quot;%1&quot;</translation>
     </message>
     <message>
         <source>removed &quot;%1&quot; from the poll</source>
         <comment>myself</comment>
-        <translation>удалили из опроса &quot;%1&quot;</translation>
+        <translation type="vanished">удалили из опроса &quot;%1&quot;</translation>
     </message>
 </context>
 <context>
