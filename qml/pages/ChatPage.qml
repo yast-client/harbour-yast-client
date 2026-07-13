@@ -363,6 +363,8 @@ Page {
                 ChatHeader {
                     id: chatHeader
 
+                    property bool connecting: tdLibWrapper.connectionState != TDLibAPI.ConnectionReady
+
                     isSecret: chatPage.isSecretChat
                     chatNameText.text: getChatTitle(chatNameText.font.pixelSize)
                     chatBadges.verificationStatus: chatGroupInformation ? chatGroupInformation.verification_status : null
@@ -373,8 +375,7 @@ Page {
                         // https://stackoverflow.com/questions/48325115/qml-programmatically-update-binding
                         if (_reloadStatus && !_reloadStatus) return ''
 
-                        if (tdLibWrapper.connectionState != TDLibAPI.ConnectionReady)
-                            return tdLibWrapper.connectionStateText
+                        if (connecting) return tdLibWrapper.connectionStateText
 
                         var chatActionsText = chatManager.chatActionsText
                         if (chatActionsText)
@@ -395,11 +396,11 @@ Page {
                     }
 
                     chatActionIcon {
-                        type: chatManager.chatMainActionType
+                        type: connecting ? TDLibAPI.Cancel : chatManager.chatMainActionType
                         actionProgress: chatManager.chatActionsProgress
                     }
-                    chatStatusText.highlighted: chatHeader.highlighted || chatManager.chatActionsText
-                                                || (chatPartnerInformation && chatPartnerInformation.status && chatPartnerInformation['@type'] === 'userStatusOnline')
+                    chatStatusText.highlighted: !connecting && (chatHeader.highlighted || chatManager.chatActionsText
+                                                || (chatPartnerInformation && chatPartnerInformation.status && chatPartnerInformation['@type'] === 'userStatusOnline'))
                     //chatStatusText.isError: tdLibWrapper.connectionState != TDLibAPI.ConnectionReady
 
                     ProfileThumbnail {
