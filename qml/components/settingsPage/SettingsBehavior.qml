@@ -158,17 +158,25 @@ AccordionItem {
                 }
 
                 TextSwitch {
-                    checked: yaqtSettings.notificationSuppressContent && enabled
                     text: qsTr("Hide content in notifications")
                     automaticCheck: false
+                    checked: yaqtSettings.notificationSuppressContent
                     onClicked: yaqtSettings.notificationSuppressContent = !checked
                 }
 
                 TextSwitch {
-                    checked: yaqtSettings.notificationShowDefaultReaction && enabled
                     text: qsTr("Setting quick reaction from notifications")
                     automaticCheck: false
+                    checked: yaqtSettings.notificationShowDefaultReaction
                     onClicked: yaqtSettings.notificationShowDefaultReaction = !checked
+                }
+
+                TextSwitch {
+                    text: qsTr("In-chat sounds")
+                    description: qsTr("Play sounds for incoming and outgoing messages when a chat is open")
+                    automaticCheck: false
+                    checked: appSettings.inAppChatMessagesNgf
+                    onClicked: appSettings.inAppChatMessagesNgf = !checked
                 }
             }
 

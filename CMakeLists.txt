@@ -158,6 +158,9 @@ install(FILES ${CMAKE_PROJECT_NAME}.desktop
 install(DIRECTORY images
     DESTINATION share/${CMAKE_PROJECT_NAME}
 )
+install(DIRECTORY assets
+    DESTINATION share/${CMAKE_PROJECT_NAME}
+)
 install(DIRECTORY tdlib/${TARGET_ARCHITECTURE}/lib
     DESTINATION share/${CMAKE_PROJECT_NAME}
 )
@@ -185,6 +188,7 @@ FILE(GLOB_RECURSE DistFiles
     images/*
     qml/*
     icons/*
+    assets/*
 )
 add_custom_target(distfiles
     SOURCES
