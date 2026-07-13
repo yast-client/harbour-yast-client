@@ -95,15 +95,27 @@ Page {
         forwardMessagesTimer.messageIds = messageIds
         forwardMessagesTimer.start()
     }
+
+    function hasGroupPermission(memberPermission, adminPermission) {
+        if ((!isBasicGroup && !isSupergroup) || !chatGroupInformation || !chatGroupInformation.status)
+            return false
+
+        switch (chatGroupInformation.status['@type']) {
+        case 'chatMemberStatusCreator':
+            return true
+        case 'chatMemberStatusAdministrator':
+            return adminPermission ? chatGroupInformation.status.rights[adminPermission] : true
+        case 'chatMemberStatusMember':
+            return chatManager.permissions[memberPermission]
+        case 'chatMemberStatusRestricted':
+            return chatGroupInformation.status.permissions[memberPermission]
+        default:
+            return false
+        }
+        return false
+    }
     function hasSendPrivilege(privilege) {
-        var groupStatus = chatGroupInformation ? chatGroupInformation.status : null
-        var groupStatusType = groupStatus ? groupStatus["@type"] : null
-        return chatPage.isPrivateChat
-                    || (groupStatusType === "chatMemberStatusMember" && chatManager.permissions[privilege])
-                    || groupStatusType === "chatMemberStatusAdministrator"
-                    || groupStatusType === "chatMemberStatusCreator"
-                    || (groupStatusType === "chatMemberStatusRestricted" && groupStatus.permissions[privilege])
-                    || (chatPage.isSecretChat && chatPage.isSecretChatReady)
+        return isPrivateChat || (isSecretChat && isSecretChatReady) || hasGroupPermission(privilege, privilege)
     }
 
     function resetFocus() {

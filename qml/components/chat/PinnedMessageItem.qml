@@ -42,7 +42,7 @@ Item {
     Component {
         id: pinnedMessagesPageComponent
         Page {
-            objectName: 'pinnedMessagesPage'
+            id: pinnedMessagesPage
             SilicaFlickable {
                 anchors.fill: parent
 
@@ -78,10 +78,11 @@ Item {
                     PushUpMenu {
                         parent: allPinnedMessagesView.chatView
                         MenuItem {
-                            text: qsTr("Unpin all messages")
+                            visible: isPrivateChat || hasGroupPermission('can_pin_messages', 'can_pin_messages')
+                            text: pinnedMessagesModel.totalCount == 1 ? qsTr("Unpin message") : qsTr("Unpin all messages")
                             onClicked: {
                                 allPinnedMessagesView.forceViewPlaceholder = true
-                                var remorse = Remorse.popupAction(chatPage, qsTr("Messages unpinned"), function() {
+                                var remorse = Remorse.popupAction(pinnedMessagesPage, qsTr("Messages unpinned"), function() {
                                     pageStack.pop()
                                     tdLibWrapper.unpinAllChatMessages(chatPage.chatId)
                                 })
