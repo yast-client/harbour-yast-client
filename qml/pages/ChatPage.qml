@@ -112,10 +112,9 @@ Page {
         default:
             return false
         }
-        return false
     }
     function hasSendPrivilege(privilege) {
-        return isPrivateChat || (isSecretChat && isSecretChatReady) || hasGroupPermission(privilege, privilege)
+        return isPrivateChat || (isSecretChat && isSecretChatReady) || hasGroupPermission(privilege)
     }
 
     function resetFocus() {
