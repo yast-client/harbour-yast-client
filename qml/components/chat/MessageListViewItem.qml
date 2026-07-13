@@ -129,7 +129,6 @@ MessageListViewItemBase {
         }
 
         Item {
-            id: messageTextItem
             width: precalculatedValues.textItemWidth
             height: messageBackground.height
 
@@ -357,7 +356,7 @@ MessageListViewItemBase {
                     states: [
                         State {
                             name: "default"
-                            when: (messageText.visible && !extraContentLoader.visible) || (!messageText.visible && extraContentLoader.visible)
+                            when: messageText.visible !== extraContentLoader.visible
                         },
                         State {
                             name: "normal"

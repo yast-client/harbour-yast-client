@@ -570,6 +570,7 @@ Column {
                 filterValue: false
             }
             model: chatProxyModel
+
             header: Component {
                 Loader {
                     active: !!chatPage.botInformation && chatPage.botInformation.description.length > 0
@@ -666,7 +667,6 @@ Column {
             delegate: Loader {
                 id: messageLoader
                 width: chatView.width
-                enabled: !forceViewPlaceholder
                 sourceComponent: utilities.messageContentIsService(model.content_type)
                                     ? messageListViewItemSimpleComponent
                                     : messageListViewItemComponent
@@ -726,10 +726,12 @@ Column {
                 Component {
                     id: messageListViewItemSimpleComponent
                     MessageListViewItemSimple {
+                        precalculatedValues: chatView.precalculatedValues
                         messageData: messageLoader.messageData
                     }
                 }
             }
+
             VerticalScrollDecorator { flickable: chatView }
 
             ViewPlaceholder {

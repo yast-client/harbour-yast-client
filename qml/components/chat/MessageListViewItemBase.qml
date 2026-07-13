@@ -13,6 +13,7 @@ ListItem {
 
     contentHeight: messageBackground.height + messageTextRow.y + Theme.paddingSmall/2
     Behavior on contentHeight { NumberAnimation { duration: 200 } }
+    hidden: forceViewPlaceholder
 
     property QtObject precalculatedValues: ListView.view.precalculatedValues
     property MessageData messageData: MessageData {}
