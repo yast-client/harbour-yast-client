@@ -412,12 +412,12 @@
     <message>
         <source>All</source>
         <comment>all chats tab</comment>
-        <translation type="vanished">All</translation>
+        <translation>All</translation>
     </message>
     <message>
         <source>Archive</source>
         <comment>archived chats tab</comment>
-        <translation type="vanished">Archive</translation>
+        <translation>Archive</translation>
     </message>
 </context>
 <context>
@@ -1998,32 +1998,22 @@ Pull down to visit telegram.org</translation>
     <message>
         <source>This secret chat was created</source>
         <comment>Notification</comment>
-        <translation type="vanished">This secret chat was created</translation>
+        <translation>This secret chat was created</translation>
     </message>
     <message>
         <source>Close</source>
         <comment>Notification button for closing a newly created secret chat</comment>
-        <translation type="vanished">Close</translation>
+        <translation>Close</translation>
     </message>
     <message>
         <source>You have a new message</source>
         <comment>Notification</comment>
-        <translation type="vanished">You have a new message</translation>
-    </message>
-    <message>
-        <source>Mark as read</source>
-        <comment>Notification button</comment>
-        <translation type="vanished">Read</translation>
-    </message>
-    <message>
-        <source>Reply</source>
-        <comment>Reply to a message in a notification</comment>
-        <translation type="vanished">Reply</translation>
+        <translation>You have a new message</translation>
     </message>
     <message numerus="yes">
         <source>Mentions in %1</source>
         <comment>Title for a notification containing messages with mentions from a group chat. Mention count is displayed separately</comment>
-        <translation type="vanished">
+        <translation>
             <numerusform>Mention in %1</numerusform>
             <numerusform>Mentions in %1</numerusform>
         </translation>
@@ -2031,7 +2021,7 @@ Pull down to visit telegram.org</translation>
     <message numerus="yes">
         <source>Mentions from %1</source>
         <comment>Title for a notification containing messages with mentions from a private chat. Mention count is displayed separately</comment>
-        <translation type="vanished">
+        <translation>
             <numerusform>Mention from %1</numerusform>
             <numerusform>Mentions from %1</numerusform>
         </translation>
@@ -2039,22 +2029,32 @@ Pull down to visit telegram.org</translation>
     <message>
         <source>Incoming video call</source>
         <comment>notification</comment>
-        <translation type="vanished">Incoming video call</translation>
+        <translation>Incoming video call</translation>
     </message>
     <message>
         <source>Incoming call</source>
         <comment>notification</comment>
-        <translation type="vanished">Incoming call</translation>
+        <translation>Incoming call</translation>
     </message>
     <message>
         <source>Accept</source>
         <comment>Accept a call</comment>
-        <translation type="vanished">Accept</translation>
+        <translation>Accept</translation>
     </message>
     <message>
         <source>Decline</source>
         <comment>Decline a call</comment>
-        <translation type="vanished">Decline</translation>
+        <translation>Decline</translation>
+    </message>
+    <message>
+        <source>Read</source>
+        <comment>Shorter version of &apos;Mark as read&apos; for a notification button. The buttons must fit on a single line.</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reply</source>
+        <comment>Shorter version for a notification button. The buttons must fit on a single line.</comment>
+        <translation type="unfinished">Reply</translation>
     </message>
 </context>
 <context>
@@ -2210,179 +2210,6 @@ Pull down to visit telegram.org</translation>
     <message>
         <source>Your contributions to translations or code would be most welcome.</source>
         <translation>Your contributions to translations or code would be most welcome.</translation>
-    </message>
-    <message>
-        <source>Author</source>
-        <translation type="vanished">Author</translation>
-    </message>
-    <message numerus="yes">
-        <source>Author(s)</source>
-        <translation type="vanished">
-            <numerusform>Author</numerusform>
-            <numerusform>Authors</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Maintainer</source>
-        <translation type="vanished">Maintainer</translation>
-    </message>
-    <message numerus="yes">
-        <source>Maintainer(s)</source>
-        <translation type="vanished">
-            <numerusform>Maintainer</numerusform>
-            <numerusform>Maintainers</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Programming</source>
-        <translation type="vanished">Programming</translation>
-    </message>
-    <message>
-        <source>Icon Design</source>
-        <translation type="vanished">Icon Design</translation>
-    </message>
-    <message>
-        <source>Third-party libraries</source>
-        <translation type="vanished">Third-party libraries</translation>
-    </message>
-    <message>
-        <source>Data</source>
-        <translation type="vanished">Data</translation>
-    </message>
-    <message>
-        <source>Data License</source>
-        <translation type="vanished">Data License</translation>
-    </message>
-    <message numerus="yes">
-        <source>Data License(s)</source>
-        <translation type="vanished">
-            <numerusform>Data License</numerusform>
-            <numerusform>Data Licenses</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Terms of Use</source>
-        <translation type="vanished">Terms of Use</translation>
-    </message>
-    <message>
-        <source>Belarusian</source>
-        <translation type="vanished">Belarusian</translation>
-    </message>
-    <message>
-        <source>Chinese</source>
-        <translation type="vanished">Chinese</translation>
-    </message>
-    <message>
-        <source>Czech</source>
-        <translation type="vanished">Czech</translation>
-    </message>
-    <message>
-        <source>Dutch</source>
-        <translation type="vanished">Dutch</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation type="vanished">English</translation>
-    </message>
-    <message>
-        <source>Estonian</source>
-        <translation type="vanished">Estonian</translation>
-    </message>
-    <message>
-        <source>Finnish</source>
-        <translation type="vanished">Finnish</translation>
-    </message>
-    <message>
-        <source>French</source>
-        <translation type="vanished">French</translation>
-    </message>
-    <message>
-        <source>German</source>
-        <translation type="vanished">German</translation>
-    </message>
-    <message>
-        <source>Greek</source>
-        <translation type="vanished">Greek</translation>
-    </message>
-    <message>
-        <source>Hungarian</source>
-        <translation type="vanished">Hungarian</translation>
-    </message>
-    <message>
-        <source>Indonesian</source>
-        <translation type="vanished">Indonesian</translation>
-    </message>
-    <message>
-        <source>Italian</source>
-        <translation type="vanished">Italian</translation>
-    </message>
-    <message>
-        <source>Lithuanian</source>
-        <translation type="vanished">Lithuanian</translation>
-    </message>
-    <message>
-        <source>Norwegian Bokmål</source>
-        <translation type="vanished">Norwegian (Bokmål)</translation>
-    </message>
-    <message>
-        <source>Polish</source>
-        <translation type="vanished">Polish</translation>
-    </message>
-    <message>
-        <source>Portuguese</source>
-        <translation type="vanished">Portuguese</translation>
-    </message>
-    <message>
-        <source>Brazilian Portuguese</source>
-        <translation type="vanished">Brazilian Portuguese</translation>
-    </message>
-    <message>
-        <source>Romanian</source>
-        <translation type="vanished">Romanian</translation>
-    </message>
-    <message>
-        <source>Russian</source>
-        <translation type="vanished">Russian</translation>
-    </message>
-    <message>
-        <source>Serbian</source>
-        <translation type="vanished">Serbian</translation>
-    </message>
-    <message>
-        <source>Slovak</source>
-        <translation type="vanished">Slovak</translation>
-    </message>
-    <message>
-        <source>Spanish</source>
-        <translation type="vanished">Spanish</translation>
-    </message>
-    <message>
-        <source>Swedish</source>
-        <translation type="vanished">Swedish</translation>
-    </message>
-    <message>
-        <source>Tamil</source>
-        <translation type="vanished">Tamil</translation>
-    </message>
-    <message>
-        <source>Turkish</source>
-        <translation type="vanished">Turkish</translation>
-    </message>
-    <message>
-        <source>Ukrainian</source>
-        <translation type="vanished">Ukrainian</translation>
-    </message>
-    <message>
-        <source>Norwegian Nynorsk</source>
-        <translation type="vanished">Norwegian (Nynorsk)</translation>
-    </message>
-    <message>
-        <source>Latvian</source>
-        <translation type="vanished">Latvian</translation>
-    </message>
-    <message>
-        <source>Dutch (Belgium)</source>
-        <translation type="vanished">Dutch (Belgium)</translation>
     </message>
 </context>
 <context>
@@ -3002,6 +2829,14 @@ Pull down to visit telegram.org</translation>
         <source>Allow incoming calls to play ringtones in &apos;Do not disturb&apos; mode</source>
         <translation>Allow incoming calls to play ringtones in &apos;Do not disturb&apos; mode</translation>
     </message>
+    <message>
+        <source>In-chat sounds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Play sounds for incoming and outgoing messages when a chat is open</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsPage</name>
@@ -3384,19 +3219,19 @@ Pull down to visit telegram.org</translation>
     <name>TDLibWrapper</name>
     <message>
         <source>Waiting for network…</source>
-        <translation type="vanished">Waiting for network…</translation>
+        <translation>Waiting for network…</translation>
     </message>
     <message>
         <source>Connecting to network…</source>
-        <translation type="vanished">Connecting to network…</translation>
+        <translation>Connecting to network…</translation>
     </message>
     <message>
         <source>Connecting to proxy…</source>
-        <translation type="vanished">Connecting to proxy…</translation>
+        <translation>Connecting to proxy…</translation>
     </message>
     <message>
         <source>Updating content…</source>
-        <translation type="vanished">Updating content…</translation>
+        <translation>Updating content…</translation>
     </message>
 </context>
 <context>
@@ -3471,224 +3306,224 @@ Pull down to visit telegram.org</translation>
     <name>Utilities</name>
     <message>
         <source>Video: %1</source>
-        <translation type="vanished">Video: %1</translation>
+        <translation>Video: %1</translation>
     </message>
     <message>
         <source>Voice message: %1</source>
-        <translation type="vanished">Voice message: %1</translation>
+        <translation>Voice message: %1</translation>
     </message>
     <message>
         <source>joined this chat</source>
         <comment>myself</comment>
-        <translation type="vanished">joined this chat</translation>
+        <translation>joined this chat</translation>
     </message>
     <message>
         <source>joined this chat</source>
-        <translation type="vanished">joined this chat</translation>
+        <translation>joined this chat</translation>
     </message>
     <message>
         <source>were added to this chat</source>
         <comment>myself</comment>
-        <translation type="vanished">were added to this chat</translation>
+        <translation>were added to this chat</translation>
     </message>
     <message>
         <source>was added to this chat</source>
-        <translation type="vanished">was added to this chat</translation>
+        <translation>was added to this chat</translation>
     </message>
     <message>
         <source>have added %1 to the chat</source>
         <comment>myself</comment>
-        <translation type="vanished">have added %1 to the chat</translation>
+        <translation>have added %1 to the chat</translation>
     </message>
     <message>
         <source>has added %1 to the chat</source>
-        <translation type="vanished">has added %1 to the chat</translation>
+        <translation>has added %1 to the chat</translation>
     </message>
     <message>
         <source>left this chat</source>
         <comment>myself</comment>
-        <translation type="vanished">left this chat</translation>
+        <translation>left this chat</translation>
     </message>
     <message>
         <source>left this chat</source>
-        <translation type="vanished">left this chat</translation>
+        <translation>left this chat</translation>
     </message>
     <message>
         <source>have removed %1 from the chat</source>
         <comment>myself</comment>
-        <translation type="vanished">have removed %1 from the chat</translation>
+        <translation>have removed %1 from the chat</translation>
     </message>
     <message>
         <source>has removed %1 from the chat</source>
-        <translation type="vanished">has removed %1 from the chat</translation>
+        <translation>has removed %1 from the chat</translation>
     </message>
     <message>
         <source>changed the chat title to %1</source>
         <comment>myself</comment>
-        <translation type="vanished">changed the chat title to %1</translation>
+        <translation>changed the chat title to %1</translation>
     </message>
     <message>
         <source>changed the chat title to %1</source>
-        <translation type="vanished">changed the chat title to %1</translation>
+        <translation>changed the chat title to %1</translation>
     </message>
     <message>
         <source>Anonymous Quiz</source>
-        <translation type="vanished">Anonymous Quiz</translation>
+        <translation>Anonymous Quiz</translation>
     </message>
     <message>
         <source>Quiz</source>
-        <translation type="vanished">Quiz</translation>
+        <translation>Quiz</translation>
     </message>
     <message>
         <source>Anonymous Poll</source>
-        <translation type="vanished">Anonymous Poll</translation>
+        <translation>Anonymous Poll</translation>
     </message>
     <message>
         <source>Poll</source>
-        <translation type="vanished">Poll</translation>
+        <translation>Poll</translation>
     </message>
     <message>
         <source>created this group</source>
         <comment>myself</comment>
-        <translation type="vanished">created this group</translation>
+        <translation>created this group</translation>
     </message>
     <message>
         <source>created this group</source>
-        <translation type="vanished">created this group</translation>
+        <translation>created this group</translation>
     </message>
     <message>
         <source>changed the chat photo</source>
         <comment>myself</comment>
-        <translation type="vanished">changed the chat photo</translation>
+        <translation>changed the chat photo</translation>
     </message>
     <message>
         <source>changed the chat photo</source>
-        <translation type="vanished">changed the chat photo</translation>
+        <translation>changed the chat photo</translation>
     </message>
     <message>
         <source>deleted the chat photo</source>
         <comment>myself</comment>
-        <translation type="vanished">deleted the chat photo</translation>
+        <translation>deleted the chat photo</translation>
     </message>
     <message>
         <source>deleted the chat photo</source>
-        <translation type="vanished">deleted the chat photo</translation>
+        <translation>deleted the chat photo</translation>
     </message>
     <message>
         <source>changed the secret chat TTL setting</source>
         <comment>myself; TTL = Time To Live</comment>
-        <translation type="vanished">changed the secret chat TTL setting</translation>
+        <translation>changed the secret chat TTL setting</translation>
     </message>
     <message>
         <source>changed the secret chat TTL setting</source>
         <comment>TTL = Time To Live</comment>
-        <translation type="vanished">changed the secret chat TTL setting</translation>
+        <translation>changed the secret chat TTL setting</translation>
     </message>
     <message>
         <source>upgraded this group to a supergroup</source>
         <comment>myself</comment>
-        <translation type="vanished">upgraded this group to a supergroup</translation>
+        <translation>upgraded this group to a supergroup</translation>
     </message>
     <message>
         <source>upgraded this group to a supergroup</source>
-        <translation type="vanished">upgraded this group to a supergroup</translation>
+        <translation>upgraded this group to a supergroup</translation>
     </message>
     <message>
         <source>pinned a message</source>
         <comment>myself</comment>
-        <translation type="vanished">pinned a message</translation>
+        <translation>pinned a message</translation>
     </message>
     <message>
         <source>pinned a message</source>
-        <translation type="vanished">pinned a message</translation>
+        <translation>pinned a message</translation>
     </message>
     <message>
         <source>sent a self-destructing photo that is expired</source>
         <comment>myself</comment>
-        <translation type="vanished">sent a self-destructing photo that is expired</translation>
+        <translation>sent a self-destructing photo that is expired</translation>
     </message>
     <message>
         <source>sent a self-destructing photo that is expired</source>
-        <translation type="vanished">sent a self-destructing photo that is expired</translation>
+        <translation>sent a self-destructing photo that is expired</translation>
     </message>
     <message>
         <source>sent a self-destructing video that is expired</source>
         <comment>myself</comment>
-        <translation type="vanished">sent a self-destructing video that is expired</translation>
+        <translation>sent a self-destructing video that is expired</translation>
     </message>
     <message>
         <source>sent a self-destructing video that is expired</source>
-        <translation type="vanished">sent a self-destructing video that is expired</translation>
+        <translation>sent a self-destructing video that is expired</translation>
     </message>
     <message>
         <source>sent a self-destructing voice message that is expired</source>
         <comment>myself</comment>
-        <translation type="vanished">sent a self-destructing voice message that is expired</translation>
+        <translation>sent a self-destructing voice message that is expired</translation>
     </message>
     <message>
         <source>sent a self-destructing voice message that is expired</source>
-        <translation type="vanished">sent a self-destructing voice message that is expired</translation>
+        <translation>sent a self-destructing voice message that is expired</translation>
     </message>
     <message>
         <source>sent a self-destructing video message that is expired</source>
         <comment>myself</comment>
-        <translation type="vanished">sent a self-destructing video message that is expired</translation>
+        <translation>sent a self-destructing video message that is expired</translation>
     </message>
     <message>
         <source>sent a self-destructing video message that is expired</source>
-        <translation type="vanished">sent a self-destructing video message that is expired</translation>
+        <translation>sent a self-destructing video message that is expired</translation>
     </message>
     <message>
         <source>created a screenshot in this chat</source>
         <comment>myself</comment>
-        <translation type="vanished">created a screenshot in this chat</translation>
+        <translation>created a screenshot in this chat</translation>
     </message>
     <message>
         <source>created a screenshot in this chat</source>
-        <translation type="vanished">created a screenshot in this chat</translation>
+        <translation>created a screenshot in this chat</translation>
     </message>
     <message numerus="yes">
         <source>scored %Ln points</source>
         <comment>myself</comment>
-        <translation type="vanished">
+        <translation>
             <numerusform>scored %Ln point</numerusform>
             <numerusform>scored %Ln points</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>scored %Ln points</source>
-        <translation type="vanished">
+        <translation>
             <numerusform>scored %Ln point</numerusform>
             <numerusform>scored %Ln points</numerusform>
         </translation>
     </message>
     <message>
         <source>you allowed this bot to message you when you added it to your attachment menu</source>
-        <translation type="vanished">you allowed this bot to message you when you added it to your attachment menu</translation>
+        <translation>you allowed this bot to message you when you added it to your attachment menu</translation>
     </message>
     <message>
         <source>you allowed this bot to message you when you logged in on %1</source>
-        <translation type="vanished">you allowed this bot to message you when you logged in on %1</translation>
+        <translation>you allowed this bot to message you when you logged in on %1</translation>
     </message>
     <message>
         <source>you allowed this bot to message you in its web-app</source>
-        <translation type="vanished">you allowed this bot to message you in its web-app</translation>
+        <translation>you allowed this bot to message you in its web-app</translation>
     </message>
     <message>
         <source>you allowed this bot to message you</source>
-        <translation type="vanished">you allowed this bot to message you</translation>
+        <translation>you allowed this bot to message you</translation>
     </message>
     <message numerus="yes">
         <source>boosted this chat %Ln times</source>
         <comment>myself</comment>
-        <translation type="vanished">
+        <translation>
             <numerusform>boosted this chat %Ln time</numerusform>
             <numerusform>boosted this chat %Ln times</numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>boosted this chat %Ln times</source>
-        <translation type="vanished">
+        <translation>
             <numerusform>boosted this chat %Ln time</numerusform>
             <numerusform>boosted this chat %Ln times</numerusform>
         </translation>
@@ -3696,510 +3531,510 @@ Pull down to visit telegram.org</translation>
     <message>
         <source>sent a gift</source>
         <comment>myself</comment>
-        <translation type="vanished">sent a gift</translation>
+        <translation>sent a gift</translation>
     </message>
     <message>
         <source>sent a gift</source>
-        <translation type="vanished">sent a gift</translation>
+        <translation>sent a gift</translation>
     </message>
     <message>
         <source>started a giveaway</source>
         <comment>myself</comment>
-        <translation type="vanished">started a giveaway</translation>
+        <translation>started a giveaway</translation>
     </message>
     <message>
         <source>started a giveaway</source>
-        <translation type="vanished">started a giveaway</translation>
+        <translation>started a giveaway</translation>
     </message>
     <message>
         <source>a giveaway was completed</source>
         <comment>myself</comment>
-        <translation type="vanished">a giveaway was completed</translation>
+        <translation>a giveaway was completed</translation>
     </message>
     <message>
         <source>a giveaway was completed</source>
-        <translation type="vanished">a giveaway was completed</translation>
+        <translation>a giveaway was completed</translation>
     </message>
     <message>
         <source>sent an unsupported message</source>
         <comment>myself</comment>
-        <translation type="vanished">sent an unsupported message</translation>
+        <translation>sent an unsupported message</translation>
     </message>
     <message>
         <source>sent an unsupported message</source>
-        <translation type="vanished">sent an unsupported message</translation>
+        <translation>sent an unsupported message</translation>
     </message>
     <message>
         <source>sent an unsupported message: %1</source>
         <comment>myself; %1 is message type</comment>
-        <translation type="vanished">sent an unsupported message: %1</translation>
+        <translation>sent an unsupported message: %1</translation>
     </message>
     <message>
         <source>sent an unsupported message: %1</source>
         <comment>%1 is message type</comment>
-        <translation type="vanished">sent an unsupported message: %1</translation>
+        <translation>sent an unsupported message: %1</translation>
     </message>
     <message>
         <source>Photo: %1</source>
-        <translation type="vanished">Photo: %1</translation>
+        <translation>Photo: %1</translation>
     </message>
     <message>
         <source>Photo</source>
-        <translation type="vanished">Photo</translation>
+        <translation>Photo</translation>
     </message>
     <message>
         <source>Video</source>
-        <translation type="vanished">Video</translation>
+        <translation>Video</translation>
     </message>
     <message>
         <source>Video message</source>
-        <translation type="vanished">Video message</translation>
+        <translation>Video message</translation>
     </message>
     <message>
         <source>GIF: %1</source>
-        <translation type="vanished">GIF: %1</translation>
+        <translation>GIF: %1</translation>
     </message>
     <message>
         <source>GIF</source>
-        <translation type="vanished">GIF</translation>
+        <translation>GIF</translation>
     </message>
     <message>
         <source>%1: %2</source>
         <comment>Audio message. %1 is the audio file name, %2 is the caption</comment>
-        <translation type="vanished">%1: %2</translation>
+        <translation>%1: %2</translation>
     </message>
     <message>
         <source>Audio</source>
-        <translation type="vanished">Audio</translation>
+        <translation>Audio</translation>
     </message>
     <message>
         <source>%1: %2</source>
         <comment>A message with a file attached. %1 is the audio file name, %2 is the caption</comment>
-        <translation type="vanished">%1: %2</translation>
+        <translation>%1: %2</translation>
     </message>
     <message>
         <source>File</source>
-        <translation type="vanished">File</translation>
+        <translation>File</translation>
     </message>
     <message>
         <source>Voice message</source>
-        <translation type="vanished">Voice message</translation>
+        <translation>Voice message</translation>
     </message>
     <message>
         <source>Venue: %1</source>
-        <translation type="vanished">Venue: %1</translation>
+        <translation>Venue: %1</translation>
     </message>
     <message>
         <source>Venue</source>
-        <translation type="vanished">Venue</translation>
+        <translation>Venue</translation>
     </message>
     <message>
         <source>Game</source>
-        <translation type="vanished">Game</translation>
+        <translation>Game</translation>
     </message>
     <message>
         <source>joined Telegram</source>
         <comment>myself</comment>
-        <translation type="vanished">joined Telegram</translation>
+        <translation>joined Telegram</translation>
     </message>
     <message>
         <source>joined Telegram</source>
-        <translation type="vanished">joined Telegram</translation>
+        <translation>joined Telegram</translation>
     </message>
     <message>
         <source>Quiz: %1</source>
-        <translation type="vanished">Quiz: %1</translation>
+        <translation>Quiz: %1</translation>
     </message>
     <message>
         <source>Anonymous Poll: %1</source>
-        <translation type="vanished">Anonymous Poll: %1</translation>
+        <translation>Anonymous Poll: %1</translation>
     </message>
     <message>
         <source>Poll: %1</source>
-        <translation type="vanished">Poll: %1</translation>
+        <translation>Poll: %1</translation>
     </message>
     <message>
         <source>Game: %1</source>
-        <translation type="vanished">Game: %1</translation>
+        <translation>Game: %1</translation>
     </message>
     <message>
         <source>Sticker</source>
-        <translation type="vanished">Sticker</translation>
+        <translation>Sticker</translation>
     </message>
     <message>
         <source>created this topic</source>
         <comment>myself</comment>
-        <translation type="vanished">created this topic</translation>
+        <translation>created this topic</translation>
     </message>
     <message>
         <source>created this topic</source>
-        <translation type="vanished">created this topic</translation>
+        <translation>created this topic</translation>
     </message>
     <message>
         <source>created the topic &quot;%1&quot;</source>
         <comment>myself</comment>
-        <translation type="vanished">created the topic &quot;%1&quot;</translation>
+        <translation>created the topic &quot;%1&quot;</translation>
     </message>
     <message>
         <source>created the topic &quot;%1&quot;</source>
-        <translation type="vanished">created the topic &quot;%1&quot;</translation>
+        <translation>created the topic &quot;%1&quot;</translation>
     </message>
     <message>
         <source>renamed this topic to &quot;%1&quot;</source>
         <comment>myself</comment>
-        <translation type="vanished">renamed this topic to &quot;%1&quot;</translation>
+        <translation>renamed this topic to &quot;%1&quot;</translation>
     </message>
     <message>
         <source>renamed this topic to &quot;%1&quot;</source>
-        <translation type="vanished">renamed this topic to &quot;%1&quot;</translation>
+        <translation>renamed this topic to &quot;%1&quot;</translation>
     </message>
     <message>
         <source>renamed the topic &quot;%1&quot;</source>
         <comment>myself</comment>
-        <translation type="vanished">renamed the topic &quot;%1&quot;</translation>
+        <translation>renamed the topic &quot;%1&quot;</translation>
     </message>
     <message>
         <source>renamed the topic &quot;%1&quot;</source>
-        <translation type="vanished">renamed the topic &quot;%1&quot;</translation>
+        <translation>renamed the topic &quot;%1&quot;</translation>
     </message>
     <message>
         <source>changed this topic&apos;s icon</source>
         <comment>myself</comment>
-        <translation type="vanished">changed this topic&apos;s icon</translation>
+        <translation>changed this topic&apos;s icon</translation>
     </message>
     <message>
         <source>changed this topic&apos;s icon</source>
-        <translation type="vanished">changed this topic&apos;s icon</translation>
+        <translation>changed this topic&apos;s icon</translation>
     </message>
     <message>
         <source>changed the icon of the topic &quot;%1&quot;</source>
         <comment>myself</comment>
-        <translation type="vanished">changed the icon of the topic &quot;%1&quot;</translation>
+        <translation>changed the icon of the topic &quot;%1&quot;</translation>
     </message>
     <message>
         <source>changed the icon of the topic &quot;%1&quot;</source>
-        <translation type="vanished">changed the icon of the topic &quot;%1&quot;</translation>
+        <translation>changed the icon of the topic &quot;%1&quot;</translation>
     </message>
     <message>
         <source>closed this topic</source>
         <comment>myself</comment>
-        <translation type="vanished">closed this topic</translation>
+        <translation>closed this topic</translation>
     </message>
     <message>
         <source>closed this topic</source>
-        <translation type="vanished">closed this topic</translation>
+        <translation>closed this topic</translation>
     </message>
     <message>
         <source>closed the topic &quot;%1&quot;</source>
         <comment>myself</comment>
-        <translation type="vanished">closed the topic &quot;%1&quot;</translation>
+        <translation>closed the topic &quot;%1&quot;</translation>
     </message>
     <message>
         <source>closed the topic &quot;%1&quot;</source>
-        <translation type="vanished">closed the topic &quot;%1&quot;</translation>
+        <translation>closed the topic &quot;%1&quot;</translation>
     </message>
     <message>
         <source>reopened this topic</source>
         <comment>myself</comment>
-        <translation type="vanished">reopened this topic</translation>
+        <translation>reopened this topic</translation>
     </message>
     <message>
         <source>reopened this topic</source>
-        <translation type="vanished">reopened this topic</translation>
+        <translation>reopened this topic</translation>
     </message>
     <message>
         <source>reopened the topic &quot;%1&quot;</source>
         <comment>myself</comment>
-        <translation type="vanished">reopened the topic &quot;%1&quot;</translation>
+        <translation>reopened the topic &quot;%1&quot;</translation>
     </message>
     <message>
         <source>reopened the topic &quot;%1&quot;</source>
-        <translation type="vanished">reopened the topic &quot;%1&quot;</translation>
+        <translation>reopened the topic &quot;%1&quot;</translation>
     </message>
     <message>
         <source>hid this topic</source>
         <comment>myself</comment>
-        <translation type="vanished">hid this topic</translation>
+        <translation>hid this topic</translation>
     </message>
     <message>
         <source>hid this topic</source>
-        <translation type="vanished">hid this topic</translation>
+        <translation>hid this topic</translation>
     </message>
     <message>
         <source>hid the general topic</source>
         <comment>myself</comment>
-        <translation type="vanished">hid the general topic</translation>
+        <translation>hid the general topic</translation>
     </message>
     <message>
         <source>hid the general topic</source>
-        <translation type="vanished">hid the general topic</translation>
+        <translation>hid the general topic</translation>
     </message>
     <message>
         <source>unhid this topic</source>
         <comment>myself</comment>
-        <translation type="vanished">unhid this topic</translation>
+        <translation>unhid this topic</translation>
     </message>
     <message>
         <source>unhid this topic</source>
-        <translation type="vanished">unhid this topic</translation>
+        <translation>unhid this topic</translation>
     </message>
     <message>
         <source>unhid the general topic</source>
         <comment>myself</comment>
-        <translation type="vanished">unhid the general topic</translation>
+        <translation>unhid the general topic</translation>
     </message>
     <message>
         <source>unhid the general topic</source>
-        <translation type="vanished">unhid the general topic</translation>
+        <translation>unhid the general topic</translation>
     </message>
     <message>
         <source>Deleted Account</source>
-        <translation type="vanished">Deleted Account</translation>
+        <translation>Deleted Account</translation>
     </message>
     <message>
         <source>Unknown</source>
         <comment>A user without a known name</comment>
-        <translation type="vanished">Unknown</translation>
+        <translation>Unknown</translation>
     </message>
     <message>
         <source>Unknown</source>
         <comment>A chat without a known name</comment>
-        <translation type="vanished">Unknown</translation>
+        <translation>Unknown</translation>
     </message>
     <message>
         <source>Location</source>
-        <translation type="vanished">Location</translation>
+        <translation>Location</translation>
     </message>
     <message>
         <source>Anonymous Quiz: %1</source>
-        <translation type="vanished">Anonymous Quiz: %1</translation>
+        <translation>Anonymous Quiz: %1</translation>
     </message>
     <message>
         <source>, </source>
         <comment>Separator for names</comment>
-        <translation type="vanished">, </translation>
+        <translation>, </translation>
     </message>
     <message>
         <source>%1 and %2</source>
         <comment>names</comment>
-        <translation type="vanished">%1 and %2</translation>
+        <translation>%1 and %2</translation>
     </message>
     <message numerus="yes">
         <source>%1 and %Ln others</source>
         <comment>names</comment>
-        <translation type="vanished">
+        <translation>
             <numerusform>%1 and %Ln other</numerusform>
             <numerusform>%1 and %Ln others</numerusform>
         </translation>
     </message>
     <message>
         <source>typing</source>
-        <translation type="vanished">typing</translation>
+        <translation>typing</translation>
     </message>
     <message numerus="yes">
         <source>%1 is typing</source>
-        <translation type="vanished">
+        <translation>
             <numerusform>%1 is typing</numerusform>
             <numerusform>%1 are typing</numerusform>
         </translation>
     </message>
     <message>
         <source>recording a video</source>
-        <translation type="vanished">recording a video</translation>
+        <translation>recording a video</translation>
     </message>
     <message numerus="yes">
         <source>%1 is recording a video</source>
-        <translation type="vanished">
+        <translation>
             <numerusform>%1 is recording a video</numerusform>
             <numerusform>%1 are recording videos</numerusform>
         </translation>
     </message>
     <message>
         <source>sending a video</source>
-        <translation type="vanished">sending a video</translation>
+        <translation>sending a video</translation>
     </message>
     <message numerus="yes">
         <source>%1 is sending a video</source>
-        <translation type="vanished">
+        <translation>
             <numerusform>%1 is sending a video</numerusform>
             <numerusform>%1 are sending videos</numerusform>
         </translation>
     </message>
     <message>
         <source>recording a voice message</source>
-        <translation type="vanished">recording voice messages</translation>
+        <translation>recording voice messages</translation>
     </message>
     <message numerus="yes">
         <source>%1 is recording a voice message</source>
-        <translation type="vanished">
+        <translation>
             <numerusform>%1 is recording a voice message</numerusform>
             <numerusform>%1 are recording voice messages</numerusform>
         </translation>
     </message>
     <message>
         <source>sending a voice message</source>
-        <translation type="vanished">sending a voice message</translation>
+        <translation>sending a voice message</translation>
     </message>
     <message numerus="yes">
         <source>%1 is sending a voice message</source>
-        <translation type="vanished">
+        <translation>
             <numerusform>%1 is sending a voice message</numerusform>
             <numerusform>%1 are sending voice messages</numerusform>
         </translation>
     </message>
     <message>
         <source>sending a photo</source>
-        <translation type="vanished">sending a photo</translation>
+        <translation>sending a photo</translation>
     </message>
     <message numerus="yes">
         <source>%1 is sending a photo</source>
-        <translation type="vanished">
+        <translation>
             <numerusform>%1 is sending a photo</numerusform>
             <numerusform>%1 are sending photos</numerusform>
         </translation>
     </message>
     <message>
         <source>sending a file</source>
-        <translation type="vanished">sending a file</translation>
+        <translation>sending a file</translation>
     </message>
     <message numerus="yes">
         <source>%1 is sending a file</source>
-        <translation type="vanished">
+        <translation>
             <numerusform>%1 is sending a file</numerusform>
             <numerusform>%1 are sending files</numerusform>
         </translation>
     </message>
     <message>
         <source>choosing a sticker</source>
-        <translation type="vanished">choosing a sticker</translation>
+        <translation>choosing a sticker</translation>
     </message>
     <message numerus="yes">
         <source>%1 is choosing a sticker</source>
-        <translation type="vanished">
+        <translation>
             <numerusform>%1 is choosing a sticker</numerusform>
             <numerusform>%1 are choosing stickers</numerusform>
         </translation>
     </message>
     <message>
         <source>choosing location</source>
-        <translation type="vanished">choosing location</translation>
+        <translation>choosing location</translation>
     </message>
     <message numerus="yes">
         <source>%1 is choosing location</source>
-        <translation type="vanished">
+        <translation>
             <numerusform>%1 is choosing location</numerusform>
             <numerusform>%1 are choosing locations</numerusform>
         </translation>
     </message>
     <message>
         <source>choosing a contact</source>
-        <translation type="vanished">choosing a contact</translation>
+        <translation>choosing a contact</translation>
     </message>
     <message numerus="yes">
         <source>%1 is choosing a contact</source>
-        <translation type="vanished">
+        <translation>
             <numerusform>%1 is choosing a contact</numerusform>
             <numerusform>%1 are choosing contacts</numerusform>
         </translation>
     </message>
     <message>
         <source>playing a game</source>
-        <translation type="vanished">playing a game</translation>
+        <translation>playing a game</translation>
     </message>
     <message numerus="yes">
         <source>%1 is playing a game</source>
-        <translation type="vanished">
+        <translation>
             <numerusform>%1 is playing a game</numerusform>
             <numerusform>%1 is playing games</numerusform>
         </translation>
     </message>
     <message>
         <source>recording a video message</source>
-        <translation type="vanished">recording a video message</translation>
+        <translation>recording a video message</translation>
     </message>
     <message numerus="yes">
         <source>%1 is recording a video message</source>
-        <translation type="vanished">
+        <translation>
             <numerusform>%1 is recording a video message</numerusform>
             <numerusform>%1 is recording video messages</numerusform>
         </translation>
     </message>
     <message>
         <source>sending a video message</source>
-        <translation type="vanished">sending a video message</translation>
+        <translation>sending a video message</translation>
     </message>
     <message numerus="yes">
         <source>%1 is sending a video message</source>
-        <translation type="vanished">
+        <translation>
             <numerusform>%1 is sending a video message</numerusform>
             <numerusform>%1 are sending video messages</numerusform>
         </translation>
     </message>
     <message>
         <source>added &quot;%1&quot; to the poll</source>
-        <translation type="vanished">added &quot;%1&quot; to the poll</translation>
+        <translation>added &quot;%1&quot; to the poll</translation>
     </message>
     <message>
         <source>removed &quot;%1&quot; from the poll</source>
-        <translation type="vanished">removed &quot;%1&quot; from the poll</translation>
+        <translation>removed &quot;%1&quot; from the poll</translation>
     </message>
     <message>
         <source>Canceled Video Call</source>
         <comment>outgoing</comment>
-        <translation type="vanished">Canceled Video Call</translation>
+        <translation>Canceled Video Call</translation>
     </message>
     <message>
         <source>Missed Video Call</source>
         <comment>incoming</comment>
-        <translation type="vanished">Missed Video Call</translation>
+        <translation>Missed Video Call</translation>
     </message>
     <message>
         <source>Outgoing Video Call</source>
-        <translation type="vanished">Outgoing Video Call</translation>
+        <translation>Outgoing Video Call</translation>
     </message>
     <message>
         <source>Incoming Video Call</source>
-        <translation type="vanished">Incoming Video Call</translation>
+        <translation>Incoming Video Call</translation>
     </message>
     <message>
         <source>Canceled Call</source>
         <comment>outgoing</comment>
-        <translation type="vanished">Canceled Call</translation>
+        <translation>Canceled Call</translation>
     </message>
     <message>
         <source>Missed Call</source>
         <comment>incoming</comment>
-        <translation type="vanished">Missed Call</translation>
+        <translation>Missed Call</translation>
     </message>
     <message>
         <source>Outgoing Call</source>
-        <translation type="vanished">Outgoing Call</translation>
+        <translation>Outgoing Call</translation>
     </message>
     <message>
         <source>Incoming Call</source>
-        <translation type="vanished">Incoming Call</translation>
+        <translation>Incoming Call</translation>
     </message>
     <message>
         <source>Outgoing Group Call</source>
-        <translation type="vanished">Outgoing Group Call</translation>
+        <translation>Outgoing Group Call</translation>
     </message>
     <message>
         <source>Missed Group Call</source>
-        <translation type="vanished">Missed Group Call</translation>
+        <translation>Missed Group Call</translation>
     </message>
     <message>
         <source>Incoming Group Call</source>
-        <translation type="vanished">Incoming Group Call</translation>
+        <translation>Incoming Group Call</translation>
     </message>
     <message>
         <source>watching %1</source>
         <comment>The other party is watching an animation, %1 is the emoji describing the animation being watched</comment>
-        <translation type="vanished">watching %1</translation>
+        <translation>watching %1</translation>
     </message>
     <message numerus="yes">
         <source>%1 is watching %2</source>
         <comment>%1 is watching an animation, %2 is the emoji describing the animation being watched</comment>
-        <translation type="vanished">
+        <translation>
             <numerusform>%1 is watching %2</numerusform>
             <numerusform>%1 are watching %2</numerusform>
         </translation>
@@ -4207,12 +4042,12 @@ Pull down to visit telegram.org</translation>
     <message>
         <source>added &quot;%1&quot; to the poll</source>
         <comment>myself</comment>
-        <translation type="vanished">added &quot;%1&quot; to the poll</translation>
+        <translation>added &quot;%1&quot; to the poll</translation>
     </message>
     <message>
         <source>removed &quot;%1&quot; from the poll</source>
         <comment>myself</comment>
-        <translation type="vanished">removed &quot;%1&quot; from the poll</translation>
+        <translation>removed &quot;%1&quot; from the poll</translation>
     </message>
 </context>
 <context>

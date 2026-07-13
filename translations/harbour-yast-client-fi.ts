@@ -13,15 +13,15 @@
     </message>
     <message>
         <source>Translations</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Käännökset</translation>
     </message>
     <message>
         <source>Italian</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Italia</translation>
     </message>
     <message>
         <source>Russian</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Venäjä</translation>
     </message>
     <message>
         <source>Fernschreiber translations</source>
@@ -29,35 +29,35 @@
     </message>
     <message>
         <source>Chinese</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kiina</translation>
     </message>
     <message>
         <source>Finnish</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Suomi</translation>
     </message>
     <message>
         <source>French</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ranska</translation>
     </message>
     <message>
         <source>Hungarian</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Unkari</translation>
     </message>
     <message>
         <source>Polish</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Puola</translation>
     </message>
     <message>
         <source>Slovak</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Slovakia</translation>
     </message>
     <message>
         <source>Spanish</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Espanja</translation>
     </message>
     <message>
         <source>Swedish</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ruotsi</translation>
     </message>
     <message>
         <source>This application is a fork of Fernschreiber, and wouldn&apos;t be possible without it. Thanks to everyone who developed and contributed to it!</source>
@@ -109,7 +109,7 @@
     </message>
     <message>
         <source>News</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Uutiset</translation>
     </message>
     <message>
         <source>Tips</source>
@@ -1987,16 +1987,6 @@ Pull down to visit telegram.org</source>
         <comment>Notification</comment>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Mark as read</source>
-        <comment>Notification button</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Reply</source>
-        <comment>Reply to a message in a notification</comment>
-        <translation type="unfinished"></translation>
-    </message>
     <message numerus="yes">
         <source>Mentions in %1</source>
         <comment>Title for a notification containing messages with mentions from a group chat. Mention count is displayed separately</comment>
@@ -2029,6 +2019,16 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Decline</source>
         <comment>Decline a call</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Read</source>
+        <comment>Shorter version of &apos;Mark as read&apos; for a notification button. The buttons must fit on a single line.</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reply</source>
+        <comment>Shorter version for a notification button. The buttons must fit on a single line.</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2184,176 +2184,6 @@ Pull down to visit telegram.org</source>
         <source>Your contributions to translations or code would be most welcome.</source>
         <translation>Koodipäivityksesi ja käännöksesi ovat mitä tervetulleimpia.</translation>
     </message>
-    <message>
-        <source>Author</source>
-        <translation>Tekijä</translation>
-    </message>
-    <message numerus="yes">
-        <source>Author(s)</source>
-        <translation>
-            <numerusform>Tekijä</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Maintainer</source>
-        <translation>Ylläpitäjä</translation>
-    </message>
-    <message numerus="yes">
-        <source>Maintainer(s)</source>
-        <translation>
-            <numerusform>Ylläpitäjä</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Programming</source>
-        <translation>Ohjelmointi</translation>
-    </message>
-    <message>
-        <source>Icon Design</source>
-        <translation>Kuvakesuunnittelu</translation>
-    </message>
-    <message>
-        <source>Third-party libraries</source>
-        <translation>Kolmannen osapuolen kirjastoja</translation>
-    </message>
-    <message>
-        <source>Data</source>
-        <translation>Data</translation>
-    </message>
-    <message>
-        <source>Data License</source>
-        <translation>Data lisenssi</translation>
-    </message>
-    <message numerus="yes">
-        <source>Data License(s)</source>
-        <translation>
-            <numerusform>Data lisenssi</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Terms of Use</source>
-        <translation>Käyttöehdot</translation>
-    </message>
-    <message>
-        <source>Belarusian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Chinese</source>
-        <translation>Kiina</translation>
-    </message>
-    <message>
-        <source>Czech</source>
-        <translation>Tsekki</translation>
-    </message>
-    <message>
-        <source>Dutch</source>
-        <translation>Hollanti</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation>Englanti</translation>
-    </message>
-    <message>
-        <source>Estonian</source>
-        <translation>Viro</translation>
-    </message>
-    <message>
-        <source>Finnish</source>
-        <translation>Suomi</translation>
-    </message>
-    <message>
-        <source>French</source>
-        <translation>Ranska</translation>
-    </message>
-    <message>
-        <source>German</source>
-        <translation>Saksa</translation>
-    </message>
-    <message>
-        <source>Greek</source>
-        <translation>Kreikka</translation>
-    </message>
-    <message>
-        <source>Hungarian</source>
-        <translation>Unkari</translation>
-    </message>
-    <message>
-        <source>Indonesian</source>
-        <translation>Indonesia</translation>
-    </message>
-    <message>
-        <source>Italian</source>
-        <translation>Italia</translation>
-    </message>
-    <message>
-        <source>Lithuanian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Norwegian Bokmål</source>
-        <translation>Norjan kirjakieli</translation>
-    </message>
-    <message>
-        <source>Polish</source>
-        <translation>Puola</translation>
-    </message>
-    <message>
-        <source>Portuguese</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Brazilian Portuguese</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Romanian</source>
-        <translation>Romanian kieli</translation>
-    </message>
-    <message>
-        <source>Russian</source>
-        <translation>Venäjä</translation>
-    </message>
-    <message>
-        <source>Serbian</source>
-        <translation>Serbian kieli</translation>
-    </message>
-    <message>
-        <source>Slovak</source>
-        <translation>Slovakia</translation>
-    </message>
-    <message>
-        <source>Spanish</source>
-        <translation>Espanja</translation>
-    </message>
-    <message>
-        <source>Swedish</source>
-        <translation>Ruotsi</translation>
-    </message>
-    <message>
-        <source>Tamil</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Turkish</source>
-        <translation>Turkki</translation>
-    </message>
-    <message>
-        <source>Ukrainian</source>
-        <translation>Ukraina</translation>
-    </message>
-    <message>
-        <source>Norwegian Nynorsk</source>
-        <translation>Uusi norjan kieli</translation>
-    </message>
-    <message>
-        <source>Latvian</source>
-        <translation>Latvian kieli</translation>
-    </message>
-    <message>
-        <source>Dutch (Belgium)</source>
-        <translation>Belgian kieli</translation>
-    </message>
 </context>
 <context>
     <name>OverviewPage</name>
@@ -2496,6 +2326,10 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>No pinned messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unpin message</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2955,6 +2789,14 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>Allow incoming calls to play ringtones in &apos;Do not disturb&apos; mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In-chat sounds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Play sounds for incoming and outgoing messages when a chat is open</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -409,6 +409,19 @@
     </message>
 </context>
 <context>
+    <name>ChatFoldersModel</name>
+    <message>
+        <source>All</source>
+        <comment>all chats tab</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archive</source>
+        <comment>archived chats tab</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ChatInformationPageContent</name>
     <message>
         <source>Unknown</source>
@@ -1996,6 +2009,72 @@ Pull down to visit telegram.org</source>
     </message>
 </context>
 <context>
+    <name>NotificationManager</name>
+    <message>
+        <source>This secret chat was created</source>
+        <comment>Notification</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <comment>Notification button for closing a newly created secret chat</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have a new message</source>
+        <comment>Notification</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Read</source>
+        <comment>Shorter version of &apos;Mark as read&apos; for a notification button. The buttons must fit on a single line.</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reply</source>
+        <comment>Shorter version for a notification button. The buttons must fit on a single line.</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>Mentions in %1</source>
+        <comment>Title for a notification containing messages with mentions from a group chat. Mention count is displayed separately</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>Mentions from %1</source>
+        <comment>Title for a notification containing messages with mentions from a private chat. Mention count is displayed separately</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Incoming video call</source>
+        <comment>notification</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Incoming call</source>
+        <comment>notification</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Accept</source>
+        <comment>Accept a call</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Decline</source>
+        <comment>Decline a call</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>NotificationSoundSelectionPage</name>
     <message>
         <source>Sound</source>
@@ -2150,118 +2229,6 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Your contributions to translations or code would be most welcome.</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Author</source>
-        <translation type="vanished">Autor</translation>
-    </message>
-    <message numerus="yes">
-        <source>Author(s)</source>
-        <translation type="vanished">
-            <numerusform>Autor</numerusform>
-            <numerusform>Autorzy</numerusform>
-            <numerusform>Autorów</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Programming</source>
-        <translation type="vanished">Programowanie</translation>
-    </message>
-    <message>
-        <source>Icon Design</source>
-        <translation type="vanished">Projekt ikon</translation>
-    </message>
-    <message>
-        <source>Third-party libraries</source>
-        <translation type="vanished">Biblioteki stron trzecich</translation>
-    </message>
-    <message>
-        <source>Data</source>
-        <translation type="vanished">Dane</translation>
-    </message>
-    <message>
-        <source>Terms of Use</source>
-        <translation type="vanished">Warunki użytkowania</translation>
-    </message>
-    <message>
-        <source>Chinese</source>
-        <translation type="vanished">chiński</translation>
-    </message>
-    <message>
-        <source>Czech</source>
-        <translation type="vanished">czeski</translation>
-    </message>
-    <message>
-        <source>Dutch</source>
-        <translation type="vanished">holenderski</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation type="vanished">angielski</translation>
-    </message>
-    <message>
-        <source>Estonian</source>
-        <translation type="vanished">estoński</translation>
-    </message>
-    <message>
-        <source>Finnish</source>
-        <translation type="vanished">fiński</translation>
-    </message>
-    <message>
-        <source>French</source>
-        <translation type="vanished">francuski</translation>
-    </message>
-    <message>
-        <source>German</source>
-        <translation type="vanished">niemiecki</translation>
-    </message>
-    <message>
-        <source>Greek</source>
-        <translation type="vanished">grecki</translation>
-    </message>
-    <message>
-        <source>Hungarian</source>
-        <translation type="vanished">węgierski</translation>
-    </message>
-    <message>
-        <source>Indonesian</source>
-        <translation type="vanished">indonezyjski</translation>
-    </message>
-    <message>
-        <source>Italian</source>
-        <translation type="vanished">włoski</translation>
-    </message>
-    <message>
-        <source>Polish</source>
-        <translation type="vanished">polski</translation>
-    </message>
-    <message>
-        <source>Russian</source>
-        <translation type="vanished">rosyjski</translation>
-    </message>
-    <message>
-        <source>Slovak</source>
-        <translation type="vanished">slowacki</translation>
-    </message>
-    <message>
-        <source>Spanish</source>
-        <translation type="vanished">hiszpański</translation>
-    </message>
-    <message>
-        <source>Swedish</source>
-        <translation type="vanished">szwedzki</translation>
-    </message>
-    <message>
-        <source>Turkish</source>
-        <translation type="vanished">turecki</translation>
-    </message>
-    <message>
-        <source>Ukrainian</source>
-        <translation type="vanished">ukraiński</translation>
-    </message>
-    <message>
-        <source>Latvian</source>
-        <translation type="vanished">łotewski</translation>
     </message>
 </context>
 <context>
@@ -2892,6 +2859,14 @@ Pull down to visit telegram.org</source>
         <source>Allow incoming calls to play ringtones in &apos;Do not disturb&apos; mode</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>In-chat sounds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Play sounds for incoming and outgoing messages when a chat is open</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsPage</name>
@@ -3277,19 +3252,19 @@ Pull down to visit telegram.org</source>
     <name>TDLibWrapper</name>
     <message>
         <source>Waiting for network…</source>
-        <translation type="vanished">Oczekiwanie na sieć…</translation>
+        <translation>Oczekiwanie na sieć…</translation>
     </message>
     <message>
         <source>Connecting to network…</source>
-        <translation type="vanished">Łączenie z siecią…</translation>
+        <translation>Łączenie z siecią…</translation>
     </message>
     <message>
         <source>Connecting to proxy…</source>
-        <translation type="vanished">Łączenie z proxy…</translation>
+        <translation>Łączenie z proxy…</translation>
     </message>
     <message>
         <source>Updating content…</source>
-        <translation type="vanished">Aktualizacja treści…</translation>
+        <translation>Aktualizacja treści…</translation>
     </message>
 </context>
 <context>
@@ -3364,69 +3339,767 @@ Pull down to visit telegram.org</source>
     <name>Utilities</name>
     <message>
         <source>Video: %1</source>
-        <translation type="obsolete">Film: %1</translation>
+        <translation type="unfinished">Film: %1</translation>
     </message>
     <message>
         <source>were added to this chat</source>
         <comment>myself</comment>
-        <translation type="obsolete">zostałem dodany do tego czatu</translation>
+        <translation type="unfinished">zostałem dodany do tego czatu</translation>
     </message>
     <message>
         <source>was added to this chat</source>
-        <translation type="obsolete">został dodany do tego czatu</translation>
+        <translation type="unfinished">został dodany do tego czatu</translation>
     </message>
     <message>
         <source>have added %1 to the chat</source>
         <comment>myself</comment>
-        <translation type="obsolete">dodsałem %1 do czatu</translation>
+        <translation type="unfinished">dodsałem %1 do czatu</translation>
     </message>
     <message>
         <source>has added %1 to the chat</source>
-        <translation type="obsolete">dodał %1 do czatu</translation>
+        <translation type="unfinished">dodał %1 do czatu</translation>
     </message>
     <message>
         <source>have removed %1 from the chat</source>
         <comment>myself</comment>
-        <translation type="obsolete">usunąłem %1 z czatu</translation>
+        <translation type="unfinished">usunąłem %1 z czatu</translation>
     </message>
     <message>
         <source>has removed %1 from the chat</source>
-        <translation type="obsolete">usunął %1 z czatu</translation>
+        <translation type="unfinished">usunął %1 z czatu</translation>
     </message>
     <message>
         <source>Anonymous Quiz</source>
-        <translation type="obsolete">Anonimowy quiz</translation>
+        <translation type="unfinished">Anonimowy quiz</translation>
     </message>
     <message>
         <source>Quiz</source>
-        <translation type="obsolete">Quiz</translation>
+        <translation type="unfinished">Quiz</translation>
     </message>
     <message>
         <source>Anonymous Poll</source>
-        <translation type="obsolete">Anonimowa ankieta</translation>
+        <translation type="unfinished">Anonimowa ankieta</translation>
     </message>
     <message>
         <source>Poll</source>
-        <translation type="obsolete">Ankieta</translation>
+        <translation type="unfinished">Ankieta</translation>
     </message>
     <message>
         <source>created this group</source>
         <comment>myself</comment>
-        <translation type="obsolete">utworzył tą grupę</translation>
+        <translation type="unfinished">utworzył tą grupę</translation>
     </message>
     <message>
         <source>created this group</source>
-        <translation type="obsolete">utworzył tą grupę</translation>
+        <translation type="unfinished">utworzył tą grupę</translation>
     </message>
     <message>
         <source>Unknown</source>
         <comment>A user without a known name</comment>
-        <translation type="obsolete">Nieznany</translation>
+        <translation type="unfinished">Nieznany</translation>
     </message>
     <message>
         <source>Unknown</source>
         <comment>A chat without a known name</comment>
-        <translation type="obsolete">Nieznany</translation>
+        <translation type="unfinished">Nieznany</translation>
+    </message>
+    <message>
+        <source>Sticker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Photo: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Photo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Video</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Video message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GIF: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GIF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1: %2</source>
+        <comment>Audio message. %1 is the audio file name, %2 is the caption</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1: %2</source>
+        <comment>A message with a file attached. %1 is the audio file name, %2 is the caption</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Voice message: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Voice message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Venue: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Venue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Anonymous Quiz: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quiz: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Anonymous Poll: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Poll: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Game: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Game</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>joined Telegram</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>joined Telegram</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>joined this chat</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>joined this chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>left this chat</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>left this chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>changed the chat title to %1</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>changed the chat title to %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>changed the chat photo</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>changed the chat photo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deleted the chat photo</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deleted the chat photo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>changed the secret chat TTL setting</source>
+        <comment>myself; TTL = Time To Live</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>changed the secret chat TTL setting</source>
+        <comment>TTL = Time To Live</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>upgraded this group to a supergroup</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>upgraded this group to a supergroup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>pinned a message</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>pinned a message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent a self-destructing photo that is expired</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent a self-destructing photo that is expired</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent a self-destructing video that is expired</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent a self-destructing video that is expired</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent a self-destructing voice message that is expired</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent a self-destructing voice message that is expired</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent a self-destructing video message that is expired</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent a self-destructing video message that is expired</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>created a screenshot in this chat</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>created a screenshot in this chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>scored %Ln points</source>
+        <comment>myself</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>scored %Ln points</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>you allowed this bot to message you when you added it to your attachment menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>you allowed this bot to message you when you logged in on %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>you allowed this bot to message you in its web-app</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>you allowed this bot to message you</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>boosted this chat %Ln times</source>
+        <comment>myself</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>boosted this chat %Ln times</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>sent a gift</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent a gift</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>started a giveaway</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>started a giveaway</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>a giveaway was completed</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>a giveaway was completed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>created this topic</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>created this topic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>created the topic &quot;%1&quot;</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>created the topic &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>renamed this topic to &quot;%1&quot;</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>renamed this topic to &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>renamed the topic &quot;%1&quot;</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>renamed the topic &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>changed this topic&apos;s icon</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>changed this topic&apos;s icon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>changed the icon of the topic &quot;%1&quot;</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>changed the icon of the topic &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>closed this topic</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>closed this topic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>closed the topic &quot;%1&quot;</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>closed the topic &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>reopened this topic</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>reopened this topic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>reopened the topic &quot;%1&quot;</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>reopened the topic &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>hid this topic</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>hid this topic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>hid the general topic</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>hid the general topic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unhid this topic</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unhid this topic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unhid the general topic</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unhid the general topic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>added &quot;%1&quot; to the poll</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>added &quot;%1&quot; to the poll</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>removed &quot;%1&quot; from the poll</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>removed &quot;%1&quot; from the poll</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent an unsupported message</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent an unsupported message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent an unsupported message: %1</source>
+        <comment>myself; %1 is message type</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sent an unsupported message: %1</source>
+        <comment>%1 is message type</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deleted Account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>, </source>
+        <comment>Separator for names</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 and %2</source>
+        <comment>names</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 and %Ln others</source>
+        <comment>names</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>typing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is typing</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>recording a video</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is recording a video</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>sending a video</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is sending a video</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>recording a voice message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is recording a voice message</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>sending a voice message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is sending a voice message</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>sending a photo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is sending a photo</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>sending a file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is sending a file</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>choosing a sticker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is choosing a sticker</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>choosing location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is choosing location</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>choosing a contact</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is choosing a contact</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>playing a game</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is playing a game</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>recording a video message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is recording a video message</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>sending a video message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is sending a video message</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>watching %1</source>
+        <comment>The other party is watching an animation, %1 is the emoji describing the animation being watched</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%1 is watching %2</source>
+        <comment>%1 is watching an animation, %2 is the emoji describing the animation being watched</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Canceled Video Call</source>
+        <comment>outgoing</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Missed Video Call</source>
+        <comment>incoming</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outgoing Video Call</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Incoming Video Call</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Canceled Call</source>
+        <comment>outgoing</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Missed Call</source>
+        <comment>incoming</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outgoing Call</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Incoming Call</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outgoing Group Call</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Missed Group Call</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Incoming Group Call</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
