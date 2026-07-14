@@ -217,6 +217,12 @@ Page {
             }
     }
 
+    Binding {
+        target: notificationManager
+        property: 'forceInChatOutgoingNgf'
+        value: overviewPage.status == PageStatus.Active
+    }
+
     Component.onCompleted:
         overviewPage.handleAuthorizationState()
 

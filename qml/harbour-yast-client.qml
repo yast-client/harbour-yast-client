@@ -137,44 +137,6 @@ ApplicationWindow {
     }
 
 
-    // Messages NGF
-    SoundEffect {
-        id: incomingMessageEffect
-        source: Qt.resolvedUrl('../assets/message_incoming.wav')
-        onPlayingChanged:
-            if (playing) incomingMessageThemeEffect.play()
-    }
-    ThemeEffect {
-        id: incomingMessageThemeEffect
-        effect: ThemeEffect.Press
-    }
-
-    SoundEffect {
-        id: outgoingMessageEffect
-        source: Qt.resolvedUrl('../assets/message_outgoing.wav')
-        onPlayingChanged:
-            if (playing) outgoingMessageThemeEffect.play()
-    }
-    ThemeEffect {
-        id: outgoingMessageThemeEffect
-        effect: ThemeEffect.PressStrong
-    }
-
-    Connections {
-        target: tdLibWrapper
-        readonly property bool messagesNgf: appSettings.inAppChatMessagesNgf && Qt.application.state === Qt.ApplicationActive
-
-        onNewMessageReceived:
-            if (messagesNgf
-                    && notificationManager.activeChatId === chatId && !tdLibWrapper.chatIsMuted(chatId)
-                    && !message.is_outgoing && !message.sending_state)
-                incomingMessageEffect.play()
-        onMessageSendSucceeded:
-            if (messagesNgf && (notificationManager.activeChatId === chatId || pageStack.currentPage.objectName == 'overviewPage'))
-                outgoingMessageEffect.play()
-    }
-
-
     Component.onCompleted: {
         Functions.setGlobals({
             tdLibWrapper: tdLibWrapper,

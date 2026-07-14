@@ -175,8 +175,8 @@ AccordionItem {
                     text: qsTr("In-chat sounds")
                     description: qsTr("Play sounds for incoming and outgoing messages when a chat is open")
                     automaticCheck: false
-                    checked: appSettings.inAppChatMessagesNgf
-                    onClicked: appSettings.inAppChatMessagesNgf = !checked
+                    checked: yaqtSettings.inChatNgf
+                    onClicked: yaqtSettings.inChatNgf = !checked
                 }
             }
 

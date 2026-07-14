@@ -34,8 +34,11 @@ int main(int argc, char *argv[]) {
     const QString dbusPath = "/io/roundedrectangle/yast";
     const QString dbusServiceName = "io.roundedrectangle.yast-client";
 
-    const QUrl appIconPath = SailfishApp::pathTo("images/yast-client-notification.png");
-    QScopedPointer<MainHelper::AppContext> appContext(MainHelper::registerTypes(argc, argv, view, "YAST", appIconPath, dbusPath, dbusServiceName, true));
+    const QUrl appIconPath = SailfishApp::pathTo("images/yast-client-notification.png"),
+            incomingSoundPath = SailfishApp::pathTo("assets/message_incoming.wav"),
+            outgoingSoundPath = SailfishApp::pathTo("assets/message_outgoing.wav");
+    QScopedPointer<MainHelper::AppContext> appContext(MainHelper::registerTypes(argc, argv, view, "YAST", appIconPath, dbusPath, dbusServiceName, true,
+                                                                                incomingSoundPath, outgoingSoundPath));
 
     QObject::connect(app.data(), &QGuiApplication::aboutToQuit, [&appContext]() {
         LOG("Disabling signal actions");
