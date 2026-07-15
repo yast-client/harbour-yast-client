@@ -262,7 +262,7 @@ Item {
                         }
                         font.pixelSize: Theme.fontSizeExtraSmall
                         font.weight: Font.ExtraBold
-                        color: Theme.primaryColor
+                        color: highlighted ? Theme.highlightColor : Theme.primaryColor
                         maximumLineCount: 1
                         truncationMode: TruncationMode.Fade
                         textFormat: Text.StyledText
@@ -274,7 +274,7 @@ Item {
                         width: parent.width
                         text: Emoji.emojify(utilities.getMessageText(pinnedMessageItem.messageData, Utilities.MessageTextSimple, true), font.pixelSize)
                         font.pixelSize: Theme.fontSizeExtraSmall
-                        color: Theme.primaryColor
+                        color: highlighted ? Theme.highlightColor : Theme.primaryColor
                         truncationMode: TruncationMode.Fade
                         maximumLineCount: 1
                     }
