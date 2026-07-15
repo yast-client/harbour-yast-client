@@ -1,3 +1,7 @@
+//@ SPDX-FileCopyrightText: 2024-present roundedrectangle
+//@ SPDX-FileCopyrightText: 2020 Sebastian J. Wolf and other contributors
+//@ SPDX-License-Identifier: GPL-3.0-or-later
+
 .pragma library
 .import io.yaqtlib 1.0 as Logic
 var enabled = Logic.DebugLog.enabled;

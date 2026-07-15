@@ -1,3 +1,6 @@
+//@ SPDX-FileCopyrightText: 2024-present roundedrectangle
+//@ SPDX-License-Identifier: GPL-3.0-or-later
+
 #ifndef MYNOTIFICATIONMANAGER_H
 #define MYNOTIFICATIONMANAGER_H
 
