@@ -22,6 +22,7 @@
 #include "mainhelper.h"
 
 #include "voicenoterecorder.h"
+#include "mynotificationmanager.h"
 
 int main(int argc, char *argv[]) {
     QLoggingCategory::setFilterRules(DEFAULT_LOG_FILTER);
@@ -37,13 +38,20 @@ int main(int argc, char *argv[]) {
     const QUrl appIconPath = SailfishApp::pathTo("images/yast-client-notification.png"),
             incomingSoundPath = SailfishApp::pathTo("assets/message_incoming.wav"),
             outgoingSoundPath = SailfishApp::pathTo("assets/message_outgoing.wav");
-    QScopedPointer<MainHelper::AppContext> appContext(MainHelper::registerTypes(argc, argv, view, "YAST", appIconPath, dbusPath, dbusServiceName, true,
-                                                                                incomingSoundPath, outgoingSoundPath));
+    QScopedPointer<MainHelper::AppContext> appContext(MainHelper::registerTypes(argc, argv, view));
 
-    QObject::connect(app.data(), &QGuiApplication::aboutToQuit, [&appContext]() {
+    MyNotificationManager *notificationManager = new MyNotificationManager(appContext->tdLibWrapper, appContext->settings, appContext->tdLibWrapper->getUtilities(), appContext->mceInterface, appContext->dbusAdaptor,
+#ifdef NO_HARBOUR_COMPLIANCE
+                                                                   appContext->callsManager,
+#endif
+                                                                   "YAST", appIconPath, dbusPath, dbusServiceName, QString(), true,
+                                                                   incomingSoundPath, outgoingSoundPath);
+    MainHelper::registerNotificationManager(view, notificationManager);
+
+    QObject::connect(app.data(), &QGuiApplication::aboutToQuit, [notificationManager]() {
         LOG("Disabling signal actions");
         // FIXME: activating some actions with app closed is still broken because of a race condition
-        appContext->notificationManager.setUseSignalActions(false);
+        notificationManager->setUseSignalActions(false);
     });
 
     MainHelper::registerDBusService(app, view, dbusServiceName, dbusPath);

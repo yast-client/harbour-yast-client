@@ -73,6 +73,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     src/${CMAKE_PROJECT_NAME}.cpp
     src/voicenoterecorder.cpp
+    src/mynotificationmanager.cpp
 )
 
 target_sources(yaqtlib PRIVATE
