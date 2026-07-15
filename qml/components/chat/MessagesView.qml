@@ -74,10 +74,10 @@ Column {
                 if (attachmentPreviewRow.isLocation)
                     tdLibWrapper.sendLocationMessage(chatInformation.id, attachmentPreviewRow.locationData.latitude, attachmentPreviewRow.locationData.longitude, attachmentPreviewRow.locationData.horizontalAccuracy, newMessageColumn.replyToMessageId, topicId)
                 else if (attachmentPreviewRow.isVoiceNote)
-                    sendFile('inputMessageVoiceNote', {
+                    sendFile('inputMessageVoiceNote', {voice_note: {
                         voice_note: tdLibWrapper.getInputFileLocal(voiceNoteRecorder.voiceNotePath),
                         duration: voiceNoteRecorder.voiceNoteDuration
-                    })
+                    }})
                 else {
                     var inputFile = tdLibWrapper.getInputFileLocal(attachmentPreviewRow.fileProperties.filePath)
 
