@@ -26,7 +26,7 @@ Loader {
                 model: reactions
                 Rectangle {
                     visible: reactionLoader.supported
-                    height: Theme.fontSizeSmall + Theme.paddingSmall
+                    height: Theme.fontSizeSmall + Theme.paddingSmall*2
                     width: childrenRect.width + Theme.paddingSmall
                     radius: width
 
@@ -34,7 +34,7 @@ Loader {
 
                     MessageReaction {
                         id: reactionLoader
-                        x: Theme.paddingSmall
+                        x: Theme.paddingSmall/2
                         y: x
                         height: parent.height - y*2
                         width: height
