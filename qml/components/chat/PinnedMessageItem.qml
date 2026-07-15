@@ -299,7 +299,7 @@ Item {
                     id: removePinnedMessageIconButton
                     icon.source: "image://theme/icon-m-clear" // icon-splus-hide-password?
                     anchors.verticalCenter: parent.verticalCenter
-                    onClicked: hide()
+                    onClicked: hideAnimation.start()
                 }
             }
 
