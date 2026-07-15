@@ -10,6 +10,7 @@ import "../../js/functions.js" as Functions
 PhotoTextsListItem {
     id: chatItem
     width: parent.width
+    compact: true
 
     property var messageSender
     property var chatId: messageSender && messageSender['@type'] === 'messageSenderChat' ? messageSender.chat_id : undefined
@@ -141,6 +142,7 @@ PhotoTextsListItem {
     prologSecondaryText.text: chatTypeName
 
     tertiaryText.maximumLineCount: 1
+    tertiaryText.visible: !compact
 
     onClicked:
         if (chatId)

@@ -14,9 +14,8 @@ ChatInformationTabItemChatsBase {
                         : qsTr("This group is empty")
     model: membersList
     delegate: TDLibChatListItem {
-        chatId: model.member_id['@type'] === 'messageSenderChat' ? model.member_id.chat_id : null
-        userId: model.member_id['@type'] === 'messageSenderUser' ? model.member_id.user_id : chatInformation.type.user_id
-        prologSecondaryText.text: model.member_id['@type'] === 'messageSenderUser' ? '' : chatTypeName
+        messageSender: model.member_id
+        prologSecondaryText.text: chatId ? chatTypeName : ''
     }
 
     onLoadMore:

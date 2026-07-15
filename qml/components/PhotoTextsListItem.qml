@@ -10,13 +10,15 @@ import 'tdlib'
 ListItem {
     id: chatItem
 
+    property bool compact
+
     property alias primaryText: primaryText //usually chat name
     property alias additionalPrimaryText: additionalPrimaryText
     property alias additionalPrimaryTextIcon: additionalPrimaryTextIcon
     property alias prologSecondaryText: prologSecondaryText //usually last sender name
     property alias secondaryText: secondaryText //usually last message
     property alias tertiaryText: tertiaryText //usually last message date
-    property bool showSeparator: true
+    property bool showSeparator: !compact
 
     property int unreadCount: 0
     property int unreadMentionCount: 0
@@ -38,7 +40,7 @@ ListItem {
     property real leftMargin: Theme.horizontalPageMargin
     property real rightMargin: Theme.horizontalPageMargin
 
-    contentHeight: Theme.itemSizeExtraLarge
+    contentHeight: compact ? Theme.itemSizeLarge + Theme.paddingMedium : Theme.itemSizeExtraLarge
     contentWidth: parent.width
 
     ChatPhotoPreview {
@@ -48,6 +50,7 @@ ListItem {
             leftMargin: chatItem.leftMargin
             verticalCenter: parent.verticalCenter
         }
+        height: compact ? Theme.iconSizeLarge : Theme.itemSizeLarge
 
         highlighted: chatItem.highlighted
         unreadCount: chatItem.unreadCount

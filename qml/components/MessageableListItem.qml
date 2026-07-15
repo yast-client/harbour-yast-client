@@ -64,7 +64,5 @@ PhotoTextsListItem {
     unreadMentionCount: unread_mention_count
     isPinned: is_pinned
 
-    showSeparator: !appSettings.compactChatList
-    contentHeight: appSettings.compactChatList ? Theme.itemSizeLarge + Theme.paddingMedium : Theme.itemSizeExtraLarge
-        pictureThumbnailItem.height: appSettings.compactChatList ? Theme.iconSizeLarge : Theme.itemSizeLarge
+    compact: appSettings.compactChatList
 }

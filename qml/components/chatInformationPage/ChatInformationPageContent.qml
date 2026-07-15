@@ -513,6 +513,7 @@ SilicaFlickable {
                 active: !!(chatInformationPage.chatPartnerFullInformation && chatInformationPage.chatPartnerFullInformation.personal_chat_id)
                 sourceComponent: TDLibChatListItem {
                     chatId: chatInformationPage.chatPartnerFullInformation.personal_chat_id
+                    compact: false
                     showSeparator: false
                     doReplace: true
                 }

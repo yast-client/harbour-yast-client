@@ -98,9 +98,10 @@ Page {
 
                 delegate: PhotoTextsListItem {
                     id: contactListItem
-
                     opacity: visible ? 1 : 0
                     Behavior on opacity { FadeAnimation {} }
+
+                    compact: true
 
                     pictureThumbnail {
                         photoData: photo_data ? (photo_data.small || {}) : {}
@@ -109,11 +110,7 @@ Page {
                     width: parent.width
 
                     primaryText.text: Emoji.emojify(title, primaryText.font.pixelSize, "../js/emoji/")
-                    prologSecondaryText.text: "@" + ( username !== "" ? username : user_id )
-                    tertiaryText {
-                        maximumLineCount: 1
-                        text: Functions.getChatPartnerStatusText(user_status, user_last_online, is_support, display.id);
-                    }
+                    prologSecondaryText.text: Functions.getChatPartnerStatusText(user_status, user_last_online, is_support, display.id)
 
                     onClicked: tdLibWrapper.createPrivateChat(display.id, "openDirectly")
                     function remove() {
