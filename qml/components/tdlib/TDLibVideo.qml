@@ -6,8 +6,11 @@ import Sailfish.Silica 1.0
 import io.yaqtlib 1.0
 import QtMultimedia 5.6
 import QtGraphicalEffects 1.0
+import '../../js/functions.js' as Functions
 
 Video {
+    id: video
+
     property var messageContent: ({})
     property var videoData: {
         switch (messageContent['@type']) {
@@ -29,7 +32,6 @@ Video {
     property alias thumbnail: thumbnail
     property alias downloadingCompleted: file.isDownloadingCompleted
 
-    readonly property string videoType: videoData['@type'] === "videoNote" ? "video" : videoData['@type']
     readonly property bool isPlaying: video.playbackState === MediaPlayer.PlayingState
 
     source: downloadingCompleted ? file.path : ''
@@ -64,7 +66,7 @@ Video {
         id: file
         autoLoad: false
         tdlib: tdLibWrapper
-        fileInformation: videoData[videoType]
+        fileInformation: Functions.getVideoFile(videoData)
         onDownloadingCompletedChanged: {
             if(isDownloadingCompleted) {
                 video.source = file.path

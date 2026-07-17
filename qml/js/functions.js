@@ -304,3 +304,8 @@ function getMessageSendingStateIcon(messageId, lastReadOutboxMessageId, sendingS
     } else
         return Qt.resolvedUrl('../../images/icon-s-message-sent.svg')
 }
+
+function getVideoFile(video) {
+    // Returns the file for video, animation or videoNote TDLib object
+    return videoData['@type'] === 'videoNote' ? video.video : video[video['@type']]
+}
