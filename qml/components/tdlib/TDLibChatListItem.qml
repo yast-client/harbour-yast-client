@@ -146,7 +146,7 @@ PhotoTextsListItem {
 
     onClicked:
         if (chatId)
-            (doReplace ? pageStack.replace : pageStack.push)(Qt.resolvedUrl("../pages/ChatPage.qml"), {chatInformation: chatInformation})
+            (doReplace ? pageStack.replace : pageStack.push)(Qt.resolvedUrl("../../pages/ChatPage.qml"), {chatInformation: chatInformation})
         else if (userId)
             tdLibWrapper.createPrivateChat(userId, "openDirectly")
 }

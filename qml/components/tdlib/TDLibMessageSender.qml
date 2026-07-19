@@ -39,7 +39,7 @@ QtObject {
             options.chatInformation = chatInformation
 
             var f = replace ? pageStack.replace : pageStack.push // FIXME: why is this needed?
-            f(Qt.resolvedUrl("../pages/ChatPage.qml"), options)
+            f(Qt.resolvedUrl("../../pages/ChatPage.qml"), options)
         } else if (isUser)
             tdLibWrapper.createPrivateChat(userId, 'openDirectly')
     }
