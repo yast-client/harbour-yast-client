@@ -10,7 +10,7 @@ AnimatedLoader {
     property var chatId
     property var pendingJoinRequests
 
-    show: pendingJoinRequests && !!pendingJoinRequests.total_count
+    show: !!(pendingJoinRequests && pendingJoinRequests.total_count)
     activeHeight: Theme.itemSizeSmall
 
     sourceComponent: Component {
