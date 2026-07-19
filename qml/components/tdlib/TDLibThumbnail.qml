@@ -58,7 +58,7 @@ Item {
         active: !!minithumbnail && thumbnailImage.opacity < 1.0
     }
     BackgroundImage {
-        visible: tdlibThumbnail.useBackgroundImage && thumbnailImage.opacity < 1.0
+        visible: tdlibThumbnail.useBackgroundImage && !minithumbnailLoader.ready && thumbnailImage.opacity < 1.0
     }
 
     // image thumbnail
