@@ -35,4 +35,4 @@ The list of chat folder icons supported by TDLib is:
 | 🎵                  | Note       |
 | 🎨                  | Palette    |
 
-All chat folder icons are implemented using icons from Silica, as well as custom icons. However, some icons, including Cat, are not currently done in the best way possible. Contributions with better chat folder icons would be very welcome!
+All chat folder icons are implemented using icons from Silica, as well as custom icons. However, some icons, such as Cat, are not currently done in the best way possible. Contributions with better chat folder icons would be very welcome!
