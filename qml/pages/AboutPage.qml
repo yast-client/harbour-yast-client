@@ -126,7 +126,7 @@ AboutPageBase {
                     customShortText: qsTr("Graphics")
                 }
             ]
-            sources: "https://github.com/twitter/twemoji"
+            sources: "https://github.com/jdecked/twemoji"
         },
         Attribution {
             name: "rlottie"
