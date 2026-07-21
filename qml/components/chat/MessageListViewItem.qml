@@ -21,7 +21,7 @@ MessageListViewItemBase {
     readonly property color textColor: isOutgoing ? Theme.highlightColor : Theme.primaryColor
     readonly property int textAlign: isOutgoing ? Text.AlignRight : Text.AlignLeft
     property bool isSponsored: myMessage['@type'] === 'sponsoredMessage'
-    readonly property bool isUnread: messagesView.readable && !isOutgoing && !isSponsored && messageId > messagesModel.lastReadInboxMessageId
+    readonly property bool isUnread: messagesView.readable && !isOutgoing && !isSponsored && messagesModel.lastReadInboxMessageId && messageId > messagesModel.lastReadInboxMessageId
 
     property bool hasContentComponent
     property bool fullWidthWidescreenContent
