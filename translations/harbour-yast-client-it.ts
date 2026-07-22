@@ -112,15 +112,6 @@
         <translation>Novità</translation>
     </message>
     <message>
-        <source>Tips</source>
-        <translation>Suggerimenti</translation>
-    </message>
-    <message>
-        <source>https://t.me/TelegramTips</source>
-        <comment>URL to the localized Telegram Tips channel. Keep unfinished or as-is if not available for your language</comment>
-        <translation>https://t.me/TelegramTipsIT</translation>
-    </message>
-    <message>
         <source>Ask a Question</source>
         <comment>Contact support</comment>
         <translation>Fai una domanda</translation>
@@ -139,6 +130,64 @@
     <message>
         <source>Debug mode is now enabled!</source>
         <translation>La modalità di debug è stata abilitata!</translation>
+    </message>
+    <message>
+        <source>Features</source>
+        <comment>Opens Telegram Tips channel</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TelegramTips</source>
+        <comment>Username of the localized Telegram Tips channel. Keep unfinished or as-is if not available for your language</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SailfishOS Resources</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To get more info on SailfishOS, consider joining these groups and channels.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>International Fan Club</source>
+        <comment>Button which opens the SailfishOS Fan Club group</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>News Network</source>
+        <comment>Button which opens the Sailfish OS News Network channel</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Community meeting</source>
+        <comment>Button which opens the SailfishOS Meeting channel</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English-speaking resources</source>
+        <comment>Change `English` to the name of your language</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>extra_resource_title_1</source>
+        <comment>Extra resource link title #1. See here for more info: https://github.com/yast-client/harbour-yast-client/blob/main/doc/translating.md#extra-resource-links</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>extra_resource_link_path_1</source>
+        <comment>Extra resource link path #1. See here for more info: https://github.com/yast-client/harbour-yast-client/blob/main/doc/translating.md#extra-resource-links</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>extra_resource_title_2</source>
+        <comment>Extra resource link title #2. See here for more info: https://github.com/yast-client/harbour-yast-client/blob/main/doc/translating.md#extra-resource-links</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>extra_resource_link_path_2</source>
+        <comment>Extra resource link path #2. See here for more info: https://github.com/yast-client/harbour-yast-client/blob/main/doc/translating.md#extra-resource-links</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

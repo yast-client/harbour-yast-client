@@ -24,7 +24,7 @@ AboutPageBase {
     description: qsTr("A Telegram client for Sailfish OS")
     sourcesUrl: "https://github.com/roundedrectangle/harbour-yast-client"
     autoAddOpalAttributions: true
-    licenses: License{ spdxId: 'GPL-3.0-only' }
+    licenses: License { spdxId: 'GPL-3.0-only' }
 
     authors: ["roundedrectangle"]
     contributionSections: [
@@ -98,7 +98,8 @@ AboutPageBase {
             ]
         }
     ]
-    attributions: [
+
+    property list<Attribution> baseAttributions: [
         Attribution {
             name: "Fernschreiber"
             description: qsTr("This application is a fork of Fernschreiber, and wouldn't be possible without it. Thanks to everyone who developed and contributed to it!")
@@ -117,11 +118,11 @@ AboutPageBase {
             description: qsTr("This project uses twemoji. Thanks for making it available under the conditions of the MIT License (coding) and CC-BY 4.0 (graphics)!")
             entries: ["2022–present Jason Sofonia & Justine De Caires", "2014–2021 Twitter"]
             licenses: [
-                License{
+                License {
                     spdxId: 'MIT'
                     customShortText: qsTr("Coding")
                 },
-                License{
+                License {
                     spdxId: 'CC-BY 4.0'
                     customShortText: qsTr("Graphics")
                 }
@@ -138,7 +139,9 @@ AboutPageBase {
             name: "Nominatim"
             description: qsTr("This project uses OpenStreetMap Nominatim for reverse geocoding of location attachments. Thanks for making it available as web service!")
             sources: "https://wiki.openstreetmap.org/wiki/Nominatim"
-        },
+        }
+    ]
+    property list<Attribution> customAttributions: [
         Attribution {
             name: "tgcalls"
             entries: "2020 The Telegram Calls Library Authors"
@@ -158,6 +161,21 @@ AboutPageBase {
             sources: "https://github.com/cisco/openh264"
         }
     ]
+
+    attributions: {
+        var result = []
+        for (var i=0; i < baseAttributions.length; i++)
+            result.push(baseAttributions[i])
+
+        if (NO_HARBOUR_COMPLIANCE)
+            for (i=0; i < customAttributions.length; i++)
+                result.push(customAttributions[i])
+        return result
+    }
+
+    function openTMeUrl(path) {
+        tdLibWrapper.getInternalLinkType(tdLibWrapper.options.t_me_url + path)
+    }
 
     extraSections: [
         InfoSection {
@@ -182,15 +200,56 @@ AboutPageBase {
             buttons: [
                 InfoButton {
                     text: qsTr("News")
-                    onClicked: tdLibWrapper.getInternalLinkType("https://t.me/+klEzuTNf7iYyODYy")
+                    onClicked: openTMeUrl("+klEzuTNf7iYyODYy")
                 },
                 InfoButton {
-                    text: qsTr("Tips")
-                    onClicked: tdLibWrapper.getInternalLinkType(qsTr('https://t.me/TelegramTips', "URL to the localized Telegram Tips channel. Keep unfinished or as-is if not available for your language"))
+                    text: qsTr("Features", "Opens Telegram Tips channel")
+                    onClicked: openTMeUrl(qsTr('TelegramTips', "Username of the localized Telegram Tips channel. Keep unfinished or as-is if not available for your language"))
                 },
                 InfoButton {
                     text: qsTr("Ask a Question", "Contact support")
                     onClicked: pageStack.push(Qt.resolvedUrl('../dialogs/ContactSupportDialog.qml'))
+                }
+            ]
+        },
+        InfoSection {
+            title: qsTr("SailfishOS Resources")
+            smallPrint: qsTr("To get more info on SailfishOS, consider joining these groups and channels.")
+
+            buttons: [
+                InfoButton {
+                    text: qsTr("International Fan Club", "Button which opens the SailfishOS Fan Club group")
+                    onClicked: openTMeUrl("+KeJKDDA60uU2M2Q0")
+                },
+                InfoButton {
+                    text: qsTr("News Network", "Button which opens the Sailfish OS News Network channel")
+                    onClicked: openTMeUrl("sailfishosnews")
+                },
+                InfoButton {
+                    text: qsTr("Community meeting", "Button which opens the SailfishOS Meeting channel")
+                    onClicked: openTMeUrl("+AAAAAFcbasJX67Fu-aGxxQ")
+                }
+            ]
+        },
+        InfoSection {
+            title: qsTr("English-speaking resources", "Change `English` to the name of your language")
+            visible: firstExtraButton.enabled || secondExtraButton.enabled
+            Component.onCompleted: console.log(firstExtraButton.text, firstExtraButton.link, secondExtraButton.text, secondExtraButton.link)
+            buttons: [
+                // qsTrId would fit better here, but lrelease doesn't support using both source and ID-based strings
+                InfoButton {
+                    id: firstExtraButton
+                    text: qsTr('extra_resource_title_1', "Extra resource link title #1. See here for more info: https://github.com/yast-client/harbour-yast-client/blob/main/doc/translating.md#extra-resource-links")
+                    property string link: qsTr('extra_resource_link_path_1', "Extra resource link path #1. See here for more info: https://github.com/yast-client/harbour-yast-client/blob/main/doc/translating.md#extra-resource-links")
+                    enabled: !!(text && link) && text != 'extra_resource_title_1' && link != 'extra_resource_link_path_1'
+                    onClicked: openTMeUrl(link)
+                },
+                InfoButton {
+                    id: secondExtraButton
+                    text: qsTr('extra_resource_title_2', "Extra resource link title #2. See here for more info: https://github.com/yast-client/harbour-yast-client/blob/main/doc/translating.md#extra-resource-links")
+                    property string link: qsTr('extra_resource_link_path_2', "Extra resource link path #2. See here for more info: https://github.com/yast-client/harbour-yast-client/blob/main/doc/translating.md#extra-resource-links")
+                    enabled: !!(text && link) && text != 'extra_resource_title_2' && link != 'extra_resource_link_path_2'
+                    onClicked: openTMeUrl(link)
                 }
             ]
         }

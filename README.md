@@ -9,6 +9,8 @@ Author: @roundedrectangle
 
 ### Translations
 
+See [here](doc/translating.md) for additional notes on translating YAST.
+
 - Italian by @legacychimera247
 - Russian by @windes14
 

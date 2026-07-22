@@ -112,10 +112,6 @@
         <translation>Новости</translation>
     </message>
     <message>
-        <source>Tips</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Ask a Question</source>
         <comment>Contact support</comment>
         <translation>Задать вопрос</translation>
@@ -137,9 +133,62 @@
         <translation>Режим отладки теперь включён!</translation>
     </message>
     <message>
-        <source>https://t.me/TelegramTips</source>
-        <comment>URL to the localized Telegram Tips channel. Keep unfinished or as-is if not available for your language</comment>
-        <translation>https://t.me/TelegramTips</translation>
+        <source>TelegramTips</source>
+        <comment>Username of the localized Telegram Tips channel. Keep unfinished or as-is if not available for your language</comment>
+        <translation>TelegramTips</translation>
+    </message>
+    <message>
+        <source>SailfishOS Resources</source>
+        <translation>Ресурсы SailfishOS</translation>
+    </message>
+    <message>
+        <source>To get more info on SailfishOS, consider joining these groups and channels.</source>
+        <translation>Чтобы узнать больше о SailfishOS, присоединяйтесь к этим группам и каналам.</translation>
+    </message>
+    <message>
+        <source>International Fan Club</source>
+        <comment>Button which opens the SailfishOS Fan Club group</comment>
+        <translation>Клуб фанатов</translation>
+    </message>
+    <message>
+        <source>News Network</source>
+        <comment>Button which opens the Sailfish OS News Network channel</comment>
+        <translation>Новости</translation>
+    </message>
+    <message>
+        <source>Community meeting</source>
+        <comment>Button which opens the SailfishOS Meeting channel</comment>
+        <translation>Встреча сообщества</translation>
+    </message>
+    <message>
+        <source>English-speaking resources</source>
+        <comment>Change `English` to the name of your language</comment>
+        <translation>Русскоязычные ресурсы</translation>
+    </message>
+    <message>
+        <source>Features</source>
+        <comment>Opens Telegram Tips channel</comment>
+        <translation>Возможности</translation>
+    </message>
+    <message>
+        <source>extra_resource_title_1</source>
+        <comment>Extra resource link title #1. See here for more info: https://github.com/yast-client/harbour-yast-client/blob/main/doc/translating.md#extra-resource-links</comment>
+        <translation>Группа Sailfish и Aurora OS</translation>
+    </message>
+    <message>
+        <source>extra_resource_link_path_1</source>
+        <comment>Extra resource link path #1. See here for more info: https://github.com/yast-client/harbour-yast-client/blob/main/doc/translating.md#extra-resource-links</comment>
+        <translation>mobilelinux</translation>
+    </message>
+    <message>
+        <source>extra_resource_title_2</source>
+        <comment>Extra resource link title #2. See here for more info: https://github.com/yast-client/harbour-yast-client/blob/main/doc/translating.md#extra-resource-links</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>extra_resource_link_path_2</source>
+        <comment>Extra resource link path #2. See here for more info: https://github.com/yast-client/harbour-yast-client/blob/main/doc/translating.md#extra-resource-links</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
