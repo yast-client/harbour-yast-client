@@ -5,6 +5,7 @@
 import QtQuick 2.6
 
 InlineQueryResultAnimation {
-    isAnimation: false
-    animationKey: "video"
+    animation: model.video
+    mutePreview: false
+    loopPreview: false
 }
