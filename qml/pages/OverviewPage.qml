@@ -181,12 +181,11 @@ Page {
                 openChat(chatId, {messageIdToShow: messageId})
             else
                 openChat(chatId)
-        onChatInviteLinkInfoReceived: {
+        onChatInviteLinkInfoReceived:
             if (tdLibWrapper.canSkipChatJoinDialog(info.chat_id))
                 openChat(info.chat_id)
             else
                 pageStack.push(Qt.resolvedUrl("../dialogs/ChatJoinDialog.qml"), {link: link, invite: info})
-        }
         onInternalLinkTypeProxyReceived:
             pageStack.push(Qt.resolvedUrl("../dialogs/AddProxyDialog.qml"), {server: server, port: port, proxyType: type, openAfterAdding: true})
         onAddedProxyReceived:

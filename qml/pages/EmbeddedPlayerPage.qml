@@ -26,20 +26,21 @@ FullscreenContentPage {
     }
 
     IconButton {
-       id: closeButton
-       icon.source: "image://theme/icon-m-cancel?" + (pressed
+        id: closeButton
+        icon.source: "image://theme/icon-m-cancel?" + (pressed
                     ? Theme.highlightColor
                     : Theme.lightPrimaryColor)
-       onClicked: pageStack.pop()
-       anchors {
-           right: parent.right
-           top: parent.top
-           margins: Theme.horizontalPageMargin
-       }
-       opacity: enabled ? 1 : 0
-       Behavior on opacity { FadeAnimator {} }
-       onEnabledChanged: if (enabled) hideCloseButtonTimer.start()
-                         else hideCloseButtonTimer.stop()
+        onClicked: pageStack.pop()
+        anchors {
+            right: parent.right
+            top: parent.top
+            margins: Theme.horizontalPageMargin
+        }
+        opacity: enabled ? 1 : 0
+        Behavior on opacity { FadeAnimator {} }
+        onEnabledChanged:
+            if (enabled) hideCloseButtonTimer.start()
+            else hideCloseButtonTimer.stop()
     }
 
     Timer {

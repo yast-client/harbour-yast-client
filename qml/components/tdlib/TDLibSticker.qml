@@ -16,45 +16,7 @@ TDLibStickerBase {
     useThumbnail: !appSettings.videoStickers && stickerData.format['@type'] === 'stickerFormatWebm'
     stickerVisible: !!(stickerLoader.item && stickerLoader.item.visible)
 
-    property alias stickerItem: stickerLoader.item
     readonly property bool loaded: file.isDownloadingCompleted && stickerLoader.status == Loader.Ready
-
-    function getFrameCount() {
-        // can't use a property because is non-NOTIFYable (results in lots of warnings)
-        if (stickerLoader.sourceComponent == videoComponent)
-            return stickerLoader.item.frameCount
-        if (stickerLoader.sourceComponent == animatedComponent)
-            return stickerLoader.item.frameCount
-        return 0
-    }
-
-    function seekToFrame(frame) {
-        if (!stickerLoader.item) return
-
-        if (stickerLoader.sourceComponent == videoComponent) {
-            if (stickerLoader.item.seekable)
-                stickerLoader.item.seek(Math.min(frame * (stickerLoader.item.metaData.videoFrameRate / 1000), stickerLoader.item.duration))
-        } else if (stickerLoader.sourceComponent == animatedComponent)
-            stickerLoader.item.currentFrame = Math.min(frame, stickerLoader.item.frameCount)
-    }
-
-    function pause() {
-        if (!stickerLoader.item) return
-
-        if (stickerLoader.sourceComponent == videoComponent)
-            stickerLoader.item.pause()
-        else if (stickerLoader.sourceComponent == animatedComponent)
-            stickerLoader.item.paused = true
-    }
-
-    function play() {
-        if (!stickerLoader.item) return
-
-        if (stickerLoader.sourceComponent == videoComponent)
-            stickerLoader.item.play()
-        else if (stickerLoader.sourceComponent == animatedComponent)
-            stickerLoader.item.paused = false
-    }
 
     Loader {
         id: stickerLoader
