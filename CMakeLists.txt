@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 project(harbour-yast-client CXX ASM)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 message(STATUS "Building ${CMAKE_PROJECT_NAME} for ${EDITION}")
 
@@ -123,10 +125,20 @@ if(NOT HARBOUR_COMPLIANCE)
     target_sources(${CMAKE_PROJECT_NAME} PRIVATE
         src/gstaudiorecorder.cpp
         src/gstaudiorecorder.h
+        src/quickavplayer.cpp
+        src/quickavplayer.h
     )
     pkg_check_modules(GSTREAMER REQUIRED gstreamer-1.0 gstreamer-pbutils-1.0 glib-2.0)
     target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${GSTREAMER_INCLUDE_DIRS})
     target_link_libraries(${CMAKE_PROJECT_NAME} ${GSTREAMER_LIBRARIES})
+
+    set(QT_AVPLAYER_MULTIMEDIA ON)
+    set(QT_AVPLAYER_BASE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/QtAVPlayer/src)
+    set(QT_AVPLAYER_DIR ${QT_AVPLAYER_BASE_DIR}/QtAVPlayer)
+    include(QtAVPlayer/src/QtAVPlayer/QtAVPlayer.cmake)
+    include_directories(${QT_AVPLAYER_BASE_DIR})
+    target_sources(${CMAKE_PROJECT_NAME} PRIVATE ${QtAVPlayer_SOURCES})
+    target_link_libraries(${CMAKE_PROJECT_NAME} ${QtAVPlayer_LIBS})
 endif()
 
 # Update the translations

@@ -6,9 +6,10 @@ import Sailfish.Silica 1.0
 import io.yaqtlib 1.0
 import QtMultimedia 5.6
 import QtGraphicalEffects 1.0
+import '..'
 import '../../js/functions.js' as Functions
 
-Video {
+CustomVideo {
     id: video
 
     property var messageContent: ({})

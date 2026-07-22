@@ -27,6 +27,10 @@
 #include "voicenoterecorder.h"
 #include "mynotificationmanager.h"
 
+#ifdef NO_HARBOUR_COMPLIANCE
+#include "quickavplayer.h"
+#endif
+
 int main(int argc, char *argv[]) {
     QLoggingCategory::setFilterRules(DEFAULT_LOG_FILTER);
 
@@ -50,6 +54,7 @@ int main(int argc, char *argv[]) {
                                                                    "YAST", appIconPath, dbusPath, dbusServiceName, QString(), true,
                                                                    incomingSoundPath, outgoingSoundPath);
     MainHelper::registerNotificationManager(view, notificationManager);
+    notificationManager->setUseSignalActions(true, true); // Set the initial value after a restart
 
     QObject::connect(app.data(), &QGuiApplication::aboutToQuit, [notificationManager]() {
         LOG("Disabling signal actions");
@@ -66,6 +71,10 @@ int main(int argc, char *argv[]) {
     VoiceNoteRecorder *voiceNoteRecorder = new VoiceNoteRecorder(argc, argv, view.data());
     context->setContextProperty("voiceNoteRecorder", voiceNoteRecorder);
     qmlRegisterUncreatableType<VoiceNoteRecorder>(uri, 1, 0, "VoiceNoteRecorder", QString());
+
+#ifdef NO_HARBOUR_COMPLIANCE
+    qmlRegisterType<QuickAVPlayer>(uri, 1, 0, "AVPlayer");
+#endif
 
     view->rootContext()->setContextProperty("APP_VERSION", QString(APP_VERSION));
     view->rootContext()->setContextProperty("APP_RELEASE", QString(APP_RELEASE));
