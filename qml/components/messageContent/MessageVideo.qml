@@ -14,6 +14,7 @@ import '../../js/functions.js' as Functions
 MessageContentBase {
     id: videoMessageComponent
 
+    property alias video: video
     property bool loop
 
     height: Functions.getVideoHeight(width, video.videoData)
@@ -58,10 +59,9 @@ MessageContentBase {
             timeLeftItem.visible = true
         }
         onPaused: handlePause()
-        onStopped: {
+        onStopped:
             if (loop && status == MediaPlayer.EndOfMedia) play()
             else handlePause()
-        }
     }
 
     Rectangle {
