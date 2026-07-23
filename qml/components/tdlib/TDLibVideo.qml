@@ -68,9 +68,9 @@ Video {
         tdlib: tdLibWrapper
         fileInformation: Functions.getVideoFile(videoData)
         onDownloadingCompletedChanged: {
-            if(isDownloadingCompleted) {
+            if (isDownloadingCompleted) {
                 video.source = file.path
-                if(video.shouldPlay) {
+                if (video.shouldPlay) {
                     video.play()
                     video.shouldPlay = false
                 }

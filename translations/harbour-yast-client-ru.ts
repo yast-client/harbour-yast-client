@@ -1792,7 +1792,7 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>Waiting for %1 to come online…</source>
-        <translation>Ждём, когда %s будет в сети…</translation>
+        <translation>Ждём появления %1 в сети…</translation>
     </message>
     <message>
         <source>This chat is empty</source>

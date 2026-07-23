@@ -213,6 +213,7 @@ AboutPageBase {
             ]
         },
         InfoSection {
+            visible: tdLibWrapper.authorizationState == TDLibAPI.AuthorizationReady
             title: qsTr("SailfishOS Resources")
             smallPrint: qsTr("To get more info on SailfishOS, consider joining these groups and channels.")
 
@@ -232,6 +233,7 @@ AboutPageBase {
             ]
         },
         InfoSection {
+            visible: tdLibWrapper.authorizationState == TDLibAPI.AuthorizationReady
             title: qsTr("English-speaking resources", "Change `English` to the name of your language")
             visible: firstExtraButton.enabled || secondExtraButton.enabled
             Component.onCompleted: console.log(firstExtraButton.text, firstExtraButton.link, secondExtraButton.text, secondExtraButton.link)
