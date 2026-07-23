@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
 #ifdef NO_HARBOUR_COMPLIANCE
                                                                    appContext->callsManager,
 #endif
-                                                                   "YAST", appIconPath, dbusPath, dbusServiceName, QString(), true,
+                                                                   "YAST", appIconPath, dbusPath, dbusServiceName, MainHelper::defaultIface, true,
                                                                    incomingSoundPath, outgoingSoundPath);
     MainHelper::registerNotificationManager(view, notificationManager);
 
