@@ -46,6 +46,7 @@ MessageContentBase {
         id: video
         anchors.fill: parent
         messageContent: rawMessage.content
+        autoLoad: false // On some adaptations, playing videos can crash the app, so we don't preload them
 
         onPlaying: {
             preventBlanking()
