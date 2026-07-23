@@ -843,14 +843,6 @@
         <source>Unknown</source>
         <translation>Sconosciuto</translation>
     </message>
-    <message>
-        <source>Leave Chat</source>
-        <translation>Lascia chat</translation>
-    </message>
-    <message>
-        <source>Join Chat</source>
-        <translation>Entra nella chat</translation>
-    </message>
     <message numerus="yes">
         <source>Forward %Ln messages</source>
         <comment>dialog header</comment>
@@ -860,20 +852,8 @@
         </translation>
     </message>
     <message>
-        <source>Closing chat</source>
-        <translation>Chiudi chat</translation>
-    </message>
-    <message>
-        <source>Close Chat</source>
-        <translation>Chiudi chat</translation>
-    </message>
-    <message>
         <source>Search in Chat</source>
         <translation>Cerca nella chat</translation>
-    </message>
-    <message>
-        <source>Delete Chat</source>
-        <translation>Elimina Chat</translation>
     </message>
     <message>
         <source>Deleted User</source>
@@ -888,10 +868,6 @@
         <translation>Chat eliminata</translation>
     </message>
     <message>
-        <source>Left chat</source>
-        <translation>Ha lasciato la chat</translation>
-    </message>
-    <message>
         <source>View as Messages</source>
         <comment>view a forum chat in full chat mode</comment>
         <translation>Vedi come Lista</translation>
@@ -904,6 +880,42 @@
     <message>
         <source>Search in chat</source>
         <translation>Cerca nella chat</translation>
+    </message>
+    <message>
+        <source>Delete chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Secret chat closed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close secret chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left the channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left the group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Join channel</source>
+        <translation type="unfinished">Entra nel canale</translation>
+    </message>
+    <message>
+        <source>Join group</source>
+        <translation type="unfinished">Entra nel gruppo</translation>
     </message>
 </context>
 <context>
@@ -4243,14 +4255,6 @@ Trascina in basso per visitare telegram.org</translation>
         <translation>Sei già membro di questa chat.</translation>
     </message>
     <message>
-        <source>Closed!</source>
-        <translation>Chiuso!</translation>
-    </message>
-    <message>
-        <source>Pending acknowledgement</source>
-        <translation>In attesa di conferma</translation>
-    </message>
-    <message>
         <source>Owner</source>
         <comment>channel user role</comment>
         <translation>Proprietario</translation>
@@ -4324,6 +4328,16 @@ Trascina in basso per visitare telegram.org</translation>
     <message>
         <source>Mute notifications</source>
         <translation>Silenzia notifiche</translation>
+    </message>
+    <message>
+        <source>Closed</source>
+        <comment>secret chat</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pending acknowledgement</source>
+        <comment>secret chat</comment>
+        <translation type="unfinished">In attesa di conferma</translation>
     </message>
 </context>
 <context>

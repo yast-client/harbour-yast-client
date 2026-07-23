@@ -112,10 +112,6 @@
         <translation type="unfinished">Uutiset</translation>
     </message>
     <message>
-        <source>Tips</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Ask a Question</source>
         <comment>Contact support</comment>
         <translation type="unfinished"></translation>
@@ -135,8 +131,61 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>https://t.me/TelegramTips</source>
-        <comment>URL to the localized Telegram Tips channel. Keep unfinished or as-is if not available for your language</comment>
+        <source>Features</source>
+        <comment>Opens Telegram Tips channel</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TelegramTips</source>
+        <comment>Username of the localized Telegram Tips channel. Keep unfinished or as-is if not available for your language</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SailfishOS Resources</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To get more info on SailfishOS, consider joining these groups and channels.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>International Fan Club</source>
+        <comment>Button which opens the SailfishOS Fan Club group</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>News Network</source>
+        <comment>Button which opens the Sailfish OS News Network channel</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Community meeting</source>
+        <comment>Button which opens the SailfishOS Meeting channel</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English-speaking resources</source>
+        <comment>Change `English` to the name of your language</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>extra_resource_title_1</source>
+        <comment>Extra resource link title #1. See here for more info: https://github.com/yast-client/harbour-yast-client/blob/main/doc/translating.md#extra-resource-links</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>extra_resource_link_path_1</source>
+        <comment>Extra resource link path #1. See here for more info: https://github.com/yast-client/harbour-yast-client/blob/main/doc/translating.md#extra-resource-links</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>extra_resource_title_2</source>
+        <comment>Extra resource link title #2. See here for more info: https://github.com/yast-client/harbour-yast-client/blob/main/doc/translating.md#extra-resource-links</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>extra_resource_link_path_2</source>
+        <comment>Extra resource link path #2. See here for more info: https://github.com/yast-client/harbour-yast-client/blob/main/doc/translating.md#extra-resource-links</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -816,30 +865,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Delete Chat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Closing chat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Close Chat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Left chat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Leave Chat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Join Chat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Search in Chat</source>
         <translation type="unfinished"></translation>
     </message>
@@ -849,6 +874,42 @@
     </message>
     <message>
         <source>Search in chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Secret chat closed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close secret chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left the channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left the group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Join channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Join group</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4112,10 +4173,6 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Closed!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Pending acknowledgement</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4209,6 +4266,10 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>Mute notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Closed</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

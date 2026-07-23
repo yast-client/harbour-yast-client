@@ -839,14 +839,6 @@
         <source>Unknown</source>
         <translation>未知</translation>
     </message>
-    <message>
-        <source>Leave Chat</source>
-        <translation>离开对话</translation>
-    </message>
-    <message>
-        <source>Join Chat</source>
-        <translation>加入对话</translation>
-    </message>
     <message numerus="yes">
         <source>Forward %Ln messages</source>
         <comment>dialog header</comment>
@@ -855,20 +847,8 @@
         </translation>
     </message>
     <message>
-        <source>Closing chat</source>
-        <translation>正在关闭对话</translation>
-    </message>
-    <message>
-        <source>Close Chat</source>
-        <translation>关闭对话</translation>
-    </message>
-    <message>
         <source>Search in Chat</source>
         <translation>对话内搜索</translation>
-    </message>
-    <message>
-        <source>Delete Chat</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Deleted User</source>
@@ -883,10 +863,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Left chat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>View as Messages</source>
         <comment>view a forum chat in full chat mode</comment>
         <translation type="unfinished"></translation>
@@ -898,6 +874,42 @@
     </message>
     <message>
         <source>Search in chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Secret chat closed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close secret chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left the channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left the group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Join channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Join group</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4183,14 +4195,6 @@ Pull down to visit telegram.org</source>
         <translation>你已是此对话成员。</translation>
     </message>
     <message>
-        <source>Closed!</source>
-        <translation>已关闭！</translation>
-    </message>
-    <message>
-        <source>Pending acknowledgement</source>
-        <translation>等待确认</translation>
-    </message>
-    <message>
         <source>Owner</source>
         <comment>channel user role</comment>
         <translation type="unfinished"></translation>
@@ -4260,6 +4264,16 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Mute notifications</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Closed</source>
+        <comment>secret chat</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pending acknowledgement</source>
+        <comment>secret chat</comment>
+        <translation type="unfinished">等待确认</translation>
     </message>
 </context>
 <context>

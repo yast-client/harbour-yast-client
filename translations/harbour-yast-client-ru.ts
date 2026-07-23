@@ -183,12 +183,12 @@
     <message>
         <source>extra_resource_title_2</source>
         <comment>Extra resource link title #2. See here for more info: https://github.com/yast-client/harbour-yast-client/blob/main/doc/translating.md#extra-resource-links</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Группа Sailfish и Aurora OS {2?}</translation>
     </message>
     <message>
         <source>extra_resource_link_path_2</source>
         <comment>Extra resource link path #2. See here for more info: https://github.com/yast-client/harbour-yast-client/blob/main/doc/translating.md#extra-resource-links</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">mobilelinux {2?}</translation>
     </message>
 </context>
 <context>
@@ -847,14 +847,6 @@
         <source>Unknown</source>
         <translation>Неизвестный(ая)</translation>
     </message>
-    <message>
-        <source>Leave Chat</source>
-        <translation>Выйти из чата</translation>
-    </message>
-    <message>
-        <source>Join Chat</source>
-        <translation>Зайти в чат</translation>
-    </message>
     <message numerus="yes">
         <source>Forward %Ln messages</source>
         <comment>dialog header</comment>
@@ -865,20 +857,8 @@
         </translation>
     </message>
     <message>
-        <source>Closing chat</source>
-        <translation>Закрытие чата</translation>
-    </message>
-    <message>
-        <source>Close Chat</source>
-        <translation>Закрыть чат</translation>
-    </message>
-    <message>
         <source>Search in Chat</source>
         <translation>Поиск в чате</translation>
-    </message>
-    <message>
-        <source>Delete Chat</source>
-        <translation>Удалить чат</translation>
     </message>
     <message>
         <source>Deleted User</source>
@@ -893,10 +873,6 @@
         <translation>Чат удалён</translation>
     </message>
     <message>
-        <source>Left chat</source>
-        <translation>Чат покинут</translation>
-    </message>
-    <message>
         <source>View as Messages</source>
         <comment>view a forum chat in full chat mode</comment>
         <translation>Посмотр по сообщениям</translation>
@@ -909,6 +885,42 @@
     <message>
         <source>Search in chat</source>
         <translation>Поиск в чате</translation>
+    </message>
+    <message>
+        <source>Delete chat</source>
+        <translation>Удалить чат</translation>
+    </message>
+    <message>
+        <source>Secret chat closed</source>
+        <translation>Секретный чат закрыт</translation>
+    </message>
+    <message>
+        <source>Close secret chat</source>
+        <translation>Закрыть секретный чат</translation>
+    </message>
+    <message>
+        <source>Left the channel</source>
+        <translation>Чат покинут</translation>
+    </message>
+    <message>
+        <source>Left the group</source>
+        <translation>Группа покинута</translation>
+    </message>
+    <message>
+        <source>Leave channel</source>
+        <translation>Покинуть канал</translation>
+    </message>
+    <message>
+        <source>Leave group</source>
+        <translation>Покинуть группу</translation>
+    </message>
+    <message>
+        <source>Join channel</source>
+        <translation>Зайти в канал</translation>
+    </message>
+    <message>
+        <source>Join group</source>
+        <translation>Зайти в группу</translation>
     </message>
 </context>
 <context>
@@ -4301,14 +4313,6 @@ Pull down to visit telegram.org</source>
         <translation>Вы уже участвуете в этом чате.</translation>
     </message>
     <message>
-        <source>Closed!</source>
-        <translation>Закрыто!</translation>
-    </message>
-    <message>
-        <source>Pending acknowledgement</source>
-        <translation>Ожидание подтверждения</translation>
-    </message>
-    <message>
         <source>service notifications</source>
         <comment>used as a status for the service notifications chat</comment>
         <translation>сервисные уведомления</translation>
@@ -4386,6 +4390,16 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Mute notifications</source>
         <translation>Выключить уведомления</translation>
+    </message>
+    <message>
+        <source>Closed</source>
+        <comment>secret chat</comment>
+        <translation>Закрыт</translation>
+    </message>
+    <message>
+        <source>Pending acknowledgement</source>
+        <comment>secret chat</comment>
+        <translation>Ожидание подтверждения</translation>
     </message>
 </context>
 <context>

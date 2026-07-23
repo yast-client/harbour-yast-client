@@ -847,14 +847,6 @@
         <source>Unknown</source>
         <translation>Neznámy</translation>
     </message>
-    <message>
-        <source>Leave Chat</source>
-        <translation>Opustiť čet</translation>
-    </message>
-    <message>
-        <source>Join Chat</source>
-        <translation>Pripojiť sa k četu</translation>
-    </message>
     <message numerus="yes">
         <source>Forward %Ln messages</source>
         <comment>dialog header</comment>
@@ -865,20 +857,8 @@
         </translation>
     </message>
     <message>
-        <source>Closing chat</source>
-        <translation>Zatváranie četu</translation>
-    </message>
-    <message>
-        <source>Close Chat</source>
-        <translation>Zatvoriť čet</translation>
-    </message>
-    <message>
         <source>Search in Chat</source>
         <translation>Hľadať v čete</translation>
-    </message>
-    <message>
-        <source>Delete Chat</source>
-        <translation>Odstrániť čet</translation>
     </message>
     <message>
         <source>Deleted User</source>
@@ -893,10 +873,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Left chat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>View as Messages</source>
         <comment>view a forum chat in full chat mode</comment>
         <translation type="unfinished"></translation>
@@ -908,6 +884,42 @@
     </message>
     <message>
         <source>Search in chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Secret chat closed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close secret chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left the channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left the group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Join channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Join group</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4294,14 +4306,6 @@ Pull down to visit telegram.org</source>
         <translation>Už ste členom tohto četu.</translation>
     </message>
     <message>
-        <source>Closed!</source>
-        <translation>Zatvorené!</translation>
-    </message>
-    <message>
-        <source>Pending acknowledgement</source>
-        <translation>Čaká sa na potvrdenie</translation>
-    </message>
-    <message>
         <source>Owner</source>
         <comment>channel user role</comment>
         <translation type="unfinished"></translation>
@@ -4379,6 +4383,16 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Mute notifications</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Closed</source>
+        <comment>secret chat</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pending acknowledgement</source>
+        <comment>secret chat</comment>
+        <translation type="unfinished">Čaká sa na potvrdenie</translation>
     </message>
 </context>
 <context>

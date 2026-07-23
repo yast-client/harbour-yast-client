@@ -22,11 +22,11 @@ Page {
     property alias chatManager: chatManagerLoader.chatManager
     property var chatInformation
     readonly property alias chatId: chatManagerLoader.chatId
-    property var secretChatDetails
+    readonly property var secretChatDetails: chatManager.secretChatInfo
     property alias chatPicture: chatPictureThumbnail.photoData
     property bool isPrivateChat: chatManagerLoader.chatManager.chatType === TDLibAPI.ChatTypePrivate
     property bool isSecretChat: chatManager.chatType === TDLibAPI.ChatTypeSecret
-    property bool isSecretChatReady: false
+    property bool isSecretChatReady: chatPage.secretChatDetails.state['@type'] === 'secretChatStateReady'
     property bool isBasicGroup: chatManager.chatType === TDLibAPI.ChatTypeBasicGroup
     property bool isSupergroup: chatManager.chatType === TDLibAPI.ChatTypeSupergroup
     property bool isChannel: chatManager.isChannel
@@ -161,8 +161,6 @@ Page {
     Component.onCompleted: {
         log("Initializing chat page...")
 
-        if (isSecretChat)
-            tdLibWrapper.getSecretChat(chatInformation.type.secret_chat_id)
         if (isPrivateChat || isSecretChat) {
             if(chatPartnerInformation.type["@type"] === "userTypeBot")
                 tdLibWrapper.getUserFullInfo(chatPartnerInformation.id)
@@ -223,20 +221,6 @@ Page {
             }
         }
 
-        onSecretChatReceived: {
-            if (secretChatId === chatInformation.type.secret_chat_id) {
-                log("Received detailed information about this secret chat")
-                chatPage.secretChatDetails = secretChat
-                chatPage.isSecretChatReady = chatPage.secretChatDetails.state["@type"] === "secretChatStateReady"
-            }
-        }
-        onSecretChatUpdated: {
-            if (secretChatId.toString() === chatInformation.type.secret_chat_id.toString()) {
-                log("Detailed information about this secret chat was updated")
-                chatPage.secretChatDetails = secretChat
-                chatPage.isSecretChatReady = chatPage.secretChatDetails.state["@type"] === "secretChatStateReady"
-            }
-        }
         onCallbackQueryAnswer: {
             if(text.length > 0) { // ignore bool "alert", just show as notification:
                 appNotification.show(Emoji.emojify(text, Theme.fontSizeSmall))
@@ -313,16 +297,16 @@ Page {
                     var privateChatId = chatInformation.id
                     Remorse.popupAction(chatPage, qsTr("Chat deleted"), function() { tdLibWrapper.deleteChat(privateChatId) }, 10000)
                 }
-                text: qsTr("Delete Chat")
+                text: qsTr("Delete chat")
             }
 
             MenuItem {
                 visible: chatPage.isSecretChat && chatPage.secretChatDetails.state["@type"] !== "secretChatStateClosed"
                 onClicked: {
                     var secretChatId = chatPage.secretChatDetails.id
-                    Remorse.popupAction(chatPage, qsTr("Closing chat"), function(){ tdLibWrapper.closeSecretChat(secretChatId) })
+                    Remorse.popupAction(chatPage, qsTr("Secret chat closed"), function() { tdLibWrapper.closeSecretChat(secretChatId) })
                 }
-                text: qsTr("Close Chat")
+                text: qsTr("Close secret chat")
             }
 
             MenuItem {
@@ -330,11 +314,13 @@ Page {
                 onClicked: {
                     if (chatPage.userIsMember) {
                         var chatId = chatInformation.id
-                        Remorse.popupAction(chatPage, qsTr("Left chat"), function() { tdLibWrapper.leaveChat(chatId) })
+                        Remorse.popupAction(chatPage, isChannel ? qsTr("Left the channel") : qsTr("Left the group"), function() { tdLibWrapper.leaveChat(chatId) })
                     } else
                         tdLibWrapper.joinChat(chatInformation.id, isChannel)
                 }
-                text: chatPage.userIsMember ? qsTr("Leave Chat") : qsTr("Join Chat")
+                text: chatPage.userIsMember
+                        ? (isChannel ? qsTr("Leave channel") : qsTr("Leave group"))
+                        : (isChannel ? qsTr("Join channel") : qsTr("Join group"))
             }
 
             MenuItem {
