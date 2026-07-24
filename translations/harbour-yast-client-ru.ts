@@ -1887,12 +1887,12 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Silent Broadcast</source>
         <comment>placeholder for broadcasting a message to a channel silently</comment>
-        <translation>Широковещательные сообщения без уведомления</translation>
+        <translation>Тихая публикация</translation>
     </message>
     <message>
         <source>Broadcast</source>
         <comment>placeholder for broadcasting a message to a channel</comment>
-        <translation>Широковещательные сообщения</translation>
+        <translation>Публикация</translation>
     </message>
     <message>
         <source>Send anonymously</source>

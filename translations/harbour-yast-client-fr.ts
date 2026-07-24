@@ -4173,10 +4173,6 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Pending acknowledgement</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Admin</source>
         <comment>channel user role</comment>
         <translation type="unfinished"></translation>
@@ -4270,6 +4266,12 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>Closed</source>
+        <comment>secret chat</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pending acknowledgement</source>
+        <comment>secret chat</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
