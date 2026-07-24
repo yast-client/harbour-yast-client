@@ -16,11 +16,9 @@ TDLibVideo {
     readonly property bool isCurrent: index === page.index
     onIsCurrentChanged: if(!isCurrent) pause()
 
-    onStatusChanged: {
-        if(status === MediaPlayer.EndOfMedia) {
+    onStatusChanged:
+        if (status === MediaPlayer.EndOfMedia)
             page.overlayActive = true
-        }
-    }
 
     MouseArea {
         anchors.fill: parent
@@ -30,11 +28,9 @@ TDLibVideo {
     Timer {
         id: delayedOverlayHide
         interval: 500
-        onTriggered: {
-            if(video.isPlaying) {
+        onTriggered:
+            if (video.isPlaying)
                 page.overlayActive = false
-            }
-        }
     }
     onPlaying: delayedOverlayHide.start()
 
@@ -44,7 +40,7 @@ TDLibVideo {
         opacity: enabled ? 1 : 0
         Behavior on opacity { FadeAnimator {} }
 
-        icon.source: "image://theme/icon-l-"+(video.isPlaying || video.shouldPlay ? 'pause' : 'play')
+        icon.source: "image://theme/icon-l-"+(video.isShouldPlay ? 'pause' : 'play')
         onClicked: toggle()
     }
 

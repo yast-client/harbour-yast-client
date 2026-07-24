@@ -158,21 +158,30 @@ MessageContentBase {
                     anchors.centerIn: parent
                     highlighted: videoMessageComponent.highlighted || down
                     icon.source: "../../../images/icon-l-fullscreen.svg"
-                    onClicked: pageStack.push(Qt.resolvedUrl("../../pages/MediaAlbumPage.qml"), {
-                        chatManager: chatManager,
-                        message: rawMessage,
-                        searchMessagesFilter: function() {
-                            switch (rawMessage.content['@type']) {
-                            case 'messageVideoNote':
-                                return TDLibAPI.SearchMessagesFilterVideoNote
-                            case 'messageAnimation':
-                                return TDLibAPI.SearchMessagesFilterAnimation
-                            default:
-                                return TDLibAPI.SearchMessagesFilterPhotoAndVideo
-                            }
-                        }(),
-                        singleElement: isSponsored
-                    })
+                    onClicked: {
+                        video.shouldPlay = false
+                        if (video.playing)
+                            video.pause()
+
+                        var page = pageStack.push(Qt.resolvedUrl("../../pages/MediaAlbumPage.qml"), {
+                            chatManager: chatManager,
+                            message: rawMessage,
+                            searchMessagesFilter: function() {
+                                switch (rawMessage.content['@type']) {
+                                case 'messageVideoNote':
+                                    return TDLibAPI.SearchMessagesFilterVideoNote
+                                case 'messageAnimation':
+                                    return TDLibAPI.SearchMessagesFilterAnimation
+                                default:
+                                    return TDLibAPI.SearchMessagesFilterPhotoAndVideo
+                                }
+                            }(),
+                            singleElement: isSponsored
+                        })
+                        page.Component.onDestruction.connect(function() {
+                            video.shouldPlay = true
+                        })
+                    }
                 }
             }
         }

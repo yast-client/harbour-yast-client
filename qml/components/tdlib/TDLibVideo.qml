@@ -26,21 +26,23 @@ Video {
         }
     }
 
-    property bool shouldPlay
+    property bool shouldLoad
+    property bool shouldPlay: true
 
     property alias file: file
     property alias thumbnail: thumbnail
     property alias downloadingCompleted: file.isDownloadingCompleted
 
     readonly property bool isPlaying: video.playbackState === MediaPlayer.PlayingState
+    readonly property bool isShouldPlay: isPlaying || shouldLoad
 
     source: downloadingCompleted ? file.path : ''
-    onShouldPlayChanged: if (shouldPlay) file.load()
+    onShouldLoadChanged: if (shouldLoad) file.load()
                          else file.cancel()
     function toggle() {
         if (!downloadingCompleted) {
-            // see onShouldPlayChanged
-            shouldPlay = !shouldPlay
+            // see onShouldLoadChanged
+            shouldLoad = !shouldLoad
             return
         }
 
@@ -67,14 +69,13 @@ Video {
         autoLoad: false
         tdlib: tdLibWrapper
         fileInformation: Functions.getVideoFile(videoData)
-        onDownloadingCompletedChanged: {
+        onDownloadingCompletedChanged:
             if (isDownloadingCompleted) {
                 video.source = file.path
-                if (video.shouldPlay) {
+                if (video.shouldLoad && video.shouldPlay) {
                     video.play()
-                    video.shouldPlay = false
+                    video.shouldLoad = false
                 }
             }
-        }
     }
 }
