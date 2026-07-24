@@ -233,9 +233,8 @@ AboutPageBase {
             ]
         },
         InfoSection {
-            visible: tdLibWrapper.authorizationState == TDLibAPI.AuthorizationReady
+            visible: firstExtraButton.enabled || secondExtraButton.enabled && (tdLibWrapper.authorizationState == TDLibAPI.AuthorizationReady)
             title: qsTr("English-speaking resources", "Change `English` to the name of your language")
-            visible: firstExtraButton.enabled || secondExtraButton.enabled
             Component.onCompleted: console.log(firstExtraButton.text, firstExtraButton.link, secondExtraButton.text, secondExtraButton.link)
             buttons: [
                 // qsTrId would fit better here, but lrelease doesn't support using both source and ID-based strings
