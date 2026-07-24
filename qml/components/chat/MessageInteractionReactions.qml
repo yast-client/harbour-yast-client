@@ -27,14 +27,14 @@ Loader {
                 Rectangle {
                     visible: reactionLoader.supported
                     height: Theme.fontSizeSmall + Theme.paddingSmall*2
-                    width: childrenRect.width + Theme.paddingSmall
+                    width: childrenRect.width + Theme.paddingSmall*1.5
                     radius: width
 
                     color: modelData.is_chosen ? Theme.rgba(Theme.highlightBackgroundColor, 0.6) : Theme.rgba(Theme.secondaryColor, Theme.highlightBackgroundOpacity)
 
                     MessageReaction {
                         id: reactionLoader
-                        x: Theme.paddingSmall/2
+                        x: Theme.paddingSmall*0.75
                         y: x
                         height: parent.height - y*2
                         width: height
@@ -56,6 +56,7 @@ Loader {
                         anchors {
                             left: reactionLoader.right
                             leftMargin: visible ? (recentReactors.count > 0 ? (Theme.paddingSmall + parent.height + Math.max(0, Theme.paddingMedium*(recentReactors.count - 1))) : Theme.paddingSmall/2) : 0
+                            verticalCenter: parent.verticalCenter
                         }
                         visible: (modelData.total_count - recentReactors.count) > 0
                         width: visible ? implicitWidth : 0
