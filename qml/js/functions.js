@@ -307,5 +307,5 @@ function getMessageSendingStateIcon(messageId, lastReadOutboxMessageId, sendingS
 
 function getVideoFile(video) {
     // Returns the file for video, animation or videoNote TDLib object
-    return videoData['@type'] === 'videoNote' ? video.video : video[video['@type']]
+    return video['@type'] === 'videoNote' ? video.video : video[video['@type']]
 }
