@@ -18,8 +18,9 @@ Loader {
         top: parent.top
         bottom: active ? parent.bottom : parent.top
     }
-    property bool hasOverlay: active && userNameIsValid && status === Loader.Ready && item.overlay && item.overlay.status === Loader.Ready
-    property bool hasButton: active && userNameIsValid && status === Loader.Ready && item.button && item.button.status === Loader.Ready
+    property bool loaded: active && userNameIsValid && status === Loader.Ready
+    property bool hasOverlay: loaded && item.overlay && item.overlay.status === Loader.Ready
+    property bool hasButton: loaded && item.button && item.button.status === Loader.Ready
 
     property int buttonPadding: hasButton ? item.button.height + Theme.paddingSmall : 0
     Behavior on buttonPadding { NumberAnimation { duration: 200} }
@@ -28,96 +29,70 @@ Loader {
     property string userName
     property bool userNameIsValid: userName !== "" && inlineBotInformation && userName.toLowerCase() === inlineBotInformation.usernames.editable_username.toLowerCase()
     property string query
-    property int currentOffset: 0
+    property string currentOffset: ''
     property string responseExtra: chatId+"|"+userName+"|"+query+"|"+currentOffset
 
     property bool queued: false
     property TextArea textField
     property bool isLoading
     property var inlineBotInformation: null
-    onIsLoadingChanged: {
-        requestTimeout.start();
-    }
 
-    onStatusChanged: {
-        inlineBotInformation = null;
-        if(status === Loader.Ready && userName !== "") {
-            isLoading = true; inlineQueryLoader.chatId
-            tdLibWrapper.searchPublicChat(userName, false);
-        }
-    }
+    onIsLoadingChanged:
+        requestTimeout.start()
 
-    onUserNameChanged: {
-        inlineBotInformation = null;
-
-        if(status === Loader.Ready && userName !== "") {
-            isLoading = true;
-            tdLibWrapper.searchPublicChat(userName, false);
+    function fetchBot() {
+        inlineBotInformation = null
+        if (status === Loader.Ready && userName) {
+            isLoading = true
+            tdLibWrapper.searchPublicChat(userName)
         }
     }
+    onStatusChanged: fetchBot()
+    onUserNameChanged: fetchBot()
 
-    onQueryChanged: {
-        if(userName.length > 0) {
-            isLoading = true;
-            requestTimer.start();
+    onQueryChanged:
+        if (userName) {
+            isLoading = true
+            requestTimer.start()
         }
-    }
-
-    function handleQuery(name, query, offset) {
-        if(!name) {
-            inlineQueryLoader.userName = "";
-            inlineQueryLoader.query = "";
-            return;
-        }
-        if(inlineQueryLoader.userName !== name) {
-            inlineQueryLoader.userName = name
-        }
-        if(inlineQueryLoader.query !== query) {
-            inlineQueryLoader.query = query
-        }
-        inlineQueryLoader.currentOffset = offset || 0
-    }
 
     function request() {
-        if(!inlineBotInformation || !userNameIsValid) {
-            queued = true;
-        } else {
-            queued = false;
-            var location = null;
-            if(inlineBotInformation.type.need_location && utilities.supportsGeoLocation()) {
-                utilities.startGeoLocationUpdates();
-                if(!attachmentPreviewRow.locationData.latitude) {
-                    queued = true;
-                    return;
-                }
-            }
-            tdLibWrapper.getInlineQueryResults(inlineBotInformation.id, chatId, location, query, inlineQueryLoader.currentOffset, inlineQueryLoader.responseExtra);
-            isLoading = true;
+        if (!inlineBotInformation || !userNameIsValid) {
+            queued = true
+            return
         }
+
+        queued = false
+        var location = null
+        if (inlineBotInformation.type.need_location && utilities.supportsGeoLocation()) {
+            utilities.startGeoLocationUpdates()
+            if (!attachmentPreviewRow.locationData.latitude) {
+                queued = true
+                return
+            }
+        }
+        tdLibWrapper.getInlineQueryResults(inlineBotInformation.id, chatId, location, query, inlineQueryLoader.currentOffset, inlineQueryLoader.responseExtra)
+        isLoading = true
     }
 
     Timer {
         id: requestTimeout
         interval: 5000
-        onTriggered: {
-            inlineQueryLoader.isLoading = false;
-        }
+        onTriggered: inlineQueryLoader.isLoading = false
     }
 
     Timer {
         id: requestTimer
         interval: 1000
-        onTriggered: {
-            request();
-        }
+        onTriggered: request()
     }
 
     Connections {
         target: utilities
         onNewPositionInformation: {
-            attachmentPreviewRow.locationData = positionInformation;
+            attachmentPreviewRow.locationData = positionInformation
             if (inlineQueryLoader.queued) {
-                inlineQueryLoader.queued = false;
+                inlineQueryLoader.queued = false
                 inlineQueryLoader.request()
             }
         }
@@ -126,16 +101,13 @@ Loader {
     Connections {
         target: textField
         onTextChanged: {
-            if(textField.text.charAt(0) === '@') {
-                var queryMatch = textField.text.match(/^@([a-zA-Z0-9_]+)\s(.*)/);
-                if(queryMatch) {
-                    inlineQueryLoader.handleQuery(queryMatch[1], queryMatch[2]);
-                } else {
-                    inlineQueryLoader.handleQuery();
-                }
-            } else {
-                inlineQueryLoader.handleQuery();
-            }
+            inlineQueryLoader.currentOffset = ''
+            var queryMatch = textField.text.match(/^@([a-zA-Z0-9_]+)\s(.*)/)
+            if (queryMatch) {
+                inlineQueryLoader.userName = queryMatch[1]
+                inlineQueryLoader.query = queryMatch[2]
+            } else
+                inlineQueryLoader.userName = inlineQueryLoader.query = ''
         }
     }
 
@@ -144,11 +116,10 @@ Loader {
             id: inlineQueryComponent
             anchors.fill: parent
             property alias overlay: resultsOverlay
-            property alias button: switchToPmLoader
+            property alias button: buttonLoader
             property string nextOffset
             property string inlineQueryId
-            property string switchPmText
-            property string switchPmParameter
+            property var buttonData
             property ListModel resultModel: ListModel {
                 dynamicRoles: true
             }
@@ -156,123 +127,87 @@ Loader {
             property bool showInlineQueryPlaceholder: !!inlineQueryPlaceholder && query === ""
             property string useDelegateSize: "default"
             property var dimensions: ({
-                                          "default": [[Screen.width, Screen.height / 2], [Theme.itemSizeLarge, Theme.itemSizeLarge]], // whole line (portrait half)
-                                          "inlineQueryResultAnimation":  [[Screen.width / 3, Screen.height / 6], [Screen.width / 3, Screen.height / 6]],
-                                          "inlineQueryResultVideo":  [[Screen.width / 2, Screen.height / 4], [Theme.itemSizeLarge, Theme.itemSizeLarge]],
-                                          "inlineQueryResultSticker":  [[Screen.width / 3, Screen.height / 6], [Screen.width / 3, Screen.height / 6]],
-                                          "inlineQueryResultPhoto":  [[Screen.width/2, Screen.height / 3], [Theme.itemSizeExtraLarge, Theme.itemSizeExtraLarge]],
+                                          default: [[Screen.width, Screen.height / 2], [Theme.itemSizeLarge, Theme.itemSizeLarge]], // whole line (portrait half)
+                                          inlineQueryResultAnimation:  [[Screen.width / 3, Screen.height / 6], [Screen.width / 3, Screen.height / 6]],
+                                          inlineQueryResultVideo:  [[Screen.width / 2, Screen.height / 4], [Theme.itemSizeLarge, Theme.itemSizeLarge]],
+                                          inlineQueryResultSticker:  [[Screen.width / 3, Screen.height / 6], [Screen.width / 3, Screen.height / 6]],
+                                          inlineQueryResultPhoto:  [[Screen.width/2, Screen.height / 3], [Theme.itemSizeExtraLarge, Theme.itemSizeExtraLarge]],
                                       })
             property int delegateWidth: chatPage.isPortrait ? dimensions[useDelegateSize][0][0] : dimensions[useDelegateSize][0][1]
             property int delegateHeight: chatPage.isPortrait ? dimensions[useDelegateSize][1][0] : dimensions[useDelegateSize][1][1]
 
             function setDelegateSizes() {
-                var sizeKey = "default";
-                var modelCount = resultModel.count;
-                if(modelCount > 0) {
-                    var firstType = resultModel.get(0)["@type"];
-                    if(firstType && dimensions[firstType]) {
-                        var startIndex = inlineQueryLoader.currentOffset === 0 ? 1 : inlineQueryLoader.currentOffset;
-                        var same = true;
-                        for(var i = startIndex; i < modelCount; i += 1) {
-                            if(resultModel.get(i)["@type"] !== firstType) {
-                                same = false;
-                                continue;
-                            }
+                var result = 'default'
+                if (resultModel.count) {
+                    result = resultModel.get(0)['@type']
+                    for (var i=1; i < resultModel.count; i++)
+                        if (result !== resultModel.get(0)['@type']) {
+                            result = 'default'
+                            break
                         }
-                        if(same) {
-                            sizeKey = firstType;
-                        }
-                    }
                 }
-                useDelegateSize = sizeKey;
+                useDelegateSize = result
             }
 
             function loadMore() {
-                if(nextOffset && inlineQueryLoader.userNameIsValid) {
-                    inlineQueryLoader.currentOffset = nextOffset;
-                    inlineQueryLoader.request();
+                if (nextOffset && inlineQueryLoader.userNameIsValid) {
+                    inlineQueryLoader.currentOffset = nextOffset
+                    inlineQueryLoader.request()
                 }
             }
 
             Connections {
                 target: tdLibWrapper
 
-                onChatReceived: {
-                    if(chat['@extra'] && chat['@extra'].type === "searchPublicChat:"+inlineQueryLoader.userName) {
-                        requestTimeout.stop();
-                        inlineQueryLoader.isLoading = false;
-                        var inlineBotInformation = tdLibWrapper.getUserInformation(chat.type.user_id);
-                        if(inlineBotInformation && inlineBotInformation.type["@type"] === "userTypeBot" && inlineBotInformation.type.is_inline) {
-                            inlineQueryLoader.inlineBotInformation = inlineBotInformation;
-                            requestTimer.start();
+                onChatReceived:
+                    if (chat['@extra'] && chat['@extra'].type === "searchPublicChat:"+inlineQueryLoader.userName) {
+                        requestTimeout.stop()
+                        inlineQueryLoader.isLoading = false
+                        var inlineBotInformation = tdLibWrapper.getUserInformation(chat.type.user_id)
+                        if (inlineBotInformation && inlineBotInformation.type["@type"] === "userTypeBot" && inlineBotInformation.type.is_inline) {
+                            inlineQueryLoader.inlineBotInformation = inlineBotInformation
+                            requestTimer.start()
                         }
                     }
-                }
-                onInlineQueryResults: {
-                    if(extra === inlineQueryLoader.responseExtra) {
-                        requestTimeout.stop();
-                        inlineQueryLoader.isLoading = false;
+                onInlineQueryResultsReceived:
+                    if (extra === inlineQueryLoader.responseExtra) {
+                        requestTimeout.stop()
+                        inlineQueryLoader.isLoading = false
                         inlineQueryComponent.inlineQueryId = inlineQueryId
                         inlineQueryComponent.nextOffset = nextOffset
-                        inlineQueryComponent.switchPmText = switchPmText
-                        inlineQueryComponent.switchPmParameter = switchPmParameter
+                        inlineQueryComponent.buttonData = button
 
-                        if(inlineQueryLoader.currentOffset === 0) {
+                        if (!inlineQueryLoader.currentOffset)
                             inlineQueryComponent.resultModel.clear()
-                        }
-                        for(var i = 0; i < results.length; i++) {
-                            inlineQueryComponent.resultModel.append(results[i]);
-                        }
+                        for (var i = 0; i < results.length; i++)
+                            inlineQueryComponent.resultModel.append(results[i])
 
-                        if(inlineQueryLoader.currentOffset === 0 || inlineQueryLoader.useDelegateSize !== "default") {
+                        if (!inlineQueryLoader.currentOffset || inlineQueryLoader.useDelegateSize !== "default")
                             inlineQueryComponent.setDelegateSizes()
-                        }
-                    }
                 }
             }
-            // switch to pm Button
+
             Loader {
-                id: switchToPmLoader
+                id: buttonLoader
                 asynchronous: true
-                active: inlineQueryComponent.switchPmText.length > 0
+                active: !!(buttonData && buttonData.text && buttonData.type)
                 opacity: status === Loader.Ready ? 1.0 : 0.0
                 Behavior on opacity { FadeAnimation {} }
-                height: Theme.itemSizeSmall
                 anchors {
                     top: parent.bottom
                     topMargin: Theme.paddingSmall
-                    left: parent.left
-                    leftMargin: Theme.horizontalPageMargin
-                    right: parent.right
-                    rightMargin: Theme.horizontalPageMargin
                 }
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2*x
                 sourceComponent: Component {
-                    MouseArea {
-                        id: customButton
-                        onClicked: {
-                            tdLibWrapper.createPrivateChat(inlineQueryLoader.inlineBotInformation.id, "openAndSendStartToBot:"+(inlineQueryComponent.switchPmParameter.length > 0 ? " "+inlineQueryComponent.switchPmParameter:""));
-                        }
-                        Rectangle {
-                            anchors.fill: parent
-                            radius: Theme.paddingSmall
-                            color: parent.pressed ? Theme.highlightBackgroundColor : Theme.rgba(Theme.DarkOnLight ? Qt.lighter(Theme.primaryColor) : Qt.darker(Theme.primaryColor), Theme.opacityFaint)
-                            Label {
-                                anchors {
-                                    fill: parent
-                                    leftMargin: Theme.paddingLarge
-                                    rightMargin: Theme.paddingLarge
-                                }
-                                horizontalAlignment: Text.AlignHCenter
-                                verticalAlignment: Text.AlignVCenter
-
-                                fontSizeMode: Text.Fit;
-                                minimumPixelSize: Theme.fontSizeTiny;
-                                font.pixelSize: Theme.fontSizeSmall
-
-                                color: customButton.pressed ? Theme.highlightColor : Theme.primaryColor
-                                text: Emoji.emojify(inlineQueryComponent.switchPmText, font.pixelSize)// + "we are gonna make this a bit longer"
-                            }
-                        }
+                    SecondaryButton {
+                        // TODO: support inlineQueryResultsButtonTypeWebApp
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        preferredWidth: Theme.buttonWidthLarge
+                        text: Emoji.emojify(buttonData.text, Theme.fontSizeMedium)
+                        enabled: buttonData.type['@type'] === 'inlineQueryResultsButtonTypeStartBot'
+                        onClicked:
+                            tdLibWrapper.createPrivateChat(inlineQueryLoader.inlineBotInformation.id, "openAndSendStartToBot:"+(buttonData.type.parameter.length > 0 ? " "+buttonData.type.parameter:""))
                     }
                 }
             }
@@ -310,11 +245,9 @@ Loader {
                         Timer {
                             id: autoLoadMoreTimer
                             interval: 400
-                            onTriggered: {
-                                if (inlineQueryComponent.nextOffset && resultView.height > resultView.contentHeight - Theme.itemSizeHuge) {
-                                    inlineQueryComponent.loadMore();
-                                }
-                            }
+                            onTriggered:
+                                if (resultView.height > resultView.contentHeight - Theme.itemSizeHuge)
+                                    inlineQueryComponent.loadMore()
                         }
                         SilicaGridView {
                             id: resultView
@@ -340,11 +273,9 @@ Loader {
                                 }
                             }
 
-                            onContentYChanged: {
-                                if(!inlineQueryLoader.isLoading && inlineQueryComponent.nextOffset && contentHeight - contentY - height < Theme.itemSizeHuge) {
-                                    inlineQueryComponent.loadMore();
-                                }
-                            }
+                            onContentYChanged:
+                                if (!inlineQueryLoader.isLoading && contentHeight - contentY - height < Theme.itemSizeHuge)
+                                    inlineQueryComponent.loadMore()
 
                             ScrollDecorator { flickable: resultView }
                         }
