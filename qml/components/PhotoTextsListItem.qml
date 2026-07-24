@@ -150,6 +150,7 @@ ListItem {
                 visible: active
                 width: active ? Theme.fontSizeExtraSmall : 0
                 height: width
+                anchors.verticalCenter: parent.verticalCenter
 
                 sourceComponent: Component {
                     OpacityMask {
