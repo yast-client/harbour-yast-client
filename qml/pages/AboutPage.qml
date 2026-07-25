@@ -233,28 +233,35 @@ AboutPageBase {
             ]
         },
         InfoSection {
-            visible: firstExtraButton.enabled || secondExtraButton.enabled && (tdLibWrapper.authorizationState == TDLibAPI.AuthorizationReady)
+            id: localizedResourcesSection
+            visible: buttons.length > 0
             title: qsTr("English-speaking resources", "Change `English` to the name of your language")
-            Component.onCompleted: console.log(firstExtraButton.text, firstExtraButton.link, secondExtraButton.text, secondExtraButton.link)
-            buttons: [
-                // qsTrId would fit better here, but lrelease doesn't support using both source and ID-based strings
-                InfoButton {
-                    id: firstExtraButton
-                    text: qsTr('extra_resource_title_1', "Extra resource link title #1. See here for more info: https://github.com/yast-client/harbour-yast-client/blob/main/doc/translating.md#extra-resource-links")
-                    property string link: qsTr('extra_resource_link_path_1', "Extra resource link path #1. See here for more info: https://github.com/yast-client/harbour-yast-client/blob/main/doc/translating.md#extra-resource-links")
-                    enabled: !!(text && link) && text != 'extra_resource_title_1' && link != 'extra_resource_link_path_1'
-                    onClicked: openTMeUrl(link)
-                },
-                InfoButton {
-                    id: secondExtraButton
-                    text: qsTr('extra_resource_title_2', "Extra resource link title #2. See here for more info: https://github.com/yast-client/harbour-yast-client/blob/main/doc/translating.md#extra-resource-links")
-                    property string link: qsTr('extra_resource_link_path_2', "Extra resource link path #2. See here for more info: https://github.com/yast-client/harbour-yast-client/blob/main/doc/translating.md#extra-resource-links")
-                    enabled: !!(text && link) && text != 'extra_resource_title_2' && link != 'extra_resource_link_path_2'
-                    onClicked: openTMeUrl(link)
-                }
-            ]
         }
     ]
+
+    Instantiator {
+        model: ResourcesChatModel {
+            readonly property string language: Qt.locale().name.split('_')[0] // for locales like ru_RU and en_US
+            query: '#about #'+language
+        }
+        asynchronous: true
+
+        InfoButton {
+            property var info: utilities.getMessageText(display, Utilities.MessageTextDefault, true, false).split('\n')
+            text: info[1]
+            onClicked: tdLibWrapper.getInternalLinkType(info[2])
+        }
+
+        function modifyButtons(callback) {
+            var newButtons = []
+            for (var i=0; i < localizedResourcesSection.buttons.length; i++)
+                newButtons.push(localizedResourcesSection.buttons[i])
+            callback(newButtons)
+            localizedResourcesSection.buttons = newButtons
+        }
+        onObjectAdded: modifyButtons(function (buttons) { buttons.splice(index, 0, object) })
+        onObjectRemoved: modifyButtons(function (buttons) { buttons.splice(index, 1) })
+    }
 
     property int iconClicks
     MouseArea {

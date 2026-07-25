@@ -168,26 +168,6 @@
         <comment>Change `English` to the name of your language</comment>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>extra_resource_title_1</source>
-        <comment>Extra resource link title #1. See here for more info: https://github.com/yast-client/harbour-yast-client/blob/main/doc/translating.md#extra-resource-links</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>extra_resource_link_path_1</source>
-        <comment>Extra resource link path #1. See here for more info: https://github.com/yast-client/harbour-yast-client/blob/main/doc/translating.md#extra-resource-links</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>extra_resource_title_2</source>
-        <comment>Extra resource link title #2. See here for more info: https://github.com/yast-client/harbour-yast-client/blob/main/doc/translating.md#extra-resource-links</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>extra_resource_link_path_2</source>
-        <comment>Extra resource link path #2. See here for more info: https://github.com/yast-client/harbour-yast-client/blob/main/doc/translating.md#extra-resource-links</comment>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>AddContactDialog</name>

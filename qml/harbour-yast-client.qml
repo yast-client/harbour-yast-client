@@ -68,6 +68,9 @@ ApplicationWindow {
         property bool archiveChatListHintCompleted
         property bool welcomeTourCompleted // TBD: is it ok that right now WelcomeDialog doesn't open after logging out or reinstalling the app?
 
+        property string resourcesUsername: 'yast_res'
+        property real resourcesChatId: -1002167268767
+
         ConfigurationGroup {
             id: appSettings
             path: 'settings'
