@@ -160,7 +160,7 @@ Loader {
                 target: tdLibWrapper
 
                 onChatReceived:
-                    if (chat['@extra'] && chat['@extra'].type === "searchPublicChat:"+inlineQueryLoader.userName) {
+                    if (extra && extra.type === "searchPublicChat:"+inlineQueryLoader.userName) {
                         requestTimeout.stop()
                         inlineQueryLoader.isLoading = false
                         var inlineBotInformation = tdLibWrapper.getUserInformation(chat.type.user_id)
@@ -207,7 +207,8 @@ Loader {
                         text: Emoji.emojify(buttonData.text, Theme.fontSizeMedium)
                         enabled: buttonData.type['@type'] === 'inlineQueryResultsButtonTypeStartBot'
                         onClicked:
-                            tdLibWrapper.createPrivateChat(inlineQueryLoader.inlineBotInformation.id, "openAndSendStartToBot:"+(buttonData.type.parameter.length > 0 ? " "+buttonData.type.parameter:""))
+                            tdLibWrapper.createPrivateChat(inlineQueryLoader.inlineBotInformation.id,
+                                {openDirectly: true, options: {openAndSendStartToBot: true, sendBotStartMessageParameter: buttonData.type.parameter}})
                     }
                 }
             }

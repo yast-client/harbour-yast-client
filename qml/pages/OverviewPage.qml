@@ -29,7 +29,7 @@ Page {
     Connections {
         target: dBusAdaptor
         onDoOpenMessage: {
-            Debug.log("[OverviewPage] Opening chat from external requested: ", chatId, messageId)
+            Debug.log("[OverviewPage] Opening chat from external requested:", chatId, messageId)
             // We open the chat only for now - as it's automatically positioned at the last read message
             // this also doesn't highlight the message which isn't really needed
             openChat(chatId, {topicIdToShow: topicId}, true)
@@ -153,20 +153,9 @@ Page {
             if (!overviewPage.chatListCreated)
                 chatListCreatedTimer.restart()
             else tdLibWrapper.chatListsCalculateUnreadState()
-        onChatReceived: {
-            var openAndSendStartToBot = chat["@extra"].toString().indexOf("openAndSendStartToBot:") === 0
-            if (chat['@extra'] === 'openDirectly' || chat['@extra'].openDirectly || (openAndSendStartToBot && chat.type["@type"] === "chatTypePrivate")) {
-                // why was this here: "if we get a new chat (no messages?), we can not use the provided data"?
-                // it doesn't seem to be true, TGX and Unigram don't do additional
-                // createPrivateChat/createBasicGroupChat/createSupergroupChat calls after searchPublicChat...
-                var options = {}
-                if (openAndSendStartToBot) {
-                    options.doSendBotStartMessage = true
-                    options.sendBotStartMessageParameter = chat["@extra"].substring(22)
-                }
-                openChat(chat.id, options)
-            }
-        }
+        onChatReceived:
+            if (extra && extra === 'openDirectly' || extra.openDirectly)
+                openChat(chat.id, extra.options)
         onCopyToDownloadsSuccessful:
             appNotification.show(qsTr("Download of %1 successful.", "in-app notification text").arg(fileName),
                                  function() { Qt.openUrlExternally(filePath) },

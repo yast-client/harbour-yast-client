@@ -186,8 +186,8 @@ function handleErrorMessage(code, message, extra) {
         // - 404 Not Found messages (occur sometimes, without clear context...)
         // - searchPublicChat messages for "invalid" inline queries
         // - File not found errors when downloading sticker files
-        if (extra && extra['@type'] === 'searchPublicChat' && extra.openDirectly)
-            appNotification.show(qsTr("Unable to find user %1").arg(extra.type.substring(17)))
+        if (extra && extra.type.indexOf('searchPublicChat:') == 0 && extra.openDirectly)
+            appNotification.show(qsTr("Unable to find user %1").arg('@' + extra.type.substring(17)))
         return
     }
     switch (message) {
