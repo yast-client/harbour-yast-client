@@ -3294,6 +3294,10 @@ Trascina in basso per visitare telegram.org</translation>
         <source>Forum topic not found</source>
         <translation>Topic del forum non trovato</translation>
     </message>
+    <message>
+        <source>Forward to…</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TranslatePage</name>

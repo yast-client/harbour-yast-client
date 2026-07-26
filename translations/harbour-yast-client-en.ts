@@ -3293,6 +3293,10 @@ Pull down to visit telegram.org</translation>
         <source>Forum topic not found</source>
         <translation>Forum topic not found</translation>
     </message>
+    <message>
+        <source>Forward to…</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TranslatePage</name>

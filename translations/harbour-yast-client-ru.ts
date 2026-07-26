@@ -1030,7 +1030,7 @@ Please take a look at the %1Telegram FAQ%2: it has answers to most questions and
     <name>ContactSync</name>
     <message>
         <source>Could not synchronize your contacts with Telegram.</source>
-        <translation>Невозможно синхронизировать ваши контакты с Телеграм.</translation>
+        <translation>Не удалось синхронизировать контакты.</translation>
     </message>
 </context>
 <context>
@@ -1807,15 +1807,15 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>Transport-encrypted, uses Telegram Cloud, sharable across devices</source>
-        <translation>Транспорт шифруется, используя облачную технологию Телеграм для использования на различных устройствах</translation>
+        <translation>Транспорт шифруется, используя облачную технологию Telegram для использования на различных устройствах</translation>
     </message>
     <message>
         <source>Synchronize Contacts with Telegram</source>
-        <translation>Синхронизировать с Телеграм</translation>
+        <translation>Синхронизировать контакты</translation>
     </message>
     <message>
         <source>Contacts successfully synchronized with Telegram.</source>
-        <translation>Контакты успешно синхронизированы с Телеграм.</translation>
+        <translation>Контакты успешно синхронизированы</translation>
     </message>
     <message>
         <source>No contacts found.</source>
@@ -1835,7 +1835,7 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>contact has not joined telegram yet</source>
-        <translation>контакт пока не присоединился к Телеграм</translation>
+        <translation>контакт пока не в Telegram</translation>
     </message>
     <message>
         <source>Search a contact</source>
@@ -2932,7 +2932,7 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>Keep your number up to date to ensure you can always log into Telegram.</source>
-        <translation>Оставлять номер телефона обновленным чтобы всегда можно было войти в Телеграм.</translation>
+        <translation>Чтобы Вы всегда могли зайти в Telegram, важно указать актуальный номер телефона.</translation>
     </message>
     <message>
         <source>Change phone number</source>
@@ -2960,7 +2960,7 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>Check that you still remember your 2-Step Verification password to ensure you can always log into Telegram.</source>
-        <translation>Проверить что вы помните свой двухшаговый пароль аутентификации, чтобы всегда можно было войти в Телеграм.</translation>
+        <translation>Чтобы Вы всегда могли войти в Telegram, важно не забыть облачный пароль.</translation>
     </message>
     <message>
         <source>Verify Password</source>
@@ -3209,7 +3209,7 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>Contacts successfully synchronized with Telegram.</source>
-        <translation>Контакты успешно синхронизированы с Телеграм.</translation>
+        <translation>Контакты успешно синхронизированы.</translation>
     </message>
     <message>
         <source>Birthday</source>
@@ -3319,11 +3319,11 @@ Pull down to visit telegram.org</source>
     <name>TopicsListView</name>
     <message>
         <source>No topics here yet</source>
-        <translation>Здесь пока нет Тем</translation>
+        <translation>Здесь пока нет тем</translation>
     </message>
     <message>
         <source>Pull down to start the first topic or view the group as messages</source>
-        <translation>Потяните вниз для начала новой Темы или просмотра группы в виде сообщений</translation>
+        <translation>Потяните вниз для начала новой темы или просмотра группы в виде сообщений</translation>
     </message>
     <message>
         <source>This topic was created</source>
@@ -3332,6 +3332,10 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Forum topic not found</source>
         <translation>Тема не найдена</translation>
+    </message>
+    <message>
+        <source>Forward to…</source>
+        <translation>Переслать в…</translation>
     </message>
 </context>
 <context>
@@ -3720,11 +3724,11 @@ Pull down to visit telegram.org</source>
     <message>
         <source>joined Telegram</source>
         <comment>myself</comment>
-        <translation>присоединились к Телеграм</translation>
+        <translation>теперь в Telegram</translation>
     </message>
     <message>
         <source>joined Telegram</source>
-        <translation>присоединился(ась) к Телеграм</translation>
+        <translation>теперь в Telegram</translation>
     </message>
     <message>
         <source>Quiz: %1</source>
