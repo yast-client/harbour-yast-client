@@ -207,8 +207,8 @@ Loader {
                         text: Emoji.emojify(buttonData.text, Theme.fontSizeMedium)
                         enabled: buttonData.type['@type'] === 'inlineQueryResultsButtonTypeStartBot'
                         onClicked:
-                            tdLibWrapper.createPrivateChat(inlineQueryLoader.inlineBotInformation.id,
-                                {openDirectly: true, options: {openAndSendStartToBot: true, sendBotStartMessageParameter: buttonData.type.parameter}})
+                            appWindow.overviewPage.openChat(inlineQueryLoader.inlineBotInformation.id,
+                                                  {doSendBotStartMessage: true, sendBotStartMessageParameter: buttonData.type.parameter})
                     }
                 }
             }

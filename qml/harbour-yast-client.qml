@@ -19,6 +19,8 @@ ApplicationWindow {
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
     allowedOrientations: defaultAllowedOrientations
 
+    property var overviewPage
+
     Connections {
         target: tdLibWrapper
         onErrorReceived: Functions.handleErrorMessage(code, message, extra)

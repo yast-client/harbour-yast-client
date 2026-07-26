@@ -26,6 +26,12 @@ Page {
 
     signal scrollToTopRequired
 
+    Binding {
+        target: appWindow
+        property: 'overviewPage'
+        value: overviewPage
+    }
+
     Connections {
         target: dBusAdaptor
         onDoOpenMessage: {
