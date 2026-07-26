@@ -38,7 +38,11 @@ Page {
             Debug.log("[OverviewPage] Opening chat from external requested:", chatId, messageId)
             // We open the chat only for now - as it's automatically positioned at the last read message
             // this also doesn't highlight the message which isn't really needed
-            openChat(chatId, {topicIdToShow: topicId}, true)
+            var options = {topicIdToShow: topicId}
+            if (!openChat(chatId, options, true)) {
+                Debug.log("[OverviewPage] Requesting not yet received chat from TDLib to open externally", chatId)
+                tdLibWrapper.getChatTd(chatId, {openDirectly: true, options: options, doPop: true})
+            }
         }
     }
 
@@ -127,7 +131,9 @@ Page {
             options = options || {}
             options.chatInformation = tdLibWrapper.getChat(chatId)
             pageStack.push(Qt.resolvedUrl("../pages/ChatPage.qml"), options, doPop ? PageStackAction.Immediate : PageStackAction.Animated)
+            return true
         }
+        return false
     }
 
     function handleAuthorizationState() {
@@ -161,7 +167,7 @@ Page {
             else tdLibWrapper.chatListsCalculateUnreadState()
         onChatReceived:
             if (extra && extra === 'openDirectly' || extra.openDirectly)
-                openChat(chat.id, extra.options)
+                openChat(chat.id, extra.options, extra.doPop)
         onCopyToDownloadsSuccessful:
             appNotification.show(qsTr("Download of %1 successful.", "in-app notification text").arg(fileName),
                                  function() { Qt.openUrlExternally(filePath) },
