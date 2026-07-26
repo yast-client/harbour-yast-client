@@ -8,7 +8,7 @@ import '..'
 
 BackgroundItem {
     id: header
-    height: row.height
+    height: visible ? row.height : 0
 
     readonly property bool isPortrait: pageStack.currentPage.isPortrait
 

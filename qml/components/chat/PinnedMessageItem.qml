@@ -291,7 +291,7 @@ Item {
                     icon.source: 'image://theme/icon-m-remove'
                     onClicked:
                         pinnedMessageItem.remorseAction(qsTr("Message unpinned"), function() {
-                            tdLibWrapper.unpinMessage(chatPage.chatId, messageId)
+                            tdLibWrapper.unpinChatMessage(chatPage.chatId, messageId)
                         })
                 }
 

@@ -15,6 +15,9 @@ Item {
 
     property int forumTopicIdToShow
 
+    property var forwardFromChatId
+    property var forwardMessageIds
+
     function openAtTopicId(forumTopicId) {
         forumTopicIdToShow = forumTopicId
         tdLibWrapper.getForumTopic(chatId, forumTopicId)
@@ -56,9 +59,28 @@ Item {
         }
     }
 
+    Loader {
+        id: forwardHeaderLoader
+        width: parent.width
+        active: !!(forwardFromChatId || forwardMessageIds)
+        sourceComponent: Component {
+            PageHeader { title: qsTr("Forward to…") }
+        }
+    }
+
+    Binding {
+        target: chatHeader
+        property: 'visible'
+        value: !forwardHeaderLoader.active
+    }
+
     SilicaListView {
         id: view
-        anchors.fill: parent
+        width: parent.width
+        anchors {
+            top: forwardHeaderLoader.bottom
+            bottom: parent.bottom
+        }
         clip: true
         opacity: loading ? 0 : 1
         Behavior on opacity { FadeAnimator {} }
@@ -78,7 +100,13 @@ Item {
 
             muted: notification_settings.mute_for > 0 // TODO: use something like in ChatListViewItem
 
-            onClicked: pageStack.push(topicMessagesPage, {chatId: chatId, forumTopicData: display})
+            onClicked: {
+                var page = pageStack.push(topicMessagesPage, {chatId: chatId, forumTopicData: display})
+                if (forwardHeaderLoader.active) {
+                    page.messagesView.forwardMessages(forwardFromChatId, forwardMessageIds)
+                    forwardFromChatId = forwardMessageIds = null
+                }
+            }
         }
 
         onContentYChanged: {
@@ -98,6 +126,8 @@ Item {
                 property alias chatId: topicMessagesModel.chatId
                 property alias forumTopicData: topicMessagesModel.forumTopicData
 
+                property alias messagesView: messagesView
+
                 SilicaFlickable {
                     anchors.fill: parent
 
@@ -108,6 +138,7 @@ Item {
                     }
 
                     MessagesView {
+                        id: messagesView
                         width: parent.width
                         anchors {
                             top: chatHeader.bottom

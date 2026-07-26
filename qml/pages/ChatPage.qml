@@ -95,9 +95,11 @@ Page {
     }
 
     function forwardMessages(fromChatId, messageIds) {
-        forwardMessagesTimer.fromChatId = fromChatId
-        forwardMessagesTimer.messageIds = messageIds
-        forwardMessagesTimer.start()
+        if (viewAsTopics) {
+            topicsListView.forwardFromChatId = fromChatId
+            topicsListView.forwardMessageIds = messageIds
+        } else
+            messagesView.forwardMessages(fromChatId, messageIds)
     }
 
     function hasGroupPermission(memberPermission, adminPermission) {
@@ -132,20 +134,6 @@ Page {
     // left the chat, even if from another device; this follows the behaviour in Telegram Desktop
     onUserIsMemberChanged: if (chatManager.infoInitialized && !userIsMember)
                                pageStack.pop(pageStack.find(function(page){ return(page._depth === 0)}))
-
-    Timer {
-        id: forwardMessagesTimer
-        interval: 200
-
-        property string fromChatId
-        property var messageIds
-        onTriggered: {
-            if(chatPage.loading)
-                forwardMessagesTimer.start()
-            else
-                tdLibWrapper.forwardMessages(chatInformation.id, fromChatId, messageIds, isSecretChat /* forwardedToSecretChat */, false)
-        }
-    }
 
     Timer {
         id: searchInChatTimer

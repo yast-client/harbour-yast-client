@@ -37,9 +37,9 @@ Loader {
     function togglePinned() {
         if (message.is_pinned)
             Remorse.popupAction(page, qsTr("Message unpinned"), function() {
-                tdLibWrapper.unpinMessage(chatId, messageId)
+                tdLibWrapper.unpinChatMessage(chatId, messageId)
             })
-        else tdLibWrapper.pinMessage(chatId, messageId)
+        else tdLibWrapper.pinChatMessage(chatId, messageId)
     }
 
     function deleteMessage(revoke) {

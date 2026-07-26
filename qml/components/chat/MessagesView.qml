@@ -240,6 +240,12 @@ Column {
         }
     }
 
+    function forwardMessages(fromChatId, messageIds) {
+        forwardMessagesTimer.fromChatId = fromChatId
+        forwardMessagesTimer.messageIds = messageIds
+        forwardMessagesTimer.start()
+    }
+
     Connections {
         target: tdLibWrapper
         onMessagePropertiesReceived: {
@@ -345,6 +351,19 @@ Column {
         onCurrentPageChanged:
             if (pageStack.currentPage && pageStack.currentPage.isChatInformationPage)
                 resetElements()
+    }
+
+    Timer {
+        id: forwardMessagesTimer
+        interval: 200
+
+        property string fromChatId
+        property var messageIds
+        onTriggered:
+            if (chatPage.loading)
+                forwardMessagesTimer.start()
+            else
+                tdLibWrapper.forwardMessages(chatInformation.id, fromChatId, messageIds, topicId, isSecretChat /* forwardedToSecretChat */)
     }
 
     Timer {
