@@ -2964,7 +2964,7 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>Privacy setting for managing whether you can be found by your phone number.</source>
-        <translation>Ajustes de privacidad  administrar si puede ser encontrado por su número de teléfono.</translation>
+        <translation>Ajustes de privacidad administrar si puede ser encontrado por su número de teléfono.</translation>
     </message>
     <message>
         <source>Show link in forwarded messages</source>

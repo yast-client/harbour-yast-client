@@ -9,7 +9,7 @@
     </message>
     <message>
         <source>A Telegram client for Sailfish OS</source>
-        <translation>Un client Telegram per Sailfish  OS</translation>
+        <translation>Un client Telegram per Sailfish OS</translation>
     </message>
     <message>
         <source>Translations</source>
