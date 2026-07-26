@@ -252,15 +252,14 @@ AboutPageBase {
             onClicked: tdLibWrapper.getInternalLinkType(info[2])
         }
 
-        function modifyButtons(callback) {
-            var newButtons = []
-            for (var i=0; i < localizedResourcesSection.buttons.length; i++)
-                newButtons.push(localizedResourcesSection.buttons[i])
-            callback(newButtons)
-            localizedResourcesSection.buttons = newButtons
+        function updateButtons() {
+            var buttons = []
+            for (var i=0; i < count; i++)
+                buttons.push(objectAt(i))
+            localizedResourcesSection.buttons = buttons
         }
-        onObjectAdded: modifyButtons(function (buttons) { buttons.splice(index, 0, object) })
-        onObjectRemoved: modifyButtons(function (buttons) { buttons.splice(index, 1) })
+        onObjectAdded: updateButtons()
+        onObjectRemoved: updateButtons()
     }
 
     property int iconClicks
