@@ -121,6 +121,10 @@ Item {
 
         model: pinnedMessagesModel
 
+        property bool wasDragged
+        onDraggingChanged:
+            if (dragging) wasDragged = true
+
         MediaMessagesModel {
             id: pinnedMessagesModel
             tdlib: tdLibWrapper
@@ -187,7 +191,7 @@ Item {
             else if (currentIndex >= count - 1 - 10)
                 model.loadMoreFuture()
 
-            if ((model.locked && (!model.lockedEnd || currentIndex == count - 1)) || currentIndex != model.currentMessageIndex) {
+            if (wasDragged && (model.locked && (!model.lockedEnd || currentIndex == count - 1)) || currentIndex !== model.currentMessageIndex) {
                 Debug.log("[PinnedMessageItem] Current index changed due to a drag")
                 model.locked = true
                 model.lockedEnd = false
