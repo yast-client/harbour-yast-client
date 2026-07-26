@@ -151,7 +151,15 @@ MessageListViewItemBase {
                                              : Theme.rgba(Theme.secondaryColor, Theme.opacityFaint * (isOutgoing ? 0.4 : 0.8))
                 layer.enabled: messageListItem.highlighted // make corners highlighted too
 
-                roundedCorners: isOutgoing ? bottomLeft | topRight : bottomRight | topLeft
+                roundedCorners: {
+                    var result = 0
+                    if (isFirstInSequence)
+                        result |= isOutgoing ? topRight : topLeft
+                    if (isLastInSequence)
+                        result |= isOutgoing ? bottomLeft : bottomRight
+                    return result
+                }
+
                 radius: Theme.paddingLarge
                 visible: appSettings.showStickersAsImages || (myMessage.content['@type'] !== "messageSticker" && myMessage.content['@type'] !== "messageAnimatedEmoji" && myMessage.content['@type'] !== "messageDice")
 
