@@ -17,7 +17,6 @@ Page {
     allowedOrientations: Orientation.All
     backNavigation: !messagesView || !messagesView.stickerPickerLoader.active
 
-    property bool loading: true
     property bool isInitialized: false
     property alias chatManager: chatManagerLoader.chatManager
     property var chatInformation

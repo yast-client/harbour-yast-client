@@ -18,14 +18,14 @@ Item {
     signal hide
 
     Connections {
-        target: chatPage
+        target: messagesView
         onLoadingChanged:
             viewBottomModelIndex = Qt.binding(function() {
                 return chatProxyModel.mapRowFromSource(messagesView.bottomIndex, -1)
             })
     }
 
-    visible: !!pinnedMessagesView.count
+    visible: !messagesView.loading && !!pinnedMessagesView.count
 
     SequentialAnimation {
         id: hideAnimation

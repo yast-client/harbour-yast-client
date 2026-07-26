@@ -47,6 +47,7 @@ Column {
     property alias chatProxyModel: chatProxyModel
 
     property bool overlayActive: stickerPickerLoader.active || voiceNoteOverlayLoader.active || stickerSetOverlayLoader.active
+    property bool loading: !messagesModel || messagesModel.loading
     property int bottomIndex: -1
 
     signal resetElements()
@@ -259,12 +260,6 @@ Column {
         }
     }
 
-    Binding {
-        target: chatPage
-        property: 'loading'
-        value: !messagesModel || messagesModel.loading
-    }
-
     Connections {
         target: messagesModel
         ignoreUnknownSignals: true
@@ -360,7 +355,7 @@ Column {
         property string fromChatId
         property var messageIds
         onTriggered:
-            if (chatPage.loading)
+            if (loading)
                 forwardMessagesTimer.start()
             else
                 tdLibWrapper.forwardMessages(chatInformation.id, fromChatId, messageIds, topicId, isSecretChat /* forwardedToSecretChat */)
@@ -498,7 +493,7 @@ Column {
             property bool blurred: stickerPickerLoader.item || voiceNoteOverlayLoader.item || inlineQuery.hasOverlay || stickerSetOverlayLoader.item
 
             anchors.fill: parent
-            opacity: chatPage.loading ? 0 : 1
+            opacity: loading ? 0 : 1
             Behavior on opacity { FadeAnimation {} }
             clip: true
             highlightMoveDuration: 0
@@ -554,7 +549,7 @@ Column {
             }
 
             onContentYChanged:
-                if (!chatPage.loading && !chatView.inCooldown) {
+                if (!loading && !chatView.inCooldown) {
                     updateBottomIndex()
 
                     // check for startReached/endReached here so inCooldown won't be true forever
@@ -770,7 +765,7 @@ Column {
             Behavior on opacity { FadeAnimator {} }
             anchors.centerIn: parent
             text: qsTr("Loading messages")
-            running: chatPage.loading
+            running: loading
         }
 
         Rectangle {
@@ -782,7 +777,7 @@ Column {
                 bottom: parent.bottom
                 bottomMargin: Theme.paddingMedium
             }
-            visible: readable && !chatPage.loading && chatHeader.visible && !messagesModel.searchQuery && (unreadCount > 0 || (!messagesModel.endReached && chatView.count > 0))
+            visible: readable && !loading && chatHeader.visible && !messagesModel.searchQuery && (unreadCount > 0 || (!messagesModel.endReached && chatView.count > 0))
             property bool highlighted: chatUnreadMessagesMouseArea.containsPress
 
             // not ideal:
