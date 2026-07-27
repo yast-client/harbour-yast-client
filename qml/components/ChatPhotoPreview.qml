@@ -16,9 +16,10 @@ ShaderEffectSource {
     property alias unreadFontSize: chatUnreadMessagesCount.font.pixelSize
 
     property bool highlighted
-    property int unreadCount: 0
-    property int unreadMentionCount: 0
-    property int unreadReactionCount: 0
+    property int unreadCount
+    property int unreadMentionCount
+    property int unreadReactionCount
+    property int unreadPollVoteCount
     property bool isSecret
     property bool isMarkedAsUnread
     property bool isPinned
@@ -105,15 +106,15 @@ ShaderEffectSource {
             anchors.right: parent.right
             anchors.top: parent.top
             radius: parent.width / 2
-            visible: pictureItem.unreadReactionCount > 0 || pictureItem.unreadMentionCount > 0
+            visible: pictureItem.unreadMentionCount > 0 || pictureItem.unreadReactionCount > 0 || pictureItem.unreadPollVoteCount > 0
 
             Icon {
-                source: "image://theme/icon-s-favorite"
+                source: 'image://theme/icon-s-' + (pictureItem.unreadPollVoteCount > 0 ? 'maybe' : 'favorite')
                 height: iconSize
                 width: iconSize
                 highlighted: pictureItem.highlighted
                 anchors.centerIn: parent
-                visible: pictureItem.unreadReactionCount > 0 && !pictureItem.unreadMentionCount
+                visible: (pictureItem.unreadPollVoteCount > 0 || pictureItem.unreadReactionCount > 0) && !pictureItem.unreadMentionCount
             }
 
             Text {

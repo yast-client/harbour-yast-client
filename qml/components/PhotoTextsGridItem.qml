@@ -11,17 +11,19 @@ GridItem {
 
     property alias primaryText: primaryText //usually chat name
 
-    property int unreadCount: 0
-    property int unreadMentionCount: 0
-    property int unreadReactionCount: 0
-    property bool isSecret
+    property alias unreadCount: pictureItem.unreadCount
+    property alias unreadMentionCount: pictureItem.unreadMentionCount
+    property alias unreadReactionCount: pictureItem.unreadReactionCount
+    property alias unreadPollVoteCount: pictureItem.unreadPollVoteCount
+    property alias isSecret: pictureItem.isSecret
+    property alias isMarkedAsUnread: pictureItem.isMarkedAsUnread
+    property alias isPinned: pictureItem.isPinned
+
     property alias verificationStatus: chatBadges.verificationStatus
-    property bool isMarkedAsUnread
-    property bool isPinned
     property alias muted: chatBadges.muted
     property alias ad: chatBadges.ad
-    property alias pictureThumbnail: pictureItem.pictureThumbnail
 
+    property alias pictureThumbnail: pictureItem.pictureThumbnail
     property alias content: contentColumn
 
     Column {
@@ -36,12 +38,6 @@ GridItem {
             height: width
 
             highlighted: chatItem.highlighted
-            unreadCount: chatItem.unreadCount
-            unreadMentionCount: chatItem.unreadMentionCount
-            unreadReactionCount: chatItem.unreadReactionCount
-            isSecret: chatItem.isSecret
-            isMarkedAsUnread: chatItem.isMarkedAsUnread
-            isPinned: chatItem.isPinned
             muted: chatBadges.muted
         }
 

@@ -60,8 +60,9 @@ PhotoTextsListItem {
     additionalPrimaryTextIcon.highlighted: last_read_outbox_message_id >= last_message_id
 
     unreadCount: unread_count
-    unreadReactionCount: unread_reaction_count
     unreadMentionCount: unread_mention_count
+    unreadReactionCount: unread_reaction_count
+    unreadPollVoteCount: unread_poll_vote_count
     isPinned: is_pinned
 
     compact: appSettings.compactChatList
