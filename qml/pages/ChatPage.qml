@@ -461,6 +461,7 @@ Page {
                 id: contentLoader
                 width: parent.width
                 height: chatColumn.height - chatHeader.height - chatBotSponsoredMessageItem.height - pendingJoinRequestsItem.height
+                active: chatManager.infoInitialized
                 sourceComponent: viewAsTopics ? topicsListViewComponent : messagesViewComponent
 
                 Component {
