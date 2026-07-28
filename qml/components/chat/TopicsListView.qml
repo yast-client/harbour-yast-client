@@ -100,24 +100,12 @@ Item {
             noMessageText: qsTr("This topic was created")
 
             pictureThumbnail.replacementBackgroundColor: icon_color
-            pictureThumbnail.replacementStringHint: !is_general && icon_custom_emoji_id === '0' ? primaryText.text : ''
-            Loader {
+            pictureThumbnail.replacementStringHint: topicIcon.active ? '' : primaryText.text
+            ForumTopicIcon {
+                id: topicIcon
                 parent: pictureThumbnail
-                anchors.centerIn: parent
-                active: is_general || icon_custom_emoji_id !== '0'
-                sourceComponent: is_general ? generalIconComponent : customEmojiIconComponent
-                Component {
-                    id: generalIconComponent
-                    Icon { source: 'image://theme/icon-m-chat' }
-                }
-                Component {
-                    id: customEmojiIconComponent
-                    TDLibCustomEmojiSticker {
-                        width: Theme.iconSizeMedium
-                        customEmojiId: icon_custom_emoji_id
-                        useThumbnail: true
-                    }
-                }
+                isGeneral: is_general
+                iconCustomEmojiId: icon_custom_emoji_id
             }
 
             muted: notification_settings.mute_for > 0 // TODO: use something like in ChatListViewItem
@@ -155,8 +143,18 @@ Item {
 
                     ChatHeader {
                         id: chatHeader
-                        chatNameText.text: topicMessagesModel.forumTopicName
-                        // TODO: icon, and status text (%n messages and typing)
+                        chatNameText.text: topicMessagesModel.name
+
+                        pictureThumbnail.replacementBackgroundColor: topicMessagesModel.iconColor
+                        pictureThumbnail.replacementStringHint: topicIcon.active ? '' : chatNameText.text
+                        ForumTopicIcon {
+                            id: topicIcon
+                            parent: chatHeader.pictureThumbnail
+                            isGeneral: topicMessagesModel.isGeneral
+                            iconCustomEmojiId: topicMessagesModel.iconCustomEmojiId
+                        }
+
+                        // TODO: status text (%n messages and typing)
                     }
 
                     MessagesView {
@@ -169,7 +167,7 @@ Item {
 
                         messagesModel: topicMessagesModel
                         topicId: {'@type': 'messageTopicForum', 'forum_topic_id': topicMessagesModel.forumTopicId}
-                        forumTopicName: topicMessagesModel.forumTopicName
+                        forumTopicName: topicMessagesModel.name
                         messageSource: TDLibAPI.MessageSourceForumTopicHistory
                         draftMessage: forumTopicData.draft_message
                         unreadCount: forumTopicData.unread_count

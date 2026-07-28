@@ -22,10 +22,9 @@ Page {
     property var chatInformation
     readonly property alias chatId: chatManagerLoader.chatId
     readonly property var secretChatDetails: chatManager.secretChatInfo
-    property alias chatPicture: chatPictureThumbnail.photoData
     property bool isPrivateChat: chatManagerLoader.chatManager.chatType === TDLibAPI.ChatTypePrivate
     property bool isSecretChat: chatManager.chatType === TDLibAPI.ChatTypeSecret
-    property bool isSecretChatReady: chatPage.secretChatDetails.state['@type'] === 'secretChatStateReady'
+    property bool isSecretChatReady: chatPage.secretChatDetails && chatPage.secretChatDetails.state['@type'] === 'secretChatStateReady'
     property bool isBasicGroup: chatManager.chatType === TDLibAPI.ChatTypeBasicGroup
     property bool isSupergroup: chatManager.chatType === TDLibAPI.ChatTypeSupergroup
     property bool isChannel: chatManager.isChannel
@@ -343,6 +342,7 @@ Page {
 
                     isSecret: chatPage.isSecretChat
                     chatNameText.text: getChatTitle(chatNameText.font.pixelSize)
+                    pictureThumbnail.photoData: chatManager.photo.small
                     chatBadges.verificationStatus: chatGroupInformation ? chatGroupInformation.verification_status : null
 
                     property bool _reloadStatus
@@ -378,28 +378,6 @@ Page {
                     chatStatusText.highlighted: !connecting && (chatHeader.highlighted || chatManager.chatActionsText
                                                 || (chatPartnerInformation && chatPartnerInformation.status && chatPartnerInformation['@type'] === 'userStatusOnline'))
                     //chatStatusText.isError: tdLibWrapper.connectionState != TDLibAPI.ConnectionReady
-
-                    ProfileThumbnail {
-                        id: chatPictureThumbnail
-                        parent: chatHeader.chatPictureContainer
-                        replacementStringHint: chatHeader.chatNameText.text
-                        width: parent.height
-                        height: parent.height
-
-                        // Setting it directly may cause an stale state for the thumbnail in case the chat page
-                        // was previously loaded with a picture and now it doesn't have one. Instead setting it
-                        // when the ChatModel indicates a change. This also avoids flickering when the page is loaded...
-                        Connections {
-                            target: chatManager
-                            ignoreUnknownSignals: true
-                            onPhotoChanged:
-                                chatPictureThumbnail.photoData = chatManager.photo.small
-                        }
-                        // UPD 2025 from roundedrectangle:
-                        // for some reason when pushing the page without animation (e.g. from notification)
-                        // it doesn't show the picture now, with this line it works: (Connections is still needed for some reason)
-                        photoData: chatManager.photo.small
-                    }
 
                     onClicked: {
                         if (messagesView && messagesView.isSelecting)

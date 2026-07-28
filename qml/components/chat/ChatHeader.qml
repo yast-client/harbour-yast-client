@@ -17,7 +17,7 @@ BackgroundItem {
     property alias chatStatusText: chatStatusText
     property alias chatActionIcon: chatActionIcon
     property alias chatBadges: chatBadges
-    property alias chatPictureContainer: chatPictureContainer
+    property alias pictureThumbnail: pictureThumbnail
     property alias textContainer: textContainer
     property alias container: row
 
@@ -32,12 +32,14 @@ BackgroundItem {
         anchors.horizontalCenter: parent.horizontalCenter
         spacing: Theme.paddingMedium
 
-        Item {
-            id: chatPictureContainer
+        ProfileThumbnail {
+            id: pictureThumbnail
             width: textContainer.height
             height: textContainer.height
             anchors.bottom: parent.bottom
             anchors.bottomMargin: isPortrait ? Theme.paddingMedium : Theme.paddingSmall
+
+            replacementStringHint: chatNameText.text
 
             Rectangle {
                 color: Theme.rgba(Theme.overlayBackgroundColor, Theme.opacityFaint)
@@ -62,7 +64,7 @@ BackgroundItem {
             id: textContainer
             opacity: visible ? 1 : 0
             Behavior on opacity { FadeAnimation {} }
-            width: parent.width - chatPictureContainer.width - Theme.paddingMedium
+            width: parent.width - pictureThumbnail.width - Theme.paddingMedium
             height: chatNameRow.height + chatStatusText.height
             anchors.bottom: parent.bottom
             anchors.bottomMargin: isPortrait ? Theme.paddingMedium : Theme.paddingSmall
