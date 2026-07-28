@@ -54,6 +54,7 @@ ListItem {
         }
         height: compact ? Theme.iconSizeLarge : Theme.itemSizeLarge
 
+        pictureThumbnail.replacementStringHint: primaryText.text
         highlighted: chatItem.highlighted
         muted: chatBadges.muted
     }

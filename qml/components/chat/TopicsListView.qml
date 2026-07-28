@@ -5,6 +5,7 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import io.yaqtlib 1.0
 import ".."
+import '../tdlib'
 import "../../js/twemoji.js" as Emoji
 import "../../js/functions.js" as Functions
 import "../../js/debug.js" as Debug
@@ -97,6 +98,27 @@ Item {
         delegate: MessageableListItem {
             titleText: name
             noMessageText: qsTr("This topic was created")
+
+            pictureThumbnail.replacementBackgroundColor: icon_color
+            pictureThumbnail.replacementStringHint: !is_general && icon_custom_emoji_id === '0' ? primaryText.text : ''
+            Loader {
+                parent: pictureThumbnail
+                anchors.centerIn: parent
+                active: is_general || icon_custom_emoji_id !== '0'
+                sourceComponent: is_general ? generalIconComponent : customEmojiIconComponent
+                Component {
+                    id: generalIconComponent
+                    Icon { source: 'image://theme/icon-m-chat' }
+                }
+                Component {
+                    id: customEmojiIconComponent
+                    TDLibCustomEmojiSticker {
+                        width: Theme.iconSizeMedium
+                        customEmojiId: icon_custom_emoji_id
+                        useThumbnail: true
+                    }
+                }
+            }
 
             muted: notification_settings.mute_for > 0 // TODO: use something like in ChatListViewItem
 

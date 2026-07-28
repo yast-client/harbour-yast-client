@@ -22,9 +22,9 @@ TDLibStickerBase {
         id: stickerLoader
         anchors.fill: parent
         sourceComponent: {
-            if (asEmoji) return staticComponent
+            if (useThumbnail || asEmoji) return staticComponent
 
-            if (stickerData.format['@type'] === 'stickerFormatWebm' && appSettings.videoStickers)
+            if (stickerData.format['@type'] === 'stickerFormatWebm')
                 return videoComponent
             if (animated) return animatedComponent
 

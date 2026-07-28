@@ -33,7 +33,6 @@ ShaderEffectSource {
 
         ProfileThumbnail {
             id: pictureThumbnail
-            replacementStringHint: primaryText.text
             width: parent.width
             height: parent.width
         }

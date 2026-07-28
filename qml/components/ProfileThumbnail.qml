@@ -18,6 +18,7 @@ Item {
     property int imageStatus: -1
     property bool optimizeImageSize: true
     property bool highlighted
+    property color replacementBackgroundColor: Theme.colorScheme === Theme.LightOnDark ? Theme.darkSecondaryColor : Theme.lightSecondaryColor
 
     layer.enabled: highlighted
     layer.effect: PressEffect { source: profileThumbnail }
@@ -99,7 +100,7 @@ Item {
         Rectangle {
             id: replacementThumbnailBackground
             anchors.fill: parent
-            color: (Theme.colorScheme === Theme.LightOnDark) ? Theme.darkSecondaryColor : Theme.lightSecondaryColor
+            color: replacementBackgroundColor
             radius: parent.width / 2
             opacity: 0.8
         }
