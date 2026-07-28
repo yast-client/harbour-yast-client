@@ -12,6 +12,9 @@ import "../../js/functions.js" as Functions
 
 MessageableListItem {
     id: listItem
+
+    property bool isSavedMessages: chat_id === tdLibWrapper.myUserId
+
     pictureThumbnail {
         photoData: photo_data.small || ({})
         minithumbnail: photo_data.minithumbnail
@@ -25,7 +28,7 @@ MessageableListItem {
     previewText: chat_actions_text || (showDraft ? draft_message_text : last_message_text)
     hideDraft: chat_actions_text
     hideAuthor: chat_actions_text || is_channel || ((chat_type == TDLibAPI.ChatTypePrivate || chat_type == TDLibAPI.ChatTypeSecret) && !last_message_is_service)
-    showSendingState: !is_channel && chat_id != tdLibWrapper.myUserId
+    showSendingState: !is_channel && !isSavedMessages
 
     // TODO: show unread topic count here
     //unreadCount: view_as_topics ? someObject.getUnreadTopicsCount_or_a_role_or_whatever : unread_count

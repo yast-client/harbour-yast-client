@@ -13,7 +13,14 @@ Item {
 
     property var photoData
     property var minithumbnail
+
     property string replacementStringHint: "X"
+    property string replacementIconSource
+    property var replacementImageFile
+    property real replacementImageWidth: Theme.iconSizeMedium
+    property real replacementImageHeight: replacementImageWidth
+    property alias replacementContentLoader: replacementContentLoader
+
     property int radius: width / 2
     property int imageStatus: -1
     property bool optimizeImageSize: true
@@ -24,19 +31,16 @@ Item {
     layer.effect: PressEffect { source: profileThumbnail }
 
     function getReplacementString() {
-        if (replacementStringHint.length > 2) {
-            // Remove all emoji images
-            var strippedText = replacementStringHint.replace(/\<[^>]+\>/g, "").trim();
-            if (strippedText.length > 0) {
-                var textElements = strippedText.split(" ");
-                if (textElements.length > 1) {
-                    return textElements[0].charAt(0) + textElements[textElements.length - 1].charAt(0);
-                } else {
-                    return textElements[0].charAt(0);
-                }
-            }
-        }
-        return replacementStringHint;
+        // Remove all emoji images
+        var strippedText = replacementStringHint.replace(/\<[^>]+\>/g, '').trim()
+        if (strippedText.length <= 2)
+            return strippedText
+
+        var textElements = strippedText.split(' ')
+        var result = textElements[0].charAt(0)
+        if (textElements.length > 1)
+            result += textElements[textElements.length - 1].charAt(0)
+        return result
     }
 
     Loader {
@@ -44,6 +48,7 @@ Item {
         active: !!(photoData || minithumbnail)
         asynchronous: true
         width: parent.width
+        height: width
         sourceComponent: Component {
             Item {
                 width: parent.width
@@ -106,13 +111,38 @@ Item {
         }
 
         Text {
-            anchors.centerIn: replacementThumbnailBackground
+            anchors.centerIn: parent
+            visible: replacementContentLoader.status != Loader.Ready || replacementContentLoader.item.status !== Image.Ready
             text: getReplacementString()
             color: Theme.primaryColor
             font.bold: true
             font.pixelSize: (profileThumbnail.height >= Theme.itemSizeSmall)
                             ? Theme.fontSizeLarge
                             : (profileThumbnail.height >= Theme.fontSizeLarge ? Theme.fontSizeMedium : Theme.fontSizeTiny)
+        }
+
+        Loader {
+            id: replacementContentLoader
+            anchors.centerIn: parent
+            sourceComponent: replacementImageFile ? imageReplacementComponent
+                                                  : (replacementIconSource ? iconReplacementComponent : null)
+
+            Component {
+                id: iconReplacementComponent
+                Icon {
+                    source: replacementIconSource
+                    highlighted: profileThumbnail.highlighted
+                }
+            }
+            Component {
+                id: imageReplacementComponent
+                TDLibImage {
+                    width: replacementImageWidth
+                    height: replacementImageHeight
+                    fileInformation: replacementImageFile
+                    highlighted: profileThumbnail.highlighted
+                }
+            }
         }
     }
 }

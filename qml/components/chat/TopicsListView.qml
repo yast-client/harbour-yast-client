@@ -99,13 +99,14 @@ Item {
             titleText: name
             noMessageText: qsTr("This topic was created")
 
-            pictureThumbnail.replacementBackgroundColor: icon_color
-            pictureThumbnail.replacementStringHint: topicIcon.active ? '' : primaryText.text
-            ForumTopicIcon {
-                id: topicIcon
-                parent: pictureThumbnail
-                isGeneral: is_general
-                iconCustomEmojiId: icon_custom_emoji_id
+            pictureThumbnail {
+                replacementBackgroundColor: icon_color
+                replacementImageFile: iconLoader.stickerData.thumbnail.file
+                replacementIconSource: is_general ? 'image://theme/icon-m-chat' : ''
+            }
+            TDLibCustomEmojiStickerDataLoader {
+                id: iconLoader
+                customEmojiId: is_general ? null : icon_custom_emoji_id
             }
 
             muted: notification_settings.mute_for > 0 // TODO: use something like in ChatListViewItem
@@ -145,13 +146,15 @@ Item {
                         id: chatHeader
                         chatNameText.text: topicMessagesModel.name
 
-                        pictureThumbnail.replacementBackgroundColor: topicMessagesModel.iconColor
-                        pictureThumbnail.replacementStringHint: topicIcon.active ? '' : chatNameText.text
-                        ForumTopicIcon {
-                            id: topicIcon
-                            parent: chatHeader.pictureThumbnail
-                            isGeneral: topicMessagesModel.isGeneral
-                            iconCustomEmojiId: topicMessagesModel.iconCustomEmojiId
+                        pictureThumbnail {
+                            replacementBackgroundColor: topicMessagesModel.iconColor
+                            replacementImageFile: iconLoader.stickerData.thumbnail.file
+                            replacementIconSource: topicMessagesModel.isGeneral ? 'image://theme/icon-s-chat' : ''
+                            replacementImageWidth: Theme.iconSizeSmall
+                        }
+                        TDLibCustomEmojiStickerDataLoader {
+                            id: iconLoader
+                            customEmojiId: topicMessagesModel.isGeneral ? null : topicMessagesModel.iconCustomEmojiId
                         }
 
                         // TODO: status text (%n messages and typing)
