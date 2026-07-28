@@ -17,7 +17,7 @@ Column {
 
     property var messagesModel: chatManager.model
     property var topicId
-    property bool isForumTopic: topicId['@type'] == 'messageTopicForum'
+    property bool isForumTopic: topicId['@type'] === 'messageTopicForum'
     property string forumTopicName
     property int messageSource: TDLibAPI.MessageSourceAuto
     property var draftMessage: chatInformation.draft_message
@@ -511,16 +511,16 @@ Column {
             property QtObject precalculatedValues: QtObject {
                 readonly property var page: chatPage
                 readonly property bool showUserInfo: page.isBasicGroup || (page.isSupergroup && (!page.isChannel || chatGroupInformation.show_message_sender))
-                readonly property int profileThumbnailDimensions: showUserInfo ? Theme.itemSizeSmall : 0
-                readonly property int pageMarginDouble: 2 * Theme.horizontalPageMargin
-                readonly property int paddingMediumDouble: 2 * Theme.paddingMedium
-                readonly property int entryWidth: chatView.width - pageMarginDouble
-                readonly property int textItemWidth: entryWidth - profileThumbnailDimensions - Theme.paddingSmall
-                readonly property int backgroundWidth: page.isChannel ? textItemWidth : textItemWidth - pageMarginDouble
-                readonly property int backgroundRadius: textItemWidth/50
-                readonly property int textColumnWidth: backgroundWidth - Theme.horizontalPageMargin
-                readonly property int messageInReplyToHeight: Theme.fontSizeExtraSmall * 2.571428571 + Theme.paddingSmall
-                readonly property int webPagePreviewHeight: ( (textColumnWidth * 2 / 3) + (6 * Theme.fontSizeExtraSmall) + ( 7 * Theme.paddingSmall) )
+                readonly property real profileThumbnailDimensions: showUserInfo ? Theme.itemSizeSmall : 0
+                readonly property real pageMarginDouble: 2 * Theme.horizontalPageMargin
+                readonly property real paddingMediumDouble: 2 * Theme.paddingMedium
+                readonly property real entryWidth: chatView.width - pageMarginDouble
+                readonly property real textItemWidthBase: entryWidth - Theme.paddingSmall
+                readonly property real backgroundWidthDifference: page.isChannel ? 0 : -pageMarginDouble
+                readonly property real textColumnWidthDifference: backgroundWidthDifference - Theme.horizontalPageMargin
+                readonly property real messageInReplyToHeight: Theme.fontSizeExtraSmall * 2.571428571 + Theme.paddingSmall
+                readonly property real webPagePreviewHeight: 5*Theme.fontSizeExtraSmall + 6*Theme.paddingSmall
+                readonly property real webPagePreviewHeightLarge: 9*Theme.fontSizeExtraSmall + 10*Theme.paddingSmall
                 readonly property bool pageIsSelecting: messagesView.isSelecting
             }
 

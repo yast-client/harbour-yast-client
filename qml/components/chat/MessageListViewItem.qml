@@ -110,7 +110,7 @@ MessageListViewItemBase {
 
         Loader {
             id: profileThumbnailLoader
-            active: precalculatedValues.showUserInfo && !isOutgoing && isLastInSequence
+            active: showUserInfo && !isOutgoing && isLastInSequence
             asynchronous: true
             width: precalculatedValues.profileThumbnailDimensions
             height: width
@@ -133,13 +133,13 @@ MessageListViewItemBase {
         }
 
         Item {
-            width: precalculatedValues.textItemWidth
+            width: precalculatedValues.textItemWidthBase - (showUserInfo ? precalculatedValues.profileThumbnailDimensions : 0)
             height: messageBackground.height
 
             RoundedRect {
                 id: messageBackground
                 height: messageTextColumn.height + precalculatedValues.paddingMediumDouble
-                width: precalculatedValues.backgroundWidth
+                width: parent.width + precalculatedValues.backgroundWidthDifference
                 anchors {
                     left: parent.left
                     leftMargin: isOutgoing ? precalculatedValues.pageMarginDouble : 0
@@ -176,7 +176,7 @@ MessageListViewItemBase {
 
             Column {
                 id: messageTextColumn
-                width: precalculatedValues.textColumnWidth
+                width: parent.width + precalculatedValues.textColumnWidthDifference
                 anchors.centerIn: messageBackground
                 spacing: Theme.paddingSmall
 
@@ -193,7 +193,7 @@ MessageListViewItemBase {
                     truncationMode: TruncationMode.Fade
                     textFormat: Text.StyledText
                     horizontalAlignment: messageListItem.textAlign
-                    visible: (precalculatedValues.showUserInfo && !isOwnMessage && isFirstInSequence) || isSponsored
+                    visible: (showUserInfo && !isOwnMessage && isFirstInSequence) || isSponsored
 
                     MouseArea {
                         id: messageSenderMouseArea
@@ -406,7 +406,10 @@ MessageListViewItemBase {
                     active: false
                     asynchronous: true
                     width: parent.width * contentWidthModifier
-                    height: (status === Loader.Ready) ? item.height : myMessage.content.link_preview ? precalculatedValues.webPagePreviewHeight : 0
+                    height: status === Loader.Ready ? item.height
+                                                    : (myMessage.content.link_preview
+                                                       ? (myMessage.content.link_preview ? precalculatedValues.webPagePreviewHeightLarge : precalculatedValues.webPagePreviewHeight)
+                                                       : 0)
 
                     sourceComponent: Component {
                         WebPagePreview {
@@ -478,7 +481,7 @@ MessageListViewItemBase {
                         var messageStatusSuffix = ''
                         if (myMessage.edit_date > 0)
                             messageStatusSuffix += ' - ' + qsTr("edited")
-                        if (myMessage.author_signature && !messageListItem.precalculatedValues.showUserInfo)
+                        if (myMessage.author_signature && !showUserInfo)
                             messageStatusSuffix += " - " + myMessage.author_signature
 
                         if (Debug.enabled)

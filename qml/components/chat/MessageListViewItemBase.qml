@@ -39,6 +39,7 @@ ListItem {
     readonly property bool isOwnMessage: messageData.isOwnMessage
     readonly property bool isOutgoing: messageData.isOutgoing
     readonly property bool isOutgoingRead: messageData.isOutgoingRead
+    readonly property bool showUserInfo: precalculatedValues.showUserInfo || !!messageData.guest_bot_caller_id
 
     readonly property Page page: precalculatedValues.page
     readonly property bool isSelected: messageListItem.precalculatedValues.pageIsSelecting
