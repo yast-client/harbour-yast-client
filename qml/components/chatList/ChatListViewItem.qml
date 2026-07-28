@@ -27,6 +27,9 @@ MessageableListItem {
     hideAuthor: chat_actions_text || is_channel || ((chat_type == TDLibAPI.ChatTypePrivate || chat_type == TDLibAPI.ChatTypeSecret) && !last_message_is_service)
     showSendingState: !is_channel && chat_id != tdLibWrapper.myUserId
 
+    // TODO: show unread topic count here
+    //unreadCount: view_as_topics ? someObject.getUnreadTopicsCount_or_a_role_or_whatever : unread_count
+
     secondaryText.highlighted: listItem.highlighted || !!chat_actions_text
     minithumbnail: (showDraft || chat_actions_text) ? null : last_message_minithumbnail
     chatActionIcon {
