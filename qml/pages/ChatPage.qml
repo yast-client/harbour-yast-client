@@ -353,9 +353,11 @@ Page {
 
                         if (connecting) return tdLibWrapper.connectionStateText
 
-                        var chatActionsText = chatManager.chatActionsText
-                        if (chatActionsText)
-                            return chatActionsText
+                        if (!viewAsTopics) {
+                            var chatActionsText = chatManager.chatActionsText
+                            if (chatActionsText)
+                                return chatActionsText
+                        }
 
                         if (isBasicGroup || isSupergroup)
                             return Functions.getGroupStatusText(chatGroupInformation.member_count, isChannel, chatOnlineMemberCount)
@@ -375,7 +377,7 @@ Page {
                         type: connecting ? TDLibAPI.Cancel : chatManager.chatMainActionType
                         actionProgress: chatManager.chatActionsProgress
                     }
-                    chatStatusText.highlighted: !connecting && (chatHeader.highlighted || chatManager.chatActionsText
+                    chatStatusText.highlighted: !connecting && (chatHeader.highlighted || (!viewAsTopics && chatManager.chatActionsText)
                                                 || (chatPartnerInformation && chatPartnerInformation.status && chatPartnerInformation['@type'] === 'userStatusOnline'))
                     //chatStatusText.isError: tdLibWrapper.connectionState != TDLibAPI.ConnectionReady
 
