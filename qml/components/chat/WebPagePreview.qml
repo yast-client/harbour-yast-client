@@ -85,10 +85,10 @@ Item {
         width: !sourceComponent ? 0 : showLargeMedia ? parent.width : Theme.iconSizeLarge
         height: !sourceComponent ? 0 : showLargeMedia ? width * 2 / 3 : width
         anchors {
-            top: sourceComponent && showLargeMedia ? infoColumn.bottom : undefined
-            left: !sourceComponent || showLargeMedia ? undefined : infoColumn.right
-            topMargin: !sourceComponent ? undefined : (Theme.paddingSmall + showLargeMedia ? Theme.paddingMedium : 0)
-            leftMargin: !sourceComponent ? undefined : (Theme.paddingSmall + showLargeMedia ? 0 : Theme.paddingMedium)
+            top: sourceComponent && showLargeMedia ? infoColumn.bottom : parent.top
+            left: !sourceComponent || showLargeMedia ? parent.left : infoColumn.right
+            topMargin: !sourceComponent ? 0 : (Theme.paddingSmall + showLargeMedia ? Theme.paddingMedium : 0)
+            leftMargin: !sourceComponent ? 0 : (Theme.paddingSmall + showLargeMedia ? 0 : Theme.paddingMedium)
             margins: sourceComponent ? Theme.paddingSmall : 0
         }
 
