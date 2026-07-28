@@ -26,12 +26,12 @@ MessageContentBase {
     property var stickerData: rawMessage.content.sticker
     readonly property bool isOwnSticker: !!(messageListItem && messageListItem.isOwnMessage)
 
-    implicitWidth: Theme.itemSizeLarge*3
-    implicitHeight: implicitWidth * sticker.aspectRatio
+    property real defaultWidth: Theme.itemSizeLarge*3
+    height: sticker.height
 
     TDLibSticker {
         id: sticker
-        width: Math.min(parent.width, parent.implicitWidth)
+        width: Math.min(parent.width, defaultWidth)
         // (centered in image mode, text-like in sticker mode)
         anchors {
             horizontalCenter: appSettings.showStickersAsImages ? parent.horizontalCenter : undefined
