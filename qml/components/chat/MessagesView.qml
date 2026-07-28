@@ -17,6 +17,7 @@ Column {
 
     property var messagesModel: chatManager.model
     property var topicId
+    property bool isForumTopic: topicId['@type'] == 'messageTopicForum'
     property string forumTopicName
     property int messageSource: TDLibAPI.MessageSourceAuto
     property var draftMessage: chatInformation.draft_message
@@ -247,6 +248,15 @@ Column {
         forwardMessagesTimer.start()
     }
 
+    function readAllInteractions() {
+        if (!topicId || isForumTopic) {
+            var forumTopicId = isForumTopic ? topicId.forum_topic_id : 0
+            tdLibWrapper.readAllChatMentions(chatInformation.id, forumTopicId)
+            tdLibWrapper.readAllChatReactions(chatInformation.id, forumTopicId)
+            tdLibWrapper.readAllChatPollVotes(chatInformation.id, forumTopicId)
+        }
+    }
+
     Connections {
         target: tdLibWrapper
         onMessagePropertiesReceived: {
@@ -407,11 +417,8 @@ Column {
                 }
                 lastQueuedIndex = -1
             }
-            if (unreadCount === 0) {
-                tdLibWrapper.readAllChatMentions(chatInformation.id)
-                tdLibWrapper.readAllChatReactions(chatInformation.id)
-                tdLibWrapper.readAllChatPollVotes(chatInformation.id)
-            }
+            if (unreadCount === 0)
+                readAllInteractions()
         }
     }
 
@@ -528,11 +535,8 @@ Column {
                 if (unreadCount > 0 || containsSponsoredMessages) {
                     if (bottomIndex > -1)
                         viewMessageTimer.queueViewMessage(bottomIndex)
-                } else {
-                    tdLibWrapper.readAllChatMentions(chatId)
-                    tdLibWrapper.readAllChatReactions(chatId)
-                    tdLibWrapper.readAllChatPollVotes(chatId)
-                }
+                } else
+                    readAllInteractions()
                 manuallyScrolledToBottom = chatView.atYEnd
             }
 
