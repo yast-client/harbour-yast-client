@@ -21,9 +21,7 @@ QtObject {
             ChatManager {
                 tdlib: tdLibWrapper
                 chatId: root.chatId
-                onInfoInitializedChanged:
-                    if (infoInitialized)
-                        root.infoInitialized()
+                onInfoInitializedChanged: if (infoInitialized) root.infoInitialized()
             }
         }
         onStatusChanged: {

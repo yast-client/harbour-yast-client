@@ -142,7 +142,7 @@ MessageableListItem {
                             pageStack.pop(pageStack.find( function(page){ return(page._depth === 0)} ), PageStackAction.Immediate);
                         }
 
-                        pageStack.push(Qt.resolvedUrl("../../pages/ChatInformationPage.qml"), { "chatInformation" : display});
+                        pageStack.push(Qt.resolvedUrl("../../pages/ChatInformationPage.qml"), {chatId: chat_id});
                     }
                     text: model.display.type['@type'] === "chatTypePrivate" ? qsTr("User Info") : qsTr("Group Info")
                 }

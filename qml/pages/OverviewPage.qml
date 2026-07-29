@@ -129,7 +129,7 @@ Page {
             }
 
             options = options || {}
-            options.chatInformation = tdLibWrapper.getChat(chatId)
+            options.chatId = chatId
             pageStack.push(Qt.resolvedUrl("../pages/ChatPage.qml"), options, doPop ? PageStackAction.Immediate : PageStackAction.Animated)
             return true
         }

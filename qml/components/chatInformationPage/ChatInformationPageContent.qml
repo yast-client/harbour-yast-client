@@ -46,7 +46,7 @@ SilicaFlickable {
     }
 
     function handleBasicGroupFullInfo(groupFullInfo, groupId) {
-        if (!chatInformationPage.isBasicGroup || chatInformationPage.chatUserOrGroupId !== groupId)
+        if (!chatInformationPage.isBasicGroup || chatInformationPage.groupInformation.id !== groupId)
             return
         chatInformationPage.groupFullInformation = groupFullInfo
         fullInfoReady = true
@@ -59,16 +59,16 @@ SilicaFlickable {
 
     function handleSupergroupFullInfo(groupId, groupFullInfo, updated) {
         Debug.log(updated ? "onSupergroupFullInfoUpdated" : "onSupergroupFullInfoReceived",
-                  chatInformationPage.isSupergroup, chatInformationPage.chatUserOrGroupId, groupId)
-        if(chatInformationPage.isSupergroup && chatInformationPage.chatUserOrGroupId === groupId) {
+                  isSupergroup, groupInformation.id, groupId)
+        if(isSupergroup && groupInformation.id === groupId) {
             chatInformationPage.groupFullInformation = groupFullInfo
             fullInfoReady = true
         }
     }
 
-    function handleUserFullInfo(userId, userFullInfo) {
-        if (chatInformationPage.isPrivateOrSecretChat && userId === chatInformationPage.chatUserOrGroupId) {
-            chatInformationPage.chatPartnerFullInformation = userFullInfo
+    function handleUserFullInfo(userId, info) {
+        if (chatInformationPage.isPrivateOrSecretChat && userId === chatInformationPage.userInformation.id) {
+            userFullInformation = info
             fullInfoReady = true
         }
     }
@@ -92,37 +92,25 @@ SilicaFlickable {
     Connections {
         ignoreUnknownSignals: true
         target: chatInformationPage.status === PageStatus.Active ? chatInformationPage : null
-        onUserIsMemberChanged: if (!chatInformationPage.userIsMember)
-                                   pageStack.pop(pageStack.find(function(page){ return(page._depth === 0)}))
+        onUserIsMemberChanged: if (!chatInformationPage.userIsMember) {
+                                   var page = pageStack.previousPage(chatInformationPage)
+                                   if (page.objectName === 'chatPage' && page.chatId == chatId)
+                                       page = pageStack.previousPage(page)
+                                   pageStack.pop(page)
+                               }
     }
 
     Component.onCompleted: {
         switch (chatInformation.type['@type']) {
         case 'chatTypePrivate':
         case 'chatTypeSecret':
-            if (chatInformation.type['@type'] === 'chatTypeSecret')
-                chatInformationPage.isSecretChat = true
-            else
-                chatInformationPage.isPrivateChat = true
-            chatInformationPage.chatUserOrGroupId = chatInformationPage.chatInformation.type.user_id
-            if (!chatInformationPage.privateChatUserInformation.id)
-                chatInformationPage.privateChatUserInformation = tdLibWrapper.getUserInformation(chatInformationPage.chatUserOrGroupId)
             tdLibWrapper.getUserFullInfo(chatInformationPage.chatUserOrGroupId)
             break
         case 'chatTypeBasicGroup':
-            chatInformationPage.isBasicGroup = true
-            chatInformationPage.chatUserOrGroupId = chatInformation.type.basic_group_id
-            if (!chatInformationPage.groupInformation.id)
-                chatInformationPage.groupInformation = tdLibWrapper.getBasicGroup(chatInformationPage.chatUserOrGroupId)
             tdLibWrapper.getGroupFullInfo(chatInformationPage.chatUserOrGroupId, false)
             break;
         case 'chatTypeSupergroup':
-            chatInformationPage.isSupergroup = true
-            chatInformationPage.chatUserOrGroupId = chatInformation.type.supergroup_id
-            if (!chatInformationPage.groupInformation.id)
-                chatInformationPage.groupInformation = tdLibWrapper.getSuperGroup(chatInformationPage.chatUserOrGroupId)
             tdLibWrapper.getGroupFullInfo(chatInformationPage.chatUserOrGroupId, true)
-            chatInformationPage.isChannel = chatInformationPage.groupInformation.is_channel
             break;
         }
         Debug.log("is set up", chatInformationPage.isPrivateChat, chatInformationPage.isSecretChat, chatInformationPage.isBasicGroup, chatInformationPage.isSupergroup, chatInformationPage.chatUserOrGroupId)
@@ -159,15 +147,14 @@ SilicaFlickable {
         MenuItem {
             visible: isSupergroup && groupFullInformation.linked_chat_id !== 0
             text: isChannel ? qsTr("View discussion") : qsTr("View linked channel")
-            onClicked: pageStack.replace(Qt.resolvedUrl("../../pages/ChatPage.qml"), {
-                                          chatInformation: tdLibWrapper.getChat(groupFullInformation.linked_chat_id)
-                                      })
+            onClicked: pageStack.replace(Qt.resolvedUrl("../../pages/ChatPage.qml"),
+                                            {chatId: groupFullInformation.linked_chat_id})
         }
         MenuItem {
-            visible: NO_HARBOUR_COMPLIANCE && isPrivateOrSecretChat && (chatPartnerFullInformation.has_private_calls || chatPartnerFullInformation.can_be_called)
+            visible: NO_HARBOUR_COMPLIANCE && isPrivateOrSecretChat && (userFullInformation.has_private_calls || userFullInformation.can_be_called)
             text: qsTr("Call")
             onClicked:
-                if (chatPartnerFullInformation.has_private_calls)
+                if (userFullInformation.has_private_calls)
                     appNotification.show(qsTr("Unfortunately, you cannot call %1 because of their privacy settings. You can ask them to modify their setting or to call you instead").arg(headerItem.title))
                 else
                     callsManager.createCall(chatInformation.id)
@@ -234,7 +221,7 @@ SilicaFlickable {
                             anchors.fill: parent
                             onClicked:
                                 if (isPrivateOrSecretChat)
-                                    pageStack.push(Qt.resolvedUrl("../../pages/ProfilePicturesPage.qml"), {userId: chatUserOrGroupId})
+                                    pageStack.push(Qt.resolvedUrl("../../pages/ProfilePicturesPage.qml"), {userId: userInformation.id})
                                 else
                                     pageStack.push(Qt.resolvedUrl("../../pages/ChatPhotosPage.qml"), {chatManager: chatManager})
                         }
@@ -249,7 +236,7 @@ SilicaFlickable {
                 return Functions.getGroupStatusText(chatInformationPage.groupInformation.member_count, isChannel, chatInformationPage.chatOnlineMemberCount)
 
 
-            var status = Functions.getChatPartnerStatusText(chatInformationPage.privateChatUserInformation.status['@type'], chatInformationPage.privateChatUserInformation.status.was_online, chatInformationPage.privateChatUserInformation.is_support, chatInformationPage.chatUserOrGroupId)
+            var status = Functions.getChatPartnerStatusText(userInformation.status['@type'], userInformation.status.was_online, userInformation.is_support, chatInformationPage.chatUserOrGroupId)
             /*if (chatInformationPage.secretChatDetails) { // TODO
                 var secretChatStatus = Functions.getSecretChatStatus(chatPage.secretChatDetails)
                 if (status && secretChatStatus)
@@ -329,7 +316,7 @@ SilicaFlickable {
                 Label {
                     id: copyIdText
                     x: Math.max(headerItem.x + imageContainer.x - parent.x + (imageContainer.width - width)/2, 0)
-                    text: chatInformationPage.chatUserOrGroupId
+                    text: chatId
                     font.pixelSize: Theme.fontSizeSmall
                     color: copyIdMouseArea.pressed ? Theme.secondaryHighlightColor : Theme.highlightColor
                     visible: text !== ""
@@ -378,7 +365,7 @@ SilicaFlickable {
                     emptyPlaceholderText: qsTr("There is no information text available, yet.")
                     headerText: qsTr("Info", "group or user infotext header")
                     multiLine: true
-                    text: (chatInformationPage.isPrivateOrSecretChat ? Functions.enhanceMessageText(chatInformationPage.chatPartnerFullInformation.bio, false) : chatInformationPage.groupFullInformation.description) || ""
+                    text: (chatInformationPage.isPrivateOrSecretChat ? Functions.enhanceMessageText(userFuuserFullInformationllInfo.bio, false) : chatInformationPage.groupFullInformation.description) || ""
                     onSaveButtonClicked: {
                         if (chatInformationPage.isPrivateOrSecretChat) { // own bio
                             tdLibWrapper.setBio(textValue)
@@ -390,7 +377,7 @@ SilicaFlickable {
 
                 InformationTextItem {
                     headerText: qsTr("Phone Number", "user phone number header")
-                    text: (chatInformationPage.isPrivateOrSecretChat && chatInformationPage.privateChatUserInformation.phone_number ? "+"+chatInformationPage.privateChatUserInformation.phone_number : "") || ""
+                    text: (chatInformationPage.isPrivateOrSecretChat && userInformation.phone_number ? "+"+userInformation.phone_number : "") || ""
                     isLinkedLabel: true
                 }
 
@@ -414,13 +401,13 @@ SilicaFlickable {
 
                 InformationTextItem {
                     headerText: qsTr("Date of birth")
-                    property var birthdate: chatInformationPage.isPrivateOrSecretChat && !!chatInformationPage.chatPartnerFullInformation.birthdate ?
+                    property var birthdate: chatInformationPage.isPrivateOrSecretChat && !!userFullInformation.birthdate ?
                                                 new Date(
-                                                    chatInformationPage.chatPartnerFullInformation.birthdate.year,
-                                                    chatInformationPage.chatPartnerFullInformation.birthdate.month-1, // 0-11 months index in js, 1-12 in tdlib
-                                                    chatInformationPage.chatPartnerFullInformation.birthdate.day
+                                                    userFullInformation.birthdate.year,
+                                                    userFullInformation.birthdate.month-1, // 0-11 months index in js, 1-12 in tdlib
+                                                    userFullInformation.birthdate.day
                                                     ) : null
-                    text: birthdate ? Format.formatDate(birthdate, chatInformationPage.chatPartnerFullInformation.birthdate.year ? Formatter.DateMedium : Formatter.DateMediumWithoutYear) : ''
+                    text: birthdate ? Format.formatDate(birthdate, userFullInformation.birthdate.year ? Formatter.DateMedium : Formatter.DateMediumWithoutYear) : ''
                     // TODO: edit
                 }
 
@@ -510,9 +497,9 @@ SilicaFlickable {
                 id: personalChatLoader
                 width: parent.width
                 asynchronous: true
-                active: !!(chatInformationPage.chatPartnerFullInformation && chatInformationPage.chatPartnerFullInformation.personal_chat_id)
+                active: !!(userFullInformation && userFullInformation.personal_chat_id)
                 sourceComponent: TDLibChatListItem {
-                    chatId: chatInformationPage.chatPartnerFullInformation.personal_chat_id
+                    chatId: userFullInformation.personal_chat_id
                     compact: false
                     showSeparator: false
                     doReplace: true

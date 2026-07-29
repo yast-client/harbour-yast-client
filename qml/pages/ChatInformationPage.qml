@@ -4,6 +4,7 @@
 
 import QtQuick 2.6
 import Sailfish.Silica 1.0
+import io.yaqtlib 1.0
 import "../components"
 import "../components/chatInformationPage"
 import "../components/chat"
@@ -18,15 +19,16 @@ Page {
     allowedOrientations: Orientation.All
     property string searchString
 
-    property int chatOnlineMemberCount: 0;
+    property int chatOnlineMemberCount: 0
 
-    property bool isPrivateChat: false
-    property bool isSecretChat: false
-    property bool isBasicGroup: false
-    property bool isSupergroup: false
-    property bool isChannel: false
+    readonly property bool isPrivateChat: chatManager.chatType === TDLibAPI.ChatTypePrivate
+    readonly property bool isSecretChat: chatManager.chatType === TDLibAPI.ChatTypeSecret
+    readonly property bool isBasicGroup: chatManager.chatType === TDLibAPI.ChatTypeBasicGroup
+    readonly property bool isSupergroup: chatManager.chatType === TDLibAPI.ChatTypeSupergroup
+    readonly property bool isChannel: chatManager.isChannel
 
-    property var chatUserOrGroupId
+    property alias chatId: chatManagerLoader.chatId
+    property var chatUserOrGroupId: isPrivateOrSecretChat ? userInformation.id : groupInformation.id
 
     property bool isInitialized: false
 
@@ -46,15 +48,15 @@ Page {
     readonly property bool isGroupCreator: isGroup && groupInformation.status["@type"] === "chatMemberStatusCreator"
 
     property alias chatManager: chatManagerLoader.chatManager
-    property var chatInformation: chatManager.chatInformation
-    property var privateChatUserInformation: chatManager.userInfo
-    property var chatPartnerFullInformation:({})
+    readonly property var chatInformation: chatManager.chatInformation
+    readonly property var userInformation: chatManager.userInfo
+    property var userFullInformation:({})
     property var groupInformation: chatManager.groupInfo
     property var groupFullInformation: ({})
 
     property bool fullInfoReady: false
     readonly property string username: isPrivateOrSecretChat ?
-                                  (privateChatUserInformation.usernames.editable_username ? "@"+privateChatUserInformation.usernames.editable_username : "")
+                                  (userInformation.usernames.editable_username ? "@"+userInformation.usernames.editable_username : "")
                                 : ((groupInformation && groupInformation.usernames && groupInformation.usernames.editable_username)
                                    ? "@"+groupInformation.usernames.editable_username : "")
 

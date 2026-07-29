@@ -271,6 +271,7 @@ Page {
 
                                                 enabled: (expanded && !expandAnimation.running) || index < topChatUsersView.columnsCount
 
+                                                // FIXME: use TDLibMessageSender/TDLibChat/...
                                                 property var chatInformation: tdLibWrapper.getChat(modelData)
                                                 primaryText.text: Emoji.emojify(chatInformation.title, primaryText.font.pixelSize)
                                                 pictureThumbnail.photoData: typeof chatInformation.photo.small !== "undefined" ? chatInformation.photo.small : {}
@@ -284,7 +285,7 @@ Page {
                                                     }
                                                 }
 
-                                                onClicked: pageStack.replace(Qt.resolvedUrl("ChatPage.qml"), {chatInformation: chatInformation})
+                                                onClicked: pageStack.replace(Qt.resolvedUrl("ChatPage.qml"), {chatId: modelData})
                                             }
                                         }
                                     }

@@ -29,7 +29,7 @@ SilicaListView {
         chatListType: view.chatListType
         folderId: view.folderId
         onClicked: {
-            pageStack.push(Qt.resolvedUrl("../../pages/ChatPage.qml"), {chatInformation : display})
+            pageStack.push(Qt.resolvedUrl("../../pages/ChatPage.qml"), {chatId : chat_id})
         }
     }
 

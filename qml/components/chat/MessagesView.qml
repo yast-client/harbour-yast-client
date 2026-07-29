@@ -59,7 +59,7 @@ Column {
 
     function log() {
         var a = Array.prototype.slice.call(arguments)
-        a.splice(0,0,'[MessagesView] '+chatInformation.id)
+        a.splice(0,0,'[MessagesView] '+chatId)
         Debug.log.apply(console, a)
     }
 
@@ -67,18 +67,18 @@ Column {
         // TODO: in other places where we use TDLibWrapper send message functions, correctly specify topic ID
         if (newMessageColumn.editMessageId !== "0")
             (newMessageColumn.editIsCaption ? tdLibWrapper.editMessageCaption : tdLibWrapper.editMessageText)
-                    (chatInformation.id, newMessageColumn.editMessageId, newMessageTextField.text)
+                    (chatId, newMessageColumn.editMessageId, newMessageTextField.text)
         else {
             if (attachmentPreviewRow.visible) {
                 function sendFile(contentType, content) {
                     content['@type'] = contentType
                     content.caption = utilities.newFormattedText(newMessageTextField.text)
 
-                    tdLibWrapper.sendMessage(chatInformation.id, newMessageColumn.replyToMessageId, topicId, content)
+                    tdLibWrapper.sendMessage(chatId, newMessageColumn.replyToMessageId, topicId, content)
                 }
 
                 if (attachmentPreviewRow.isLocation)
-                    tdLibWrapper.sendLocationMessage(chatInformation.id, attachmentPreviewRow.locationData.latitude, attachmentPreviewRow.locationData.longitude, attachmentPreviewRow.locationData.horizontalAccuracy, newMessageColumn.replyToMessageId, topicId)
+                    tdLibWrapper.sendLocationMessage(chatId, attachmentPreviewRow.locationData.latitude, attachmentPreviewRow.locationData.longitude, attachmentPreviewRow.locationData.horizontalAccuracy, newMessageColumn.replyToMessageId, topicId)
                 else if (attachmentPreviewRow.isVoiceNote)
                     sendFile('inputMessageVoiceNote', {voice_note: {
                         voice_note: tdLibWrapper.getInputFileLocal(voiceNoteRecorder.voiceNotePath),
@@ -103,9 +103,9 @@ Column {
 
                 messagesView.clearAttachmentPreviewRow()
             } else if (chatPage.hasSendPrivilege('can_send_other_messages') && tdLibWrapper.isDiceEmoji(newMessageTextField.text))
-                tdLibWrapper.sendDiceMessage(chatInformation.id, newMessageTextField.text, newMessageColumn.replyToMessageId, topicId, true)
+                tdLibWrapper.sendDiceMessage(chatId, newMessageTextField.text, newMessageColumn.replyToMessageId, topicId, true)
             else
-                tdLibWrapper.sendTextMessage(chatInformation.id, newMessageTextField.text, newMessageColumn.replyToMessageId, topicId, true)
+                tdLibWrapper.sendTextMessage(chatId, newMessageTextField.text, newMessageColumn.replyToMessageId, topicId, true)
 
             if(appSettings.focusTextAreaAfterSend)
                 lostFocusTimer.start()
@@ -118,7 +118,7 @@ Column {
 
     function setMessageText(text, doSend) {
         if(doSend)
-            tdLibWrapper.sendTextMessage(chatInformation.id, text, 0, topicId)
+            tdLibWrapper.sendTextMessage(chatId, text, 0, topicId)
         else {
             newMessageTextField.text = text
             newMessageTextField.cursorPosition = text.length
@@ -165,8 +165,8 @@ Column {
         if (draftMessage) {
             if (draftMessage.content && draftMessage.content['@type'] == 'draftMessageContentText')
                 newMessageTextField.text = draftMessage.content.text.text
-            if(draftMessage.reply_to_message_id)
-                tdLibWrapper.getMessage(chatInformation.id, draftMessage.reply_to_message_id)
+            if (draftMessage.reply_to_message_id)
+                tdLibWrapper.getMessage(chatId, draftMessage.reply_to_message_id)
         }
     }
 
@@ -251,9 +251,9 @@ Column {
     function readAllInteractions() {
         if (!topicId || isForumTopic) {
             var forumTopicId = isForumTopic ? topicId.forum_topic_id : 0
-            tdLibWrapper.readAllChatMentions(chatInformation.id, forumTopicId)
-            tdLibWrapper.readAllChatReactions(chatInformation.id, forumTopicId)
-            tdLibWrapper.readAllChatPollVotes(chatInformation.id, forumTopicId)
+            tdLibWrapper.readAllChatMentions(chatId, forumTopicId)
+            tdLibWrapper.readAllChatReactions(chatId, forumTopicId)
+            tdLibWrapper.readAllChatPollVotes(chatId, forumTopicId)
         }
     }
 
@@ -346,7 +346,7 @@ Column {
 
     Component.onDestruction: {
         if (chatPage.canSendMessages && !chatPage.isDeletedUser)
-            tdLibWrapper.setChatDraftMessage(chatInformation.id, messagesView.newMessageColumn.replyToMessageId, newMessageTextField.text, topicId)
+            tdLibWrapper.setChatDraftMessage(chatId, messagesView.newMessageColumn.replyToMessageId, newMessageTextField.text, topicId)
         chatActionTimer.stop()
         utilities.stopGeoLocationUpdates()
     }
@@ -368,7 +368,7 @@ Column {
             if (loading)
                 forwardMessagesTimer.start()
             else
-                tdLibWrapper.forwardMessages(chatInformation.id, fromChatId, messageIds, topicId, isSecretChat /* forwardedToSecretChat */)
+                tdLibWrapper.forwardMessages(chatId, fromChatId, messageIds, topicId, isSecretChat /* forwardedToSecretChat */)
     }
 
     Timer {
@@ -399,7 +399,7 @@ Column {
             var messageToRead = messagesModel.getMessage(modelIndex)
             if (messageToRead['@type'] === "sponsoredMessage") {
                 log("sponsored message to read: ", messageToRead.id)
-                tdLibWrapper.viewMessage(chatInformation.id, messageToRead.message_id, false, messageSource)
+                tdLibWrapper.viewMessage(chatId, messageToRead.message_id, false, messageSource)
             } else if (unreadCount > 0 && lastQueuedIndex > -1) {
                 if (messageToRead) {
                     log("message to read: ", messageToRead.id)
@@ -460,7 +460,7 @@ Column {
                 chatPage.isInitialized = true
                 chatView.handleScrollPositionChanged()
                 if (readable && (chatPage.isChannel || chatPage.isBot))
-                    tdLibWrapper.getChatSponsoredMessages(chatInformation.id)
+                    tdLibWrapper.getChatSponsoredMessages(chatId)
             }
         }
 
@@ -612,7 +612,7 @@ Column {
                             textFormat: Text.StyledText
                             horizontalAlignment: Text.AlignHCenter
                             onLinkActivated:
-                                utilities.handleLink(link, chatInformation.id)
+                                utilities.handleLink(link, chatId)
                             linkColor: Theme.primaryColor
                             visible: (text !== "")
                         }
@@ -829,9 +829,9 @@ Column {
             interval: 5000 // from https://core.telegram.org/constructor/updateChatUserTyping: chat action update is valid for 6 seconds
             repeat: true
             onTriggered: if (Qt.application.active)
-                             tdLibWrapper.sendChatAction(chatInformation.id, action, topicId)
+                             tdLibWrapper.sendChatAction(chatId, action, topicId)
             onRunningChanged: if (!running)
-                                  tdLibWrapper.sendChatAction(chatInformation.id, topicId)
+                                  tdLibWrapper.sendChatAction(chatId, topicId)
             function run(action) {
                 this.action = action
                 restart()
@@ -854,7 +854,7 @@ Column {
             target: stickerPickerLoader.item
             onStickerPicked: {
                 log("Sticker picked: " + stickerId)
-                tdLibWrapper.sendStickerMessage(chatInformation.id, stickerId, newMessageColumn.replyToMessageId)
+                tdLibWrapper.sendStickerMessage(chatId, stickerId, newMessageColumn.replyToMessageId)
                 stickerPickerLoader.active = false
                 attachmentOptionsFlickable.show = false
                 newMessageInReplyToRow.inReplyToMessage = null
@@ -890,7 +890,7 @@ Column {
                         stickerSetOverlayLoader.active = false
                     onStickerPicked: {
                         log("Sticker from set picked:", stickerId)
-                        tdLibWrapper.sendStickerMessage(chatInformation.id, stickerId, newMessageColumn.replyToMessageId)
+                        tdLibWrapper.sendStickerMessage(chatId, stickerId, newMessageColumn.replyToMessageId)
                         newMessageInReplyToRow.inReplyToMessage = null
                         newMessageColumn.editMessageId = "0"
                         newMessageColumn.editIsCaption = false
@@ -905,7 +905,7 @@ Column {
         InlineQuery {
             id: inlineQuery
             textField: newMessageTextField
-            chatId: chatInformation.id
+            chatId: chatPage.chatId
         }
     }
 
@@ -968,13 +968,13 @@ Column {
                     }
                     IconButton {
                         icon.source: "image://theme/icon-m-delete"
-                        visible: chatInformation.id === tdLibWrapper.myUserId || selectedMessages.every(function(message) {
+                        visible: isSavedMessages || selectedMessages.every(function(message) {
                             return message.properties.can_be_deleted_for_all_users
                         })
                         icon.sourceSize: Qt.size(Theme.iconSizeMedium, Theme.iconSizeMedium)
                         onClicked: {
                             var ids = Functions.getMessagesArrayIds(selectedMessages)
-                            var chatId = chatInformation.id
+                            var chatId = chatPage.chatId
                             var wrapper = tdLibWrapper
                             Remorse.popupAction(chatPage, qsTr("%Ln Messages deleted", "", ids.length), function() {
                                 wrapper.deleteMessages(chatId, ids)

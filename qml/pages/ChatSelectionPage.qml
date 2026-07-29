@@ -70,16 +70,15 @@ Dialog {
 
         delegate: ChatListViewItem {
             onClicked: {
-                var chat = tdLibWrapper.getChat(display.id);
-                switch(chatSelectionPage.state) {
+                switch (chatSelectionPage.state) {
                 case "forwardMessages":
                 case "fillTextArea":
-                    chatSelectionPage.acceptDestinationProperties = { "chatInformation" :  chat};
-                    chatSelectionPage.acceptDestination = Qt.resolvedUrl("../pages/ChatPage.qml");
-                    break;
+                    chatSelectionPage.acceptDestinationProperties = {chatId: display.id}
+                    chatSelectionPage.acceptDestination = Qt.resolvedUrl("../pages/ChatPage.qml")
+                    break
                 }
-                chatSelectionPage.canAccept = true;
-                chatSelectionPage.accept();
+                chatSelectionPage.canAccept = true
+                chatSelectionPage.accept()
             }
         }
 

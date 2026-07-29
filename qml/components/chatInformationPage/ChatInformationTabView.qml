@@ -275,7 +275,7 @@ TabView {
 
         if (isChannel)
             tdLibWrapper.getChatSimilarChats(chatInformation.id)
-        if (isPrivateOrSecretChat && privateChatUserInformation.type['@type'] === 'userTypeBot')
+        if (isPrivateOrSecretChat && userInformation.type['@type'] === 'userTypeBot')
             tdLibWrapper.getBotSimilarBots(chatUserOrGroupId)
 
         photoAndVideoModel.init(chatManager.chatId)

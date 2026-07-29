@@ -17,10 +17,11 @@ Page {
     allowedOrientations: Orientation.All
     backNavigation: !messagesView || !messagesView.stickerPickerLoader.active
 
-    property bool isInitialized: false
+    property bool earlyInitialized
+    property bool isInitialized
     property alias chatManager: chatManagerLoader.chatManager
-    property var chatInformation
-    readonly property alias chatId: chatManagerLoader.chatId
+    readonly property var chatInformation: chatManager.chatInformation
+    property alias chatId: chatManagerLoader.chatId
     readonly property var secretChatDetails: chatManager.secretChatInfo
     property bool isPrivateChat: chatManagerLoader.chatManager.chatType === TDLibAPI.ChatTypePrivate
     property bool isSecretChat: chatManager.chatType === TDLibAPI.ChatTypeSecret
@@ -37,7 +38,7 @@ Page {
     property int chatOnlineMemberCount: 0
     property var topicIdToShow
     property var messageIdToShow
-    readonly property bool isSavedMessages: chatInformation.id === tdLibWrapper.myUserId
+    readonly property bool isSavedMessages: chatId === tdLibWrapper.myUserId
     readonly property bool userIsMember: ((isPrivateChat || isSecretChat) &&
                                           chatInformation["@type"] &&
                                           !isSavedMessages) || // should be optimized
@@ -58,14 +59,13 @@ Page {
     ChatManagerLoader {
         id: chatManagerLoader
         parent: chatPage
-        chatId: chatInformation.id
         onReady: initializeChatManager()
         onInfoInitialized: initializeChatManager()
     }
 
     function log() {
         var a = Array.prototype.slice.call(arguments)
-        a.splice(0,0,'[ChatPage] '+chatInformation.id)
+        a.splice(0,0,'[ChatPage] '+chatId)
         Debug.log.apply(console, a)
     }
 
@@ -130,8 +130,9 @@ Page {
 
     // TODO: close when chat is deleted
     // left the chat, even if from another device; this follows the behaviour in Telegram Desktop
-    onUserIsMemberChanged: if (chatManager.infoInitialized && !userIsMember)
-                               pageStack.pop(pageStack.find(function(page){ return(page._depth === 0)}))
+    onUserIsMemberChanged:
+        if (chatManager.infoInitialized && !userIsMember)
+            pageStack.pop(pageStack.previousPage(chatPage))
 
     Timer {
         id: searchInChatTimer
@@ -144,20 +145,9 @@ Page {
         }
     }
 
-    Component.onCompleted: {
-        log("Initializing chat page...")
-
-        if (isPrivateChat || isSecretChat) {
-            if(chatPartnerInformation.type["@type"] === "userTypeBot")
-                tdLibWrapper.getUserFullInfo(chatPartnerInformation.id)
-        }
-
-        tdLibWrapper.toggleChatIsMarkedAsUnread(chatInformation.id, false)
-    }
-
     Component.onDestruction: {
-        tdLibWrapper.closeChat(chatInformation.id)
-        if (notificationManager.activeChatId === chatInformation.id)
+        tdLibWrapper.closeChat(chatId)
+        if (notificationManager.activeChatId === chatId)
             notificationManager.activeChatId = 0
     }
 
@@ -166,14 +156,22 @@ Page {
             return
         log("Initializing chat manager")
 
-        if (status == PageStatus.Activating || status == PageStatus.Active) {
+        if (!earlyInitialized && (status == PageStatus.Activating || status == PageStatus.Active)) {
+            earlyInitialized = true
+
+            if ((isPrivateChat || isSecretChat) && chatPartnerInformation.type["@type"] === "userTypeBot")
+                tdLibWrapper.getUserFullInfo(chatId)
+            tdLibWrapper.toggleChatIsMarkedAsUnread(chatId, false)
+
             if (messagesView) messagesView.prepareView()
         }
 
         if (status == PageStatus.Active) {
+            isInitialized = true
+
             // From tests, the following line doesn't take more than 20 milliseconds, so for now we initialize this here:
             // The real issue might be that since it initializes early, UI also needs to be initialized earlier, so it could actually lag a bit
-            // So, TODO: decide if it's best to move it up or keep it here
+            // So, TBD if it's best to move it up or keep it here
             // also to move this up we need to not depend on isInitialized, because otherwise the code here won't ever run at all
             chatManager.initializeMainModels(messageIdToShow)
 
@@ -187,11 +185,11 @@ Page {
 
             pageStack.pushAttached(Qt.resolvedUrl("ChatInformationPage.qml"), {
                                        chatManager: chatManager,
-                                       chatOnlineMemberCount: chatOnlineMemberCount,
+                                       chatOnlineMemberCount: chatOnlineMemberCount
                                    })
-            if(doSendBotStartMessage)
-                tdLibWrapper.sendBotStartMessage(chatInformation.id, chatInformation.id, sendBotStartMessageParameter, "")
-            notificationManager.activeChatId = chatInformation.id
+            if (doSendBotStartMessage)
+                tdLibWrapper.sendBotStartMessage(chatId, chatId, sendBotStartMessageParameter, "")
+            notificationManager.activeChatId = chatId
         }
     }
 
@@ -201,28 +199,23 @@ Page {
     Connections {
         target: tdLibWrapper
         onChatOnlineMemberCountUpdated: {
-            Debug.log(isSupergroup, "/", isBasicGroup, "/", chatInformation.id.toString(), "/", chatId);
-            if ((isSupergroup || isBasicGroup) && chatInformation.id.toString() === chatId) {
+            Debug.log(isSupergroup, "/", isBasicGroup, "/", chatPage.chatId, "/", chatId);
+            if ((isSupergroup || isBasicGroup) && chatPage.chatId === chatId)
                 chatOnlineMemberCount = onlineMemberCount
-            }
         }
 
         onCallbackQueryAnswer: {
-            if(text.length > 0) { // ignore bool "alert", just show as notification:
+            if (text.length > 0) // ignore bool "alert", just show as notification:
                 appNotification.show(Emoji.emojify(text, Theme.fontSizeSmall))
-            }
-            if(url.length > 0) {
+            if (url.length > 0)
                 utilities.handleLink(url)
-            }
         }
-        onUserFullInfoReceived: {
-            if ((isPrivateChat || isSecretChat) && userFullInfo["@extra"] === chatPartnerInformation.id.toString())
+        onUserFullInfoReceived:
+            if ((isPrivateChat || isSecretChat) && userId === chatId)
                 chatPage.botInformation = userFullInfo.bot_info
-        }
-        onUserFullInfoUpdated: {
-            if ((isPrivateChat || isSecretChat) && userId === chatPartnerInformation.id)
+        onUserFullInfoUpdated:
+            if ((isPrivateChat || isSecretChat) && userId === chatId)
                 chatPage.botInformation = userFullInfo.bot_info
-        }
     }
 
     Timer {
@@ -231,14 +224,6 @@ Page {
         running: isPrivateChat || isSecretChat
         repeat: true
         onTriggered: chatHeader.updateStatusText()
-    }
-
-    Connections {
-        target: chatManager
-        onChatInformationChanged:
-            // FIXME 2: this if statement shouldn't be needed now because chat manager is loaded along with the page now
-            //if (!!chatManager.chatInformation.id) // this is needed for closeChat request and some other stuff
-                chatPage.chatInformation = chatManager.chatInformation // FIXME
     }
 
     SilicaFlickable {
@@ -263,7 +248,7 @@ Page {
                 visible: /*isSavedMessages ||*/ (isSupergroup && chatGroupInformation.is_forum)
                 text: viewAsTopics ? qsTr("View as Messages", "view a forum chat in full chat mode") : qsTr("View as Topics", "view a forum chat as topics")
                 onClicked:
-                    tdLibWrapper.toggleChatViewAsTopics(chatInformation.id, !viewAsTopics)
+                    tdLibWrapper.toggleChatViewAsTopics(chatId, !viewAsTopics)
 
                 rightPadding: viewAsTopics ? 0 : forumTopicsBetaIndicator.width + Theme.paddingLarge
                 TextBadge {
@@ -280,7 +265,7 @@ Page {
             MenuItem {
                 visible: chatPage.isPrivateChat
                 onClicked: {
-                    var privateChatId = chatInformation.id
+                    var privateChatId = chatId
                     Remorse.popupAction(chatPage, qsTr("Chat deleted"), function() { tdLibWrapper.deleteChat(privateChatId) }, 10000)
                 }
                 text: qsTr("Delete chat")
@@ -302,7 +287,7 @@ Page {
                         var chatId = chatInformation.id
                         Remorse.popupAction(chatPage, isChannel ? qsTr("Left the channel") : qsTr("Left the group"), function() { tdLibWrapper.leaveChat(chatId) })
                     } else
-                        tdLibWrapper.joinChat(chatInformation.id, isChannel)
+                        tdLibWrapper.joinChat(chatId, isChannel)
                 }
                 text: chatPage.userIsMember
                         ? (isChannel ? qsTr("Leave channel") : qsTr("Leave group"))
@@ -311,8 +296,8 @@ Page {
 
             MenuItem {
                 visible: chatPage.userIsMember
-                text: Functions.getMuteButtonTitle(tdLibWrapper.chatIsMuted(chatInformation.id, chatInformation.notification_settings), chatInformation.notification_settings, highlighted)
-                onClicked: Functions.toggleChatIsMuted(chatInformation.id, chatInformation.notification_settings)
+                text: Functions.getMuteButtonTitle(tdLibWrapper.chatIsMuted(chatId, chatInformation.notification_settings), chatInformation.notification_settings, highlighted)
+                onClicked: Functions.toggleChatIsMuted(chatId, chatInformation.notification_settings)
             }
 
             MenuItem {
@@ -362,7 +347,7 @@ Page {
                         if (isBasicGroup || isSupergroup)
                             return Functions.getGroupStatusText(chatGroupInformation.member_count, isChannel, chatOnlineMemberCount)
 
-                        var status = Functions.getChatPartnerStatusText(chatPartnerInformation.status['@type'], chatPartnerInformation.status.was_online, chatPartnerInformation.is_support, chatInformation.id, timepointStatus)
+                        var status = Functions.getChatPartnerStatusText(chatPartnerInformation.status['@type'], chatPartnerInformation.status.was_online, chatPartnerInformation.is_support, chatId, timepointStatus)
                         if (chatPage.secretChatDetails) {
                             var secretChatStatus = Functions.getSecretChatStatus(chatPage.secretChatDetails)
                             if (status && secretChatStatus)
@@ -427,21 +412,21 @@ Page {
                 id: chatBotSponsoredMessageItem
                 width: parent.width
                 message: chatManager.botSponsoredMessage
-                chatId: chatInformation.id
+                chatId: chatPage.chatId
             }
 
             ChatPendingJoinRequestsItem {
                 id: pendingJoinRequestsItem
                 width: parent.width
                 pendingJoinRequests: chatManager.pendingJoinRequests
-                chatId: chatInformation.id
+                chatId: chatPage.chatId
             }
 
             Loader {
                 id: contentLoader
                 width: parent.width
                 height: chatColumn.height - chatHeader.height - chatBotSponsoredMessageItem.height - pendingJoinRequestsItem.height
-                active: chatManager.infoInitialized
+                active: chatManager && chatManager.infoInitialized
                 sourceComponent: viewAsTopics ? topicsListViewComponent : messagesViewComponent
 
                 Component {

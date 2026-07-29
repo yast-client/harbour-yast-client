@@ -36,7 +36,7 @@ QtObject {
     function open(chatOptions, replace) {
         if (isChat) {
             var options = chatOptions || {}
-            options.chatInformation = chatInformation
+            options.chatId = chatId
 
             var f = replace ? pageStack.replace : pageStack.push // FIXME: why is this needed?
             f(Qt.resolvedUrl("../../pages/ChatPage.qml"), options)
