@@ -75,38 +75,51 @@ ChatInformationTabItemBase {
 
             Loader {
                 width: parent.width
-                active: chatInformationPage.isSupergroup && chatInformationPage.isGroupCreator
-                // todo: only show this for private groups
+                active: isSupergroup && isGroupCreator && !isChannel && !groupInformation.has_linked_chat
                 sourceComponent: Component {
                     Column {
                         width: parent.width
                         SectionHeader {
                             text: qsTr("Topics", "group topics")
                         }
-                        TextSwitch {
-                            automaticCheck: false
-                            onCheckedChanged: busy = false
-                            text: qsTr("Enable Topics", "switch to toggle topics for a group")
+                        ComboBox {
+                            id: forumComboBox
+                            label: qsTr("Enable Topics", "group topics")
                             description: qsTr("The group chat will be divided into topics created by admins or users.")
-                            checked: chatInformationPage.groupInformation.is_forum
-                            onClicked: {
-                                busy = true
-                                tdLibWrapper.toggleSupergroupIsForum(chatInformationPage.chatInformation.id, !checked)
+                                         + (groupInformation.is_forum ? ' ' + qsTr("Choose how topics appear for all members.") : '')
+
+                            menu: ContextMenu {
+                                MenuItem {
+                                    text: qsTr("Off", "topics")
+                                    onClicked: if (forumComboBox.currentIndex != 0)
+                                                   tdLibWrapper.toggleSupergroupIsForum(groupInformation.id, false)
+                                }
+                                MenuItem {
+                                    text: qsTr("List", "topics")
+                                    onClicked: if (forumComboBox.currentIndex != 1)
+                                                   tdLibWrapper.toggleSupergroupIsForum(groupInformation.id, true, false)
+                                }
+                                MenuItem {
+                                    text: qsTr("Tabs", "topics")
+                                    onClicked: if (forumComboBox.currentIndex != 2)
+                                                   tdLibWrapper.toggleSupergroupIsForum(groupInformation.id, true, true)
+                                }
                             }
+                            currentIndex: groupInformation.is_forum ? (groupInformation.has_forum_tabs ? 2 : 1) : 0
+                            automaticSelection: false
                         }
                     }
                 }
             }
 
             Loader {
+                width: parent.width
                 active: chatInformationPage.isSupergroup && chatInformationPage.groupInformation
                         && (chatInformationPage.groupInformation.status.can_restrict_members
                             || chatInformationPage.isGroupCreator)
                 asynchronous: true
-                source: "./EditSuperGroupSlowModeColumn.qml"
-                width: parent.width
+                source: Qt.resolvedUrl("./EditSuperGroupSlowModeColumn.qml")
             }
-
         }
     }
 }
