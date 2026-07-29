@@ -1,8 +1,7 @@
-//@ SPDX-FileCopyrightText: 2024-present roundedrectangle
+//@ SPDX-FileCopyrightText: 2026-present roundedrectangle
 //@ SPDX-License-Identifier: GPL-3.0-or-later
 
-#ifndef MYNOTIFICATIONMANAGER_H
-#define MYNOTIFICATIONMANAGER_H
+#pragma once
 
 #include <notificationmanager.h>
 
@@ -14,5 +13,3 @@ public:
 protected:
     virtual void playInChatSound(bool incoming, const QVariantMap &message) override;
 };
-
-#endif // MYNOTIFICATIONMANAGER_H
