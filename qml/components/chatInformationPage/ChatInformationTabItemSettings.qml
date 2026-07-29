@@ -105,7 +105,11 @@ ChatInformationTabItemBase {
                                                    tdLibWrapper.toggleSupergroupIsForum(groupInformation.id, true, true)
                                 }
                             }
-                            currentIndex: groupInformation.is_forum ? (groupInformation.has_forum_tabs ? 2 : 1) : 0
+
+                            // FIXME?
+                            property int comboBoxIndex: groupInformation.is_forum ? (groupInformation.has_forum_tabs ? 2 : 1) : 0
+                            currentIndex: comboBoxIndex
+                            onComboBoxIndexChanged: currentIndex = comboBoxIndex
                             automaticSelection: false
                         }
                     }
