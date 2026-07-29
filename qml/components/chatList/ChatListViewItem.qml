@@ -19,6 +19,8 @@ MessageableListItem {
         photoData: photo_data.small || ({})
         minithumbnail: photo_data.minithumbnail
         highlighted: listItem.highlighted && !listItem.menuOpen
+        // TODO: use different rounding for all forums (even if view_as_topics = false), and in other app places too (not just here)
+        radius: view_as_topics ? Theme.paddingLarge : pictureThumbnail.width / 2
     }
 
     property int chatListType: ChatFoldersModel.FolderMain

@@ -21,7 +21,7 @@ Item {
     property real replacementImageHeight: replacementImageWidth
     property alias replacementContentLoader: replacementContentLoader
 
-    property int radius: width / 2
+    property real radius: width / 2
     property int imageStatus: -1
     property bool optimizeImageSize: true
     property bool highlighted
