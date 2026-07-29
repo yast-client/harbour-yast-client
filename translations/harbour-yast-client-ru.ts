@@ -767,15 +767,15 @@
     </message>
     <message>
         <source>Mark all messages as read</source>
-        <translation>Всё прочитано</translation>
+        <translation>Прочитано</translation>
     </message>
     <message>
         <source>Mark chat as unread</source>
-        <translation>Отметить чат как непрочитанный</translation>
+        <translation>Пометить как непрочитанное</translation>
     </message>
     <message>
         <source>Mark chat as read</source>
-        <translation>Отметить чат как прочитанный</translation>
+        <translation>Пометить как прочитанное</translation>
     </message>
     <message>
         <source>Unpin chat</source>
