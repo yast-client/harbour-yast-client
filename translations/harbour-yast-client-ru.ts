@@ -623,13 +623,32 @@
         <translation>Темы</translation>
     </message>
     <message>
+        <source>The group chat will be divided into topics created by admins or users.</source>
+        <translation>Чат группы будет разделён на темы, созданные администраторами и пользователями.</translation>
+    </message>
+    <message>
         <source>Enable Topics</source>
-        <comment>switch to toggle topics for a group</comment>
+        <comment>group topics</comment>
         <translation>Включить темы</translation>
     </message>
     <message>
-        <source>The group chat will be divided into topics created by admins or users.</source>
-        <translation>Группа будет поделена на темы, созданные администраторами или участниками.</translation>
+        <source>Choose how topics appear for all members.</source>
+        <translation>Выберите расположение тем на экране у всех участников.</translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <comment>topics</comment>
+        <translation>Отключены</translation>
+    </message>
+    <message>
+        <source>List</source>
+        <comment>topics</comment>
+        <translation>Список</translation>
+    </message>
+    <message>
+        <source>Tabs</source>
+        <comment>topics</comment>
+        <translation>Вкладки</translation>
     </message>
 </context>
 <context>

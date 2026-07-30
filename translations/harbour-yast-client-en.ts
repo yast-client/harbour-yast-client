@@ -622,13 +622,32 @@
         <translation>Topics</translation>
     </message>
     <message>
-        <source>Enable Topics</source>
-        <comment>switch to toggle topics for a group</comment>
-        <translation>Enable Topics</translation>
-    </message>
-    <message>
         <source>The group chat will be divided into topics created by admins or users.</source>
         <translation>The group chat will be divided into topics created by admins or users.</translation>
+    </message>
+    <message>
+        <source>Enable Topics</source>
+        <comment>group topics</comment>
+        <translation type="unfinished">Enable Topics</translation>
+    </message>
+    <message>
+        <source>Choose how topics appear for all members.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <comment>topics</comment>
+        <translation type="unfinished">Off</translation>
+    </message>
+    <message>
+        <source>List</source>
+        <comment>topics</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tabs</source>
+        <comment>topics</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

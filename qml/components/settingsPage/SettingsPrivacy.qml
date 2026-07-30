@@ -10,6 +10,7 @@ import '../../js/debug.js' as Debug
 AccordionItem {
     name: "privacy"
     title: qsTr("Privacy")
+    // TODO: this needs to be reworked
     Component {
         Column {
             bottomPadding: Theme.paddingMedium
