@@ -24,17 +24,13 @@ ZoomArea {
     implicitContentHeight: image.implicitHeight
     zoomEnabled: image.status == Image.Ready
 
-    onActiveChanged: {
-        if (!active) {
-            zoomOut()
-        }
-    }
+    onActiveChanged: if (!active) zoomOut()
+
     TDLibImage {
         id: image
 
         width: parent.width
         height: parent.height
-        source: file.isDownloadingCompleted ? file.path : ""
         anchors.centerIn: parent
 
         sourceSize {
@@ -47,11 +43,7 @@ ZoomArea {
         asynchronous: true
         smooth: !(movingVertically || movingHorizontally)
 
-        Behavior on opacity { FadeAnimator{} }
-    }
-    Item {
-        anchors.fill: parent
-
+        Behavior on opacity { FadeAnimator {} }
     }
     MouseArea {
         id: mouseArea
@@ -60,7 +52,6 @@ ZoomArea {
         height: zoomArea.contentHeight
         onClicked: zoomArea.clicked()
     }
-
 
     BusyIndicator {
         running: image.file.isDownloadingActive && !delayBusyIndicator.running
