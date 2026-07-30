@@ -24,8 +24,8 @@ PhotoTextsListItem {
     primaryText.text: titleText ? Emoji.emojify(utilities.fixReservedHtmlCharacters(titleText), Theme.fontSizeMedium) : qsTr("Unknown")
     prologSecondaryText.text: showDraft ? draftText : hideAuthor ? ''
                                                                  : last_message_sender_id ?
-                                                                        last_message_sender_id !== tdLibWrapper.myUserId
-                                                                         ? Emoji.emojify(utilities.getUserName(tdLibWrapper.getUserInformation(last_message_sender_id)), Theme.fontSizeExtraSmall)
+                                                                        last_message_sender_id !== tdData.myUserId
+                                                                         ? Emoji.emojify(utilities.getUserName(tdData.getUserInformation(last_message_sender_id)), Theme.fontSizeExtraSmall)
                                                                          : qsTr("You")
                                                                      : ''
     secondaryText.text: previewText ? Emoji.emojify(utilities.fixReservedHtmlCharacters(previewText), Theme.fontSizeExtraSmall) : '<i>' + noMessageText + '</i>'

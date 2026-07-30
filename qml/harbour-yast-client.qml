@@ -39,7 +39,7 @@ ApplicationWindow {
     Connections {
         target: Qt.application
         onStateChanged:
-            tdLibWrapper.options.online = Qt.application.state === Qt.ApplicationActive
+            tdData.options.online = Qt.application.state === Qt.ApplicationActive
     }
 
     Connections {

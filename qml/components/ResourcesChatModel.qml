@@ -19,7 +19,7 @@ MediaMessagesModel {
     function fetch() {
         if (!authorizationReady) return
 
-        if (tdLibWrapper.hasChatData(appConfig.resourcesChatId)) {
+        if (tdData.hasChatData(appConfig.resourcesChatId)) {
             searchingChat = false
             init(appConfig.resourcesChatId)
         } else if (!searchingChat) {

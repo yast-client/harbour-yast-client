@@ -38,7 +38,7 @@ Page {
     property int chatOnlineMemberCount: 0
     property var topicIdToShow
     property var messageIdToShow
-    readonly property bool isSavedMessages: chatId === tdLibWrapper.myUserId
+    readonly property bool isSavedMessages: chatId === tdData.myUserId
     readonly property bool userIsMember: ((isPrivateChat || isSecretChat) &&
                                           chatInformation["@type"] &&
                                           !isSavedMessages) || // should be optimized
@@ -296,7 +296,7 @@ Page {
 
             MenuItem {
                 visible: chatPage.userIsMember
-                text: Functions.getMuteButtonTitle(tdLibWrapper.chatIsMuted(chatId, chatInformation.notification_settings), chatInformation.notification_settings, highlighted)
+                text: Functions.getMuteButtonTitle(tdData.chatIsMuted(chatId, chatInformation.notification_settings), chatInformation.notification_settings, highlighted)
                 onClicked: Functions.toggleChatIsMuted(chatId, chatInformation.notification_settings)
             }
 

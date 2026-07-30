@@ -111,7 +111,7 @@ Page {
     }
 
     function openChat(chatId, options, doPop) {
-        if (chatId && tdLibWrapper.hasChatData(chatId)) {
+        if (chatId && tdData.hasChatData(chatId)) {
             Debug.log("[OverviewPage] Opening chat", chatId, "options:", JSON.stringify(options))
             pageStack.completeAnimation()
 
@@ -158,13 +158,17 @@ Page {
     }
 
     Connections {
-        target: tdLibWrapper
-        onAuthorizationStateChanged:
-            handleAuthorizationState()
+        target: tdData
         onSomeChatListUpdated:
             if (!overviewPage.chatListCreated)
                 chatListCreatedTimer.restart()
             else tdLibWrapper.chatListsCalculateUnreadState()
+    }
+
+    Connections {
+        target: tdLibWrapper
+        onAuthorizationStateChanged:
+            handleAuthorizationState()
         onChatReceived:
             if (extra && extra === 'openDirectly' || extra.openDirectly)
                 openChat(chat.id, extra.options, extra.doPop)
@@ -183,7 +187,7 @@ Page {
             else
                 openChat(chatId)
         onChatInviteLinkInfoReceived:
-            if (tdLibWrapper.canSkipChatJoinDialog(info.chat_id))
+            if (tdData.canSkipChatJoinDialog(info.chat_id))
                 openChat(info.chat_id)
             else
                 pageStack.push(Qt.resolvedUrl("../dialogs/ChatJoinDialog.qml"), {link: link, invite: info})

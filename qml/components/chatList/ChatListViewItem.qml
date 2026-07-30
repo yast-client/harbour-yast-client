@@ -13,7 +13,7 @@ import "../../js/functions.js" as Functions
 MessageableListItem {
     id: listItem
 
-    property bool isSavedMessages: chat_id === tdLibWrapper.myUserId
+    property bool isSavedMessages: chat_id === tdData.myUserId
 
     pictureThumbnail {
         photoData: photo_data.small || ({})
@@ -44,7 +44,7 @@ MessageableListItem {
 
     isSecret: chat_type === TDLibAPI.ChatTypeSecret
     isMarkedAsUnread: is_marked_as_unread
-    muted: tdLibWrapper.chatIsMuted(chat_id, notification_settings)
+    muted: tdData.chatIsMuted(chat_id, notification_settings)
     verificationStatus: verification_status
 
     onPressAndHold:
@@ -129,13 +129,13 @@ MessageableListItem {
                 }
 
                 MenuItem {
-                    visible: chat_id != tdLibWrapper.myUserId
+                    visible: chat_id != tdData.myUserId
                     onClicked:
-                        if (tdLibWrapper.chatIsMuted(chat_id, notification_settings))
+                        if (tdData.chatIsMuted(chat_id, notification_settings))
                             Functions.setChatIsMuted(chat_id, notification_settings, false)
                         else
                             contextMenuLoader.sourceComponent = notificationsContextMenuComponent
-                    text: Functions.getMuteButtonTitle(tdLibWrapper.chatIsMuted(chat_id, notification_settings), notification_settings, highlighted)
+                    text: Functions.getMuteButtonTitle(tdData.chatIsMuted(chat_id, notification_settings), notification_settings, highlighted)
                 }
 
                 MenuItem {

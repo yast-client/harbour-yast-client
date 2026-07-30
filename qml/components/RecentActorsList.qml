@@ -27,10 +27,10 @@ Item {
             highlighted: parent.highlighted
 
             photoData: isChat
-                       ? tdLibWrapper.getChat(modelData.chat_id).photo.small
+                       ? tdData.getChat(modelData.chat_id).photo.small
                        : userInfoLoader.info.profile_photo.small
             replacementStringHint: isChat
-                                   ? tdLibWrapper.getChat(modelData.chat_id).title
+                                   ? tdData.getChat(modelData.chat_id).title
                                    : utilities.getUserName(userInfoLoader.info)
 
             property bool isChat: !userIds && modelData['@type'] === 'messageSenderChat'
@@ -42,7 +42,7 @@ Item {
 
             Connections {
                 // FIXME: this can be improved (maybe use QQmlPropertyMaps for storing chat info?):
-                target: isChat ? tdLibWrapper : null
+                target: isChat ? tdData : null
                 onChatTitleUpdated:
                     if (chatId === modelData.chat_id)
                         profileThumbnail.replacementStringHint = title

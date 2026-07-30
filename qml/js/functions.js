@@ -6,11 +6,12 @@
 .import "debug.js" as Debug
 .import "twemoji.js" as Emoji
 .import Sailfish.Silica 1.0 as Silica
-.import io.yaqtlib 1.0 as Logic
+.import io.yaqtlib 1.0 as Yaqt
 
-var tdLibWrapper, appNotification, utilities
+var tdLibWrapper, tdData, appNotification, utilities
 function setGlobals(globals) {
     tdLibWrapper = globals.tdLibWrapper
+    tdData = tdLibWrapper.data
     appNotification = globals.appNotification
     utilities = globals.utilities
 }
@@ -24,11 +25,11 @@ function formatUnreadCount(value) {
 }
 
 function getMessageText(message, simple, currentUserId, ignoreEntities, asFormattedText, emojiSize) {
-    return utilities.getMessageText(message, simple ? Logic.Utilities.MessageTextSimple : Logic.Utilities.MessageTextDefault, ignoreEntities)
+    return utilities.getMessageText(message, simple ? Yaqt.Utilities.MessageTextSimple : Yaqt.Utilities.MessageTextDefault, ignoreEntities)
 }
 
 function getChatPartnerStatusText(statusType, wasOnline, isSupport, userId, asTimepoint) {
-    if (isSupport) return userId == tdLibWrapper.options.telegram_service_notifications_chat_id
+    if (isSupport) return userId == tdData.options.telegram_service_notifications_chat_id
                    ? qsTr("service notifications", "used as a status for the service notifications chat")
                    : qsTr("support", "used as a status for support chats, excluding the service notifications chat")
     switch(statusType) {
@@ -165,12 +166,12 @@ function getMessagesArrayText(messages) {
     var lastSenderName = "";
     var lines = [];
     for(var i = 0; i < messages.length; i += 1) {
-        var senderName = getUserName(tdLibWrapper.getUserInformation(messages[i].sender_id.user_id));
+        var senderName = getUserName(tdData.getUserInformation(messages[i].sender_id.user_id));
         if(senderName !== lastSenderName) {
             lines.push(senderName);
         }
         lastSenderName = senderName;
-        lines.push(utilities.getMessageText(messages[i], Logic.Utilities.MessageTextSimple));
+        lines.push(utilities.getMessageText(messages[i], Yaqt.Utilities.MessageTextSimple));
         lines.push("");
     }
     return lines.join("\n");
@@ -261,7 +262,7 @@ function setChatIsMuted(chatId, notificationSettings, doMute) {
     // If chat is muted for more than 366 days, it's considered muted forever
 
     var newNotificationSettings = JSON.parse(JSON.stringify(notificationSettings))
-    var scopeMuteFor = tdLibWrapper.getChatScopeNotificationSettings(chatId).mute_for
+    var scopeMuteFor = tdData.getChatScopeNotificationSettings(chatId).mute_for
 
     if (doMute ? (scopeMuteFor > 31622400) : (scopeMuteFor === 0))
         newNotificationSettings.use_default_mute_for = true
@@ -274,7 +275,7 @@ function setChatIsMuted(chatId, notificationSettings, doMute) {
 }
 
 function toggleChatIsMuted(chatId, notificationSettings) {
-    setChatIsMuted(chatId, notificationSettings, !tdLibWrapper.chatIsMuted(chatId, notificationSettings))
+    setChatIsMuted(chatId, notificationSettings, !tdData.chatIsMuted(chatId, notificationSettings))
 }
 
 function formatMessageSendingState(messageId, lastReadOutboxMessageId, sendingState, fontSize) {

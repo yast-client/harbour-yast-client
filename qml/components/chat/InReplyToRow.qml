@@ -22,7 +22,7 @@ Row {
 
     onInReplyToMessageChanged: {
         if (inReplyToMessage) {
-            inReplyToUserText.text = (inReplyToMessage.sender_id["@type"] === "messageSenderChat" ? page.chatInformation.title : (inReplyToRow.inReplyToMessage.sender_id.user_id !== tdLibWrapper.myUserId) ? Emoji.emojify(utilities.getUserName(tdLibWrapper.getUserInformation(inReplyToRow.inReplyToMessage.sender_id.user_id)), inReplyToUserText.font.pixelSize) : qsTr("You"));
+            inReplyToUserText.text = (inReplyToMessage.sender_id["@type"] === "messageSenderChat" ? page.chatInformation.title : (inReplyToRow.inReplyToMessage.sender_id.user_id !== tdData.myUserId) ? Emoji.emojify(utilities.getUserName(tdData.getUserInformation(inReplyToRow.inReplyToMessage.sender_id.user_id)), inReplyToUserText.font.pixelSize) : qsTr("You"));
             inReplyToMessageText.text = Emoji.emojify(utilities.getMessageText(inReplyToRow.inReplyToMessage, Utilities.MessageTextSimple), inReplyToMessageText.font.pixelSize);
         }
     }

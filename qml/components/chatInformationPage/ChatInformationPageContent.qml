@@ -454,15 +454,15 @@ SilicaFlickable {
                     highlighted: notificationsSwitch.highlighted
 
                     readonly property var settings: chatInformation.notification_settings
-                    readonly property var scope: tdLibWrapper.getChatNotificationSettingsScope(chatInformation.id)
-                    property var scopeSettings: tdLibWrapper.scopeNotificationSettings(scope)
+                    readonly property var scope: tdData.getChatNotificationSettingsScope(chatInformation.id)
+                    property var scopeSettings: tdData.scopeNotificationSettings(scope)
                     readonly property int muteFor: (settings.use_default_mute_for ? scopeSettings : settings).mute_for
 
                     Connections {
-                        target: tdLibWrapper
+                        target: tdData
                         onScopeNotificationSettingsChanged:
                             if (scope === notificationsSwitch.scope)
-                                scopeSettings = tdLibWrapper.scopeNotificationSettings(scope)
+                                scopeSettings = tdData.scopeNotificationSettings(scope)
                     }
 
                     description: muteFor > 0

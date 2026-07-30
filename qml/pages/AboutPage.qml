@@ -174,7 +174,7 @@ AboutPageBase {
     }
 
     function openTMeUrl(path) {
-        tdLibWrapper.getInternalLinkType(tdLibWrapper.options.t_me_url + path)
+        tdLibWrapper.getInternalLinkType(tdData.options.t_me_url + path)
     }
 
     extraSections: [
@@ -193,7 +193,7 @@ AboutPageBase {
             ]
         },
         InfoSection {
-            text: qsTr("TDLib version %1 (commit hash %2)").arg(tdLibWrapper.options.version).arg(tdLibWrapper.options.commit_hash)
+            text: qsTr("TDLib version %1 (commit hash %2)").arg(tdData.options.version).arg(tdData.options.commit_hash)
         },
         InfoSection {
             visible: tdLibWrapper.authorizationState == TDLibAPI.AuthorizationReady

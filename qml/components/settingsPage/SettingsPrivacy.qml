@@ -14,7 +14,7 @@ AccordionItem {
         Column {
             bottomPadding: Theme.paddingMedium
             Connections {
-                target: tdLibWrapper
+                target: tdData
                 onUserPrivacySettingUpdated: {
                     Debug.log("Received updated privacy setting: " + setting + ":" + rule);
                     switch (setting) {
@@ -70,7 +70,7 @@ AccordionItem {
                     }
 
                     Component.onCompleted: {
-                        currentIndex = tdLibWrapper.getUserPrivacySettingRule(TDLibAPI.SettingAllowChatInvites);
+                        currentIndex = tdData.getUserPrivacySettingRule(TDLibAPI.SettingAllowChatInvites);
                     }
                 }
 
@@ -98,7 +98,7 @@ AccordionItem {
                     }
 
                     Component.onCompleted: {
-                        currentIndex = tdLibWrapper.getUserPrivacySettingRule(TDLibAPI.SettingAllowFindingByPhoneNumber);
+                        currentIndex = tdData.getUserPrivacySettingRule(TDLibAPI.SettingAllowFindingByPhoneNumber);
                     }
                 }
 
@@ -132,7 +132,7 @@ AccordionItem {
                     }
 
                     Component.onCompleted: {
-                        currentIndex = tdLibWrapper.getUserPrivacySettingRule(TDLibAPI.SettingShowLinkInForwardedMessages);
+                        currentIndex = tdData.getUserPrivacySettingRule(TDLibAPI.SettingShowLinkInForwardedMessages);
                     }
                 }
 
@@ -166,7 +166,7 @@ AccordionItem {
                     }
 
                     Component.onCompleted: {
-                        currentIndex = tdLibWrapper.getUserPrivacySettingRule(TDLibAPI.SettingShowPhoneNumber);
+                        currentIndex = tdData.getUserPrivacySettingRule(TDLibAPI.SettingShowPhoneNumber);
                     }
                 }
 
@@ -200,7 +200,7 @@ AccordionItem {
                     }
 
                     Component.onCompleted: {
-                        currentIndex = tdLibWrapper.getUserPrivacySettingRule(TDLibAPI.SettingShowProfilePhoto);
+                        currentIndex = tdData.getUserPrivacySettingRule(TDLibAPI.SettingShowProfilePhoto);
                     }
                 }
 
@@ -234,7 +234,7 @@ AccordionItem {
                     }
 
                     Component.onCompleted: {
-                        currentIndex = tdLibWrapper.getUserPrivacySettingRule(TDLibAPI.SettingShowStatus);
+                        currentIndex = tdData.getUserPrivacySettingRule(TDLibAPI.SettingShowStatus);
                     }
                 }
             }

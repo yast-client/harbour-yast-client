@@ -22,7 +22,7 @@ Dialog {
     property alias quiz: quizSwitch.checked
     property int openPeriod: 3600
 
-    readonly property bool canAddOption: options.count < tdLibWrapper.options.poll_answer_count_max
+    readonly property bool canAddOption: options.count < tdData.options.poll_answer_count_max
 
     property bool acceptableOptionsLength
     property bool validationErrorsVisible: false
@@ -49,8 +49,8 @@ Dialog {
     function validate() {
         var errors = []
 
-        if (options.count < 2 || options.count > tdLibWrapper.options.poll_answer_count_max)
-            errors.push(qsTr("A poll requires %1-%2 options.").arg(2).arg(tdLibWrapper.options.poll_answer_count_max))
+        if (options.count < 2 || options.count > tdData.options.poll_answer_count_max)
+            errors.push(qsTr("A poll requires %1-%2 options.").arg(2).arg(tdData.options.poll_answer_count_max))
         else {
             var hadError = false
             for (var i = 0; i < options.count; i++) {
@@ -195,7 +195,7 @@ Dialog {
             TextField {
                 id: descriptionField
                 label: qsTr("Description")
-                property int charactersLeft: tdLibWrapper.options.message_caption_length_max - text.length
+                property int charactersLeft: tdData.options.message_caption_length_max - text.length
                 description: qsTr("%Ln characters left", '', charactersLeft)
                 acceptableInput: charactersLeft >= 0
                 wrapMode: TextEdit.Wrap
@@ -416,10 +416,10 @@ Dialog {
                         if (currentIndex == 5) {
                             var dialog = pageStack.push(Qt.resolvedUrl("../dialogs/DurationPickerDialog.qml"), {
                                                             title: qsTr("Close poll in"),
-                                                            maxDays: Math.floor(tdLibWrapper.options.poll_open_period_max / 62400)
+                                                            maxDays: Math.floor(tdData.options.poll_open_period_max / 62400)
                                                         })
                             dialog.accepted.connect(function() {
-                                openPeriod = Math.min(dialog.allSeconds, tdLibWrapper.options.poll_open_period_max)
+                                openPeriod = Math.min(dialog.allSeconds, tdData.options.poll_open_period_max)
                             })
                         } else
                             openPeriod = currentItem.duration

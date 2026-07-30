@@ -19,7 +19,7 @@ AccordionItem {
             id: accordionContent
             bottomPadding: Theme.paddingMedium
 
-            readonly property var userInformation: tdLibWrapper.userInformation
+            readonly property var userInformation: tdData.userInformation
             property var fullUserInformation: ({})
             property bool contactSyncEnabled: false
             property bool uploadingPhoto
@@ -205,7 +205,7 @@ AccordionItem {
                             id: profileThumbnailMouseArea
                             anchors.fill: parent
                             onClicked:
-                                pageStack.push(Qt.resolvedUrl("../../pages/ProfilePicturesPage.qml"), {userId: tdLibWrapper.myUserId})
+                                pageStack.push(Qt.resolvedUrl("../../pages/ProfilePicturesPage.qml"), {userId: tdData.myUserId})
                         }
                     }
                 }

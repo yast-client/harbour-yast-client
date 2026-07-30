@@ -250,7 +250,7 @@ Page {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2*x
                 wrapMode: Text.Wrap
-                text: JSON.stringify(tdLibWrapper.options, null, '\t')
+                text: JSON.stringify(tdData.options, null, '\t')
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {

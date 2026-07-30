@@ -16,8 +16,8 @@ Page {
     readonly property string storySoundId: (notificationSettings.use_default_story_sound ? scopeSettings : notificationSettings).story_sound_id
     property var storySound
 
-    property int scope: tdLibWrapper.getChatNotificationSettingsScope(chatId)
-    property var scopeSettings: tdLibWrapper.scopeNotificationSettings(scope)
+    property int scope: tdData.getChatNotificationSettingsScope(chatId)
+    property var scopeSettings: tdData.scopeNotificationSettings(scope)
 
     function updateSound() {
         if (soundId != '0' && soundId != '-1')
@@ -47,9 +47,13 @@ Page {
             if (soundId === page.storySoundId)
                 page.storySound = null
         }
+    }
+
+    Connections {
+        target: tdData
         onScopeNotificationSettingsChanged:
             if (scope == page.scope)
-                page.scopeSettings = tdLibWrapper.scopeNotificationSettings(scope)
+                page.scopeSettings = tdData.scopeNotificationSettings(scope)
     }
 
     function applySetting(field, defaultField, value) {

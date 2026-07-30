@@ -102,7 +102,7 @@ Column {
                 }
 
                 messagesView.clearAttachmentPreviewRow()
-            } else if (chatPage.hasSendPrivilege('can_send_other_messages') && tdLibWrapper.isDiceEmoji(newMessageTextField.text))
+            } else if (chatPage.hasSendPrivilege('can_send_other_messages') && tdData.isDiceEmoji(newMessageTextField.text))
                 tdLibWrapper.sendDiceMessage(chatId, newMessageTextField.text, newMessageColumn.replyToMessageId, topicId, true)
             else
                 tdLibWrapper.sendTextMessage(chatId, newMessageTextField.text, newMessageColumn.replyToMessageId, topicId, true)

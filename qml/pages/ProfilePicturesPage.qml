@@ -9,7 +9,7 @@ import '../components/messageContent/mediaAlbumPage'
 
 MediaAlbumPage {
     property alias userId: profilePicturesModel.userId
-    property bool isMyself: userId === tdLibWrapper.myUserId
+    property bool isMyself: userId === tdData.myUserId
 
     model: UserProfilePicturesModel {
         id: profilePicturesModel

@@ -163,7 +163,7 @@ Loader {
                     if (extra && extra.type === "searchPublicChat:"+inlineQueryLoader.userName) {
                         requestTimeout.stop()
                         inlineQueryLoader.isLoading = false
-                        var inlineBotInformation = tdLibWrapper.getUserInformation(chat.type.user_id)
+                        var inlineBotInformation = tdData.getUserInformation(chat.type.user_id)
                         if (inlineBotInformation && inlineBotInformation.type["@type"] === "userTypeBot" && inlineBotInformation.type.is_inline) {
                             inlineQueryLoader.inlineBotInformation = inlineBotInformation
                             requestTimer.start()

@@ -19,7 +19,7 @@ PhotoTextsListItem {
 
     property bool showFullInfo: true
 
-    property var chatInformation: tdLibWrapper.getChat(chatId)
+    property var chatInformation: tdData.getChat(chatId)
     property var relatedInformation
     property bool isPrivateChat
     property bool isBasicGroup
@@ -39,15 +39,15 @@ PhotoTextsListItem {
     }
 
     function handleUser() {
-        relatedInformation = tdLibWrapper.getUserInformation(userId)
+        relatedInformation = tdData.getUserInformation(userId)
         if (showFullInfo)
             secondaryText.text = "@" + (relatedInformation.usernames && relatedInformation.usernames.editable_username !== "" ? relatedInformation.usernames.editable_username : relatedInformation.id)
     }
     function handleBasicGroup() {
-        relatedInformation = tdLibWrapper.getBasicGroup(chatInformation.type.basic_group_id)
+        relatedInformation = tdData.getBasicGroup(chatInformation.type.basic_group_id)
     }
     function handleSupergroup() {
-        relatedInformation = tdLibWrapper.getSuperGroup(chatInformation.type.supergroup_id)
+        relatedInformation = tdData.getSuperGroup(chatInformation.type.supergroup_id)
     }
 
     function detectChatType() {
@@ -107,11 +107,11 @@ PhotoTextsListItem {
     }
 
     Connections {
-        target: tdLibWrapper
+        target: tdData
 
         onChatRolesUpdated:
             if (chatId === chatItem.chatId)
-                chatInformation = tdLibWrapper.getChat(chatId)
+                chatInformation = tdData.getChat(chatId)
 
         onUserUpdated:
             if ((isPrivateChat || isSecret) && userId === chatItem.userId)
@@ -123,6 +123,10 @@ PhotoTextsListItem {
         onSupergroupUpdated:
             if (isSupergroup && groupId === chatInformation.type.supergroup_id)
                 handleSupergroup()*/
+    }
+
+    Connections {
+        target: tdLibWrapper
 
         onUserFullInfoUpdated: handleUserFullInfo(userId, userFullInfo)
         onUserFullInfoReceived: handleUserFullInfo(userId, userFullInfo)

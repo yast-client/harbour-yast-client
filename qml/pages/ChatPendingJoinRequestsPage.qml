@@ -11,7 +11,7 @@ Page {
     id: page
 
     property var chatId
-    property bool isChannel: tdLibWrapper.getChat(chatId).type.is_channel
+    property bool isChannel: tdData.getChat(chatId).type.is_channel
 
     property bool loading: true
 

@@ -45,7 +45,7 @@ Page {
                     SuggestedActionListItem {
                         id: checkPhoneNumberSuggestedAction
                         // TODO: properly format the phone number
-                        title: qsTr("Is %1 still your number?").arg(tdLibWrapper.userInformation.phone_number)
+                        title: qsTr("Is %1 still your number?").arg(tdData.userInformation.phone_number)
                         description: qsTr("Keep your number up to date to ensure you can always log into Telegram.")
                         name: 'suggestedActionCheckPhoneNumber'
 
@@ -56,7 +56,7 @@ Page {
                                     text: qsTr("Change phone number", "Button in the menu for suggestion to check if the phone number is still yours")
                                 }
                                 MenuItem {
-                                    text: qsTr("Keep %1", "Button hiding the suggestion to check if the phone number is still yours").arg(tdLibWrapper.userInformation.phone_number)
+                                    text: qsTr("Keep %1", "Button hiding the suggestion to check if the phone number is still yours").arg(tdData.userInformation.phone_number)
                                     onClicked: checkPhoneNumberSuggestedAction.hide()
                                 }
                                 MenuItem {
@@ -86,7 +86,7 @@ Page {
                                     text: qsTr("Verify Password", "Button in the menu for suggestion to check if you still remember your 2FA password")
                                 }
                                 MenuItem {
-                                    text: qsTr("Hide Suggestion", "Button hiding the suggestion to check if you still remember your 2FA password").arg(tdLibWrapper.userInformation.phone_number)
+                                    text: qsTr("Hide Suggestion", "Button hiding the suggestion to check if you still remember your 2FA password").arg(tdData.userInformation.phone_number)
                                     onClicked: checkPasswordSuggestedAction.hide()
                                 }
                             }

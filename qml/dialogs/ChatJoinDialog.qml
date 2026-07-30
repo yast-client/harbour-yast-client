@@ -79,7 +79,7 @@ Dialog {
 
                 Repeater {
                     model: invite.member_user_ids.filter(function (userId) {
-                        return tdLibWrapper.hasUserInformation(userId)
+                        return tdData.hasUserInformation(userId)
                     })
 
                     PhotoTextsGridItem {

@@ -12,8 +12,8 @@ QtObject {
     property var chatId: isChat ? messageSender.chat_id : undefined
     property var userId: isUser ? messageSender.user_id : undefined
 
-    property var chatInformation: tdLibWrapper.getChat(chatId)
-    property var userInformation: tdLibWrapper.getUserInformation(userId)
+    property var chatInformation: tdData.getChat(chatId)
+    property var userInformation: tdData.getUserInformation(userId)
 
     property string title: (isChat ? chatInformation.title : utilities.getUserName(userInformation)) || qsTr("Unknown", "An unknown chat or user")
     property var smallPhoto: (isChat
@@ -22,15 +22,15 @@ QtObject {
                             || {}
 
     property var __conn: Connections {
-        target: tdLibWrapper
+        target: tdData
 
         onChatRolesUpdated:
             if (chatId === root.chatId)
-                chatInformation = tdLibWrapper.getChat(chatId)
+                chatInformation = tdData.getChat(chatId)
 
         onUserUpdated:
             if (userId === root.userId)
-                userInformation = tdLibWrapper.getUserInformation(userId)
+                userInformation = tdData.getUserInformation(userId)
     }
 
     function open(chatOptions, replace) {

@@ -272,7 +272,7 @@ Page {
                                                 enabled: (expanded && !expandAnimation.running) || index < topChatUsersView.columnsCount
 
                                                 // FIXME: use TDLibMessageSender/TDLibChat/...
-                                                property var chatInformation: tdLibWrapper.getChat(modelData)
+                                                property var chatInformation: tdData.getChat(modelData)
                                                 primaryText.text: Emoji.emojify(chatInformation.title, primaryText.font.pixelSize)
                                                 pictureThumbnail.photoData: typeof chatInformation.photo.small !== "undefined" ? chatInformation.photo.small : {}
 
@@ -300,7 +300,7 @@ Page {
                                 height: active ? Theme.itemSizeExtraLarge : 0
                                 sourceComponent: Component {
                                     TDLibChatListItem {
-                                        chatId: tdLibWrapper.myUserId
+                                        chatId: tdData.myUserId
                                         onClicked: tdLibWrapper.addRecentlyFoundChat(chatId)
                                     }
                                 }
