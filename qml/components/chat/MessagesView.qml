@@ -17,7 +17,7 @@ Column {
 
     property var messagesModel: chatManager.model
     property var topicId
-    property bool isForumTopic: topicId['@type'] === 'messageTopicForum'
+    readonly property bool isForumTopic: topicId && topicId['@type'] === 'messageTopicForum'
     property string forumTopicName
     property int messageSource: TDLibAPI.MessageSourceAuto
     property var draftMessage: chatInformation.draft_message

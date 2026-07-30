@@ -78,7 +78,7 @@ Dialog {
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 Repeater {
-                    model: invite.member_user_ids.filter(function (userId) {
+                    model: invite.member_user_ids.filter(function(userId) {
                         return tdData.hasUserInformation(userId)
                     })
 
