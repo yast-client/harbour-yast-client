@@ -3648,20 +3648,20 @@ Pull down to visit telegram.org</source>
     <message>
         <source>started a giveaway</source>
         <comment>myself</comment>
-        <translation>запустили бесплатную раздачу</translation>
+        <translation>объявили о розыгрыше</translation>
     </message>
     <message>
         <source>started a giveaway</source>
-        <translation>запустил(а) бесплатную раздачу</translation>
+        <translation>объявил(а) о розыгрыше</translation>
     </message>
     <message>
         <source>a giveaway was completed</source>
         <comment>myself</comment>
-        <translation>завершили бесплатную раздачу</translation>
+        <translation>завершили розыгрыш</translation>
     </message>
     <message>
         <source>a giveaway was completed</source>
-        <translation>завершил(а) бесплатную раздачу</translation>
+        <translation>завершил(а) розыгрыш</translation>
     </message>
     <message>
         <source>sent an unsupported message</source>
