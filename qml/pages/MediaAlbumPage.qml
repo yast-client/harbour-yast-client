@@ -41,7 +41,7 @@ Page {
         // only called when model is media model
         var i = model.calculateScrollPosition()
         Debug.log("[MediaAlbumPage] Going to scroll position", i)
-        if (i !== -1)
+        if (i >= 0)
             pagedView.currentIndex = i
     }
 

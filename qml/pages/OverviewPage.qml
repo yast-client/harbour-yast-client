@@ -92,7 +92,7 @@ Page {
         id: updateSecondaryContentTimer
         interval: 600
         onTriggered: {
-            tdLibWrapper.chatListsCalculateUnreadState()
+            chatFoldersModel.calculateUnreadStates()
             tdLibWrapper.getRecentStickers()
             tdLibWrapper.getInstalledStickerSets()
             tdLibWrapper.getContacts()
@@ -162,7 +162,7 @@ Page {
         onSomeChatListUpdated:
             if (!overviewPage.chatListCreated)
                 chatListCreatedTimer.restart()
-            else tdLibWrapper.chatListsCalculateUnreadState()
+            else chatFoldersModel.calculateUnreadStates()
     }
 
     Connections {

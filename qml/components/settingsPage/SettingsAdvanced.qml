@@ -12,6 +12,17 @@ AccordionItem {
         ResponsiveGrid {
             bottomPadding: Theme.paddingMedium
 
+            TextSwitch {
+                width: parent.columnWidth
+                checked: yaqtSettings.onlineOnlyMode
+                text: qsTr("Enable online-only mode")
+                description: qsTr("Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of the app to take effect.")
+                automaticCheck: false
+                onClicked: {
+                    yaqtSettings.onlineOnlyMode = !checked
+                }
+            }
+
             /*Slider {
                 width: parent.width
                 label: qsTr("Voice note volume")
