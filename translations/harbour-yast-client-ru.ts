@@ -2717,6 +2717,14 @@ Pull down to visit telegram.org</source>
         <source>Save logs from tgcalls to Downloads</source>
         <translation>Сохранять логи tgcalls в Загрузки</translation>
     </message>
+    <message>
+        <source>Enable online-only mode</source>
+        <translation>Включить режим &quot;только онлайн&quot;</translation>
+    </message>
+    <message>
+        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of the app to take effect.</source>
+        <translation>Отключает оффлайн-кэш. Некоторые функции моугут быть ограничены или недоступны в этом режиме. Для применения изменений перезапустите приложение.</translation>
+    </message>
 </context>
 <context>
     <name>SettingsAppearance</name>
@@ -2892,11 +2900,11 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>Show unread chat count in folders</source>
-        <translation>Показывать счетчик непрочитанных сообщений в Папках</translation>
+        <translation>Показывать счетчик непрочитанных сообщений в папках</translation>
     </message>
     <message>
         <source>Include muted chats in folders unread count</source>
-        <translation>Включать в счетчик непрочитанных сообщений чаты без уведомлений в Папках</translation>
+        <translation>Включать в счетчик непрочитанных сообщений чаты без уведомлений в папках</translation>
     </message>
     <message>
         <source>Setting quick reaction from notifications</source>
@@ -3125,10 +3133,6 @@ Pull down to visit telegram.org</source>
 <context>
     <name>SettingsStorage</name>
     <message>
-        <source>Enable online-only mode</source>
-        <translation>Включить режим &quot;только онлайн&quot;</translation>
-    </message>
-    <message>
         <source>Enable storage optimizer</source>
         <translation>Включить оптимизацию хранилища</translation>
     </message>
@@ -3171,10 +3175,6 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Proxy settings</source>
         <translation>Настройки прокси</translation>
-    </message>
-    <message>
-        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of the app to take effect.</source>
-        <translation>Отключает оффлайн-кэш. Некоторые функции моугут быть ограничены или недоступны в этом режиме. Для применения изменений перезапустите приложение.</translation>
     </message>
 </context>
 <context>

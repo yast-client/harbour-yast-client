@@ -2642,6 +2642,14 @@ Pull down to visit telegram.org</source>
         <source>Save logs from tgcalls to Downloads</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Enable online-only mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of the app to take effect.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsAppearance</name>
@@ -3052,10 +3060,6 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enable online-only mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Enable storage optimizer</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3091,10 +3095,6 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>Proxy settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of the app to take effect.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
