@@ -98,7 +98,7 @@ ApplicationWindow {
             property bool formattedTranslate
             property bool forceAllowAISummary
 
-            property bool showFolderUnreadCount
+            property bool showFolderUnreadCount: true
             property bool chatFoldersTabBarOnBottom
             property bool chatFoldersTabBarShowIcons
 

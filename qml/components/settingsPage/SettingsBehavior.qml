@@ -194,15 +194,15 @@ AccordionItem {
 
             TextSwitch {
                 width: parent.columnWidth
-                checked: yaqtSettings.showFolderUnreadCount
+                checked: appSettings.showFolderUnreadCount
                 text: qsTr("Show unread chat count in folders")
                 automaticCheck: false
-                onClicked: yaqtSettings.showFolderUnreadCount = !checked
+                onClicked: appSettings.showFolderUnreadCount = !checked
             }
 
             TextSwitch {
                 width: parent.columnWidth
-                enabled: yaqtSettings.showFolderUnreadCount
+                enabled: appSettings.showFolderUnreadCount
                 checked: yaqtSettings.foldersUnreadCountIncludeMuted
                 text: qsTr("Include muted chats in folders unread count")
                 automaticCheck: false
