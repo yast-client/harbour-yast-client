@@ -4,14 +4,12 @@ Name:       harbour-yast-client
 %define __requires_exclude ^libtdjson|libgstreamer.*$
 %define _binary_payload w6.xzdio
 
-Summary:    YAST Client is a yet another SailfishOS Telegram client
+Summary:    Telegram for Sailfish
 Version:    0.1
 Release:    custom
-Group:      Qt/Qt
 License:    LICENSE
-URL:        http://werkwolf.eu/
+URL:        http://yast-client.github.io/
 Source0:    %{name}-%{version}.tar.bz2
-Source100:  harbour-yast-client.yaml
 Requires:   sailfishsilica-qt5 >= 0.10.9
 Requires:   qml(org.nemomobile.contacts)
 BuildRequires:  cmake
@@ -42,7 +40,7 @@ BuildRequires:  libvpx-devel
 BuildRequires:  ffmpeg-devel
 
 %description
-YAST Client is a yet another SailfishOS Telegram client
+YAST Client is a yet another SailfishOS Telegram client.
 
 %prep
 %setup -q -n %{name}-%{version}
