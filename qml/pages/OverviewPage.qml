@@ -352,6 +352,7 @@ Page {
                         Component {
                             id: mainPullDownMenu
                             PullDownMenu {
+                                busy: tdLibWrapper.connectionState == TDLibAPI.Updating
                                 MenuItem {
                                     text: "Debug"
                                     visible: DebugLog.enabled
@@ -405,6 +406,7 @@ Page {
                         Component {
                             id: folderPullDownMenu
                             PullDownMenu {
+                                busy: tdLibWrapper.connectionState == TDLibAPI.Updating
                                 // this will be hidden if muted chats won't be included in folder counters (by settings) and only muted chats will be unread, which might not be ideal:
                                 visible: active || tabModel.count > 0
                                 MenuItem {
