@@ -8,7 +8,7 @@ import Sailfish.Silica 1.0
 Column {
     id: editAreaColumn
     visible: canEdit || text !== ""
-    property bool canEdit
+    property bool canEdit: true
     property alias headerText: editAreaHeader.text
     property string emptyPlaceholderText
     property string text
@@ -16,6 +16,7 @@ Column {
     property bool headerLeftAligned
 
     property bool isEditing
+    property string editText: text
     property Item editItem: multiLine ? editAreaTextArea : editAreaTextField
 
     signal saveButtonClicked(string textValue)
@@ -74,7 +75,7 @@ Column {
                     editAreaColumn.saveButtonClicked(editAreaColumn.editItem.text);
                 } else {
                     editAreaColumn.isEditing = true;
-                    editAreaColumn.editItem.text = editAreaColumn.text;
+                    editAreaColumn.editItem.text = editText
                     editAreaColumn.editItem.forceActiveFocus();
                     editAreaColumn.editItem.cursorPosition = editAreaColumn.editItem.text.length;
                     editAreaColumn.editButtonClicked();

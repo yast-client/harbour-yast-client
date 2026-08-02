@@ -21,7 +21,6 @@ AccordionItem {
 
             readonly property var userInformation: tdData.userInformation
             property var fullUserInformation: ({})
-            property bool contactSyncEnabled: false
             property bool uploadingPhoto
 
             Component.onCompleted:
@@ -140,42 +139,30 @@ AccordionItem {
                 }
 
                 Column {
-                    id: contactSyncItem
+                    visible: contactSync.canSync
                     width: parent.columnWidth
-                    height: syncInProgress ? ( syncContactsBusyIndicator.height + Theme.paddingMedium ) : ( syncContactsButton.height + Theme.paddingMedium )
-                    visible: accordionContent.contactSyncEnabled
+                    height: (contactSync.syncInProgress ? syncContactsBusyIndicator.height : syncContactsButton.height) + Theme.paddingMedium
 
-                    property bool syncInProgress: false
-
-                    Connections {
-                        target: contactSyncLoader.item
-                        onSyncError:
-                            contactSyncItem.syncInProgress = false
-                    }
-
-                    Connections {
-                        target: tdLibWrapper
-                        onContactsImported:
-                            appNotification.show(qsTr("Contacts successfully synchronized with Telegram."))
+                    ContactSync {
+                        id: contactSync
                     }
 
                     Button {
                         id: syncContactsButton
                         text: qsTr("Sync contacts")
-                        visible: !contactSyncItem.syncInProgress
+                        visible: !contactSync.syncInProgress
                         anchors.horizontalCenter: parent.horizontalCenter
-                        onClicked: contactSyncLoader.item.synchronize()
+                        onClicked: contactSync.sync()
                     }
 
                     BusyIndicator {
                         id: syncContactsBusyIndicator
                         anchors.horizontalCenter: parent.horizontalCenter
-                        running: contactSyncItem.syncInProgress
+                        running: contactSync.syncInProgress
                         size: BusyIndicatorSize.Small
                         visible: running
                     }
                 }
-
             }
 
             SectionHeader {
@@ -249,14 +236,6 @@ AccordionItem {
                     }
                 }
 
-            }
-
-            Loader {
-                id: contactSyncLoader
-                source: Qt.resolvedUrl('../ContactSync.qml')
-                active: true
-                onLoaded:
-                    accordionContent.contactSyncEnabled = true
             }
 
             Column {

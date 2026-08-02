@@ -127,6 +127,9 @@ if(NOT HARBOUR_COMPLIANCE)
     pkg_check_modules(GSTREAMER REQUIRED gstreamer-1.0 gstreamer-pbutils-1.0 glib-2.0)
     target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${GSTREAMER_INCLUDE_DIRS})
     target_link_libraries(${CMAKE_PROJECT_NAME} ${GSTREAMER_LIBRARIES})
+
+    # Workaround accessing contacts (see ContactSync.qml for more info)
+    set(SAILJAIL_EXTRA_PERMISSIONS "Privileged;")
 endif()
 
 # Update the translations
@@ -153,9 +156,12 @@ install(DIRECTORY ${TRANSLATIONS_OUT_DIR}
     DESTINATION share/${CMAKE_PROJECT_NAME}
     FILES_MATCHING PATTERN "*.qm"
 )
-install(FILES ${CMAKE_PROJECT_NAME}.desktop
+
+configure_file(${CMAKE_PROJECT_NAME}.desktop.in ${CMAKE_PROJECT_NAME}.desktop)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_PROJECT_NAME}.desktop
     DESTINATION share/applications
 )
+
 install(DIRECTORY images
     DESTINATION share/${CMAKE_PROJECT_NAME}
 )
@@ -193,7 +199,7 @@ FILE(GLOB_RECURSE DistFiles
 )
 add_custom_target(distfiles
     SOURCES
-        ${CMAKE_PROJECT_NAME}.desktop
+        ${CMAKE_PROJECT_NAME}.desktop.in
         rpm/${CMAKE_PROJECT_NAME}.changes.in
         rpm/${CMAKE_PROJECT_NAME}.changes.run.in
         rpm/${CMAKE_PROJECT_NAME}.spec

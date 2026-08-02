@@ -75,6 +75,7 @@ Some YAST features are not harbour-compatible. In the harbour version, they can 
 
 1. Audio recording backend based on the GStreamer C API
 2. Calls (see above)
+3. Contact sync (see notes in [ContactSync.qml](qml/components/ContactSync.qml) for more info)
 
 ### Github Action
 

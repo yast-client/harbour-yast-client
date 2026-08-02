@@ -335,44 +335,37 @@ SilicaFlickable {
                 }
 
                 InformationEditArea {
+                    id: titleEditArea
                     visible: canEdit
                     canEdit: !chatInformationPage.isPrivateOrSecretChat && chatInformationPage.groupInformation.status && (chatInformationPage.groupInformation.status.can_change_info  || chatInformationPage.groupInformation.status["@type"] === "chatMemberStatusCreator")
                     headerText: qsTr("Chat Title", "group title header")
                     text: chatInformationPage.chatInformation.title
 
-                    onSaveButtonClicked: {
-                        if(!editItem.errorHighlight) {
+                    onSaveButtonClicked:
+                        if (!editItem.errorHighlight)
                             tdLibWrapper.setChatTitle(chatInformationPage.chatInformation.id, textValue);
-                        } else {
-                            isEditing = true
-                        }
-                    }
+                        else isEditing = true
 
-                    onTextEdited: {
-                        if(textValue.length > 0 && textValue.length < 129) {
+                    onTextEdited:
+                        if (textValue.length > 0 && textValue.length < 129) {
                             editItem.errorHighlight = false
-                            editItem.label = ""
-                            editItem.placeholderText = ""
+                            editItem.label = editItem.placeholderText = ''
                         } else {
-                            editItem.label = qsTr("Enter 1-128 characters")
+                            editItem.label = qsTr("Enter 1-%Ln characters", '', 128)
                             editItem.placeholderText = editItem.label
                             editItem.errorHighlight = true
                         }
-                    }
                 }
                 InformationEditArea {
-                    canEdit: isSavedMessages
+                    canEdit: isSavedMessages || titleEditArea.canEdit
                     emptyPlaceholderText: qsTr("There is no information text available, yet.")
                     headerText: qsTr("Info", "group or user infotext header")
                     multiLine: true
-                    text: (chatInformationPage.isPrivateOrSecretChat ? Functions.enhanceMessageText(userFuuserFullInformationllInfo.bio, false) : chatInformationPage.groupFullInformation.description) || ""
-                    onSaveButtonClicked: {
-                        if (chatInformationPage.isPrivateOrSecretChat) { // own bio
+                    text: (chatInformationPage.isPrivateOrSecretChat ? Functions.enhanceMessageText(userFullInformation.bio, false) : chatInformationPage.groupFullInformation.description) || ""
+                    onSaveButtonClicked:
+                        if (chatInformationPage.isPrivateOrSecretChat) // own bio
                             tdLibWrapper.setBio(textValue)
-                        } else { // group info
-                            tdLibWrapper.setChatDescription(chatInformationPage.chatInformation.id, textValue)
-                        }
-                    }
+                        else tdLibWrapper.setChatDescription(chatInformationPage.chatInformation.id, textValue) // group
                 }
 
                 InformationTextItem {
@@ -409,6 +402,25 @@ SilicaFlickable {
                                                     ) : null
                     text: birthdate ? Format.formatDate(birthdate, userFullInformation.birthdate.year ? Formatter.DateMedium : Formatter.DateMediumWithoutYear) : ''
                     // TODO: edit
+                }
+
+                InformationEditArea {
+                    visible: isPrivateOrSecretChat && !isSavedMessages && !!userFullInformation.note
+                    headerText: qsTr("Note (only visible to you)")
+                    text: visible ? Emoji.emojify(utilities.enhanceMessageText(userFullInformation.note)) : ''
+                    editText: utilities.enhanceMessageText(tdLibWrapper.getMarkdownText(userFullInformation.note), true, false)
+                    onSaveButtonClicked:
+                        tdLibWrapper.setUserNote(userInformation.id, utilities.newFormattedText(textValue))
+                    onTextEdited: {
+                        var maxLength = tdData.options.user_note_text_length_max
+                        if (textValue.length <= maxLength) {
+                            editItem.description = ''
+                            editItem.errorHighlight = false
+                        } else {
+                            editItem.description = qsTr("Enter 0-%Ln characters", '', maxLength)
+                            editItem.errorHighlight = true
+                        }
+                    }
                 }
 
                 SectionHeader {

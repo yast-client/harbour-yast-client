@@ -4,6 +4,8 @@
 
 import QtQuick 2.6
 import Sailfish.Silica 1.0
+import io.yaqtlib 1.0
+import Sailfish.Share 1.0
 import "../components"
 import "../js/twemoji.js" as Emoji
 import "../js/functions.js" as Functions
@@ -13,21 +15,42 @@ Page {
     id: page
     allowedOrientations: Orientation.All
 
-    Component.onDestruction: contactsModel.setFilterWildcard('*')
+    property string appDownloadLink
+    property bool loading: true
+
+    ShareAction {
+        id: inviteShareAction
+        title: qsTr("Invite to Telegram")
+        mimeType: 'text/plain'
+        resources: [{data: qsTr("Hey! I'm using Telegram to chat. Join me! Download it here: %1").arg(appDownloadLink)}]
+    }
 
     Connections {
-        target: contactsModel
-        onContactsImported: {
-            busyLabel.running = false
-            appNotification.show(qsTr("Contacts successfully synchronized with Telegram."))
-        }
-        onSingleContactAdded: tdLibWrapper.createPrivateChat(userId, 'openDirectly')
-        onContactNotFound: appNotification.show(qsTr("contact has not joined telegram yet")) // todo: show contact's name
+        target: tdLibWrapper
+        onHttpUrlReceived:
+            if (extra === 'applicationDownloadLink') appDownloadLink = url
+
+        onContactsImported:
+            if (extra.indexOf('!') === 0) {
+                if (userIds[0])
+                    tdLibWrapper.createPrivateChat(userId, 'openDirectly')
+                else
+                    appNotification.show(qsTr("Unfortunately %1 has not joined Telegram yet, but you can send them an invitation. We will notify you when any of your contacts join Telegram.")
+                                            .arg(extra.slice(1)),
+                        inviteShareAction.trigger, qsTr("Invite", "In-app notification button for inviting a user to Telegram"))
+            }
     }
+
+    Component.onCompleted: tdLibWrapper.getApplicationDownloadLink()
 
     ContactSync {
         id: contactSync
-        onSyncError: busyLabel.running = false
+    }
+
+    ContactsModel {
+        id: contactsModel
+        tdlib: tdLibWrapper
+        onLoaded: loading = false
     }
 
     SilicaFlickable {
@@ -36,16 +59,16 @@ Page {
 
         PullDownMenu {
             MenuItem {
-                onClicked: {
-                    busyLabel.running = true
-                    contactSync.synchronize()
-                    // Success message is not fired before TDLib returned "Contacts imported" (see above)
-                }
-                text: qsTr("Synchronize Contacts with Telegram")
+                visible: contactSync.canSync
+                onClicked: contactSync.sync()
+                text: qsTr("Sync contacts")
             }
             MenuItem {
                 text: qsTr("Add contact")
                 onClicked: pageStack.push(Qt.resolvedUrl("../dialogs/AddContactDialog.qml"))
+            }
+            MenuItem {
+                text: contactsModel.sortByStatus ? qsTr("Sort by Name") : qsTr("Sort by Last Seen")
             }
         }
 
@@ -58,21 +81,34 @@ Page {
                 top: header.bottom
                 bottom: parent.bottom
             }
-            visible: !busyLabel.running
-            opacity: visible ? 1 : 0
+            opacity: contactSync.syncInProgress ? 0 : 1
             Behavior on opacity { FadeAnimator {} }
 
             SearchField {
-                id: search
+                id: searchField
                 width: parent.width
-                placeholderText: qsTr("Search a contact")
-                active: parent.visible // `visible` doesn't work because changing `active` affects `visible`
+                placeholderText: qsTr("Search contacts")
+                active: parent.opacity > 0
 
-                onTextChanged: contactsModel.setFilterWildcard("*" + text + "*")
+                Timer {
+                    id: searchTimer
+                    interval: 250
+                    onTriggered: contactsModel.query = searchField.text
+                }
+
+                onTextChanged: {
+                    loading = true
+
+                    if (text) searchTimer.restart()
+                    else {
+                        searchTimer.stop()
+                        contactsModel.query = ''
+                    }
+                }
 
                 EnterKey.iconSource: "image://theme/icon-m-enter-close"
                 EnterKey.onClicked: {
-                    search.focus = false
+                    searchField.focus = false
                     page.focus = true
                 }
 
@@ -84,16 +120,17 @@ Page {
                 clip: true
                 width: parent.width
                 anchors {
-                    top: search.bottom
+                    top: searchField.bottom
                     bottom: parent.bottom
                 }
-
-                signal newChatInitiated (int currentIndex)
+                opacity: loading ? 0 : 1
+                Behavior on opacity { FadeAnimator {} }
 
                 ViewPlaceholder {
                     y: Theme.paddingLarge
                     enabled: !listView.count
-                    text: search.text ? qsTr("No contacts found.") : qsTr("You don't have any contacts.")
+                    text: searchField.text ? qsTr("No Results") : qsTr("You don't have any contacts yet")
+                    hintText: searchField.text ? qsTr("Try a new search.") : qsTr("Pull down to add a new contact or synchronize existing contacts from your address book.")
                 }
 
                 delegate: PhotoTextsListItem {
@@ -136,8 +173,8 @@ Page {
         }
 
         BusyLabel {
-            id: busyLabel
             anchors.verticalCenter: contentContainer.verticalCenter
+            running: contactSync.syncInProgress || loading
             text: qsTr("Loading contacts")
         }
     }
