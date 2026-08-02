@@ -8,3 +8,6 @@
 [submodule "abseil-cpp"]
 	path = abseil-cpp
 	url = https://github.com/abseil/abseil-cpp/
+[submodule "QtAVPlayer"]
+	path = QtAVPlayer
+	url = https://github.com/valbok/QtAVPlayer

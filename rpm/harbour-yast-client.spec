@@ -39,6 +39,7 @@ BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  opus-devel
 BuildRequires:  libsrtp-devel
 BuildRequires:  libvpx-devel
+# Calls & QtAVPlayer (incompatible with harbour)
 BuildRequires:  ffmpeg-devel
 
 %description
