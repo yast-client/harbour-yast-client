@@ -151,7 +151,7 @@ SilicaFlickable {
                                             {chatId: groupFullInformation.linked_chat_id})
         }
         MenuItem {
-            visible: isPrivateOrSecretChat && !isSavedMessages
+            visible: isPrivateOrSecretChat && !isSavedMessages && !isBot
             text: userInformation.is_contact ? qsTr("Edit contact") : qsTr("Add to contacts")
             onClicked: pageStack.push(Qt.resolvedUrl("../../dialogs/AddContactDialog.qml"),
                                     {

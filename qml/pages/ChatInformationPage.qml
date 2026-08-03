@@ -36,6 +36,7 @@ Page {
     readonly property bool isGroup: isBasicGroup || isSupergroup
 
     readonly property bool isSavedMessages: isPrivateOrSecretChat && chatUserOrGroupId === tdData.myUserId
+    readonly property bool isBot: isPrivateOrSecretChat && userInformation.type['@type'] === 'userTypeBot'
 
     readonly property bool canGetMembers: !!(groupFullInformation && groupFullInformation.can_get_members)
     readonly property bool userIsMember: (isPrivateOrSecretChat && chatInformation["@type"]) || // should be optimized
