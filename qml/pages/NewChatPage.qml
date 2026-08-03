@@ -152,6 +152,9 @@ Page {
                     primaryText.text: Emoji.emojify(title, primaryText.font.pixelSize, "../js/emoji/")
                     prologSecondaryText.text: Functions.getChatPartnerStatusText(user_status, user_last_online, is_support, display.id)
 
+                    property var remorse
+                    hidden: remorse && remorse.active
+
                     onClicked: tdLibWrapper.createPrivateChat(display.id, "openDirectly")
                     function remove() {
                         remorseAction(qsTr("Contact removed"), function() { tdLibWrapper.removeContact(user_id) })
@@ -164,7 +167,7 @@ Page {
                             }
                             MenuItem {
                                 text: qsTr("Edit")
-                                onClicked: pageStack.push(Qt.resolvedUrl("../dialogs/AddContactDialog.qml"), {userId: user_id})
+                                onClicked: pageStack.push(Qt.resolvedUrl("../dialogs/AddContactDialog.qml"), {userId: user_id, rootItem: contactListItem})
                             }
                             MenuItem {
                                 text: qsTr("Remove")

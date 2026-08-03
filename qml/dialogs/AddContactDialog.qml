@@ -7,6 +7,8 @@ import Sailfish.Silica 1.0
 Dialog {
     id: dialog
 
+    property Item rootItem
+
     property var userId
     property var userInfo: tdData.getUserInformation(userId)
     property bool editing: userInfo && userInfo.is_contact
@@ -44,6 +46,20 @@ Dialog {
     SilicaFlickable {
         anchors.fill: parent
         contentHeight: column.height
+
+        PullDownMenu {
+            visible: editing
+            MenuItem {
+                text: qsTr("Delete contact")
+                onClicked: {
+                    var page = pageStack.previousPage()
+                    var tdlib = tdLibWrapper, userId = dialog.userId
+                    var remorse = Remorse.popupAction(page, qsTr("Contact deleted"), function() { tdlib.removeContact(userId) })
+                    if (rootItem) rootItem.remorse = remorse
+                    pageStack.pop()
+                }
+            }
+        }
 
         Column {
             id: column
