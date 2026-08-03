@@ -151,6 +151,17 @@ SilicaFlickable {
                                             {chatId: groupFullInformation.linked_chat_id})
         }
         MenuItem {
+            visible: isPrivateOrSecretChat && !isSavedMessages
+            text: userInformation.is_contact ? qsTr("Edit contact") : qsTr("Add to contacts")
+            onClicked: pageStack.push(Qt.resolvedUrl("../../dialogs/AddContactDialog.qml"),
+                                    {
+                                        userId: userInformation.id,
+                                        note: noteEditArea.editText,
+                                        needPhoneNumberPrivacyException: userFullInformation.need_phone_number_privacy_exception,
+                                        requestFullInfo: false
+                                    })
+        }
+        MenuItem {
             visible: NO_HARBOUR_COMPLIANCE && isPrivateOrSecretChat && (userFullInformation.has_private_calls || userFullInformation.can_be_called)
             text: qsTr("Call")
             onClicked:
@@ -405,6 +416,7 @@ SilicaFlickable {
                 }
 
                 InformationEditArea {
+                    id: noteEditArea
                     visible: isPrivateOrSecretChat && !isSavedMessages && !!userFullInformation.note
                     headerText: qsTr("Note (only visible to you)")
                     text: visible ? Emoji.emojify(utilities.enhanceMessageText(userFullInformation.note)) : ''

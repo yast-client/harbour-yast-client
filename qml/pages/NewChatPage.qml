@@ -160,6 +160,10 @@ Page {
                                 onClicked: tdLibWrapper.createNewSecretChat(display.id, "openDirectly")
                             }
                             MenuItem {
+                                text: qsTr("Edit")
+                                onClicked: pageStack.push(Qt.resolvedUrl("../dialogs/AddContactDialog.qml"), {userId: user_id})
+                            }
+                            MenuItem {
                                 text: qsTr("Remove")
                                 onClicked: remove()
                             }
