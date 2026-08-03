@@ -225,6 +225,14 @@
         <source>The note is only visible to you.</source>
         <translation>Заметка видна только Вам.</translation>
     </message>
+    <message>
+        <source>Delete contact</source>
+        <translation>Удалить контакт</translation>
+    </message>
+    <message>
+        <source>Contact deleted</source>
+        <translation>Контакт удалён</translation>
+    </message>
 </context>
 <context>
     <name>AddProxyDialog</name>

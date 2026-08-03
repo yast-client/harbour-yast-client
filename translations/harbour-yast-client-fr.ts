@@ -213,6 +213,18 @@
             <numerusform></numerusform>
         </translation>
     </message>
+    <message>
+        <source>Delete contact</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contact deleted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The note is only visible to you.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AddProxyDialog</name>
@@ -1888,6 +1900,10 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pull down to add a new contact</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
