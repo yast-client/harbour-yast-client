@@ -105,7 +105,7 @@ Dialog {
                 onFocusChanged:
                     if (!focus) errorHighlight = !acceptableInput
 
-                description: errorHighlight ? qsTr("Note length must be less than %Ln", '', maxLength) : ''
+                description: errorHighlight ? qsTr("Note length must be less than %Ln", '', maxLength) : qsTr("The note is only visible to you.")
             }
         }
     }

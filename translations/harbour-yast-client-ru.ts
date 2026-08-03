@@ -178,10 +178,6 @@
         <translation>Имя</translation>
     </message>
     <message>
-        <source>First name must have 1-255 characters</source>
-        <translation>Имя должно иметь 1-255 символов</translation>
-    </message>
-    <message>
         <source>Last name</source>
         <translation>Фамилия</translation>
     </message>
@@ -197,9 +193,37 @@
         <source>Phone number</source>
         <translation>Номер телефона</translation>
     </message>
+    <message numerus="yes">
+        <source>First name must have 1-%Ln characters</source>
+        <translation>
+            <numerusform>Имя должно содержать 1-%Ln символ</numerusform>
+            <numerusform>Имя должно содержать 1-%Ln символа</numerusform>
+            <numerusform>Имя должно содержать 1-%Ln символов</numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>Last name length must be less than %Ln</source>
+        <translation>
+            <numerusform>Фамилия должна содержать 1-%Ln символ</numerusform>
+            <numerusform>Фамилия должна содержать 1-%Ln символа</numerusform>
+            <numerusform>Фамилия должна содержать 1-%Ln символов</numerusform>
+        </translation>
+    </message>
     <message>
-        <source>Last name length must be less than 256</source>
-        <translation>Фамилия должна быть не длиннее 256 символов</translation>
+        <source>Note</source>
+        <translation>Заметка</translation>
+    </message>
+    <message numerus="yes">
+        <source>Note length must be less than %Ln</source>
+        <translation>
+            <numerusform>Длина заметки должна не превышать %Ln</numerusform>
+            <numerusform>Длина заметки должна не превышать %Ln</numerusform>
+            <numerusform>Длина заметки должна не превышать %Ln</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The note is only visible to you.</source>
+        <translation>Заметка видна только Вам.</translation>
     </message>
 </context>
 <context>
@@ -470,10 +494,6 @@
         <translation>Название</translation>
     </message>
     <message>
-        <source>Enter 1-128 characters</source>
-        <translation>Введите 1-128 символов</translation>
-    </message>
-    <message>
         <source>There is no information text available, yet.</source>
         <translation>Пока нет доступной текстовой информации.</translation>
     </message>
@@ -552,6 +572,34 @@
     <message>
         <source>Unfortunately, you cannot call %1 because of their privacy settings. You can ask them to modify their setting or to call you instead</source>
         <translation>К сожалению, %1 не принимает звонки. Вы можете попросить пользователя изменить настройки или позвонить Вам самому.</translation>
+    </message>
+    <message numerus="yes">
+        <source>Enter 1-%Ln characters</source>
+        <translation>
+            <numerusform>Введите 1-%Ln символ</numerusform>
+            <numerusform>Введите 1-%Ln символа</numerusform>
+            <numerusform>Введите 1-%Ln символов</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Note (only visible to you)</source>
+        <translation>Заметка (видна только Вам)</translation>
+    </message>
+    <message numerus="yes">
+        <source>Enter 0-%Ln characters</source>
+        <translation>
+            <numerusform>Введите 0-%Ln символ</numerusform>
+            <numerusform>Введите 0-%Ln символа</numerusform>
+            <numerusform>Введите 0-%Ln символов</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Edit contact</source>
+        <translation>Изменить контакт</translation>
+    </message>
+    <message>
+        <source>Add to contacts</source>
+        <translation>Добавить в контакты</translation>
     </message>
 </context>
 <context>
@@ -1047,9 +1095,17 @@ Please take a look at the %1Telegram FAQ%2: it has answers to most questions and
 </context>
 <context>
     <name>ContactSync</name>
+    <message numerus="yes">
+        <source>Synced %Ln contacts</source>
+        <translation>
+            <numerusform>%Ln контакт синхронизирован</numerusform>
+            <numerusform>%Ln контакта синхронизировано</numerusform>
+            <numerusform>%Ln контактов синхронизировано</numerusform>
+        </translation>
+    </message>
     <message>
-        <source>Could not synchronize your contacts with Telegram.</source>
-        <translation>Не удалось синхронизировать контакты.</translation>
+        <source>Failed to sync contacts</source>
+        <translation>Не удалось синхронизировать контакты</translation>
     </message>
 </context>
 <context>
@@ -1520,11 +1576,11 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Edit</source>
         <comment>Short version for &quot;Edit Message&quot;</comment>
-        <translation>Редактировать</translation>
+        <translation>Изменить</translation>
     </message>
     <message>
         <source>Edit Message</source>
-        <translation>Редактирование</translation>
+        <translation>Редактировать</translation>
     </message>
     <message>
         <source>Read %1</source>
@@ -1809,10 +1865,6 @@ Pull down to visit telegram.org</source>
         <translation>Ваши контакты</translation>
     </message>
     <message>
-        <source>You don&apos;t have any contacts.</source>
-        <translation>У вас нет никаких контактов.</translation>
-    </message>
-    <message>
         <source>Private Chat</source>
         <translation>Приватный чат</translation>
     </message>
@@ -1829,18 +1881,6 @@ Pull down to visit telegram.org</source>
         <translation>Транспорт шифруется, используя облачную технологию Telegram для использования на различных устройствах</translation>
     </message>
     <message>
-        <source>Synchronize Contacts with Telegram</source>
-        <translation>Синхронизировать контакты</translation>
-    </message>
-    <message>
-        <source>Contacts successfully synchronized with Telegram.</source>
-        <translation>Контакты успешно синхронизированы</translation>
-    </message>
-    <message>
-        <source>No contacts found.</source>
-        <translation>Контакты не найдены.</translation>
-    </message>
-    <message>
         <source>Add contact</source>
         <translation>Добавить контакт</translation>
     </message>
@@ -1853,16 +1893,65 @@ Pull down to visit telegram.org</source>
         <translation>Контакт удалён</translation>
     </message>
     <message>
-        <source>contact has not joined telegram yet</source>
-        <translation>контакт пока не в Telegram</translation>
-    </message>
-    <message>
-        <source>Search a contact</source>
-        <translation>Поиск контакта</translation>
-    </message>
-    <message>
         <source>Loading contacts</source>
         <translation>Загрузка контактов</translation>
+    </message>
+    <message>
+        <source>Invite to Telegram</source>
+        <translation>Пригласить в Telegram</translation>
+    </message>
+    <message>
+        <source>Hey! I&apos;m using Telegram to chat. Join me! Download it here: %1</source>
+        <translation>Привет, я использую Telegram для переписки. Присоединяйся! Скачать его можно здесь: %1</translation>
+    </message>
+    <message>
+        <source>Unfortunately %1 has not joined Telegram yet, but you can send them an invitation. We will notify you when any of your contacts join Telegram.</source>
+        <translation>К сожалению, %1 пока не пользуется Telegram, но Вы можете отправить приглашение. Когда кто-либо из Ваших контактов регистрируется в Telegram, Вы будете получать уведомление.</translation>
+    </message>
+    <message>
+        <source>Invite</source>
+        <comment>In-app notification button for inviting a user to Telegram</comment>
+        <translation>Пригласить</translation>
+    </message>
+    <message>
+        <source>Sync contacts</source>
+        <translation>Синхронизировать контакты</translation>
+    </message>
+    <message>
+        <source>Sort by Name</source>
+        <translation>Сортировать по имени</translation>
+    </message>
+    <message>
+        <source>Sort by Last Seen</source>
+        <translation>Сортировать по времени захода</translation>
+    </message>
+    <message>
+        <source>No Results</source>
+        <translation>Нет результатов</translation>
+    </message>
+    <message>
+        <source>You don&apos;t have any contacts yet</source>
+        <translation>У Вас пока нет контактов</translation>
+    </message>
+    <message>
+        <source>Try a new search.</source>
+        <translation>Попробуйте снова.</translation>
+    </message>
+    <message>
+        <source>Pull down to add a new contact or synchronize existing contacts from your address book.</source>
+        <translation>Потяните вниз, чтобы добавить контакт или синхронизировать контакты с Вашего устройства.</translation>
+    </message>
+    <message>
+        <source>Search contacts</source>
+        <translation>Поиск контактов</translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation>Редактировать</translation>
+    </message>
+    <message>
+        <source>Pull down to add a new contact</source>
+        <translation>Потяните вниз, чтобы добавить новый контакт</translation>
     </message>
 </context>
 <context>
@@ -1881,7 +1970,7 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>Edit Message</source>
-        <translation>Редактирование</translation>
+        <translation>Редактировать</translation>
     </message>
     <message>
         <source>Silent Broadcast</source>
@@ -3225,10 +3314,6 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Phone number: +%1</source>
         <translation>Ваш телефон: +%1</translation>
-    </message>
-    <message>
-        <source>Contacts successfully synchronized with Telegram.</source>
-        <translation>Контакты успешно синхронизированы.</translation>
     </message>
     <message>
         <source>Birthday</source>

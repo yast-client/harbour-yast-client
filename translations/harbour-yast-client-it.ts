@@ -177,10 +177,6 @@
         <translation>Nome</translation>
     </message>
     <message>
-        <source>First name must have 1-255 characters</source>
-        <translation>Il nome deve avere da 1 a 255 caratteri</translation>
-    </message>
-    <message>
         <source>Last name</source>
         <translation>Cognome</translation>
     </message>
@@ -196,9 +192,34 @@
         <source>Phone number</source>
         <translation>Numero di telefono</translation>
     </message>
+    <message numerus="yes">
+        <source>First name must have 1-%Ln characters</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>Last name length must be less than %Ln</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
     <message>
-        <source>Last name length must be less than 256</source>
-        <translation>La lunghezza del cognome deve essere minore di 256 caratteri</translation>
+        <source>Note</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>Note length must be less than %Ln</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The note is only visible to you.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -469,10 +490,6 @@
         <translation>Titolo chat</translation>
     </message>
     <message>
-        <source>Enter 1-128 characters</source>
-        <translation>Inserisci da 1 a 128 caratteri</translation>
-    </message>
-    <message>
         <source>There is no information text available, yet.</source>
         <translation>Nessuna informazione disponibile.</translation>
     </message>
@@ -551,6 +568,32 @@
     <message>
         <source>Unfortunately, you cannot call %1 because of their privacy settings. You can ask them to modify their setting or to call you instead</source>
         <translation>Sfortunatamente, non puoi chiamare %1 a causa delle sue impostazioni di riservatezza. Puoi comunque chiedergli di modificare le impostazioni o di chiamarti</translation>
+    </message>
+    <message numerus="yes">
+        <source>Enter 1-%Ln characters</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Note (only visible to you)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>Enter 0-%Ln characters</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Edit contact</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add to contacts</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1041,9 +1084,16 @@ Per favore dai uno sguardo alla %1FAQ di Telegram%2: contiene risposte per la ma
 </context>
 <context>
     <name>ContactSync</name>
+    <message numerus="yes">
+        <source>Synced %Ln contacts</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
     <message>
-        <source>Could not synchronize your contacts with Telegram.</source>
-        <translation>Sincronizzazione contatti con Telegram non riuscita.</translation>
+        <source>Failed to sync contacts</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1788,10 +1838,6 @@ Trascina in basso per visitare telegram.org</translation>
         <translation>Contatti</translation>
     </message>
     <message>
-        <source>You don&apos;t have any contacts.</source>
-        <translation>Non hai ancora nessun contatto.</translation>
-    </message>
-    <message>
         <source>Private Chat</source>
         <translation>Chat privata</translation>
     </message>
@@ -1808,18 +1854,6 @@ Trascina in basso per visitare telegram.org</translation>
         <translation>Crittografia di trasporto, utilizza Telegram Cloud, accessibile su più dispositivi</translation>
     </message>
     <message>
-        <source>Synchronize Contacts with Telegram</source>
-        <translation>Sincronizza contatti con Telegram</translation>
-    </message>
-    <message>
-        <source>Contacts successfully synchronized with Telegram.</source>
-        <translation>Sincronizzazione contatti con Telegram completata.</translation>
-    </message>
-    <message>
-        <source>No contacts found.</source>
-        <translation>Nessun contatto trovato.</translation>
-    </message>
-    <message>
         <source>Add contact</source>
         <translation>Aggiungi contatto</translation>
     </message>
@@ -1832,16 +1866,65 @@ Trascina in basso per visitare telegram.org</translation>
         <translation>Contatto rimosso</translation>
     </message>
     <message>
-        <source>contact has not joined telegram yet</source>
-        <translation>il contatto non è ancora su telegram</translation>
-    </message>
-    <message>
-        <source>Search a contact</source>
-        <translation>Cerca un contatto</translation>
-    </message>
-    <message>
         <source>Loading contacts</source>
         <translation>Caricamento contatti</translation>
+    </message>
+    <message>
+        <source>Invite to Telegram</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hey! I&apos;m using Telegram to chat. Join me! Download it here: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unfortunately %1 has not joined Telegram yet, but you can send them an invitation. We will notify you when any of your contacts join Telegram.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invite</source>
+        <comment>In-app notification button for inviting a user to Telegram</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sync contacts</source>
+        <translation type="unfinished">Sincronizza contatti</translation>
+    </message>
+    <message>
+        <source>Sort by Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sort by Last Seen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Results</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You don&apos;t have any contacts yet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Try a new search.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pull down to add a new contact or synchronize existing contacts from your address book.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search contacts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation type="unfinished">Modifica</translation>
+    </message>
+    <message>
+        <source>Pull down to add a new contact</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3187,10 +3270,6 @@ Trascina in basso per visitare telegram.org</translation>
     <message>
         <source>Phone number: +%1</source>
         <translation>Telefono: +%1</translation>
-    </message>
-    <message>
-        <source>Contacts successfully synchronized with Telegram.</source>
-        <translation>Sincronizzazione contatti con Telegram completata.</translation>
     </message>
     <message>
         <source>Birthday</source>

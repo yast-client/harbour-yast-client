@@ -130,7 +130,9 @@ Page {
                     y: Theme.paddingLarge
                     enabled: !listView.count
                     text: searchField.text ? qsTr("No Results") : qsTr("You don't have any contacts yet")
-                    hintText: searchField.text ? qsTr("Try a new search.") : qsTr("Pull down to add a new contact or synchronize existing contacts from your address book.")
+                    hintText: searchField.text ? qsTr("Try a new search.")
+                                               : (contactSync.canSync ? qsTr("Pull down to add a new contact or synchronize existing contacts from your address book.")
+                                                                      : qsTr("Pull down to add a new contact"))
                 }
 
                 delegate: PhotoTextsListItem {

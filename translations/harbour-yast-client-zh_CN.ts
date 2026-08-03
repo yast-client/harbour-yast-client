@@ -176,10 +176,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>First name must have 1-255 characters</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Last name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -195,8 +191,30 @@
         <source>Phone number</source>
         <translation type="unfinished"></translation>
     </message>
+    <message numerus="yes">
+        <source>First name must have 1-%Ln characters</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <source>Last name length must be less than %Ln</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
     <message>
-        <source>Last name length must be less than 256</source>
+        <source>Note</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>Note length must be less than %Ln</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>The note is only visible to you.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -468,10 +486,6 @@
         <translation>对话标题</translation>
     </message>
     <message>
-        <source>Enter 1-128 characters</source>
-        <translation>输入 1-128 个字符</translation>
-    </message>
-    <message>
         <source>There is no information text available, yet.</source>
         <translation>暂无信息</translation>
     </message>
@@ -549,6 +563,30 @@
     </message>
     <message>
         <source>Unfortunately, you cannot call %1 because of their privacy settings. You can ask them to modify their setting or to call you instead</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>Enter 1-%Ln characters</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Note (only visible to you)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>Enter 0-%Ln characters</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Edit contact</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add to contacts</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1033,9 +1071,15 @@ Please take a look at the %1Telegram FAQ%2: it has answers to most questions and
 </context>
 <context>
     <name>ContactSync</name>
+    <message numerus="yes">
+        <source>Synced %Ln contacts</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
     <message>
-        <source>Could not synchronize your contacts with Telegram.</source>
-        <translation type="unfinished">无法同步你的云端 Telegram 联系人。</translation>
+        <source>Failed to sync contacts</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1767,10 +1811,6 @@ Pull down to visit telegram.org</source>
         <translation>你的联系人</translation>
     </message>
     <message>
-        <source>You don&apos;t have any contacts.</source>
-        <translation>你还没有任何联系人。</translation>
-    </message>
-    <message>
         <source>Private Chat</source>
         <translation>个人对话</translation>
     </message>
@@ -1787,18 +1827,6 @@ Pull down to visit telegram.org</source>
         <translation>传输加密，使用 Telegram 云，可以在设备之间共享</translation>
     </message>
     <message>
-        <source>Synchronize Contacts with Telegram</source>
-        <translation>同步 Telegram 联系人</translation>
-    </message>
-    <message>
-        <source>Contacts successfully synchronized with Telegram.</source>
-        <translation>已成功同步 Telegram 联系人。</translation>
-    </message>
-    <message>
-        <source>No contacts found.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Add contact</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1811,15 +1839,64 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>contact has not joined telegram yet</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Search a contact</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Loading contacts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invite to Telegram</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hey! I&apos;m using Telegram to chat. Join me! Download it here: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unfortunately %1 has not joined Telegram yet, but you can send them an invitation. We will notify you when any of your contacts join Telegram.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invite</source>
+        <comment>In-app notification button for inviting a user to Telegram</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sync contacts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sort by Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sort by Last Seen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Results</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You don&apos;t have any contacts yet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Try a new search.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pull down to add a new contact or synchronize existing contacts from your address book.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search contacts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pull down to add a new contact</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3147,10 +3224,6 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Phone number: +%1</source>
         <translation>电话号码: +%1</translation>
-    </message>
-    <message>
-        <source>Contacts successfully synchronized with Telegram.</source>
-        <translation>已成功同步 Telegram 联系人。</translation>
     </message>
     <message>
         <source>Birthday</source>
