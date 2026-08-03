@@ -420,6 +420,7 @@ SilicaFlickable {
                     visible: isPrivateOrSecretChat && !isSavedMessages && !!userFullInformation.note
                     headerText: qsTr("Note (only visible to you)")
                     text: visible ? Emoji.emojify(utilities.enhanceMessageText(userFullInformation.note)) : ''
+                    multiLine: true
                     editText: utilities.enhanceMessageText(tdLibWrapper.getMarkdownText(userFullInformation.note), true, false)
                     onSaveButtonClicked:
                         tdLibWrapper.setUserNote(userInformation.id, utilities.newFormattedText(textValue))
