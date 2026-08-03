@@ -33,7 +33,7 @@ Page {
         onContactsImported:
             if (extra.indexOf('!') === 0) {
                 if (userIds[0])
-                    tdLibWrapper.createPrivateChat(userId, 'openDirectly')
+                    tdLibWrapper.createPrivateChat(userIds[0], 'openDirectly')
                 else
                     appNotification.show(qsTr("Unfortunately %1 has not joined Telegram yet, but you can send them an invitation. We will notify you when any of your contacts join Telegram.")
                                             .arg(extra.slice(1)),
