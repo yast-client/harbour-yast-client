@@ -69,6 +69,7 @@ Page {
             }
             MenuItem {
                 text: contactsModel.sortByStatus ? qsTr("Sort by Name") : qsTr("Sort by Last Seen")
+                onClicked: contactsModel.sortByStatus = !contactsModel.sortByStatus
             }
         }
 
