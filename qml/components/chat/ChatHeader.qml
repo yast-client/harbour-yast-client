@@ -93,7 +93,7 @@ BackgroundItem {
             }
 
             Row {
-                width: Math.min(chatStatusText.implicitWidth + (chatActionIcon.active ? chatActionIcon.width + spacing : 0), parent.width)
+                width: Math.min(chatStatusText.implicitWidth + (chatActionIcon.active ? (chatActionIcon.width + spacing) : 0), parent.width)
                 spacing: Theme.paddingSmall
                 anchors {
                     right: parent.right
@@ -109,7 +109,7 @@ BackgroundItem {
 
                     property bool isError
 
-                    width: parent.width - (chatActionIcon.active ? chatActionIcon.width + spacing : 0)
+                    width: parent.width - (chatActionIcon.active ? (chatActionIcon.width + spacing) : 0)
                     textFormat: Text.StyledText
                     font.pixelSize: isPortrait ? Theme.fontSizeExtraSmall : Theme.fontSizeTiny
                     minimumPixelSize: Theme.fontSizeTiny
