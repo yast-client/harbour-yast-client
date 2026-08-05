@@ -16,7 +16,7 @@ AlbumMessageContentBase {
         id: column
         width: parent.width
         Repeater {
-            model: albumMessages
+            model: albumMessages.length
             BackgroundItem {
                 id: messageBackgroundItem
                 width: parent.width
