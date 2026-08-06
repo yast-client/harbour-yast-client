@@ -73,8 +73,7 @@ MessageContentBase {
                             begin()
 
                     onLoopFinished:
-                        if (!isSlotMachine)
-                            chatManager.model.markGeneratedContentAsRead(messageIndex)
+                        if (!isSlotMachine) messagesModel.markGeneratedContentAsRead(messageIndex)
 
                     layer.enabled: message.highlighted
                     layer.effect: PressEffect { source: animatedSticker }
@@ -149,10 +148,8 @@ MessageContentBase {
                 property bool rightReelStopped
                 property bool reelsStopped: leftReelStopped && centerReelStopped && rightReelStopped
 
-                onReelsStoppedChanged: {
-                    if (reelsStopped)
-                        messagesModel.markGeneratedContentAsRead(messageIndex)
-                }
+                onReelsStoppedChanged:
+                    if (reelsStopped) messagesModel.markGeneratedContentAsRead(messageIndex)
 
                 Repeater {
                     model: [diceSticker.left_reel, diceSticker.center_reel, diceSticker.right_reel]
