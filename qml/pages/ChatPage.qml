@@ -245,7 +245,8 @@ Page {
 
             MenuItem {
                 // TODO: saved messages topics
-                visible: /*isSavedMessages ||*/ (isSupergroup && chatGroupInformation.is_forum)
+                // TODO: maybe use Opal Tabs for tabbed forums (perhaps actually implement that joke post with side tabs)
+                visible: /*isSavedMessages ||*/ (isSupergroup && chatGroupInformation.is_forum && !chatGroupInformation.has_forum_tabs)
                 text: viewAsTopics ? qsTr("View as Messages", "view a forum chat in full chat mode") : qsTr("View as Topics", "view a forum chat as topics")
                 onClicked:
                     tdLibWrapper.toggleChatViewAsTopics(chatId, !viewAsTopics)
