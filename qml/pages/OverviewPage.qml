@@ -102,7 +102,6 @@ Page {
             tdLibWrapper.getUserPrivacySettingRules(TDLibAPI.SettingShowPhoneNumber)
             tdLibWrapper.getUserPrivacySettingRules(TDLibAPI.SettingShowProfilePhoto)
             tdLibWrapper.getUserPrivacySettingRules(TDLibAPI.SettingShowStatus)
-            tdLibWrapper.getProxies()
         }
     }
 
@@ -196,10 +195,6 @@ Page {
         onAddedProxyReceived:
             if (extra == 'open')
                 openProxySettings()
-        onAddedProxiesReceived:
-            // FIXME: we could use options.enabled_proxy_id instead, but then button would not show up when a proxy is added but not currently enabled
-            if (proxies.length > 0)
-                proxySettingsButton.visible = true
         onChatJoinResultReceived:
             switch (type) {
             case 'chatJoinResultSuccess':
@@ -234,12 +229,20 @@ Page {
     Component.onCompleted:
         overviewPage.handleAuthorizationState()
 
-    function openSearch() {
-        pageStack.push(Qt.resolvedUrl("SearchChatsPage.qml"), {fromTitleBar: true}, PageStackAction.Immediate)
-    }
     function openProxySettings() {
         pageStack.completeAnimation()
         pageStack.push(Qt.resolvedUrl("ProxiesPage.qml"))
+    }
+    function clickTitleBar() {
+        switch (tdLibWrapper.connectionState) {
+        case TDLibAPI.WaitingForNetwork:
+        case TDLibAPI.Connecting:
+        case TDLibAPI.ConnectingToProxy:
+            openProxySettings()
+            break
+        default:
+            pageStack.push(Qt.resolvedUrl("SearchChatsPage.qml"), {fromTitleBar: true}, PageStackAction.Immediate)
+        }
     }
 
     OverviewPageHeader {
@@ -249,7 +252,7 @@ Page {
         // in case MoueArea here fails, we also have one inside the tab's flickable
         MouseArea {
             anchors.fill: parent
-            onClicked: openSearch()
+            onClicked: clickTitleBar()
         }
 
         // this does not follow sailfish guidelines at all,
@@ -259,9 +262,11 @@ Page {
             id: proxySettingsButton
             y: (parent.height - height) / 2 + Screen.topCutout.height
             anchors.left: header.statusItem.right
-            visible: false
+            // When connection is not ready, clicking on the whole page header opens proxy settings anyways
+            visible: (tdLibWrapper.connectionState == TDLibAPI.ConnectionReady || tdLibWrapper.connectionState == TDLibAPI.Updating)
+                        && (tdData.options.expect_blocking || tdData.options.enabled_proxy_id !== 0)
             enabled: visible
-            icon.source: 'image://theme/icon-m-browser-permissions'
+            icon.source: 'image://theme/icon-m-vpn'
 
             property bool externalMouseAreaDown
             highlighted: down || externalMouseAreaDown
@@ -328,7 +333,7 @@ Page {
                         y: header.y
                         width: header.width
                         height: header.height
-                        onClicked: openSearch()
+                        onClicked: clickTitleBar()
                     }
                     MouseArea {
                         x: proxySettingsButton.x
