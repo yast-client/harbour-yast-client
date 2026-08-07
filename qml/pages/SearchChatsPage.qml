@@ -274,7 +274,10 @@ Page {
                                                 // FIXME: use TDLibMessageSender/TDLibChat/...
                                                 property var chatInformation: tdData.getChat(modelData)
                                                 primaryText.text: Emoji.emojify(chatInformation.title, primaryText.font.pixelSize)
-                                                pictureThumbnail.photoData: typeof chatInformation.photo.small !== "undefined" ? chatInformation.photo.small : {}
+                                                pictureThumbnail {
+                                                    minithumbnail: typeof chatInformation.photo.minithumbnail !== "undefined" ? chatInformation.photo.minithumbnail : ({})
+                                                    photoData: typeof chatInformation.photo.small !== "undefined" ? chatInformation.photo.small : ({})
+                                                }
 
                                                 menu: Component {
                                                     ContextMenu {

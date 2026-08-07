@@ -90,7 +90,10 @@ Dialog {
 
                         width: Theme.itemSizeLarge
                         contentHeight: content.height + 2*Theme.paddingMedium
-                        pictureThumbnail.photoData: user.info.profile_photo.small || {}
+                        pictureThumbnail {
+                            minithumbnail: user.info.profile_photo.minithumbnail
+                            photoData: user.info.profile_photo.small || ({})
+                        }
                         primaryText.text: utilities.getUserName(user.info)
                     }
                 }
