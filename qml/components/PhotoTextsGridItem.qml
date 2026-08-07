@@ -37,6 +37,7 @@ GridItem {
             width: parent.width
             height: width
 
+            pictureThumbnail.replacementStringHint: primaryText.text
             highlighted: chatItem.highlighted
             muted: chatBadges.muted
         }
