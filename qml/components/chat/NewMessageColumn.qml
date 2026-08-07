@@ -145,6 +145,7 @@ Column {
             anchors.horizontalCenter: parent.horizontalCenter
             contentHeight: botCommandsContentColumn.height
             clip: true
+
             Column {
                 id: botCommandsContentColumn
                 spacing: Theme.paddingMedium
@@ -213,6 +214,7 @@ Column {
             offset: 1 - 1 / slope
         }
 
+        Component.onCompleted: contentY = contentWidth - width
 
         Row {
             id: attachmentOptionsRow
@@ -339,7 +341,6 @@ Column {
                 }
             }
         }
-
     }
 
 
