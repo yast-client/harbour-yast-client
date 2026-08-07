@@ -47,9 +47,9 @@ Page {
         target: tdLibWrapper
         onChatsReceived: {
             Debug.log("Chats found", extra, JSON.stringify(chatIds))
-            if (extra == 'searchChats') {
+            if (extra == 'searchChats')
                 localChatsFound = chatIds
-            } else if (extra == 'searchPublicChats') {
+            else if (extra == 'searchPublicChats') {
                 publicChatsFound = chatIds
                 tdLibWrapper.getSearchSponsoredChats(searchField.text)
                 searchChatsPage.publicLoading = false
@@ -221,7 +221,7 @@ Page {
                                             }
 
                                             function update() {
-                                                tdLibWrapper.getTopChats(tdLibWrapper.TopChatCategoryUsers, columnsCount*2)
+                                                tdLibWrapper.getTopChats(TDLibAPI.TopChatCategoryUsers, columnsCount*2)
                                             }
                                             Component.onCompleted: update()
                                             Connections {
@@ -290,7 +290,10 @@ Page {
                                                     ContextMenu {
                                                         MenuItem {
                                                             text: qsTr("Remove from Recents")
-                                                            onClicked: remorseDelete(function() { tdLibWrapper.removeTopChat(tdLibWrapper.TopChatCategoryUsers, modelData) })
+                                                            onClicked: {
+                                                                var tdlib = tdLibWrapper, chatId = modelData
+                                                                remorseDelete(function() { tdlib.removeTopChat(TDLibAPI.TopChatCategoryUsers, chatId) })
+                                                            }
                                                         }
                                                     }
                                                 }

@@ -2747,22 +2747,22 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>Remove from Recents</source>
-        <translation>Убрать из Последних</translation>
+        <translation>Убрать из недавних</translation>
     </message>
     <message>
         <source>Recent</source>
         <comment>Recently found chats</comment>
-        <translation>Последние</translation>
+        <translation>Недпвние</translation>
     </message>
     <message>
         <source>Cleared recents</source>
         <comment>Remorse popup indicating that recently found chats are cleared</comment>
-        <translation>Последние очищены</translation>
+        <translation>Недавние очищены</translation>
     </message>
     <message>
         <source>Remove from Recent</source>
         <comment>Remove a chat from recently found chats</comment>
-        <translation>Убрать из Последнего</translation>
+        <translation>Убрать из недавних</translation>
     </message>
     <message>
         <source>Global search results</source>
