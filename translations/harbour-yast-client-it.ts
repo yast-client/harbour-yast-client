@@ -194,40 +194,40 @@
     </message>
     <message numerus="yes">
         <source>First name must have 1-%Ln characters</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Il nome deve avere 1-%Ln caratteri</numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Last name length must be less than %Ln</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Il cognome deve essere più corto di %Ln</numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
         <source>Note</source>
-        <translation type="unfinished"></translation>
+        <translation>Nota</translation>
     </message>
     <message numerus="yes">
         <source>Note length must be less than %Ln</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>La nota deve essere più corta di %Ln</numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
         <source>The note is only visible to you.</source>
-        <translation type="unfinished"></translation>
+        <translation>La nota è visibile solo a te.</translation>
     </message>
     <message>
         <source>Delete contact</source>
-        <translation type="unfinished"></translation>
+        <translation>Elimina contatto</translation>
     </message>
     <message>
         <source>Contact deleted</source>
-        <translation type="unfinished"></translation>
+        <translation>Contatto eliminato</translation>
     </message>
 </context>
 <context>
@@ -579,29 +579,29 @@
     </message>
     <message numerus="yes">
         <source>Enter 1-%Ln characters</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Inserisci 1-%Ln caratteri</numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
         <source>Note (only visible to you)</source>
-        <translation type="unfinished"></translation>
+        <translation>Nota (visibile solo a te)</translation>
     </message>
     <message numerus="yes">
         <source>Enter 0-%Ln characters</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Inserisci 0-Ln caratteri</numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
         <source>Edit contact</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifica contatto</translation>
     </message>
     <message>
         <source>Add to contacts</source>
-        <translation type="unfinished"></translation>
+        <translation>Aggiungi ai contatti</translation>
     </message>
 </context>
 <context>
@@ -679,26 +679,26 @@
     <message>
         <source>Enable Topics</source>
         <comment>group topics</comment>
-        <translation type="unfinished">Abilita Topic</translation>
+        <translation>Abilita Topic</translation>
     </message>
     <message>
         <source>Choose how topics appear for all members.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scegli come far apparire il topic ai membri.</translation>
     </message>
     <message>
         <source>Off</source>
         <comment>topics</comment>
-        <translation type="unfinished">Off</translation>
+        <translation>Off</translation>
     </message>
     <message>
         <source>List</source>
         <comment>topics</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lista</translation>
     </message>
     <message>
         <source>Tabs</source>
         <comment>topics</comment>
-        <translation type="unfinished"></translation>
+        <translation>Schede</translation>
     </message>
 </context>
 <context>
@@ -1094,14 +1094,14 @@ Per favore dai uno sguardo alla %1FAQ di Telegram%2: contiene risposte per la ma
     <name>ContactSync</name>
     <message numerus="yes">
         <source>Synced %Ln contacts</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Sincronizzati %Ln contatti</numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
         <source>Failed to sync contacts</source>
-        <translation type="unfinished"></translation>
+        <translation>Sincronizzazione contatti fallita</translation>
     </message>
 </context>
 <context>
@@ -1879,60 +1879,60 @@ Trascina in basso per visitare telegram.org</translation>
     </message>
     <message>
         <source>Invite to Telegram</source>
-        <translation type="unfinished"></translation>
+        <translation>Invita su Telegram</translation>
     </message>
     <message>
         <source>Hey! I&apos;m using Telegram to chat. Join me! Download it here: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ehi! Sto usando telegram per chattare. Raggiungimi! Scaricalo qui: %1</translation>
     </message>
     <message>
         <source>Unfortunately %1 has not joined Telegram yet, but you can send them an invitation. We will notify you when any of your contacts join Telegram.</source>
-        <translation type="unfinished"></translation>
+        <translation>Purtroppo %1 non è ancora su Telegram, ma puoi mandargli un invito. Ti notificheremo quando qualcuno dei tuoi contatti si iscrive a Telegram.</translation>
     </message>
     <message>
         <source>Invite</source>
         <comment>In-app notification button for inviting a user to Telegram</comment>
-        <translation type="unfinished"></translation>
+        <translation>Invita</translation>
     </message>
     <message>
         <source>Sync contacts</source>
-        <translation type="unfinished">Sincronizza contatti</translation>
+        <translation>Sincronizza contatti</translation>
     </message>
     <message>
         <source>Sort by Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Ordina per Nome</translation>
     </message>
     <message>
         <source>Sort by Last Seen</source>
-        <translation type="unfinished"></translation>
+        <translation>Ordina per Ultimo accesso</translation>
     </message>
     <message>
         <source>No Results</source>
-        <translation type="unfinished"></translation>
+        <translation>Nessun risultato</translation>
     </message>
     <message>
         <source>You don&apos;t have any contacts yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Non hai ancora nessun contatto</translation>
     </message>
     <message>
         <source>Try a new search.</source>
-        <translation type="unfinished"></translation>
+        <translation>Prova con una nuova ricerca.</translation>
     </message>
     <message>
         <source>Pull down to add a new contact or synchronize existing contacts from your address book.</source>
-        <translation type="unfinished"></translation>
+        <translation>Trascina in basso per aggiungere un nuovo contatto o per sincronizzare quelli esistenti dalla tua rubrica.</translation>
     </message>
     <message>
         <source>Search contacts</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerca contatti</translation>
     </message>
     <message>
         <source>Edit</source>
-        <translation type="unfinished">Modifica</translation>
+        <translation>Modifica</translation>
     </message>
     <message>
         <source>Pull down to add a new contact</source>
-        <translation type="unfinished"></translation>
+        <translation>Trascina in basso per aggiungere un contatto</translation>
     </message>
 </context>
 <context>
@@ -2069,7 +2069,7 @@ Trascina in basso per visitare telegram.org</translation>
     </message>
     <message>
         <source>Allow users to change their vote</source>
-        <translation>Consenti agli utenti di cambiare il loro voto</translation>
+        <translation>Consenti agli utenti di modificare il loro voto</translation>
     </message>
     <message>
         <source>Shuffle options</source>
@@ -2773,11 +2773,11 @@ Trascina in basso per visitare telegram.org</translation>
     </message>
     <message>
         <source>Enable online-only mode</source>
-        <translation type="unfinished">Abilita modalità solo online</translation>
+        <translation>Abilita modalità solo online</translation>
     </message>
     <message>
         <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of the app to take effect.</source>
-        <translation type="unfinished">Disabilita la cache offline. Alcune funzioni potrebbero essere limitate o mancare del tutto. I cambi richiedono un riavvio dell&apos;applicazione per avere effetto.</translation>
+        <translation>Disabilita la cache offline. Alcune funzioni potrebbero essere limitate o mancare del tutto. Le modifiche richiedono un riavvio dell&apos;applicazione per avere effetto.</translation>
     </message>
 </context>
 <context>
@@ -3402,7 +3402,7 @@ Trascina in basso per visitare telegram.org</translation>
     </message>
     <message>
         <source>Forward to…</source>
-        <translation type="unfinished"></translation>
+        <translation>Inoltra a...</translation>
     </message>
 </context>
 <context>
@@ -3512,11 +3512,11 @@ Trascina in basso per visitare telegram.org</translation>
     <message>
         <source>changed the chat title to %1</source>
         <comment>myself</comment>
-        <translation>hai cambiato il titolo della chat in %1</translation>
+        <translation>hai modificato il titolo della chat in %1</translation>
     </message>
     <message>
         <source>changed the chat title to %1</source>
-        <translation>ha cambiato il titolo della chat in %1</translation>
+        <translation>ha modificato il titolo della chat in %1</translation>
     </message>
     <message>
         <source>Anonymous Quiz</source>
@@ -3546,7 +3546,7 @@ Trascina in basso per visitare telegram.org</translation>
     <message>
         <source>changed the chat photo</source>
         <comment>myself</comment>
-        <translation>hai cambiato l&apos;immagine di profilo della chat</translation>
+        <translation>hai modificato l&apos;immagine di profilo della chat</translation>
     </message>
     <message>
         <source>changed the chat photo</source>
@@ -3564,7 +3564,7 @@ Trascina in basso per visitare telegram.org</translation>
     <message>
         <source>changed the secret chat TTL setting</source>
         <comment>myself; TTL = Time To Live</comment>
-        <translation>hai cambiato il timer della chat segreta</translation>
+        <translation>hai modificato il timer della chat segreta</translation>
     </message>
     <message>
         <source>changed the secret chat TTL setting</source>
@@ -3852,7 +3852,7 @@ Trascina in basso per visitare telegram.org</translation>
     <message>
         <source>changed this topic&apos;s icon</source>
         <comment>myself</comment>
-        <translation>hai cambiato l&apos;icona di questo topic</translation>
+        <translation>hai modificato l&apos;icona di questo topic</translation>
     </message>
     <message>
         <source>changed this topic&apos;s icon</source>
@@ -3861,7 +3861,7 @@ Trascina in basso per visitare telegram.org</translation>
     <message>
         <source>changed the icon of the topic &quot;%1&quot;</source>
         <comment>myself</comment>
-        <translation>hai cambiato l&apos;icona del topic &quot;%1&quot;</translation>
+        <translation>hai modificato l&apos;icona del topic &quot;%1&quot;</translation>
     </message>
     <message>
         <source>changed the icon of the topic &quot;%1&quot;</source>
