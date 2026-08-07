@@ -17,19 +17,27 @@ Page {
     property bool fromTitleBar
 
     function resetFocus() {
-        searchField.focus = false;
-        searchChatsPage.focus = true;
+        searchField.focus = searchChatsPage.focus = true
+    }
+
+    Timer {
+        id: searchPrivateChatsTimer
+        interval: 200
+        onTriggered: {
+            Debug.log("Searching for '" + searchField.text + "' locally")
+            localChatsFound = []
+            recentlyFoundChatsFound = []
+            tdLibWrapper.searchChats(searchField.text)
+            tdLibWrapper.searchRecentlyFoundChats(searchField.text)
+        }
     }
 
     Timer {
         id: searchPublicChatsTimer
         interval: 800
-        running: false
-        repeat: false
         onTriggered: {
             Debug.log("Searching for '" + searchField.text + "' globally")
             publicChatsFound = []
-            recentlyFoundChatsFound = []
             tdLibWrapper.searchPublicChats(searchField.text)
             searchChatsPage.publicLoading = true
         }
@@ -64,10 +72,9 @@ Page {
         }
         onErrorReceived:
             searchChatsPage.publicLoading = false
-        onOkReceived: {
+        onOkReceived:
             if (extra == 'recentlyFound')
                 tdLibWrapper.searchRecentlyFoundChats(searchField.text)
-        }
     }
 
     property bool publicLoading: false
@@ -77,9 +84,7 @@ Page {
     property var publicChatsFound: []
     property var sponsoredChats: ({})
 
-    Component.onCompleted: {
-        tdLibWrapper.searchRecentlyFoundChats()
-    }
+    Component.onCompleted: tdLibWrapper.searchRecentlyFoundChats()
 
     SilicaFlickable {
         id: searchChatsContainer
@@ -119,14 +124,16 @@ Page {
                         focus: true
 
                         onTextChanged: {
-                            tdLibWrapper.searchRecentlyFoundChats(searchField.text)
                             if (text) {
-                                tdLibWrapper.searchChats(searchField.text)
-                                searchPublicChatsTimer.restart();
+                                searchPrivateChatsTimer.restart()
+                                searchPublicChatsTimer.restart()
                                 Debug.log("Searching for '" + searchField.text + "' locally")
                             } else {
+                                searchPrivateChatsTimer.stop()
+                                searchPublicChatsTimer.stop()
                                 localChatsFound = []
                                 publicChatsFound = []
+                                tdLibWrapper.searchRecentlyFoundChats()
                             }
                         }
 
