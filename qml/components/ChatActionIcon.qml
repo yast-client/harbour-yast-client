@@ -6,9 +6,9 @@ import Sailfish.Silica 1.0
 import io.yaqtlib 1.0
 
 Loader {
-    active: !!sourceComponent // FIXME: binding loop here
-    visible: active
-    width: active ? (item ? item.width : Theme.iconSizeSmall) : 0
+    active: !!sourceComponent
+    visible: !!sourceComponent
+    width: sourceComponent ? (item ? item.width : Theme.iconSizeSmall) : 0
     height: Theme.iconSizeExtraSmall
     anchors.verticalCenter: parent.verticalCenter
 
