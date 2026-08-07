@@ -351,7 +351,7 @@ Page {
                                         ContextMenu {
                                             MenuItem {
                                                 text: qsTr("Remove from Recent", "Remove a chat from recently found chats")
-                                                onClicked: tdLibWrapper.removeChat(recentlyFoundChatDelegate.chatId)
+                                                onClicked: tdLibWrapper.removeRecentlyFoundChat(recentlyFoundChatDelegate.chatId)
                                             }
                                         }
                                     }
