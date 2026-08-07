@@ -138,6 +138,13 @@ Page {
                 descriptionWrapMode: Text.Wrap
             }
 
+            TextSwitch {
+                text: qsTr("Try connecting through IPv6")
+                checked: tdData.options.prefer_ipv6
+                automaticCheck: false
+                onClicked: tdData.options.prefer_ipv6 = !checked
+            }
+
             SectionHeader {
                 visible: !isEmpty
                 text: qsTr("Connections")

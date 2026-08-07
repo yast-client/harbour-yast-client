@@ -2716,6 +2716,10 @@ Pull down to visit telegram.org</source>
         <source>Add proxy from clipboard</source>
         <translation>Добавить прокси из буфера обмена</translation>
     </message>
+    <message>
+        <source>Try connecting through IPv6</source>
+        <translation>Через IPv6 (если возможно)</translation>
+    </message>
 </context>
 <context>
     <name>SearchChatsPage</name>

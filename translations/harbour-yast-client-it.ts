@@ -2673,6 +2673,10 @@ Trascina in basso per visitare telegram.org</translation>
         <source>Add proxy from clipboard</source>
         <translation>Aggiungi proxy dagli appunti</translation>
     </message>
+    <message>
+        <source>Try connecting through IPv6</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SearchChatsPage</name>
