@@ -264,7 +264,7 @@ Page {
             anchors.left: header.statusItem.right
             // When connection is not ready, clicking on the whole page header opens proxy settings anyways
             visible: (tdLibWrapper.connectionState == TDLibAPI.ConnectionReady || tdLibWrapper.connectionState == TDLibAPI.Updating)
-                        && (tdData.options.expect_blocking || tdData.options.enabled_proxy_id !== 0)
+                        && !!(tdData.options.expect_blocking || tdData.options.enabled_proxy_id)
             enabled: visible
             icon.source: 'image://theme/icon-m-vpn'
 
