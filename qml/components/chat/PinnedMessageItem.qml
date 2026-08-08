@@ -80,8 +80,8 @@ Item {
                     viewPlaceholder.text: qsTr("No pinned messages")
                     PushUpMenu {
                         parent: allPinnedMessagesView.chatView
+                        visible: !!pinnedMessagesModel.totalCount && (isPrivateChat || hasGroupPermission('can_pin_messages', 'can_pin_messages'))
                         MenuItem {
-                            visible: isPrivateChat || hasGroupPermission('can_pin_messages', 'can_pin_messages')
                             text: pinnedMessagesModel.totalCount == 1 ? qsTr("Unpin message") : qsTr("Unpin all messages")
                             onClicked: {
                                 allPinnedMessagesView.forceViewPlaceholder = true
