@@ -30,7 +30,7 @@ Column {
 
     property var selectedMessages: []
     readonly property bool isSelecting: selectedMessages.length > 0
-    property bool containsSponsoredMessages: false
+    readonly property bool containsSponsoredMessages: !!(messagesModel && messagesModel.containsSponsoredMessages)
     property var messageIdToScrollTo
     property int unreadCount: chatInformation.unread_count
     property bool isPrepared
@@ -311,13 +311,12 @@ Column {
              */
 
         }
-        onNewMessageReceived: {
+        onNewMessageReceived:
             if ((chatView.manuallyScrolledToBottom && Qt.application.state === Qt.ApplicationActive) || (message.is_outgoing && !message.is_channel_post)) {
                 log("Own message received or was scrolled to bottom, scrolling down to see it...")
                 chatView.scrollToIndex(chatView.count - 1)
                 viewMessageTimer.queueViewMessage(chatView.count - 1)
             }
-        }
     }
 
     Connections {
@@ -327,7 +326,6 @@ Column {
                 newMessageInReplyToRow.inReplyToMessage = message
             log("Received message ID:", messageId)
         }
-        onSponsoredMessagesReceived: messagesView.containsSponsoredMessages = true
     }
 
     Component.onCompleted: {
@@ -459,8 +457,6 @@ Column {
                 log("Page is initialized!")
                 chatPage.isInitialized = true
                 chatView.handleScrollPositionChanged()
-                if (readable && (chatPage.isChannel || chatPage.isBot))
-                    tdLibWrapper.getChatSponsoredMessages(chatId)
             }
         }
 
