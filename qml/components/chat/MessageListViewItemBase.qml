@@ -68,10 +68,10 @@ ListItem {
     onClicked:
         if (messageListItem.precalculatedValues.pageIsSelecting)
             messagesView.toggleMessageSelection(myMessage, messageAlbumMessageIds)
-        else {
+        else if (messagesModel.searchQuery)
+            messagesView.showMessage(messageId)
+        else
             clickedNormally(mouse.x, mouse.y)
-            elementSelected(index)
-        }
 
     onPressAndHold:
         if (openMenuOnPressAndHold)

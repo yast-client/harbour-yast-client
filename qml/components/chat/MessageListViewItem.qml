@@ -253,13 +253,9 @@ MessageListViewItemBase {
                             MouseArea {
                                 id: messageInReplyToMouseArea
                                 anchors.fill: parent
-                                onClicked:
-                                    if (precalculatedValues.pageIsSelecting)
-                                        messagesView.toggleMessageSelection(myMessage, messageAlbumMessageIds)
-                                    else
-                                        messagesView.showMessage(messageInReplyToRow.inReplyToMessage.id)
-                                onPressAndHold:
-                                    if (openMenuOnPressAndHold) openContextMenu()
+                                enabled: !messageListItem.precalculatedValues.pageIsSelecting
+                                onClicked: messagesView.showMessage(messageInReplyToRow.inReplyToMessage.id)
+                                onPressAndHold: if (openMenuOnPressAndHold) openContextMenu()
                             }
                         }
                     }

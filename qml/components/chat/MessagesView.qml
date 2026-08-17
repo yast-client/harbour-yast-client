@@ -54,7 +54,6 @@ Column {
     signal resetElements()
     signal navigatedTo(int targetIndex)
 
-    signal elementSelected(int elementIndex)
     signal jumpedTo(int index, var messageId)
 
     function log() {
@@ -824,7 +823,7 @@ Column {
             triggeredOnStart: true
             interval: 5000 // from https://core.telegram.org/constructor/updateChatUserTyping: chat action update is valid for 6 seconds
             repeat: true
-            onTriggered: if (Qt.application.active)
+            onTriggered: if (Qt.application.state === Qt.ApplicationActive)
                              tdLibWrapper.sendChatAction(chatId, action, topicId)
             onRunningChanged: if (!running)
                                   tdLibWrapper.sendChatAction(chatId, topicId)
