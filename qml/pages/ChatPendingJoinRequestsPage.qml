@@ -135,7 +135,12 @@ Page {
 
         delegate: PhotoTextsListItem {
             compact: true
-            pictureThumbnail.photoData: user.info.profile_photo.small
+
+            pictureThumbnail {
+                accentColorId: user.info.accent_color_id
+                photoData: user.info.profile_photo.small
+            }
+
             primaryText.text: utilities.getUserName(user.info)
             // FIXME: should we use Timepoint instead of TimepointRelative here?
             secondaryText.text: qsTr("requested to join %1", "Indicates when a user sent the join request").arg(Functions.getDateTimeTimepointRelative(date))

@@ -25,10 +25,14 @@ Item {
     property int imageStatus: -1
     property bool optimizeImageSize: true
     property bool highlighted
-    property color replacementBackgroundColor: Theme.colorScheme === Theme.LightOnDark ? Theme.darkSecondaryColor : Theme.lightSecondaryColor
+    readonly property color defaultReplacementBackgroundColor: Theme.colorScheme === Theme.LightOnDark ? Theme.darkSecondaryColor : Theme.lightSecondaryColor
+    property alias accentColorId: accentColor.colorId
+    property alias replacementBackgroundColor: replacementBackground.color
 
     layer.enabled: highlighted
     layer.effect: PressEffect { source: profileThumbnail }
+
+    TDLibAccentColor { id: accentColor }
 
     function getReplacementString() {
         // Remove all emoji images
@@ -103,9 +107,9 @@ Item {
         visible: !profileImageLoader.item || !profileImageLoader.item.visible
 
         Rectangle {
-            id: replacementThumbnailBackground
+            id: replacementBackground
             anchors.fill: parent
-            color: replacementBackgroundColor
+            color: accentColor.invalid ? defaultReplacementBackgroundColor : accentColor.builtInColor
             radius: parent.width / 2
             opacity: 0.8
         }

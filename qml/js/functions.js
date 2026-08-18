@@ -310,3 +310,12 @@ function getVideoFile(video) {
     // Returns the file for video, animation or videoNote TDLib object
     return video['@type'] === 'videoNote' ? video.video : video[video['@type']]
 }
+
+function getRgbColor(value) {
+    return Qt.rgba(
+        ((value >> 16) & 0xFF) / 255,
+        ((value >> 8) & 0xFF) / 255,
+        (value & 0xFF) / 255,
+        1.0
+    )
+}

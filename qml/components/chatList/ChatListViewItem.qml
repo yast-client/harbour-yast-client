@@ -5,6 +5,7 @@
 import QtQuick 2.6
 import Sailfish.Silica 1.0
 import io.yaqtlib 1.0
+import "../tdlib"
 
 import ".."
 import "../../js/twemoji.js" as Emoji
@@ -13,18 +14,19 @@ import "../../js/functions.js" as Functions
 MessageableListItem {
     id: listItem
 
+    property int chatListType: ChatFoldersModel.FolderMain
+    property int folderId
+
     property bool isSavedMessages: chat_id === tdData.myUserId
 
     pictureThumbnail {
+        accentColorId: accent_color_id
         photoData: photo_data.small || ({})
         minithumbnail: photo_data.minithumbnail
         highlighted: listItem.highlighted && !listItem.menuOpen
         // TODO: use different rounding for all forums (even if view_as_topics = false), and in other app places too (not just here)
         radius: view_as_topics ? Theme.paddingLarge : pictureThumbnail.width / 2
     }
-
-    property int chatListType: ChatFoldersModel.FolderMain
-    property int folderId
 
     titleText: title
     previewText: chat_actions_text || (showDraft ? draft_message_text : last_message_text)
@@ -159,5 +161,4 @@ MessageableListItem {
             }
         }
     }
-
 }

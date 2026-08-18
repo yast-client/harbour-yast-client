@@ -7,6 +7,7 @@ import Sailfish.Silica 1.0
 import io.yaqtlib 1.0
 import Sailfish.Share 1.0
 import "../components"
+import "../components/tdlib"
 import "../js/twemoji.js" as Emoji
 import "../js/functions.js" as Functions
 import "../js/debug.js" as Debug
@@ -144,6 +145,7 @@ Page {
                     compact: true
 
                     pictureThumbnail {
+                        accentColorId: accent_color_id
                         photoData: photo_data ? (photo_data.small || {}) : {}
                         minithumbnail: photo_data.minithumbnail
                     }

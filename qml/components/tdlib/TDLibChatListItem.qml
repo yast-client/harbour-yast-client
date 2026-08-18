@@ -138,9 +138,12 @@ PhotoTextsListItem {
         onSupergroupFullInfoReceived: handleSupergroupFullInfo(groupId, groupFullInfo)
     }
 
-    pictureThumbnail.photoData: chatId
-                                ? (typeof chatInformation.photo.small !== 'undefined' ? chatInformation.photo.small : {})
-                                : (isPrivateChat && relatedInformation && relatedInformation.profile_photo ? relatedInformation.profile_photo.small : {})
+    pictureThumbnail {
+        accentColorId: (chatId ? chatInformation : relatedInformation).accent_color_id
+        photoData: chatId
+                   ? (typeof chatInformation.photo.small !== 'undefined' ? chatInformation.photo.small : {})
+                   : (isPrivateChat && relatedInformation && relatedInformation.profile_photo ? relatedInformation.profile_photo.small : {})
+    }
 
     primaryText.text: Emoji.emojify(chatInformation.title || (isPrivateChat ? utilities.getUserName(relatedInformation) : qsTr("Unknown")), primaryText.font.pixelSize)
     prologSecondaryText.text: chatTypeName
