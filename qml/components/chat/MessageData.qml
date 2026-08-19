@@ -17,10 +17,10 @@ QtObject {
     property bool isFirstInSequence: true
     property bool isLastInSequence: true
 
-    readonly property bool isAlbum: message && message.media_album_id && message.media_album_id !== '0'
+    readonly property bool isAlbum: !!(message && message.media_album_id && message.media_album_id !== '0')
 
-    readonly property bool isOwnMessage: message && tdData.myUserId === message.sender_id.user_id
-    readonly property bool isOutgoing: message && message.is_outgoing && !message.is_channel_post
+    readonly property bool isOwnMessage: !!message && tdData.myUserId === message.sender_id.user_id
+    readonly property bool isOutgoing: !!message && message.is_outgoing && !message.is_channel_post
     readonly property bool isOutgoingRead: messagesView.readable && isOutgoing && messageId <= messagesModel.lastReadOutboxMessageId
 
     signal replyToMessage

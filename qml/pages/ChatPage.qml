@@ -25,7 +25,7 @@ Page {
     readonly property var secretChatDetails: chatManager.secretChatInfo
     property bool isPrivateChat: chatManagerLoader.chatManager.chatType === TDLibAPI.ChatTypePrivate
     property bool isSecretChat: chatManager.chatType === TDLibAPI.ChatTypeSecret
-    property bool isSecretChatReady: chatPage.secretChatDetails && chatPage.secretChatDetails.state['@type'] === 'secretChatStateReady'
+    property bool isSecretChatReady: !!chatPage.secretChatDetails && chatPage.secretChatDetails.state['@type'] === 'secretChatStateReady'
     property bool isBasicGroup: chatManager.chatType === TDLibAPI.ChatTypeBasicGroup
     property bool isSupergroup: chatManager.chatType === TDLibAPI.ChatTypeSupergroup
     property bool isChannel: chatManager.isChannel

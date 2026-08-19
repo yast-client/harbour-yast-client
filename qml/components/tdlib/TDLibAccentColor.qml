@@ -8,7 +8,7 @@ QtObject {
     readonly property bool builtIn: colorId >= 0 && colorId <= 6
     property var accentColor: tdData.getAccentColor(colorId)
     readonly property bool invalid: !builtIn && !accentColor
-    readonly property int builtInColorId: builtIn ? colorId : accentColor.built_in_accent_color_id
+    readonly property int builtInColorId: invalid ? -1 : (builtIn ? colorId : accentColor.built_in_accent_color_id)
     readonly property int minChannelChatBoostLevel: accentColor ? accentColor.min_channel_chat_boost_level : -1
 
     readonly property color builtInColorBase: invalid ? 'black'

@@ -162,7 +162,7 @@ Column {
         isPrepared = true
 
         if (draftMessage) {
-            if (draftMessage.content && draftMessage.content['@type'] == 'draftMessageContentText')
+            if (draftMessage.content && draftMessage.content['@type'] === 'draftMessageContentText')
                 newMessageTextField.text = draftMessage.content.text.text
             if (draftMessage.reply_to_message_id)
                 tdLibWrapper.getMessage(chatId, draftMessage.reply_to_message_id)
@@ -719,7 +719,7 @@ Column {
                         // FIXME: find a better way to fix this
                         id: messageIndexTimer
                         interval: 0
-                        onTriggered: messageData.messageIndex = Qt.binding(function() { return chatProxyModel.mapRowToSource(originalIndex) })
+                        onTriggered: messageData.messageIndex = Qt.binding(function() { return chatProxyModel.mapRowToSource(messageData.originalIndex) })
                     }
 
                     onReplyToMessage: messageLoader.replyToMessage()
