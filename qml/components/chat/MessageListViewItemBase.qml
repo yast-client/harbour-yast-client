@@ -25,6 +25,7 @@ ListItem {
 
     readonly property var myMessage: messageData.message
     readonly property var messageId: messageData.messageId
+    readonly property bool isSponsored: messageData.isSponsored
     readonly property int messageIndex: messageData.messageIndex
     readonly property var messageAlbumMessageIds: messageData.messageAlbumMessageIds
     readonly property var messageAlbumMessages: messageData.messageAlbumMessages

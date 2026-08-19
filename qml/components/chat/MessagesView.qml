@@ -703,6 +703,7 @@ Column {
                 property MessageData messageData: MessageData {
                     message: model.display
                     messageId: model.message_id
+                    isSponsored: model.is_sponsored
                     messageIndex: chatProxyModel.mapRowToSource(originalIndex)
                     messageAlbumMessageIds: model.album_message_ids
                     messageAlbumMessages: model.album_messages

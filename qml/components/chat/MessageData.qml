@@ -7,6 +7,7 @@ import QtQuick 2.0
 QtObject {
     property var message
     property var messageId
+    property bool isSponsored
     property int messageIndex
     property var messageAlbumMessageIds
     property var messageAlbumMessages
