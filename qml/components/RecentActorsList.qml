@@ -26,14 +26,12 @@ Item {
 
             highlighted: parent.highlighted
 
-            photoData: isChat
-                       ? tdData.getChat(modelData.chat_id).photo.small
-                       : userInfoLoader.info.profile_photo.small
-            replacementStringHint: isChat
-                                   ? tdData.getChat(modelData.chat_id).title
-                                   : utilities.getUserName(userInfoLoader.info)
+            accentColorId: userInfoLoader.info.accent_color_id
+            photoData: isChat ? chatData.photo.small : userInfoLoader.info.profile_photo.small
+            replacementStringHint: isChat ? chatData.title : utilities.getUserName(userInfoLoader.info)
 
             property bool isChat: !userIds && modelData['@type'] === 'messageSenderChat'
+            property var chatData: isChat ? tdData.getChat(modelData.chat_id) : null
 
             TDLibUser {
                 id: userInfoLoader
@@ -41,14 +39,10 @@ Item {
             }
 
             Connections {
-                // FIXME: this can be improved (maybe use QQmlPropertyMaps for storing chat info?):
                 target: isChat ? tdData : null
-                onChatTitleUpdated:
-                    if (chatId === modelData.chat_id)
-                        profileThumbnail.replacementStringHint = title
-                onChatPhotoUpdated:
-                    if (chatId === modelData.chat_id)
-                        profileThumbnail.photoData = photo.small
+                onChatRolesUpdated:
+                    if (chatId === modelData.chat_id && utilities.hasRoleInVector(changedRoles, [TDLibChat.RoleTitle, TDLibChat.RolePhoto, TDLibChat.RoleAccentColorId]))
+                        chatData = Qt.binding(function() { return isChat ? tdData.getChat(modelData.chat_id) : null })
             }
         }
     }

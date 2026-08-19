@@ -138,6 +138,7 @@ Page {
 
             pictureThumbnail {
                 accentColorId: user.info.accent_color_id
+                minithumbnail: user.info.profile_photo.minithumbnail
                 photoData: user.info.profile_photo.small
             }
 

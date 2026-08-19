@@ -119,6 +119,7 @@ MessageListViewItemBase {
             sourceComponent: Component {
                 ProfileThumbnail {
                     anchors.fill: parent
+                    accentColorId: messageSenderInfo.accentColorId
                     photoData: messageSenderInfo.smallPhoto
                     replacementStringHint: messageSenderText.text
                     highlighted: profileThumbnailMouseArea.containsPress
@@ -290,6 +291,7 @@ MessageListViewItemBase {
 
                                 ProfileThumbnail {
                                     id: forwardedThumbnail
+                                    accentColorId: forwardedOriginSender.accentColorId
                                     photoData: forwardedOriginSender.smallPhoto
                                     replacementStringHint: forwardedChannelText.text
                                     width: Theme.itemSizeExtraSmall

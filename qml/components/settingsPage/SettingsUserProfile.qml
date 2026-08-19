@@ -183,6 +183,7 @@ AccordionItem {
                         anchors.horizontalCenter: parent.horizontalCenter
                         width: Theme.itemSizeExtraLarge
                         height: Theme.itemSizeExtraLarge
+                        accentColorId: userInformation.accent_color_id
                         photoData: userInformation.profile_photo.small
                         replacementStringHint: utilities.getUserName(userInformation)
                         radius: parent.width / 2

@@ -282,6 +282,7 @@ Page {
                                                 property var chatInformation: tdData.getChat(modelData)
                                                 primaryText.text: Emoji.emojify(chatInformation.title, primaryText.font.pixelSize)
                                                 pictureThumbnail {
+                                                    accentColorId: typeof chatInformation.accent_color_id !== 'undefined' ? chatInformation.accent_color_id : -1
                                                     minithumbnail: typeof chatInformation.photo.minithumbnail !== "undefined" ? chatInformation.photo.minithumbnail : ({})
                                                     photoData: typeof chatInformation.photo.small !== "undefined" ? chatInformation.photo.small : ({})
                                                 }

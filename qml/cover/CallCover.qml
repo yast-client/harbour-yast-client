@@ -30,6 +30,7 @@ CoverBackground {
                 width: Theme.iconSizeMedium
                 height: width
                 anchors.verticalCenter: parent.verticalCenter
+                accentColorId: user.info.accent_color_id
                 photoData: typeof user.info.profile_photo.small !== 'undefined' ? user.info.profile_photo.small : null
                 replacementStringHint: userName
             }

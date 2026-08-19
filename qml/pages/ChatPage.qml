@@ -328,7 +328,11 @@ Page {
 
                     isSecret: chatPage.isSecretChat
                     chatNameText.text: getChatTitle(chatNameText.font.pixelSize)
-                    pictureThumbnail.photoData: chatManager.photo.small
+                    pictureThumbnail {
+                        accentColorId: chatManager.accentColorId
+                        minithumbnail: chatManager.photo.minithumbnail
+                        photoData: chatManager.photo.small
+                    }
                     chatBadges.verificationStatus: chatGroupInformation ? chatGroupInformation.verification_status : null
 
                     property bool _reloadStatus

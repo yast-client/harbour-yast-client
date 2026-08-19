@@ -31,7 +31,7 @@ QtObject {
     }
 
     readonly property Connections tdListener: Connections {
-        target: builtIn || colorId < 0 ? null : tdData
+        target: builtIn || colorId == -1 ? null : tdData
         ignoreUnknownSignals: true
         onAccentColorsUpdated: accentColor = Qt.binding(function() { return tdData.getAccentColor(colorId) })
     }

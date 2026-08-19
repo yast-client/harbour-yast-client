@@ -203,6 +203,7 @@ SilicaFlickable {
 
             ProfileThumbnail {
                 id: chatPictureThumbnail
+                accentColorId: chatManager.accentColorId
                 photoData: imageContainer.hasImage ? chatInformation.photo.small : null
                 replacementStringHint: headerItem.title
                 width: parent.width

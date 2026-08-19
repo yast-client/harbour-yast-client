@@ -39,6 +39,7 @@ Dialog {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: Theme.itemSizeLarge
                 height: width
+                accentColorId: invite.accent_color_id
                 photoData: utilities.findPhotoSize(invite.photo.sizes, width).photo
                 replacementStringHint: invite.title
             }
@@ -91,6 +92,7 @@ Dialog {
                         width: Theme.itemSizeLarge
                         contentHeight: content.height + 2*Theme.paddingMedium
                         pictureThumbnail {
+                            accentColorId: user.info.accent_color_id
                             minithumbnail: user.info.profile_photo.minithumbnail
                             photoData: user.info.profile_photo.small || ({})
                         }
