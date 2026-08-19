@@ -59,7 +59,7 @@ SilicaFlickable {
 
     function handleSupergroupFullInfo(groupId, groupFullInfo, updated) {
         Debug.log(updated ? "onSupergroupFullInfoUpdated" : "onSupergroupFullInfoReceived",
-                  isSupergroup, groupInformation.id, groupId)
+                  isSupergroup, groupInformation ? groupInformation.id : '', groupId)
         if(isSupergroup && groupInformation.id === groupId) {
             chatInformationPage.groupFullInformation = groupFullInfo
             fullInfoReady = true
