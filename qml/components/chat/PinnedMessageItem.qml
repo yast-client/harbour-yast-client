@@ -191,7 +191,7 @@ Item {
             else if (currentIndex >= count - 1 - 10)
                 model.loadMoreFuture()
 
-            if (wasDragged && (model.locked && (!model.lockedEnd || currentIndex == count - 1)) || currentIndex !== model.currentMessageIndex) {
+            if (wasDragged && ((model.locked && (!model.lockedEnd || currentIndex == count - 1)) || currentIndex !== model.currentMessageIndex)) {
                 Debug.log("[PinnedMessageItem] Current index changed due to a drag")
                 model.locked = true
                 model.lockedEnd = false
