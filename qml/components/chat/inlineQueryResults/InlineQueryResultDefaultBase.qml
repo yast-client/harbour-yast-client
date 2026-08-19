@@ -34,7 +34,7 @@ InlineQueryResult {
         height: width
         opacity: status === Image.Ready ? 1.0 : 0.0
 
-        Behavior on opacity { FadeAnimation {} }
+        Behavior on opacity { FadeAnimator {} }
         layer.enabled: queryResultItem.pressed
         layer.effect: PressEffect { source: thumbnail }
 
@@ -48,7 +48,7 @@ InlineQueryResult {
         id: icon
         asynchronous: true
         anchors.centerIn: thumbnail
-        Behavior on opacity { FadeAnimation {} }
+        Behavior on opacity { FadeAnimator {} }
     }
 
     Column {

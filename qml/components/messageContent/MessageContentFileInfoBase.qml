@@ -73,7 +73,7 @@ MessageContentBase {
                 visible: opacity > 0
                 opacity: file.isDownloadingActive ? 1.0 : 0.0
                 anchors.centerIn: parent
-                Behavior on opacity { FadeAnimation {} }
+                Behavior on opacity { FadeAnimator {} }
             }
             Rectangle {
                 anchors.centerIn: downloadNeededIndicatorIcon
@@ -82,7 +82,7 @@ MessageContentBase {
 
                 color: Theme.rgba(Theme.overlayBackgroundColor, 0.2)
                 opacity: file.isDownloadingActive ? 1.0 : 0.0
-                Behavior on opacity { FadeAnimation {} }
+                Behavior on opacity { FadeAnimator {} }
                 visible: opacity > 0
                 radius: width/2
             }
@@ -97,7 +97,7 @@ MessageContentBase {
                 sourceSize.width: width
                 sourceSize.height: height
                 opacity: file.isDownloadingCompleted ? 0.0 : 1.0
-                Behavior on opacity { FadeAnimation {} }
+                Behavior on opacity { FadeAnimator {} }
                 anchors {
                     right: parent.right
                     bottom: parent.bottom
@@ -168,7 +168,7 @@ MessageContentBase {
             width: file.isDownloadingCompleted ? Theme.itemSizeMedium : 0
             visible: opacity > 0
 
-            Behavior on opacity { FadeAnimation {} }
+            Behavior on opacity { FadeAnimator {} }
             Behavior on width { NumberAnimation { duration: 200 } }
             icon {
                 asynchronous: true

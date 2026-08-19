@@ -94,7 +94,7 @@ Item {
                 fillMode: thumbnailImage.fillMode == Image.PreserveAspectFit ? Thumbnail.PreserveAspectFit : Thumbnail.PreserveAspectCrop
                 visible: opacity > 0
                 opacity: status === Thumbnail.Ready ? 1.0 : 0.0
-                Behavior on opacity { FadeAnimation {} }
+                Behavior on opacity { FadeAnimator {} }
             }
         }
     }

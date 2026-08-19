@@ -59,7 +59,7 @@ Item {
                 height: width
                 visible: opacity > 0
                 opacity: (photo.minithumbnailReady || photo.image.status === Image.Ready) ? 1 : 0
-                Behavior on opacity { FadeAnimation {} }
+                Behavior on opacity { FadeAnimator {} }
 
                 // if this will have bad performance, we can put Image and TDLibThumbnail here manually
                 TDLibPhoto {

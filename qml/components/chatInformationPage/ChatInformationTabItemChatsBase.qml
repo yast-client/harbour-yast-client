@@ -33,7 +33,7 @@ ChatInformationTabItemBase {
         height: tabBase.height
         width: tabBase.width
         opacity: loading && !fullyLoaded ? (count > 0 ? 0.5 : 0.0) : 1.0
-        Behavior on opacity { FadeAnimation {} }
+        Behavior on opacity { FadeAnimator {} }
         onContentYChanged: {
             if (active && !loading && !fullyLoaded && listView.indexAt(listView.contentX, listView.contentY) > Math.max(0, listView.count - 20)) {
                 Debug.log("[ChatInformationTabItemChatsBase] Trying to get more items...")

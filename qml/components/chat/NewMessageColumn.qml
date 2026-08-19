@@ -696,7 +696,7 @@ Column {
                 icon.source: "image://theme/icon-m-cancel"
                 visible: parent.visible
                 opacity: inlineQuery.isLoading ? 0.2 : 1
-                Behavior on opacity { FadeAnimation {} }
+                Behavior on opacity { FadeAnimator {} }
                 onClicked: {
                     if(inlineQuery.query !== "") {
                         newMessageTextField.text = "@" + inlineQuery.userName + " "

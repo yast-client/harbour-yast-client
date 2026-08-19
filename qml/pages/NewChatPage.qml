@@ -140,7 +140,7 @@ Page {
                 delegate: PhotoTextsListItem {
                     id: contactListItem
                     opacity: visible ? 1 : 0
-                    Behavior on opacity { FadeAnimation {} }
+                    Behavior on opacity { FadeAnimator {} }
 
                     compact: true
 

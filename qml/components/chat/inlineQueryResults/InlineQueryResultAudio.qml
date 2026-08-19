@@ -46,7 +46,7 @@ InlineQueryResult {
         height: parent.height
         width: height
         opacity: item && item.status === Image.Ready ? 0.5 : 0.0
-        Behavior on opacity { FadeAnimation {} }
+        Behavior on opacity { FadeAnimator {} }
         sourceComponent: Component {
             Image {
                 id: thumbnailImage
@@ -90,7 +90,7 @@ InlineQueryResult {
         height: Theme.iconSizeMedium
         anchors.centerIn: playPauseButton
         opacity: file.isDownloadingActive ? 1.0 : 0.0
-        Behavior on opacity { FadeAnimation {} }
+        Behavior on opacity { FadeAnimator {} }
     }
 
     Audio {

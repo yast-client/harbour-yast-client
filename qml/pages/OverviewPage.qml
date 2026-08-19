@@ -467,7 +467,7 @@ Page {
         visible: opacity > 0
         invert: true
         anchors.fill: parent
-        Behavior on opacity { FadeAnimation {} }
+        Behavior on opacity { FadeAnimator {} }
         opacity: overviewPage.titleInteractionHintActive ? 1 : 0
     }
 

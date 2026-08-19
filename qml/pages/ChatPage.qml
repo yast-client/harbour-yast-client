@@ -394,7 +394,7 @@ Page {
                     height: searchInChatField.height
                     visible: false
                     opacity: visible ? 1 : 0
-                    Behavior on opacity { FadeAnimation {} }
+                    Behavior on opacity { FadeAnimator {} }
 
                     SearchField {
                         id: searchInChatField

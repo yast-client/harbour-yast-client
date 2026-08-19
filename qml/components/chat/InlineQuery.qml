@@ -192,7 +192,7 @@ Loader {
                 asynchronous: true
                 active: !!(buttonData && buttonData.text && buttonData.type)
                 opacity: status === Loader.Ready ? 1.0 : 0.0
-                Behavior on opacity { FadeAnimation {} }
+                Behavior on opacity { FadeAnimator {} }
                 anchors {
                     top: parent.bottom
                     topMargin: Theme.paddingSmall
@@ -220,7 +220,7 @@ Loader {
                 active: inlineQueryComponent.resultModel.count > 0
                 anchors.fill: parent
                 opacity: !!item ? 1.0 : 0.0
-                Behavior on opacity { FadeAnimation {} }
+                Behavior on opacity { FadeAnimator {} }
                 property var supportedResultTypes: [
                     "inlineQueryResultAnimation",
                     "inlineQueryResultArticle",

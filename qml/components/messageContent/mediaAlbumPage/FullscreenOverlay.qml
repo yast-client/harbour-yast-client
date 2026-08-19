@@ -177,13 +177,13 @@ Item {
             Behavior on height { NumberAnimation {duration: 300} }
             Behavior on text {
                 SequentialAnimation {
-                    FadeAnimation {
+                    FadeAnimator {
                         target: captionLabel
                         to: 0.0
                         duration: 300
                     }
                     PropertyAction {}
-                    FadeAnimation {
+                    FadeAnimator {
                         target: captionLabel
                         to: 1.0
                         duration: 300

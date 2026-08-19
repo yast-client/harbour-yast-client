@@ -61,7 +61,7 @@ MessageContentBase {
             opacity: status === Image.Ready ? 1.0 : 0.0
             width: parent.width
 
-            Behavior on opacity { FadeAnimation {} }
+            Behavior on opacity { FadeAnimator {} }
             layer.enabled: messageContent.highlighted
             layer.effect: PressEffect { source: thumbnail }
 

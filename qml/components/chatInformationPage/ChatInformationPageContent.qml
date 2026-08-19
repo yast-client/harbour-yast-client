@@ -547,7 +547,7 @@ SilicaFlickable {
                 }
                 opacity: (tabViewLoader.status === Loader.Ready && tabViewLoader.item.count > 0) ? 1.0 : 0.0
 
-                Behavior on opacity { FadeAnimation {}}
+                Behavior on opacity { FadeAnimator {}}
             }
         }
 

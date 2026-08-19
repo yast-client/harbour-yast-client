@@ -63,7 +63,7 @@ BackgroundItem {
         Item {
             id: textContainer
             opacity: visible ? 1 : 0
-            Behavior on opacity { FadeAnimation {} }
+            Behavior on opacity { FadeAnimator {} }
             width: parent.width - pictureThumbnail.width - Theme.paddingMedium
             height: chatNameRow.height + chatStatusText.height
             anchors.bottom: parent.bottom

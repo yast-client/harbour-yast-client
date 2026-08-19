@@ -14,7 +14,7 @@ SilicaListView {
     visible: !overviewPage.loading
     clip: true
     opacity: (overviewPage.chatListCreated || overviewPage.logoutLoading) ? 1 : 0
-    Behavior on opacity { FadeAnimation {} }
+    Behavior on opacity { FadeAnimator {} }
 
     //property bool replacePage
     property int chatListType: ChatFoldersModel.FolderMain

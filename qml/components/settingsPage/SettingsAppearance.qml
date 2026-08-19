@@ -73,7 +73,7 @@ AccordionItem {
                 }
                 visible: !appSettings.showStickersAsEmojis
                 opacity: visible ? 1 : 0
-                Behavior on opacity { FadeAnimation  { } }
+                Behavior on opacity { FadeAnimator  { } }
             }
 
             Item {
@@ -93,7 +93,7 @@ AccordionItem {
                 }
                 visible: !appSettings.showStickersAsEmojis
                 opacity: visible ? 1 : 0
-                Behavior on opacity { FadeAnimation {} }
+                Behavior on opacity { FadeAnimator {} }
             }
 
             TextSwitch {
@@ -101,7 +101,7 @@ AccordionItem {
                 checked: appSettings.videoStickers
                 visible: !appSettings.showStickersAsEmojis
                 opacity: visible ? 1 : 0
-                Behavior on opacity { FadeAnimation {} }
+                Behavior on opacity { FadeAnimator {} }
                 text: qsTr("Video stickers")
                 //description: qsTr("Animated stickers option doesn't affect this")
                 automaticCheck: false
@@ -113,7 +113,7 @@ AccordionItem {
                 checked: appSettings.downscaleAnimatedStickers
                 visible: !appSettings.showStickersAsEmojis && appSettings.animateStickers
                 opacity: visible ? 1 : 0
-                Behavior on opacity { FadeAnimation {} }
+                Behavior on opacity { FadeAnimator {} }
                 text: qsTr("Downscale animated stickers")
                 description: qsTr("May improve performance on low-end devices")
                 automaticCheck: false

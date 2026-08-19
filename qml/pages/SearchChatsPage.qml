@@ -148,7 +148,7 @@ Page {
                         height: parent.height - searchField.height
                         visible: !searchChatsPage.isLoading
                         opacity: visible ? 1 : 0
-                        Behavior on opacity { FadeAnimation {} }
+                        Behavior on opacity { FadeAnimator {} }
 
                         readonly property bool haveNoLocalResults: headerItem
                                                                    && headerItem.localSearchListView.count == 0

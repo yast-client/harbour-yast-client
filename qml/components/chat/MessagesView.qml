@@ -496,7 +496,7 @@ Column {
 
             anchors.fill: parent
             opacity: loading ? 0 : 1
-            Behavior on opacity { FadeAnimation {} }
+            Behavior on opacity { FadeAnimator {} }
             clip: true
             highlightMoveDuration: 0
             highlightResizeDuration: 0
