@@ -107,10 +107,12 @@ Item {
         }
     }
 
+
     PagedView {
         id: pinnedMessagesView
         width: parent.width
-        height: currentItem ? currentItem.height : Theme.itemSizeMedium
+        height: listItem.height
+        contentItem.height: Theme.itemSizeMedium
         direction: PagedView.TopToBottom
         wrapMode: PagedView.NoWrap
         cacheSize: 2
@@ -200,10 +202,10 @@ Item {
             }
         }
 
-        delegate: ListItem {
+        delegate: Item {
             id: pinnedMessageItem
             width: PagedView.contentWidth
-            contentHeight: Theme.itemSizeMedium
+            height: PagedView.contentHeight
 
             property var messageId: model.message_id
             property var messageData: model.display
@@ -215,22 +217,6 @@ Item {
                 id: messageProperties
                 chatId: chatPage.chatId
                 messageId: pinnedMessageItem.messageId
-            }
-
-            onClicked: {
-                pinnedMessagesModel.locked = true
-                if (pinnedMessagesView.currentIndex == 0) {
-                    if (pinnedMessagesModel.endReached) {
-                        pinnedMessagesModel.lockedEnd = false
-                        pinnedMessagesView.currentIndex = pinnedMessagesView.count - 1
-                    } else {
-                        pinnedMessagesModel.lockedEnd = true
-                        pinnedMessagesModel.init(chatPage.chatId)
-                    }
-                } else
-                    pinnedMessagesView.currentIndex--
-
-                messagesView.showMessage(messageId)
             }
 
             Row {
@@ -305,6 +291,30 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     onClicked: hideAnimation.start()
                 }
+            }
+        }
+
+        ListItem {
+            id: listItem
+            contentHeight: pinnedMessagesView.contentItem.height
+
+            onClicked: {
+                if (!pinnedMessagesView.currentItem) return
+                var messageId = pinnedMessagesView.currentItem.messageId
+
+                pinnedMessagesModel.locked = true
+                if (pinnedMessagesView.currentIndex == 0) {
+                    if (pinnedMessagesModel.endReached) {
+                        pinnedMessagesModel.lockedEnd = false
+                        pinnedMessagesView.currentIndex = pinnedMessagesView.count - 1
+                    } else {
+                        pinnedMessagesModel.lockedEnd = true
+                        pinnedMessagesModel.init(chatPage.chatId)
+                    }
+                } else
+                    pinnedMessagesView.currentIndex--
+
+                messagesView.showMessage(messageId)
             }
 
             Component {
