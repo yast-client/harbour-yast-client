@@ -124,6 +124,7 @@
         <source>You are now %n steps away from enabling debug mode</source>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -195,11 +196,13 @@
         <source>First name must have 1-%Ln characters</source>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Last name length must be less than %Ln</source>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -210,6 +213,7 @@
     <message numerus="yes">
         <source>Note length must be less than %Ln</source>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -577,6 +581,7 @@
         <source>Enter 1-%Ln characters</source>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -586,6 +591,7 @@
     <message numerus="yes">
         <source>Enter 0-%Ln characters</source>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -702,6 +708,7 @@
         <comment>Info label suggesting the user to get Telegram Premium to access more similar bots</comment>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
 </context>
@@ -711,6 +718,7 @@
         <source>Subscribe to Telegram Premium to unlock up to %Ln similar channels.</source>
         <comment>Info label suggesting the user to get Telegram Premium to access more similar channels</comment>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -863,6 +871,7 @@
         <source>Mute for %Ln hours</source>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -892,6 +901,7 @@
         <source>Forward %Ln messages</source>
         <comment>dialog header</comment>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -969,6 +979,7 @@
         <source>%n join requests</source>
         <comment>banner indicating that there are unreviewed group join requests, for admins</comment>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -1083,6 +1094,7 @@ Please take a look at the %1Telegram FAQ%2: it has answers to most questions and
         <source>Synced %Ln contacts</source>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -1096,6 +1108,7 @@ Please take a look at the %1Telegram FAQ%2: it has answers to most questions and
         <source>unread messages</source>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -1105,6 +1118,7 @@ Please take a look at the %1Telegram FAQ%2: it has answers to most questions and
     <message numerus="yes">
         <source>chats</source>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -1306,6 +1320,7 @@ Please take a look at the %1Telegram FAQ%2: it has answers to most questions and
         <comment>dialog header</comment>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
 </context>
@@ -1385,6 +1400,7 @@ Please take a look at the %1Telegram FAQ%2: it has answers to most questions and
     <message numerus="yes">
         <source>Last %Ln digits</source>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -1484,6 +1500,7 @@ Pull down to visit telegram.org</source>
         <source>We&apos;ve sent a %Ln-digit recovery code to %1. Please check your email and enter it here.</source>
         <comment>%1 is the email address</comment>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -1646,11 +1663,13 @@ Pull down to visit telegram.org</source>
         <comment>myself</comment>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>scored %Ln points in %2</source>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -1674,12 +1693,14 @@ Pull down to visit telegram.org</source>
         <comment>% of votes for option</comment>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%Ln vote(s) total</source>
         <comment>number of total votes</comment>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -1775,6 +1796,7 @@ Pull down to visit telegram.org</source>
         <comment>number of messages selected</comment>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -1786,11 +1808,13 @@ Pull down to visit telegram.org</source>
         <source>%Ln messages have been copied</source>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%Ln Messages deleted</source>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -1995,6 +2019,7 @@ Pull down to visit telegram.org</source>
         <source>%Ln characters left</source>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -2137,12 +2162,14 @@ Pull down to visit telegram.org</source>
         <comment>Title for a notification containing messages with mentions from a group chat. Mention count is displayed separately</comment>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Mentions from %1</source>
         <comment>Title for a notification containing messages with mentions from a private chat. Mention count is displayed separately</comment>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -2250,6 +2277,7 @@ Pull down to visit telegram.org</source>
         <source>show license(s)</source>
         <translation>
             <numerusform>Afficher la licence</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -2308,6 +2336,7 @@ Pull down to visit telegram.org</source>
         <source>License(s)</source>
         <translation>
             <numerusform>Licence</numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -2441,6 +2470,7 @@ Pull down to visit telegram.org</source>
         <source>%Ln pinned messages</source>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -2458,6 +2488,7 @@ Pull down to visit telegram.org</source>
     <message numerus="yes">
         <source>Pinned message #%Ln</source>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -2493,6 +2524,7 @@ Pull down to visit telegram.org</source>
         <comment>number of total votes</comment>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -2505,12 +2537,14 @@ Pull down to visit telegram.org</source>
         <comment>number of votes for option</comment>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%Ln vote(s)</source>
         <comment>number of votes for option</comment>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -2519,12 +2553,14 @@ Pull down to visit telegram.org</source>
         <comment>% of votes for option</comment>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Show %Ln more</source>
         <comment>Button to show %Ln more poll voters</comment>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -2604,6 +2640,7 @@ Pull down to visit telegram.org</source>
         <comment>First part of &quot;Added %Ln proxies, %Ln failed&quot;</comment>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
@@ -2611,11 +2648,13 @@ Pull down to visit telegram.org</source>
         <comment>Second part of &quot;Added %Ln proxies, %Ln failed&quot;</comment>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>Failed to add %Ln proxies</source>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -2623,10 +2662,15 @@ Pull down to visit telegram.org</source>
         <source>Added %Ln proxies</source>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
         <source>Add proxy from clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Try connecting through IPv6</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3115,6 +3159,7 @@ Pull down to visit telegram.org</source>
         <source>%1 day(s)</source>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -3151,6 +3196,7 @@ Pull down to visit telegram.org</source>
     <message numerus="yes">
         <source>&lt;b&gt;%Ln&lt;/b&gt; files, totalling &lt;b&gt;%1&lt;/b&gt;</source>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -3299,6 +3345,7 @@ Pull down to visit telegram.org</source>
     <message numerus="yes">
         <source>%1 members</source>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -3678,11 +3725,13 @@ Pull down to visit telegram.org</source>
         <comment>myself</comment>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>scored %Ln points</source>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -3707,11 +3756,13 @@ Pull down to visit telegram.org</source>
         <comment>myself</comment>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>boosted this chat %Ln times</source>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -3924,6 +3975,7 @@ Pull down to visit telegram.org</source>
         <comment>names</comment>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -3933,6 +3985,7 @@ Pull down to visit telegram.org</source>
     <message numerus="yes">
         <source>%1 is typing</source>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -3944,6 +3997,7 @@ Pull down to visit telegram.org</source>
         <source>%1 is recording a video</source>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -3953,6 +4007,7 @@ Pull down to visit telegram.org</source>
     <message numerus="yes">
         <source>%1 is sending a video</source>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -3964,6 +4019,7 @@ Pull down to visit telegram.org</source>
         <source>%1 is recording a voice message</source>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -3973,6 +4029,7 @@ Pull down to visit telegram.org</source>
     <message numerus="yes">
         <source>%1 is sending a voice message</source>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -3984,6 +4041,7 @@ Pull down to visit telegram.org</source>
         <source>%1 is sending a photo</source>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -3993,6 +4051,7 @@ Pull down to visit telegram.org</source>
     <message numerus="yes">
         <source>%1 is sending a file</source>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -4004,6 +4063,7 @@ Pull down to visit telegram.org</source>
         <source>%1 is choosing a sticker</source>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -4013,6 +4073,7 @@ Pull down to visit telegram.org</source>
     <message numerus="yes">
         <source>%1 is choosing location</source>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -4024,6 +4085,7 @@ Pull down to visit telegram.org</source>
         <source>%1 is choosing a contact</source>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -4033,6 +4095,7 @@ Pull down to visit telegram.org</source>
     <message numerus="yes">
         <source>%1 is playing a game</source>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -4044,6 +4107,7 @@ Pull down to visit telegram.org</source>
         <source>%1 is recording a video message</source>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -4053,6 +4117,7 @@ Pull down to visit telegram.org</source>
     <message numerus="yes">
         <source>%1 is sending a video message</source>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -4121,6 +4186,7 @@ Pull down to visit telegram.org</source>
         <source>%1 is watching %2</source>
         <comment>%1 is watching an animation, %2 is the emoji describing the animation being watched</comment>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -4285,11 +4351,13 @@ Pull down to visit telegram.org</source>
         <source>%1 members</source>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <source>%1 online</source>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -4304,6 +4372,7 @@ Pull down to visit telegram.org</source>
     <message numerus="yes">
         <source>%1 subscribers</source>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -4332,6 +4401,7 @@ Pull down to visit telegram.org</source>
         <source>Available (ping: %Ln ms)</source>
         <comment>Indicates that the proxy is available</comment>
         <translation type="unfinished">
+            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
