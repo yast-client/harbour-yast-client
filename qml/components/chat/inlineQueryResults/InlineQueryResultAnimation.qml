@@ -149,7 +149,7 @@ InlineQueryResult {
                         text: '<a href="%1">%1</a>'.arg(link)
                         font.pixelSize: Theme.fontSizeLarge
                         color: Theme.highlightColor
-                        linkColor: Theme.highlightColor
+                        linkColor: palette.highlightColor
                         wrapMode: Text.Wrap
                         onLinkActivated: Qt.openUrlExternally(link)
                     }

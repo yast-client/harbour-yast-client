@@ -117,8 +117,8 @@ Item {
     IconButton {
         id: closeButton
          icon.source: "image://theme/icon-m-cancel?" + (pressed
-                      ? Theme.highlightColor
-                      : Theme.lightPrimaryColor)
+                      ? palette.highlightColor
+                      : palette.lightPrimaryColor)
          onClicked: pageStack.pop()
          anchors {
              right: parent.right
@@ -157,9 +157,9 @@ Item {
                             : Theme.itemSizeMedium
                       : 0;
     //        maximumLineCount: expanded ? 0 : 3
-            color: Theme.primaryColor
+            color: palette.primaryColor
 //            text: model.modelData.content.caption.text
-            linkColor: Theme.highlightColor
+            linkColor: palette.highlightColor
             text: Emoji.emojify(Functions.enhanceMessageText(message.content.caption, false), Theme.fontSizeExtraSmall)
             onTextChanged: expanded = false
             font.pixelSize: Theme.fontSizeExtraSmall

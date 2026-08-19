@@ -56,7 +56,7 @@ GridItem {
                 width: Math.min(contentColumn.width - chatBadges.width - parent.spacing, implicitWidth)
                 font.bold: appSettings.highlightUnreadConversations && ( !chatItem.muted && (chatItem.unreadCount > 0 || chatItem.isMarkedAsUnread) )
                 font.italic: appSettings.highlightUnreadConversations  && (chatItem.unreadReactionCount > 0)
-                color: (appSettings.highlightUnreadConversations && (chatItem.unreadCount > 0)) ? Theme.highlightColor : Theme.primaryColor
+                color: (appSettings.highlightUnreadConversations && (chatItem.unreadCount > 0)) ? palette.highlightColor : palette.primaryColor
             }
 
             ChatBadges {

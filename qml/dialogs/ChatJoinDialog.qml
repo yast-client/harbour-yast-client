@@ -55,7 +55,7 @@ Dialog {
                     font.pixelSize: Theme.fontSizeLarge
                     font.family: Theme.fontFamilyHeading
                     horizontalAlignment: Text.AlignHCenter
-                    color: Theme.highlightColor
+                    color: palette.highlightColor
 
                     rightPadding: badges.width ? (badges.width + Theme.paddingMedium) : 0
                     ChatBadges {
@@ -108,7 +108,7 @@ Dialog {
                 wrapMode: Text.Wrap
                 font.pixelSize: Theme.fontSizeMedium
                 horizontalAlignment: Text.AlignHCenter
-                color: Theme.highlightColor
+                color: palette.highlightColor
             }
 
             Label {
@@ -120,7 +120,7 @@ Dialog {
                 wrapMode: Text.Wrap
                 font.pixelSize: Theme.fontSizeMedium
                 horizontalAlignment: Text.AlignHCenter
-                color: Theme.secondaryHighlightColor
+                color: palette.secondaryHighlightColor
             }
         }
     }

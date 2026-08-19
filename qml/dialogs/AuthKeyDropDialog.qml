@@ -20,7 +20,7 @@ Dialog {
             id: label
             x: Theme.horizontalPageMargin
             width: parent.width - 2*x
-            color: Theme.highlightColor
+            color: palette.highlightColor
             wrapMode: Text.Wrap
         }
     }

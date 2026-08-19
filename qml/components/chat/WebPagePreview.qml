@@ -44,7 +44,7 @@ Item {
             rawText: linkPreviewData.site_name || ""
             font.pixelSize: webPagePreviewItem.fontSize
             font.bold: true
-            color: Theme.secondaryHighlightColor
+            color: palette.secondaryHighlightColor
             maxLineCount: 1
         }
 
@@ -66,7 +66,7 @@ Item {
             font.pixelSize: webPagePreviewItem.fontSize
             readonly property int defaultMaxLineCount: 3
             maxLineCount: defaultMaxLineCount
-            linkColor: Theme.highlightColor
+            linkColor: palette.highlightColor
             onLinkActivated: utilities.handleLink(link)
             function toggleMaxLineCount() {
                 maxLineCount = maxLineCount > 0 ? 0 : defaultMaxLineCount
@@ -190,7 +190,7 @@ Item {
         font.italic: true
         horizontalAlignment: Text.AlignHCenter
         wrapMode: Text.Wrap
-        color: Theme.secondaryColor
+        color: palette.secondaryColor
         opacity: (infoColumn.opacity < 1 && !mediaItem.sourceComponent) ? 1 : 0
         anchors.verticalCenter: parent.verticalCenter
     }

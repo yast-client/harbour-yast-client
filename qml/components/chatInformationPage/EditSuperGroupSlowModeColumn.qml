@@ -33,7 +33,7 @@ Column {
         width: parent.width - Theme.horizontalPageMargin * 2
         x: Theme.horizontalPageMargin
         font.pixelSize: Theme.fontSizeSmall
-        color: Theme.secondaryHighlightColor
+        color: palette.secondaryHighlightColor
         wrapMode: Text.Wrap
     }
 }

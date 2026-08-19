@@ -52,7 +52,7 @@ AlbumMessageContentBase {
                     onLinkActivated:
                         utilities.handleLink(link, chatId, topicId)
                     horizontalAlignment: messageListItem.textAlign
-                    linkColor: Theme.highlightColor
+                    linkColor: palette.highlightColor
                     height: text.length > 0 ? implicitHeight : 0
                 }
             }

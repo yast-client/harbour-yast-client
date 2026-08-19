@@ -324,8 +324,8 @@ MessageContentBase {
             visible: isQuiz && text.length > 0
             text: Emoji.emojify(Functions.enhanceMessageText(pollData.type.explanation) || "", font.pixelSize)
             textFormat: Text.StyledText
-            color: pollMessageComponent.isOwnMessage || pollMessageComponent.highlighted ? Theme.highlightColor : Theme.primaryColor
-            linkColor: Theme.highlightColor
+            color: pollMessageComponent.isOwnMessage || pollMessageComponent.highlighted ? palette.highlightColor : palette.primaryColor
+            linkColor: palette.highlightColor
             font.pixelSize: Theme.fontSizeExtraSmall
             leftPadding: Theme.iconSizeSmall
             bottomPadding: Theme.paddingSmall

@@ -230,11 +230,11 @@ Page {
             Label {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2*x
-                color: Theme.highlightColor
+                color: palette.highlightColor
                 wrapMode: Text.Wrap
                 font.pixelSize: Theme.fontSizeMedium
                 textFormat: Text.StyledText
-                linkColor: Theme.highlightColor
+                linkColor: palette.highlightColor
                 text: translated
                 onLinkActivated: utilities.handleLink(link)
             }

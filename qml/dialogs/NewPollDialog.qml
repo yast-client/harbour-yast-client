@@ -106,7 +106,7 @@ Dialog {
         width: parent.width - 2*x
         anchors.verticalCenter: header.bottom
 
-        color: Theme.secondaryHighlightColor
+        color: palette.secondaryHighlightColor
         wrapMode: Text.Wrap
         text: qsTr("in %1", "After dialog header… New Poll in [group name]").arg(Emoji.emojify(chatTitle, font.pixelSize))
         font.pixelSize: Theme.fontSizeSmall
@@ -165,7 +165,7 @@ Dialog {
                         delegate: Label {
                             width: parent.width
                             font.pixelSize: Theme.fontSizeSmall
-                            color: Theme.highlightColor
+                            color: palette.highlightColor
                             text: modelData
                             wrapMode: Text.Wrap
                             leftPadding: Theme.iconSizeSmall + Theme.paddingSmall

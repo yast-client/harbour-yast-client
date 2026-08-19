@@ -64,7 +64,7 @@ InlineQueryResult {
             id: titleLabel
             width: parent.width
             font.pixelSize: Theme.fontSizeSmall
-            color: highlighted || !queryResultItem.enabled ? Theme.highlightColor : Theme.primaryColor
+            color: highlighted || !queryResultItem.enabled ? palette.highlightColor : palette.primaryColor
             visible: text.length > 0
             truncationMode: TruncationMode.Fade
         }
@@ -72,7 +72,7 @@ InlineQueryResult {
             id: descriptionLabel
             width: parent.width
             font.pixelSize: Theme.fontSizeTiny
-            color: highlighted || !queryResultItem.enabled ? Theme.secondaryColor : Theme.secondaryHighlightColor
+            color: highlighted || !queryResultItem.enabled ? palette.secondaryColor : palette.secondaryHighlightColor
             visible: text.length > 0
             truncationMode: TruncationMode.Fade
         }

@@ -89,7 +89,7 @@ ListItem {
                     width: Math.min(contentColumn.width - chatBadges.width - parent.spacing - (additionalPrimaryText.visible ? additionalPrimaryText.width + parent.spacing : 0), implicitWidth)
                     font.bold: appSettings.highlightUnreadConversations && ( !chatItem.muted && (chatItem.unreadCount > 0 || chatItem.isMarkedAsUnread) )
                     font.italic: appSettings.highlightUnreadConversations  && (chatItem.unreadReactionCount > 0)
-                    color: (appSettings.highlightUnreadConversations && (chatItem.unreadCount > 0)) ? Theme.highlightColor : Theme.primaryColor
+                    color: (appSettings.highlightUnreadConversations && (chatItem.unreadCount > 0)) ? palette.highlightColor : palette.primaryColor
                 }
 
                 ChatBadges {
@@ -107,8 +107,8 @@ ListItem {
                 }
                 width: Math.min(implicitWidth, parent.width)
                 font.pixelSize: Theme.fontSizeTiny
-                color: Theme.secondaryColor
-                linkColor: Theme.highlightColor
+                color: palette.secondaryColor
+                linkColor: palette.highlightColor
                 truncationMode: TruncationMode.Fade
 
                 Icon {
@@ -136,7 +136,7 @@ ListItem {
                 width: Math.min(implicitWidth, parent.parent.width)
                 visible: !!text
                 anchors.verticalCenter: parent.verticalCenter
-                color: Theme.highlightColor
+                color: palette.highlightColor
                 textFormat: Text.StyledText
                 truncationMode: TruncationMode.Fade
                 maximumLineCount: 1
@@ -163,7 +163,7 @@ ListItem {
 
                         Rectangle {
                             id: minithumbnailMask
-                            color: Theme.primaryColor
+                            color: palette.primaryColor
                             width: parent.width - Theme.paddingSmall
                             height: parent.height - Theme.paddingSmall
                             radius: minithumbnailRadius
@@ -183,7 +183,7 @@ ListItem {
                 truncationMode: TruncationMode.Fade
                 maximumLineCount: 1
                 textFormat: Text.StyledText
-                linkColor: highlighted ? Theme.primaryColor : Theme.highlightColor
+                linkColor: highlighted ? palette.primaryColor : palette.highlightColor
                 visible: prologSecondaryText.width < ( parent.width - Theme.paddingLarge )
             }
         }
@@ -193,8 +193,8 @@ ListItem {
             visible: !!text
             width: parent.width
             font.pixelSize: Theme.fontSizeTiny
-            color: Theme.secondaryColor
-            linkColor: Theme.highlightColor
+            color: palette.secondaryColor
+            linkColor: palette.highlightColor
             truncationMode: TruncationMode.Fade
         }
     }
@@ -208,7 +208,7 @@ ListItem {
         }
 
         width: parent.width
-        color: Theme.primaryColor
+        color: palette.primaryColor
         horizontalAlignment: Qt.AlignHCenter
     }
 }

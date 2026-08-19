@@ -36,9 +36,9 @@ Column {
             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
             font.pixelSize: Theme.fontSizeMedium
             textFormat: Text.StyledText
-            color: highlight && highlighted ? Theme.highlightColor : Theme.primaryColor
+            color: highlight && highlighted ? palette.highlightColor : palette.primaryColor
             text: Emoji.emojify( Functions.replaceUrlsWithLinks(textItem.text).replace(/\n/g, "<br>"), Theme.fontSizeExtraSmall)
-            linkColor: highlighted ? Theme.primaryColor : Theme.highlightColor
+            linkColor: highlighted ? palette.primaryColor : palette.highlightColor
             visible: text !== ""
             onLinkActivated: {
                 utilities.handleLink(link);
@@ -51,7 +51,7 @@ Column {
             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
             font.pixelSize: Theme.fontSizeSmall
             textFormat: Text.StyledText
-            color: Theme.highlightColor
+            color: palette.highlightColor
             plainText: textItem.text
             visible: textItem.text !== ""
             onLinkActivated: utilities.handleLink(link)

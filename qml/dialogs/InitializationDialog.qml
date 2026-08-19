@@ -254,7 +254,7 @@ Dialog {
                             font.pixelSize: Theme.fontSizeSmall
                             truncationMode: TruncationMode.Fade
 
-                            linkColor: highlighted ? Theme.highlightColor : Theme.secondaryHighlightColor
+                            linkColor: highlighted ? palette.highlightColor : palette.secondaryHighlightColor
                             onLinkActivated: Qt.openUrlExternally(link)
                         }
                         hideLabelOnEmptyField: false
@@ -394,7 +394,7 @@ Dialog {
                             Label {
                                 width: parent.width
                                 text: qsTr("By accepting, you agree to the Telegram Terms of Service:")
-                                color: Theme.highlightColor
+                                color: palette.highlightColor
                                 font.pixelSize: Theme.fontSizeMedium
                                 wrapMode: Text.Wrap
                             }
@@ -402,7 +402,7 @@ Dialog {
                             Label {
                                 width: parent.width
                                 text: utilities.enhanceMessageText(tdLibWrapper.authorizationStateData.terms_of_service.text)
-                                color: Theme.secondaryHighlightColor
+                                color: palette.secondaryHighlightColor
                                 font.pixelSize: Theme.fontSizeSmall
                                 wrapMode: Text.Wrap
                             }
@@ -424,7 +424,7 @@ Dialog {
 
                             rightItem: Icon {
                                 source: "image://theme/icon-splus-asterisk"
-                                color: Theme.highlightColor
+                                color: palette.highlightColor
                             }
 
                             EnterKey.iconSource: 'image://theme/icon-m-enter-next'

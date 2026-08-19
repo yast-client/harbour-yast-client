@@ -66,8 +66,8 @@ MessageContentBase {
 
             ProgressCircle {
                 value: file.downloadedSize / file.expectedSize
-                progressColor: Theme.highlightColor
-                backgroundColor: Theme.highlightDimmerColor
+                progressColor: palette.highlightColor
+                backgroundColor: palette.highlightDimmerColor
                 width: Theme.iconSizeMedium
                 height: Theme.iconSizeMedium
                 visible: opacity > 0
@@ -80,7 +80,7 @@ MessageContentBase {
                 width: downloadNeededIndicatorIcon.width + Theme.paddingMedium
                 height: width
 
-                color: Theme.rgba(Theme.overlayBackgroundColor, 0.2)
+                color: Theme.rgba(palette.overlayBackgroundColor, 0.2)
                 opacity: file.isDownloadingActive ? 1.0 : 0.0
                 Behavior on opacity { FadeAnimator {} }
                 visible: opacity > 0
@@ -121,7 +121,7 @@ MessageContentBase {
                 font.pixelSize: Theme.fontSizeSmall
                 fontSizeMode: Text.HorizontalFit
                 minimumPixelSize: Theme.fontSizeTiny
-                color: Theme.highlightColor
+                color: palette.highlightColor
                 visible: text.length > 0
                 truncationMode: TruncationMode.Fade
             }
@@ -132,7 +132,7 @@ MessageContentBase {
                 font.pixelSize: Theme.fontSizeExtraSmall
                 fontSizeMode: Text.HorizontalFit
                 minimumPixelSize: Theme.fontSizeTiny
-                color: Theme.secondaryHighlightColor
+                color: palette.secondaryHighlightColor
                 visible: text.length > 0
                 truncationMode: TruncationMode.Fade
                 maximumLineCount: 1
@@ -143,7 +143,7 @@ MessageContentBase {
                 Label {
                     id: tertiaryLabel
                     font.pixelSize: Theme.fontSizeTiny
-                    color: highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
+                    color: highlighted ? palette.secondaryHighlightColor : palette.secondaryColor
                     visible: text.length > 0
                     truncationMode: TruncationMode.Fade
                 }

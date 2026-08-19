@@ -39,7 +39,7 @@ AnimatedLoader {
                 anchors.verticalCenter: parent.verticalCenter
                 truncationMode: TruncationMode.Fade
                 font.pixelSize: Theme.fontSizeMedium
-                color: Theme.highlightColor
+                color: palette.highlightColor
                 text: singleJoinRequestUserInfoLoader.active ?
                           qsTr("%1 requested to join", "banner indicating that there is one unreviewed group join request from a user")
                                 .arg(utilities.getUserName(singleJoinRequestUserInfoLoader.item ? singleJoinRequestUserInfoLoader.item.userInformation : null))

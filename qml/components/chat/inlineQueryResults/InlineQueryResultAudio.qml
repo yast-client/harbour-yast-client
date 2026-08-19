@@ -115,7 +115,7 @@ InlineQueryResult {
         Label {
             width: parent.width
             font.pixelSize: Theme.fontSizeSmall
-            color: Theme.highlightColor
+            color: palette.highlightColor
             text: Emoji.emojify(queryResultItem.resultData.performer || "", font.pixelSize)
             visible: text.length > 0
             truncationMode: TruncationMode.Fade
@@ -123,7 +123,7 @@ InlineQueryResult {
         Label {
             width: parent.width
             font.pixelSize: Theme.fontSizeTiny
-            color: Theme.secondaryHighlightColor
+            color: palette.secondaryHighlightColor
             text: Emoji.emojify(queryResultItem.resultData.title || model.title || "", font.pixelSize)
             visible: text.length > 0
             truncationMode: TruncationMode.Fade
@@ -134,7 +134,7 @@ InlineQueryResult {
             Label {
                 id: durationLabel
                 font.pixelSize: Theme.fontSizeTiny
-                color: Theme.secondaryColor
+                color: palette.secondaryColor
                 text: (audioPlayer.position > 0 || audioPlayer.playbackState === Audio.PlayingState ? (Format.formatDuration(audioPlayer.position/1000, Formatter.DurationShort)+" / ") : "") + Format.formatDuration(queryResultItem.audioData.duration || (audioPlayer.duration/1000), Formatter.DurationShort)
                 visible: (queryResultItem.audioData.duration || (audioPlayer.duration/1000)) > 0
                 truncationMode: TruncationMode.Fade
@@ -143,7 +143,7 @@ InlineQueryResult {
                 id: sizeLabel
                 anchors.right: parent.right
                 font.pixelSize: Theme.fontSizeTiny
-                color: Theme.secondaryColor
+                color: palette.secondaryColor
                 text: Format.formatFileSize(file.expectedSize)
                 visible: file.expectedSize > 0
                 truncationMode: TruncationMode.Fade

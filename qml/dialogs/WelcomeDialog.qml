@@ -60,7 +60,7 @@ Dialog {
                 Label {
                     width: parent.width
                     text: modelData.title
-                    color: Theme.highlightColor
+                    color: palette.highlightColor
                     font {
                         pixelSize: Theme.fontSizeExtraLarge
                         family: Theme.fontFamilyHeading
@@ -72,7 +72,7 @@ Dialog {
                 Label {
                     width: parent.width
                     text: modelData.description
-                    color: Theme.secondaryHighlightColor
+                    color: palette.secondaryHighlightColor
                     font.pixelSize: Theme.fontSizeMedium
                     wrapMode: Text.Wrap
                     horizontalAlignment: Text.AlignHCenter

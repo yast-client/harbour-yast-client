@@ -70,7 +70,7 @@ Row {
                 textFormat: Text.StyledText
                 truncationMode: TruncationMode.Fade
                 maximumLineCount: 1
-                linkColor: Theme.highlightColor
+                linkColor: palette.highlightColor
                 onLinkActivated: utilities.handleLink(link)
             }
         }

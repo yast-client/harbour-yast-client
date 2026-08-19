@@ -100,7 +100,7 @@ TabView {
     Binding {
         target: tabView.tabBarItem
         property: 'iconColor'
-        value: Theme.primaryColor
+        value: palette.primaryColor
     }
 
     function insertTab(name, title, icon, data) {

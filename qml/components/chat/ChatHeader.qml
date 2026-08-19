@@ -81,7 +81,7 @@ BackgroundItem {
                     textFormat: Text.StyledText
                     font.pixelSize: isPortrait ? Theme.fontSizeLarge : Theme.fontSizeMedium
                     font.family: Theme.fontFamilyHeading
-                    color: Theme.highlightColor
+                    color: palette.highlightColor
                     truncationMode: TruncationMode.Fade
                     maximumLineCount: 1
                 }

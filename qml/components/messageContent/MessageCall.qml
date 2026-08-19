@@ -25,7 +25,7 @@ MessageContentBase {
             id: icon
             anchors.verticalCenter: parent.verticalCenter
             source: 'image://theme/icon-m-' + (rawMessage.content.is_video ? 'video' : 'call')
-            color: highlighted ? Theme.primaryColor : Theme.highlightColor
+            color: highlighted ? palette.primaryColor : palette.highlightColor
             highlighted: message.highlighted
             width: Theme.iconSizeMedium
             height: width
@@ -59,14 +59,14 @@ MessageContentBase {
                 Icon {
                     anchors.verticalCenter: parent.verticalCenter
                     source: 'image://theme/icon-s-' + (isOutgoing ? 'outgoing-call' : 'incoming-call')
-                    color: highlighted ? Theme.primaryColor : Theme.highlightColor
+                    color: highlighted ? palette.primaryColor : palette.highlightColor
                 }
 
                 Label {
                     width: parent.width - Theme.iconSizeSmall - parent.spacing
                     text: Format.formatDuration(rawMessage.content.duration)
                     //visible: !!rawMessage.content.duration // FIXME?
-                    color: highlighted ? Theme.secondaryColor : Theme.secondaryHighlightColor
+                    color: highlighted ? palette.secondaryColor : palette.secondaryHighlightColor
                     font.pixelSize: Theme.fontSizeExtraSmall
                     highlighted: message.highlighted
                     truncationMode: TruncationMode.Fade

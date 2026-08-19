@@ -330,7 +330,7 @@ SilicaFlickable {
                     x: Math.max(headerItem.x + imageContainer.x - parent.x + (imageContainer.width - width)/2, 0)
                     text: chatId
                     font.pixelSize: Theme.fontSizeSmall
-                    color: copyIdMouseArea.pressed ? Theme.secondaryHighlightColor : Theme.highlightColor
+                    color: copyIdMouseArea.pressed ? palette.secondaryHighlightColor : palette.highlightColor
                     visible: text !== ""
 
                     MouseArea {
@@ -539,7 +539,7 @@ SilicaFlickable {
 
             Separator {
                 width: parent.width
-                color: Theme.primaryColor
+                color: palette.primaryColor
                 horizontalAlignment: Qt.AlignHCenter
                 anchors {
                     leftMargin: Theme.horizontalPageMargin

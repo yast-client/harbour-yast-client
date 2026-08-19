@@ -56,7 +56,7 @@ Page {
             horizontalAlignment: Text.AlignHCenter
             text: callDurationString
             font.pixelSize: Theme.fontSizeExtraLarge
-            color: Theme.highlightColor
+            color: palette.highlightColor
             visible: !!text
         }
 

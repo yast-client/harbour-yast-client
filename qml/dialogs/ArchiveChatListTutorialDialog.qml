@@ -40,19 +40,19 @@ Dialog {
 
                 InfoLabel {
                     text: qsTr("This is your Archive")
-                    color: Theme.highlightColor
+                    color: palette.highlightColor
                 }
 
                 Label {
                     text: (keepUnmutedChatsArchivedEnabled
                           ? qsTr("Archived chats will remain in the Archive when you receive a new message. %1Tap to change%2")
                           : qsTr("When you receive a new message, muted chats will remain in the Archive, while unmuted chats will be moved to Chats. %1Tap to change%2"))
-                        .arg('<a href="#" style="text-decoration:none;color:%1">'.arg(Theme.highlightColor)).arg('</a>')
+                        .arg('<a href="#" style="text-decoration:none;color:%1">'.arg(palette.highlightColor)).arg('</a>')
                     x: Theme.horizontalPageMargin
                     width: parent.width - 2*x
                     wrapMode: Text.Wrap
                     horizontalAlignment: Text.AlignHCenter
-                    color: Theme.secondaryHighlightColor
+                    color: palette.secondaryHighlightColor
                     textFormat: Text.RichText
                     onLinkActivated: {
                         appConfig.archiveChatListHintCompleted = true
@@ -97,7 +97,7 @@ Dialog {
                                     width: parent.width
                                     wrapMode: Text.Wrap
                                     font.pixelSize: Theme.fontSizeSmall
-                                    color: Theme.secondaryColor
+                                    color: palette.secondaryColor
                                 }
                             }
                         }

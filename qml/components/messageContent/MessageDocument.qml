@@ -39,15 +39,15 @@ MessageContentFileInfoBase {
             //PropertyChanges { target: openMouseArea; enabled: true }
             PropertyChanges {
                 target: primaryLabel
-                color: (contentItem.highlighted || openMouseArea.pressed) ? Theme.highlightColor : Theme.primaryColor
+                color: (contentItem.highlighted || openMouseArea.pressed) ? primaryLabel.palette.highlightColor : primaryLabel.palette.primaryColor
             }
             PropertyChanges {
                 target: secondaryLabel
-                color: (contentItem.highlighted || openMouseArea.pressed) ? Theme.secondaryHighlightColor : Theme.secondaryColor
+                color: (contentItem.highlighted || openMouseArea.pressed) ? secondaryLabel.palette.secondaryHighlightColor : secondaryLabel.palette.secondaryColor
             }
             PropertyChanges {
                 target: tertiaryLabel
-                color: (contentItem.highlighted || openMouseArea.pressed) ? Theme.secondaryHighlightColor : Theme.secondaryColor
+                color: (contentItem.highlighted || openMouseArea.pressed) ? tertiaryLabel.palette.secondaryHighlightColor : tertiaryLabel.palette.secondaryColor
             }
             PropertyChanges {
                 target: leftButton
