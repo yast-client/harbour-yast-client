@@ -72,6 +72,7 @@ icon.source:model[root.iconRole]||""
 icon.sourceSize:iconSize
 icon.color: iconColor
 count:model[root.countRole]||""
+palette: root.palette
 }}}Rectangle{id:tabFooter
 x:{if(!root._currentTabButton){return 0
 }else if(root._vanillaStyle){root._currentTabButton.x+root._currentTabButton.contentItem.x

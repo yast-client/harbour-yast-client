@@ -25,18 +25,19 @@ property real _extraMargin:parent&&parent.extraMargin||0
 property real contentWidth:2*Theme.paddingLarge+contentColumn.implicitWidth+(bubble.active&&highlightImage.width===0?bubble.width:0)
 implicitWidth:contentWidth+(root.tabIndex==0?_extraMargin:0)+(root.tabIndex==root.tabCount-1?_extraMargin:0)
 implicitHeight:Math.max(_portrait?Theme.itemSizeLarge:Theme.itemSizeSmall,contentColumn.implicitHeight+2*(_portrait?Theme.paddingLarge:Theme.paddingMedium))
+property Palette palette:Palette{}
 property bool highlighted:pressed&&containsMouse
 onClicked:{if(_tabView&&tabIndex>=0){_tabView.moveTo(tabIndex)
 }}ColorInterpolator{id:colorInterpolator
-from:Theme.primaryColor
-to:Theme.highlightColor
+from:root.palette.primaryColor
+to:root.palette.highlightColor
 progress:{if(root.pressed){return 1.0
 }else if(!root._tabView||!root._tabItem){return 0.0
 }else if(isCurrentTab&&!root._tabView.dragging){return 1.0
 }else{return Math.abs(1.0-Math.abs(root._tabItem.x/(root._tabView.width+root._tabView.horizontalSpacing)))
 }}}ColorInterpolator{id:secondaryColorInterpolator
-from:Theme.secondaryColor
-to:Theme.secondaryHighlightColor
+from:root.palette.secondaryColor
+to:root.palette.secondaryHighlightColor
 progress:colorInterpolator.progress
 }Column{id:contentColumn
 x:{if(root.tabCount>1&&root.tabIndex==0){return root.width-width-Theme.paddingMedium
@@ -48,11 +49,11 @@ anchors.horizontalCenter:parent.horizontalCenter
 highlighted:root.highlighted||root.isCurrentTab
 }Label{id:titleLabel
 x:(contentColumn.width-width)/2
-color:highlighted?Theme.highlightColor:colorInterpolator.value
+color:highlighted?root.palette.highlightColor:colorInterpolator.value
 font.pixelSize:highlightImage.status===Image.Ready?Theme.fontSizeTiny:root.titleFontSize
 }Label{id:descriptionLabel
 x:(contentColumn.width-width)/2
-color:highlighted?Theme.secondaryHighlightColor:secondaryColorInterpolator.value
+color:highlighted?root.palette.secondaryHighlightColor:secondaryColorInterpolator.value
 font.pixelSize:highlightImage.status===Image.Ready?Theme.fontSizeTiny:0.8*root.titleFontSize
 }}Loader{id:bubble
 x:highlightImage.status===Image.Ready?(contentColumn.width-width+highlightImage.width)/2:contentColumn.x+contentColumn.width+Theme.dp(4)
@@ -60,7 +61,7 @@ y:Theme.paddingLarge
 active:root.count>0
 asynchronous:true
 opacity:root.highlighted?0.8:1.0
-sourceComponent:Component{Rectangle{color:Theme.highlightBackgroundColor
+sourceComponent:Component{Rectangle{color:root.palette.highlightBackgroundColor
 width:bubbleLabel.text?Math.max(bubbleLabel.implicitWidth+Theme.paddingSmall*2,height):Theme.paddingMedium+Theme.paddingSmall
 height:bubbleLabel.text?bubbleLabel.implicitHeight:Theme.paddingMedium+Theme.paddingSmall
 radius:Theme.dp(2)
