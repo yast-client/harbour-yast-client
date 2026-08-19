@@ -21,6 +21,7 @@ Loader {
     property bool canCopy
     property bool hideTranslate
     property bool canTranslate
+    property bool showMessageDate
 
     readonly property var messageId: messageData.messageId
     readonly property var message: messageData.message
@@ -291,6 +292,11 @@ Loader {
                 text: messageReadDate
                       ? qsTr("Read %1", "Message read date").arg(Functions.getDateTimeTimepointRelative(messageReadDate))
                       : qsTr("Loading", "Indicates that the message read date is being loaded")
+            }
+
+            MenuLabel {
+                visible: showMessageDate
+                text: Functions.getDateTimeTranslated(message.date)
             }
 
             MenuLabel {

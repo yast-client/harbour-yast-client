@@ -22,6 +22,7 @@ MessageListViewItemBase {
     contextMenuLoader.hideSelect: true
     contextMenuLoader.canCopy: false
     contextMenuLoader.hideTranslate: true
+    contextMenuLoader.showMessageDate: true
 
     Column {
         id: column
