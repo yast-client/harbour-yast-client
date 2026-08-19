@@ -6,6 +6,7 @@ import QtQuick 2.6
 import Sailfish.Silica 1.0
 import io.yaqtlib 1.0
 import "../components"
+import "../components/tdlib"
 import "../components/chatInformationPage"
 import "../components/chat"
 import "../js/twemoji.js" as Emoji
@@ -65,6 +66,13 @@ Page {
         id: chatManagerLoader
         parent: chatInformationPage
     }
+
+    TDLibAccentColor {
+        id: profileAccentColor
+        colorId: chatInformation.profile_accent_color_id
+    }
+    palette.highlightColor: profileAccentColor.invalid ? Theme.highlightColor : profileAccentColor.colors[0]
+    palette.secondaryHighlightColor: profileAccentColor.invalid ? Theme.secondaryHighlightColor : profileAccentColor.colors[1]
 
     onStatusChanged: {
         switch (status) {
