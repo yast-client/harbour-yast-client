@@ -17,7 +17,7 @@ Column {
 
     property var messagesModel: chatManager.model
     property var topicId
-    readonly property bool isForumTopic: topicId && topicId['@type'] === 'messageTopicForum'
+    readonly property bool isForumTopic: !!topicId && topicId['@type'] === 'messageTopicForum'
     property string forumTopicName
     property int messageSource: TDLibAPI.MessageSourceAuto
     property var draftMessage: chatInformation.draft_message
@@ -49,6 +49,7 @@ Column {
 
     property bool overlayActive: stickerPickerLoader.active || voiceNoteOverlayLoader.active || stickerSetOverlayLoader.active
     property bool loading: !messagesModel || messagesModel.loading
+    property int topIndex: -1
     property int bottomIndex: -1
 
     signal resetElements()
@@ -127,15 +128,16 @@ Column {
     }
 
     function tryShowMessageToScrollTo() {
-        var index = messagesModel.getMessageIndex(messagesView.messageIdToScrollTo)
+        var index = messagesModel.getMessageIndex(messageIdToScrollTo)
         var proxyIndex = chatProxyModel.mapRowFromSource(index, -1)
-        if (proxyIndex !== -1) {
-            messageIdToScrollTo = 0
-            chatView.scrollToIndex(proxyIndex)
-            navigatedTo(proxyIndex)
-            return true
-        }
-        return false
+        log("Trying to show message ID to scroll to", messageIdToScrollTo, index, proxyIndex)
+        if (proxyIndex === -1)
+            return false
+
+        messageIdToScrollTo = 0
+        chatView.scrollToIndex(proxyIndex)
+        navigatedTo(proxyIndex)
+        return true
     }
 
     function showMessage(messageId) {
@@ -288,7 +290,7 @@ Column {
 
             if (chatView.height > chatView.contentHeight) {
                 log("Chat content quite small...")
-                viewMessageTimer.queueViewMessage(chatView.count - 1)
+                viewMessageTimer.queueViewMessages(true)
             } else if (fromIncrementalUpdate && messagesView.messageIdToScrollTo)
                 tryShowMessageToScrollTo()
 
@@ -314,7 +316,7 @@ Column {
             if ((chatView.manuallyScrolledToBottom && Qt.application.state === Qt.ApplicationActive) || (message.is_outgoing && !message.is_channel_post)) {
                 log("Own message received or was scrolled to bottom, scrolling down to see it...")
                 chatView.scrollToIndex(chatView.count - 1)
-                viewMessageTimer.queueViewMessage(chatView.count - 1)
+                viewMessageTimer.queueViewMessages(true)
             }
     }
 
@@ -380,40 +382,38 @@ Column {
     Timer {
         id: viewMessageTimer
         interval: appSettings.delayMessageRead ? 1000 : 0
-        property int lastQueuedIndex: -1
-        function queueViewMessage(index) {
+        property bool viewAll
+        function queueViewMessages(all) {
             if (!readable) return
-            if (index > lastQueuedIndex) {
-                lastQueuedIndex = index
-                start()
-            }
+            viewAll = all
+            restart()
         }
 
         onTriggered: {
-            log("scroll position changed, message index: ", lastQueuedIndex)
-            log("unread count: ", unreadCount)
-            var modelIndex = chatProxyModel.mapRowToSource(lastQueuedIndex)
-            var messageToRead = messagesModel.getMessage(modelIndex)
-            if (messageToRead['@type'] === "sponsoredMessage") {
-                log("sponsored message to read: ", messageToRead.id)
-                tdLibWrapper.viewMessage(chatId, messageToRead.message_id, false, messageSource)
-            } else if (unreadCount > 0 && lastQueuedIndex > -1) {
-                if (messageToRead) {
-                    log("message to read: ", messageToRead.id)
-                    var messageId = messageToRead.id
-                    var type = messageToRead.content["@type"]
-                    if (messageToRead.media_album_id !== '0') {
-                        var albumIds = messagesModel.getMessageIdsForAlbum(messageToRead.media_album_id)
-                        if (albumIds.length > 0) {
-                            messageId = albumIds[albumIds.length - 1]
-                            log("message to read last album message id: ", messageId)
-                        }
-                    }
-                    if (messageId)
-                        tdLibWrapper.viewMessage(chatInformation.id, messageId, false, messageSource)
+            log("Viewing messages, all:", viewAll, "last read inbox message ID", messagesModel.lastReadInboxMessageId, "unread count", unreadCount)
+            var messageIds
+
+            if (viewAll)
+                messageIds = messagesModel.getAllMessageIds()
+            else {
+                messageIds = []
+                log("Viewing messages from index", topIndex, "to", bottomIndex)
+                for (var i = topIndex; i <= bottomIndex; i++) {
+                    var modelIndex = chatProxyModel.mapRowToSource(i)
+                    if (modelIndex < 0) continue
+
+                    var message = messagesModel.getMessage(modelIndex)
+                    var albumId = message.media_album_id
+                    if (albumId !== '0')
+                        messageIds.concat(messagesModel.getMessageIdsForAlbum(albumId))
+                    else
+                        messageIds.push(message.id)
                 }
-                lastQueuedIndex = -1
             }
+
+            log("Messages to view", JSON.stringify(messageIds))
+            tdLibWrapper.viewMessages(chatId, messageIds, false, messageSource)
+
             if (unreadCount === 0)
                 readAllInteractions()
         }
@@ -519,17 +519,19 @@ Column {
                 readonly property bool pageIsSelecting: messagesView.isSelecting
             }
 
-            function updateBottomIndex() {
+            function updateTopBottomIndex() {
+                topIndex = indexAt(contentX, contentY)
+                // TODO/TBD: should we use the last message if the chat content is too small?
                 bottomIndex = indexAt(contentX, contentY + height - Theme.horizontalPageMargin)
             }
 
             function handleScrollPositionChanged() {
                 log("Current position: ", chatView.contentY)
                 log("Contains sponsored messages?", containsSponsoredMessages)
-                updateBottomIndex()
+                updateTopBottomIndex()
                 if (unreadCount > 0 || containsSponsoredMessages) {
                     if (bottomIndex > -1)
-                        viewMessageTimer.queueViewMessage(bottomIndex)
+                        viewMessageTimer.queueViewMessages(false)
                 } else
                     readAllInteractions()
                 manuallyScrolledToBottom = chatView.atYEnd
@@ -549,7 +551,7 @@ Column {
 
             onContentYChanged:
                 if (!loading && !chatView.inCooldown) {
-                    updateBottomIndex()
+                    updateTopBottomIndex()
 
                     // check for startReached/endReached here so inCooldown won't be true forever
                     if (!messagesModel.startReached && chatView.indexAt(chatView.contentX, chatView.contentY) < 10) {
