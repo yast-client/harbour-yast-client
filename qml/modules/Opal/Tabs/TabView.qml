@@ -62,6 +62,7 @@ property int _ctxBottomMargin:_tabBarIsTop?0:tabBarHeight
 readonly property bool isCurrentItem:PagedView.isCurrentItem
 readonly property real _yOffset:item&&item._yOffset||0
 property bool loading:Qt.application.active&&isCurrentItem&&status===Loader.Loading
+readonly property var tabView:root
 property var tabModel:model.modelData||model
 property int tabIndex:index
 property bool _haveSource:!!(tabModel.body||tabModel.source)
