@@ -9,7 +9,9 @@ TabItem {
     id: tabItem
     allowDeletion: tabIndex !== 0 // always keep first tab in cache
 
-    alterFlickablePulleyMenu: false
+    width: tabView.width
+    height: tabView.height
+    topMargin: 0
 
     property bool isEmpty: true
     Binding {
@@ -30,24 +32,26 @@ TabItem {
     flickable: chatsFlickable
     SilicaFlickable {
         id: chatsFlickable
-        parent: tabItem
         anchors.fill: parent
 
         // FIXME: is loading the chats list separately from the actual tab correct?
         Loader {
             id: chatsViewLoader
-            anchors {
-                top: parent.top
-                topMargin: tabItem.topMargin
-            }
             width: parent.width
-            height: parent.height - anchors.topMargin - tabItem.bottomMargin
+            height: parent.height
 
             asynchronous: true
             sourceComponent: Component {
                 ChatsView {
                     id: chatsView
-                    anchors.fill: parent
+                    anchors {
+                        top: parent.top
+                        topMargin: tabView.tabBarHeight + tabView.extraTopMargin
+                    }
+                    width: parent.width
+                    height: parent.height - anchors.topMargin
+                    clip: chatsFlickable.pullDownMenu && chatsFlickable.pullDownMenu.active
+
                     model: tabItem.chatsModel
                     chatsModel: chatsSourceModel
                     chatListType: tabModel.type

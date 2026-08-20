@@ -247,7 +247,7 @@ Page {
 
     OverviewPageHeader {
         id: header
-        y: Math.max(0, -tabView.pulleyYOffset)
+        y: Math.max(0, -tabView.baseYOffset)
 
         // in case MoueArea here fails, we also have one inside the tab's flickable
         MouseArea {
