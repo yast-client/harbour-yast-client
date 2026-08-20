@@ -23,9 +23,10 @@ property alias tabBarItem:tabBarLoader.item
 property real tabBarHeight:tabBarItem&&tabBarVisible?tabBarItem.height:0
 property Component tabComponent
 property url tabSource
+property real extraTopMargin
+property real extraBottomMargin
 property real pulleyYOffset:currentItem&&currentItem._yOffset||0
-property real yOffset: pulleyYOffset
-property real maxYOffset:0
+property real yOffset:pulleyYOffset-extraTopMargin
 property bool _headerBackgroundVisible:true
 property Item _page:Util.findPage(root)
 property int __silica_tab_view
@@ -40,15 +41,15 @@ width:0
 height:0
 property Item _ctxPage:_page
 property Item _ctxTabContainer:parent
-property int _ctxTopMargin:_tabBarIsTop?tabBarHeight:0
-property int _ctxBottomMargin:_tabBarIsTop?0:tabBarHeight
+property int _ctxTopMargin:(_tabBarIsTop?tabBarHeight:0)+extraTopMargin
+property int _ctxBottomMargin:(_tabBarIsTop?0:tabBarHeight)+extraBottomMargin
 }Component{id:tabBarComponent
 TabBar{model:root.model
 }}Loader{id:tabBarLoader
 visible:root.tabBarVisible
 sourceComponent:root.hasFooter?root.footer:root.header
 width:parent.width
-z:root.yOffset<-maxYOffset&&!root.hasFooter?-1:1
+z:root.yOffset<-extraTopMargin&&!root.hasFooter?-1:1
 y:root.hasFooter?root.height-tabBarLoader.height:Math.max(0,-root.yOffset)
 Item{id:backgroundRectangleContainer
 property Item item
@@ -57,8 +58,8 @@ topMargin:(root.yOffset>Theme.paddingSmall)||root.hasFooter?0:Theme.paddingSmall
 }}}delegate:Loader{id:tabLoader
 property Item _ctxPage:root._page
 property Item _ctxTabContainer:tabLoader
-property int _ctxTopMargin:_tabBarIsTop?tabBarHeight:0
-property int _ctxBottomMargin:_tabBarIsTop?0:tabBarHeight
+property int _ctxTopMargin:(_tabBarIsTop?tabBarHeight:0)+extraTopMargin
+property int _ctxBottomMargin:(_tabBarIsTop?0:tabBarHeight)+extraBottomMargin
 readonly property bool isCurrentItem:PagedView.isCurrentItem
 readonly property real _yOffset:item&&item._yOffset||0
 property bool loading:Qt.application.active&&isCurrentItem&&status===Loader.Loading

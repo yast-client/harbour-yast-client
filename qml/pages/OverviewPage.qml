@@ -277,175 +277,111 @@ Page {
         leftMargin: Theme.itemSizeMedium + (proxySettingsButton.visible ? proxySettingsButton.width : 0)
     }
 
-    TabView {
+    ChatFoldersViewBase {
         id: tabView
         anchors.fill: parent
-        model: chatFoldersModel
-
-        // TODO: currently, we use some terrible hacks for making header work,
-        // and to make pulley menu openable when swiping from it.
-        // Ideally these patches should be improved and upstreamed.
-
-        maxYOffset: header.height
-        yOffset: pulleyYOffset - header.height
-
-        Component.onCompleted: {
-            tabView.tabBarItem.countRole = Qt.binding(function() { return appSettings.showFolderUnreadCount ? 'count' : '' })
-            tabView.tabBarItem.iconRole = Qt.binding(function() { return appSettings.chatFoldersTabBarShowIcons ? 'icon' : '' })
-
-            tabView.tabBarItem.iconSize = Qt.size(Theme.iconSizeMedium, Theme.iconSizeMedium)
-            tabView.tabBarItem.iconColor = Qt.binding(function() { return Theme.primaryColor })
-        }
-
-        tabBarVisible: count > 1
-        tabBarPosition: appSettings.chatFoldersTabBarOnBottom ? Qt.AlignBottom : Qt.AlignTop
+        extraTopMargin: header.height
 
         tabComponent: Component {
-            TabItem {
-                id: tabItem
-                allowDeletion: tabIndex !== 0 // always keep first tab in cache
-
-                topMargin: (parent._ctxTopMargin || _ctxTopMargin || 0) + header.height
-                alterFlickablePulleyMenu: false
-
-                property bool isEmpty: true
-                Binding {
-                    target: tabItem.parent
-                    property: 'loading'
-                    value: Qt.application.active && isCurrentItem && chatsViewLoader.status == Loader.Loading && isEmpty
+            ChatFolderTabBase {
+                function readChatList() {
+                    if (tabModel.type === ChatFoldersModel.FolderFolder)
+                        tdLibWrapper.readFolderChatList(tabModel.id)
+                    else
+                        tdLibWrapper.readChatList(tabModel.type === ChatFoldersModel.FolderArchive)
                 }
 
-                //opacity: 1
-                flickable: chatsFlickable
-                SilicaFlickable {
-                    id: chatsFlickable
-                    parent: tabItem
-                    anchors.fill: parent
+                MouseArea {
+                    parent: flickable
+                    y: header.y
+                    width: header.width
+                    height: header.height
+                    onClicked: clickTitleBar()
+                }
+                MouseArea {
+                    parent: flickable
+                    x: proxySettingsButton.x
+                    y: proxySettingsButton.y
+                    width: proxySettingsButton.width
+                    height: proxySettingsButton.height
+                    enabled: proxySettingsButton.enabled
+                    onClicked: openProxySettings()
 
-                    function readChatList() {
-                        if (tabModel.type === ChatFoldersModel.FolderFolder)
-                            tdLibWrapper.readFolderChatList(tabModel.id)
-                        else
-                            tdLibWrapper.readChatList(tabModel.type === ChatFoldersModel.FolderArchive)
-                    }
+                    // not sure why but Binding didn't work
+                    onContainsPressChanged:
+                        if (isCurrentItem)
+                            proxySettingsButton.externalMouseAreaDown = containsPress
+                }
 
-                    MouseArea {
-                        y: header.y
-                        width: header.width
-                        height: header.height
-                        onClicked: clickTitleBar()
-                    }
-                    MouseArea {
-                        x: proxySettingsButton.x
-                        y: proxySettingsButton.y
-                        width: proxySettingsButton.width
-                        height: proxySettingsButton.height
-                        enabled: proxySettingsButton.enabled
-                        onClicked: openProxySettings()
+                Loader {
+                    parent: flickable
+                    asynchronous: true
+                    // even if the first tab is not main chat list, still use the pulley menu
+                    sourceComponent: tabIndex === 0 ? mainPullDownMenu : folderPullDownMenu
 
-                        // not sure why but Binding didn't work
-                        onContainsPressChanged:
-                            if (isCurrentItem)
-                                proxySettingsButton.externalMouseAreaDown = containsPress
-                    }
+                    Component {
+                        id: mainPullDownMenu
+                        PullDownMenu {
+                            busy: tdLibWrapper.connectionState == TDLibAPI.Updating
+                            MenuItem {
+                                text: "Debug"
+                                visible: DebugLog.enabled
+                                onClicked: pageStack.push(Qt.resolvedUrl("../pages/DebugPage.qml"), {overviewPage: overviewPage})
+                            }
+                            MenuItem {
+                                text: qsTr("Settings")
+                                onClicked: pageStack.push(Qt.resolvedUrl("../pages/SettingsPage.qml"))
+                            }
+                            MenuItem {
+                                text: qsTr("Search", "pulley menu option for opening search page")
+                                onClicked: pageStack.push(Qt.resolvedUrl("../pages/SearchChatsPage.qml"))
+                            }
+                            MenuItem {
+                                text: qsTr("New Chat")
+                                onClicked: pageStack.push(Qt.resolvedUrl("../pages/NewChatPage.qml"))
+                            }
+                            MenuItem {
+                                text: qsTr("Archive")
+                                visible: archiveChatListModel.count > 0
 
-                    Loader {
-                        asynchronous: true
-                        // even if the first tab is not main chat list, still use the pulley menu
-                        sourceComponent: tabIndex === 0 ? mainPullDownMenu : folderPullDownMenu
-
-                        Component {
-                            id: mainPullDownMenu
-                            PullDownMenu {
-                                busy: tdLibWrapper.connectionState == TDLibAPI.Updating
-                                MenuItem {
-                                    text: "Debug"
-                                    visible: DebugLog.enabled
-                                    onClicked: pageStack.push(Qt.resolvedUrl("../pages/DebugPage.qml"), {overviewPage: overviewPage})
-                                }
-                                MenuItem {
-                                    text: qsTr("Settings")
-                                    onClicked: pageStack.push(Qt.resolvedUrl("../pages/SettingsPage.qml"))
-                                }
-                                MenuItem {
-                                    text: qsTr("Search", "pulley menu option for opening search page")
-                                    onClicked: pageStack.push(Qt.resolvedUrl("../pages/SearchChatsPage.qml"))
-                                }
-                                MenuItem {
-                                    text: qsTr("New Chat")
-                                    onClicked: pageStack.push(Qt.resolvedUrl("../pages/NewChatPage.qml"))
-                                }
-                                MenuItem {
-                                    text: qsTr("Archive")
-                                    visible: archiveChatListModel.count > 0
-
-                                    rightPadding: archiveChatListModel.unreadChatCount > 0 ? archiveUnreadCount.width + Theme.paddingLarge : 0
-                                    Rectangle {
-                                        id: archiveUnreadCount
-                                        visible: archiveChatListModel.unreadChatCount > 0
-                                        color: Theme.rgba(Theme.highlightBackgroundColor, Theme.highlightBackgroundOpacity)
-                                        anchors.verticalCenter: parent.verticalCenter
-                                        x: (parent.width + parent.contentWidth - width)/2
-                                        width: Theme.fontSizeExtraLarge
-                                        height: Theme.fontSizeExtraLarge
-                                        radius: width/2
-                                        Text {
-                                            anchors.centerIn: parent
-                                            font.pixelSize: Theme.fontSizeSmall
-                                            font.bold: true
-                                            color: Theme.primaryColor
-                                            text: Functions.formatUnreadCount(archiveChatListModel.unreadChatCount)
-                                        }
+                                rightPadding: archiveChatListModel.unreadChatCount > 0 ? archiveUnreadCount.width + Theme.paddingLarge : 0
+                                Rectangle {
+                                    id: archiveUnreadCount
+                                    visible: archiveChatListModel.unreadChatCount > 0
+                                    color: Theme.rgba(Theme.highlightBackgroundColor, Theme.highlightBackgroundOpacity)
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    x: (parent.width + parent.contentWidth - width)/2
+                                    width: Theme.fontSizeExtraLarge
+                                    height: Theme.fontSizeExtraLarge
+                                    radius: width/2
+                                    Text {
+                                        anchors.centerIn: parent
+                                        font.pixelSize: Theme.fontSizeSmall
+                                        font.bold: true
+                                        color: Theme.primaryColor
+                                        text: Functions.formatUnreadCount(archiveChatListModel.unreadChatCount)
                                     }
+                                }
 
-                                    onClicked: pageStack.push(Qt.resolvedUrl("../pages/ArchivedChatsPage.qml"), {overviewPage: overviewPage})
-                                }
-                                MenuItem {
-                                    text: qsTr("Mark as read")
-                                    visible: tabModel.count > 0
-                                    onClicked: chatsFlickable.readChatList()
-                                }
+                                onClicked: pageStack.push(Qt.resolvedUrl("../pages/ArchivedChatsPage.qml"), {overviewPage: overviewPage})
                             }
-                        }
-
-                        Component {
-                            id: folderPullDownMenu
-                            PullDownMenu {
-                                busy: tdLibWrapper.connectionState == TDLibAPI.Updating
-                                // this will be hidden if muted chats won't be included in folder counters (by settings) and only muted chats will be unread, which might not be ideal:
-                                visible: active || tabModel.count > 0
-                                MenuItem {
-                                    text: qsTr("Mark as read")
-                                    onClicked: chatsFlickable.readChatList()
-                                }
+                            MenuItem {
+                                text: qsTr("Mark as read")
+                                visible: tabModel.count > 0
+                                onClicked: chatsFlickable.readChatList()
                             }
                         }
                     }
 
-                    // FIXME: is loading the chats list separately from the actual tab correct?
-                    Loader {
-                        id: chatsViewLoader
-                        anchors {
-                            top: parent.top
-                            topMargin: tabItem.topMargin
-                        }
-                        width: parent.width
-                        height: parent.height - anchors.topMargin - tabItem.bottomMargin
-
-                        asynchronous: true
-                        sourceComponent: Component {
-                            ChatsView {
-                                id: chatsView
-                                anchors.fill: parent
-                                model: tabModel.chat_list_model
-                                chatListType: tabModel.type
-                                folderId: tabModel.folder_id
-
-                                Binding {
-                                    target: tabItem
-                                    property: 'isEmpty'
-                                    value: chatsView.count == 0
-                                }
+                    Component {
+                        id: folderPullDownMenu
+                        PullDownMenu {
+                            busy: tdLibWrapper.connectionState == TDLibAPI.Updating
+                            // this will be hidden if muted chats won't be included in folder counters (by settings) and only muted chats will be unread, which might not be ideal:
+                            visible: active || tabModel.count > 0
+                            MenuItem {
+                                text: qsTr("Mark as read")
+                                onClicked: chatsFlickable.readChatList()
                             }
                         }
                     }

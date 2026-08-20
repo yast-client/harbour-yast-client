@@ -17,6 +17,8 @@ MessageableListItem {
     property int chatListType: ChatFoldersModel.FolderMain
     property int folderId
 
+    property Component menuComponent: defaultContextMenu
+
     property bool isSavedMessages: chat_id === tdData.myUserId
 
     pictureThumbnail {
@@ -53,7 +55,7 @@ MessageableListItem {
         if (menu && menu.isMain)
             openMenu()
         else {
-            contextMenuLoader.sourceComponent = defaultContextMenu
+            contextMenuLoader.sourceComponent = menuComponent
             contextMenuLoader.active = true
         }
 
@@ -66,7 +68,7 @@ MessageableListItem {
                 listItem.menu = item
                 listItem.openMenu()
             }
-        sourceComponent: defaultContextMenu
+        sourceComponent: menuComponent
 
         Component {
             id: defaultContextMenu
@@ -141,13 +143,7 @@ MessageableListItem {
                 }
 
                 MenuItem {
-                    onClicked: {
-                        if(pageStack.depth > 2) {
-                            pageStack.pop(pageStack.find( function(page){ return(page._depth === 0)} ), PageStackAction.Immediate);
-                        }
-
-                        pageStack.push(Qt.resolvedUrl("../../pages/ChatInformationPage.qml"), {chatId: chat_id});
-                    }
+                    onClicked: pageStack.push(Qt.resolvedUrl("../../pages/ChatInformationPage.qml"), {chatId: chat_id})
                     text: model.display.type['@type'] === "chatTypePrivate" ? qsTr("User Info") : qsTr("Group Info")
                 }
             }

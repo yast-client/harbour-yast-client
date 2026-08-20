@@ -5,9 +5,6 @@ import QtQuick 2.6
 import Sailfish.Silica 1.0
 import Nemo.Notifications 1.0
 import io.yaqtlib 1.0
-import "../../js/twemoji.js" as Emoji
-import "../../js/functions.js" as Functions
-import "../../js/debug.js" as Debug
 
 SilicaListView {
     id: view
@@ -20,32 +17,30 @@ SilicaListView {
     property int chatListType: ChatFoldersModel.FolderMain
     property int folderId
 
-    Connections {
-        target: overviewPage
-        onScrollToTopRequired: view.scrollToTop()
-    }
+    property var chatsModel: model
+
+    property alias viewPlaceholder: viewPlaceholder
 
     delegate: ChatListViewItem {
         chatListType: view.chatListType
         folderId: view.folderId
-        onClicked: {
-            pageStack.push(Qt.resolvedUrl("../../pages/ChatPage.qml"), {chatId : chat_id})
-        }
+        onClicked: pageStack.push(Qt.resolvedUrl("../../pages/ChatPage.qml"), {chatId: chat_id})
     }
 
     Component.onCompleted:
         if (chatListType == ChatFoldersModel.FolderFolder)
-            model.load()
+            chatsModel.load()
 
     onContentYChanged: {
         if (view.count == 0) return
 
         var i = view.indexAt(view.contentX, view.contentY + view.height)
         if (i === -1 || i > Math.max(0, view.count - 10))
-            model.load()
+            chatsModel.load()
     }
 
     ViewPlaceholder {
+        id: viewPlaceholder
         enabled: view.count === 0
         text: qsTr("You don't have any chats yet.")
         hintText: qsTr("Pull down to search public chats or create a new chat")
