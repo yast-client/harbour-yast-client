@@ -20,7 +20,9 @@ QtObject {
                                 ? (chatInformation && chatInformation.photo ? chatInformation.photo.small : {})
                                 : (userInformation && userInformation.profile_photo ? userInformation.profile_photo.small : {}))
                             || {}
-    property int accentColorId: (isChat ? chatInformation : userInformation) ? (isChat ? chatInformation : userInformation).accent_color_id : -1
+    property int accentColorId: typeof (isChat ? chatInformation : userInformation).accent_color_id !== 'undefined'
+                                ? (isChat ? chatInformation : userInformation).accent_color_id
+                                : -1
 
     property var __conn: Connections {
         target: tdData
