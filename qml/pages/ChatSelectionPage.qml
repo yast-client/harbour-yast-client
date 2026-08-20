@@ -14,15 +14,8 @@ Dialog {
     id: chatSelectionPage
     allowedOrientations: Orientation.All
     canAccept: false
-    acceptDestinationAction: PageStackAction.Replace
-    acceptDestinationReplaceTarget: pageStack.find(function(page) {
-        // This crazy workaround is presented to you by a bug introduced with SFOS 4.0.1
-        // See https://forum.sailfishos.org/t/4-0-1-45-pagestack-find-not-working-properly-anymore-in-a-dialog/4723 for details.
-        chatSelectionPage.currentDepth = chatSelectionPage.currentDepth - 1;
-        return chatSelectionPage.currentDepth === 0;
-    })
-    property alias headerTitle: pageHeader.title
-    property alias headerDescription: pageHeader.description
+    property alias headerTitle: header.title
+    property alias headerDescription: header.description
 
     property var currentDepth: pageStack.depth
 
@@ -31,6 +24,8 @@ Dialog {
          - forwardMessages: {fromChatId, messageIds, neededPermissions}
     */
     property var payload: ({})
+
+    property bool search
 
     onAccepted: {
         switch(chatSelectionPage.state) {
@@ -45,48 +40,72 @@ Dialog {
     }
 
     PageHeader {
-        id: pageHeader
+        id: header
+        y: Math.max(0, -tabView.pulleyYOffset)
         title: qsTr("Select Chat")
-        width: parent.width
     }
 
-    SilicaListView {
-        id: chatListView
+    ChatFoldersViewBase {
+        id: tabView
+        anchors.fill: parent
+        extraTopMargin: header.height
+        interactive: !canAccept
 
-        anchors {
-            top: pageHeader.bottom
-            bottom: parent.bottom
-            left: parent.left
-            right: parent.right
-        }
-
-        clip: true
-
-        model: ChatPermissionFilterModel {
-            tdlib: tdLibWrapper
-            sourceModel: chatListModel
-            requirePermissions: chatSelectionPage.payload.neededPermissions
-        }
-
-        delegate: ChatListViewItem {
-            onClicked: {
-                switch (chatSelectionPage.state) {
-                case "forwardMessages":
-                case "fillTextArea":
-                    chatSelectionPage.acceptDestinationProperties = {chatId: display.id}
-                    chatSelectionPage.acceptDestination = Qt.resolvedUrl("../pages/ChatPage.qml")
-                    break
+        tabComponent: Component {
+            ChatFolderTabBase {
+                id: tabItem
+                /*MouseArea {
+                    parent: flickable
+                    y: header.y
+                    width: header.width
+                    height: header.height
+                    onClicked: clickTitleBar()
                 }
-                chatSelectionPage.canAccept = true
-                chatSelectionPage.accept()
+                MouseArea {
+                    parent: flickable
+                    x: proxySettingsButton.x
+                    y: proxySettingsButton.y
+                    width: proxySettingsButton.width
+                    height: proxySettingsButton.height
+                    enabled: proxySettingsButton.enabled
+                    onClicked: openProxySettings()
+
+                    // not sure why but Binding didn't work
+                    onContainsPressChanged:
+                        if (isCurrentItem)
+                            proxySettingsButton.externalMouseAreaDown = containsPress
+                }*/
+
+                PullDownMenu {
+                    parent: tabItem.flickable
+                    MenuItem {
+                        text: qsTr("Search")
+                        onClicked: pageStack.push("") // todo
+                    }
+                }
+
+                chatsModel: ChatPermissionFilterModel {
+                    tdlib: tdLibWrapper
+                    sourceModel: tabModel.chat_list_model
+                    requirePermissions: chatSelectionPage.payload.neededPermissions
+                }
+                chatsSourceModel: tabModel.chat_list_model
+
+                delegate: ChatListViewItem {
+                    menuComponent: null
+                    onClicked: {
+                        switch (chatSelectionPage.state) {
+                        case "forwardMessages":
+                        case "fillTextArea":
+                            chatSelectionPage.acceptDestinationProperties = {chatId: display.id}
+                            chatSelectionPage.acceptDestination = Qt.resolvedUrl("../pages/ChatPage.qml")
+                            break
+                        }
+                        chatSelectionPage.canAccept = true
+                        chatSelectionPage.accept()
+                    }
+                }
             }
         }
-
-        ViewPlaceholder {
-            enabled: chatListView.count === 0
-            text: qsTr("You don't have any chats yet.")
-        }
-
-        VerticalScrollDecorator {}
     }
 }
