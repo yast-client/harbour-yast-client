@@ -773,13 +773,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Voice messages</source>
-        <comment>Button: Chat voice messages</comment>
+        <source>Links</source>
+        <comment>Button: Chat shared links</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Links</source>
-        <comment>Button: Chat shared links</comment>
+        <source>Voice</source>
+        <comment>Button: Chat voice messages (short)</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1032,10 +1032,6 @@
     <name>ChatSelectionPage</name>
     <message>
         <source>Select Chat</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You don&apos;t have any chats yet.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2423,6 +2419,10 @@ Pull down to visit telegram.org</source>
         <source>Link copied to clipboard</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>MENU ITEM</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OverviewPageHeader</name>
@@ -2635,7 +2635,7 @@ Pull down to visit telegram.org</source>
     </message>
 </context>
 <context>
-    <name>SearchChatsPage</name>
+    <name>SearchChatsView</name>
     <message>
         <source>Search</source>
         <comment>page header for search page</comment>

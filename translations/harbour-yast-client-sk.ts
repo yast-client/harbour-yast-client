@@ -789,13 +789,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Voice messages</source>
-        <comment>Button: Chat voice messages</comment>
+        <source>Links</source>
+        <comment>Button: Chat shared links</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Links</source>
-        <comment>Button: Chat shared links</comment>
+        <source>Voice</source>
+        <comment>Button: Chat voice messages (short)</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1055,10 +1055,6 @@
     <message>
         <source>Select Chat</source>
         <translation>Vybrať čet</translation>
-    </message>
-    <message>
-        <source>You don&apos;t have any chats yet.</source>
-        <translation>Nemáte žiadne čety.</translation>
     </message>
 </context>
 <context>
@@ -2481,6 +2477,10 @@ Pull down to visit telegram.org</source>
         <source>Link copied to clipboard</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>MENU ITEM</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OverviewPageHeader</name>
@@ -2715,15 +2715,7 @@ Pull down to visit telegram.org</source>
     </message>
 </context>
 <context>
-    <name>SearchChatsPage</name>
-    <message>
-        <source>No chats found.</source>
-        <translation>Nebol nenájdený žiaden čet.</translation>
-    </message>
-    <message>
-        <source>Enter your query to start searching (at least 5 characters needed)</source>
-        <translation>Pre spustenie hľadania zadajte podmienku (vyžaduje sa najmenej 5 znakov)</translation>
-    </message>
+    <name>SearchChatsView</name>
     <message>
         <source>Search</source>
         <comment>page header for search page</comment>
@@ -2760,6 +2752,14 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Global search results</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter your query to start searching (at least 5 characters needed)</source>
+        <translation type="unfinished">Pre spustenie hľadania zadajte podmienku (vyžaduje sa najmenej 5 znakov)</translation>
+    </message>
+    <message>
+        <source>No chats found.</source>
+        <translation type="unfinished">Nebol nenájdený žiaden čet.</translation>
     </message>
     <message>
         <source>Searching chats</source>

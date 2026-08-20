@@ -781,14 +781,14 @@
         <translation>Audio</translation>
     </message>
     <message>
-        <source>Voice messages</source>
-        <comment>Button: Chat voice messages</comment>
-        <translation>Voice messages</translation>
-    </message>
-    <message>
         <source>Links</source>
         <comment>Button: Chat shared links</comment>
         <translation>Links</translation>
+    </message>
+    <message>
+        <source>Voice</source>
+        <comment>Button: Chat voice messages (short)</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1044,10 +1044,6 @@
     <message>
         <source>Select Chat</source>
         <translation>Select Chat</translation>
-    </message>
-    <message>
-        <source>You don&apos;t have any chats yet.</source>
-        <translation>You don&apos;t have any chats yet.</translation>
     </message>
 </context>
 <context>
@@ -2456,6 +2452,10 @@ Pull down to visit telegram.org</translation>
         <source>Link copied to clipboard</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>MENU ITEM</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OverviewPageHeader</name>
@@ -2679,55 +2679,55 @@ Pull down to visit telegram.org</translation>
     </message>
 </context>
 <context>
-    <name>SearchChatsPage</name>
-    <message>
-        <source>No chats found.</source>
-        <translation>No chats found.</translation>
-    </message>
-    <message>
-        <source>Enter your query to start searching (at least 5 characters needed)</source>
-        <translation>Enter your query to start searching (at least 5 characters needed)</translation>
-    </message>
+    <name>SearchChatsView</name>
     <message>
         <source>Search</source>
         <comment>page header for search page</comment>
-        <translation>Search</translation>
+        <translation type="unfinished">Search</translation>
     </message>
     <message>
         <source>Search</source>
         <comment>Placeholder text for chats search field</comment>
-        <translation>Search</translation>
+        <translation type="unfinished">Search</translation>
     </message>
     <message>
         <source>Frequent contacts</source>
-        <translation>Frequent contacts</translation>
+        <translation type="unfinished">Frequent contacts</translation>
     </message>
     <message>
         <source>Remove from Recents</source>
-        <translation>Remove from Recents</translation>
+        <translation type="unfinished">Remove from Recents</translation>
     </message>
     <message>
         <source>Recent</source>
         <comment>Recently found chats</comment>
-        <translation>Recent</translation>
+        <translation type="unfinished">Recent</translation>
     </message>
     <message>
         <source>Cleared recents</source>
         <comment>Remorse popup indicating that recently found chats are cleared</comment>
-        <translation>Cleared recents</translation>
+        <translation type="unfinished">Cleared recents</translation>
     </message>
     <message>
         <source>Remove from Recent</source>
         <comment>Remove a chat from recently found chats</comment>
-        <translation>Remove from Recent</translation>
+        <translation type="unfinished">Remove from Recent</translation>
     </message>
     <message>
         <source>Global search results</source>
-        <translation>Global search results</translation>
+        <translation type="unfinished">Global search results</translation>
+    </message>
+    <message>
+        <source>Enter your query to start searching (at least 5 characters needed)</source>
+        <translation type="unfinished">Enter your query to start searching (at least 5 characters needed)</translation>
+    </message>
+    <message>
+        <source>No chats found.</source>
+        <translation type="unfinished">No chats found.</translation>
     </message>
     <message>
         <source>Searching chats</source>
-        <translation>Searching chats</translation>
+        <translation type="unfinished">Searching chats</translation>
     </message>
 </context>
 <context>

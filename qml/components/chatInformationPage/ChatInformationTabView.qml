@@ -196,7 +196,7 @@ TabView {
         id: voiceNotesModel
         tdlib: tdLibWrapper
         filter: TDLibAPI.SearchMessagesFilterVoiceNote
-        onNotEmptyDetected: insertTab('VoiceNotes', qsTr("Voice messages", "Button: Chat voice messages"), 'image://theme/icon-m-browser-microphone', {filter: TDLibAPI.SearchMessagesFilterVoiceNote})
+        onNotEmptyDetected: insertTab('VoiceNotes', qsTr("Voice", "Button: Chat voice messages (short)"), 'image://theme/icon-m-browser-microphone', {filter: TDLibAPI.SearchMessagesFilterVoiceNote})
     }
 
     InvertedMediaMessagesModel {

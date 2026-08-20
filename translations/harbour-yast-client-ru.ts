@@ -789,14 +789,14 @@
         <translation>Аудио</translation>
     </message>
     <message>
-        <source>Voice messages</source>
-        <comment>Button: Chat voice messages</comment>
-        <translation>Голосовые сообщения</translation>
-    </message>
-    <message>
         <source>Links</source>
         <comment>Button: Chat shared links</comment>
         <translation>Ссылки</translation>
+    </message>
+    <message>
+        <source>Voice</source>
+        <comment>Button: Chat voice messages (short)</comment>
+        <translation>Голосовые</translation>
     </message>
 </context>
 <context>
@@ -1055,10 +1055,6 @@
     <message>
         <source>Select Chat</source>
         <translation>Выбрать чат</translation>
-    </message>
-    <message>
-        <source>You don&apos;t have any chats yet.</source>
-        <translation>У вас пока нет чатов.</translation>
     </message>
 </context>
 <context>
@@ -2488,6 +2484,10 @@ Pull down to visit telegram.org</source>
         <source>Link copied to clipboard</source>
         <translation>Ссылка скопирована</translation>
     </message>
+    <message>
+        <source>MENU ITEM</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>OverviewPageHeader</name>
@@ -2722,55 +2722,55 @@ Pull down to visit telegram.org</source>
     </message>
 </context>
 <context>
-    <name>SearchChatsPage</name>
-    <message>
-        <source>No chats found.</source>
-        <translation>Чаты не найдены.</translation>
-    </message>
-    <message>
-        <source>Enter your query to start searching (at least 5 characters needed)</source>
-        <translation>Введите не менее 5 символов, чтобы начать поиск</translation>
-    </message>
+    <name>SearchChatsView</name>
     <message>
         <source>Search</source>
         <comment>page header for search page</comment>
-        <translation>Поиск чатов</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Search</source>
         <comment>Placeholder text for chats search field</comment>
-        <translation>Поиск</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Frequent contacts</source>
-        <translation>Частые контакты</translation>
+        <translation type="unfinished">Частые контакты</translation>
     </message>
     <message>
         <source>Remove from Recents</source>
-        <translation>Убрать из недавних</translation>
+        <translation type="unfinished">Убрать из недавних</translation>
     </message>
     <message>
         <source>Recent</source>
         <comment>Recently found chats</comment>
-        <translation>Недпвние</translation>
+        <translation type="unfinished">Недпвние</translation>
     </message>
     <message>
         <source>Cleared recents</source>
         <comment>Remorse popup indicating that recently found chats are cleared</comment>
-        <translation>Недавние очищены</translation>
+        <translation type="unfinished">Недавние очищены</translation>
     </message>
     <message>
         <source>Remove from Recent</source>
         <comment>Remove a chat from recently found chats</comment>
-        <translation>Убрать из недавних</translation>
+        <translation type="unfinished">Убрать из недавних</translation>
     </message>
     <message>
         <source>Global search results</source>
-        <translation>Результаты глобального поиска</translation>
+        <translation type="unfinished">Результаты глобального поиска</translation>
+    </message>
+    <message>
+        <source>Enter your query to start searching (at least 5 characters needed)</source>
+        <translation type="unfinished">Введите не менее 5 символов, чтобы начать поиск</translation>
+    </message>
+    <message>
+        <source>No chats found.</source>
+        <translation type="unfinished">Чаты не найдены.</translation>
     </message>
     <message>
         <source>Searching chats</source>
-        <translation>Поиск чатов</translation>
+        <translation type="unfinished">Поиск чатов</translation>
     </message>
 </context>
 <context>
@@ -3098,7 +3098,7 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Hide Suggestion</source>
         <comment>Button hiding the suggestion to check if you still remember your 2FA password</comment>
-        <translation>Скрыть подсказку о двухшаговом пароле аутентификации</translation>
+        <translation>Скрыть подсказку</translation>
     </message>
 </context>
 <context>
