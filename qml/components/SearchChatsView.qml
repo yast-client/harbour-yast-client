@@ -269,7 +269,7 @@ Item {
                                     }
 
                                     onClicked: {
-                                        if (openOnSelected) pageStack.replace(Qt.resolvedUrl("ChatPage.qml"), {chatId: modelData})
+                                        if (openOnSelected) pageStack.replace(Qt.resolvedUrl("../pages/ChatPage.qml"), {chatId: modelData})
                                         chatSelected(modelData)
                                     }
                                 }
