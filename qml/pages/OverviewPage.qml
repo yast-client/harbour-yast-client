@@ -284,6 +284,9 @@ Page {
 
         tabComponent: Component {
             ChatFolderTabBase {
+                viewPlaceholderText: qsTr("Welcome to Telegram")
+                viewPlaceholderHintText: qsTr("Pull down to search public chats or create a new chat")
+
                 function readChatList() {
                     if (tabModel.type === ChatFoldersModel.FolderFolder)
                         tdLibWrapper.readFolderChatList(tabModel.id)

@@ -42,8 +42,6 @@ SilicaListView {
     ViewPlaceholder {
         id: viewPlaceholder
         enabled: view.count === 0
-        text: qsTr("You don't have any chats yet.")
-        hintText: qsTr("Pull down to search public chats or create a new chat")
     }
 
     VerticalScrollDecorator {}

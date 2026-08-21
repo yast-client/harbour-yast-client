@@ -35,6 +35,9 @@ TabItem {
         onClicked: pageStack.push(Qt.resolvedUrl("../../pages/ChatPage.qml"), {chatId: chat_id})
     }
 
+    property string viewPlaceholderText: qsTr("You have no chats")
+    property string viewPlaceholderHintText
+
     //opacity: 1
     flickable: chatsFlickable
     SilicaFlickable {
@@ -65,6 +68,11 @@ TabItem {
                     folderId: tabModel.folder_id
 
                     delegate: tabItem.delegate
+
+                    viewPlaceholder {
+                        text: tabItem.viewPlaceholderText
+                        hintText: tabItem.viewPlaceholderHintText
+                    }
 
                     Binding {
                         target: tabItem

@@ -45,6 +45,11 @@ Page {
             }
             model: archiveChatListModel
             chatListType: ChatFoldersModel.FolderArchive
+
+            viewPlaceholder {
+                text: qsTr("Archive is empty")
+                hintText: qsTr("You can archive chats using the context menu.")
+            }
         }
     }
 
