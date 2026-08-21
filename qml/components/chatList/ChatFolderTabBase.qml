@@ -9,9 +9,16 @@ TabItem {
     id: tabItem
     allowDeletion: tabIndex !== 0 // always keep first tab in cache
 
-    width: tabView.width
-    height: tabView.height
-    topMargin: 0
+    property bool fillFlickable: !!(flickable && flickable.pullDownMenu)
+
+    width: fillFlickable ? tabView.width : implicitWidth
+    height: fillFlickable ? tabView.height : implicitHeight
+    Binding {
+        target: tabItem
+        property: 'topMargin'
+        when: fillFlickable
+        value: 0
+    }
 
     property bool isEmpty: true
     Binding {
@@ -46,7 +53,7 @@ TabItem {
                     id: chatsView
                     anchors {
                         top: parent.top
-                        topMargin: tabView.tabBarHeight + tabView.extraTopMargin
+                        topMargin: fillFlickable ? (tabView.tabBarHeight + tabView.extraTopMargin) : 0
                     }
                     width: parent.width
                     height: parent.height - anchors.topMargin
