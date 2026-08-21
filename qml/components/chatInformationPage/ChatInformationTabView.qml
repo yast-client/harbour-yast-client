@@ -7,7 +7,7 @@ import "./"
 import "../"
 import "../../pages"
 import io.yaqtlib 1.0
-import "../../modules/Opal/Tabs"
+import Opal.Tabs 1.0
 
 TabView {
     id: tabView

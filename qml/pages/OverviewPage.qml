@@ -11,7 +11,7 @@ import "../components/chatList"
 import "../js/twemoji.js" as Emoji
 import "../js/functions.js" as Functions
 import "../js/debug.js" as Debug
-import "../modules/Opal/Tabs"
+import Opal.Tabs 1.0
 
 Page {
     id: overviewPage

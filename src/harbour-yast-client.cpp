@@ -80,6 +80,8 @@ int main(int argc, char *argv[]) {
     app->setQuitOnLastWindowClosed(false);
     QObject::connect(view.data(), SIGNAL(closing(QQuickCloseEvent*)), app.data(), SLOT(quit()));
 
+    view->engine()->addImportPath(SailfishApp::pathTo("qml/modules").toString());
+
     view->setSource(SailfishApp::pathToMainQml());
     view->show();
     return app->exec();

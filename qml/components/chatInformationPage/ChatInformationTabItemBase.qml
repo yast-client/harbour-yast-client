@@ -5,7 +5,7 @@ import QtQuick 2.6
 import Sailfish.Silica 1.0
 import "../../pages"
 import "../"
-import "../../modules/Opal/Tabs"
+import Opal.Tabs 1.0
 
 TabItem {
     id: tabItem

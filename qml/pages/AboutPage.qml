@@ -5,7 +5,7 @@ import QtQuick 2.6
 import Sailfish.Silica 1.0
 import io.yaqtlib 1.0
 import "../components"
-import "../modules/Opal/About"
+import Opal.About 1.0
 
 AboutPageBase {
     id: aboutPage

@@ -5,7 +5,7 @@
 import QtQuick 2.6
 import Sailfish.Silica 1.0
 import io.yaqtlib 1.0
-import "../../modules/Opal/FancyMenus"
+import Opal.FancyMenus 1.0
 import '../../pages'
 import '..'
 

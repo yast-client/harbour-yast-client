@@ -6,7 +6,7 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import io.yaqtlib 1.0
 import '..'
-import '../../modules/Opal/FancyMenus'
+import Opal.FancyMenus 1.0
 import '../../js/functions.js' as Functions
 import '../../js/debug.js' as Debug
 
