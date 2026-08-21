@@ -15,7 +15,8 @@ PhotoTextsListItem {
     property var messageSender
     property var chatId: messageSender && messageSender['@type'] === 'messageSenderChat' ? messageSender.chat_id : undefined
     property var userId: messageSender && messageSender['@type'] === 'messageSenderUser' ? messageSender.user_id : chatInformation.type.user_id
-    property bool doReplace
+    property bool openOnClick
+    property bool doReplace: true
 
     property bool showFullInfo: true
 
@@ -151,9 +152,11 @@ PhotoTextsListItem {
     tertiaryText.maximumLineCount: 1
     tertiaryText.visible: !compact
 
-    onClicked:
+    function open() {
         if (chatId)
             (doReplace ? pageStack.replace : pageStack.push)(Qt.resolvedUrl("../../pages/ChatPage.qml"), {chatId: chatId})
         else if (userId)
-            tdLibWrapper.createPrivateChat(userId, "openDirectly")
+            tdLibWrapper.createPrivateChat(userId, 'openDirectly')
+    }
+    onClicked: if (openOnClick) open()
 }
