@@ -5,14 +5,16 @@
 import QtQuick 2.6
 import Sailfish.Silica 1.0
 import io.yaqtlib 1.0
+import "../components"
 import "../components/chatList"
-
+import Opal.MenuSwitch 1.0
 import "../js/twemoji.js" as Emoji
 import "../js/functions.js" as Functions
 
 Dialog {
-    id: chatSelectionPage
+    id: page
     allowedOrientations: Orientation.All
+    acceptDestinationAction: PageStackAction.Replace
     canAccept: false
     property alias headerTitle: header.title
     property alias headerDescription: header.description
@@ -20,17 +22,41 @@ Dialog {
     property var currentDepth: pageStack.depth
 
     /*
-        payload dependent on chatSelectionPage.state
-         - forwardMessages: {fromChatId, messageIds, neededPermissions}
+        payload dependent on page.state
+         - forwardMessages: {fromChatId, messageIds, neededPermissions, canForward, canCopy, canCopyToSecretChat}
+           (canForward, canCopy and canCopyToSecretChat cannot all be false)
+         - fillTextArea: {text}
     */
     property var payload: ({})
 
+    // forwardMessages
+    property int forwardAdditionalFilter:
+        if (state == 'forwardMessages' && forwardCopySwitch.checked) {
+            if (payload.canCopy && payload.canCopyToSecretChat)
+                return ChatPermissionFilterModel.AdditionalFilterNone
+            return payload.canCopyToSecretChat ? ChatPermissionFilterModel.AdditionalFilterSecretOnly
+                                               : ChatPermissionFilterModel.AdditionalFilterNonSecret
+        } else return ChatPermissionFilterModel.AdditionalFilterNone
+
     property bool search
 
-    onAccepted: {
-        switch(chatSelectionPage.state) {
+    function selectChat(chatId) {
+        console.log("CHAT",chatId)
+        switch (page.state) {
         case "forwardMessages":
-            acceptDestinationInstance.forwardMessages(payload.fromChatId, payload.messageIds)
+        case "fillTextArea":
+            acceptDestinationProperties = {chatId: chatId}
+            acceptDestination = Qt.resolvedUrl("ChatPage.qml")
+            break
+        }
+        canAccept = true
+        accept()
+    }
+
+    onAccepted: {
+        switch(page.state) {
+        case "forwardMessages":
+            acceptDestinationInstance.forwardMessages(payload.fromChatId, payload.messageIds, forwardCopySwitch.checked, forwardRemoveCaptionSwitch.checked)
             break;
         case "fillTextArea": // ReplyMarkupButtons: inlineKeyboardButtonTypeSwitchInline
             acceptDestinationInstance.setMessageText(payload.text)
@@ -39,73 +65,102 @@ Dialog {
         }
     }
 
-    PageHeader {
-        id: header
-        y: Math.max(0, -tabView.pulleyYOffset)
-        title: qsTr("Select Chat")
+    SilicaFlickable {
+        anchors.fill: parent
+
+        PullDownMenu {
+            id: pulley
+            // can't use forwardCopySwitch.visible (binding loop since visible depends on parent's visible value)
+            visible: forwardCopySwitch.active || !search
+
+            MenuSwitch {
+                id: forwardCopySwitch
+
+                property bool active: page.state == 'forwardMessages' && (payload.canCopy || payload.canCopyToSecretChat)
+                visible: active
+
+                enabled: payload.canForward
+                text: qsTr("Hide Sender Name")
+                checked: !payload.canForward
+                onCheckedChanged:
+                    if (!checked) forwardRemoveCaptionSwitch.checked = false
+            }
+            MenuSwitch {
+                // TODO: hide this when no caption is available
+                id: forwardRemoveCaptionSwitch
+                visible: forwardCopySwitch.active
+                enabled: forwardCopySwitch.enabled
+                text: qsTr("Hide Caption")
+                onCheckedChanged:
+                    if (checked) forwardCopySwitch.checked = true
+            }
+
+            MenuItem {
+                id: searchMenuItem
+                visible: !search
+                text: qsTr("Search")
+                onClicked: pageStack.push(Qt.resolvedUrl("ChatSelectionPage.qml"), {
+                                                             headerTitle: headerTitle, headerDescription: headerDescription,
+                                                             state: state, payload: payload,
+                                                             search: true,
+                                                             acceptDestinationReplaceTarget: pageStack.previousPage(page)
+                                                         })
+            }
+        }
+
+        PageHeader {
+            id: header
+            title: qsTr("Select Chat")
+        }
+
+        Loader {
+            id: loader
+            width: parent.width
+            anchors {
+                top: header.bottom
+                bottom: parent.bottom
+            }
+            sourceComponent: search ? searchComponent : chatsComponent
+        }
     }
 
-    ChatFoldersViewBase {
-        id: tabView
-        anchors.fill: parent
-        extraTopMargin: header.height
-        interactive: !canAccept
+    Component {
+        id: chatsComponent
+        ChatFoldersViewBase {
+            id: tabView
+            anchors.fill: parent
+            interactive: !canAccept
 
-        tabComponent: Component {
-            ChatFolderTabBase {
-                id: tabItem
-                /*MouseArea {
-                    parent: flickable
-                    y: header.y
-                    width: header.width
-                    height: header.height
-                    onClicked: clickTitleBar()
-                }
-                MouseArea {
-                    parent: flickable
-                    x: proxySettingsButton.x
-                    y: proxySettingsButton.y
-                    width: proxySettingsButton.width
-                    height: proxySettingsButton.height
-                    enabled: proxySettingsButton.enabled
-                    onClicked: openProxySettings()
+            tabComponent: Component {
+                ChatFolderTabBase {
+                    fillFlickable: false
 
-                    // not sure why but Binding didn't work
-                    onContainsPressChanged:
-                        if (isCurrentItem)
-                            proxySettingsButton.externalMouseAreaDown = containsPress
-                }*/
-
-                PullDownMenu {
-                    parent: tabItem.flickable
-                    MenuItem {
-                        text: qsTr("Search")
-                        onClicked: pageStack.push("") // todo
+                    chatsModel: ChatPermissionFilterModel {
+                        tdlib: tdLibWrapper
+                        sourceModel: tabModel.chat_list_model
+                        requirePermissions: page.payload.neededPermissions
+                        additionalFilter: forwardAdditionalFilter
                     }
-                }
+                    chatsSourceModel: tabModel.chat_list_model
 
-                chatsModel: ChatPermissionFilterModel {
-                    tdlib: tdLibWrapper
-                    sourceModel: tabModel.chat_list_model
-                    requirePermissions: chatSelectionPage.payload.neededPermissions
-                }
-                chatsSourceModel: tabModel.chat_list_model
-
-                delegate: ChatListViewItem {
-                    menuComponent: null
-                    onClicked: {
-                        switch (chatSelectionPage.state) {
-                        case "forwardMessages":
-                        case "fillTextArea":
-                            chatSelectionPage.acceptDestinationProperties = {chatId: display.id}
-                            chatSelectionPage.acceptDestination = Qt.resolvedUrl("../pages/ChatPage.qml")
-                            break
-                        }
-                        chatSelectionPage.canAccept = true
-                        chatSelectionPage.accept()
+                    delegate: ChatListViewItem {
+                        // TODO: selecting multiple chats
+                        menuComponent: null
+                        onClicked: selectChat(chat_id)
                     }
                 }
             }
+        }
+    }
+
+    Component {
+        id: searchComponent
+        SearchChatsView {
+            remorseParent: page
+            requirePermissions: page.payload.neededPermissions
+            additionalFilter: forwardAdditionalFilter
+            openOnSelected: false
+            onChatSelected: selectChat(chatId)
         }
     }
 }

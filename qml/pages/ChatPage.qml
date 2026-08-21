@@ -81,23 +81,28 @@ Page {
             messagesView.setMessageText(text, doSend)
     }
 
-    function startForwardingMessages(messages) {
+    function startForwardingMessages(messages, canForward, canCopy, canCopyToSecretChat) {
         var ids = Functions.getMessagesArrayIds(messages)
         var neededPermissions = Functions.getMessagesNeededForwardPermissions(messages)
         var chatId = chatInformation.id
         pageStack.push(Qt.resolvedUrl("../pages/ChatSelectionPage.qml"), {
             headerDescription: qsTr("Forward %Ln messages", "dialog header", ids.length),
-            payload: {fromChatId: chatId, messageIds:ids, neededPermissions: neededPermissions},
+            payload: {
+                fromChatId: chatId, messageIds:ids, neededPermissions: neededPermissions,
+                canForward: canForward, canCopy: canCopy, canCopyToSecretChat: canCopyToSecretChat
+            },
             state: "forwardMessages"
         })
     }
 
-    function forwardMessages(fromChatId, messageIds) {
+    function forwardMessages(fromChatId, messageIds, sendCopy, removeCaption) {
         if (viewAsTopics) {
             topicsListView.forwardFromChatId = fromChatId
             topicsListView.forwardMessageIds = messageIds
+            topicsListView.forwardSendCopy = sendCopy
+            topicsListView.forwardRemoveCaption = removeCaption
         } else
-            messagesView.forwardMessages(fromChatId, messageIds)
+            messagesView.forwardMessages(fromChatId, messageIds, sendCopy, removeCaption)
     }
 
     function hasGroupPermission(memberPermission, adminPermission) {

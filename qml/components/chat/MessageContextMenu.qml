@@ -251,11 +251,11 @@ Loader {
             FancyMenuRow {
                 checkShort: function (ratio) { return Screen.sizeCategory <= Screen.Large && ratio > 1 }
                 IconTextRowMenuItem {
-                    visible: !!messageProperties.can_be_forwarded
+                    visible: !!(messageProperties.can_be_forwarded || messageProperties.can_be_copied || messageProperties.can_be_copied_to_secret_chat)
                     icon.source: "image://theme/icon-m-message-forward"
                     shortText: qsTr("Forward", 'Short version for "Forward Message"')
                     longText: qsTr("Forward Message")
-                    onClicked: messageData.forwardMessage()
+                    onClicked: messageData.forwardMessage(messageProperties.can_be_forwarded, messageProperties.can_be_copied, messageProperties.can_be_copied_to_secret_chat)
                 }
                 IconTextRowMenuItem {
                     visible: newMessageColumn.show && !!messageProperties.can_be_replied

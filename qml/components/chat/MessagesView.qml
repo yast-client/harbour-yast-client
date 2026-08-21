@@ -243,9 +243,11 @@ Column {
         }
     }
 
-    function forwardMessages(fromChatId, messageIds) {
+    function forwardMessages(fromChatId, messageIds, sendCopy, removeCaption) {
         forwardMessagesTimer.fromChatId = fromChatId
         forwardMessagesTimer.messageIds = messageIds
+        forwardMessagesTimer.sendCopy = sendCopy
+        forwardMessagesTimer.removeCaption = removeCaption
         forwardMessagesTimer.start()
     }
 
@@ -363,11 +365,13 @@ Column {
 
         property string fromChatId
         property var messageIds
+        property bool sendCopy
+        property bool removeCaption
         onTriggered:
             if (loading)
                 forwardMessagesTimer.start()
             else
-                tdLibWrapper.forwardMessages(chatId, fromChatId, messageIds, topicId, isSecretChat /* forwardedToSecretChat */)
+                tdLibWrapper.forwardMessages(chatId, fromChatId, messageIds, topicId, sendCopy, removeCaption)
     }
 
     Timer {
@@ -726,7 +730,7 @@ Column {
 
                     onReplyToMessage: messageLoader.replyToMessage()
                     onEditMessage: messageLoader.editMessage()
-                    onForwardMessage: startForwardingMessages([message])
+                    onForwardMessage: startForwardingMessages([message], canForward, canCopy, canCopyToSecretChat)
                 }
 
                 Component {
@@ -955,14 +959,25 @@ Column {
                     }
 
                     IconButton {
-                        visible: !chatPage.isSecretChat && selectedMessages.every(function(message) {
-                            return message.properties.can_be_forwarded
-                        })
+                        property var forwardProperties: {
+                            var canForward = true, canCopy = true, canCopyToSecretChat = true
+                            for (var i = 0; i < selectedMessages.length; i++) {
+                                var props = selectedMessages[i].properties
+                                if (!props.can_be_forwarded) canForward = false
+                                if (!props.can_be_copied) canCopy = false
+                                if (!props.can_be_copied_to_secret_chat) canCopyToSecretChat = false
+
+                                if (!canForward && !canCopy && !canCopyToSecretChat) break
+                            }
+
+                            return {canForward: canForward, canCopy: canCopy, canCopyToSecretChat: canCopyToSecretChat}
+                        }
+
+                        visible: forwardProperties.canForward || forwardProperties.canCopy || forwardProperties.canCopyToSecretChat
                         icon.sourceSize: Qt.size(Theme.iconSizeMedium, Theme.iconSizeMedium)
                         icon.source: "image://theme/icon-m-forward"
                         onClicked:
-                            startForwardingMessages(messagesView.selectedMessages)
-
+                            startForwardingMessages(messagesView.selectedMessages, forwardProperties.canForward, forwardProperties.canCopy, forwardProperties.canCopyToSecretChat)
                     }
                     IconButton {
                         icon.source: "image://theme/icon-m-delete"

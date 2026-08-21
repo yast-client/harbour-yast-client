@@ -27,6 +27,8 @@ PhotoTextsListItem {
     property bool isSupergroup
     property bool isSecret
 
+    property bool handleGroupUpdates
+
     property string chatTypeName: {
         if (isPrivateChat)
             return qsTr("Private Chat")
@@ -109,7 +111,6 @@ PhotoTextsListItem {
 
     Connections {
         target: tdData
-
         onChatRolesUpdated:
             if (chatId === chatItem.chatId)
                 chatInformation = tdData.getChat(chatId)
@@ -117,13 +118,17 @@ PhotoTextsListItem {
         onUserUpdated:
             if ((isPrivateChat || isSecret) && userId === chatItem.userId)
                 handleUser()
-        // We don't need to handle group updates for now (but if we do later, these can be restored)
-        /*onBasicGroupUpdated:
+    }
+    Connections {
+        target: handleGroupUpdates ? tdData : null
+        ignoreUnknownSignals: true
+
+        onBasicGroupUpdated:
             if (isBasicGroup && groupId === chatInformation.type.basic_group_id)
                 handleBasicGroup()
         onSupergroupUpdated:
             if (isSupergroup && groupId === chatInformation.type.supergroup_id)
-                handleSupergroup()*/
+                handleSupergroup()
     }
 
     Connections {

@@ -83,6 +83,45 @@ Item {
     property var publicChatsFound: []
     property var sponsoredChats: ({})
 
+    // TODO: currently, contentHeight of ColumnViews is broken with this
+    property var requirePermissions: []
+    property int additionalFilter: ChatPermissionFilterModel.AdditionalFilterNone
+
+    function matchesFilter(isSecret, isPrivateChat, chatInformation, relatedInformation) {
+        switch (additionalFilter) {
+        case ChatPermissionFilterModel.AdditionalFilterNonSecret:
+            if (isSecret) return false
+            break
+        case ChatPermissionFilterModel.AdditionalFilterSecretOnly:
+            if (!isSecret) return false
+        }
+
+        if (!requirePermissions || !requirePermissions.length || isPrivateChat || isSecret)
+            return true
+
+        var status = relatedInformation.status
+        var permissions
+        switch (status['@type']) {
+        case 'chatMemberStatusCreator':
+        case 'chatMemberStatusAdministrator':
+            return true
+        case 'chatMemberStatusMember':
+            permissions = chatInformation.permissions
+            break
+        case 'chatMemberStatusRestricted':
+            permissions = status.permissions
+            break
+        default:
+            return false
+        }
+
+        if (permissions && permissions.length)
+            for (var i=0; i < requirePermissions.length; i++)
+                if (permissions[requirePermissions[i]]) return true
+
+        return false
+    }
+
     Component.onCompleted: tdLibWrapper.searchRecentlyFoundChats()
 
     Column {
@@ -302,6 +341,8 @@ Item {
                     model: localChatsFound
                     delegate: TDLibChatListItem {
                         chatId: modelData
+                        handleGroupUpdates: true
+                        hidden: !matchesFilter(isSecret, isPrivateChat, chatInformation, relatedInformation)
                         openOnClick: root.openOnSelected
                         onClicked: {
                             tdLibWrapper.addRecentlyFoundChat(chatId)
@@ -331,6 +372,8 @@ Item {
                     delegate: TDLibChatListItem {
                         id: recentlyFoundChatDelegate
                         chatId: modelData
+                        handleGroupUpdates: true
+                        hidden: !matchesFilter(isSecret, isPrivateChat, chatInformation, relatedInformation)
                         menu: Component {
                             ContextMenu {
                                 MenuItem {
@@ -362,6 +405,8 @@ Item {
                         TDLibChatListItem {
                             // TODO: viewSponsoredChat
                             chatId: modelData.chat_id
+                            handleGroupUpdates: true
+                            hidden: !matchesFilter(isSecret, isPrivateChat, chatInformation, relatedInformation)
                             ad: true
                             menu: Component {
                                 ContextMenu {
@@ -386,13 +431,12 @@ Item {
                                 var mappedY = mapToItem(flickable.contentItem, 0, 0)
                                 return (mappedY < (flickable.contentY + flickable.height)) && ((mappedY + height) > flickable.contentY)
                             }
-                            onScrolledToChanged: {
+                            onScrolledToChanged:
                                 if (!viewed && scrolledTo) {
                                     Debug.log("Viewing sponsored result", modelData.unique_id, modelData.chat_id)
                                     tdLibWrapper.viewSponsoredChat(modelData.unique_id)
                                     viewed = true
                                 }
-                            }
                         }
                     }
                 }
@@ -403,6 +447,8 @@ Item {
                     model: publicChatsFound.filter(function(x) { return recentlyFoundChatsFound.indexOf(x) < 0 && localChatsFound.indexOf(x) < 0 })
                     delegate: TDLibChatListItem {
                         chatId: modelData
+                        handleGroupUpdates: true
+                        hidden: !matchesFilter(isSecret, isPrivateChat, chatInformation, relatedInformation)
                         openOnClick: root.openOnSelected
                         onClicked: {
                             tdLibWrapper.addRecentlyFoundChat(chatId)

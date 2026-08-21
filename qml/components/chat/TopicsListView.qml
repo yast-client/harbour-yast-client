@@ -18,6 +18,8 @@ Item {
 
     property var forwardFromChatId
     property var forwardMessageIds
+    property bool forwardSendCopy
+    property bool forwardRemoveCaption
 
     function openAtTopicId(forumTopicId) {
         forumTopicIdToShow = forumTopicId
@@ -114,7 +116,7 @@ Item {
             onClicked: {
                 var page = pageStack.push(topicMessagesPage, {chatId: chatId, forumTopicData: display})
                 if (forwardHeaderLoader.active) {
-                    page.messagesView.forwardMessages(forwardFromChatId, forwardMessageIds)
+                    page.messagesView.forwardMessages(forwardFromChatId, forwardMessageIds, forwardSendCopy, forwardRemoveCaption)
                     forwardFromChatId = forwardMessageIds = null
                 }
             }

@@ -25,5 +25,5 @@ QtObject {
 
     signal replyToMessage
     signal editMessage
-    signal forwardMessage
+    signal forwardMessage(bool canForward, bool canCopy, bool canCopyToSecretChat)
 }

@@ -83,10 +83,16 @@ Item {
     Behavior on opacity { FadeAnimator {} }
 
     function forwardMessage() {
-        var neededPermissions = Functions.getMessagesNeededForwardPermissions([message]);
+        var neededPermissions = Functions.getMessagesNeededForwardPermissions([message])
+        var props = propertiesLoader.properties
         pageStack.push(Qt.resolvedUrl("../../../pages/ChatSelectionPage.qml"), {
             headerDescription: qsTr("Forward %Ln messages", "dialog header", 1),
-            payload: {fromChatId: message.chat_id, messageIds:[message.id], neededPermissions: neededPermissions},
+            payload: {
+                fromChatId: message.chat_id, messageIds: [message.id], neededPermissions: neededPermissions,
+                canForward: props.can_be_forwarded,
+                canCopy: props.can_be_copied,
+                canCopyToSecretChat: props.can_be_copied_to_secret_chat
+            },
             state: "forwardMessages"
         });
     }
@@ -317,7 +323,7 @@ Item {
 
         IconButton {
             visible: forwardButtonVisible
-            enabled: !!propertiesLoader.properties.can_be_forwarded
+            enabled: !!(propertiesLoader.properties.can_be_forwarded || propertiesLoader.properties.can_be_copied || propertiesLoader.properties.can_be_copied_to_secret_chat)
             opacity: enabled ? 1.0 : 0.2
             icon.source: 'image://theme/icon-m-share'
             icon.color: buttons.iconColor
