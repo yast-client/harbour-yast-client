@@ -11,3 +11,5 @@ RowMenuItem 1.0 RowMenuItem.qml
 FancyMenuRow 1.0 FancyMenuRow.qml
 FancyPullDownMenu 1.0 FancyPullDownMenu.qml
 FancyPushUpMenu 1.0 FancyPushUpMenu.qml
+BaseRowMenuItem 1.0 BaseRowMenuItem.qml
+MenuItemLoader 1.0 MenuItemLoader.qml
