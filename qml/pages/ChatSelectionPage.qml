@@ -84,9 +84,9 @@ Dialog {
                     if (!checked) forwardRemoveCaptionSwitch.checked = false
             }
             MenuSwitch {
-                // TODO: hide this when no caption is available
+                // TODO: for returning this we need to hide it when no caption is available
                 id: forwardRemoveCaptionSwitch
-                visible: forwardCopySwitch.active
+                visible: false//forwardCopySwitch.active
                 enabled: forwardCopySwitch.enabled
                 text: qsTr("Hide Caption")
                 onCheckedChanged:
