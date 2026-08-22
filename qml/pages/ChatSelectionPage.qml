@@ -158,8 +158,11 @@ Dialog {
         id: searchComponent
         SearchChatsView {
             remorseParent: page
-            requirePermissions: page.payload.neededPermissions
-            additionalFilter: forwardAdditionalFilter
+
+            // TODO: see comments for these properties
+            //requirePermissions: page.payload.neededPermissions
+            //additionalFilter: forwardAdditionalFilter
+
             openOnSelected: false
             onChatSelected: selectChat(chatId)
         }
