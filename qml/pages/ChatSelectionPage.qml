@@ -130,6 +130,7 @@ Dialog {
             id: tabView
             anchors.fill: parent
             interactive: !canAccept
+            wrapMode: PagedView.NoWrap
 
             tabComponent: Component {
                 ChatFolderTabBase {
