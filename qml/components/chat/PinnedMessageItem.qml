@@ -166,8 +166,10 @@ Item {
                 // don't use a property so there wouldn't be a need for special handling for when the message moves (e.g. due to deletion of another message)
                 pinnedMessagesView.currentIndex = currentMessageIndex
 
-                if (!loading && currentMessageIndex < 0 || (currentMessageIndex === pinnedMessagesView.count - 1 && !endReached))
+                if (!loading && !(pinnedMessagesView.count == 0 && endReached) && (currentMessageIndex < 0 || (currentMessageIndex === pinnedMessagesView.count - 1 && !endReached))) {
+                    Debug.log("[PinnedMessageItem] Re-initializing")
                     init(chatPage.chatId, viewCurrentMessageId) // re-initialize
+                }
             }
 
             Component.onCompleted: init(chatPage.chatId, viewCurrentMessageId)
