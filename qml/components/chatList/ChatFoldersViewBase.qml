@@ -15,9 +15,12 @@ TabView {
     Component.onCompleted: {
         tabBarItem.countRole = Qt.binding(function() { return appSettings.showFolderUnreadCount ? 'count' : '' })
         tabBarItem.iconRole = Qt.binding(function() { return appSettings.chatFoldersTabBarShowIcons ? 'icon' : '' })
+    }
 
-        tabBarItem.iconSize = Qt.size(Theme.iconSizeMedium, Theme.iconSizeMedium)
-        tabBarItem.iconColor = Qt.binding(function() { return Theme.primaryColor })
+    tabIcons {
+        sourceSize: Qt.size(Theme.iconSizeMedium, Theme.iconSizeMedium)
+        color: Theme.primaryColor
+        highlightColor: Theme.highlightColor
     }
 
     tabBarVisible: count > 1
