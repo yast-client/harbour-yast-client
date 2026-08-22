@@ -52,17 +52,16 @@ Dialog {
         accept()
     }
 
-    onAccepted: {
-        switch(page.state) {
+    onAccepted:
+        switch (page.state) {
         case "forwardMessages":
             acceptDestinationInstance.forwardMessages(payload.fromChatId, payload.messageIds, forwardCopySwitch.checked, forwardRemoveCaptionSwitch.checked)
-            break;
+            break
         case "fillTextArea": // ReplyMarkupButtons: inlineKeyboardButtonTypeSwitchInline
             acceptDestinationInstance.setMessageText(payload.text)
-            break;
+            break
         // future uses of chat selection can be processed here
         }
-    }
 
     SilicaFlickable {
         anchors.fill: parent
@@ -100,7 +99,7 @@ Dialog {
                 text: qsTr("Search")
                 onClicked: pageStack.push(Qt.resolvedUrl("ChatSelectionPage.qml"), {
                                                              headerTitle: headerTitle, headerDescription: headerDescription,
-                                                             state: state, payload: payload,
+                                                             state: page.state, payload: payload,
                                                              search: true,
                                                              acceptDestinationReplaceTarget: pageStack.previousPage(page)
                                                          })
