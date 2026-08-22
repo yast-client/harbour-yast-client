@@ -37,6 +37,9 @@ SilicaControl {
     property bool _hasPullDownMenu: !!flickable && !!flickable.pullDownMenu
     property bool _hasPushUpMenu: !!flickable && !!flickable.pushUpMenu
 
+    property bool alterPullDownMenuFlickable: true
+
+    y: _hasPullDownMenu && tabView ? -topMargin : 0
     implicitWidth: _tabContainer ? _tabContainer.PagedView.contentWidth : (
         __silica_page.isPortrait ? Screen.width : Screen.height)
     implicitHeight: {
@@ -74,7 +77,7 @@ SilicaControl {
     Binding {
         target: _hasPullDownMenu ? flickable.pullDownMenu : null
         property: "y"
-        when: topMargin > 0
+        when: alterPullDownMenuFlickable && topMargin > 0
         value: flickable.originY
                - (!!flickable.pullDownMenu ?
                       flickable.pullDownMenu.height : 0)

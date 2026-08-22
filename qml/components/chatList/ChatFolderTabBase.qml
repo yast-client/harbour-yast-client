@@ -11,14 +11,14 @@ TabItem {
 
     property bool fillFlickable: !!(flickable && flickable.pullDownMenu)
 
-    width: fillFlickable ? tabView.width : implicitWidth
-    height: fillFlickable ? tabView.height : implicitHeight
+    bodyItem.height: fillFlickable ? tabItem.implicitHeight : bodyItem.implicitHeight
     Binding {
-        target: tabItem
-        property: 'topMargin'
+        target: bodyItem.anchors
         when: fillFlickable
+        property: 'topMargin'
         value: 0
     }
+    alterPullDownMenuFlickable: !fillFlickable
 
     property bool isEmpty: true
     Binding {
@@ -56,7 +56,7 @@ TabItem {
                     id: chatsView
                     anchors {
                         top: parent.top
-                        topMargin: fillFlickable ? (tabView.tabBarHeight + tabView.extraTopMargin) : 0
+                        topMargin: fillFlickable ? tabItem.topMargin : 0
                     }
                     width: parent.width
                     height: parent.height - anchors.topMargin

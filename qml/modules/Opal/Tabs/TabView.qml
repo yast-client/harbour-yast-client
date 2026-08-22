@@ -51,8 +51,8 @@ PagedView {
     cacheSize: 0
 
     contentItem {
-        y: (root.hasFooter ? 0 : tabBarLoader.height) + extraTopMargin
-        height: root.height - tabBarLoader.height - extraTopMargin
+        y: (root.hasFooter ? 0 : tabBarHeight) + extraTopMargin
+        height: root.height - tabBarHeight - extraTopMargin - extraBottomMargin
     }
 
     Item {
@@ -88,7 +88,7 @@ PagedView {
         sourceComponent: root.hasFooter ? root.footer : root.header
         width: parent.width
         z: root.baseYOffset < 0 && !root.hasFooter ? -1 : 1
-        y: root.hasFooter ? root.height - tabBarLoader.height : Math.max(0, -root.yOffset)
+        y: root.hasFooter ? root.height - tabBarHeight - extraBottomMargin : Math.max(0, -root.yOffset)
 
         Item {
             id: backgroundRectangleContainer
@@ -131,6 +131,13 @@ PagedView {
         source: _haveSource ? tabModel.source : tabSource
         asynchronous: true
 
+		// For some reason, Y is set to -contentItem.y sometimes (very likely from C++ since console.trace showed nothing)
+		// Previously, this was taken into account, however, when it stopped doing so
+		// (for some reason with extra top margin and bottom-aligned tabs), things broke
+		// Instead of relying on this bug, we make sure to keep y = 0 and set the actual Y in the more stable TabItem
+		y: 0
+		onYChanged: y = 0
+
         width: item ? item.implicitWidth : root.contentItem.width
         height: item ? item.implicitHeight : root.contentItem.height
 
@@ -156,7 +163,7 @@ PagedView {
             // Avoid flicker when tab container gets repositioned
             parent: tabLoader.parent
             x: (tabLoader.width - width) / 2 + tabLoader.x
-            y: root.height/3 - height/2 - tabBarLoader.height - extraTopMargin
+            y: root.height/3 - height/2 - tabBarHeight - extraTopMargin
             size: BusyIndicatorSize.Large
 
             Timer {
