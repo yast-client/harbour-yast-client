@@ -192,7 +192,7 @@ Column {
         }
     }
 
-    Flickable {
+    SilicaFlickable {
         id: attachmentOptionsFlickable
 
         property bool show: false
@@ -201,8 +201,10 @@ Column {
         height: show && !inlineQuery.userNameIsValid ? attachmentOptionsRow.height : 0
         Behavior on height { SmoothedAnimation { duration: 200 } }
         visible: height > 0
+        flickableDirection: Flickable.HorizontalFlick
         contentHeight: attachmentOptionsRow.height
         contentWidth: Math.max(width, attachmentOptionsRow.width)
+        contentY: contentWidth - width
         property bool fadeRight: (attachmentOptionsRow.width-contentX) > width
         property bool fadeLeft: !fadeRight && contentX > 0
         layer.enabled: fadeRight || fadeLeft
@@ -212,8 +214,6 @@ Column {
             slope: 1 + 6 * (newMessageColumn.parent.width) / Screen.width
             offset: 1 - 1 / slope
         }
-
-        Component.onCompleted: contentY = contentWidth - width
 
         Row {
             id: attachmentOptionsRow
@@ -713,7 +713,5 @@ Column {
                 running: inlineQuery.isLoading
             }
         }
-
-
     }
 }
