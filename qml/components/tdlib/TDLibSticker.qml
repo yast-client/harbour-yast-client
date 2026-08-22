@@ -46,7 +46,7 @@ TDLibStickerBase {
                 asynchronous: true
                 visible: opacity > 0
                 opacity: status === Image.Ready ? 1 : 0
-                Behavior on opacity { FadeAnimation {} }
+                Behavior on opacity { FadeAnimator {} }
                 layer.enabled: sticker.highlighted
                 layer.effect: PressEffect { source: staticSticker }
             }

@@ -37,7 +37,7 @@ Item {
 
         active: opacity > 0
         opacity: !stickerVisible && !placeHolderDelayTimer.running ? 0.15 : 0
-        Behavior on opacity { FadeAnimation {} }
+        Behavior on opacity { FadeAnimator {} }
 
         Timer {
             id: placeHolderDelayTimer
