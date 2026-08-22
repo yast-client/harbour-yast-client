@@ -19,7 +19,6 @@ Column {
     visible: height > 0
     width: parent.width - ( 2 * Theme.horizontalPageMargin )
     height: show ? implicitHeight : 0
-    Behavior on height { SmoothedAnimation { duration: 200 } }
 
     property int allowedOrientations
     property bool show
