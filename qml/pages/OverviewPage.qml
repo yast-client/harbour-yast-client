@@ -55,12 +55,12 @@ Page {
             overviewPage.chatListCreated = true
             scrollToTopRequired()
             updateSecondaryContentTimer.start()
-            var remainingInteractionHints = appConfig.remainingInteractionHints
+            var remainingInteractionHints = hintsConfig.remainingInteractionHints
             Debug.log("Remaining interaction hints: " + remainingInteractionHints)
             if (remainingInteractionHints > 0) {
                 interactionHintTimer.start()
                 titleInteractionHintActive = true
-                appConfig.remainingInteractionHints = remainingInteractionHints - 1
+                hintsConfig.remainingInteractionHints = remainingInteractionHints - 1
             }
         }
     }
@@ -77,7 +77,7 @@ Page {
             if (page && page.objectName === 'addProxyDialog')
                 proxyPageData = {server: page.server, port: page.port, proxyType: page.getTypeObject(), openAfterAdding: true}
 
-            if (appConfig.welcomeTourCompleted)
+            if (hintsConfig.welcomeTourCompleted)
                 pageStack.push(Qt.resolvedUrl('../dialogs/InitializationDialog.qml'), {initial: true})
             else
                 pageStack.push(Qt.resolvedUrl('../dialogs/WelcomeDialog.qml'))

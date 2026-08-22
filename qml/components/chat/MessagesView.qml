@@ -302,13 +302,13 @@ Column {
             /*
             // Double-tap for reactions is currently disabled, let's see if we'll ever need it again
             if (!fromIncrementalUpdate) {
-                var remainingDoubleTapHints = appConfig.remainingDoubleTapHints;
+                var remainingDoubleTapHints = hintsConfig.remainingDoubleTapHints;
                 log("Remaining double tap hints: " + remainingDoubleTapHints);
                 if (remainingDoubleTapHints > 0) {
                     doubleTapHintTimer.start();
                     tapHint.visible = true;
                     tapHintLabel.visible = true;
-                    appConfig.remainingDoubleTapHints = remainingDoubleTapHints - 1;
+                    hintsConfig.remainingDoubleTapHints = remainingDoubleTapHints - 1;
                 }
             }
              */

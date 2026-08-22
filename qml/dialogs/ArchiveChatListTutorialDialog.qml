@@ -7,7 +7,7 @@ import Sailfish.Silica 1.0
 Dialog {
     property bool keepUnmutedChatsArchivedEnabled
 
-    onAccepted: appConfig.archiveChatListHintCompleted = true
+    onAccepted: hintsConfig.archiveChatListHintCompleted = true
 
     Item {
         anchors.fill: parent
@@ -55,7 +55,7 @@ Dialog {
                     color: palette.secondaryHighlightColor
                     textFormat: Text.RichText
                     onLinkActivated: {
-                        appConfig.archiveChatListHintCompleted = true
+                        hintsConfig.archiveChatListHintCompleted = true
                         pageStack.replace(Qt.resolvedUrl("../pages/SettingsPage.qml"), {initialArea: 'archive'})
                     }
                 }

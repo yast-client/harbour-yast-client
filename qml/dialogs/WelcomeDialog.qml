@@ -11,7 +11,7 @@ Dialog {
 
     acceptDestination: Qt.resolvedUrl('InitializationDialog.qml')
     acceptDestinationProperties: ({initial: true})
-    onAccepted: appConfig.welcomeTourCompleted = true
+    onAccepted: hintsConfig.welcomeTourCompleted = true
 
     DialogHeader {
         id: dialogHeader
