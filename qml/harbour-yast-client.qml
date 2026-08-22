@@ -73,6 +73,7 @@ ApplicationWindow {
             property int remainingDoubleTapHints: 3
             property bool archiveChatListHintCompleted
             property bool welcomeTourCompleted // TBD: is it ok that right now WelcomeDialog doesn't open after logging out or reinstalling the app?
+            property bool topicsBetaNoticeCompleted
         }
 
         property string resourcesUsername: 'yast_res'

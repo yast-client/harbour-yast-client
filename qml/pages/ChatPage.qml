@@ -133,6 +133,22 @@ Page {
         chatPage.focus = true
     }
 
+    Timer {
+        id: openTopicsBetaNoticeDialog
+        interval: 0
+        onTriggered: {
+            pageStack.completeAnimation()
+            var dialog = pageStack.push(Qt.resolvedUrl("../dialogs/TopicsBetaNoticeDialog.qml"))
+            dialog.rejected.connect(function() {
+                tdLibWrapper.toggleChatViewAsTopics(chatId, false)
+            })
+        }
+    }
+
+    onViewAsTopicsChanged:
+        if (viewAsTopics && !hintsConfig.topicsBetaNoticeCompleted)
+            openTopicsBetaNoticeDialog.start()
+
     // TODO: close when chat is deleted
     // left the chat, even if from another device; this follows the behaviour in Telegram Desktop
     onUserIsMemberChanged:
@@ -253,8 +269,7 @@ Page {
                 // TODO: maybe use Opal Tabs for tabbed forums (perhaps actually implement that joke post with side tabs)
                 visible: /*isSavedMessages ||*/ (isSupergroup && chatGroupInformation.is_forum && !chatGroupInformation.has_forum_tabs)
                 text: viewAsTopics ? qsTr("View as Messages", "view a forum chat in full chat mode") : qsTr("View as Topics", "view a forum chat as topics")
-                onClicked:
-                    tdLibWrapper.toggleChatViewAsTopics(chatId, !viewAsTopics)
+                onClicked: tdLibWrapper.toggleChatViewAsTopics(chatId, !viewAsTopics)
 
                 rightPadding: viewAsTopics ? 0 : forumTopicsBetaIndicator.width + Theme.paddingLarge
                 TextBadge {
