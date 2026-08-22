@@ -301,10 +301,6 @@
 <context>
     <name>ArchiveChatListTutorialDialog</name>
     <message>
-        <source>Got it</source>
-        <translation>Понятно</translation>
-    </message>
-    <message>
         <source>This is your Archive</source>
         <translation>Это Ваш архив</translation>
     </message>
@@ -1345,6 +1341,13 @@ Please take a look at the %1Telegram FAQ%2: it has answers to most questions and
     </message>
 </context>
 <context>
+    <name>FullscreenHintDialog</name>
+    <message>
+        <source>Got it</source>
+        <translation>ОК</translation>
+    </message>
+</context>
+<context>
     <name>FullscreenOverlay</name>
     <message numerus="yes">
         <source>Forward %Ln messages</source>
@@ -1628,6 +1631,11 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Delete just for me</source>
         <translation>Удалить только у меня</translation>
+    </message>
+    <message>
+        <source>Originally sent %1</source>
+        <comment>Forwarded message original date</comment>
+        <translation>Оригинал отправлен %1</translation>
     </message>
 </context>
 <context>
@@ -3460,6 +3468,49 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Updating content…</source>
         <translation>Обновление контента…</translation>
+    </message>
+</context>
+<context>
+    <name>TopicsBetaNoticeDialog</name>
+    <message>
+        <source>Back to Messages</source>
+        <translation>Назад к сообщениям</translation>
+    </message>
+    <message>
+        <source>Proceed</source>
+        <translation>Продолжить</translation>
+    </message>
+    <message>
+        <source>Beta Notice</source>
+        <translation>Бета-версия</translation>
+    </message>
+    <message>
+        <source>Forum topics are currently a %1beta feature%2</source>
+        <translation>Темы являются %1бета-функцией%2.</translation>
+    </message>
+    <message>
+        <source>Basics Already Work</source>
+        <translation>Основной функционал работает</translation>
+    </message>
+    <message>
+        <source>You can already switch between topics, as well as view and send messages in them</source>
+        <translation>Вы уже можете переключаться по темам, а также просматривать и отправлять сообщения в них</translation>
+    </message>
+    <message>
+        <source>Viewing as Messages</source>
+        <translation>Просмотр по сообщениям</translation>
+    </message>
+    <message>
+        <source>When a feature you want to use is not yet available for forum topics, you can always switch back to the whole chat view by pulling down to return to the older behavior</source>
+        <translation>Если функция, которая вам нужна, ещё недоступна для тем, вы всегда можете вернуться к привычному просмотру чата целиком, потянув вниз</translation>
+    </message>
+    <message>
+        <source>Help the Development</source>
+        <translation>Внесите вклад в разработку</translation>
+    </message>
+    <message>
+        <source>If you find a bug, submit it %1on GitHub%2. Make sure to check %4existing issues%3 first to avoid creating duplicates. React to issues you think are the most critical to make them more recognizeable and faster to get fixed.</source>
+        <translation>Если вы нашли баг, сообщите о нём %1на GitHub%2. Обратите внимание на %существующие отчёты%3, чтобы не создавать дубликаты. Реагируйте на отчёты, которые вы считаете наиболее критическими, чтобы сделать их более узнаваемыми и их быстрее исправили.</translation>
     </message>
 </context>
 <context>
