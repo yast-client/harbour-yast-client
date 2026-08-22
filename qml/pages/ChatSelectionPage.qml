@@ -41,7 +41,6 @@ Dialog {
     property bool search
 
     function selectChat(chatId) {
-        console.log("CHAT",chatId)
         switch (page.state) {
         case "forwardMessages":
         case "fillTextArea":
@@ -159,9 +158,8 @@ Dialog {
         SearchChatsView {
             remorseParent: page
 
-            // TODO: see comments for these properties
-            //requirePermissions: page.payload.neededPermissions
-            //additionalFilter: forwardAdditionalFilter
+            requirePermissions: page.payload.neededPermissions
+            additionalFilter: forwardAdditionalFilter
 
             openOnSelected: false
             onChatSelected: selectChat(chatId)

@@ -45,6 +45,8 @@ ListItem {
     contentHeight: compact ? Theme.itemSizeLarge + Theme.paddingMedium : Theme.itemSizeExtraLarge
     contentWidth: parent.width
 
+    opacity: enabled ? 1 : Theme.opacityLow
+
     ChatPhotoPreview {
         id: pictureItem
         anchors {

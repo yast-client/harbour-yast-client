@@ -83,7 +83,8 @@ Item {
     property var publicChatsFound: []
     property var sponsoredChats: ({})
 
-    // TODO: currently, contentHeight of ColumnViews is broken with this
+    // TODO: when fully hiding chat items depending on the filter (using hidden: property), contentHeight of ColumnViews breaks
+    // as a workaround we disable the chats which don't match the filter for now, but ideally a model like UsersModel should be added to yaqt (with support for ChatPermissionFilterModel)
     property var requirePermissions: []
     property int additionalFilter: ChatPermissionFilterModel.AdditionalFilterNone
 
@@ -342,7 +343,7 @@ Item {
                     delegate: TDLibChatListItem {
                         chatId: modelData
                         handleGroupUpdates: true
-                        hidden: !matchesFilter(isSecret, isPrivateChat, chatInformation, relatedInformation)
+                        enabled: matchesFilter(isSecret, isPrivateChat, chatInformation, relatedInformation)
                         openOnClick: root.openOnSelected
                         onClicked: {
                             tdLibWrapper.addRecentlyFoundChat(chatId)
@@ -373,7 +374,7 @@ Item {
                         id: recentlyFoundChatDelegate
                         chatId: modelData
                         handleGroupUpdates: true
-                        hidden: !matchesFilter(isSecret, isPrivateChat, chatInformation, relatedInformation)
+                        enabled: matchesFilter(isSecret, isPrivateChat, chatInformation, relatedInformation)
                         menu: Component {
                             ContextMenu {
                                 MenuItem {
@@ -406,7 +407,7 @@ Item {
                             // TODO: viewSponsoredChat
                             chatId: modelData.chat_id
                             handleGroupUpdates: true
-                            hidden: !matchesFilter(isSecret, isPrivateChat, chatInformation, relatedInformation)
+                            enabled: matchesFilter(isSecret, isPrivateChat, chatInformation, relatedInformation)
                             ad: true
                             menu: Component {
                                 ContextMenu {
@@ -448,7 +449,7 @@ Item {
                     delegate: TDLibChatListItem {
                         chatId: modelData
                         handleGroupUpdates: true
-                        hidden: !matchesFilter(isSecret, isPrivateChat, chatInformation, relatedInformation)
+                        enabled: matchesFilter(isSecret, isPrivateChat, chatInformation, relatedInformation)
                         openOnClick: root.openOnSelected
                         onClicked: {
                             tdLibWrapper.addRecentlyFoundChat(chatId)
