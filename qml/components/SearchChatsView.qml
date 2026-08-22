@@ -115,7 +115,7 @@ Item {
             return false
         }
 
-        if (permissions && permissions.length)
+        if (permissions)
             for (var i=0; i < requirePermissions.length; i++)
                 if (permissions[requirePermissions[i]]) return true
 
