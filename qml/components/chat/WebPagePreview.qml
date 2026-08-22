@@ -95,7 +95,7 @@ Item {
         readonly property bool highlighted: parent.highlighted
 
         sourceComponent:
-            switch(linkPreviewData.type['@type']) {
+            switch (linkPreviewData.type['@type']) {
             case 'linkPreviewTypePhoto':
             case 'linkPreviewTypeApp':
             case 'linkPreviewTypeArticle':
@@ -106,6 +106,8 @@ Item {
             case 'linkPreviewTypeUser':
             case 'linkPreviewTypeChannelBoost':
             case 'linkPreviewTypeSupergroupBoost':
+                if (!linkPreviewData.type.photo)
+                    return null
                 return photoComponent
 
             case 'linkPreviewTypeEmbeddedAudioPlayer':
@@ -122,7 +124,8 @@ Item {
             case 'linkPreviewTypeStickerSet': // not really compatible
                 return stickerComponent
 
-            default: return undefined
+            default:
+                return null
             }
 
         Component {
