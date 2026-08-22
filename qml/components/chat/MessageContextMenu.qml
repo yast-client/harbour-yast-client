@@ -288,17 +288,20 @@ Loader {
             }
 
             MenuLabel {
+                visible: showMessageDate
+                text: Functions.getDateTimeTranslated(message.date)
+            }
+            MenuLabel {
+                property int forwardDate: message.forward_info.date || 0
+                visible: !!forwardDate
+                text: qsTr("Originally sent %1", "Forwarded message original date").arg(Functions.getDateTimeTimepointRelative(forwardDate))
+            }
+            MenuLabel {
                 visible: !!messageProperties.can_get_read_date && messageData.isOutgoingRead && messageReadDate >= 0
                 text: messageReadDate
                       ? qsTr("Read %1", "Message read date").arg(Functions.getDateTimeTimepointRelative(messageReadDate))
                       : qsTr("Loading", "Indicates that the message read date is being loaded")
             }
-
-            MenuLabel {
-                visible: showMessageDate
-                text: Functions.getDateTimeTranslated(message.date)
-            }
-
             MenuLabel {
                 visible: !!message.edit_date
                 text: qsTr("Edited %1", "Message edit date").arg(Functions.getDateTimeTimepointRelative(myMessage.edit_date))
