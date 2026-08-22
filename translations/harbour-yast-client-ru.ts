@@ -351,6 +351,14 @@
         <source>Mark as read</source>
         <translation>Пометить прочитанным</translation>
     </message>
+    <message>
+        <source>Archive is empty</source>
+        <translation>Архив пуст</translation>
+    </message>
+    <message>
+        <source>You can archive chats using the context menu.</source>
+        <translation>Вы можете помещать чаты в архив, используя контекстное меню.</translation>
+    </message>
 </context>
 <context>
     <name>AuthKeyDropDialog</name>
@@ -467,6 +475,13 @@
     <message>
         <source>Unknown</source>
         <translation>Неизвестно</translation>
+    </message>
+</context>
+<context>
+    <name>ChatFolderTabBase</name>
+    <message>
+        <source>You have no chats</source>
+        <translation>У Вас нет чатов</translation>
     </message>
 </context>
 <context>
@@ -906,9 +921,9 @@
         <source>Forward %Ln messages</source>
         <comment>dialog header</comment>
         <translation>
-            <numerusform>Перенаправить %Ln сообщение</numerusform>
-            <numerusform>Перенаправить %Ln сообщения</numerusform>
-            <numerusform>Перенаправить %Ln сообщений</numerusform>
+            <numerusform>Переслать %Ln сообщение</numerusform>
+            <numerusform>Переслать %Ln сообщения</numerusform>
+            <numerusform>Переслать %Ln сообщений</numerusform>
         </translation>
     </message>
     <message>
@@ -1056,16 +1071,17 @@
         <source>Select Chat</source>
         <translation>Выбрать чат</translation>
     </message>
-</context>
-<context>
-    <name>ChatsView</name>
     <message>
-        <source>You don&apos;t have any chats yet.</source>
-        <translation>У вас пока нет чатов.</translation>
+        <source>Hide Sender Name</source>
+        <translation>Скрыть имя отправителя</translation>
     </message>
     <message>
-        <source>Pull down to search public chats or create a new chat</source>
-        <translation>Потяните вниз для поиска публичных чатов или создания нового чата</translation>
+        <source>Hide Caption</source>
+        <translation>Скрыть подпись</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation>Поиск</translation>
     </message>
 </context>
 <context>
@@ -1334,9 +1350,9 @@ Please take a look at the %1Telegram FAQ%2: it has answers to most questions and
         <source>Forward %Ln messages</source>
         <comment>dialog header</comment>
         <translation>
-            <numerusform>Перенаправить %Ln сообщение</numerusform>
-            <numerusform>Перенаправить %Ln сообщения</numerusform>
-            <numerusform>Перенаправить %Ln сообщений</numerusform>
+            <numerusform>Переслать %Ln сообщение</numerusform>
+            <numerusform>Переслать %Ln сообщения</numerusform>
+            <numerusform>Переслать %Ln сообщений</numerusform>
         </translation>
     </message>
 </context>
@@ -2485,8 +2501,12 @@ Pull down to visit telegram.org</source>
         <translation>Ссылка скопирована</translation>
     </message>
     <message>
-        <source>MENU ITEM</source>
-        <translation type="unfinished"></translation>
+        <source>Welcome to Telegram</source>
+        <translation>Добро пожаловать в Telegram</translation>
+    </message>
+    <message>
+        <source>Pull down to search public chats or create a new chat</source>
+        <translation>Потяните вниз, чтобы создать новый чат или найти публичные</translation>
     </message>
 </context>
 <context>
@@ -2722,55 +2742,66 @@ Pull down to visit telegram.org</source>
     </message>
 </context>
 <context>
-    <name>SearchChatsView</name>
+    <name>SearchChatsPage</name>
     <message>
         <source>Search</source>
         <comment>page header for search page</comment>
-        <translation type="unfinished"></translation>
+        <translation>Поиск</translation>
     </message>
+</context>
+<context>
+    <name>SearchChatsView</name>
     <message>
         <source>Search</source>
         <comment>Placeholder text for chats search field</comment>
-        <translation type="unfinished"></translation>
+        <translation>Поиск</translation>
     </message>
     <message>
         <source>Frequent contacts</source>
-        <translation type="unfinished">Частые контакты</translation>
+        <translation>Частые контакты</translation>
     </message>
     <message>
         <source>Remove from Recents</source>
-        <translation type="unfinished">Убрать из недавних</translation>
+        <translation>Убрать из недавних</translation>
     </message>
     <message>
         <source>Recent</source>
         <comment>Recently found chats</comment>
-        <translation type="unfinished">Недпвние</translation>
+        <translation>Недавние</translation>
     </message>
     <message>
         <source>Cleared recents</source>
         <comment>Remorse popup indicating that recently found chats are cleared</comment>
-        <translation type="unfinished">Недавние очищены</translation>
+        <translation>Недавние очищены</translation>
     </message>
     <message>
         <source>Remove from Recent</source>
         <comment>Remove a chat from recently found chats</comment>
-        <translation type="unfinished">Убрать из недавних</translation>
+        <translation>Убрать из недавних</translation>
     </message>
     <message>
         <source>Global search results</source>
-        <translation type="unfinished">Результаты глобального поиска</translation>
-    </message>
-    <message>
-        <source>Enter your query to start searching (at least 5 characters needed)</source>
-        <translation type="unfinished">Введите не менее 5 символов, чтобы начать поиск</translation>
-    </message>
-    <message>
-        <source>No chats found.</source>
-        <translation type="unfinished">Чаты не найдены.</translation>
+        <translation>Результаты общего поиска</translation>
     </message>
     <message>
         <source>Searching chats</source>
-        <translation type="unfinished">Поиск чатов</translation>
+        <translation>Поиск чатов</translation>
+    </message>
+    <message>
+        <source>No Results</source>
+        <translation>Нет результатов</translation>
+    </message>
+    <message>
+        <source>No recent searches</source>
+        <translation>Нет недавних запросов</translation>
+    </message>
+    <message>
+        <source>There were no results for &quot;%1&quot;. Try another search.</source>
+        <translation>По запросу &quot;%1&quot; ничего не найдено. Попробуйте другой запрос.</translation>
+    </message>
+    <message>
+        <source>Recent search results will appear here.</source>
+        <translation>Недавние запросы будут показаны здесь.</translation>
     </message>
 </context>
 <context>

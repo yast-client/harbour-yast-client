@@ -347,6 +347,14 @@
         <source>Mark as read</source>
         <translation>Segna come letto</translation>
     </message>
+    <message>
+        <source>Archive is empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can archive chats using the context menu.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AuthKeyDropDialog</name>
@@ -463,6 +471,13 @@
     <message>
         <source>Unknown</source>
         <translation>Sconosciuto</translation>
+    </message>
+</context>
+<context>
+    <name>ChatFolderTabBase</name>
+    <message>
+        <source>You have no chats</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1045,16 +1060,17 @@
         <source>Select Chat</source>
         <translation>Seleziona chat</translation>
     </message>
-</context>
-<context>
-    <name>ChatsView</name>
     <message>
-        <source>You don&apos;t have any chats yet.</source>
-        <translation>Nessuna chat presente.</translation>
+        <source>Hide Sender Name</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Pull down to search public chats or create a new chat</source>
-        <translation>Trascina in basso per cercare delle chat pubbliche o per crearne una nuova</translation>
+        <source>Hide Caption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation type="unfinished">Cerca</translation>
     </message>
 </context>
 <context>
@@ -2453,8 +2469,12 @@ Trascina in basso per visitare telegram.org</translation>
         <translation>Collegamento copiato negli appunti</translation>
     </message>
     <message>
-        <source>MENU ITEM</source>
+        <source>Welcome to Telegram</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pull down to search public chats or create a new chat</source>
+        <translation type="unfinished">Trascina in basso per cercare delle chat pubbliche o per crearne una nuova</translation>
     </message>
 </context>
 <context>
@@ -2679,12 +2699,15 @@ Trascina in basso per visitare telegram.org</translation>
     </message>
 </context>
 <context>
-    <name>SearchChatsView</name>
+    <name>SearchChatsPage</name>
     <message>
         <source>Search</source>
         <comment>page header for search page</comment>
         <translation type="unfinished">Cerca</translation>
     </message>
+</context>
+<context>
+    <name>SearchChatsView</name>
     <message>
         <source>Search</source>
         <comment>Placeholder text for chats search field</comment>
@@ -2718,16 +2741,24 @@ Trascina in basso per visitare telegram.org</translation>
         <translation type="unfinished">Risultati globali di ricerca</translation>
     </message>
     <message>
-        <source>Enter your query to start searching (at least 5 characters needed)</source>
-        <translation type="unfinished">Scrivi il testo che vuoi cercare (almeno 5 caratteri)</translation>
-    </message>
-    <message>
-        <source>No chats found.</source>
-        <translation type="unfinished">Nessuna chat trovata.</translation>
-    </message>
-    <message>
         <source>Searching chats</source>
         <translation type="unfinished">Ricerca chat</translation>
+    </message>
+    <message>
+        <source>No Results</source>
+        <translation type="unfinished">Nessun risultato</translation>
+    </message>
+    <message>
+        <source>No recent searches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There were no results for &quot;%1&quot;. Try another search.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recent search results will appear here.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

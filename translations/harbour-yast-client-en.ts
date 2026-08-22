@@ -347,6 +347,14 @@
         <source>Mark as read</source>
         <translation>Mark as read</translation>
     </message>
+    <message>
+        <source>Archive is empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can archive chats using the context menu.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AuthKeyDropDialog</name>
@@ -463,6 +471,13 @@
     <message>
         <source>Unknown</source>
         <translation>Unknown</translation>
+    </message>
+</context>
+<context>
+    <name>ChatFolderTabBase</name>
+    <message>
+        <source>You have no chats</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1045,16 +1060,17 @@
         <source>Select Chat</source>
         <translation>Select Chat</translation>
     </message>
-</context>
-<context>
-    <name>ChatsView</name>
     <message>
-        <source>You don&apos;t have any chats yet.</source>
-        <translation>You don&apos;t have any chats yet.</translation>
+        <source>Hide Sender Name</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Pull down to search public chats or create a new chat</source>
-        <translation>Pull down to search public chats or create a new chat</translation>
+        <source>Hide Caption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation type="unfinished">Search</translation>
     </message>
 </context>
 <context>
@@ -2453,8 +2469,12 @@ Pull down to visit telegram.org</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>MENU ITEM</source>
+        <source>Welcome to Telegram</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pull down to search public chats or create a new chat</source>
+        <translation type="unfinished">Pull down to search public chats or create a new chat</translation>
     </message>
 </context>
 <context>
@@ -2679,12 +2699,15 @@ Pull down to visit telegram.org</translation>
     </message>
 </context>
 <context>
-    <name>SearchChatsView</name>
+    <name>SearchChatsPage</name>
     <message>
         <source>Search</source>
         <comment>page header for search page</comment>
         <translation type="unfinished">Search</translation>
     </message>
+</context>
+<context>
+    <name>SearchChatsView</name>
     <message>
         <source>Search</source>
         <comment>Placeholder text for chats search field</comment>
@@ -2718,16 +2741,24 @@ Pull down to visit telegram.org</translation>
         <translation type="unfinished">Global search results</translation>
     </message>
     <message>
-        <source>Enter your query to start searching (at least 5 characters needed)</source>
-        <translation type="unfinished">Enter your query to start searching (at least 5 characters needed)</translation>
-    </message>
-    <message>
-        <source>No chats found.</source>
-        <translation type="unfinished">No chats found.</translation>
-    </message>
-    <message>
         <source>Searching chats</source>
         <translation type="unfinished">Searching chats</translation>
+    </message>
+    <message>
+        <source>No Results</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No recent searches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There were no results for &quot;%1&quot;. Try another search.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recent search results will appear here.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
