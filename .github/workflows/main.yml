@@ -113,6 +113,7 @@ jobs:
         merge-multiple: true
 
     - name: Upload the nightly release
+      if: startsWith(github.ref, 'v') == false
       run: |
         set -x
         gh release view nightly --json assets --jq '.assets[].name' | xargs -I {} gh release delete-asset nightly {} -y || true
