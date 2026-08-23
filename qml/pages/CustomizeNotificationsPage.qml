@@ -54,6 +54,9 @@ Page {
         onScopeNotificationSettingsChanged:
             if (scope == page.scope)
                 page.scopeSettings = tdData.scopeNotificationSettings(scope)
+        onChatTitleUpdated:
+            if (chatId === page.chatId)
+                header.description = title
     }
 
     function applySetting(field, defaultField, value) {
@@ -96,7 +99,11 @@ Page {
             id: column
             width: parent.width
 
-            PageHeader { title: qsTr("Notifications", "Page header") }
+            PageHeader {
+                id: header
+                title: qsTr("Notifications", "Page header")
+                description: tdData.getChat(chatId).title || ''
+            }
 
             ValueButton {
                 label: qsTr("Sound")
@@ -117,7 +124,6 @@ Page {
                     {text: qsTr("Pinned Messages"), field: 'disable_pinned_message_notifications', inverted: true},
                     {text: qsTr("Mentions"), field: 'disable_mention_notifications', inverted: true}
                 ]
-
                 delegate: notificationSwitchComponent
             }
 
