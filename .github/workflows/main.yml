@@ -85,6 +85,10 @@ jobs:
         release: ${{ env.RELEASE }}
         arch: ${{ matrix.arch }}
 
+    - name: Fix confusing release types
+      run: |
+        rename 's/-1\.(aarch64|i486|armv7hl)\.rpm$/-lite.$1.rpm/' harbour-yast-client-*-1.*.rpm
+
     - uses: actions/upload-artifact@v7
       with:
         archive: false
@@ -115,7 +119,7 @@ jobs:
         gh release upload nightly RPMS/*.rpm
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    
+
     - name: Create release
       if: startsWith(github.ref, 'v')
       run: |
