@@ -409,7 +409,7 @@ Column {
                     var message = messagesModel.getMessage(modelIndex)
                     var albumId = message.media_album_id
                     if (albumId !== '0')
-                        messageIds.concat(messagesModel.getMessageIdsForAlbum(albumId))
+                        messageIds = messageIds.concat(messagesModel.getMessageIdsForAlbum(albumId))
                     else
                         messageIds.push(message.id)
                 }
