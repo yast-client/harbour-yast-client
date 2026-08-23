@@ -140,7 +140,7 @@ Item {
                 locked = lockedEnd = false
             }
 
-            property var currentMessageIndex: messageIndexBeforeId(viewCurrentMessageId)
+            property int currentMessageIndex: messageIndexBeforeId(viewCurrentMessageId)
             function updateCurrentMessageIndex() {
                 currentMessageIndex = Qt.binding(function() { return messageIndexBeforeId(viewCurrentMessageId) })
             }
@@ -180,9 +180,6 @@ Item {
             target: chatView
             onMovementEnded:
                 pinnedMessagesModel.handleCurrentMessageIndexChanged(true)
-        }
-        Connections {
-            target: chatView
             onCountChanged:
                 if (pinnedMessagesModel.getMessageIndex(messagesView.messageIdToScrollTo) !== pinnedMessagesView.currentIndex + 1)
                     pinnedMessagesModel.handleCurrentMessageIndexChanged(true)
