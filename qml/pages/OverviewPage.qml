@@ -305,6 +305,7 @@ Page {
                     parent: flickable
                     x: proxySettingsButton.x
                     y: proxySettingsButton.y
+                    z: 1
                     width: proxySettingsButton.width
                     height: proxySettingsButton.height
                     enabled: proxySettingsButton.enabled
