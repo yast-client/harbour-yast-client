@@ -107,6 +107,40 @@ Item {
         }
     }
 
+    ListItem {
+        id: listItem
+        contentHeight: pinnedMessagesView.contentItem.height
+
+        onClicked: {
+            if (!pinnedMessagesView.currentItem) return
+            var messageId = pinnedMessagesView.currentItem.messageId
+
+            pinnedMessagesModel.locked = true
+            if (pinnedMessagesView.currentIndex == 0) {
+                if (pinnedMessagesModel.endReached) {
+                    pinnedMessagesModel.lockedEnd = false
+                    pinnedMessagesView.currentIndex = pinnedMessagesView.count - 1
+                } else {
+                    pinnedMessagesModel.lockedEnd = true
+                    pinnedMessagesModel.init(chatPage.chatId)
+                }
+            } else
+                pinnedMessagesView.currentIndex--
+
+            messagesView.showMessage(messageId)
+        }
+
+        Component {
+            id: menuComponent
+            ContextMenu {
+                MenuItem {
+                    text: qsTr("All pinned messages")
+                    onClicked: pageStack.push(pinnedMessagesPageComponent)
+                }
+            }
+        }
+        menu: pinnedMessagesView.count ? menuComponent : null
+    }
 
     PagedView {
         id: pinnedMessagesView
@@ -277,55 +311,20 @@ Item {
                     width: visible ? Theme.iconSizeMedium : 0
                     height: width
                     anchors.verticalCenter: parent.verticalCenter
-                    icon.source: 'image://theme/icon-m-remove'
+                    icon.source: 'image://theme/icon-m-clear'
                     onClicked:
-                        pinnedMessageItem.remorseAction(qsTr("Message unpinned"), function() {
+                        listItem.remorseAction(qsTr("Message unpinned"), function() {
                             tdLibWrapper.unpinChatMessage(chatPage.chatId, messageId)
                         })
                 }
 
                 IconButton {
                     id: removePinnedMessageIconButton
-                    icon.source: "image://theme/icon-m-clear" // icon-splus-hide-password?
+                    icon.source: "image://theme/icon-remove" // icon-splus-hide-password?
                     anchors.verticalCenter: parent.verticalCenter
                     onClicked: hideAnimation.start()
                 }
             }
-        }
-
-        ListItem {
-            id: listItem
-            contentHeight: pinnedMessagesView.contentItem.height
-
-            onClicked: {
-                if (!pinnedMessagesView.currentItem) return
-                var messageId = pinnedMessagesView.currentItem.messageId
-
-                pinnedMessagesModel.locked = true
-                if (pinnedMessagesView.currentIndex == 0) {
-                    if (pinnedMessagesModel.endReached) {
-                        pinnedMessagesModel.lockedEnd = false
-                        pinnedMessagesView.currentIndex = pinnedMessagesView.count - 1
-                    } else {
-                        pinnedMessagesModel.lockedEnd = true
-                        pinnedMessagesModel.init(chatPage.chatId)
-                    }
-                } else
-                    pinnedMessagesView.currentIndex--
-
-                messagesView.showMessage(messageId)
-            }
-
-            Component {
-                id: menuComponent
-                ContextMenu {
-                    MenuItem {
-                        text: qsTr("All pinned messages")
-                        onClicked: pageStack.push(pinnedMessagesPageComponent)
-                    }
-                }
-            }
-            menu: pinnedMessagesView.count ? menuComponent : null
         }
     }
 }
