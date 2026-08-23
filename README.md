@@ -1,8 +1,6 @@
 # YAST Client
 YAST Client is a yet another SailfishOS Telegram client
 
-**YAST is still work-in-progress.**
-
 ## Credits
 
 Author: @roundedrectangle
@@ -110,3 +108,5 @@ Alternatively, GDB can be used from Sailfish IDE. To ensure OpenSSL false errors
 ## Contribute
 
 If you want to contribute bug fixes, improvements, new features etc. please create a pull request (PR). PRs are always welcome and will be reviewed as soon as possible, but may take some time. :)
+
+**YAST Client currently has a strict AI (LLM) policy.** You can use AI for researching, learning, troubleshooting and more. However, AI-generated code blocks are strictly **prohibited**. So are comments, any `.md` files and Git commit messages. *These rules are subject to change.*
