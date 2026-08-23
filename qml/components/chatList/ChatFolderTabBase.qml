@@ -60,7 +60,7 @@ TabItem {
                     }
                     width: parent.width
                     height: parent.height - anchors.topMargin
-                    clip: chatsFlickable.pullDownMenu && chatsFlickable.pullDownMenu.active
+                    clip: true
 
                     model: tabItem.chatsModel
                     chatsModel: chatsSourceModel
