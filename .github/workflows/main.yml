@@ -87,6 +87,7 @@ jobs:
 
     - name: Fix confusing release types
       run: |
+        sudo apt install rename -y
         rename 's/-1\.(aarch64|i486|armv7hl)\.rpm$/-lite.$1.rpm/' harbour-yast-client-*-1.*.rpm
 
     - uses: actions/upload-artifact@v7
