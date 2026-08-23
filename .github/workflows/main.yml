@@ -114,7 +114,7 @@ jobs:
         merge-multiple: true
 
     - name: Upload the nightly release
-      if: startsWith(github.ref, 'v') == false
+      if: startsWith(github.ref, 'refs/tags/v') == false
       run: |
         set -x
         gh release view nightly --json assets --jq '.assets[].name' | xargs -I {} gh release delete-asset nightly {} -y || true
@@ -123,7 +123,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Create release
-      if: startsWith(github.ref, 'v')
+      if: startsWith(github.ref, 'refs/tags/v')
       run: |
         set -x
         tag_name="${GITHUB_REF##*/}"
