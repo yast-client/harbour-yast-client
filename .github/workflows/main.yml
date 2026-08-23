@@ -87,8 +87,11 @@ jobs:
 
     - name: Fix confusing release types
       run: |
-        sudo apt install rename -y
-        rename 's/-1\.(aarch64|i486|armv7hl)\.rpm$/-lite.$1.rpm/' harbour-yast-client-*-1.*.rpm
+        for f in RPMS/harbour-yast-client-*-1.*.rpm; do
+          if [[ $f =~ -1\.(aarch64|i486|armv7hl)\.rpm$ ]]; then
+            mv "$f" "${f%-1.*.rpm}-lite.${BASH_REMATCH[1]}.rpm"
+          fi
+        done
 
     - uses: actions/upload-artifact@v7
       with:
