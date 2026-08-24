@@ -320,7 +320,7 @@ Item {
 
                 IconButton {
                     id: removePinnedMessageIconButton
-                    icon.source: "image://theme/icon-remove" // icon-splus-hide-password?
+                    icon.source: "image://theme/icon-m-remove" // icon-splus-hide-password?
                     anchors.verticalCenter: parent.verticalCenter
                     onClicked: hideAnimation.start()
                 }
