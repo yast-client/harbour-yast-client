@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.13)
 project(harbour-yast-client CXX ASM)
 
+if(POLICY CMP0077)
+    cmake_policy(SET CMP0077 NEW)
+endif()
+
 message(STATUS "Building ${CMAKE_PROJECT_NAME} for ${EDITION}")
 
 find_package(Qt5 COMPONENTS Core Network DBus Multimedia Positioning Qml Gui Quick LinguistTools REQUIRED)
@@ -59,10 +63,17 @@ add_executable(${CMAKE_PROJECT_NAME} src/${CMAKE_PROJECT_NAME}.cpp)
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
     $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>
 )
+
+if("${APP_RELEASE}" STREQUAL "1")
+    set(APP_RELEASE "lite")
+endif()
+
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
     APP_VERSION="${APP_VERSION}"
     APP_RELEASE="${APP_RELEASE}"
+    "APP_FULL_RELEASE=\"${APP_VERSION} (${APP_RELEASE})\""
 )
+
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE src)
 target_link_libraries(yaqtlib TDLib)
 target_link_libraries(${CMAKE_PROJECT_NAME}
