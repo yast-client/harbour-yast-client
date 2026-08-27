@@ -30,16 +30,23 @@ AccordionItem {
                     id: privateSwitch
                     scope: TDLibAPI.NotificationSettingsScopePrivateChats
                     text: qsTr("Private chats")
+                    icon.source: 'image://theme/icon-m-contact'
                 }
                 NotificationsSwitch {
                     id: groupsSwitch
                     scope: TDLibAPI.NotificationSettingsScopeGroupChats
                     text: qsTr("Groups")
+                    icon.source: 'image://theme/icon-m-users'
                 }
                 NotificationsSwitch {
                     id: channelsSwitch
                     scope: TDLibAPI.NotificationSettingsScopeChannelChats
                     text: qsTr("Channels")
+                    icon.source: Qt.resolvedUrl('../../../images/folders/icon-m-folder-channels.svg')
+                    icon.sourceSize {
+                        width: Theme.iconSizeMedium
+                        height: Theme.iconSizeMedium
+                    }
                 }
             }
 

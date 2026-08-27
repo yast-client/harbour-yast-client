@@ -28,8 +28,9 @@ ListItem {
     }
 
     property alias text: textSwitch.text
+    property alias icon: textSwitch.icon
 
-    TextSwitch {
+    IconTextSwitch {
         id: textSwitch
         text: qsTr("Notifications")
         highlighted: listItem.highlighted
@@ -38,6 +39,7 @@ ListItem {
                         ? (muteFor > 31622400
                         ? qsTr("Muted") : qsTr("Muted for %1").arg(Format.formatDuration(muteFor)))
                         : qsTr("Unmuted"))
+        icon.source: 'image://theme/icon-m-' + (muteFor ? 'silent' : 'sounds')
 
         checked: muteFor == 0
         automaticCheck: false
