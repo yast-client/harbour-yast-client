@@ -18,9 +18,7 @@ AccordionItem {
                 checked: yaqtSettings.storageOptimizer
                 text: qsTr("Enable storage optimizer")
                 automaticCheck: false
-                onClicked: {
-                    yaqtSettings.storageOptimizer = !checked
-                }
+                onClicked: yaqtSettings.storageOptimizer = !checked
             }
 
             Loader {

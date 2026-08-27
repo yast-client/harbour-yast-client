@@ -101,10 +101,11 @@ Page {
                                            setActiveArea(initialArea)
 
                 SettingsUserProfile {}
-                SettingsSession {}
-                SettingsPrivacy {}
                 SettingsBehavior {}
+                SettingsNotifications {}
                 SettingsArchiveChatList {}
+                SettingsPrivacy {}
+                SettingsSession {}
                 SettingsAppearance {}
                 SettingsStorage {}
                 SettingsAdvanced {}

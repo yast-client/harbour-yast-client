@@ -8,12 +8,13 @@ import io.yaqtlib 1.0
 Page {
     id: page
 
-    property var chatId
+    property var chatId // 0 if for whole scope
+    property alias header: header
     property var notificationSettings
 
-    readonly property string soundId: (notificationSettings.use_default_sound ? scopeSettings : notificationSettings).sound_id
+    readonly property string soundId: (!chatId || notificationSettings.use_default_sound ? scopeSettings : notificationSettings).sound_id
     property var sound
-    readonly property string storySoundId: (notificationSettings.use_default_story_sound ? scopeSettings : notificationSettings).story_sound_id
+    readonly property string storySoundId: (!chatId || notificationSettings.use_default_story_sound ? scopeSettings : notificationSettings).story_sound_id
     property var storySound
 
     property int scope: tdData.getChatNotificationSettingsScope(chatId)
@@ -60,7 +61,17 @@ Page {
     }
 
     function applySetting(field, defaultField, value) {
-        var newSettings = JSON.parse(JSON.stringify(notificationSettings))
+        var newSettings
+        if (chatId === 0) {
+            newSettings = JSON.parse(JSON.stringify(scopeSettings))
+            newSettings[field] = value
+            if (defaultField)
+                newSettings[defaultField] = false
+            tdLibWrapper.setScopeNotificationSettings(scope, newSettings)
+            return
+        }
+
+        newSettings = JSON.parse(JSON.stringify(notificationSettings))
         if (scopeSettings[field] === value)
             newSettings[defaultField] = true
         else {
@@ -77,15 +88,16 @@ Page {
             description: modelData.description || ''
             property string field: modelData.field
             property bool inverted: !!modelData.inverted
+            property bool scopeNonDefault: !!modelData.scopeNonDefault
 
             checked: {
-                var chosen = (notificationSettings['use_default_'+field] ? scopeSettings : notificationSettings)[field]
+                var chosen = (!chatId || notificationSettings['use_default_'+field] ? scopeSettings : notificationSettings)[field]
                 return inverted ? !chosen : chosen
             }
             automaticCheck: false
             onClicked: {
                 busy = true
-                applySetting(field, 'use_default_'+field, inverted ? checked : !checked)
+                applySetting(field, scopeNonDefault || !chatId ? 'use_default_'+field : '', inverted ? checked : !checked)
             }
             onCheckedChanged: busy = false
         }
@@ -132,7 +144,7 @@ Page {
             Loader {
                 id: storySwitchLoader
                 width: parent.width
-                property var modelData: ({text: qsTr("Story notifications"), field: 'mute_stories', inverted: true})
+                property var modelData: ({text: qsTr("Story notifications"), field: 'mute_stories', inverted: true, scopeNonDefault: true})
                 sourceComponent: notificationSwitchComponent
             }
 
@@ -160,7 +172,8 @@ Page {
                     x: Theme.horizontalPageMargin
                     width: parent.width - 2*x
                     wrapMode: Text.Wrap
-                    text: "Notification settings:\n" + JSON.stringify(notificationSettings, null, 2) + "\n\nScope notification settings:\n" + JSON.stringify(scopeSettings, null, 2)
+                    text: (chatId ? ("Notification settings:\n" + JSON.stringify(notificationSettings, null, 2) + '\n\n') : '')
+                          + "Scope notification settings:\n" + JSON.stringify(scopeSettings, null, 2)
                 }
             }
         }
@@ -173,7 +186,7 @@ Page {
             currentSoundId: soundId
 
             onSelected:
-                applySetting('sound_id', 'use_default_sound', soundId)
+                applySetting('sound_id', chatId ? 'use_default_sound' : '', soundId)
         }
     }
 
@@ -185,7 +198,7 @@ Page {
             currentSoundId: storySoundId
 
             onSelected:
-                applySetting('story_sound_id', 'use_default_story_sound', soundId)
+                applySetting('story_sound_id', chatId ? 'use_default_story_sound' : '', soundId)
         }
     }
 }

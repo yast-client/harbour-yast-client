@@ -151,7 +151,7 @@ MessageableListItem {
 
         Component {
             id: notificationsContextMenuComponent
-            ChatNotificationsContextMenu {
+            NotificationsContextMenu {
                 chatId: chat_id
                 notificationSettings: notification_settings
             }

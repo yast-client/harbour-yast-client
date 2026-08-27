@@ -278,6 +278,16 @@ function toggleChatIsMuted(chatId, notificationSettings) {
     setChatIsMuted(chatId, notificationSettings, !tdData.chatIsMuted(chatId, notificationSettings))
 }
 
+function setNotificationsScopeIsMuted(scope, settings, mute) {
+    var newSettings = JSON.parse(JSON.stringify(settings))
+    newSettings = mute ? 31622401 : 0
+    tdLibWrapper.setScopeNotificationSettings(scope, newSettings)
+}
+
+function toggleNotificationsScopeIsMuted(scope, settings) {
+    setNotificationsScopeIsMuted(scope, settings, !settings.mute_for)
+}
+
 function formatMessageSendingState(messageId, lastReadOutboxMessageId, sendingState, fontSize) {
     var emoji
     if (lastReadOutboxMessageId >= messageId)

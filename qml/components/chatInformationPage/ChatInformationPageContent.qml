@@ -465,52 +465,10 @@ SilicaFlickable {
                 }
             }
 
-            ListItem {
-                id: notificationsItem
+            NotificationsSwitch {
                 visible: !isSavedMessages
-                contentHeight: notificationsSwitch.height
-
-                highlighted: notificationsSwitch.down || menuOpen
-                _backgroundColor: 'transparent'
-                openMenuOnPressAndHold: false
-
-                TextSwitch {
-                    id: notificationsSwitch
-                    text: qsTr("Notifications")
-                    highlighted: notificationsSwitch.highlighted
-
-                    readonly property var settings: chatInformation.notification_settings
-                    readonly property var scope: tdData.getChatNotificationSettingsScope(chatInformation.id)
-                    property var scopeSettings: tdData.scopeNotificationSettings(scope)
-                    readonly property int muteFor: (settings.use_default_mute_for ? scopeSettings : settings).mute_for
-
-                    Connections {
-                        target: tdData
-                        onScopeNotificationSettingsChanged:
-                            if (scope === notificationsSwitch.scope)
-                                scopeSettings = tdData.scopeNotificationSettings(scope)
-                    }
-
-                    description: muteFor > 0
-                                 ? (muteFor > 31622400
-                                    ? qsTr("Muted") : qsTr("Muted for %1").arg(Format.formatDuration(muteFor)))
-                                 : qsTr("Unmuted")
-
-                    checked: muteFor == 0
-                    automaticCheck: false
-
-                    onClicked: {
-                        busy = true
-                        Functions.toggleChatIsMuted(chatInformation.id, settings)
-                    }
-                    onCheckedChanged: busy = false
-                    onPressAndHold: notificationsItem.openMenu()
-                }
-
-                menu: ChatNotificationsContextMenu {
-                    chatId: chatInformation.id
-                    notificationSettings: chatInformation.notification_settings
-                }
+                chatId: chatInformation.id
+                settings: chatInformation.notification_settings
             }
 
             Item {
