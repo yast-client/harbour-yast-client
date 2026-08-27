@@ -20,6 +20,8 @@ Page {
     property int scope: tdData.getChatNotificationSettingsScope(chatId)
     property var scopeSettings: tdData.scopeNotificationSettings(scope)
 
+    property bool yaqtNotificationSoundsEnabled: yaqtSettings.notificationFeedback != YaqtSettings.NotificationFeedbackNone && yaqtSettings.notificationSoundsEnabled && !yaqtSettings.notificationAlwaysDefaultSound
+
     function updateSound() {
         if (soundId != '0' && soundId != '-1')
             tdLibWrapper.getSavedNotificationSound(soundId)
@@ -118,6 +120,7 @@ Page {
             }
 
             ValueButton {
+                visible: yaqtNotificationSoundsEnabled
                 label: qsTr("Sound")
                 value: sound ? sound.title : (soundId == '0' ? qsTr("Disabled", "No notification sound") : qsTr("Default", "Default notification sound"))
                 onClicked: pageStack.push(selectSoundPageComponent)
@@ -149,7 +152,7 @@ Page {
             }
 
             ValueButton {
-                visible: storySwitchLoader.item && storySwitchLoader.item.checked
+                visible: yaqtNotificationSoundsEnabled && storySwitchLoader.item && storySwitchLoader.item.checked
                 label: qsTr("Sound")
                 value: storySound ? storySound.title : (storySoundId == '0' ? qsTr("Disabled", "No notification sound") : qsTr("Default", "Default notification sound"))
                 onClicked: pageStack.push(selectStorySoundPageComponent)
@@ -185,20 +188,16 @@ Page {
             currentSoundUnavailable: !sound
             currentSoundId: soundId
 
-            onSelected:
-                applySetting('sound_id', chatId ? 'use_default_sound' : '', soundId)
+            onSelected: applySetting('sound_id', chatId ? 'use_default_sound' : '', soundId)
         }
     }
-
-
     Component {
         id: selectStorySoundPageComponent
         NotificationSoundSelectionPage {
             currentSoundUnavailable: !storySound
             currentSoundId: storySoundId
 
-            onSelected:
-                applySetting('story_sound_id', chatId ? 'use_default_story_sound' : '', soundId)
+            onSelected: applySetting('story_sound_id', chatId ? 'use_default_story_sound' : '', soundId)
         }
     }
 }

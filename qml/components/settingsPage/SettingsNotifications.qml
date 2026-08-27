@@ -50,40 +50,6 @@ AccordionItem {
                 }
             }
 
-            Column {
-                width: parent.columnWidth
-
-                SectionHeader { text: qsTr("Events") }
-
-                TextSwitch {
-                    text: qsTr("Contact joined Telegram")
-                    checked: !tdData.options.disable_contact_registered_notifications
-                    automaticCheck: false
-                    onClicked: {
-                        busy = true
-                        tdData.options.disable_contact_registered_notifications = checked
-                    }
-                    onCheckedChanged: busy = false
-                }
-
-                TextSwitch {
-                    text: qsTr("Pinned Messages")
-                    checked: [privateSwitch, groupsSwitch, channelsSwitch].every(function (textSwitch) {
-                        return !textSwitch.scopeSettings.disable_pinned_message_notifications
-                    })
-                    automaticCheck: false
-                    onClicked: {
-                        busy = true
-                        for (var scope = 0; scope <= 2; scope++) {
-                            var settings = tdData.scopeNotificationSettings(scope)
-                            settings.disable_pinned_message_notifications = checked
-                            tdLibWrapper.setScopeNotificationSettings(scope, settings)
-                        }
-                    }
-                    onCheckedChanged: busy = false
-                }
-            }
-
             ComboBox {
                 id: feedbackComboBox
                 width: parent.columnWidth
@@ -137,7 +103,36 @@ AccordionItem {
                 clip: height < implicitHeight
                 visible: height > 0
 
-                Behavior on height { SmoothedAnimation { duration: 200 } }
+                Behavior on height {
+                    enabled: !alwaysDefaultSoundAnimation.running
+                    SmoothedAnimation { duration: 200 }
+                }
+
+                TextSwitch {
+                    checked: yaqtSettings.notificationSoundsEnabled && enabled
+                    text: qsTr("Sounds")
+                    enabled: parent.enabled
+                    automaticCheck: false
+                    onClicked: yaqtSettings.notificationSoundsEnabled = !checked
+                }
+
+                TextSwitch {
+                    height: yaqtSettings.notificationSoundsEnabled ? implicitHeight : 0
+                    Behavior on height {
+                        SmoothedAnimation {
+                            id: alwaysDefaultSoundAnimation
+                            duration: 200
+                        }
+                    }
+                    clip: height < implicitHeight
+                    visible: height > 0
+
+                    checked: yaqtSettings.notificationAlwaysDefaultSound && enabled
+                    text: qsTr("Always use the default notification sound")
+                    description: qsTr("Use the notification sound set in SailfishOS settings even if a custom sound is set for a chat type or a specific chat")
+                    automaticCheck: false
+                    onClicked: yaqtSettings.notificationAlwaysDefaultSound = !checked
+                }
 
                 TextSwitch {
                     checked: yaqtSettings.notificationTurnsDisplayOn && enabled
@@ -146,18 +141,10 @@ AccordionItem {
                     automaticCheck: false
                     onClicked: yaqtSettings.notificationTurnsDisplayOn = !checked
                 }
-
-                TextSwitch {
-                    checked: yaqtSettings.notificationSoundsEnabled && enabled
-                    text: qsTr("Enable notification sounds")
-                    description: qsTr("When sounds are enabled, the current Sailfish OS notification sound will be used for chats, which can be configured in the system settings.")
-                    enabled: parent.enabled
-                    automaticCheck: false
-                    onClicked: yaqtSettings.notificationSoundsEnabled = !checked
-                }
             }
 
             TextSwitch {
+                width: parent.columnWidth
                 text: qsTr("Hide content in notifications")
                 automaticCheck: false
                 checked: yaqtSettings.notificationSuppressContent
@@ -165,6 +152,7 @@ AccordionItem {
             }
 
             TextSwitch {
+                width: parent.columnWidth
                 text: qsTr("Setting quick reaction from notifications")
                 automaticCheck: false
                 checked: yaqtSettings.notificationShowDefaultReaction
@@ -172,6 +160,7 @@ AccordionItem {
             }
 
             TextSwitch {
+                width: parent.columnWidth
                 text: qsTr("In-chat sounds")
                 description: qsTr("Play sounds for incoming and outgoing messages when a chat is open")
                 automaticCheck: false
@@ -182,10 +171,43 @@ AccordionItem {
             Column {
                 width: parent.columnWidth
 
+                SectionHeader { text: qsTr("Events") }
+
+                TextSwitch {
+                    text: qsTr("Contact joined Telegram")
+                    checked: !tdData.options.disable_contact_registered_notifications
+                    automaticCheck: false
+                    onClicked: {
+                        busy = true
+                        tdData.options.disable_contact_registered_notifications = checked
+                    }
+                    onCheckedChanged: busy = false
+                }
+
+                TextSwitch {
+                    text: qsTr("Pinned Messages")
+                    checked: [privateSwitch, groupsSwitch, channelsSwitch].every(function (textSwitch) {
+                        return !textSwitch.scopeSettings.disable_pinned_message_notifications
+                    })
+                    automaticCheck: false
+                    onClicked: {
+                        busy = true
+                        for (var scope = 0; scope <= 2; scope++) {
+                            var settings = tdData.scopeNotificationSettings(scope)
+                            settings.disable_pinned_message_notifications = checked
+                            tdLibWrapper.setScopeNotificationSettings(scope, settings)
+                        }
+                    }
+                    onCheckedChanged: busy = false
+                }
+            }
+
+            Column {
+                width: parent.columnWidth
+
                 SectionHeader { text: qsTr("Badge counter") }
 
                 TextSwitch {
-                    width: parent.columnWidth
                     checked: yaqtSettings.unreadCountIncludeMuted
                     text: qsTr("Include muted chats in unread count")
                     automaticCheck: false
@@ -193,7 +215,6 @@ AccordionItem {
                 }
 
                 TextSwitch {
-                    width: parent.columnWidth
                     checked: appSettings.showFolderUnreadCount
                     text: qsTr("Show unread chat count in folders")
                     automaticCheck: false
@@ -201,7 +222,6 @@ AccordionItem {
                 }
 
                 TextSwitch {
-                    width: parent.columnWidth
                     enabled: appSettings.showFolderUnreadCount
                     checked: yaqtSettings.foldersUnreadCountIncludeMuted
                     text: qsTr("Include muted chats in folders unread count")
