@@ -32,6 +32,12 @@ Page {
         }
     }
 
+    function getProxyPingDescription(ping) {
+        var desc = Functions.getProxyPingDescription(ping)
+        if (!desc) return qsTr("connecting…", "Indicates that a connection test is being done for a proxy or a direct connection to Telegram's servers")
+        return ping >= 0 ? '<font color="%1">%2</font>'.arg(Theme.secondaryHighlightColor).arg(desc) : desc
+    }
+
     function handleProxyToImportReceived() {
         if (proxiesToImportDone + proxiesToImportFailed == proxiesToImportTotal) {
             if (proxiesToImportDone && proxiesToImportFailed)
@@ -185,7 +191,7 @@ Page {
                 checked: !tdData.options.enabled_proxy_id
 
                 property double ping: -1
-                description: Functions.getProxyPingDescription(model.ping)
+                description: getProxyPingDescription(model.ping)
 
                 onClicked: {
                     busy = true
@@ -219,7 +225,7 @@ Page {
                 text: getProxyTypeText(proxy.type) + ' <font color="%1">%2:%3</font>'.arg(highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor).arg(proxy.server).arg(proxy.port)
                 highlighted: proxyItem.highlighted
 
-                description: Functions.getProxyPingDescription(ping)
+                description: getProxyPingDescription(model.ping)
 
                 automaticCheck: false
                 checked: model.id == tdData.options.enabled_proxy_id // don't use is_enabled for easier updating
