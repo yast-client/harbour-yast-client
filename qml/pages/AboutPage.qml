@@ -204,7 +204,7 @@ AboutPageBase {
                 },
                 InfoButton {
                     text: qsTr("Features", "Opens Telegram Tips channel")
-                    onClicked: openTMeUrl(qsTr('TelegramTips', "Username of the localized Telegram Tips channel. Keep unfinished or as-is if not available for your language"))
+                    onClicked: openTMeUrl(sharedStrings.featuresUsername)
                 },
                 InfoButton {
                     text: qsTr("Ask a Question", "Contact support")

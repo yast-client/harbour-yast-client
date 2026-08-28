@@ -133,11 +133,6 @@
         <translation>Режим отладки теперь включён!</translation>
     </message>
     <message>
-        <source>TelegramTips</source>
-        <comment>Username of the localized Telegram Tips channel. Keep unfinished or as-is if not available for your language</comment>
-        <translation>TelegramTips</translation>
-    </message>
-    <message>
         <source>SailfishOS Resources</source>
         <translation>Ресурсы SailfishOS</translation>
     </message>
@@ -569,22 +564,6 @@
         <translation>Дата рождения</translation>
     </message>
     <message>
-        <source>Notifications</source>
-        <translation>Уведомления</translation>
-    </message>
-    <message>
-        <source>Muted</source>
-        <translation>Выкл.</translation>
-    </message>
-    <message>
-        <source>Muted for %1</source>
-        <translation>Выкл. на %1</translation>
-    </message>
-    <message>
-        <source>Unmuted</source>
-        <translation>Вкл.</translation>
-    </message>
-    <message>
         <source>Call</source>
         <translation>Позвонить</translation>
     </message>
@@ -878,33 +857,6 @@
     <message>
         <source>Unarchive</source>
         <translation>Вернуть из архива</translation>
-    </message>
-</context>
-<context>
-    <name>ChatNotificationsContextMenu</name>
-    <message>
-        <source>Mute forever</source>
-        <translation>Выключить уведомления</translation>
-    </message>
-    <message numerus="yes">
-        <source>Mute for %Ln hours</source>
-        <translation>
-            <numerusform>Выкл. уведомления на %Ln час</numerusform>
-            <numerusform>Выкл. уведомления на %Ln часа</numerusform>
-            <numerusform>Выкл. уведомления на %Ln часов</numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Mute notifications</source>
-        <translation>Выключить уведомления</translation>
-    </message>
-    <message>
-        <source>Customize</source>
-        <translation>Настроить</translation>
-    </message>
-    <message>
-        <source>Mute for…</source>
-        <translation>Выключить на время…</translation>
     </message>
 </context>
 <context>
@@ -2286,6 +2238,56 @@ Pull down to visit telegram.org</source>
     </message>
 </context>
 <context>
+    <name>NotificationsContextMenu</name>
+    <message>
+        <source>Mute forever</source>
+        <translation>Выключить уведомления</translation>
+    </message>
+    <message numerus="yes">
+        <source>Mute for %Ln hours</source>
+        <translation>
+            <numerusform>Выкл. уведомления на %Ln час</numerusform>
+            <numerusform>Выкл. уведомления на %Ln часа</numerusform>
+            <numerusform>Выкл. уведомления на %Ln часов</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Mute notifications</source>
+        <translation>Выключить уведомления</translation>
+    </message>
+    <message>
+        <source>Customize</source>
+        <translation>Настроить</translation>
+    </message>
+    <message>
+        <source>Mute for…</source>
+        <translation>Выключить на время…</translation>
+    </message>
+</context>
+<context>
+    <name>NotificationsSwitch</name>
+    <message>
+        <source>Notifications</source>
+        <translation type="unfinished">Уведомления</translation>
+    </message>
+    <message>
+        <source>Muted</source>
+        <translation type="unfinished">Выкл.</translation>
+    </message>
+    <message>
+        <source>Muted for %1</source>
+        <translation type="unfinished">Выкл. на %1</translation>
+    </message>
+    <message>
+        <source>Unmuted</source>
+        <translation type="unfinished">Вкл.</translation>
+    </message>
+    <message>
+        <source>%1, press and hold for more options</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Opal.About</name>
     <message>
         <source>About</source>
@@ -2987,44 +2989,12 @@ Pull down to visit telegram.org</source>
         <translation>Задержка перед отметкой о прочтении</translation>
     </message>
     <message>
-        <source>Notification feedback</source>
-        <translation>Отклик уведомлений</translation>
-    </message>
-    <message>
-        <source>Use non-graphical feedback (sound, vibration) for notifications</source>
-        <translation>Сопровождать уведомления звуками и вибрацией</translation>
-    </message>
-    <message>
-        <source>All events</source>
-        <translation>На каждое событие</translation>
-    </message>
-    <message>
-        <source>Only new events</source>
-        <translation>Только на новые события</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation>Никогда</translation>
-    </message>
-    <message>
-        <source>Notification turns on the display</source>
-        <translation>Уведомления включают дисплей</translation>
-    </message>
-    <message>
-        <source>Enable notification sounds</source>
-        <translation>Уведомления издают звук</translation>
-    </message>
-    <message>
         <source>Highlight unread messages</source>
         <translation>Выделять непрочитанные сообщения</translation>
     </message>
     <message>
         <source>Highlight Conversations with unread messages</source>
         <translation>Помечать чаты и каналы с непрочитанными сообщениями другим шрифтом и цветом</translation>
-    </message>
-    <message>
-        <source>Hide content in notifications</source>
-        <translation>Не показывать содержимое сообщений в уведомлениях</translation>
     </message>
     <message>
         <source>Send attachments by enter</source>
@@ -3035,22 +3005,6 @@ Pull down to visit telegram.org</source>
         <translation>Показывать опцию перевода для сообщений</translation>
     </message>
     <message>
-        <source>Include muted chats in unread count</source>
-        <translation>Включать в счетчик непрочитанных сообщений чаты без уведомлений</translation>
-    </message>
-    <message>
-        <source>Show unread chat count in folders</source>
-        <translation>Показывать счетчик непрочитанных сообщений в папках</translation>
-    </message>
-    <message>
-        <source>Include muted chats in folders unread count</source>
-        <translation>Включать в счетчик непрочитанных сообщений чаты без уведомлений в папках</translation>
-    </message>
-    <message>
-        <source>Setting quick reaction from notifications</source>
-        <translation>Выбор быстрой реакции из уведомлений</translation>
-    </message>
-    <message>
         <source>Parse markdown when sending messages</source>
         <translation>Использовать Markdown при отправлении сообщений</translation>
     </message>
@@ -3058,29 +3012,120 @@ Pull down to visit telegram.org</source>
         <source>There will be a slight delay before the messages will be read</source>
         <translation>Перед чтением сообшений будет небольшая задержка</translation>
     </message>
+</context>
+<context>
+    <name>SettingsNotifications</name>
     <message>
-        <source>When sounds are enabled, the current Sailfish OS notification sound will be used for chats, which can be configured in the system settings.</source>
-        <translation>Когда звуки включены, текущий звук уведомлений Sailfish OS будет использован для чатов, который можно выбрать в системный настройках.</translation>
+        <source>Notifications and sounds</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Calls</source>
-        <translation>Звонки</translation>
+        <source>Notification feedback</source>
+        <translation type="unfinished">Отклик уведомлений</translation>
     </message>
     <message>
-        <source>Ringtone for incoming calls in Do not disturb mode</source>
-        <translation>Рингтон для входящих вызовов в режиме Не беспокоить</translation>
+        <source>Use non-graphical feedback (sound, vibration) for notifications</source>
+        <translation type="unfinished">Сопровождать уведомления звуками и вибрацией</translation>
     </message>
     <message>
-        <source>Allow incoming calls to play ringtones in &apos;Do not disturb&apos; mode</source>
-        <translation>Разрешить входящим вызовам играть рингтоны в режиме &apos;Не беспокоить&apos;</translation>
+        <source>All events</source>
+        <translation type="unfinished">На каждое событие</translation>
+    </message>
+    <message>
+        <source>Only new events</source>
+        <translation type="unfinished">Только на новые события</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Никогда</translation>
+    </message>
+    <message>
+        <source>Events</source>
+        <translation type="unfinished">События</translation>
+    </message>
+    <message>
+        <source>Contact joined Telegram</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Notification turns on the display</source>
+        <translation type="unfinished">Уведомления включают дисплей</translation>
+    </message>
+    <message>
+        <source>Hide content in notifications</source>
+        <translation type="unfinished">Не показывать содержимое сообщений в уведомлениях</translation>
+    </message>
+    <message>
+        <source>Setting quick reaction from notifications</source>
+        <translation type="unfinished">Выбор быстрой реакции из уведомлений</translation>
     </message>
     <message>
         <source>In-chat sounds</source>
-        <translation>Звук в чате</translation>
+        <translation type="unfinished">Звук в чате</translation>
     </message>
     <message>
         <source>Play sounds for incoming and outgoing messages when a chat is open</source>
-        <translation>Звук для входящих и исходящих сообщений в открытом чате</translation>
+        <translation type="unfinished">Звук для входящих и исходящих сообщений в открытом чате</translation>
+    </message>
+    <message>
+        <source>Include muted chats in unread count</source>
+        <translation type="unfinished">Включать в счетчик непрочитанных сообщений чаты без уведомлений</translation>
+    </message>
+    <message>
+        <source>Show unread chat count in folders</source>
+        <translation type="unfinished">Показывать счетчик непрочитанных сообщений в папках</translation>
+    </message>
+    <message>
+        <source>Include muted chats in folders unread count</source>
+        <translation type="unfinished">Включать в счетчик непрочитанных сообщений чаты без уведомлений в папках</translation>
+    </message>
+    <message>
+        <source>Calls</source>
+        <translation type="unfinished">Звонки</translation>
+    </message>
+    <message>
+        <source>Ringtone for incoming calls in Do not disturb mode</source>
+        <translation type="unfinished">Рингтон для входящих вызовов в режиме Не беспокоить</translation>
+    </message>
+    <message>
+        <source>Allow incoming calls to play ringtones in &apos;Do not disturb&apos; mode</source>
+        <translation type="unfinished">Разрешить входящим вызовам играть рингтоны в режиме &apos;Не беспокоить&apos;</translation>
+    </message>
+    <message>
+        <source>Chat notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pinned Messages</source>
+        <translation type="unfinished">Закреплённые сообщения</translation>
+    </message>
+    <message>
+        <source>Badge counter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Private chats</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Groups</source>
+        <translation type="unfinished">Группы</translation>
+    </message>
+    <message>
+        <source>Channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sounds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always use the default notification sound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the notification sound set in SailfishOS settings even if a custom sound is set for a chat type or a specific chat</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4589,6 +4634,11 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Link unsupported: %1</source>
         <translation>Ссылка не поддерживается: %1</translation>
+    </message>
+    <message>
+        <source>TelegramTips</source>
+        <comment>Username of the localized Telegram Tips channel. Keep unfinished or as-is if not available for your language</comment>
+        <translation type="unfinished">TelegramTips</translation>
     </message>
 </context>
 </TS>

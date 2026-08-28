@@ -71,20 +71,26 @@ Page {
         onTriggered: {
             pageStack.completeAnimation()
 
-            // Proxy links are the only deep links with a separate page which can be viewed from login page (as of now)
             var page = pageStack.pop(overviewPage, PageStackAction.Immediate)
-            var proxyPageData
-            if (page && page.objectName === 'addProxyDialog')
-                proxyPageData = {server: page.server, port: page.port, proxyType: page.getTypeObject(), openAfterAdding: true}
+            var deepLinkPagePath, deepLinkPageData
+
+            if (page)
+                switch (page.objectName) {
+                // Proxy links are the only deep links with a separate page which can be viewed from login page (as of now)
+                case 'addProxyDialog':
+                    deepLinkPagePath = Qt.resolvedUrl('../dialogs/AddProxyDialog.qml')
+                    deepLinkPageData = {server: page.server, port: page.port, proxyType: page.getTypeObject(), openAfterAdding: true}
+                    break
+                }
 
             if (hintsConfig.welcomeTourCompleted)
                 pageStack.push(Qt.resolvedUrl('../dialogs/InitializationDialog.qml'), {initial: true})
             else
                 pageStack.push(Qt.resolvedUrl('../dialogs/WelcomeDialog.qml'))
 
-            if (proxyPageData) {
+            if (deepLinkPagePath) {
                 pageStack.completeAnimation()
-                pageStack.push(Qt.resolvedUrl('../dialogs/AddProxyDialog.qml'), proxyPageData)
+                pageStack.push(deepLinkPagePath, deepLinkPageData)
             }
         }
     }
@@ -192,6 +198,47 @@ Page {
                 pageStack.push(Qt.resolvedUrl("../dialogs/ChatJoinDialog.qml"), {link: link, invite: info})
         onInternalLinkTypeProxyReceived:
             pageStack.push(Qt.resolvedUrl("../dialogs/AddProxyDialog.qml"), {server: server, port: port, proxyType: type, openAfterAdding: true})
+        onInternalLinkTypeSettingsReceived: {
+            pageStack.completeAnimation()
+            if (section == 'settingsSectionDataAndStorage' && subsection.indexOf('proxy') == 0) {
+                openProxySettings()
+                return
+            }
+            if (tdLibWrapper.authorizationState != TDLibAPI.AuthorizationReady)
+                return
+
+            var area = 'profile'
+            switch (section) {
+            case 'settingsSectionNotifications':
+                area = 'notifications'
+                break
+            case 'settingsSectionPrivacyAndSecurity':
+                area = 'privacy'
+                break
+            case 'settingsSectionLanguage':
+                // all subsections lead to translation settings, which are located in behavior right now
+                if (subsection) area = 'behavior'
+                break
+            case 'settingsSectionAppearance':
+                area = 'appearance'
+                break
+            case 'settingsSectionDevices':
+                area = 'sessions'
+                break
+            case 'settingsSectionDataAndStorage':
+                area = 'storage'
+                break
+            case 'settingsSectionFeatures':
+                tdLibWrapper.getInternalLinkType(tdData.options.t_me_url + sharedStrings.featuresUsername)
+                return
+            case 'settingsSectionAskQuestion':
+                pageStack.push(Qt.resolvedUrl("../dialogs/ContactSupportDialog.qml"))
+                return
+            default: // settingsSectionEditProfile
+                break
+            }
+            pageStack.push(Qt.resolvedUrl("SettingsPage.qml"), {initialArea: area})
+        }
         onAddedProxyReceived:
             if (extra == 'open')
                 openProxySettings()

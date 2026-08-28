@@ -127,6 +127,12 @@ ApplicationWindow {
     }
 
 
+    QtObject {
+        id: sharedStrings
+        readonly property string featuresUsername: qsTr('TelegramTips', "Username of the localized Telegram Tips channel. Keep unfinished or as-is if not available for your language")
+    }
+
+
     // Calls
     property var callWindowInstance
 

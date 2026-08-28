@@ -137,11 +137,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>TelegramTips</source>
-        <comment>Username of the localized Telegram Tips channel. Keep unfinished or as-is if not available for your language</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>SailfishOS Resources</source>
         <translation type="unfinished"></translation>
     </message>
@@ -565,22 +560,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Notifications</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Muted</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Muted for %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unmuted</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Call</source>
         <translation type="unfinished"></translation>
     </message>
@@ -869,32 +848,6 @@
     </message>
     <message>
         <source>Unarchive</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ChatNotificationsContextMenu</name>
-    <message>
-        <source>Mute forever</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message numerus="yes">
-        <source>Mute for %Ln hours</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message>
-        <source>Mute notifications</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Customize</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Mute for…</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2252,6 +2205,55 @@ Pull down to visit telegram.org</source>
     </message>
 </context>
 <context>
+    <name>NotificationsContextMenu</name>
+    <message>
+        <source>Mute forever</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>Mute for %Ln hours</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Mute notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Customize</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mute for…</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>NotificationsSwitch</name>
+    <message>
+        <source>Notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Muted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Muted for %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unmuted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1, press and hold for more options</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Opal.About</name>
     <message>
         <source>About</source>
@@ -2940,34 +2942,6 @@ Pull down to visit telegram.org</source>
         <translation>Verzögerung bevor Nachrichten als gelesen markiert werden</translation>
     </message>
     <message>
-        <source>Notification feedback</source>
-        <translation>Rückmeldung bei Hinweisen</translation>
-    </message>
-    <message>
-        <source>Use non-graphical feedback (sound, vibration) for notifications</source>
-        <translation>Nicht-grafische Rückmeldungen (Klänge, Vibration) bei Hinweisen nutzen</translation>
-    </message>
-    <message>
-        <source>All events</source>
-        <translation>Alle Ereignisse</translation>
-    </message>
-    <message>
-        <source>Only new events</source>
-        <translation>Nur neue Ereignisse</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation>Keine</translation>
-    </message>
-    <message>
-        <source>Notification turns on the display</source>
-        <translation>Hinweis schaltet den Bildschirm an</translation>
-    </message>
-    <message>
-        <source>Enable notification sounds</source>
-        <translation>Hinweistöne einschalten</translation>
-    </message>
-    <message>
         <source>Highlight unread messages</source>
         <translation>Ungelesene Nachrichten hervorheben</translation>
     </message>
@@ -2976,15 +2950,74 @@ Pull down to visit telegram.org</source>
         <translation>Unterhaltungen mit ungelesenen Nachrichten hervorheben</translation>
     </message>
     <message>
-        <source>Hide content in notifications</source>
-        <translation>Inhalte in Hinweisen verbergen</translation>
-    </message>
-    <message>
         <source>Send attachments by enter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Show translate option for messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Parse markdown when sending messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There will be a slight delay before the messages will be read</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SettingsNotifications</name>
+    <message>
+        <source>Notifications and sounds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Notification feedback</source>
+        <translation type="unfinished">Rückmeldung bei Hinweisen</translation>
+    </message>
+    <message>
+        <source>Use non-graphical feedback (sound, vibration) for notifications</source>
+        <translation type="unfinished">Nicht-grafische Rückmeldungen (Klänge, Vibration) bei Hinweisen nutzen</translation>
+    </message>
+    <message>
+        <source>All events</source>
+        <translation type="unfinished">Alle Ereignisse</translation>
+    </message>
+    <message>
+        <source>Only new events</source>
+        <translation type="unfinished">Nur neue Ereignisse</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">Keine</translation>
+    </message>
+    <message>
+        <source>Events</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contact joined Telegram</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Notification turns on the display</source>
+        <translation type="unfinished">Hinweis schaltet den Bildschirm an</translation>
+    </message>
+    <message>
+        <source>Hide content in notifications</source>
+        <translation type="unfinished">Inhalte in Hinweisen verbergen</translation>
+    </message>
+    <message>
+        <source>Setting quick reaction from notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>In-chat sounds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Play sounds for incoming and outgoing messages when a chat is open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3000,22 +3033,6 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Setting quick reaction from notifications</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Parse markdown when sending messages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>There will be a slight delay before the messages will be read</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>When sounds are enabled, the current Sailfish OS notification sound will be used for chats, which can be configured in the system settings.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Calls</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3028,11 +3045,39 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>In-chat sounds</source>
+        <source>Chat notifications</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Play sounds for incoming and outgoing messages when a chat is open</source>
+        <source>Pinned Messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Badge counter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Private chats</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Groups</source>
+        <translation type="unfinished">Gruppen</translation>
+    </message>
+    <message>
+        <source>Channels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sounds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always use the default notification sound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the notification sound set in SailfishOS settings even if a custom sound is set for a chat type or a specific chat</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4516,6 +4561,11 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Link unsupported: %1</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TelegramTips</source>
+        <comment>Username of the localized Telegram Tips channel. Keep unfinished or as-is if not available for your language</comment>
+        <translation>TelegramTipsDE</translation>
     </message>
 </context>
 </TS>
