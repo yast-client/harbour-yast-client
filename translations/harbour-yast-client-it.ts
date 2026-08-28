@@ -2707,6 +2707,11 @@ Trascina in basso per visitare telegram.org</translation>
         <source>Try connecting through IPv6</source>
         <translation>Prova a connetterti tramite IPv6</translation>
     </message>
+    <message>
+        <source>connecting…</source>
+        <comment>Indicates that a connection test is being done for a proxy or a direct connection to Telegram&apos;s servers</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SearchChatsPage</name>
@@ -3049,10 +3054,6 @@ Trascina in basso per visitare telegram.org</translation>
         <translation type="unfinished">Consenti suoneria per chiamate in arrivo anche in modalità &quot;Non disturbare&quot;</translation>
     </message>
     <message>
-        <source>Chat notifications</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Pinned Messages</source>
         <translation type="unfinished">Messaggi in evidenza</translation>
     </message>
@@ -3082,6 +3083,10 @@ Trascina in basso per visitare telegram.org</translation>
     </message>
     <message>
         <source>Use the notification sound set in SailfishOS settings even if a custom sound is set for a chat type or a specific chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Notifications for chats</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

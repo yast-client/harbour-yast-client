@@ -2743,6 +2743,11 @@ Pull down to visit telegram.org</source>
         <source>Try connecting through IPv6</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>connecting…</source>
+        <comment>Indicates that a connection test is being done for a proxy or a direct connection to Telegram&apos;s servers</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SearchChatsPage</name>
@@ -3085,10 +3090,6 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Chat notifications</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Pinned Messages</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3118,6 +3119,10 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>Use the notification sound set in SailfishOS settings even if a custom sound is set for a chat type or a specific chat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Notifications for chats</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -24,7 +24,7 @@ AccordionItem {
             Column {
                 width: parent.columnWidth
 
-                SectionHeader { text: qsTr("Chat notifications") }
+                SectionHeader { text: qsTr("Notifications for chats") }
 
                 NotificationsSwitch {
                     id: privateSwitch
