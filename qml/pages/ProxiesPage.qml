@@ -3,13 +3,13 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import Opal.SortFilterProxyModel 1.0
+import Opal.MenuSwitch 1.0
 import "../js/functions.js" as Functions
-
-// TODO: sorting
 
 Page {
     property bool loading: true
-    property bool isEmpty: !loading && proxiesModel.count == 0
+    readonly property bool isEmpty: !loading && proxiesModel.count == 0
 
     property var proxiesToCopy
     property int proxiesToCopyCount
@@ -17,6 +17,8 @@ Page {
     property int proxiesToImportDone
     property int proxiesToImportFailed
     property int proxiesToImportTotal
+
+    readonly property string searchQuery: listView.headerItem ? listView.headerItem.query : ''
 
     ListModel {
         id: proxiesModel
@@ -122,9 +124,16 @@ Page {
     }
 
     SilicaListView {
+        id: listView
         anchors.fill: parent
 
         PullDownMenu {
+            MenuSwitch {
+                text: qsTr("Sort by Ping")
+                automaticCheck: false
+                checked: appConfig.sortProxiesByPing
+                onClicked: appConfig.sortProxiesByPing = !checked
+            }
             MenuItem {
                 visible: !!Clipboard.text
                 text: qsTr("Add proxy from clipboard")
@@ -165,6 +174,8 @@ Page {
             opacity: loading ? 0 : 1
             Behavior on opacity { FadeAnimator {} }
 
+            property alias query: searchField.text
+
             PageHeader {
                 title: qsTr("Proxy")
                 description: qsTr("Proxy servers may be helpful in accessing Telegram if there is no connection in a specific region.")
@@ -183,9 +194,11 @@ Page {
                 text: qsTr("Connections")
             }
 
+            SearchField { id: searchField }
+
             TextSwitch {
                 id: withoutProxySwitch
-                visible: !isEmpty
+                visible: !isEmpty && (!searchField.query || text.indexOf(searchField.query) > -1)
                 text: qsTr("Without Proxy")
                 automaticCheck: false
                 checked: !tdData.options.enabled_proxy_id
@@ -210,7 +223,49 @@ Page {
             }
         }
 
-        model: proxiesModel
+        model: SortFilterProxyModel {
+            sourceModel: proxiesModel
+            proxyRoles: [
+                ExpressionRole {
+                    name: 'proxyServer'
+                    expression: model.proxy.server
+                },
+                ExpressionRole {
+                    name: 'proxyPort'
+                    expression: model.proxy.port
+                },
+                ExpressionRole {
+                    name: 'typeName'
+                    expression: getProxyTypeText(model.proxy.type)
+                }
+            ]
+            filters: AnyOf {
+                enabled: !!searchQuery
+                // TODO: handle cases like "mtproto myserver.com"
+                RegExpFilter {
+                    roleName: 'proxyServer'
+                    pattern: searchQuery
+                    caseSensitivity: Qt.CaseInsensitive
+                }
+                RegExpFilter {
+                    roleName: 'proxyPort'
+                    pattern: searchQuery
+                }
+                RegExpFilter {
+                    roleName: 'typeName'
+                    pattern: searchQuery
+                    caseSensitivity: Qt.CaseInsensitive
+                }
+            }
+            sorters: RoleSorter {
+                enabled: appConfig.sortProxiesByPing
+                roleName: 'ping'
+                sortOrder: Qt.DescendingOrder
+            }
+        }
+
+        currentIndex: -1 // don't steal focus from search field
+
         delegate: ListItem {
             id: proxyItem
             contentHeight: proxySwitch.height

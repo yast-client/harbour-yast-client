@@ -129,10 +129,7 @@ Page {
                     property alias query: languageSearchField.text
 
                     PageHeader { title: qsTr("Language") }
-                    SearchField {
-                        id: languageSearchField
-                        width: parent.width
-                    }
+                    SearchField { id: languageSearchField }
                 }
 
                 delegate: BackgroundItem {
