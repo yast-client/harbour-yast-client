@@ -69,8 +69,36 @@ Column {
                     Rectangle {
                         anchors.fill: parent
                         radius: Theme.paddingSmall
-                        color: parent.pressed ? Theme.rgba(Theme.highlightBackgroundColor, Theme.highlightBackgroundOpacity)
-                                          : Theme.rgba(Theme.primaryColor, Theme.opacityFaint)
+                        property color baseColor: {
+                            var baseBaseColor
+                            switch (modelData.style['@type']) {
+                            case 'buttonStylePrimary':
+                                return Theme.highlightBackgroundFromColor('blue', Theme.colorScheme)
+                            default:
+                                return Theme.primaryColor
+                            }
+                        }
+                        color: {
+                            if (parent.pressed)
+                                return Theme.rgba(Theme.highlightBackgroundColor, Theme.highlightBackgroundOpacity)
+
+                            var colorBase
+                            switch (modelData.style['@type']) {
+                            case 'buttonStylePrimary':
+                                colorBase = 'blue'
+                                break
+                            case 'buttonStyleDanger':
+                                colorBase = Theme.errorColor
+                                break
+                            case 'buttonStyleSuccess':
+                                colorBase = 'green'
+                                break
+                            default:
+                                return Theme.rgba(Theme.primaryColor, Theme.opacityFaint)
+                            }
+
+                            return Theme.rgba(Theme.highlightBackgroundFromColor(colorBase, Theme.colorScheme), Theme.opacityFaint)
+                        }
                         opacity: parent.enabled ? 1.0 : Theme.opacityLow
 
                         Label {
