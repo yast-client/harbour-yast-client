@@ -257,10 +257,16 @@ Page {
                     caseSensitivity: Qt.CaseInsensitive
                 }
             }
-            sorters: RoleSorter {
+            sorters: ExpressionSorter {
                 enabled: appConfig.sortProxiesByPing
-                roleName: 'ping'
-                sortOrder: Qt.DescendingOrder
+                expression: {
+                    var ping1 = modelLeft.ping, ping2 = modelRight.ping
+                    if (ping1 < 0 && ping2 < 0)
+                        return ping1 > ping2
+                    if (ping1 < 0) return false
+                    if (ping2 < 0) return true
+                    return ping1 < ping2
+                }
             }
         }
 
