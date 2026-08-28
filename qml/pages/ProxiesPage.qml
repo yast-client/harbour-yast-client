@@ -5,6 +5,8 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import "../js/functions.js" as Functions
 
+// TODO: sorting
+
 Page {
     property bool loading: true
     property bool isEmpty: !loading && proxiesModel.count == 0
@@ -18,6 +20,16 @@ Page {
 
     ListModel {
         id: proxiesModel
+    }
+
+    function setProxyPing(server, port, type, ping) {
+        for (var i=0; i < proxiesModel.count; i++) {
+            var proxy = proxiesModel.get(i).proxy
+            if (server === proxy.server && port === proxy.port && JSON.stringify(type) === JSON.stringify(proxy.type)) {
+                proxiesModel.setProperty(i, 'ping', ping)
+                break
+            }
+        }
     }
 
     function handleProxyToImportReceived() {
@@ -38,13 +50,32 @@ Page {
         target: tdLibWrapper
         onAddedProxiesReceived: {
             proxiesModel.clear()
-            for (var i=0; i < proxies.length; i++)
+            for (var i=0; i < proxies.length; i++) {
+                proxies[i].ping = -1
                 proxiesModel.append(proxies[i])
+            }
             loading = false
         }
-        onAddedProxyReceived:
-            if (extra == 'new')
-                proxiesModel.append(proxy)
+        onOkReceived:
+            if (extra.toString().indexOf('removeProxy:') == 0) {
+                var proxyId = Number(extra.slice(12))
+                for (var i=0; i < proxiesModel.count; i++)
+                    if (proxiesModel.get(i).id == proxyId)
+                        proxiesModel.remove(i)
+            }
+        onProxyPingErrorReceived: setProxyPing(server, port, type, -2)
+        onProxyPingReceived: setProxyPing(server, port, type, ping)
+        onAddedProxyReceived: {
+            // even if returned from addProxy, it can be an existing proxy
+            for (var i=0; i < proxiesModel.count; i++)
+                if (proxiesModel.get(i).id == proxy.id) {
+                    proxiesModel.set(i, proxy)
+                    tdLibWrapper.pingProxy(proxy)
+                    return
+                }
+
+            proxiesModel.append(proxy) // new proxy
+        }
 
         onHttpUrlReceived:
             if (proxiesToCopy && extra == 'copyProxyList') {
@@ -58,7 +89,7 @@ Page {
             if (extra == 'proxyLinkImport') {
                 if (type['@type'] == 'internalLinkTypeProxy') {
                     proxiesToImportDone++
-                    tdLibWrapper.addProxy(type.proxy, 'new')
+                    tdLibWrapper.addProxy(type.proxy)
                 } else
                     proxiesToImportFailed++
 
@@ -84,9 +115,8 @@ Page {
         }
     }
 
-    SilicaFlickable {
+    SilicaListView {
         anchors.fill: parent
-        contentHeight: column.height
 
         PullDownMenu {
             MenuItem {
@@ -116,9 +146,7 @@ Page {
             }
         }
 
-        BusyLabel {
-            running: loading
-        }
+        BusyLabel { running: loading }
 
         ViewPlaceholder {
             enabled: isEmpty
@@ -126,8 +154,7 @@ Page {
             hintText: qsTr("Pull down to add a new proxy server")
         }
 
-        Column {
-            id: column
+        header: Column {
             width: parent.width
             opacity: loading ? 0 : 1
             Behavior on opacity { FadeAnimator {} }
@@ -155,23 +182,19 @@ Page {
                 visible: !isEmpty
                 text: qsTr("Without Proxy")
                 automaticCheck: false
-                checked: true
+                checked: !tdData.options.enabled_proxy_id
 
                 property double ping: -1
-                description: Functions.getProxyPingDescription(ping)
+                description: Functions.getProxyPingDescription(model.ping)
 
-                onClicked:
-                    if (!checked)
-                        tdLibWrapper.disableProxy()
+                onClicked: {
+                    busy = true
+                    if (!checked) tdLibWrapper.disableProxy()
+                }
+                onCheckedChanged: busy = false
 
                 Connections {
                     target: tdLibWrapper
-                    onOkReceived:
-                        if (extra == "disableProxy") {
-                            withoutProxySwitch.busy = false
-                            withoutProxySwitch.checked = true
-                        } else if (extra.indexOf('enableProxy:') === 0)
-                            withoutProxySwitch.busy = withoutProxySwitch.checked = false
                     onPingErrorReceived:
                         withoutProxySwitch.ping = -2
                     onPingReceived:
@@ -179,87 +202,54 @@ Page {
                 }
                 Component.onCompleted: tdLibWrapper.pingProxy()
             }
+        }
 
-            Repeater {
-                model: proxiesModel
-                ListItem {
-                    id: proxyItem
-                    contentHeight: proxySwitch.height
+        model: proxiesModel
+        delegate: ListItem {
+            id: proxyItem
+            contentHeight: proxySwitch.height
+            hidden: loading
 
-                    highlighted: proxySwitch.down || menuOpen
-                    _backgroundColor: 'transparent'
-                    openMenuOnPressAndHold: false
+            highlighted: proxySwitch.down || menuOpen
+            _backgroundColor: 'transparent'
+            openMenuOnPressAndHold: false
 
-                    TextSwitch {
-                        id: proxySwitch
-                        text: getProxyTypeText(proxy.type) + ' <font color="%1">'.arg(highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor) + proxy.server + ':' + proxy.port + '</font>'
-                        highlighted: proxyItem.highlighted
+            TextSwitch {
+                id: proxySwitch
+                text: getProxyTypeText(proxy.type) + ' <font color="%1">%2:%3</font>'.arg(highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor).arg(proxy.server).arg(proxy.port)
+                highlighted: proxyItem.highlighted
 
-                        property double ping: -1
-                        description: Functions.getProxyPingDescription(ping)
+                description: Functions.getProxyPingDescription(ping)
 
-                        automaticCheck: false
-                        checked: is_enabled
-                        Component.onCompleted: {
-                            if (is_enabled)
-                                withoutProxySwitch.checked = false
-                            tdLibWrapper.pingProxy(model.proxy)
-                        }
+                automaticCheck: false
+                checked: model.id == tdData.options.enabled_proxy_id // don't use is_enabled for easier updating
 
-                        onClicked: {
-                            if (!is_enabled) {
-                                busy = true
-                                tdLibWrapper.enableProxy(model.id)
-                            }
-                        }
-                        onPressAndHold: proxyItem.openMenu()
+                Component.onCompleted:
+                    tdLibWrapper.pingProxy(model.proxy)
 
-                        function setEnabled(enabled) {
-                            proxiesModel.setProperty(index, 'is_enabled', enabled)
-                            busy = false
-                        }
-
-                        Connections {
-                            target: tdLibWrapper
-                            onOkReceived:
-                                if (extra == 'removeProxy:' + model.id) {
-                                    if (is_enabled)
-                                        withoutProxySwitch.checked = true
-                                    proxiesModel.remove(index)
-                                } else if (extra == 'disableProxy' && is_enabled)
-                                    proxySwitch.setEnabled(false)
-                                else if (extra.indexOf('enableProxy:') == 0)
-                                    proxySwitch.setEnabled(extra == 'enableProxy:' + model.id)
-
-                            onProxyPingErrorReceived:
-                                if (server === proxy.server && port === proxy.port && JSON.stringify(type) === JSON.stringify(proxy.type))
-                                    proxySwitch.ping = -2
-                            onProxyPingReceived:
-                                if (server === proxy.server && port === proxy.port && JSON.stringify(type) === JSON.stringify(proxy.type))
-                                    proxySwitch.ping = ping
-                            onAddedProxyReceived:
-                                if (!extra && proxy.id === model.id) {
-                                    proxiesModel.set(index, proxy)
-                                    tdLibWrapper.pingProxy(model.proxy)
-                                }
-                        }
+                onClicked: {
+                    if (!checked) {
+                        busy = true
+                        tdLibWrapper.enableProxy(model.id)
                     }
+                }
+                onCheckedChanged: busy = false
+                onPressAndHold: proxyItem.openMenu()
+            }
 
-                    menu: ContextMenu {
-                        MenuItem {
-                            text: qsTr("Remove", "proxy")
-                            onClicked: remorseDelete(function() { tdLibWrapper.removeProxy(model.id) })
-                        }
-                        MenuItem {
-                            text: qsTr("Edit", "proxy")
-                            onClicked: pageStack.push(Qt.resolvedUrl("../dialogs/AddProxyDialog.qml"),
-                                                      {editProxyId: model.id, server: proxy.server, port: proxy.port, proxyType: proxy.type})
-                        }
-                        MenuItem {
-                            text: qsTr("Copy link", "proxy")
-                            onClicked: tdLibWrapper.getInternalLink({'@type': 'internalLinkTypeProxy', proxy: proxy}, 'copy')
-                        }
-                    }
+            menu: ContextMenu {
+                MenuItem {
+                    text: qsTr("Remove", "proxy")
+                    onClicked: remorseDelete(function() { tdLibWrapper.removeProxy(model.id) })
+                }
+                MenuItem {
+                    text: qsTr("Edit", "proxy")
+                    onClicked: pageStack.push(Qt.resolvedUrl("../dialogs/AddProxyDialog.qml"),
+                                                {editProxyId: model.id, server: proxy.server, port: proxy.port, proxyType: proxy.type})
+                }
+                MenuItem {
+                    text: qsTr("Copy link", "proxy")
+                    onClicked: tdLibWrapper.getInternalLink({'@type': 'internalLinkTypeProxy', proxy: proxy}, 'copy')
                 }
             }
         }

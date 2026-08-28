@@ -66,7 +66,7 @@ Dialog {
         if (editProxyId >= 0)
             tdLibWrapper.editProxy(editProxyId, server, port, getTypeObject())
         else
-            tdLibWrapper.addProxy(server, port, getTypeObject(), openAfterAdding ? 'open' : 'new', openAfterAdding)
+            tdLibWrapper.addProxy(server, port, getTypeObject(), openAfterAdding ? 'open' : '', openAfterAdding)
 
     Connections {
         target: tdLibWrapper
