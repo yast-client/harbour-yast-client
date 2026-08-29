@@ -2755,6 +2755,10 @@ Pull down to visit telegram.org</source>
         <comment>Indicates that a connection test is being done for a proxy or a direct connection to Telegram&apos;s servers</comment>
         <translation>подключение…</translation>
     </message>
+    <message>
+        <source>Sort by Ping</source>
+        <translation>Сортировка по пингу</translation>
+    </message>
 </context>
 <context>
     <name>SearchChatsPage</name>
@@ -2926,6 +2930,26 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Make chats in the list smaller</source>
         <translation>Уменьшить чаты в списке</translation>
+    </message>
+    <message>
+        <source>Attachment button location</source>
+        <translation>Кнопка вложений</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation>Справа</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation>Слева</translation>
+    </message>
+    <message>
+        <source>Chat folders</source>
+        <translation>Папки с чатами</translation>
+    </message>
+    <message>
+        <source>Stickers</source>
+        <translation>Стикеры</translation>
     </message>
 </context>
 <context>
