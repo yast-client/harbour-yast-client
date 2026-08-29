@@ -27,9 +27,11 @@ SilicaListView {
         onClicked: pageStack.push(Qt.resolvedUrl("../../pages/ChatPage.qml"), {chatId: chat_id})
     }
 
-    Component.onCompleted:
+    Component.onCompleted: {
         if (chatListType == ChatFoldersModel.FolderFolder)
             chatsModel.load()
+        else scrollToTop() // FIXME?
+    }
 
     onContentYChanged: {
         if (view.count == 0) return

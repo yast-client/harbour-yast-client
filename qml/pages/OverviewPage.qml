@@ -273,6 +273,12 @@ Page {
         value: overviewPage.status == PageStatus.Active
     }
 
+    Binding {
+        target: chatFoldersModel
+        property: 'relativeRefreshTimerEnabled'
+        value: !appSettings.compactChatList
+    }
+
     Component.onCompleted:
         overviewPage.handleAuthorizationState()
 
