@@ -42,7 +42,7 @@ CoverBackground {
         Row {
             width: parent.width
             spacing: Theme.paddingMedium
-            visible: coverPage.authenticated && chatListModel.unreadMessageCount > 1
+            visible: chatListModel.unreadMessageCount > 1
             Text {
                 id: inText
                 font.pixelSize: Theme.fontSizeExtraSmall
@@ -71,11 +71,28 @@ CoverBackground {
             text: tdLibWrapper.connectionStateText || qsTr("Connected")
             font.pixelSize: Theme.fontSizeLarge
             color: Theme.highlightColor
-            visible: coverPage.authenticated
             width: parent.width
             maximumLineCount: 3
             wrapMode: Text.Wrap
         }
     }
 
+    CoverActionList {
+        enabled: authenticated
+        /*CoverAction {
+            visible: chatListModel.unreadMessageCount > 0
+            // TODO: draw an icon for this
+            iconSource: Qt.resolvedUrl("../images/icon-cover-read-all.svg")
+            onTriggered: tdLibWrapper.readChatList()
+        }*/
+        CoverAction {
+            iconSource: "image://theme/icon-cover-new"
+            onTriggered: {
+                if (!pageStack.currentPage || pageStack.currentPage.objectName !== 'newChatPage')
+                    pageStack.push(Qt.resolvedUrl("../pages/NewChatPage.qml"))
+                appWindow.activate()
+            }
+        }
+        // TODO: perhaps add search here too (or instead of contacts)
+    }
 }

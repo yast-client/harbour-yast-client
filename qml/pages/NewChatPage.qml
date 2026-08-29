@@ -14,6 +14,7 @@ import "../js/debug.js" as Debug
 
 Page {
     id: page
+    objectName: 'newChatPage'
     allowedOrientations: Orientation.All
 
     property string appDownloadLink
