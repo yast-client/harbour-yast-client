@@ -25,7 +25,7 @@ SilicaControl {
     property int imageStatus: -1
     property bool optimizeImageSize: true
     property bool highlighted
-    readonly property color defaultReplacementBackgroundColor: palette.colorScheme === Theme.LightOnDark ? palette.darkSecondaryColor : palette.lightSecondaryColor
+    readonly property color defaultReplacementBackgroundColor: palette.colorScheme === Theme.LightOnDark ? Theme.darkSecondaryColor : Theme.lightSecondaryColor
     property alias accentColorId: accentColor.colorId
     property alias replacementBackgroundColor: replacementBackground.color
     property bool asSavedMessages
