@@ -97,11 +97,7 @@ TabView {
         }
     }
 
-    Binding {
-        target: tabView.tabBarItem
-        property: 'iconColor'
-        value: palette.primaryColor
-    }
+    tabIcons.color: palette.primaryColor
 
     function insertTab(name, title, icon, data) {
         var insertIndex = 0
