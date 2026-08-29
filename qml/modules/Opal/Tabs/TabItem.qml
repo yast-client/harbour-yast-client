@@ -142,6 +142,6 @@ SilicaControl {
         implicitWidth: parent.implicitWidth
         implicitHeight: parent.implicitHeight
                         - anchors.topMargin
-                        - parent.bottomMargin
+                        - (_hasPullDownMenu ? parent.bottomMargin : 0)
     }
 }

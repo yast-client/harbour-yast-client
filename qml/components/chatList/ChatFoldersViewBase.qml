@@ -8,8 +8,8 @@ import Opal.Tabs 1.0
 TabView {
     model: chatFoldersModel
 
-    // TODO: currently, we use some terrible hacks for making header work,
-    // and to make pulley menu openable when swiping from it
+    // TODO: currently, we use some terrible hacks
+    // to make pulley menu openable when swiping from the header
     // ideally these patches should be improved and upstreamed
 
     Component.onCompleted: {

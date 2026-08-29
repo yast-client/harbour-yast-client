@@ -59,7 +59,7 @@ TabItem {
                         topMargin: fillFlickable ? tabItem.topMargin : 0
                     }
                     width: parent.width
-                    height: parent.height - anchors.topMargin
+                    height: parent.height - anchors.topMargin - (fillFlickable ? tabItem.bottomMargin : 0)
                     clip: true
 
                     model: tabItem.chatsModel

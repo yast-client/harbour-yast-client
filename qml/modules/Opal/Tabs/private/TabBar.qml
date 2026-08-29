@@ -54,8 +54,8 @@ SilicaControl {
     property string iconHighlightColorRole: "iconHighlightColor"
 
     property size defaultIconSourceSize
-    property color defaultIconColor
-    property color defaultIconHighlightColor
+    property var defaultIconColor
+    property var defaultIconHighlightColor
 
     height: flickable.height
 

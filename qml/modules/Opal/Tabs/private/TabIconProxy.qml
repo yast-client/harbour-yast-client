@@ -6,6 +6,6 @@ import QtQuick 2.0
 
 QtObject {
     property size sourceSize
-    property color color
-    property color highlightColor
+    property var color
+    property var highlightColor
 }
