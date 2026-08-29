@@ -136,6 +136,8 @@ Item {
         Component {
             id: topicMessagesPage
             Page {
+                allowedOrientations: Orientation.All
+
                 property alias chatId: topicMessagesModel.chatId
                 property alias forumTopicData: topicMessagesModel.forumTopicData
 
