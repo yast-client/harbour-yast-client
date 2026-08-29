@@ -89,6 +89,7 @@ ApplicationWindow {
             property bool sendAttachmentByEnter
             property bool focusTextAreaAfterSend
             property bool focusTextAreaOnChatOpen
+            property bool leftAttachButton
 
             property bool showStickersAsEmojis
             property bool showStickersAsImages

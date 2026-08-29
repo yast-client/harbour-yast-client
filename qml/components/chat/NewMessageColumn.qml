@@ -594,70 +594,74 @@ Column {
     }
 
     Row {
-        id: newMessageRow
         width: parent.width
         anchors.horizontalCenter: parent.horizontalCenter
 
-        TextArea {
-            id: newMessageTextField
-            width: parent.width - (attachmentIconButton.visible ? attachmentIconButton.width : 0) - (newMessageSendButton.visible ? newMessageSendButton.width : 0) - (cancelInlineQueryButton.visible ? cancelInlineQueryButton.width : 0)
-            height: Math.min(chatContainer.height / 3, implicitHeight)
-            anchors.verticalCenter: parent.verticalCenter
-            font.pixelSize: Theme.fontSizeSmall
-            placeholderText: {
-                if (isChannel)
-                    return chatInformation.default_disable_notification
-                            ? qsTr("Silent Broadcast", "placeholder for broadcasting a message to a channel silently")
-                            : qsTr("Broadcast", "placeholder for broadcasting a message to a channel")
+        Row {
+            layoutDirection: appSettings.leftAttachButton ? Qt.RightToLeft : Qt.LeftToRight
+            width: parent.width - (newMessageSendButton.visible ? newMessageSendButton.width : 0) - (cancelInlineQueryButton.visible ? cancelInlineQueryButton.width : 0)
 
-                if (isSupergroup && chatGroupInformation && chatGroupInformation.status &&
-                        ((chatGroupInformation.status["@type"] === "chatMemberStatusCreator" && chatGroupInformation.status.is_anonymous)
-                         || (chatGroupInformation.status["@type"] === "chatMemberStatusAdministrator" && chatGroupInformation.status.rights.is_anonymous)))
-                    return qsTr("Send anonymously", "placeholder for sending an anonymous message in a supergroup")
+            TextArea {
+                id: newMessageTextField
+                width: parent.width - (attachmentIconButton.visible ? attachmentIconButton.width : 0)
+                height: Math.min(chatContainer.height / 3, implicitHeight)
+                anchors.verticalCenter: parent.verticalCenter
+                font.pixelSize: Theme.fontSizeSmall
+                placeholderText: {
+                    if (isChannel)
+                        return chatInformation.default_disable_notification
+                                ? qsTr("Silent Broadcast", "placeholder for broadcasting a message to a channel silently")
+                                : qsTr("Broadcast", "placeholder for broadcasting a message to a channel")
 
-                if ((isSupergroup && chatGroupInformation.paid_message_star_count > 0) || (isPrivateChat && chatPartnerInformation.paid_message_star_count > 0))
-                    // fixme: format the number somehow and maybe use ⭐️ emoji
-                    return qsTr("Message for %1 Stars", "placeholder for sending a message for %1 stars").arg(isSupergroup ? chatGroupInformation.paid_message_star_count : chatPartnerInformation.paid_message_star_count)
+                    if (isSupergroup && chatGroupInformation && chatGroupInformation.status &&
+                            ((chatGroupInformation.status["@type"] === "chatMemberStatusCreator" && chatGroupInformation.status.is_anonymous)
+                             || (chatGroupInformation.status["@type"] === "chatMemberStatusAdministrator" && chatGroupInformation.status.rights.is_anonymous)))
+                        return qsTr("Send anonymously", "placeholder for sending an anonymous message in a supergroup")
 
-                return qsTr("Message", "placeholder for sending a message")
+                    if ((isSupergroup && chatGroupInformation.paid_message_star_count > 0) || (isPrivateChat && chatPartnerInformation.paid_message_star_count > 0))
+                        // fixme: format the number somehow and maybe use ⭐️ emoji
+                        return qsTr("Message for %1 Stars", "placeholder for sending a message for %1 stars").arg(isSupergroup ? chatGroupInformation.paid_message_star_count : chatPartnerInformation.paid_message_star_count)
+
+                    return qsTr("Message", "placeholder for sending a message")
+                }
+                labelVisible: false
+                textLeftMargin: 0
+                textTopMargin: 0
+                enabled: !attachmentPreviewRow.isLocation
+                focus: appSettings.focusTextAreaOnChatOpen
+                EnterKey.onClicked: if (appSettings.sendByEnter) {
+                    var messageText = newMessageTextField.text
+                    newMessageTextField.text = messageText.substring(0, newMessageTextField.cursorPosition -1) + messageText.substring(newMessageTextField.cursorPosition)
+                    sendMessage()
+                    newMessageTextField.text = ""
+                    if(!appSettings.focusTextAreaAfterSend)
+                        newMessageTextField.focus = false
+                }
+
+                EnterKey.enabled: !inlineQuery.userNameIsValid && (!appSettings.sendByEnter || (appSettings.sendAttachmentByEnter ? newMessageSendButton.enabled : text.length))
+                EnterKey.iconSource: "image://theme/icon-m-" + (appSettings.sendByEnter ? "chat" : "enter")
+
+                onTextChanged: {
+                    textReplacementTimer.restart()
+                    tdLibWrapper.sendChatAction(chatInformation.id, text ? TDLibAPI.Typing : TDLibAPI.Cancel, topicId)
+                }
             }
-            labelVisible: false
-            textLeftMargin: 0
-            textTopMargin: 0
-            enabled: !attachmentPreviewRow.isLocation
-            focus: appSettings.focusTextAreaOnChatOpen
-            EnterKey.onClicked: if (appSettings.sendByEnter) {
-                var messageText = newMessageTextField.text
-                newMessageTextField.text = messageText.substring(0, newMessageTextField.cursorPosition -1) + messageText.substring(newMessageTextField.cursorPosition)
-                sendMessage()
-                newMessageTextField.text = ""
-                if(!appSettings.focusTextAreaAfterSend)
-                    newMessageTextField.focus = false
-            }
 
-            EnterKey.enabled: !inlineQuery.userNameIsValid && (!appSettings.sendByEnter || (appSettings.sendAttachmentByEnter ? newMessageSendButton.enabled : text.length))
-            EnterKey.iconSource: "image://theme/icon-m-" + (appSettings.sendByEnter ? "chat" : "enter")
-
-            onTextChanged: {
-                textReplacementTimer.restart()
-                tdLibWrapper.sendChatAction(chatInformation.id, text ? TDLibAPI.Typing : TDLibAPI.Cancel, topicId)
-            }
-        }
-
-        IconButton {
-            id: attachmentIconButton
-            icon.source: "image://theme/icon-m-attach?" +  (attachmentOptionsFlickable.show ? Theme.highlightColor : Theme.primaryColor)
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: Theme.paddingSmall
-            enabled: !attachmentPreviewRow.visible && !stickerSetOverlayLoader.item
-            visible: !inlineQuery.userNameIsValid
-            onClicked: {
-                if (attachmentOptionsFlickable.show) {
-                    attachmentOptionsFlickable.show = false
-                    stickerPickerLoader.active = false
-                    voiceNoteOverlayLoader.active = false
-                    botCommandsColumn.hidden = true
-                } else attachmentOptionsFlickable.show = true
+            IconButton {
+                id: attachmentIconButton
+                icon.source: "image://theme/icon-m-attach?" +  (attachmentOptionsFlickable.show ? Theme.highlightColor : Theme.primaryColor)
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: Theme.paddingSmall
+                enabled: !attachmentPreviewRow.visible && !stickerSetOverlayLoader.item
+                visible: !inlineQuery.userNameIsValid
+                onClicked: {
+                    if (attachmentOptionsFlickable.show) {
+                        attachmentOptionsFlickable.show = false
+                        stickerPickerLoader.active = false
+                        voiceNoteOverlayLoader.active = false
+                        botCommandsColumn.hidden = true
+                    } else attachmentOptionsFlickable.show = true
+                }
             }
         }
 
