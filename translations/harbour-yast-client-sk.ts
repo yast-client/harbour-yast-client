@@ -599,6 +599,10 @@
         <source>Add to contacts</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Community</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatInformationTabItemGroupsInCommon</name>
@@ -1037,6 +1041,26 @@
     </message>
     <message>
         <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CommunityPage</name>
+    <message>
+        <source>Rename community</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>%Ln chats</source>
+        <comment>Number of chats in a community</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Community name</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4428,6 +4452,33 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>Incoming Group Call</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>joined the chat from the &quot;%1&quot; community</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>joined the chat from the &quot;%1&quot; community</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>added the chat to the &quot;%1&quot; community</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>added the chat to the &quot;%1&quot; community</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>removed the chat from the community</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>removed the chat from the community</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

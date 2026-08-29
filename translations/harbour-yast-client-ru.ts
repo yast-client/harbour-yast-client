@@ -599,6 +599,10 @@
         <source>Add to contacts</source>
         <translation>Добавить в контакты</translation>
     </message>
+    <message>
+        <source>Community</source>
+        <translation>Сообщество</translation>
+    </message>
 </context>
 <context>
     <name>ChatInformationTabItemGroupsInCommon</name>
@@ -1038,6 +1042,26 @@
     <message>
         <source>Search</source>
         <translation>Поиск</translation>
+    </message>
+</context>
+<context>
+    <name>CommunityPage</name>
+    <message>
+        <source>Rename community</source>
+        <translation>Переименовать сообщество</translation>
+    </message>
+    <message numerus="yes">
+        <source>%Ln chats</source>
+        <comment>Number of chats in a community</comment>
+        <translation>
+            <numerusform>%Ln чат</numerusform>
+            <numerusform>%Ln чата</numerusform>
+            <numerusform>%Ln чатов</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Community name</source>
+        <translation>Название сообщества</translation>
     </message>
 </context>
 <context>
@@ -4436,6 +4460,33 @@ Pull down to visit telegram.org</source>
         <source>removed &quot;%1&quot; from the poll</source>
         <comment>myself</comment>
         <translation>удалили из опроса &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>joined the chat from the &quot;%1&quot; community</source>
+        <comment>myself</comment>
+        <translation>присоединились к чату из сообщества &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>joined the chat from the &quot;%1&quot; community</source>
+        <translation>присоединил(ась)ся к чату из сообщества &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>added the chat to the &quot;%1&quot; community</source>
+        <comment>myself</comment>
+        <translation>добавили чат в сообщество &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>added the chat to the &quot;%1&quot; community</source>
+        <translation>добавил(a) чат в сообщество &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>removed the chat from the community</source>
+        <comment>myself</comment>
+        <translation>удалили чат из сообщества</translation>
+    </message>
+    <message>
+        <source>removed the chat from the community</source>
+        <translation>удалил(а) чат из сообщества</translation>
     </message>
 </context>
 <context>
