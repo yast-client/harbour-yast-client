@@ -294,6 +294,7 @@ Item {
                                         accentColorId: typeof chatInformation.accent_color_id !== 'undefined' ? chatInformation.accent_color_id : -1
                                         minithumbnail: typeof chatInformation.photo.minithumbnail !== "undefined" ? chatInformation.photo.minithumbnail : ({})
                                         photoData: typeof chatInformation.photo.small !== "undefined" ? chatInformation.photo.small : ({})
+                                        asSavedMessages: modelData === tdData.myUserId
                                     }
 
                                     menu: Component {
@@ -327,6 +328,7 @@ Item {
                     sourceComponent: Component {
                         TDLibChatListItem {
                             chatId: tdData.myUserId
+                            asSavedMessages: true
                             openOnClick: root.openOnSelected
                             onClicked: {
                                 tdLibWrapper.addRecentlyFoundChat(chatId)
@@ -342,6 +344,7 @@ Item {
                     model: localChatsFound
                     delegate: TDLibChatListItem {
                         chatId: modelData
+                        asSavedMessages: true
                         handleGroupUpdates: true
                         enabled: matchesFilter(isSecret, isPrivateChat, chatInformation, relatedInformation)
                         openOnClick: root.openOnSelected
@@ -373,6 +376,7 @@ Item {
                     delegate: TDLibChatListItem {
                         id: recentlyFoundChatDelegate
                         chatId: modelData
+                        asSavedMessages: true
                         handleGroupUpdates: true
                         enabled: matchesFilter(isSecret, isPrivateChat, chatInformation, relatedInformation)
                         menu: Component {
@@ -404,8 +408,8 @@ Item {
                     Repeater {
                         model: sponsoredChats
                         TDLibChatListItem {
-                            // TODO: viewSponsoredChat
                             chatId: modelData.chat_id
+                            asSavedMessages: true
                             handleGroupUpdates: true
                             enabled: matchesFilter(isSecret, isPrivateChat, chatInformation, relatedInformation)
                             ad: true
@@ -448,6 +452,7 @@ Item {
                     model: publicChatsFound.filter(function(x) { return recentlyFoundChatsFound.indexOf(x) < 0 && localChatsFound.indexOf(x) < 0 })
                     delegate: TDLibChatListItem {
                         chatId: modelData
+                        asSavedMessages: true
                         handleGroupUpdates: true
                         enabled: matchesFilter(isSecret, isPrivateChat, chatInformation, relatedInformation)
                         openOnClick: root.openOnSelected

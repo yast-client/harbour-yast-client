@@ -25,12 +25,13 @@ MessageableListItem {
         accentColorId: accent_color_id
         photoData: photo_data.small || ({})
         minithumbnail: photo_data.minithumbnail
+        asSavedMessages: isSavedMessages
         highlighted: listItem.highlighted && !listItem.menuOpen
         // TODO: use different rounding for all forums (even if view_as_topics = false), and in other app places too (not just here)
         radius: view_as_topics ? Theme.paddingLarge : pictureThumbnail.width / 2
     }
 
-    titleText: title
+    titleText: isSavedMessages ? qsTr("Saved Messages") : title
     previewText: chat_actions_text || (showDraft ? draft_message_text : last_message_text)
     hideDraft: chat_actions_text
     hideAuthor: chat_actions_text || is_channel || ((chat_type == TDLibAPI.ChatTypePrivate || chat_type == TDLibAPI.ChatTypeSecret) && !last_message_is_service)

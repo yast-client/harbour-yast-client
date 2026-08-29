@@ -8,7 +8,7 @@ import Sailfish.Silica 1.0
 import io.yaqtlib 1.0
 import 'tdlib'
 
-Item {
+SilicaControl {
     id: profileThumbnail
 
     property var photoData
@@ -25,14 +25,27 @@ Item {
     property int imageStatus: -1
     property bool optimizeImageSize: true
     property bool highlighted
-    readonly property color defaultReplacementBackgroundColor: Theme.colorScheme === Theme.LightOnDark ? Theme.darkSecondaryColor : Theme.lightSecondaryColor
+    readonly property color defaultReplacementBackgroundColor: palette.colorScheme === Theme.LightOnDark ? palette.darkSecondaryColor : palette.lightSecondaryColor
     property alias accentColorId: accentColor.colorId
     property alias replacementBackgroundColor: replacementBackground.color
+    property bool asSavedMessages
 
     layer.enabled: highlighted
     layer.effect: PressEffect { source: profileThumbnail }
 
     TDLibAccentColor { id: accentColor }
+
+    states: State {
+        name: 'savedMessages'
+        when: asSavedMessages
+        PropertyChanges {
+            target: pictureThumbnail
+            photoData: null
+            minithumbnail: null
+            replacementBackgroundColor: palette.highlightBackgroundColor
+            replacementIconSource: "image://theme/icon-m-favorite-selected"
+        }
+    }
 
     function getReplacementString() {
         // Remove all emoji images
@@ -85,7 +98,7 @@ Item {
                     id: profileThumbnailMask
                     width: parent.width - Theme.paddingSmall
                     height: parent.height - Theme.paddingSmall
-                    color: Theme.primaryColor
+                    color: palette.primaryColor
                     radius: profileThumbnail.radius
                     anchors.centerIn: photo
                     visible: false
@@ -118,7 +131,7 @@ Item {
             anchors.centerIn: parent
             visible: replacementContentLoader.status != Loader.Ready || replacementContentLoader.item.status !== Image.Ready
             text: getReplacementString()
-            color: Theme.primaryColor
+            color: palette.primaryColor
             font.bold: true
             font.pixelSize: (profileThumbnail.height >= Theme.itemSizeSmall)
                             ? Theme.fontSizeLarge

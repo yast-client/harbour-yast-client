@@ -8,7 +8,11 @@ import '..'
 
 BackgroundItem {
     id: header
-    height: visible ? row.height : 0
+    height: visible ? (row.height
+                       + (isPortrait
+                          ? (Theme.paddingMedium + (Screen.hasCutouts ? Screen.topCutout.height : Theme.paddingMedium))
+                          : Theme.paddingSmall * 2)
+                       ) : 0
 
     readonly property bool isPortrait: pageStack.currentPage.isPortrait
 
@@ -24,20 +28,19 @@ BackgroundItem {
     Row {
         id: row
         width: parent.width - (3 * Theme.horizontalPageMargin)
-        height: textContainer.height +
-                ( isPortrait ?
-                        ( Theme.paddingMedium + (!Screen.hasCutouts ? Theme.paddingMedium : Screen.topCutout.height) )
-                    : Theme.paddingSmall * 2
-                    )
-        anchors.horizontalCenter: parent.horizontalCenter
+        height: chatNameRow.height + Math.max(chatActionIcon.height, chatStatusText.height)
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            bottom: parent.bottom
+            bottomMargin: isPortrait ? Theme.paddingMedium : Theme.paddingSmall
+        }
         spacing: Theme.paddingMedium
 
         ProfileThumbnail {
             id: pictureThumbnail
-            width: textContainer.height
-            height: textContainer.height
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: isPortrait ? Theme.paddingMedium : Theme.paddingSmall
+            height: parent.height
+            width: height
+            anchors.verticalCenter: parent.verticalCenter
 
             replacementStringHint: chatNameText.text
 
@@ -65,9 +68,8 @@ BackgroundItem {
             opacity: visible ? 1 : 0
             Behavior on opacity { FadeAnimator {} }
             width: parent.width - pictureThumbnail.width - Theme.paddingMedium
-            height: chatNameRow.height + chatStatusText.height
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: isPortrait ? Theme.paddingMedium : Theme.paddingSmall
+            height: chatNameRow.height + chatStatusRow.height
+            anchors.verticalCenter: parent.verticalCenter
 
             Row {
                 id: chatNameRow
@@ -93,16 +95,16 @@ BackgroundItem {
             }
 
             Row {
+                id: chatStatusRow
                 width: Math.min(chatStatusText.implicitWidth + (chatActionIcon.active ? (chatActionIcon.width + spacing) : 0), parent.width)
+                visible: chatActionIcon.active || !!chatStatusText.text
                 spacing: Theme.paddingSmall
                 anchors {
                     right: parent.right
                     bottom: parent.bottom
                 }
 
-                ChatActionIcon {
-                    id: chatActionIcon
-                }
+                ChatActionIcon { id: chatActionIcon }
 
                 Label {
                     id: chatStatusText

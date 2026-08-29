@@ -27,6 +27,10 @@ PhotoTextsListItem {
     property bool isSupergroup
     property bool isSecret
 
+    property bool isSavedMessages: userId === tdData.myUserId
+    // If set to false (the default), the current user's name will be shown instead of Saved Messages in case this chat is shown
+    property bool asSavedMessages
+
     property bool handleGroupUpdates
 
     property string chatTypeName: {
@@ -149,10 +153,11 @@ PhotoTextsListItem {
         photoData: chatId
                    ? (typeof chatInformation.photo.small !== 'undefined' ? chatInformation.photo.small : {})
                    : (isPrivateChat && relatedInformation && relatedInformation.profile_photo ? relatedInformation.profile_photo.small : {})
+        asSavedMessages: isSavedMessages && asSavedMessages
     }
 
-    primaryText.text: Emoji.emojify(chatInformation.title || (isPrivateChat ? utilities.getUserName(relatedInformation) : qsTr("Unknown")), primaryText.font.pixelSize)
-    prologSecondaryText.text: chatTypeName
+    primaryText.text: isSavedMessages && asSavedMessages ? qsTr("Saved Messages") : Emoji.emojify(chatInformation.title || (isPrivateChat ? utilities.getUserName(relatedInformation) : qsTr("Unknown")), primaryText.font.pixelSize)
+    prologSecondaryText.text: isSavedMessages && asSavedMessages ? '' : chatTypeName
 
     tertiaryText.maximumLineCount: 1
     tertiaryText.visible: !compact

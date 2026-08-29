@@ -70,10 +70,10 @@ Page {
     }
 
     function getChatTitle(fontSize) {
-        return chatPage.isDeletedUser ? qsTr("Deleted User") :
-                                        chatInformation.title !== "" ?
-                                            Emoji.emojify(utilities.fixReservedHtmlCharacters(chatInformation.title), fontSize)
-                                          : qsTr("Unknown")
+        if (isSavedMessages) return qsTr("Saved Messages")
+        if (isDeletedUser) return qsTr("Deleted User")
+        if (!chatInformation.title) return qsTr("Unknown")
+        return Emoji.emojify(utilities.fixReservedHtmlCharacters(chatInformation.title), fontSize)
     }
 
     function setMessageText(text, doSend) {
@@ -352,6 +352,7 @@ Page {
                         accentColorId: chatManager.accentColorId
                         minithumbnail: chatManager.photo.minithumbnail
                         photoData: chatManager.photo.small
+                        asSavedMessages: isSavedMessages
                     }
                     chatBadges.verificationStatus: chatGroupInformation ? chatGroupInformation.verification_status : null
 
@@ -368,6 +369,8 @@ Page {
                             if (chatActionsText)
                                 return chatActionsText
                         }
+
+                        if (isSavedMessages) return ''
 
                         if (isBasicGroup || isSupergroup)
                             return Functions.getGroupStatusText(chatGroupInformation.member_count, isChannel, chatOnlineMemberCount)
