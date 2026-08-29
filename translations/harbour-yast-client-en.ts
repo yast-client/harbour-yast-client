@@ -850,6 +850,10 @@
         <source>Unarchive</source>
         <translation>Unarchive</translation>
     </message>
+    <message>
+        <source>Saved Messages</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatPage</name>
@@ -930,6 +934,10 @@
     <message>
         <source>Join group</source>
         <translation type="unfinished">Join group</translation>
+    </message>
+    <message>
+        <source>Saved Messages</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3469,6 +3477,10 @@ Pull down to visit telegram.org</translation>
     <message>
         <source>Unknown</source>
         <translation>Unknown</translation>
+    </message>
+    <message>
+        <source>Saved Messages</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

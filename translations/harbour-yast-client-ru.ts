@@ -858,6 +858,10 @@
         <source>Unarchive</source>
         <translation>Вернуть из архива</translation>
     </message>
+    <message>
+        <source>Saved Messages</source>
+        <translation>Избранное</translation>
+    </message>
 </context>
 <context>
     <name>ChatPage</name>
@@ -939,6 +943,10 @@
     <message>
         <source>Join group</source>
         <translation>Зайти в группу</translation>
+    </message>
+    <message>
+        <source>Saved Messages</source>
+        <translation>Избранное</translation>
     </message>
 </context>
 <context>
@@ -3515,6 +3523,10 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Unknown</source>
         <translation>Неизвестно</translation>
+    </message>
+    <message>
+        <source>Saved Messages</source>
+        <translation>Избранное</translation>
     </message>
 </context>
 <context>
