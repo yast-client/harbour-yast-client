@@ -62,6 +62,9 @@ Page {
                                 : ((groupInformation && groupInformation.usernames && groupInformation.usernames.editable_username)
                                    ? "@"+groupInformation.usernames.editable_username : "")
 
+    readonly property double communityId: (isPrivateOrSecretChat ? userFullInformation : groupFullInformation).community_id || 0
+    property var communityInfo
+
     ChatManagerLoader {
         id: chatManagerLoader
         parent: chatInformationPage

@@ -60,7 +60,7 @@ SilicaFlickable {
     function handleSupergroupFullInfo(groupId, groupFullInfo, updated) {
         Debug.log(updated ? "onSupergroupFullInfoUpdated" : "onSupergroupFullInfoReceived",
                   isSupergroup, groupInformation ? groupInformation.id : '', groupId)
-        if(isSupergroup && groupInformation.id === groupId) {
+        if (isSupergroup && groupInformation.id === groupId) {
             chatInformationPage.groupFullInformation = groupFullInfo
             fullInfoReady = true
         }
@@ -74,19 +74,31 @@ SilicaFlickable {
     }
 
     Connections {
+        target: chatInformationPage
+        onCommunityIdChanged: communityInfo = tdData.getCommunity(communityId)
+    }
+
+    Connections {
         target: tdLibWrapper
 
         onChatOnlineMemberCountUpdated:
             if (chatInformationPage.isGroup && chatInformationPage.chatInformation.id === chatId)
                 chatInformationPage.chatOnlineMemberCount = onlineMemberCount
 
+        onUserFullInfoReceived: handleUserFullInfo(userId, userFullInfo)
+        onUserFullInfoUpdated: handleUserFullInfo(userId, userFullInfo)
+
         onSupergroupFullInfoReceived: handleSupergroupFullInfo(groupId, groupFullInfo, false)
         onSupergroupFullInfoUpdated: handleSupergroupFullInfo(groupId, groupFullInfo, true)
         onBasicGroupFullInfoReceived: handleBasicGroupFullInfo(groupFullInfo, groupId)
         onBasicGroupFullInfoUpdated: handleBasicGroupFullInfo(groupFullInfo, groupId)
+    }
 
-        onUserFullInfoReceived: handleUserFullInfo(userId, userFullInfo)
-        onUserFullInfoUpdated: handleUserFullInfo(userId, userFullInfo)
+    Connections {
+        target: tdData
+        onCommunityUpdated:
+            if (chatInformationPage.communityId === communityId)
+                communityInfo = tdData.getCommunity(communityId)
     }
 
     Connections {
@@ -94,7 +106,7 @@ SilicaFlickable {
         target: chatInformationPage.status === PageStatus.Active ? chatInformationPage : null
         onUserIsMemberChanged: if (!chatInformationPage.userIsMember) {
                                    var page = pageStack.previousPage(chatInformationPage)
-                                   if (page.objectName === 'chatPage' && page.chatId == chatId)
+                                   if (page.objectName === 'chatPage' && page.chatId === chatId)
                                        page = pageStack.previousPage(page)
                                    pageStack.pop(page)
                                }
@@ -471,15 +483,28 @@ SilicaFlickable {
                 settings: chatInformation.notification_settings
             }
 
-            Item {
-                width: 1
-                height: Theme.paddingLarge
-                visible: personalChatLoader.active
+            Loader {
+                width: parent.width
+                asynchronous: true
+                active: !!(communityId && communityInfo)
+                sourceComponent: PhotoTextsListItem {
+                    compact: true
+                    primaryText.text: Emoji.emojify(communityInfo.name, primaryText.font.pixelSize)
+                    secondaryText.text: qsTr("Community")
+                    pictureThumbnail {
+                        photoData: communityInfo.photo.small
+                        minithumbnail: communityInfo.photo.minithumbnail
+                        radius: Theme.paddingLarge
+                    }
+
+                    enabled: communityInfo.have_access
+                    onClicked: pageStack.push(Qt.resolvedUrl("../../pages/CommunityPage.qml"), {communityId: communityId})
+                }
             }
 
             Loader {
-                id: personalChatLoader
                 width: parent.width
+                anchors.topMargin: active ? Theme.paddingLarge : 0
                 asynchronous: true
                 active: !!(userFullInformation && userFullInformation.personal_chat_id)
                 sourceComponent: TDLibChatListItem {
