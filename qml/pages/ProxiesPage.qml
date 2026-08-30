@@ -61,6 +61,7 @@ Page {
             for (var i=0; i < proxies.length; i++) {
                 proxies[i].ping = -1
                 proxiesModel.append(proxies[i])
+                tdLibWrapper.pingProxy(proxies[i].proxy)
             }
             loading = false
         }
@@ -78,11 +79,12 @@ Page {
             for (var i=0; i < proxiesModel.count; i++)
                 if (proxiesModel.get(i).id == proxy.id) {
                     proxiesModel.set(i, proxy)
-                    tdLibWrapper.pingProxy(proxy)
+                    tdLibWrapper.pingProxy(proxy.proxy)
                     return
                 }
 
             proxiesModel.append(proxy) // new proxy
+            tdLibWrapper.pingProxy(proxy.proxy)
         }
 
         onHttpUrlReceived:
@@ -290,9 +292,6 @@ Page {
 
                 automaticCheck: false
                 checked: model.id == tdData.options.enabled_proxy_id // don't use is_enabled for easier updating
-
-                Component.onCompleted:
-                    tdLibWrapper.pingProxy(model.proxy)
 
                 onClicked: {
                     if (!checked) {
