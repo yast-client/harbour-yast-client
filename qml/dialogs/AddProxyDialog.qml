@@ -15,6 +15,8 @@ Dialog {
     property alias server: serverField.text
     property alias port: portField.text
     property var proxyType
+    property alias favorite: favoriteSwitch.checked
+    property alias comment: commentField.text
 
     property alias proxyTypeId: typeComboBox.currentIndex
     readonly property bool isMtproto: proxyTypeId == 0
@@ -62,11 +64,13 @@ Dialog {
     onProxyChanged: ping = -1
 
     canAccept: serverField.acceptableInput && portField.acceptableInput
-    onAccepted:
+    onAccepted: {
+        var rawComment = JSON.stringify({favorite: favorite, comment: comment})
         if (editProxyId >= 0)
-            tdLibWrapper.editProxy(editProxyId, server, port, getTypeObject())
+            tdLibWrapper.editProxy(editProxyId, server, port, getTypeObject(), false, rawComment)
         else
-            tdLibWrapper.addProxy(server, port, getTypeObject(), openAfterAdding ? 'open' : '', openAfterAdding)
+            tdLibWrapper.addProxy(server, port, getTypeObject(), openAfterAdding ? 'open' : '', openAfterAdding, rawComment)
+    }
 
     Connections {
         target: tdLibWrapper
@@ -121,7 +125,6 @@ Dialog {
 
                 TextField {
                     id: serverField
-                    width: parent.width
                     label: qsTr("Server")
                     acceptableInput: !!text
                     onTextChanged: proxyChanged()
@@ -131,7 +134,6 @@ Dialog {
 
                 TextField {
                     id: portField
-                    width: parent.width
                     label: qsTr("Port")
                     inputMethodHints: Qt.ImhDigitsOnly
                     validator: IntValidator { bottom: 0; top: 65535 }
@@ -144,7 +146,6 @@ Dialog {
 
                 ComboBox {
                     id: typeComboBox
-                    width: parent.width
                     label: qsTr("Type")
                     menu: ContextMenu {
                         MenuItem { text: qsTr("MTPROTO") }
@@ -156,10 +157,23 @@ Dialog {
 
                 TextField {
                     id: secretField
-                    width: parent.width
                     label: qsTr("Secret")
                     visible: isMtproto
                     onTextChanged: proxyChanged()
+                    EnterKey.iconSource: "image://theme/icon-m-enter-accept"
+                    EnterKey.enabled: canAccept
+                    EnterKey.onClicked: accept()
+                }
+
+                TextSwitch {
+                    id: favoriteSwitch
+                    text: qsTr("Favorite")
+                    description: qsTr("Favorite proxies are pinned to the top of the proxy list")
+                }
+
+                TextField {
+                    id: commentField
+                    label: qsTr("Comment")
                     EnterKey.iconSource: "image://theme/icon-m-enter-accept"
                     EnterKey.enabled: canAccept
                     EnterKey.onClicked: accept()
@@ -179,7 +193,6 @@ Dialog {
 
                 TextField {
                     id: usernameField
-                    width: parent.width
                     label: qsTr("Username")
                     visible: !isMtproto
                     onTextChanged: proxyChanged()
@@ -189,7 +202,6 @@ Dialog {
 
                 TextField {
                     id: passwordField
-                    width: parent.width
                     label: qsTr("Password")
                     visible: !isMtproto
                     onTextChanged: proxyChanged()

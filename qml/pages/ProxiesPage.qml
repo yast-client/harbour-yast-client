@@ -34,6 +34,18 @@ Page {
         }
     }
 
+    function processAddedProxy(proxy) {
+        proxy.ping = -1
+        var favorite = false, comment = ''
+        try {
+            var parsedComment = JSON.parse(proxy.comment)
+            favorite = !!parsedComment.favorite
+            comment = parsedComment.comment || ''
+        } catch (e) {}
+        proxy.favorite = favorite
+        proxy.comment = comment
+    }
+
     function getProxyPingDescription(ping) {
         var desc = Functions.getProxyPingDescription(ping)
         if (!desc) return qsTr("connecting…", "Indicates that a connection test is being done for a proxy or a direct connection to Telegram's servers")
@@ -59,7 +71,7 @@ Page {
         onAddedProxiesReceived: {
             proxiesModel.clear()
             for (var i=0; i < proxies.length; i++) {
-                proxies[i].ping = -1
+                processAddedProxy(proxies[i])
                 proxiesModel.append(proxies[i])
                 tdLibWrapper.pingProxy(proxies[i].proxy)
             }
@@ -75,6 +87,8 @@ Page {
         onProxyPingErrorReceived: setProxyPing(server, port, type, -2)
         onProxyPingReceived: setProxyPing(server, port, type, ping)
         onAddedProxyReceived: {
+            processAddedProxy(proxy)
+
             // even if returned from addProxy, it can be an existing proxy
             for (var i=0; i < proxiesModel.count; i++)
                 if (proxiesModel.get(i).id == proxy.id) {
@@ -259,17 +273,23 @@ Page {
                     caseSensitivity: Qt.CaseInsensitive
                 }
             }
-            sorters: ExpressionSorter {
-                enabled: appConfig.sortProxiesByPing
-                expression: {
-                    var ping1 = modelLeft.ping, ping2 = modelRight.ping
-                    if (ping1 < 0 && ping2 < 0)
-                        return ping1 > ping2
-                    if (ping1 < 0) return false
-                    if (ping2 < 0) return true
-                    return ping1 < ping2
+            sorters: [
+                ExpressionSorter {
+                    enabled: appConfig.sortProxiesByPing
+                    expression: {
+                        var leftFavorite = false, rightFavorite = false
+                        if (modelLeft.favorite !== modelRight.favorite)
+                            return modelLeft.favorite
+
+                        var ping1 = modelLeft.ping, ping2 = modelRight.ping
+                        if (ping1 < 0 && ping2 < 0)
+                            return ping1 > ping2
+                        if (ping1 < 0) return false
+                        if (ping2 < 0) return true
+                        return ping1 < ping2
+                    }
                 }
-            }
+            ]
         }
 
         currentIndex: -1 // don't steal focus from search field
@@ -285,10 +305,11 @@ Page {
 
             TextSwitch {
                 id: proxySwitch
-                text: getProxyTypeText(proxy.type) + ' <font color="%1">%2:%3</font>'.arg(highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor).arg(proxy.server).arg(proxy.port)
+                text: getProxyTypeText(proxy.type)
+                      + ' <font color="%1">%2:%3</font>'.arg(highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor).arg(proxy.server).arg(proxy.port)
                 highlighted: proxyItem.highlighted
 
-                description: getProxyPingDescription(model.ping)
+                description: getProxyPingDescription(model.ping) + (comment ? ' '+comment : '')
 
                 automaticCheck: false
                 checked: model.id == tdData.options.enabled_proxy_id // don't use is_enabled for easier updating
@@ -301,6 +322,23 @@ Page {
                 }
                 onCheckedChanged: busy = false
                 onPressAndHold: proxyItem.openMenu()
+
+                rightMargin: favoriteImageLoader.active ? (favoriteImageLoader.width + Theme.paddingMedium) : Theme.horizontalPageMargin
+                Loader {
+                    id: favoriteImageLoader
+                    anchors {
+                        right: parent.right
+                        rightMargin: Theme.horizontalPageMargin
+                    }
+                    y: (Theme.itemSizeSmall - height) / 2
+
+                    active: favorite
+                    sourceComponent: Component {
+                        Icon {
+                            source: "image://theme/icon-m-favorite"
+                        }
+                    }
+                }
             }
 
             menu: ContextMenu {
@@ -311,7 +349,11 @@ Page {
                 MenuItem {
                     text: qsTr("Edit", "proxy")
                     onClicked: pageStack.push(Qt.resolvedUrl("../dialogs/AddProxyDialog.qml"),
-                                                {editProxyId: model.id, server: proxy.server, port: proxy.port, proxyType: proxy.type})
+                        {
+                            editProxyId: model.id,
+                            server: proxy.server, port: proxy.port, proxyType: proxy.type,
+                            favorite: favorite, comment: comment
+                        })
                 }
                 MenuItem {
                     text: qsTr("Copy link", "proxy")
