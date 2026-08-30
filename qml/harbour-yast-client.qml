@@ -79,7 +79,7 @@ ApplicationWindow {
         property string resourcesUsername: 'yast_res'
         property real resourcesChatId: -1002167268767
 
-        property bool sortProxiesByPing
+        property bool sortProxiesByPing: true
 
         ConfigurationGroup {
             id: appSettings
