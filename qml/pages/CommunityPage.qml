@@ -13,7 +13,7 @@ Page {
 
     property double communityId
     property var community: tdData.getCommunity(communityId)
-    property var communityFullInfo
+    property var communityFullInfo: tdData.getCommunityFullInfo(communityId)
 
     Connections {
         target: tdData
