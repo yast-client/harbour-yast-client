@@ -29,7 +29,7 @@ function getMessageText(message, simple, currentUserId, ignoreEntities, asFormat
 }
 
 function getChatPartnerStatusText(statusType, wasOnline, isSupport, userId, asTimepoint) {
-    if (isSupport) return userId == tdData.options.telegram_service_notifications_chat_id
+    if (isSupport) return userId === tdData.options.telegram_service_notifications_chat_id
                    ? qsTr("service notifications", "used as a status for the service notifications chat")
                    : qsTr("support", "used as a status for support chats, excluding the service notifications chat")
     switch(statusType) {
