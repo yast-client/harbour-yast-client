@@ -290,11 +290,11 @@
     </message>
     <message>
         <source>Add proxy</source>
-        <translation>Добавить прокси-сервер</translation>
+        <translation>Добавить прокси</translation>
     </message>
     <message>
         <source>Edit proxy</source>
-        <translation>Изменить прокси-сервер</translation>
+        <translation>Изменить прокси</translation>
     </message>
     <message>
         <source>Save</source>

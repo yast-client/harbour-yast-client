@@ -5,7 +5,7 @@ Name:       harbour-yast-client
 %define _binary_payload w6.xzdio
 
 Summary:    Telegram for Sailfish
-Version:    0.2.99b3
+Version:    0.3.0
 Release:    custom
 License:    LICENSE
 URL:        http://yast-client.github.io/
