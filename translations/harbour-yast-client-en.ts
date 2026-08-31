@@ -288,6 +288,26 @@
         <source>Add proxy</source>
         <translation>Add proxy</translation>
     </message>
+    <message>
+        <source>Edit proxy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Favorite</source>
+        <translation type="unfinished">Favorite</translation>
+    </message>
+    <message>
+        <source>Favorite proxies are pinned to the top of the proxy list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ArchiveChatListTutorialDialog</name>

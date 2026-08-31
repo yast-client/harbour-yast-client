@@ -95,8 +95,8 @@ Dialog {
 
         DialogHeader {
             id: header
-            title: qsTr("Add proxy")
-            acceptText: qsTr("Add")
+            title: editProxyId >= 0 ? qsTr("Edit proxy") : qsTr("Add proxy")
+            acceptText: editProxyId >= 0 ? qsTr("Save") : qsTr("Add")
         }
 
         SilicaFlickable {

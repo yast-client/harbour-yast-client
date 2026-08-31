@@ -292,6 +292,26 @@
         <source>Add proxy</source>
         <translation>Добавить прокси-сервер</translation>
     </message>
+    <message>
+        <source>Edit proxy</source>
+        <translation>Изменить прокси-сервер</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Сохранить</translation>
+    </message>
+    <message>
+        <source>Favorite</source>
+        <translation>Избранное</translation>
+    </message>
+    <message>
+        <source>Favorite proxies are pinned to the top of the proxy list</source>
+        <translation>Избранные прокси-серверы закреплены вверху списка.</translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation>Комментарий</translation>
+    </message>
 </context>
 <context>
     <name>ArchiveChatListTutorialDialog</name>
