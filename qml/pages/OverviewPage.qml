@@ -337,6 +337,7 @@ Page {
 
         tabComponent: Component {
             ChatFolderTabBase {
+                id: tabItem
                 viewPlaceholderText: qsTr("Welcome to Telegram")
                 viewPlaceholderHintText: qsTr("Pull down to search public chats or create a new chat")
 
@@ -425,7 +426,7 @@ Page {
                             MenuItem {
                                 text: qsTr("Mark as read")
                                 visible: tabModel.count > 0
-                                onClicked: flickable.readChatList()
+                                onClicked: tabItem.flickable.readChatList()
                             }
                         }
                     }
@@ -438,7 +439,7 @@ Page {
                             visible: active || tabModel.count > 0
                             MenuItem {
                                 text: qsTr("Mark as read")
-                                onClicked: flickable.readChatList()
+                                onClicked: flickable.flickable.readChatList()
                             }
                         }
                     }
