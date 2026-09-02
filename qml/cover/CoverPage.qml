@@ -10,7 +10,12 @@ import "../js/functions.js" as Functions
 
 CoverBackground {
     id: coverPage
+
     readonly property bool authenticated: tdLibWrapper.authorizationState === TDLibAPI.AuthorizationReady
+
+    // additionally cache for performance
+    readonly property int unreadMessageCount: chatListModel.unreadMessageCount
+    readonly property int unreadChatCount: chatListModel.unreadChatCount
 
     CoverBackgroundImage {}
 
@@ -26,10 +31,10 @@ CoverBackground {
                 id: unreadMessagesCountText
                 font.pixelSize: Theme.fontSizeHuge
                 color: Theme.primaryColor
-                text: Functions.getShortenedCount(chatListModel.unreadMessageCount)
+                text: Functions.getShortenedCount(unreadMessageCount)
             }
             Label {
-                text: qsTr("unread messages", "", chatListModel.unreadMessageCount)
+                text: qsTr("unread messages", "", unreadMessageCount)
                 font.pixelSize: Theme.fontSizeExtraSmall
                 width: parent.width - unreadMessagesCountText.width - Theme.paddingMedium
                 wrapMode: Text.Wrap
@@ -42,7 +47,7 @@ CoverBackground {
         Row {
             width: parent.width
             spacing: Theme.paddingMedium
-            visible: chatListModel.unreadMessageCount > 1
+            visible: unreadMessageCount > 1 || unreadChatCount > 1 || (unreadChatCount == 1 && unreadMessageCount == 0)
             Text {
                 id: inText
                 font.pixelSize: Theme.fontSizeExtraSmall
@@ -54,10 +59,10 @@ CoverBackground {
                 id: unreadChatsCountText
                 font.pixelSize: Theme.fontSizeHuge
                 color: Theme.primaryColor
-                text: Functions.getShortenedCount(chatListModel.unreadChatCount)
+                text: Functions.getShortenedCount(unreadChatCount)
             }
             Text {
-                text: qsTr("chats", "", chatListModel.unreadChatCount)
+                text: qsTr("chats", "", unreadChatCount)
                 font.pixelSize: Theme.fontSizeExtraSmall
                 color: Theme.primaryColor
                 width: parent.width - unreadChatsCountText.width - inText.width - ( 2 * Theme.paddingMedium )
@@ -80,7 +85,7 @@ CoverBackground {
     CoverActionList {
         enabled: authenticated
         /*CoverAction {
-            visible: chatListModel.unreadMessageCount > 0
+            visible: unreadMessageCount > 0
             // TODO: draw an icon for this
             iconSource: Qt.resolvedUrl("../images/icon-cover-read-all.svg")
             onTriggered: tdLibWrapper.readChatList()
