@@ -5,6 +5,10 @@ if(POLICY CMP0077)
     cmake_policy(SET CMP0077 NEW)
 endif()
 
+option(HARBOUR_COMPLIANCE "Harbour compliance" OFF)
+set(TDLIB_VERSION "1.8.67" CACHE STRING "The TDLib version to use")
+set(TG_OWT_TAG "v3" CACHE STRING "The Git tag to use when downloading WebRTC")
+
 message(STATUS "Building ${CMAKE_PROJECT_NAME} for ${EDITION}")
 
 find_package(Qt5 COMPONENTS Core Network DBus Multimedia Positioning Qml Gui Quick LinguistTools REQUIRED)
@@ -15,8 +19,10 @@ if (CMAKE_SYSTEM_PROCESSOR STREQUAL aarch64)
     set(TARGET_ARCHITECTURE aarch64)
 elseif (CMAKE_SYSTEM_PROCESSOR MATCHES ^armv7)
     set(TARGET_ARCHITECTURE armv7hl)
-elseif( CMAKE_SYSTEM_PROCESSOR STREQUAL i486)
+elseif (CMAKE_SYSTEM_PROCESSOR STREQUAL i486)
     set(TARGET_ARCHITECTURE i486)
+else()
+    message(FATAL_ERROR "Unsupported architecture: ${CMAKE_SYSTEM_PROCESSOR}")
 endif()
 
 pkg_search_module(SAILFISH sailfishapp REQUIRED)
@@ -38,8 +44,6 @@ endif()
 
 add_subdirectory(libs/opal/sfpm)
 
-option(HARBOUR_COMPLIANCE "Harbour compliance" OFF)
-
 if(HARBOUR_COMPLIANCE)
     message(STATUS "Harbour compliance enabled")
     add_definitions(-DHARBOUR_COMPLIANCE)
@@ -47,6 +51,23 @@ if(HARBOUR_COMPLIANCE)
 else()
     message(STATUS "Harbour compliance disabled")
     add_definitions(-DNO_HARBOUR_COMPLIANCE)
+endif()
+
+# Download prebuilt libraries if needed
+set(DOWNLOAD_PREBUILTS_ARGS "${CMAKE_CURRENT_SOURCE_DIR}/download_prebuilts.sh" "-a" "${TARGET_ARCHITECTURE}")
+list(APPEND DOWNLOAD_PREBUILTS_ARGS "-t" "${TDLIB_VERSION}")
+list(APPEND DOWNLOAD_PREBUILTS_ARGS "-w" "${TG_OWT_TAG}")
+if (HARBOUR_COMPLIANCE)
+    list(APPEND DOWNLOAD_PREBUILTS_ARGS "-j")
+endif()
+
+execute_process(
+    COMMAND bash ${DOWNLOAD_PREBUILTS_ARGS}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    RESULT_VARIABLE DOWNLOAD_PREBUILTS_RESULT
+)
+if(NOT DOWNLOAD_PREBUILTS_RESULT EQUAL 0)
+    message(FATAL_ERROR "Failed to download prebuilt libraries")
 endif()
 
 

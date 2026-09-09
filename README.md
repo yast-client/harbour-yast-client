@@ -34,7 +34,7 @@ Licensed under GNU GPLv3
 
 This contains information about building YAST for SailfishOS. AsteroidOS version of YAST is no longer supported; a separate client for AsteroidOS based on yaqtlib will soon be developed instead.
 
-Simply clone this repository and ensure to have all [submodules](https://git-scm.com/docs/git-submodule) imported as well (e.g. by using `git submodule update --init --recursive`). Then use the project file `CMakeLists.txt` to import the sources in your SailfishOS IDE. To build and run Fernschreiber or an application which is based on Fernschreiber, you need to create the file `harbour-yast-client/src/tdlibsecrets.h` and enter the required constants in the following format:
+Simply clone this repository and ensure to have all [submodules](https://git-scm.com/docs/git-submodule) imported as well (e.g. by using `git submodule update --init --recursive`). Then use the project file `CMakeLists.txt` to import the sources in your SailfishOS IDE. To build and run YAST Client, you need to obtain your own Telegram API ID and hash on [https://my.telegram.org](https://my.telegram.org). After that, create the file `harbour-yast-client/src/tdlibsecrets.h` and enter the required constants in the following format:
 
 ```
 #pragma once
@@ -42,31 +42,7 @@ const char TDLIB_API_ID[] = "42424242";
 const char TDLIB_API_HASH[] = "1234567890abcdef1234567890abcdef";
 ```
 
-You get the Telegram API ID and hash as soon as you've registered your own application on [https://my.telegram.org](https://my.telegram.org).
-
-Moreover, you need to have a compiled version of [TDLib 1.8.67](https://github.com/tdlib/td) in the sub-directory `tdlib`. This sub-directory must contain another sub-directory that fits to the target device architecture (e.g. aarch64, armv7hl or i486). Within this directory, there needs to be a folder called `lib` that contains at least `libtdjson.so`. For armv7hl the relative path would consequently be `tdlib/armv7hl/lib`.
-
-You may just want to download the [tdlib.zip from our fork](https://github.com/roundedrectangle/td/releases) to just use the exact version of the latest official Fernschreiber release. To use it, you need to extract it into your local `tdlib/` folder as described above. If so, you're done and can compile Fernschreiber using the Sailfish SDK. If you want to build TDLib for yourself, please keep on reading.
-
-In case you want to use the same codebase which was used to compile the library that is shipped with YAST, please [check out the fork](https://github.com/roundedrectangle/td):
-
-- `alias sfdk=~/SailfishOS/bin/sfdk`
-- `sfdk config target=SailfishOS-5.0.0.62-aarch64` (this compiles the sources on SFOS 5.0 and ARM64 - the target needs to be adjusted according to the running SDK engine and the platform)
-- `mkdir build`
-- `cd build`
-- `sfdk build-init`
-- `sfdk build-shell --maintain zypper install ninja ccache`
-  - optional, this installs ninja, which is usually faster than make, and ccache, which can speed up rebuilds
-- `sfdk build-shell cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=../tdlib -DTD_ENABLE_LTO=ON ..`
-  - if you don't have Ninja, remove the `-GNinja` flag, this will switch to make
-  - in case of compilation issues, try removing the flag `-DTD_ENABLE_LTO=ON`
-- `sfdk build-shell cmake --build . --target install`
-
-In case of errors try to remove `CMakeCache.txt` file from the build directory.
-
-You'll find the compiled library in the directory `td/tdlib`. You might also need to copy the `td/tdlib/include` folder to the `tdlib/` folder in the root of this project
-
-Unless harbour compatibility is enabled, YAST also requites tg_owt (WebRTC) for calls. You can just download it from [our fork](https://github.com/yast-client/tg_owt/releases/latest) and extract to the tg_owt/ folder in the root of this project. If you want to compile tg_owt manually, see [here](doc/tg_owt.md).
+YAST Client depends on TDLib and WebRTC libraries, which are heavy. For your convenience, CMake will automatically download them. If you want to build (or download) them manually, see [here](doc/libraries.md).
 
 ### Harbour compatibility
 Some YAST features are not harbour-compatible. In the harbour version, they can be stripped out by changing the `HARBOUR_COMPLIANCE` value to `on` in the SPEC file. Currently, such features include:

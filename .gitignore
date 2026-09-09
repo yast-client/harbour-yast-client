@@ -61,6 +61,5 @@ tdlibsecrets.h
 libs/opal-translations
 libs/opal-docs
 
-# Other
-tdlib/og
-tdlib2
+# TDLib and other prebuilts
+/*.zip
