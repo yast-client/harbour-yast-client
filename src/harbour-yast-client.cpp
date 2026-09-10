@@ -27,6 +27,11 @@
 #include "voicenoterecorder.h"
 #include "mynotificationmanager.h"
 
+#include "lottieqt/src/tgsplugin.h"
+#include "lottieqt/src/lottieitem.h"
+
+Q_IMPORT_PLUGIN(TgsIOPlugin)
+
 int main(int argc, char *argv[]) {
     QLoggingCategory::setFilterRules(DEFAULT_LOG_FILTER);
 
@@ -66,6 +71,8 @@ int main(int argc, char *argv[]) {
     VoiceNoteRecorder *voiceNoteRecorder = new VoiceNoteRecorder(argc, argv, view.data());
     context->setContextProperty("voiceNoteRecorder", voiceNoteRecorder);
     qmlRegisterUncreatableType<VoiceNoteRecorder>(uri, 1, 0, "VoiceNoteRecorder", QString());
+
+    qmlRegisterType<LottieItem>(uri, 1, 0, "LottieItem");
 
     view->rootContext()->setContextProperty("APP_VERSION", QString(APP_VERSION));
     view->rootContext()->setContextProperty("APP_RELEASE", QString(APP_RELEASE));

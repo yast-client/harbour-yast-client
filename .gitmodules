@@ -1,10 +1,9 @@
-[submodule "rlottie"]
-	path = rlottie
-	url = https://github.com/Samsung/rlottie.git
-	ignore = all
 [submodule "yaqtlib"]
 	path = yaqtlib
 	url = https://github.com/yast-client/yaqtlib
+[submodule "lottieqt"]
+	path = lottieqt
+	url = https://github.com/yast-client/lottieqt
 [submodule "abseil-cpp"]
 	path = abseil-cpp
 	url = https://github.com/abseil/abseil-cpp/

@@ -42,8 +42,6 @@ else()
     message(STATUS "Could NOT find ccache (this is NOT an error)")
 endif()
 
-add_subdirectory(libs/opal/sfpm)
-
 if(HARBOUR_COMPLIANCE)
     message(STATUS "Harbour compliance enabled")
     add_definitions(-DHARBOUR_COMPLIANCE)
@@ -78,7 +76,9 @@ set_target_properties(TDLib PROPERTIES
     IMPORTED_LOCATION ${LIBTDJSON_PATH}
 )
 
+add_subdirectory(libs/opal/sfpm)
 add_subdirectory(yaqtlib)
+add_subdirectory(lottieqt)
 
 add_executable(${CMAKE_PROJECT_NAME} src/${CMAKE_PROJECT_NAME}.cpp)
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
@@ -101,6 +101,7 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     Qt5::Quick
     SortFilterProxyModel
     yaqtlib
+    LottieQt
 )
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     src/${CMAKE_PROJECT_NAME}.cpp

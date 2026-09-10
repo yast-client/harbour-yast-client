@@ -8,6 +8,8 @@ namespace {
     const QString THEME_ICON_PREFIX("image://theme/icon-m-");
 }
 
+// TODO: see if we can move this somewhere else and get rid of PlatformApp
+
 QUrl PlatformApp::pathToChatFolderIcon(ChatFoldersModel::Icon icon) {
     auto pathToIcon = [](const QString &name) {
         return SailfishApp::pathTo("images/folders/icon-m-folder-" + name + ".svg");
