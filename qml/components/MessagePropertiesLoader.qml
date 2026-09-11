@@ -14,7 +14,7 @@ QtObject {
     readonly property bool loaded: !properties.stub
 
     property bool _messagePropertiesLoading
-    property var __c1: Connections {
+    property var _tdConn: Connections {
         target: tdLibWrapper
         onMessagePropertiesReceived: if (loader.chatId === chatId && loader.messageId === messageId) {
                                          loader.properties = messageProperties
