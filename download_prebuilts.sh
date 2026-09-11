@@ -63,7 +63,7 @@ if [[ $HARBOUR == true ]]; then
 elif [ ! -d tg_owt/$ARCH ]; then
     echo "Downloading WebRTC"
     curl -OL https://github.com/yast-client/tg_owt/releases/download/$WEBRTC_TAG/tg_owt.zip
-    unzip -o tg_owt.zip -d ./tg_owt
+    unzip -o tg_owt.zip -d ./tg_owt -qq
     rm tg_owt.zip
     rm tg_owt/include -r
 else
