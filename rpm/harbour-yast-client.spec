@@ -29,6 +29,8 @@ BuildRequires:  pkgconfig(gstreamer-pbutils-1.0)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  curl
 BuildRequires:  gperf
+BuildRequires:  rust
+BuildRequires:  cargo
 BuildRequires:  desktop-file-utils
 
 # Calls

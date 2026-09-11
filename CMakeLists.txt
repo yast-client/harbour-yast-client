@@ -78,6 +78,21 @@ set_target_properties(TDLib PROPERTIES
 
 add_subdirectory(libs/opal/sfpm)
 add_subdirectory(yaqtlib)
+
+# Credit to https://github.com/whisperfish/whisperfish/blob/main/rpm/harbour-whisperfish.spec
+
+if (TARGET_ARCHITECTURE STREQUAL aarch64)
+    set(TLOTTIE_RUST_ENV "SB2_RUST_TARGET_TRIPLE=aarch64-unknown-linux-gnu")
+    set(TLOTTIE_BUILD_SUBDIR "aarch64-unknown-linux-gnu")
+    set(TLOTTIE_RUSTFLAGS="-C target-feature=+neon")
+elseif (TARGET_ARCHITECTURE STREQUAL armv7hl)
+    set(TLOTTIE_RUST_ENV "SB2_RUST_TARGET_TRIPLE=armv7-unknown-linux-gnueabihf")
+    set(TLOTTIE_BUILD_SUBDIR "armv7-unknown-linux-gnueabihf")
+    set(TLOTTIE_RUSTFLAGS="-C target-feature=+neon")
+elseif (TARGET_ARCHITECTURE STREQUAL i486)
+    set(TLOTTIE_RUST_ENV "SB2_RUST_TARGET_TRIPLE=i686-unknown-linux-gnu")
+    set(TLOTTIE_BUILD_SUBDIR "i686-unknown-linux-gnu")
+endif()
 add_subdirectory(lottieqt)
 
 add_executable(${CMAKE_PROJECT_NAME} src/${CMAKE_PROJECT_NAME}.cpp)
@@ -131,6 +146,9 @@ if(NOT HARBOUR_COMPLIANCE)
     # Calls (TODO: for harbour we could package libraries such as opus in-app and it would work)
     include(libabsl.cmake)
 
+    set(CMAKE_THREAD_PREFER_PTHREAD ON)
+    find_package(Threads)
+
     add_library(libtg_owt STATIC IMPORTED GLOBAL)
     set_target_properties(libtg_owt PROPERTIES
         IMPORTED_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/tg_owt/${TARGET_ARCHITECTURE}/lib/libtg_owt.a"
@@ -146,6 +164,7 @@ if(NOT HARBOUR_COMPLIANCE)
         avutil
         pulse
         dl
+        ${CMAKE_THREAD_LIBS_INIT}
     )
     target_link_libraries(tgcalls PUBLIC
         libtg_owt
