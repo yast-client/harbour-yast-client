@@ -13,6 +13,7 @@ TDLibStickerBase {
     id: sticker
 
     readonly property bool animated: appSettings.animateStickers && stickerData.format["@type"] === "stickerFormatTgs"
+    property int fitzModifier
 
     useThumbnail: !appSettings.videoStickers && stickerData.format['@type'] === 'stickerFormatWebm'
     stickerVisible: !!(stickerLoader.item && stickerLoader.item.visible)
@@ -58,6 +59,7 @@ TDLibStickerBase {
             LottieItem {
                 id: animatedSticker
                 anchors.fill: parent
+                fitzModifier: sticker.fitzModifier // needs to be set before the source
                 source: file.path
                 // I don't know why but setting scaledSize to QSize(-1,-1) sometimes makes the quality worse,
                 // even though before we introduced LottieItem/MovieItem it worked fine without any scaling at all.

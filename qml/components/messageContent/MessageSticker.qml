@@ -25,6 +25,7 @@ MessageContentBase {
 
     property var stickerData: rawMessage.content.sticker
     readonly property bool isOwnSticker: !!(messageListItem && messageListItem.isOwnMessage)
+    property alias fitzModifier: sticker.fitzModifier
 
     property real defaultWidth: Theme.itemSizeLarge*3
     height: sticker.height
