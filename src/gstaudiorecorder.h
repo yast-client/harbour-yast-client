@@ -42,7 +42,7 @@ signals:
 
 private:
     bool initializePipeline();
-    void run() Q_DECL_OVERRIDE;
+    void run() override;
     void handleMessage(GstMessage *msg);
 
 private:
