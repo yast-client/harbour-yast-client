@@ -119,7 +119,7 @@ TDLibVideo {
             spacing: Theme.paddingLarge
             anchors {
                 bottom: parent.bottom
-                bottomMargin: page.singleElement ? Theme.itemSizeMedium : Theme.itemSizeExtraLarge
+                bottomMargin: page.singleElement ? Theme.itemSizeMedium : Theme.itemSizeExtraLarge*1.5
             }
 
             Slider {
