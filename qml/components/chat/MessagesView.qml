@@ -675,6 +675,8 @@ Column {
                 case 'messageCall':
                 case 'messageGroupCall':
                     return Theme.itemSizeMedium
+                case 'messageContact':
+                    return Theme.itemSizeMedium
                 }
             }
 

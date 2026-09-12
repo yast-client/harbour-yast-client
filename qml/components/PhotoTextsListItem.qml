@@ -41,6 +41,7 @@ ListItem {
 
     property real leftMargin: Theme.horizontalPageMargin
     property real rightMargin: Theme.horizontalPageMargin
+    property real contentLeftMargin: Theme.paddingSmall
 
     contentHeight: compact ? Theme.itemSizeLarge + Theme.paddingMedium : Theme.itemSizeExtraLarge
     contentWidth: parent.width
@@ -66,7 +67,7 @@ ListItem {
         anchors {
             verticalCenter: parent.verticalCenter
             left: pictureItem.right
-            leftMargin: Theme.paddingSmall
+            leftMargin: contentLeftMargin
             right: parent.right
             rightMargin: chatItem.rightMargin
         }
@@ -91,7 +92,7 @@ ListItem {
                     width: Math.min(contentColumn.width - chatBadges.width - parent.spacing - (additionalPrimaryText.visible ? additionalPrimaryText.width + parent.spacing : 0), implicitWidth)
                     font.bold: appSettings.highlightUnreadConversations && ( !chatItem.muted && (chatItem.unreadCount > 0 || chatItem.isMarkedAsUnread) )
                     font.italic: appSettings.highlightUnreadConversations  && (chatItem.unreadReactionCount > 0)
-                    color: (appSettings.highlightUnreadConversations && (chatItem.unreadCount > 0)) ? palette.highlightColor : palette.primaryColor
+                    color: (appSettings.highlightUnreadConversations && (chatItem.unreadCount > 0)) || highlighted ? palette.highlightColor : palette.primaryColor
                 }
 
                 ChatBadges {

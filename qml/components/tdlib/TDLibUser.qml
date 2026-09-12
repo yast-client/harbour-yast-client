@@ -11,11 +11,11 @@ QtObject {
     property alias userInformation: user.info
 
     onUserIdChanged:
-        userInformation = tdData.getUserInformation(userId)
+        info = tdData.getUserInformation(userId)
     property Connections __conn: Connections {
         target: tdData
         onUserUpdated:
             if (user.userId == userId) // explicitly allow type correction here!
-                user.userInformation = userInformation
+                user.info = userInformation
     }
 }
