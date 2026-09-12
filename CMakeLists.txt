@@ -79,6 +79,8 @@ set_target_properties(TDLib PROPERTIES
 add_subdirectory(libs/opal/sfpm)
 add_subdirectory(yaqtlib)
 
+set(CMAKE_THREAD_PREFER_PTHREAD ON)
+
 # Credit to https://github.com/whisperfish/whisperfish/blob/main/rpm/harbour-whisperfish.spec
 
 if (TARGET_ARCHITECTURE STREQUAL aarch64)
@@ -146,7 +148,6 @@ if(NOT HARBOUR_COMPLIANCE)
     # Calls (TODO: for harbour we could package libraries such as opus in-app and it would work)
     include(libabsl.cmake)
 
-    set(CMAKE_THREAD_PREFER_PTHREAD ON)
     find_package(Threads)
 
     add_library(libtg_owt STATIC IMPORTED GLOBAL)
