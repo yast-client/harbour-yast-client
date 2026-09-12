@@ -82,7 +82,7 @@ add_subdirectory(yaqtlib)
 # Credit to https://github.com/whisperfish/whisperfish/blob/main/rpm/harbour-whisperfish.spec
 
 if (TARGET_ARCHITECTURE STREQUAL aarch64)
-    set(TLOTTIE_RUST_ENV "SB2_RUST_TARGET_TRIPLE=aarch64-unknown-linux-gnu")
+    set(TLOTTIE_RUST_ENV "SB2_RUST_TARGET_TRIPLE=aarch64-unknown-linux-gnu" "RUSTC_BOOTSTRAP=1")
     set(TLOTTIE_BUILD_SUBDIR "aarch64-unknown-linux-gnu")
     set(TLOTTIE_RUSTFLAGS="-C target-feature=+neon")
 elseif (TARGET_ARCHITECTURE STREQUAL armv7hl)
