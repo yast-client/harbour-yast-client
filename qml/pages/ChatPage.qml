@@ -168,7 +168,7 @@ Page {
 
     Component.onDestruction: {
         tdLibWrapper.closeChat(chatId)
-        if (notificationManager.activeChatId === chatId)
+        if (!viewAsTopics && notificationManager.activeChatId === chatId)
             notificationManager.activeChatId = 0
     }
 
@@ -210,7 +210,6 @@ Page {
                                    })
             if (doSendBotStartMessage)
                 tdLibWrapper.sendBotStartMessage(chatId, chatId, sendBotStartMessageParameter, "")
-            notificationManager.activeChatId = chatId
         }
     }
 
@@ -461,6 +460,7 @@ Page {
                     id: messagesViewComponent
                     MessagesView {
                         anchors.fill: parent
+                        isActive: isInitialized
                     }
                 }
 

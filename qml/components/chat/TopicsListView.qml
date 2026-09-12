@@ -30,7 +30,7 @@ Item {
         target: tdLibWrapper
         onForumTopicReceived:
             if (chatPage.chatId === chatId && forumTopicIdToShow == forumTopicId) {
-                pageStack.push(topicMessagesPage, {chatId: chatId, forumTopicData: topic})
+                pageStack.push(topicMessagesPageComponent, {chatId: chatId, forumTopicData: topic})
                 forumTopicIdToShow = 0
             }
         onForumTopicNotFound:
@@ -114,7 +114,7 @@ Item {
             muted: notification_settings.mute_for > 0 // TODO: use something like in ChatListViewItem
 
             onClicked: {
-                var page = pageStack.push(topicMessagesPage, {chatId: chatId, forumTopicData: display})
+                var page = pageStack.push(topicMessagesPageComponent, {chatId: chatId, forumTopicData: display})
                 if (forwardHeaderLoader.active) {
                     page.messagesView.forwardMessages(forwardFromChatId, forwardMessageIds, forwardSendCopy, forwardRemoveCaption)
                     forwardFromChatId = forwardMessageIds = null
@@ -134,8 +134,9 @@ Item {
         }
 
         Component {
-            id: topicMessagesPage
+            id: topicMessagesPageComponent
             Page {
+                id: topicMessagesPage
                 allowedOrientations: Orientation.All
 
                 property alias chatId: topicMessagesModel.chatId
@@ -172,6 +173,7 @@ Item {
                             bottom: parent.bottom
                         }
 
+                        isActive: topicMessagesPage.status == PageStatus.Active
                         messagesModel: topicMessagesModel
                         topicId: {'@type': 'messageTopicForum', 'forum_topic_id': topicMessagesModel.forumTopicId}
                         forumTopicName: topicMessagesModel.name

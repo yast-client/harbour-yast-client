@@ -34,6 +34,7 @@ Column {
     property var messageIdToScrollTo
     property int unreadCount: chatInformation.unread_count
     property bool isPrepared
+    property bool isActive: true // FIXME: (maybe) see if this can be done better
 
     property alias chatView: chatView
     property alias newMessageColumn: newMessageColumn
@@ -52,7 +53,6 @@ Column {
     property int topIndex: -1
     property int bottomIndex: -1
 
-    signal resetElements()
     signal navigatedTo(int targetIndex)
 
     signal jumpedTo(int index, var messageId)
@@ -163,11 +163,24 @@ Column {
         if (isPrepared) return
         isPrepared = true
 
+        log("Preparing view")
         if (draftMessage) {
             if (draftMessage.content && draftMessage.content['@type'] === 'draftMessageContentText')
                 newMessageTextField.text = draftMessage.content.text.text
             if (draftMessage.reply_to_message_id)
                 tdLibWrapper.getMessage(chatId, draftMessage.reply_to_message_id)
+        }
+    }
+
+    onIsActiveChanged: {
+        log("Active changed", isActive)
+        if (isActive) {
+            notificationManager.activeChatId = chatId
+            notificationManager.activeTopicId = topicId || {}
+        } else {
+            if (notificationManager.activeChatId === chatId
+                    && JSON.stringify(notificationManager.activeTopicId) == JSON.stringify(topicId || {}))
+                notificationManager.activeChatId = 0
         }
     }
 
@@ -350,13 +363,8 @@ Column {
             tdLibWrapper.setChatDraftMessage(chatId, messagesView.newMessageColumn.replyToMessageId, newMessageTextField.text, topicId)
         chatActionTimer.stop()
         utilities.stopGeoLocationUpdates()
-    }
 
-    Connections {
-        target: pageStack
-        onCurrentPageChanged:
-            if (pageStack.currentPage && pageStack.currentPage.isChatInformationPage)
-                resetElements()
+        notificationManager.activeChatId = 0
     }
 
     Timer {
