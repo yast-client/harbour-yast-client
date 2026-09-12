@@ -29,8 +29,11 @@ Dialog {
             bottom: parent.bottom
         }
         width: parent.width
+        contentHeight: column.height
+        clip: contentY > 0
 
         Column {
+            id: column
             x: Theme.horizontalPageMargin
             width: parent.width - 2*x
             spacing: Theme.paddingLarge
@@ -76,9 +79,12 @@ Dialog {
             }
 
             Flow {
+                width: Math.min(Theme.itemSizeLarge * Math.floor(parent.width / Theme.itemSizeLarge),
+                                Theme.itemSizeLarge * repeater.count)
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 Repeater {
+                    id: repeater
                     model: invite.member_user_ids.filter(function(userId) {
                         return tdData.hasUserInformation(userId)
                     })
@@ -97,6 +103,8 @@ Dialog {
                             photoData: user.info.profile_photo.small || ({})
                         }
                         primaryText.text: utilities.getUserName(user.info)
+
+                        onClicked: tdLibWrapper.createPrivateChat(modelData, 'openDirectly')
                     }
                 }
             }
