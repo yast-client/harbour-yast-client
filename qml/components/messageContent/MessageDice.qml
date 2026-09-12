@@ -65,7 +65,9 @@ MessageContentBase {
                     loop: false
 
                     Component.onCompleted:
-                        if (completed) {
+                        if (completed && !isSlotMachine) {
+                            // TODO: there is a bug in LottieQt which shows nothing when doing the following with a very short animation
+                            // currently, the only known animation is the slot machine background, but ideally the bug needs to be fixed
                             paused = true
                             currentFrame = frameCount - 2
                             if (!sticker.file.isDownloadingCompleted)
