@@ -18,13 +18,34 @@ AccordionItem {
                 text: qsTr("Enable online-only mode")
                 description: qsTr("Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of the app to take effect.")
                 automaticCheck: false
-                onClicked: {
-                    yaqtSettings.onlineOnlyMode = !checked
+                onClicked: yaqtSettings.onlineOnlyMode = !checked
+            }
+
+            Slider {
+                width: parent.columnWidth
+                label: qsTr("TDLib log verbosity")
+                value: yaqtSettings.tdLogVerbosity
+                minimumValue: 0
+                maximumValue: 5 // 6-1023 are unused by TDLib (and we don't use addLogMessage and others for now)
+                stepSize: 1
+                valueText: value
+                onSliderValueChanged: yaqtSettings.tdLogVerbosity = sliderValue
+            }
+
+            ComboBox {
+                width: parent.columnWidth
+                label: qsTr("TDLib log stream")
+                currentIndex: yaqtSettings.logStream
+                menu: ContextMenu {
+                    MenuItem { text: qsTr("Default") }
+                    MenuItem { text: qsTr("None", "Empty log stream (logging disabled)") }
+                    MenuItem { text: qsTr("File") }
                 }
+                onCurrentIndexChanged: yaqtSettings.logStream = currentIndex
             }
 
             /*Slider {
-                width: parent.width
+                width: parent.columnWidth
                 label: qsTr("Voice note volume")
                 minimumValue: 1
                 maximumValue: 15.0
