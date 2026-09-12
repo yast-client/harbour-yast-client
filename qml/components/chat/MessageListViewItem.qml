@@ -47,7 +47,7 @@ MessageListViewItemBase {
     contextMenuLoader.canTranslate: !!messageText.text
     contextMenuLoader.onHandleExtraContextMenuItems: {
         if (!extraContentLoader.item || !extraContentLoader.item.extraContextMenuItems) return
-        for (var i=0; i<extraContentLoader.item.extraContextMenuItems.length; i++) {
+        for (var i=0; i < extraContentLoader.item.extraContextMenuItems.length; i++) {
             var item = extraContentLoader.item.extraContextMenuItems[i]
             if (item.processProperties)
                 item.processProperties(properties)
@@ -512,6 +512,11 @@ MessageListViewItemBase {
                         enabled: !messageListItem.precalculatedValues.pageIsSelecting
                         onClicked:
                             messageStatusText.useElapsed = !messageStatusText.useElapsed
+                        onPressAndHold:
+                            if (Debug.enabled) {
+                                Clipboard.text = messageId
+                                appNotification.show("Message ID copied to clipboard")
+                            }
                     }
                 }
 
