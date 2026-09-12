@@ -307,7 +307,7 @@ Page {
                         var chatId = chatInformation.id
                         Remorse.popupAction(chatPage, isChannel ? qsTr("Left the channel") : qsTr("Left the group"), function() { tdLibWrapper.leaveChat(chatId) })
                     } else
-                        tdLibWrapper.joinChat(chatId, isChannel)
+                        tdLibWrapper.joinChat(chatInformation.id, isChannel)
                 }
                 text: chatPage.userIsMember
                         ? (isChannel ? qsTr("Leave channel") : qsTr("Leave group"))
