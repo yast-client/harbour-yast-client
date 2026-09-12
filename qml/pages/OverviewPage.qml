@@ -426,7 +426,7 @@ Page {
                             MenuItem {
                                 text: qsTr("Mark as read")
                                 visible: tabModel.count > 0
-                                onClicked: tabItem.flickable.readChatList()
+                                onClicked: tabItem.readChatList()
                             }
                         }
                     }
@@ -439,7 +439,7 @@ Page {
                             visible: active || tabModel.count > 0
                             MenuItem {
                                 text: qsTr("Mark as read")
-                                onClicked: flickable.flickable.readChatList()
+                                onClicked: tabItem.readChatList()
                             }
                         }
                     }
