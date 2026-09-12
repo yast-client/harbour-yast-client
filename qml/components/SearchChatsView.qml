@@ -77,7 +77,7 @@ Item {
     property bool publicLoading
     property bool localLoading: true
     readonly property bool haveNoLocalResults: localSearchListView.count == 0 && recentlyFoundSearchListView.count == 0
-    readonly property bool isLoading: (publicLoading || localLoading) && haveNoLocalResults && topChatUsersView.count == 0
+    readonly property bool isLoading: (publicLoading || localLoading) && haveNoLocalResults && topChatUsersViewLoader.count == 0
     property var recentlyFoundChatsFound: []
     property var localChatsFound: []
     property var publicChatsFound: []
@@ -167,12 +167,18 @@ Item {
                 width: parent.width
 
                 Loader {
+                    id: topChatUsersViewLoader
                     active: searchField.text == ''
                     width: parent.width
                     height: active ? implicitHeight : 0
+
+                    property int count: item ? item.count : 0
+
                     sourceComponent: Component {
                         Column {
                             width: parent.width
+                            readonly property int count: topChatUsersView.count
+
                             readonly property bool canExpand: topChatUsersView.count > topChatUsersView.columnsCount
                             property bool expanded: false
 
