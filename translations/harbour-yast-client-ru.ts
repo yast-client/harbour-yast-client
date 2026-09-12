@@ -2928,6 +2928,27 @@ Pull down to visit telegram.org</source>
         <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of the app to take effect.</source>
         <translation>Отключает оффлайн-кэш. Некоторые функции моугут быть ограничены или недоступны в этом режиме. Для применения изменений перезапустите приложение.</translation>
     </message>
+    <message>
+        <source>TDLib log verbosity</source>
+        <translation>Уровень логирования TDLib</translation>
+    </message>
+    <message>
+        <source>TDLib log stream</source>
+        <translation>Поток логирования TDLib</translation>
+    </message>
+    <message>
+        <source>Default</source>
+        <translation>По умолчанию</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>Empty log stream (logging disabled)</comment>
+        <translation>Отключить</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation>Файл</translation>
+    </message>
 </context>
 <context>
     <name>SettingsAppearance</name>

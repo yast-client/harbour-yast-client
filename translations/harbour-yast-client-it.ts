@@ -2884,6 +2884,27 @@ Trascina in basso per visitare telegram.org</translation>
         <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of the app to take effect.</source>
         <translation>Disabilita la cache offline. Alcune funzioni potrebbero essere limitate o mancare del tutto. Le modifiche richiedono un riavvio dell&apos;applicazione per avere effetto.</translation>
     </message>
+    <message>
+        <source>TDLib log verbosity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TDLib log stream</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>Empty log stream (logging disabled)</comment>
+        <translation type="unfinished">Nessuno</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation type="unfinished">File</translation>
+    </message>
 </context>
 <context>
     <name>SettingsAppearance</name>

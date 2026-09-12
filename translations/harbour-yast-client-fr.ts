@@ -2880,6 +2880,27 @@ Pull down to visit telegram.org</source>
         <source>Disables offline caching. Certain features may be limited or missing in this mode. Changes require a restart of the app to take effect.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>TDLib log verbosity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TDLib log stream</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>Empty log stream (logging disabled)</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsAppearance</name>
