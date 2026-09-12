@@ -9,7 +9,10 @@ BackgroundItem {
     property bool sendOnClick: true
 
     function sendInlineQueryResultMessage() {
-        tdLibWrapper.sendInlineQueryResultMessage(inlineQueryLoader.chatId, 0, 0, inlineQueryComponent.inlineQueryId, model.id)
+        tdLibWrapper.sendInlineQueryResultMessage(
+            inlineQueryLoader.chatId, inlineQueryLoader.topicId, inlineQueryLoader.replyToMessageId,
+            inlineQueryComponent.inlineQueryId, model.id
+        )
         inlineQueryLoader.textField.text = ''
     }
     onClicked:

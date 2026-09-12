@@ -25,7 +25,9 @@ Loader {
     property int buttonPadding: hasButton ? item.button.height + Theme.paddingSmall : 0
     Behavior on buttonPadding { NumberAnimation { duration: 200} }
 
-    property string chatId
+    property var chatId
+    property var topicId
+    property var replyToMessageId
     property string userName
     property bool userNameIsValid: userName !== "" && inlineBotInformation && userName.toLowerCase() === inlineBotInformation.usernames.editable_username.toLowerCase()
     property string query

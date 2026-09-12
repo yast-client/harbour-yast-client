@@ -908,6 +908,8 @@ Column {
             id: inlineQuery
             textField: newMessageTextField
             chatId: chatPage.chatId
+            topicId: messagesView.topicId
+            replyToMessageId: newMessageColumn.replyToMessageId
         }
     }
 
