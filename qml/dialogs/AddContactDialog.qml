@@ -50,6 +50,22 @@ Dialog {
         PullDownMenu {
             visible: editing
             MenuItem {
+                visible: !!phone
+                text: qsTr("Share contact")
+                onClicked: pageStack.replace(Qt.resolvedUrl("../pages/ChatSelectionPage.qml"), {
+                    state: 'sendMessage',
+                    payload: {
+                        inputContent: {'@type': 'inputMessageContact', 'contact': {
+                            phone_number: phone,
+                            first_name: name,
+                            last_name: lastName,
+                            user_id: userId
+                        }},
+                        requirePermissions: ['can_send_basic_messages']
+                    }
+                })
+            }
+            MenuItem {
                 text: qsTr("Delete contact")
                 onClicked: {
                     var page = pageStack.previousPage()

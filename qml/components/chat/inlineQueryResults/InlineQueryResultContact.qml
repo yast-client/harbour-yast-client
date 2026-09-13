@@ -8,18 +8,11 @@ import io.yaqtlib 1.0
 import "../../../js/twemoji.js" as Emoji
 
 InlineQueryResultDefaultBase {
-    id: queryResultItem
-    property string namesSeparator: model.contact.first_name && model.contact.last_name ? " " : ""
-
-    title: Emoji.emojify(model.contact.first_name + namesSeparator + model.contact.last_name || "", titleLable.font.pixelSize)
-    description: Emoji.emojify(model.contact.phone_number || "", descriptionLabel.font.pixelSize)
-
-    extraText: model.url || ""
-    extraTextLabel.visible: !model.hide_url && extraText.length > 0
+    title: Emoji.emojify(utilities.getUserName(model.contact), titleLable.font.pixelSize)
+    description: Emoji.emojify(model.contact.phone_number || '', descriptionLabel.font.pixelSize)
 
     thumbnailFileInformation: model.thumbnail ? model.thumbnail.file : {}
 
     icon.source: "image://theme/icon-m-contact"
     icon.visible: thumbnail.visible && thumbnail.opacity === 0
-
 }

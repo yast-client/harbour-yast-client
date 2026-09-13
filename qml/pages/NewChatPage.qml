@@ -165,6 +165,22 @@ Page {
                     menu: Component {
                         ContextMenu {
                             MenuItem {
+                                visible: !!phone_number
+                                text: qsTr("Share contact")
+                                onClicked: pageStack.replace(Qt.resolvedUrl("../pages/ChatSelectionPage.qml"), {
+                                    state: 'sendMessage',
+                                    payload: {
+                                        inputContent: {'@type': 'inputMessageContact', contact: {
+                                            phone_number: phone_number,
+                                            first_name: first_name,
+                                            last_name: last_name,
+                                            user_id: user_id
+                                        }},
+                                        requirePermissions: ['can_send_basic_messages']
+                                    }
+                                })
+                            }
+                            MenuItem {
                                 text: qsTr("Secret Chat")
                                 onClicked: tdLibWrapper.createNewSecretChat(display.id, "openDirectly")
                             }

@@ -105,6 +105,13 @@ Page {
             messagesView.forwardMessages(fromChatId, messageIds, sendCopy, removeCaption)
     }
 
+    function sendMessage(inputContent) {
+        if (viewAsTopics)
+            topicsListView.messageContentToSend = inputContent
+        else
+            messagesView.sendMessageContent(inputContent)
+    }
+
     function hasGroupPermission(memberPermission, adminPermission) {
         if ((!isBasicGroup && !isSupergroup) || !chatGroupInformation || !chatGroupInformation.status)
             return false

@@ -264,6 +264,11 @@ Column {
         forwardMessagesTimer.start()
     }
 
+    function sendMessageContent(inputContent) {
+        sendMessageContentTimer.content = inputContent
+        sendMessageContentTimer.start()
+    }
+
     function readAllInteractions() {
         if (!topicId || isForumTopic) {
             var forumTopicId = isForumTopic ? topicId.forum_topic_id : 0
@@ -375,11 +380,20 @@ Column {
         property var messageIds
         property bool sendCopy
         property bool removeCaption
+
         onTriggered:
-            if (loading)
-                forwardMessagesTimer.start()
+            if (loading) restart()
             else
                 tdLibWrapper.forwardMessages(chatId, fromChatId, messageIds, topicId, sendCopy, removeCaption)
+    }
+
+    Timer {
+        id: sendMessageContentTimer
+        interval: 200
+        property var content
+        onTriggered:
+            if (loading) restart()
+            else tdLibWrapper.sendMessage(chatId, 0, topicId, content)
     }
 
     Timer {

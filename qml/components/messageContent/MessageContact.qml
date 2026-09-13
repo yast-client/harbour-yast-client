@@ -37,7 +37,7 @@ MessageContentBase {
 
         primaryText.text:
             // works for a contact object too
-            Emoji.emojify(utilities.getUserName(contact))
+            Emoji.emojify(utilities.getUserName(contact), primaryText.font.pixelSize)
         secondaryText.text: contact.phone_number
 
         pictureThumbnail {
@@ -51,10 +51,9 @@ MessageContentBase {
         if (user.info.id)
             tdLibWrapper.createPrivateChat(user.userId, 'openDirectly')
         else
-            pageStack.push(Qt.resolvedUrl("../../dialogs/AddContactDialog.qml"),
-                {
-                    phone: contact.phone_number,
-                    name: contact.first_name,
-                    lastName: contact.last_name
-                })
+            pageStack.push(Qt.resolvedUrl("../../dialogs/AddContactDialog.qml"), {
+                phone: contact.phone_number,
+                name: contact.first_name,
+                lastName: contact.last_name
+            })
 }

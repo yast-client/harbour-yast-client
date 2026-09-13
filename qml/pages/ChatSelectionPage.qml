@@ -26,6 +26,7 @@ Dialog {
          - forwardMessages: {fromChatId, messageIds, neededPermissions, canForward, canCopy, canCopyToSecretChat}
            (canForward, canCopy and canCopyToSecretChat cannot all be false)
          - fillTextArea: {text}
+         - sendMessage: {inputContent, neededPermissions}
     */
     property var payload: ({})
 
@@ -44,6 +45,7 @@ Dialog {
         switch (page.state) {
         case "forwardMessages":
         case "fillTextArea":
+        case "sendMessage":
             acceptDestinationProperties = {chatId: chatId}
             acceptDestination = Qt.resolvedUrl("ChatPage.qml")
             break
@@ -59,6 +61,9 @@ Dialog {
             break
         case "fillTextArea": // ReplyMarkupButtons: inlineKeyboardButtonTypeSwitchInline
             acceptDestinationInstance.setMessageText(payload.text)
+            break
+        case "sendMessage":
+            acceptDestinationInstance.sendMessage(payload.inputContent)
             break
         // future uses of chat selection can be processed here
         }

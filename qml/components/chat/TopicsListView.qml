@@ -20,6 +20,7 @@ Item {
     property var forwardMessageIds
     property bool forwardSendCopy
     property bool forwardRemoveCaption
+    property var messageContentToSend
 
     function openAtTopicId(forumTopicId) {
         forumTopicIdToShow = forumTopicId
@@ -65,7 +66,7 @@ Item {
     Loader {
         id: forwardHeaderLoader
         width: parent.width
-        active: !!(forwardFromChatId || forwardMessageIds)
+        active: !!(forwardFromChatId || forwardMessageIds || messageContentToSend)
         sourceComponent: Component {
             PageHeader { title: qsTr("Forward to…") }
         }
@@ -116,8 +117,11 @@ Item {
             onClicked: {
                 var page = pageStack.push(topicMessagesPageComponent, {chatId: chatId, forumTopicData: display})
                 if (forwardHeaderLoader.active) {
-                    page.messagesView.forwardMessages(forwardFromChatId, forwardMessageIds, forwardSendCopy, forwardRemoveCaption)
-                    forwardFromChatId = forwardMessageIds = null
+                    if (messageContentToSend)
+                        page.messagesView.sendMessageContent(messageContentToSend)
+                    else
+                        page.messagesView.forwardMessages(forwardFromChatId, forwardMessageIds, forwardSendCopy, forwardRemoveCaption)
+                    forwardFromChatId = forwardMessageIds = messageContentToSend = null
                 }
             }
         }
