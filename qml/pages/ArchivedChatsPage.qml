@@ -10,8 +10,6 @@ import '../components/chatList'
 Page {
     allowedOrientations: Orientation.All
 
-    property var overviewPage
-
     SilicaFlickable {
         anchors.fill: parent
         PullDownMenu {

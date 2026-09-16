@@ -384,7 +384,7 @@ Page {
                             MenuItem {
                                 text: "Debug"
                                 visible: DebugLog.enabled
-                                onClicked: pageStack.push(Qt.resolvedUrl("../pages/DebugPage.qml"), {overviewPage: overviewPage})
+                                onClicked: pageStack.push(Qt.resolvedUrl("../pages/DebugPage.qml"))
                             }
                             MenuItem {
                                 text: qsTr("Settings")
@@ -421,7 +421,7 @@ Page {
                                     }
                                 }
 
-                                onClicked: pageStack.push(Qt.resolvedUrl("../pages/ArchivedChatsPage.qml"), {overviewPage: overviewPage})
+                                onClicked: pageStack.push(Qt.resolvedUrl("../pages/ArchivedChatsPage.qml"))
                             }
                             MenuItem {
                                 text: qsTr("Mark as read")

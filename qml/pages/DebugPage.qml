@@ -14,8 +14,6 @@ Page {
     id: debugPage
     allowedOrientations: Orientation.All
 
-    property var overviewPage
-
     function showResult(res) {
         customDataLabel.text = res
     }
@@ -111,7 +109,7 @@ Page {
                     labelVisible: false
                     EnterKey.iconSource: "image://theme/icon-m-enter-accept"
                     EnterKey.enabled: text.length > 0
-                    EnterKey.onClicked: overviewPage.openChat(chatIdWithMessage.text, {messageIdToShow: messageId.text}, popSwitch.checked)
+                    EnterKey.onClicked: appWindow.overviewPage.openChat(chatIdWithMessage.text, {messageIdToShow: messageId.text}, popSwitch.checked)
                 }
             }
             TextSwitch {
@@ -121,7 +119,7 @@ Page {
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: "Open"
-                onClicked: overviewPage.openChat(chatIdWithMessage.text, {messageIdToShow: messageId.text}, popSwitch.checked)
+                onClicked: appWindow.overviewPage.openChat(chatIdWithMessage.text, {messageIdToShow: messageId.text}, popSwitch.checked)
             }
 
             SectionHeader { text: "Translating" }
@@ -137,18 +135,24 @@ Page {
                 label: "Text to translate"
                 EnterKey.iconSource: "image://theme/icon-m-enter-accept"
                 EnterKey.enabled: text.length > 0
-                EnterKey.onClicked: translate()
+                EnterKey.onClicked: column.translate()
             }
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: "Translate"
-                onClicked: translate()
+                onClicked: column.translate()
             }
 
 
             SectionHeader { text: "Execute custom request" }
             function executeCustom() {
-                tdLibWrapper.sendRequestWithId(JSON.parse(customRequestArea.text)).finished.connect(function(response) {
+                try {
+                    var encodedRequest = JSON.parse(customRequestArea.text)
+                } catch(e) {
+                    customRequestResponseLabel.text = "An error occured: " + e
+                    return
+                }
+                tdLibWrapper.sendRequestWithId(encodedRequest).finished.connect(function(responseType, response) {
                     customRequestResponseLabel.text = JSON.stringify(response, null, '\t')
                 })
             }
@@ -212,6 +216,14 @@ Page {
                 onClicked: column.executeCustomNoResponse()
             }
 
+            function executeCustomJs() {
+                try {
+                    eval(jsArea.text)
+                } catch(e) {
+                    showResult("An error occured: " + e)
+                }
+            }
+
             SectionHeader { text: "Execute JS" }
             TextArea {
                 id: jsArea
@@ -221,12 +233,12 @@ Page {
                 text: 'showJsonResult("Hello from JS!")'
                 EnterKey.iconSource: "image://theme/icon-m-enter-accept"
                 EnterKey.enabled: text.length > 0
-                EnterKey.onClicked: eval(jsArea.text)
+                EnterKey.onClicked: column.executeCustomJs()
             }
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: "Execute"
-                onClicked: eval(jsArea.text)
+                onClicked: column.executeCustomJs()
             }
             Label {
                 id: customDataLabel

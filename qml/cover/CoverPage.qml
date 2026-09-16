@@ -84,20 +84,37 @@ CoverBackground {
 
     CoverActionList {
         enabled: authenticated
-        /*CoverAction {
-            visible: unreadMessageCount > 0
-            // TODO: draw an icon for this
-            iconSource: Qt.resolvedUrl("../images/icon-cover-read-all.svg")
-            onTriggered: tdLibWrapper.readChatList()
-        }*/
-        CoverAction {
-            iconSource: "image://theme/icon-cover-new"
-            onTriggered: {
-                if (!pageStack.currentPage || pageStack.currentPage.objectName !== 'newChatPage')
-                    pageStack.push(Qt.resolvedUrl("../pages/NewChatPage.qml"))
-                appWindow.activate()
-            }
+        actions: {
+            var result = []
+            //if (unreadMessageCount > 0) result.push(readAction)
+            result.push(newChatAction)
+            if (DebugLog.enabled) result.push(debugAction)
+            return result
         }
         // TODO: perhaps add search here too (or instead of contacts)
+    }
+
+    /*CoverAction {
+        id: readAction
+        // TODO: draw an icon for this
+        iconSource: Qt.resolvedUrl("../images/icon-cover-read-all.svg")
+        onTriggered: tdLibWrapper.readChatList()
+    }*/
+    CoverAction {
+        id: newChatAction
+        iconSource: "image://theme/icon-cover-new"
+        onTriggered: {
+            if (!pageStack.currentPage || pageStack.currentPage.objectName !== 'newChatPage')
+                pageStack.push(Qt.resolvedUrl("../pages/NewChatPage.qml"))
+            appWindow.activate()
+        }
+    }
+    CoverAction {
+        id: debugAction
+        iconSource: "image://theme/icon-s-developer"
+        onTriggered: {
+            pageStack.push(Qt.resolvedUrl("../pages/DebugPage.qml"))
+            appWindow.activate()
+        }
     }
 }
