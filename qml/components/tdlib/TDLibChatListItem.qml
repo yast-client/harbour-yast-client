@@ -15,7 +15,7 @@ PhotoTextsListItem {
     property var messageSender
     property var chatId: messageSender && messageSender['@type'] === 'messageSenderChat' ? messageSender.chat_id : undefined
     property var userId: messageSender && messageSender['@type'] === 'messageSenderUser' ? messageSender.user_id : chatInformation.type.user_id
-    property bool openOnClick
+    property bool openOnClick: true
     property bool doReplace: true
 
     property bool showFullInfo: true

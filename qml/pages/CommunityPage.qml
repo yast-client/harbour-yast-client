@@ -72,7 +72,6 @@ Page {
         delegate: TDLibChatListItem {
             chatId: modelData.chat_id
             enabled: modelData.can_view_history || (isPrivateChat && relatedInformation.type['@type'] === 'userTypeBot')
-            openOnClick: true
         }
     }
 
