@@ -91,6 +91,8 @@ ApplicationWindow {
             property bool focusTextAreaOnChatOpen
             property bool leftAttachButton
 
+            property bool sendInlineLocation: true
+
             property bool showStickersAsEmojis
             property bool showStickersAsImages
             property bool animateStickers: true

@@ -239,6 +239,16 @@ AccordionItem {
                     }
                 }
             }
+
+            SectionHeader { text: qsTr("Bots and websites") }
+
+            TextSwitch {
+                text: qsTr("Allow inline bots to access your location")
+                description: qsTr("Prevent bots from showing you location-based results. This may break some bots")
+                checked: appSettings.sendInlineLocation
+                automaticCheck: false
+                onClicked: appSettings.sendInlineLocation = !checked
+            }
         }
     }
 }

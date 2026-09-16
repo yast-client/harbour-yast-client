@@ -66,7 +66,7 @@ Loader {
 
         queued = false
         var location = null
-        if (inlineBotInformation.type.need_location && utilities.supportsGeoLocation()) {
+        if (appSettings.sendInlineLocation && inlineBotInformation.type.need_location && utilities.supportsGeoLocation()) {
             utilities.startGeoLocationUpdates()
             if (!attachmentPreviewRow.locationData.latitude) {
                 queued = true
