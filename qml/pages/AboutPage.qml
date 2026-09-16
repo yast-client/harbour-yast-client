@@ -130,10 +130,10 @@ AboutPageBase {
             sources: "https://github.com/jdecked/twemoji"
         },
         Attribution {
-            name: "rlottie"
-            entries: ["2020 Samsung Electronics Co., Ltd.", qsTr("other contributors")]
+            name: "tlottie"
+            entries: "2026-present dkaraush"
             licenses: License { spdxId: 'MIT' }
-            sources: "https://github.com/Samsung/rlottie"
+            sources: "https://github.com/dkaraush/tlottie"
         },
         Attribution {
             name: "Nominatim"
