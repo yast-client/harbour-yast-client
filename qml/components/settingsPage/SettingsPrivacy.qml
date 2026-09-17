@@ -249,6 +249,12 @@ AccordionItem {
                 automaticCheck: false
                 onClicked: appSettings.sendInlineLocation = !checked
             }
+
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: qsTr("Clear payment and shipping info")
+                onClicked: pageStack.push(Qt.resolvedUrl("../../dialogs/ClearPaymentInfoDialog.qml"))
+            }
         }
     }
 }
