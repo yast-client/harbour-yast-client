@@ -50,15 +50,35 @@ TDLibVideo {
         anchors.centerIn: parent
         value: file.isDownloadingCompleted ? 1 : (file.downloadedSize / file.size)
     }
+
+    Binding {
+        target: overlay
+        when: isCurrent
+        property: 'gradientPadding'
+        value: 0
+    }
+
     Item {
         id: videoUI
+        anchors.fill: parent
         property bool active: overlay.active// && file.isDownloadingCompleted
         opacity: active ? 1 : 0
         Behavior on opacity { FadeAnimator {} }
 
-        x: Theme.horizontalPageMargin
-        width: parent.width - 2*x
-        height: parent.height
+        LinearGradient {
+            width: parent.width
+            anchors {
+                top: controlsRow.active ? controlsRow.top : sliderRow.top
+                bottom: parent.bottom
+                topMargin: -Theme.itemSizeExtraLarge
+            }
+            Behavior on height { NumberAnimation { duration: 150 } }
+
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: 'transparent' }
+                GradientStop { position: 1.0; color: overlay.gradientColor }
+            }
+        }
 
         Row {
             id: controlsRow
@@ -66,7 +86,8 @@ TDLibVideo {
                 bottom: sliderRow.top
                 //bottomMargin: Theme.paddingLarge
             }
-            width: parent.width
+            x: Theme.horizontalPageMargin
+            width: parent.width - 2*x
             visible: false
             spacing: Theme.paddingLarge
 
@@ -115,7 +136,8 @@ TDLibVideo {
 
         Row {
             id: sliderRow
-            width: parent.width
+            x: Theme.horizontalPageMargin
+            width: parent.width - 2*x
             spacing: Theme.paddingLarge
             anchors {
                 bottom: parent.bottom

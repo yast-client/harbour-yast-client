@@ -27,7 +27,7 @@ Item {
     property alias buttonsRow: buttons
     property alias file: file
     readonly property color gradientColor: '#bb000000'
-    readonly property int gradientPadding: Theme.itemSizeMedium
+    property real gradientPadding: Theme.itemSizeMedium
 
     property bool forwardButtonVisible: true
     property bool deleteButtonVisible
