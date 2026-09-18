@@ -13,6 +13,7 @@ ChatInformationTabItemChatsBase {
     delegate: TDLibChatListItem {
         chatId: modelData
         //prologSecondaryText.text: ''
+        onClicked: tdLibWrapper.openChatSimilarChat(chatInformation.id, chatId)
     }
 
     Component {
