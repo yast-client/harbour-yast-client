@@ -15,17 +15,20 @@ Loader {
     // using item's height instead won't work (it can become 0 when loader is unloaded)
     property real activeHeight: implicitHeight
     property bool show: true
+    property bool hidden
 
     height: 0
     opacity: 0
+    clip: true
 
     states: State {
         name: 'active'
-        when: active
+        when: show && !hidden
         PropertyChanges {
             target: loader
             opacity: 1
             height: activeHeight
+            clip: false
         }
     }
 
