@@ -143,7 +143,7 @@ SilicaFlickable {
             onClicked: {
                 // ensure it's done even if the page is closed:
                 if (chatInformationPage.userIsMember) {
-                    var chatId = chatInformationPage.chatInformation.id;
+                    var chatId = chatInformationPage.chatInformation.id
                     Remorse.popupAction(chatInformationPage, qsTr("Left chat"), function() { tdLibWrapper.leaveChat(chatId) })
                 } else
                     tdLibWrapper.joinChat(chatInformationPage.chatInformation.id, isChannel)

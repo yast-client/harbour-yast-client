@@ -57,10 +57,9 @@ Page {
     property var groupFullInformation: ({})
 
     property bool fullInfoReady: false
-    readonly property string username: isPrivateOrSecretChat ?
-                                  (userInformation.usernames.editable_username ? "@"+userInformation.usernames.editable_username : "")
-                                : ((groupInformation && groupInformation.usernames && groupInformation.usernames.editable_username)
-                                   ? "@"+groupInformation.usernames.editable_username : "")
+    readonly property var usernames: isPrivateOrSecretChat ? userInformation.usernames : groupInformation.usernames
+    readonly property string username: usernames && usernames.editable_username ? '@'+userInformation.usernames.editable_username : ''
+    readonly property bool hasActiveUsername: !!(usernames && usernames.active_usernames && usernames.active_usernames.length > 0)
 
     readonly property double communityId: (isPrivateOrSecretChat ? userFullInformation : groupFullInformation).community_id || 0
     property var communityInfo
