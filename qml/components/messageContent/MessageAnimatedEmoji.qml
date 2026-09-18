@@ -10,4 +10,5 @@ MessageSticker {
     fitzModifier: rawMessage.content.animated_emoji.fitzpatrick_type
     defaultWidth: Theme.itemSizeExtraLarge
     loop: false
+    extraContextMenuItems: []
 }
