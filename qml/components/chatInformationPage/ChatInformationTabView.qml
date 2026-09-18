@@ -97,7 +97,11 @@ TabView {
         }
     }
 
-    tabIcons.color: palette.primaryColor
+    tabIcons {
+        sourceSize: Qt.size(Theme.iconSizeMedium, Theme.iconSizeMedium)
+        color: palette.primaryColor
+        highlightColor: palette.highlightColor
+    }
 
     function insertTab(name, title, icon, data) {
         var insertIndex = 0
@@ -250,8 +254,7 @@ TabView {
             if (isPrivateOrSecretChat && extra === "getBotSimilarBots:"+chatUserOrGroupId && totalCount > 0) {
                 botSimilarBots = userIds
                 botSimilarBotsCount = totalCount
-                // TODO: once we'll have a proper bot icon, put it here
-                insertTab('SimilarBots', qsTr("Similar bots", "Profile tab"), 'image://theme/icon-m-contact')
+                insertTab('SimilarBots', qsTr("Similar bots", "Profile tab"), Qt.resolvedUrl("../../../images/folders/icon-m-folder-bots.svg"))
             }
     }
 
