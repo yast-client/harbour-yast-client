@@ -134,7 +134,7 @@ Page {
     }
 
     function resetFocus() {
-        if (searchInChatField.text === "")
+        if (!searchInChatField.text)
             searchInChatItem.visible = false
         searchInChatField.focus = false
         chatPage.focus = true
@@ -173,11 +173,9 @@ Page {
         }
     }
 
-    Component.onDestruction: {
-        tdLibWrapper.closeChat(chatId)
+    Component.onDestruction:
         if (!viewAsTopics && notificationManager.activeChatId === chatId)
             notificationManager.activeChatId = 0
-    }
 
     function initializeChatManager() {
         if (!chatManager || !chatManager.infoInitialized || isInitialized)
@@ -334,7 +332,7 @@ Page {
                     searchInChatItem.visible = true
                     searchInChatField.focus = true
                 }
-                text: qsTr("Search in Chat")
+                text: qsTr("Search")
             }
         }
 
@@ -349,6 +347,9 @@ Page {
 
                 ChatHeader {
                     id: chatHeader
+
+                    opacity: searchInChatField.visible ? 0 : 1
+                    Behavior on opacity { FadeAnimator {} }
 
                     property bool connecting: tdLibWrapper.connectionState != TDLibAPI.ConnectionReady
 
@@ -408,8 +409,6 @@ Page {
                     onPressAndHold:
                         if (isPrivateChat || isSecretChat)
                             timepointStatus = !timepointStatus
-
-                    textContainer.visible: !searchInChatField.visible
                 }
 
                 Item {
@@ -420,7 +419,6 @@ Page {
                         bottom: parent.bottom
                         //bottomMargin: chatHeader.textContainer.anchors.bottomMargin
                     }
-                    height: searchInChatField.height
                     visible: false
                     opacity: visible ? 1 : 0
                     Behavior on opacity { FadeAnimator {} }

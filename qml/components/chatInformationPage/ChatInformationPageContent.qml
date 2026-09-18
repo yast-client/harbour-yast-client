@@ -151,9 +151,7 @@ SilicaFlickable {
         }
         MenuItem {
             visible: chatInformationPage.isPrivateChat
-            onClicked: {
-                tdLibWrapper.createNewSecretChat(chatInformationPage.chatUserOrGroupId, "openDirectly");
-            }
+            onClicked: tdLibWrapper.createNewSecretChat(chatInformationPage.chatUserOrGroupId, "openDirectly")
             text: qsTr("New Secret Chat")
         }
         MenuItem {
