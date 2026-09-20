@@ -48,6 +48,12 @@ Column {
                                     state: "fillTextArea"
                                 })
                         },
+                        inlineKeyboardButtonTypeUser: function() {
+                            tdLibWrapper.createPrivateChat(modelData.type.user_id, 'openDirectly')
+                        },
+                        inlineKeyboardButtonTypeCopyText: function() {
+                            Clipboard.text = modelData.type.text
+                        },
 
                         keyboardButtonTypeText: function() {
                             chatPage.setMessageText(modelData.text, true)
@@ -104,9 +110,12 @@ Column {
                         }
                         Icon {
                             property var sources: ({
-                                                   inlineKeyboardButtonTypeUrl: "../../../images/icon-s-link.svg",
+                                                   inlineKeyboardButtonTypeUrl: Qt.resolvedUrl("../../../images/icon-s-link.svg"),
+                                                   inlineKeyboardButtonTypeLoginUrl: Qt.resolvedUrl("../../../images/icon-s-link.svg"),
                                                    inlineKeyboardButtonTypeSwitchInline: !modelData.type.in_current_chat ? "image://theme/icon-s-repost" : "image://theme/icon-s-edit",
-                                                   inlineKeyboardButtonTypeCallbackWithPassword: "image://theme/icon-s-asterisk"
+                                                   inlineKeyboardButtonTypeCallbackWithPassword: "image://theme/icon-s-asterisk",
+                                                   inlineKeyboardButtonTypeCopyText: "image://theme/icon-s-clipboard",
+                                                   inlineKeyboardButtonTypeUser: Qt.resolvedUrl("../../../images/icon-s-contact.svg")
                                                    })
                             visible: !!sources[modelData.type["@type"]]
                             opacity: 0.6
