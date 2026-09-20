@@ -16,14 +16,17 @@ See [here](doc/translating.md) for additional notes on translating YAST.
 
 YAST wouldn't be possible without everyone who contributed to Fernschreiber. You can see the full, up-to-date list of contributors on [Fernschreiber's README](https://github.com/Wunderfitz/harbour-fernschreiber/blob/master/README.md). A brief list of Fernschreiber contributors is available [here](doc/fernschreiber-credits.md).
 
+### Libraries
+
 This project uses the following libraries:
 
-- The Telegram Database Library (TDLib) - available on [GitHub.com](https://github.com/tdlib/td). Thanks for making it available under the conditions of the Boost Software License 1.0! Details about the license of TDLib in [its license file](https://github.com/tdlib/td/blob/master/LICENSE_1_0.txt).
-- Emoji parsing and artwork by [Twitter Emoji (Twemoji)](http://twitter.github.io/twemoji/), copyright 2018 Twitter, Inc and other contributors, Code licensed under the [MIT License](http://opensource.org/licenses/MIT), Graphics licensed under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- [yaqtlib](https://github.com/yast-client/yaqtlib) is a yet another Qt TDLib library. Licensed under [GNU LGPL V3](https://github.com/TelegramMessenger/tgcalls/tree/master/LICENSE)
+- [TDLib](https://github.com/tdlib/td) (Telegram Database library), cross-platform library for building Telegram clients. Licensed under [Boost Software License 1.0](https://github.com/tdlib/td/blob/master/LICENSE_1_0.txt)
+- Emoji parsing and artwork by [twemoji](https://github.com/jdecked/twemoji), copyright 2022–present Jason Sofonia & Justine De Caires, 2014–2021 Twitter. Code is licensed under the [MIT License](http://opensource.org/licenses/MIT), graphics licensed under [CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 - Animations in TGS (Telegram Stickers) format are rendered using [tlottie](https://github.com/dkaraush/tlottie), licensed under the [MIT license](https://github.com/dkaraush/tlottie/blob/main/LICENSE)
-- Reverse geocoding for location attachments by [OpenStreetMap Nominatim](https://wiki.openstreetmap.org/wiki/Nominatim).
-- Calls work through [tgcalls](https://github.com/TelegramMessenger/tgcalls) - the Telegram Calls Library. Thanks for making it available under the [GNU LGPL V3 license](https://github.com/TelegramMessenger/tgcalls/tree/master/LICENSE)!
-- tgcalls relies internally on WebRTC, and YAST packages WebRTC using [tg_owt](https://github.com/desktop-app/tg_owt). Thanks for making it available under the [BSD 3-Clause license](https://github.com/desktop-app/tg_owt/blob/master/LICENSE)!
+- Reverse geocoding for location attachments is done using [OpenStreetMap Nominatim](https://wiki.openstreetmap.org/wiki/Nominatim)
+- Calls work using [tgcalls](https://github.com/TelegramMessenger/tgcalls), the Telegram Calls Library. Licensed under [GNU LGPL V3](https://github.com/TelegramMessenger/tgcalls/tree/master/LICENSE)
+- [tg_owt](https://github.com/desktop-app/tg_owt) (WebRTC). Licensed under [BSD 3-Clause license](https://github.com/desktop-app/tg_owt/blob/master/LICENSE)
 - WebRTC relies on [openh264](https://github.com/cisco/openh264) for working with the H264 codec. Thanks for making it available under the [BSD 2-Clause license](https://github.com/cisco/openh264/blob/master/LICENSE)!
 
 ## License
@@ -83,6 +86,10 @@ Alternatively, GDB can be used from Sailfish IDE. To ensure OpenSSL false errors
 
 ## Contribute
 
-If you want to contribute bug fixes, improvements, new features etc. please create a pull request (PR). PRs are always welcome and will be reviewed as soon as possible, but may take some time. :)
+You can contribute to YAST in many ways. If you found a bug, or want to suggest an improvement of a new feature, you can create an issue on GitHub. You can also join the [YAST discussion group](https://t.me/+Tz72Lf_eKeVlYmVi) and share your idea there.
 
-**YAST Client currently has a strict AI (LLM) policy.** You can use AI for researching, learning, troubleshooting and more. However, AI-generated code blocks are strictly **prohibited**. So are comments, any `.md` files and Git commit messages. *These rules are subject to change.*
+If you know how to code and want to fix a bug, add a new feature or something else, you can submit pull requests to YAST, (and, if needed, YAST's core library, [yaqtlib](https://github.com/yast-client/yaqtlib)), which is very welcome.
+
+Another way to contribute is to translate the app to your language. You can do so by downloading the `.ts` file for your language, editing it manually or using Qt Linguist, after which forking YAST, changing the file's contents in your fork and finally submitting a pull request with the changes. If you are starting a new translation, simply take an existing translation file as a reference, rename it to `harbour-yast-client-<language code>.ts`, change the language code in the file, translate it as usual and submit a PR with the translation file added.
+
+**YAST Client currently has a strict AI (LLM) policy.** You can use AI for researching, learning, troubleshooting, debugging and similar purposes. However, if your PR heavily contains AI-generated code blocks, it may get closed, as such code is often prone to errors and bad styling. It is also strictly prohibited to include any AI-generated text blocks in Markdown files. *These rules are subject to change.*
