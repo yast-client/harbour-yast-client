@@ -40,9 +40,7 @@ Column {
             text: Emoji.emojify( Functions.replaceUrlsWithLinks(textItem.text).replace(/\n/g, "<br>"), Theme.fontSizeExtraSmall)
             linkColor: highlighted ? palette.primaryColor : palette.highlightColor
             visible: text !== ""
-            onLinkActivated: {
-                utilities.handleLink(link);
-            }
+            onLinkActivated: utilities.handleLink(link)
         }
     }
     Component {

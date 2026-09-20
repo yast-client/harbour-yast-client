@@ -265,6 +265,12 @@ Page {
                 Clipboard.text = url
                 appNotification.show(qsTr("Link copied to clipboard"))
             }
+        onLoginUrlConfirmationRequested:
+            pageStack.push(Qt.resolvedUrl("../dialogs/LoginUrlConfirmationDialog.qml"),
+                {
+                    url: url, domain: domain, botUserId: botUserId, requestWriteAccess: requestWriteAccess,
+                    chatId: chatId, messageId: messageId, buttonId: buttonId
+                })
     }
 
     Binding {

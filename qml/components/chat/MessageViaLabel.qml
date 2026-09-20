@@ -33,7 +33,7 @@ Loader {
                     newMessageTextField.cursorPosition = newMessageTextField.text.length
                     lostFocusTimer.start();
                 } else
-                    utilities.handleLink(link)
+                    messagesView.handleLink(link)
             }
         }
     }

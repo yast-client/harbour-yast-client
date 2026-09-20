@@ -71,7 +71,7 @@ Row {
                 truncationMode: TruncationMode.Fade
                 maximumLineCount: 1
                 linkColor: palette.highlightColor
-                onLinkActivated: utilities.handleLink(link)
+                onLinkActivated: messagesView.handleLink(link)
             }
         }
 

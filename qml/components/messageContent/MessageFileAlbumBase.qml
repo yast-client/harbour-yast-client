@@ -49,8 +49,7 @@ AlbumMessageContentBase {
                     color: messageListItem.textColor
                     wrapMode: Text.Wrap
                     textFormat: Text.StyledText
-                    onLinkActivated:
-                        utilities.handleLink(link, chatId, topicId)
+                    onLinkActivated: messagesView.handleLink(link)
                     horizontalAlignment: messageListItem.textAlign
                     linkColor: palette.highlightColor
                     height: text.length > 0 ? implicitHeight : 0

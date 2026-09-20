@@ -57,7 +57,7 @@ MessageListViewItemBase {
                     else if (link === 'linkedmessage' && linkedMessage)
                         messagesView.showMessage(linkedMessage.id)
                     else
-                        utilities.handleLink(link)
+                        messagesView.handleLink(link)
             }
         }
 

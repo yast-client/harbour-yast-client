@@ -52,6 +52,7 @@ Page {
     property bool doSendBotStartMessage
     property string sendBotStartMessageParameter
     property bool timepointStatus
+    readonly property bool useLinkPreviews: !isSecretChat || settings.secretLinkPreviews
 
     readonly property MessagesView messagesView: viewAsTopics ? null : contentLoader.item
     readonly property TopicsListView topicsListView: viewAsTopics ? contentLoader.item : null
@@ -233,7 +234,7 @@ Page {
             if (text.length > 0) // ignore bool "alert", just show as notification:
                 appNotification.show(Emoji.emojify(text, Theme.fontSizeSmall))
             if (url.length > 0)
-                utilities.handleLink(url)
+                tdLibWrapper.getInternalLinkType(url, false, useLinkPreviews)
         }
         onUserFullInfoReceived:
             if ((isPrivateChat || isSecretChat) && userId === chatId)

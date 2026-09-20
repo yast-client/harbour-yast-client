@@ -44,8 +44,7 @@ MessageContentBase {
             truncationMode: TruncationMode.Fade
             wrapMode: Text.Wrap
             textFormat: Text.StyledText
-            onLinkActivated:
-                utilities.handleLink(link, chatInformation.id)
+            onLinkActivated: messagesView.handleLink(link)
         }
         Item {
             width: parent.width

@@ -223,10 +223,7 @@ MessageListViewItemBase {
                             textFormat: Text.RichText
                             color: highlighted ? Theme.secondaryHighlightColor : Theme.secondaryColor
                             truncationMode: TruncationMode.Fade
-                            onLinkActivated:
-                                if (link == 'guestBotCallerId://')
-                                    guestBotCaller.open()
-                                else utilities.handleLink(link)
+                            onLinkActivated: guestBotCaller.open()
                         }
                     }
                 }
@@ -345,8 +342,7 @@ MessageListViewItemBase {
                         color: messageListItem.textColor
                         wrapMode: Text.Wrap
                         textFormat: Text.StyledText
-                        onLinkActivated:
-                            utilities.handleLink(link, chatId, topicId)
+                        onLinkActivated: messagesView.handleLink(link)
                         horizontalAlignment: messageListItem.textAlign
                         linkColor: Theme.highlightColor
                         height: text.length > 0 ? implicitHeight : 0

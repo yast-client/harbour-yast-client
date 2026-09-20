@@ -25,39 +25,32 @@ Column {
                 model: modelData
                 property int itemWidth: replyMarkupButtons.width / count
                 delegate: MouseArea {
-                    /*
-                    Unimplemented callback types:
-                        inlineKeyboardButtonTypeBuy
-                        inlineKeyboardButtonTypeCallbackGame
-                        inlineKeyboardButtonTypeCallbackWithPassword
-                        inlineKeyboardButtonTypeLoginUrl
-                        inlineKeyboardButtonTypeSwitchInline
-                    */
                     property var callbacks: ({
-                        inlineKeyboardButtonTypeCallback: function(){
+                        inlineKeyboardButtonTypeCallback: function() {
                             tdLibWrapper.getCallbackQueryAnswer(myMessage.chat_id, myMessage.id, {data: modelData.type.data, "@type": "callbackQueryPayloadData"})
                         },
 
-                         inlineKeyboardButtonTypeCallbackGame: function(){
-                             tdLibWrapper.getCallbackQueryAnswer(myMessage.chat_id, myMessage.id, {game_short_name: myMessage.content.game.short_name, "@type": "callbackQueryPayloadGame"})
-                         },
+                        inlineKeyboardButtonTypeCallbackGame: function() {
+                            tdLibWrapper.getCallbackQueryAnswer(myMessage.chat_id, myMessage.id, {game_short_name: myMessage.content.game.short_name, "@type": "callbackQueryPayloadGame"})
+                        },
                         inlineKeyboardButtonTypeUrl: function() {
-                            utilities.handleLink(modelData.type.url)
+                            messagesView.getInternalLinkType(modelData.type.url)
+                        },
+                        inlineKeyboardButtonTypeLoginUrl: function() {
+                            tdLibWrapper.getLoginUrlInfo(myMessage.chat_id, myMessage.id, modelData.type.id, modelData.type.url)
                         },
                         inlineKeyboardButtonTypeSwitchInline: function() {
-                            if(modelData.type.in_current_chat) {
+                            if (modelData.type.in_current_chat)
                                 chatPage.setMessageText("@" + userInformation.usernames.editable_username + " "+(modelData.type.query || ""))
-                            } else {
-
+                            else
                                 pageStack.push(Qt.resolvedUrl("../pages/ChatSelectionPage.qml"), {
                                     payload: { neededPermissions: ["can_send_other_messages"], text:"@" + userInformation.usernames.editable_username + " "+(modelData.type.query || "")},
                                     state: "fillTextArea"
                                 })
-                            }
                         },
 
                         keyboardButtonTypeText: function() {
-                            chatPage.setMessageText(modelData.text, true);
+                            chatPage.setMessageText(modelData.text, true)
                         }
                     })
                     enabled: !!callbacks[modelData.type["@type"]]

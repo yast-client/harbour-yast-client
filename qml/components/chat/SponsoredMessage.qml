@@ -13,8 +13,6 @@ Column {
         anchors.horizontalCenter: parent.horizontalCenter
 
         text: message ? message.button_text : ''
-        onClicked:
-            // don't use utilities.handleLink here because we can't get yaqtlib-specific links here
-            tdLibWrapper.getInternalLinkType(message.sponsor.url)
+        onClicked: messagesView.getInternalLinkType(message.sponsor.url)
     }
 }

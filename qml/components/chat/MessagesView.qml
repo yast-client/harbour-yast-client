@@ -124,7 +124,14 @@ Column {
             newMessageTextField.cursorPosition = text.length
             lostFocusTimer.start()
         }
+    }
 
+    function getInternalLinkType(url, skipConfirmation) {
+        tdLibWrapper.getInternalLinkType(url, skipConfirmation, chatPage.useLinkPreviews)
+    }
+    function handleLink(url, skipConfirmation) {
+        // unlike getInternalLinkType, handles custom links from utilities.enhanceMessageText (like userId://)
+        utilities.handleLink(url, chatId, topicId, skipConfirmation, chatPage.useLinkPreviews)
     }
 
     function tryShowMessageToScrollTo() {
@@ -634,8 +641,7 @@ Column {
                             wrapMode: Text.Wrap
                             textFormat: Text.StyledText
                             horizontalAlignment: Text.AlignHCenter
-                            onLinkActivated:
-                                utilities.handleLink(link, chatId)
+                            onLinkActivated: handleLink(link)
                             linkColor: Theme.primaryColor
                             visible: (text !== "")
                         }

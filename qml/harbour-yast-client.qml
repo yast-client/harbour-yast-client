@@ -10,6 +10,7 @@ import QtFeedback 5.0
 import "pages"
 import "components"
 import "./js/functions.js" as Functions
+import "./js/debug.js" as Debug
 import io.yaqtlib 1.0
 
 ApplicationWindow {
@@ -34,6 +35,13 @@ ApplicationWindow {
         }
         onDeepLinkInfoReceived: appNotification.show(utilities.enhanceMessageText(text))
         onLinkUnsupportedByApp: appNotification.show(qsTr("Link unsupported: %1").arg(type))
+        onOpenUrl: {
+            Debug.log("Opening URL", url, "in app:", inApp, "skip confirmation:", skipConfirmation)
+            // TODO: handle inApp and skipConfirmation
+            if (url.indexOf('://') === -1)
+                url = 'https://' + url
+            Qt.openUrlExternally(url)
+        }
     }
 
     Connections {
@@ -85,35 +93,40 @@ ApplicationWindow {
             id: appSettings
             path: 'settings'
 
+            // Behavior
             property bool sendByEnter
             property bool sendAttachmentByEnter
             property bool focusTextAreaAfterSend
             property bool focusTextAreaOnChatOpen
             property bool leftAttachButton
 
-            property bool sendInlineLocation: true
+            property bool showTranslateOption: true
+            property bool formattedTranslate
+            property bool forceAllowAISummary
 
+            property bool delayMessageRead: true
+            property bool highlightUnreadConversations
+
+            // Privacy
+            property bool sendInlineLocation: true
+            property bool secretLinkPreviews: true // TODO
+
+            // Appearance
             property bool showStickersAsEmojis
             property bool showStickersAsImages
             property bool animateStickers: true
             property bool videoStickers: true
             property bool downscaleAnimatedStickers
 
-            property bool delayMessageRead: true
-            property bool highlightUnreadConversations
-
-            property bool forceQtAudioRecorder
-            property real voiceNoteVolume: 1
-
-            property bool showTranslateOption: true
-            property bool formattedTranslate
-            property bool forceAllowAISummary
-
             property bool showFolderUnreadCount: true
             property bool chatFoldersTabBarOnBottom
             property bool chatFoldersTabBarShowIcons
 
             property bool compactChatList: true
+
+            // Misc.
+            property bool forceQtAudioRecorder
+            property real voiceNoteVolume: 1
 
             property bool dnbCallRingtone: true
             property bool inAppChatMessagesNgf: true

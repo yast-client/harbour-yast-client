@@ -67,7 +67,7 @@ Item {
             readonly property int defaultMaxLineCount: 3
             maxLineCount: defaultMaxLineCount
             linkColor: palette.highlightColor
-            onLinkActivated: utilities.handleLink(link)
+            onLinkActivated: messagesView.handleLink(link)
             function toggleMaxLineCount() {
                 maxLineCount = maxLineCount > 0 ? 0 : defaultMaxLineCount
             }
@@ -77,7 +77,7 @@ Item {
     MouseArea {
         id: infoColumnMouseArea
         anchors.fill: infoColumn
-        onClicked: utilities.handleLink(linkPreviewData.url)
+        onClicked: messagesView.getInternalLinkType(linkPreviewData.url, linkPreviewData.skip_confirmation)
     }
 
     Loader {
