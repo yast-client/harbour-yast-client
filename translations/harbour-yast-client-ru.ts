@@ -80,10 +80,6 @@
         <translation>Графика</translation>
     </message>
     <message>
-        <source>other contributors</source>
-        <translation>другие участники</translation>
-    </message>
-    <message>
         <source>This project uses OpenStreetMap Nominatim for reverse geocoding of location attachments. Thanks for making it available as web service!</source>
         <translation>Этот проект использует OpenStreetMap Nominatim для обратного геокодирования вложений местоположения. Спасибо, что сделали его доступным в качестве веб-сервиса!</translation>
     </message>
@@ -227,6 +223,10 @@
     <message>
         <source>Contact deleted</source>
         <translation>Контакт удалён</translation>
+    </message>
+    <message>
+        <source>Share contact</source>
+        <translation>Поделиться контактом</translation>
     </message>
 </context>
 <context>
@@ -720,6 +720,27 @@
         <comment>topics</comment>
         <translation>Вкладки</translation>
     </message>
+    <message>
+        <source>Broadcast Group</source>
+        <translation>Группа для трансляций</translation>
+    </message>
+    <message>
+        <source>Convert to Broadcast Group</source>
+        <translation>Сделать группой для трансляций</translation>
+    </message>
+    <message>
+        <source>Converted to Broadcast Group</source>
+        <comment>Remorse</comment>
+        <translation>Преобразовано в группу для трансляций</translation>
+    </message>
+    <message numerus="yes">
+        <source>Broadcast groups can have over %Ln member(s), but only admins can send messages in them. Members who are not admins will %1permanently%2 lose their right to send messages in the group. %3This action cannot be undone.%4</source>
+        <translation>
+            <numerusform>В группе для трансляций может состоять больше %Ln участника, но писать сообщения смогут только администраторы. Обычные участники (не администраторы) %1навсегда%2 потеряют возможность писать сообщения в группе. Это %3нельзя%4 будет отменить.</numerusform>
+            <numerusform>В группе для трансляций могут состоять больше %Ln участников, но писать сообщения смогут только администраторы. Обычные участники (не администраторы) %1навсегда%2 потеряют возможность писать сообщения в группе. Это %3нельзя%4 будет отменить.</numerusform>
+            <numerusform>В группе для трансляций могут состоять больше %Ln участников, но писать сообщения смогут только администраторы. Обычные участники (не администраторы) %1навсегда%2 потеряют возможность писать сообщения в группе. Это %3нельзя%4 будет отменить.</numerusform>
+        </translation>
+    </message>
 </context>
 <context>
     <name>ChatInformationTabItemSimilarBots</name>
@@ -903,10 +924,6 @@
         </translation>
     </message>
     <message>
-        <source>Search in Chat</source>
-        <translation>Поиск в чате</translation>
-    </message>
-    <message>
         <source>Deleted User</source>
         <translation>Удалённый пользователь</translation>
     </message>
@@ -971,6 +988,10 @@
     <message>
         <source>Saved Messages</source>
         <translation>Избранное</translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation>Поиск</translation>
     </message>
 </context>
 <context>
@@ -1062,6 +1083,29 @@
     <message>
         <source>Search</source>
         <translation>Поиск</translation>
+    </message>
+</context>
+<context>
+    <name>ClearPaymentInfoDialog</name>
+    <message>
+        <source>Clear payment info</source>
+        <translation>Очистить платежные данные</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation>Очистить</translation>
+    </message>
+    <message>
+        <source>Delete your shipping info and instruct all payment providers to remove your saved credit cards? Note that Telegram never stores your credit card data.</source>
+        <translation>Хотите удалить платёжную информацию и запросить удаление сохранённых кредитных карт у всех платёжных провайдеров? Обратите внимание, что сам Telegram не хранит информацию о Ваших кредитных картах.</translation>
+    </message>
+    <message>
+        <source>Shipping info</source>
+        <translation>Информация о доставке</translation>
+    </message>
+    <message>
+        <source>Payment info</source>
+        <translation>Платёжная информация</translation>
     </message>
 </context>
 <context>
@@ -1556,6 +1600,25 @@ Pull down to visit telegram.org</source>
     </message>
 </context>
 <context>
+    <name>LoginUrlConfirmationDialog</name>
+    <message>
+        <source>Open Link</source>
+        <translation>Открыть ссылку</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to open %1?</source>
+        <translation>Вы уверены, что хотите открыть %1?</translation>
+    </message>
+    <message>
+        <source>Login to %1 as %2</source>
+        <translation>Авторизоваться на %1 как %2</translation>
+    </message>
+    <message>
+        <source>Allow %1 to send me messages</source>
+        <translation>Разрешить %1 писать мне сообщения</translation>
+    </message>
+</context>
+<context>
     <name>MessageContextMenu</name>
     <message>
         <source>Message unpinned</source>
@@ -1984,6 +2047,10 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Pull down to add a new contact</source>
         <translation>Потяните вниз, чтобы добавить новый контакт</translation>
+    </message>
+    <message>
+        <source>Share contact</source>
+        <translation>Поделиться контактом</translation>
     </message>
 </context>
 <context>
@@ -3353,6 +3420,22 @@ Pull down to visit telegram.org</source>
         <source>Privacy setting for managing whether your online status is visible.</source>
         <translation>Виден ли мой статус другим пользователям.</translation>
     </message>
+    <message>
+        <source>Bots and websites</source>
+        <translation>Боты и сайты</translation>
+    </message>
+    <message>
+        <source>Allow inline bots to access your location</source>
+        <translation>Разрешить инлайн-ботам доступ к геопозиции</translation>
+    </message>
+    <message>
+        <source>Prevent bots from showing you location-based results. This may break some bots</source>
+        <translation>Запретить ботам показывать результаты на основе вашего местоположения. Это может нарушить работу некоторых ботов</translation>
+    </message>
+    <message>
+        <source>Clear payment and shipping info</source>
+        <translation>Удалить данные о платежах и доставке</translation>
+    </message>
 </context>
 <context>
     <name>SettingsSession</name>
@@ -4047,7 +4130,7 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>%1: %2</source>
-        <comment>A message with a file attached. %1 is the audio file name, %2 is the caption</comment>
+        <comment>A message with a file attached. %1 is the file name, %2 is the caption</comment>
         <translation>%1: %2</translation>
     </message>
     <message>
@@ -4528,6 +4611,70 @@ Pull down to visit telegram.org</source>
     <message>
         <source>removed the chat from the community</source>
         <translation>удалил(а) чат из сообщества</translation>
+    </message>
+    <message>
+        <source>Contact</source>
+        <translation>Контакт</translation>
+    </message>
+    <message>
+        <source>Contact: %1</source>
+        <translation>Контакт: %1</translation>
+    </message>
+    <message>
+        <source>Dart: throwing…</source>
+        <comment>0</comment>
+        <translation>Дартс: бросок…</translation>
+    </message>
+    <message>
+        <source>Dart: missed!</source>
+        <comment>1</comment>
+        <translation>Дартс: мимо!</translation>
+    </message>
+    <message>
+        <source>Dart thrown</source>
+        <comment>2</comment>
+        <translation>Бросок дротика</translation>
+    </message>
+    <message>
+        <source>Dart thrown</source>
+        <comment>3</comment>
+        <translation>Бросок дротика</translation>
+    </message>
+    <message>
+        <source>Dart thrown</source>
+        <comment>4</comment>
+        <translation>Бросок дротика</translation>
+    </message>
+    <message>
+        <source>Dart: bullseye!</source>
+        <comment>6</comment>
+        <translation>Дартс: в яблочко!</translation>
+    </message>
+    <message>
+        <source>Dart: almost there!</source>
+        <comment>5</comment>
+        <translation>Дартс: близко к цели!</translation>
+    </message>
+    <message numerus="yes">
+        <source>Dice: %n</source>
+        <translation>
+            <numerusform>Кубик: %n</numerusform>
+            <numerusform>Кубик: %n</numerusform>
+            <numerusform>Кубик: %n</numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Dice: rolling…</source>
+        <translation>Бросок кубика…</translation>
+    </message>
+    <message>
+        <source>disabled the self-destruct timer</source>
+        <comment>myself</comment>
+        <translation>отключили удаление по таймеру</translation>
+    </message>
+    <message>
+        <source>disabled the self-destruct timer</source>
+        <translation>отключил(а) удаление по таймеру</translation>
     </message>
 </context>
 <context>

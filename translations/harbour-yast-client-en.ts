@@ -80,10 +80,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>other contributors</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>This project uses OpenStreetMap Nominatim for reverse geocoding of location attachments. Thanks for making it available as web service!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -222,6 +218,10 @@
     </message>
     <message>
         <source>Contact deleted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Share contact</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -714,6 +714,26 @@
         <comment>topics</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Broadcast Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Convert to Broadcast Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Converted to Broadcast Group</source>
+        <comment>Remorse</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>Broadcast groups can have over %Ln member(s), but only admins can send messages in them. Members who are not admins will %1permanently%2 lose their right to send messages in the group. %3This action cannot be undone.%4</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
 </context>
 <context>
     <name>ChatInformationTabItemSimilarBots</name>
@@ -894,10 +914,6 @@
         </translation>
     </message>
     <message>
-        <source>Search in Chat</source>
-        <translation>Search in Chat</translation>
-    </message>
-    <message>
         <source>Deleted User</source>
         <translation>Deleted User</translation>
     </message>
@@ -962,6 +978,10 @@
     <message>
         <source>Saved Messages</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search</source>
+        <translation type="unfinished">Search</translation>
     </message>
 </context>
 <context>
@@ -1052,6 +1072,29 @@
     <message>
         <source>Search</source>
         <translation type="unfinished">Search</translation>
+    </message>
+</context>
+<context>
+    <name>ClearPaymentInfoDialog</name>
+    <message>
+        <source>Clear payment info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete your shipping info and instruct all payment providers to remove your saved credit cards? Note that Telegram never stores your credit card data.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shipping info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Payment info</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1536,6 +1579,25 @@ Pull down to visit telegram.org</translation>
     </message>
 </context>
 <context>
+    <name>LoginUrlConfirmationDialog</name>
+    <message>
+        <source>Open Link</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to open %1?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Login to %1 as %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow %1 to send me messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MessageContextMenu</name>
     <message>
         <source>Message unpinned</source>
@@ -1956,6 +2018,10 @@ Pull down to visit telegram.org</translation>
     </message>
     <message>
         <source>Pull down to add a new contact</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Share contact</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3309,6 +3375,22 @@ Pull down to visit telegram.org</translation>
         <source>Privacy setting for managing whether your online status is visible.</source>
         <translation>Privacy setting for managing whether your online status is visible.</translation>
     </message>
+    <message>
+        <source>Bots and websites</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allow inline bots to access your location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prevent bots from showing you location-based results. This may break some bots</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear payment and shipping info</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SettingsSession</name>
@@ -3996,7 +4078,7 @@ Pull down to visit telegram.org</translation>
     </message>
     <message>
         <source>%1: %2</source>
-        <comment>A message with a file attached. %1 is the audio file name, %2 is the caption</comment>
+        <comment>A message with a file attached. %1 is the file name, %2 is the caption</comment>
         <translation>%1: %2</translation>
     </message>
     <message>
@@ -4461,6 +4543,69 @@ Pull down to visit telegram.org</translation>
     </message>
     <message>
         <source>removed the chat from the community</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contact</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contact: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dart: throwing…</source>
+        <comment>0</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dart: missed!</source>
+        <comment>1</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dart thrown</source>
+        <comment>2</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dart thrown</source>
+        <comment>3</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dart thrown</source>
+        <comment>4</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dart: bullseye!</source>
+        <comment>6</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dart: almost there!</source>
+        <comment>5</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <source>Dice: %n</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <source>Dice: rolling…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>disabled the self-destruct timer</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>disabled the self-destruct timer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
