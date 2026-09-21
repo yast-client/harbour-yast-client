@@ -29,7 +29,7 @@ AccordionItem {
                 target: tdLibWrapper
                 onSessionsReceived: {
                     activeSessionsItem.activeSessions = sessions
-                    activeSessionsItem.inactiveSessionsTtlDays = inactive_session_ttl_days
+                    activeSessionsItem.inactiveSessionsTtlDays = inactiveSessionTtlDays
                 }
                 onOkReceived: {
                     if (extra === "terminateSession") {
