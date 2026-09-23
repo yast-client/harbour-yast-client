@@ -678,6 +678,7 @@ Column {
                 case "messageSticker":
                     return Theme.itemSizeLarge*3 * (content.sticker.width / content.sticker.height)
                 case "messageDice":
+                case "messageStakeDice":
                     var diceStickers = content.final_state || content.initial_state
                     var sticker = diceStickers['@type'] === 'diceStickersSlotMachine'
                             ? diceStickers.background

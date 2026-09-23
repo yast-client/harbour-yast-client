@@ -16,7 +16,7 @@ MessageContentBase {
     id: message
 
     readonly property var diceSticker: rawMessage.content.final_state || rawMessage.content.initial_state || {}
-    readonly property string emoji: rawMessage.content.emoji
+    readonly property string emoji: rawMessage.content.emoji || ''
     readonly property bool isSlotMachine: diceSticker['@type'] === "diceStickersSlotMachine"
     readonly property var stickerData: (isSlotMachine ? diceSticker.background : diceSticker.sticker) || {}
     readonly property bool isOwnSticker: !!(messageListItem && messageListItem.isOwnMessage)
@@ -232,6 +232,7 @@ MessageContentBase {
     }
 
     onClicked: {
+        if (!emoji) return
         var canSend = hasSendPrivilege('can_send_other_messages')
         var chatId = chatInformation.id, emojiCopy = emoji // So if the message item is deleted, notification would still work
         appNotification.show(qsTr("Send a %1 emoji to any chat to try your luck.", "in-app notification text").arg(emoji),
