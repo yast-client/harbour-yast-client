@@ -166,9 +166,10 @@ Item {
             color: palette.primaryColor
 //            text: model.modelData.content.caption.text
             linkColor: palette.highlightColor
-            text: Emoji.emojify(Functions.enhanceMessageText(message.content.caption, false), Theme.fontSizeExtraSmall)
+            text: Emoji.emojify(utilities.enhanceMessageText(message.content.caption), Theme.fontSizeExtraSmall)
             onTextChanged: expanded = false
             font.pixelSize: Theme.fontSizeExtraSmall
+            textFormat: Text.StyledText
             wrapMode: Text.Wrap
             bottomPadding: expanded ? Theme.paddingLarge : 0
             anchors {
