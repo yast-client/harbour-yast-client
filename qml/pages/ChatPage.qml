@@ -74,7 +74,7 @@ Page {
         if (isSavedMessages) return qsTr("Saved Messages")
         if (isDeletedUser) return qsTr("Deleted User")
         if (!chatInformation.title) return qsTr("Unknown")
-        return Emoji.emojify(utilities.fixReservedHtmlCharacters(chatInformation.title), fontSize)
+        return Emoji.emojify(utilities.escapeHtml(chatInformation.title), fontSize)
     }
 
     function setMessageText(text, doSend) {

@@ -103,7 +103,7 @@ MessageContentBase {
                         tdlib: tdLibWrapper
                         fileInformation: modelData.sticker
                         autoLoad: true
-                        onIsDownloadingCompletedChanged: {
+                        onDownloadingCompletedChanged: {
                             if (isDownloadingCompleted) {
                                 reelsPaths[index] = path
                                 reelsPathsChanged()

@@ -29,10 +29,10 @@ PhotoTextsListItem {
         return Emoji.emojify(utilities.getUserName(tdData.getUserInformation(last_message_sender_id)), Theme.fontSizeExtraSmall)
     }
 
-    primaryText.text: titleText ? Emoji.emojify(utilities.fixReservedHtmlCharacters(titleText), Theme.fontSizeMedium) : qsTr("Unknown")
+    primaryText.text: titleText ? Emoji.emojify(utilities.escapeHtml(titleText), Theme.fontSizeMedium) : qsTr("Unknown")
     prologSecondaryText.text: showDraft ? draftText : (hideAuthor || last_message_is_service ? '' : getLastMessageSender())
     secondaryText.text: previewText
-                        ? Emoji.emojify(utilities.fixReservedHtmlCharacters(previewText), Theme.fontSizeExtraSmall)
+                        ? Emoji.emojify(utilities.escapeHtml(previewText), Theme.fontSizeExtraSmall)
                         : ('<i>' + noMessageText + '</i>')
     secondaryText.highlighted: listItem.highlighted || !!chat_actions_text
     minithumbnail: showDraft ? null : last_message_minithumbnail

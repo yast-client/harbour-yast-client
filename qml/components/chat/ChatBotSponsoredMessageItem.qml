@@ -31,7 +31,7 @@ AnimatedLoader {
                                         : null
 
             ad: true
-            primaryText.text: message.title ? Emoji.emojify(utilities.fixReservedHtmlCharacters(message.title), Theme.fontSizeSmall) : qsTr("Unknown")
+            primaryText.text: message.title ? Emoji.emojify(utilities.escapeHtml(message.title), Theme.fontSizeSmall) : qsTr("Unknown")
             primaryText.font.pixelSize: Theme.fontSizeSmall
             secondaryText.text: Emoji.emojify(utilities.getMessageContentText(message.content, Utilities.MessageTextDefault), Theme.fontSizeExtraSmall)
 
