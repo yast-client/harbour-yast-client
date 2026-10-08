@@ -255,18 +255,43 @@ Page {
                 }
             }
 
+            Column {
+                width: parent.width
 
-            SectionHeader { text: "Options" }
-            Label {
-                x: Theme.horizontalPageMargin
-                width: parent.width - 2*x
-                wrapMode: Text.Wrap
-                text: JSON.stringify(tdData.options, null, '\t')
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        Clipboard.text = parent.text
-                        appNotification.show("Copied")
+                SectionHeader { text: "Counters & misc info" }
+                DetailItem {
+                    label: "Chats in main list"
+                    value: chatListModel.count
+                }
+                DetailItem {
+                    label: "Archived chats"
+                    value: archiveChatListModel.count
+                }
+                DetailItem {
+                    label: "Owned stars"
+                    value: tdData.ownedStars
+                }
+                DetailItem {
+                    label: "Owned nanostars"
+                    value: tdData.ownedNanostars
+                }
+                DetailItem {
+                    label: "Owned grams"
+                    value: tdData.ownedGrams
+                }
+
+                SectionHeader { text: "Options" }
+                Label {
+                    x: Theme.horizontalPageMargin
+                    width: parent.width - 2*x
+                    wrapMode: Text.Wrap
+                    text: JSON.stringify(tdData.options, null, '\t')
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            Clipboard.text = parent.text
+                            appNotification.show("Copied")
+                        }
                     }
                 }
             }
