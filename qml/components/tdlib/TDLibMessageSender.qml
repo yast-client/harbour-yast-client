@@ -11,6 +11,7 @@ QtObject {
     property bool isUser: !!messageSender && messageSender['@type'] === 'messageSenderUser'
     property var chatId: isChat ? messageSender.chat_id : undefined
     property var userId: isUser ? messageSender.user_id : undefined
+    readonly property bool isMyself: isUser && userId == tdData.myUserId
 
     property var chatInformation: tdData.getChat(chatId)
     property var userInformation: tdData.getUserInformation(userId)
