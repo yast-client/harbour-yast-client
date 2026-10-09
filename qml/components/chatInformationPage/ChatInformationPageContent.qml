@@ -356,12 +356,23 @@ SilicaFlickable {
                     }
                 }
 
+                Label {
+                    width: parent.width
+                    topPadding: Theme.paddingSmall
+                    bottomPadding: Theme.paddingSmall
+                    visible: !!(userFullInformation && userFullInformation.uses_unofficial_app)
+                    text: qsTr("%1 uses an unofficial Telegram client. Messages to this user may be less secure")
+                            .arg(chatInformation.title)
+                    font.pixelSize: Theme.fontSizeSmall
+                    color: palette.secondaryHighlightColor
+                }
+
                 InformationEditArea {
                     id: titleEditArea
                     visible: canEdit
                     canEdit: !chatInformationPage.isPrivateOrSecretChat && chatInformationPage.groupInformation.status && (chatInformationPage.groupInformation.status.can_change_info  || chatInformationPage.groupInformation.status["@type"] === "chatMemberStatusCreator")
                     headerText: qsTr("Chat Title", "group title header")
-                    text: chatInformationPage.chatInformation.title
+                    text: chatInformation.title
 
                     onSaveButtonClicked:
                         if (!editItem.errorHighlight)
