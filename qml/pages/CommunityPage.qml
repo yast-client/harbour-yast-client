@@ -13,7 +13,7 @@ Page {
 
     property double communityId
     property var community: tdData.getCommunity(communityId)
-    property var communityFullInfo: tdData.getCommunityFullInfo(communityId)
+    property var communityFullInfo
 
     Connections {
         target: tdData
@@ -23,6 +23,9 @@ Page {
     }
     Connections {
         target: tdLibWrapper
+        onCommunityFullInfoReceived:
+            if (page.communityId == communityId)
+                page.communityFullInfo = communityFullInfo
         onCommunityFullInfoUpdated:
             if (page.communityId == communityId)
                 page.communityFullInfo = communityFullInfo
