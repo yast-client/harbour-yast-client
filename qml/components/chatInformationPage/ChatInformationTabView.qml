@@ -103,23 +103,56 @@ TabView {
         highlightColor: palette.highlightColor
     }
 
+    property string previousMainProfileTab
+    readonly property string mainProfileTab: {
+        var fullInfo = isGroup ? groupFullInformation : userFullInformation
+        return fullInfo && fullInfo.main_profile_tab ? fullInfo.main_profile_tab['@type'].slice(10) : ''
+    }
+    property var tabOrder: {
+        var order = [
+            'Members',
+            'Media',
+            'Files',
+            'Music',
+            'Links',
+            'Voice',
+            'Gifs',
+            'VideoNotes',
+            'GroupsInCommon',
+            'Settings',
+            'SimilarBots',
+            'SimilarChats',
+            'Debug'
+        ]
+        if (mainProfileTab) {
+            var i = order.indexOf(mainProfileTab)
+            if (i >= 0) {
+                order.splice(i, 1)
+                order.unshift(mainProfileTab)
+            }
+        }
+        return order
+    }
+    onTabOrderChanged: {
+        if (previousMainProfileTab == mainProfileTab) return
+
+        for (var i = 1; i < model.count; i++)
+            if (model.get(i).name === mainProfileTab) {
+                model.move(i, 0, 1)
+
+                // Ensure the first/main tab is opened on start
+                if (model.get(currentIndex).name !== 'Settings')
+                    currentIndex = 0
+                break
+            }
+
+        if (model.count > 1 && model.get(1).name === previousMainProfileTab)
+            model.move(1, tabOrder.indexOf(previousMainProfileTab), 1) // this is not very stable..
+        previousMainProfileTab = mainProfileTab
+    }
+
     function insertTab(name, title, icon, data) {
         var insertIndex = 0
-        var tabOrder = [
-                    'Members',
-                    'Media',
-                    'Files',
-                    'Audios',
-                    'Links',
-                    'VoiceNotes',
-                    'Gifs',
-                    'VideoNotes',
-                    'GroupsInCommon',
-                    'Settings',
-                    'SimilarBots',
-                    'SimilarChats',
-                    'Debug'
-                ]
         var targetOrderIndex = tabOrder.indexOf(name)
         for (var j = model.count - 1; j >= 0; j--) {
             var n = model.get(j).name
@@ -189,14 +222,14 @@ TabView {
         id: audiosModel
         tdlib: tdLibWrapper
         filter: TDLibAPI.SearchMessagesFilterAudio
-        onNotEmptyDetected: insertTab('Audios', qsTr("Audio", "Button: Chat audio files"), 'image://theme/icon-m-file-audio', {filter: TDLibAPI.SearchMessagesFilterAudio})
+        onNotEmptyDetected: insertTab('Music', qsTr("Audio", "Button: Chat audio files"), 'image://theme/icon-m-file-audio', {filter: TDLibAPI.SearchMessagesFilterAudio})
     }
 
     InvertedMediaMessagesModel {
         id: voiceNotesModel
         tdlib: tdLibWrapper
         filter: TDLibAPI.SearchMessagesFilterVoiceNote
-        onNotEmptyDetected: insertTab('VoiceNotes', qsTr("Voice", "Button: Chat voice messages (short)"), 'image://theme/icon-m-browser-microphone', {filter: TDLibAPI.SearchMessagesFilterVoiceNote})
+        onNotEmptyDetected: insertTab('Voice', qsTr("Voice", "Button: Chat voice messages (short)"), 'image://theme/icon-m-browser-microphone', {filter: TDLibAPI.SearchMessagesFilterVoiceNote})
     }
 
     InvertedMediaMessagesModel {
@@ -266,7 +299,7 @@ TabView {
             // check if the tab needs to be added
             tdLibWrapper.getGroupsInCommon(chatUserOrGroupId, 50)
 
-        if (isGroup && (groupInformation.status.can_restrict_members || isGroupCreator))
+        if (isGroup && (isGroupCreator || groupInformation.status.can_change_info || groupInformation.status.can_restrict_members))
             insertTab('Settings', qsTr("Settings", "Button: Chat Settings"), 'image://theme/icon-m-developer-mode')
 
         if (DebugLog.enabled)

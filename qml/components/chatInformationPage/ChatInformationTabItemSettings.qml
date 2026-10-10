@@ -24,6 +24,12 @@ ChatInformationTabItemBase {
             id: contentColumn
             width: tabBase.width
 
+            ProfileTabComboBox {
+                visible: isChannel && (isGroupCreator || !!groupInformation.status.can_change_info)
+                currentTypeSuffix: tabView.mainProfileTab
+                onSetProfileTab: tdLibWrapper.setSupergroupMainProfileTab(groupInformation.id, type)
+            }
+
             //permissions
 
             // if chatManager.permissions.can_change_info

@@ -8,6 +8,7 @@ import Sailfish.Pickers 1.0
 import io.yaqtlib 1.0
 import "../"
 import "../../pages/"
+import "../chatInformationPage"
 import "../../js/twemoji.js" as Emoji
 import "../../js/functions.js" as Functions
 
@@ -114,18 +115,18 @@ AccordionItem {
 
                 Item {
                     width: parent.columnWidth
-                    height: birthdayButton.height + Theme.paddingMedium
+                    height: birthdayButton.height
 
                     ValueButton {
                         id: birthdayButton
                         x: -Theme.horizontalPageMargin
                         width: parent.width - 2*x
                         label: qsTr("Birthday")
-                        property var birthdate: fullUserInformation.birthdate ? new Date(
+                        property var birthdate: fullUserInformation && fullUserInformation.birthdate ? new Date(
                                                                                     fullUserInformation.birthdate.year || 1800,
                                                                                     fullUserInformation.birthdate.month - 1,
                                                                                     fullUserInformation.birthdate.day) : null
-                        value: fullUserInformation.birthdate ?
+                        value: fullUserInformation && fullUserInformation.birthdate ?
                                    Format.formatDate(birthdate, fullUserInformation.birthdate.year ? Formatter.DateMedium : Formatter.DateMediumWithoutYear)
                                  : qsTr("Add", "Add the birthday to your profile")
                         function getDefaultDate() {
@@ -135,6 +136,22 @@ AccordionItem {
                         }
                         onClicked:
                             pageStack.push(Qt.resolvedUrl("../../dialogs/SetBirthdateDialog.qml"), {date: birthdate || getDefaultDate(), canRemove: !!birthdate})
+                    }
+                }
+
+                Item {
+                    width: parent.columnWidth
+                    height: profileTabComboBox.height + Theme.paddingMedium
+
+                    ProfileTabComboBox {
+                        id: profileTabComboBox
+                        x: -Theme.horizontalPageMargin
+                        width: parent.width - 2*x
+                        currentType: fullUserInformation && fullUserInformation.main_profile_tab
+                                     ? fullUserInformation.main_profile_tab['@type']
+                                     : ''
+                        isUser: true
+                        onSetProfileTab: tdLibWrapper.setMainProfileTab(type)
                     }
                 }
 
