@@ -42,7 +42,7 @@ MessageListViewItemBase {
     messageSenderInfo.messageSender: isOwnMessage ? undefined : myMessage.sender_id
 
     contextMenuLoader.canCopy: isAlbum // for document albums, there is no text in messageText
-                               ? !!utilities.getAlbumMessagesText(messageData.messageAlbumMessages, false)
+                               ? !!utilities.getMainAlbumMessage(messageAlbumMessages, false).caption
                                : messageText.height > 0
     contextMenuLoader.canTranslate: !!messageText.text
     contextMenuLoader.onHandleExtraContextMenuItems: {

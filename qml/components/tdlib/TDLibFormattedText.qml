@@ -9,30 +9,20 @@ import "../../js/twemoji.js" as Emoji
 QtObject {
     id: root
 
-    property var formattedText
-    property bool ignoreCustomEmoji
-    property real emojiSize: Theme.fontSizeSmall
-
     property var messageData
     property int messageType: Utilities.MessageTextDefault
     property string forumTopicName
 
-    property var textObject: {
-        if (formattedText) return utilities.createFormattedText(formattedText, ignoreCustomEmoji)
-        if (messageData) return utilities.getMessageFormattedText(messageData, messageType, ignoreCustomEmoji, forumTopicName)
+    property var formattedText: utilities.getMessageFormattedText(messageData, messageType, false, forumTopicName)
+    property real emojiSize: Theme.fontSizeSmall
+
+    property FormattedTextBase textObject: FormattedTextBase {
+        tdlib: tdLibWrapper
+        customEmojiSize: Emoji.getEmojiSize(emojiSize)
     }
 
     property bool emojifyNormal: true
-    property string text: textObject ? (emojifyNormal ? Emoji.emojify(textObject.parsedText, emojiSize) : textObject.parsedText) : null
+    property string text: emojifyNormal ? Emoji.emojify(textObject.parsedText, emojiSize) : textObject.parsedText
 
-    property Binding _sizeBinding: Binding {
-        target: textObject
-        when: !!textObject
-        property: 'customEmojiSize'
-        value: Emoji.getEmojiSize(emojiSize)
-    }
-
-    // FIXME
-    onTextObjectChanged: gc()
-    Component.onDestruction: gc()
+    onFormattedTextChanged: textObject.setFormattedText(formattedText)
 }

@@ -49,7 +49,7 @@ Row {
                 textFormat: Text.StyledText
                 horizontalAlignment: Text.AlignLeft
 
-                text: inReplyToMessageDeleted ? qsTr("Unknown") : (inReplyToMessage.sender_id.user_id === tdData.myUserId ? qsTr("You") : utilities.formatMessageSender(inReplyToMessage.sender_id))
+                text: !inReplyToMessage || inReplyToMessageDeleted ? qsTr("Unknown") : (inReplyToMessage.sender_id.user_id === tdData.myUserId ? qsTr("You") : utilities.formatMessageSender(inReplyToMessage.sender_id))
             }
 
             Label {
@@ -63,7 +63,7 @@ Row {
                 TDLibFormattedText {
                     id: contentText
                     messageData: inReplyToMessageDeleted ? null : inReplyToMessage
-                    messageType: Utilities.MessageTextDefault
+                    messageType: Utilities.MessageTextSimple
                     emojiSize: inReplyToMessageText.font.pixelSize
                 }
                 text: inReplyToMessageDeleted ? ('<i>' + qsTr("This message was deleted") + '</i>') : contentText.text
