@@ -652,8 +652,6 @@ Column {
             function getContentComponentHeight(contentType, content, parentWidth, albumEntries) {
                 var unit
                 switch(contentType) {
-                case "messageAnimatedEmoji":
-                    return content.animated_emoji.sticker.height
                 case "messageAnimation":
                     return Functions.getVideoHeight(parentWidth, content.animation)
                 case "messageAudio":
@@ -676,7 +674,9 @@ Column {
                 case "messagePoll":
                     return Theme.itemSizeSmall * (4 + content.poll.options)
                 case "messageSticker":
-                    return Theme.itemSizeLarge*3 * (content.sticker.width / content.sticker.height)
+                    return Theme.itemSizeLarge*3 * (content.sticker.height / content.sticker.width)
+                case "messageAnimatedEmoji":
+                    return Theme.itemSizeExtraLarge * (content.animated_emoji.sticker.height / content.animated_emoji.sticker.width)
                 case "messageDice":
                 case "messageStakeDice":
                     var diceStickers = content.final_state || content.initial_state
@@ -684,7 +684,7 @@ Column {
                             ? diceStickers.background
                             : diceStickers.sticker
 
-                    return Theme.itemSizeExtraLarge * (sticker.width / sticker.height)
+                    return Theme.itemSizeExtraLarge * (sticker.height / sticker.width)
                 case "messageVideo":
                     if(albumEntries > 0) {
                         unit = (parentWidth * 0.66666666)
