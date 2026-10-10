@@ -6,8 +6,8 @@ if(POLICY CMP0077)
 endif()
 
 option(HARBOUR_COMPLIANCE "Harbour compliance" OFF)
-set(TDLIB_VERSION "1.8.68" CACHE STRING "The TDLib version to use")
-set(TG_OWT_TAG "v3" CACHE STRING "The Git tag to use when downloading WebRTC")
+set(TDLIB_VERSION "1.8.68" STRING "The TDLib version to use")
+set(TG_OWT_TAG "v3" STRING "The Git tag to use when downloading WebRTC")
 
 message(STATUS "Building ${CMAKE_PROJECT_NAME} for ${EDITION}")
 
