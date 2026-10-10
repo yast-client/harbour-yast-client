@@ -365,6 +365,7 @@ SilicaFlickable {
                             .arg(chatInformation.title)
                     font.pixelSize: Theme.fontSizeSmall
                     color: palette.secondaryHighlightColor
+                    wrapMode: Text.Wrap
                 }
 
                 InformationEditArea {
