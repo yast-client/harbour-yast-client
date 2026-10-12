@@ -303,6 +303,7 @@ Item {
                             emojiSize: Theme.fontSizeExtraSmall
                         }
                         text: contentText.text
+                        linkColor: palette.highlightColor
                         font.pixelSize: Theme.fontSizeExtraSmall
                         color: highlighted ? Theme.highlightColor : Theme.primaryColor
                         truncationMode: TruncationMode.Fade

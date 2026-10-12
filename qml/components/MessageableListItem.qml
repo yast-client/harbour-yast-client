@@ -24,8 +24,7 @@ PhotoTextsListItem {
 
     // don't use a property so it wouldn't re-evaluate when unused (using a function doesn't make it lose a binding)
     function getLastMessageSender() {
-        if (!last_message_sender_id) return ''
-        if (last_message_sender_id.user_id === tdData.myUserId) return qsTr("You")
+        if (last_message_sender_id.userId === tdData.myUserId) return qsTr("You")
         return Emoji.emojify(utilities.escapeHtml(utilities.formatMessageSender(last_message_sender_id)), Theme.fontSizeExtraSmall)
     }
 
