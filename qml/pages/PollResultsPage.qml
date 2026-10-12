@@ -51,7 +51,7 @@ Page {
                 width: parent.width - 2*x
                 wrapMode: Text.Wrap
                 color: Theme.secondaryHighlightColor
-                text: Emoji.emojify(Functions.enhanceMessageText(pollData.question), font.pixelSize)
+                text: Emoji.emojify(utilities.enhanceMessageText(pollData.question), font.pixelSize)
             }
 
             Column {
@@ -128,7 +128,7 @@ Page {
                             Label {
                                 id: displayOptionLabel
                                 width: parent.width
-                                text: Emoji.emojify(Functions.enhanceMessageText(modelData.text), Theme.fontSizeMedium)
+                                text: Emoji.emojify(utilities.enhanceMessageText(modelData.text), Theme.fontSizeMedium)
                                 wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                                 color: Theme.highlightColor
 

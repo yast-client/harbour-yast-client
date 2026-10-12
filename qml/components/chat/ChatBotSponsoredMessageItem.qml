@@ -42,6 +42,7 @@ AnimatedLoader {
                 id: contentText
                 formattedText: utilities.getMessageContentFormattedText(message.content)
                 emojiSize: Theme.fontSizeExtraSmall
+                needsRichText: false
             }
             secondaryText.text: contentText.text
 

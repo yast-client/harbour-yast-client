@@ -15,6 +15,7 @@ import "../js/debug.js" as Debug
 
 Page {
     id: page
+    objectName: 'mediaAlbumPage'
 
     property var chatManager
     property var message // despite the name, can be either a message or a photo object

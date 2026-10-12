@@ -40,7 +40,7 @@ MessageContentBase {
         Label {
             width: parent.width
             font.pixelSize: Theme.fontSizeExtraSmall
-            text: Emoji.emojify(Functions.enhanceMessageText(rawMessage.content.game.text) || "", font.pixelSize)
+            text: Emoji.emojify(utilities.enhanceMessageText(rawMessage.content.game.text), font.pixelSize)
             truncationMode: TruncationMode.Fade
             wrapMode: Text.Wrap
             textFormat: Text.StyledText

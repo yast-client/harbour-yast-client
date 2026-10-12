@@ -123,12 +123,6 @@ function formatDurationToFuture(timestamp) {
     return Silica.Format.formatDuration(diff)
 }
 
-
-function enhanceMessageText(formattedText, ignoreEntities, emojiSize, reloader) {
-    if (typeof formattedText === 'undefined') return ''
-    return utilities.enhanceMessageText(formattedText, ignoreEntities)
-}
-
 function getVideoHeight(videoWidth, videoData) {
     if (typeof videoData !== "undefined") {
         if (videoData.height === 0) {

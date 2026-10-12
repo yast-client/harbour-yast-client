@@ -163,13 +163,18 @@ Item {
                             : Theme.itemSizeMedium
                       : 0;
     //        maximumLineCount: expanded ? 0 : 3
+            TDLibFormattedText {
+                id: captionText
+                formattedText: message.content.caption
+                emojiSize: Theme.fontSizeExtraSmall
+            }
+            text: captionText.text
+            textFormat: captionText.textFormat
             color: palette.primaryColor
-//            text: model.modelData.content.caption.text
             linkColor: palette.highlightColor
-            text: Emoji.emojify(utilities.enhanceMessageText(message.content.caption), Theme.fontSizeExtraSmall)
+            onLinkActivated: captionText.openUrl(link)
             onTextChanged: expanded = false
             font.pixelSize: Theme.fontSizeExtraSmall
-            textFormat: Text.StyledText
             wrapMode: Text.Wrap
             bottomPadding: expanded ? Theme.paddingLarge : 0
             anchors {

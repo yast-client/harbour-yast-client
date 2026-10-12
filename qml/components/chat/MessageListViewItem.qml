@@ -359,8 +359,8 @@ MessageListViewItemBase {
                         font.pixelSize: Theme.fontSizeSmall
                         color: messageListItem.textColor
                         wrapMode: Text.Wrap
-                        textFormat: Text.StyledText
-                        onLinkActivated: messagesView.handleLink(link)
+                        textFormat: contentText.textFormat
+                        onLinkActivated: if (!contentText.openTextUrl(link)) messagesView.handleLink(link)
                         horizontalAlignment: messageListItem.textAlign
                         linkColor: Theme.highlightColor
                         height: text.length > 0 ? implicitHeight : 0

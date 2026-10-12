@@ -62,7 +62,7 @@ Item {
             id: descriptionText
 
             width: parent.width
-            rawText: linkPreviewData.description ? Functions.enhanceMessageText(linkPreviewData.description) : ""
+            rawText: utilities.enhanceMessageText(linkPreviewData.description)
             font.pixelSize: webPagePreviewItem.fontSize
             readonly property int defaultMaxLineCount: 3
             maxLineCount: defaultMaxLineCount

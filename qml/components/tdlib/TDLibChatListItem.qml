@@ -96,7 +96,7 @@ PhotoTextsListItem {
 
     function handleUserFullInfo(userId, userFullInfo) {
         if (showFullInfo && (isPrivateChat || isSecret) && userId === chatItem.userId)
-            tertiaryText.text = Emoji.emojify(Functions.enhanceMessageText(userFullInfo.bio), tertiaryText.font.pixelSize)
+            tertiaryText.text = Emoji.emojify(utilities.enhanceMessageText(userFullInfo.bio), tertiaryText.font.pixelSize)
     }
 
     function handleBasicGroupFullInfo(groupId, groupFullInfo) {

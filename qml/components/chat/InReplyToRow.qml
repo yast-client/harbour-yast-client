@@ -56,7 +56,6 @@ Row {
                 id: inReplyToMessageText
                 font.pixelSize: Theme.fontSizeExtraSmall
                 width: parent.width
-                textFormat: Text.StyledText
                 truncationMode: TruncationMode.Fade
                 maximumLineCount: 1
 
@@ -67,9 +66,9 @@ Row {
                     emojiSize: inReplyToMessageText.font.pixelSize
                 }
                 text: inReplyToMessageDeleted ? ('<i>' + qsTr("This message was deleted") + '</i>') : contentText.text
-
+                textFormat: contentText.textFormat
                 linkColor: palette.highlightColor
-                onLinkActivated: messagesView.handleLink(link)
+                onLinkActivated: if (!contentText.openTextUrl(link)) messagesView.handleLink(link)
             }
         }
 

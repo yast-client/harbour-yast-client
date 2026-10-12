@@ -113,6 +113,20 @@ Page {
             messagesView.sendMessageContent(inputContent)
     }
 
+    function searchText(text) { // TODO: re-check all of this
+        if (chatPage.isSecretChat || chatPage.viewAsTopics) return
+
+        // "This automatically shows the search field as well"
+        searchInChatItem.visible = true
+        searchInChatField.focus = true
+        if (text) {
+            pageStack.pop(chatPage)
+            searchInChatField.text = text
+            searchInChatTimer.stop()
+            searchInChatTimer.triggered()
+        }
+    }
+
     function hasGroupPermission(memberPermission, adminPermission) {
         if ((!isBasicGroup && !isSupergroup) || !chatGroupInformation || !chatGroupInformation.status)
             return false
@@ -328,11 +342,7 @@ Page {
 
             MenuItem {
                 visible: !chatPage.isSecretChat && !chatPage.viewAsTopics && !searchInChatItem.visible
-                onClicked: {
-                    // This automatically shows the search field as well
-                    searchInChatItem.visible = true
-                    searchInChatField.focus = true
-                }
+                onClicked: searchText()
                 text: qsTr("Search")
             }
         }
@@ -421,7 +431,6 @@ Page {
 
                     SearchField {
                         id: searchInChatField
-                        visible: false
                         width: visible ? parent.width : 0
                         placeholderText: qsTr("Search in chat")
                         active: searchInChatItem.visible

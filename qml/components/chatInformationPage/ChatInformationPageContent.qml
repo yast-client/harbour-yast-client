@@ -395,7 +395,7 @@ SilicaFlickable {
                     emptyPlaceholderText: qsTr("There is no information text available, yet.")
                     headerText: qsTr("Info", "group or user infotext header")
                     multiLine: true
-                    text: (chatInformationPage.isPrivateOrSecretChat ? Functions.enhanceMessageText(userFullInformation.bio, false) : chatInformationPage.groupFullInformation.description) || ""
+                    text: (chatInformationPage.isPrivateOrSecretChat ? utilities.enhanceMessageText(userFullInformation.bio) : chatInformationPage.groupFullInformation.description) || ""
                     onSaveButtonClicked:
                         if (chatInformationPage.isPrivateOrSecretChat) // own bio
                             tdLibWrapper.setBio(textValue)

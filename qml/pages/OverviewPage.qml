@@ -111,8 +111,12 @@ Page {
         }
     }
 
-    function chatIsOpen(chatId) {
-        return pageStack.currentPage.objectName === 'chatPage' && pageStack.currentPage.chatId === chatId
+    function findChatPage(chatId) {
+        var page = pageStack.currentPage
+        if (page && page.objectName == 'mediaAlbumPage') page = pageStack.previousPage(page)
+        if (page && page.isChatInformationPage) page = pageStack.previousPage(page)
+
+        return page && page.objectName == 'chatPage' && (!chatId || page.chatId === chatId) ? page : null
     }
 
     function openChat(chatId, options, doPop) {
@@ -123,14 +127,13 @@ Page {
             if (doPop)
                 pageStack.pop(overviewPage, PageStackAction.Immediate)
             else {
-                // TODO: if a duplicate chat page is found in the page stack, remove it
-                // also we should not add a maximum of pages after which they begin to pop
-                /*var page = pageStack.find(function (page) {
-                    return page.objectName === 'chatPage' && page.chatInformation.id === chatId
-                })
-                if (page)
-                    pageStack.pop(page) // here it will pop the duplicate chat page AND everything above it, but we need just the duplicate chat page
-                */
+                var page = findChatPage(chatId)
+                if (page) {
+                    if (options) page = pageStack.previousPage(page)
+                    pageStack.pop(page, PageStackAction.Immediate)
+                }
+                // TODO (?): if a duplicate chat page is found (anywhere) in the page stack, remove it
+                // also it might be needed to add a maximum of pages after which they begin to pop
             }
 
             options = options || {}
@@ -245,8 +248,7 @@ Page {
         onChatJoinResultReceived:
             switch (type) {
             case 'chatJoinResultSuccess':
-                if (!chatIsOpen(info.chat_id))
-                    openChat(info.chat_id)
+                openChat(info.chat_id)
                 appNotification.show(isChannel ? qsTr("You joined this channel", "channel") : qsTr("You joined this group", "group"))
                 break
             case 'chatJoinResultRequestSent':
@@ -271,6 +273,10 @@ Page {
                     url: url, domain: domain, botUserId: botUserId, requestWriteAccess: requestWriteAccess,
                     chatId: chatId, messageId: messageId, buttonId: buttonId
                 })
+        onSearchHashtag: {
+            var page = findChatPage()
+            if (page) page.searchText(text)
+        }
     }
 
     Binding {

@@ -91,7 +91,7 @@ MessageContentBase {
                 Label {
                     id: questionLabel
                     width: parent.width
-                    text: Emoji.emojify(Functions.enhanceMessageText(pollData.question), Theme.fontSizeSmall)
+                    text: Emoji.emojify(utilities.enhanceMessageText(pollData.question), Theme.fontSizeSmall)
                     visible: !!text
                     wrapMode: Text.Wrap
                     font.pixelSize: Theme.fontSizeSmall
@@ -192,7 +192,7 @@ MessageContentBase {
 
         Label {
             width: parent.width
-            text: Emoji.emojify(Functions.enhanceMessageText(rawMessage.content.description), Theme.fontSizeSmall)
+            text: Emoji.emojify(utilities.enhanceMessageText(rawMessage.content.description), Theme.fontSizeSmall)
             visible: !!text
             font.pixelSize: Theme.fontSizeSmall
             color: questionLabel.color
@@ -205,7 +205,7 @@ MessageContentBase {
                 id: optionDelegate
                 width: pollMessageComponent.width
                 automaticCheck: false
-                text: Emoji.emojify(Functions.enhanceMessageText(modelData.text), Theme.fontSizeMedium)
+                text: Emoji.emojify(utilities.enhanceMessageText(modelData.text), Theme.fontSizeMedium)
                 checked: pollMessageComponent.chosenIndexes.indexOf(index) > -1
                 busy: checked && modelData.is_being_chosen
                 highlighted: pollMessageComponent.highlighted || down
@@ -266,7 +266,7 @@ MessageContentBase {
                             id: voteTextLabel
                             property int lastLineWidth
                             width: parent.width
-                            text: Emoji.emojify(Functions.enhanceMessageText(modelData.text), Theme.fontSizeMedium)
+                            text: Emoji.emojify(utilities.enhanceMessageText(modelData.text), Theme.fontSizeMedium)
                             textFormat: Text.StyledText
                             wrapMode: Text.Wrap
                             color: pollMessageComponent.isOwnMessage || pollMessageComponent.highlighted ? Theme.highlightColor : Theme.primaryColor
@@ -322,7 +322,7 @@ MessageContentBase {
             width: parent.width
             wrapMode: Text.Wrap
             visible: isQuiz && text.length > 0
-            text: Emoji.emojify(Functions.enhanceMessageText(pollData.type.explanation) || "", font.pixelSize)
+            text: Emoji.emojify(utilities.enhanceMessageText(pollData.type.explanation) || "", font.pixelSize)
             textFormat: Text.StyledText
             color: pollMessageComponent.isOwnMessage || pollMessageComponent.highlighted ? palette.highlightColor : palette.primaryColor
             linkColor: palette.highlightColor
