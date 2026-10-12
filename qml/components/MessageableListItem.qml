@@ -16,7 +16,7 @@ PhotoTextsListItem {
     property bool showDraft: !!draft_message_text && draft_message_date > last_message_date && !hideDraft
     readonly property string draftText: '<i>'+qsTr("Draft")+'</i>'
     property bool hideAuthor
-    property string lastMessageText: (last_message_is_service ? last_message_text.replace('%{user}', getLastMessageSender()) : last_message_text)
+    property string lastMessageText: last_message_text
     property string previewText: showDraft ? draft_message_text : lastMessageText
     property string noMessageText: qsTr("No message in this chat")
     property bool showSendingState: true
@@ -30,7 +30,7 @@ PhotoTextsListItem {
     }
 
     primaryText.text: titleText ? Emoji.emojify(utilities.escapeHtml(titleText), Theme.fontSizeMedium) : qsTr("Unknown")
-    prologSecondaryText.text: showDraft ? draftText : (hideAuthor || last_message_is_service ? '' : getLastMessageSender())
+    prologSecondaryText.text: showDraft ? draftText : (hideAuthor ? '' : getLastMessageSender())
     secondaryText.text: previewText
                         ? Emoji.emojify(utilities.escapeHtml(previewText), Theme.fontSizeExtraSmall)
                         : ('<i>' + noMessageText + '</i>')
