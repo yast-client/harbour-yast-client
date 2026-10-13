@@ -31,7 +31,7 @@ PhotoTextsListItem {
     primaryText.text: titleText ? Emoji.emojify(utilities.escapeHtml(titleText), Theme.fontSizeMedium) : qsTr("Unknown")
     prologSecondaryText.text: showDraft ? draftText : (hideAuthor ? '' : getLastMessageSender())
     secondaryText.text: previewText
-                        ? Emoji.emojify(utilities.escapeHtml(previewText), Theme.fontSizeExtraSmall)
+                        ? Emoji.emojify(previewText, Theme.fontSizeExtraSmall)
                         : ('<i>' + noMessageText + '</i>')
     secondaryText.highlighted: listItem.highlighted || !!chat_actions_text
     minithumbnail: showDraft ? null : last_message_minithumbnail

@@ -13,7 +13,7 @@ QtObject {
     property int messageType: Utilities.MessageTextDefault
     property string forumTopicName
 
-    property var formattedText: utilities.getMessageFormattedText(messageData, messageType, false, forumTopicName)
+    property var formattedText: utilities.getMessageFormattedText(messageData, messageType, FormattedTextBase.None, forumTopicName)
     property real emojiSize: Theme.fontSizeSmall
 
     property color linkColor: Theme.highlightColor
