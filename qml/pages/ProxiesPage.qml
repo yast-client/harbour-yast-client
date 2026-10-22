@@ -145,6 +145,7 @@ Page {
 
         PullDownMenu {
             MenuSwitch {
+                visible: !isEmpty
                 text: qsTr("Sort by Ping")
                 automaticCheck: false
                 checked: appConfig.sortProxiesByPing
@@ -162,7 +163,7 @@ Page {
                 }
             }
             MenuItem {
-                visible: !loading
+                visible: !loading && !isEmpty
                 text: qsTr("Copy Proxy List")
                 onClicked: {
                     proxiesToCopy = []
@@ -180,9 +181,16 @@ Page {
         BusyLabel { running: loading }
 
         ViewPlaceholder {
+            id: viewPlaceholder
             enabled: isEmpty
             text: qsTr("No proxies")
             hintText: qsTr("Pull down to add a new proxy server")
+
+            Binding {
+                target: viewPlaceholder
+                property: 'verticalOffset' // FIXME: this is deprecated
+                value: Theme.itemSizeLarge
+            }
         }
 
         header: Column {
