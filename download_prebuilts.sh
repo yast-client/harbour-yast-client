@@ -15,7 +15,7 @@ EOF
 
 ARCH=aarch64
 HARBOUR=false
-TDLIB_VERSION=1.8.68
+TDLIB_VERSION=1.8.69
 WEBRTC_TAG=v3
 
 while getopts "hja:t:w:" OPTION
