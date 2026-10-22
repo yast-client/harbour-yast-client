@@ -231,7 +231,7 @@ Page {
                 checked: !tdData.options.enabled_proxy_id
 
                 property double ping: -1
-                description: getProxyPingDescription(model.ping)
+                description: getProxyPingDescription(ping)
 
                 onClicked: {
                     busy = true
