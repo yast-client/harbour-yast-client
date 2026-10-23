@@ -131,11 +131,13 @@ Page {
     function getProxyTypeText(type) {
         switch (type['@type']) {
         case 'proxyTypeMtproto':
-            return qsTr("MTPROTO")
+            return qsTr("MTPROTO", "proxy")
         case 'proxyTypeSocks5':
-            return qsTr("SOCKS5")
+            return qsTr("SOCKS5", "proxy")
         case 'proxyTypeHttp':
-            return qsTr("HTTP")
+            return qsTr("HTTP", "proxy")
+        case 'proxyTypeWeb':
+            return qsTr("WEB", "proxy")
         }
     }
 

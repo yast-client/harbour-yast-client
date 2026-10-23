@@ -26,6 +26,7 @@
 
 #include "voicenoterecorder.h"
 #include "mynotificationmanager.h"
+#include "sailfishwebproxymanager.h"
 
 #include "lottieqt/src/tgsplugin.h"
 #include "lottieqt/src/lottieitem.h"
@@ -55,6 +56,8 @@ int main(int argc, char *argv[]) {
                                                                    "YAST", appIconPath, dbusPath, dbusServiceName, MainHelper::defaultIface, true,
                                                                    incomingSoundPath, outgoingSoundPath);
     MainHelper::registerNotificationManager(view, notificationManager);
+
+    new SailfishWebProxyManager(view, appContext->tdLibWrapper);
 
     QObject::connect(app.data(), &QGuiApplication::aboutToQuit, [notificationManager]() {
         LOG("Disabling signal actions");

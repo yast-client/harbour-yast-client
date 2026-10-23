@@ -19,7 +19,8 @@ Dialog {
     property alias comment: commentField.text
 
     property alias proxyTypeId: typeComboBox.currentIndex
-    readonly property bool isMtproto: proxyTypeId == 0
+    readonly property bool isWeb: proxyTypeId == 3
+    readonly property bool isMtproto: isWeb || proxyTypeId == 0
     readonly property bool isHttp: proxyTypeId == 2
 
     property double ping: -1
@@ -29,6 +30,11 @@ Dialog {
             switch (proxyType['@type']) {
             case 'proxyTypeMtproto':
                 proxyTypeId = 0
+                secretField.text = proxyType.secret
+                break
+            case 'proxyTypeWeb':
+                proxyTypeId = 3
+                pathField.text = proxyType.path
                 secretField.text = proxyType.secret
                 break
             case 'proxyTypeSocks5':
@@ -46,6 +52,11 @@ Dialog {
         switch (proxyTypeId) {
         case 0:
             type['@type'] = 'proxyTypeMtproto'
+            type.secret = secretField.text
+            break
+        case 3:
+            type['@type'] = 'proxyTypeWeb'
+            type.path = pathField.text
             type.secret = secretField.text
             break
         case 1:
@@ -141,18 +152,28 @@ Dialog {
                     onTextChanged: proxyChanged()
                     EnterKey.iconSource: "image://theme/icon-m-enter-next"
                     EnterKey.onClicked:
-                        (isMtproto ? secretField : usernameField).focus = true
+                        (isWeb ? pathField : (isMtproto ? secretField : usernameField)).focus = true
                 }
 
                 ComboBox {
                     id: typeComboBox
                     label: qsTr("Type")
                     menu: ContextMenu {
-                        MenuItem { text: qsTr("MTPROTO") }
-                        MenuItem { text: qsTr("SOCKS5") }
-                        MenuItem { text: qsTr("HTTP") }
+                        MenuItem { text: qsTr("MTPROTO", "proxy") }
+                        MenuItem { text: qsTr("SOCKS5", "proxy") }
+                        MenuItem { text: qsTr("HTTP", "proxy") }
+                        MenuItem { text: qsTr("WEB", "proxy") }
                     }
                     onCurrentIndexChanged: proxyChanged()
+                }
+
+                TextField {
+                    id: pathField
+                    label: qsTr("Path")
+                    visible: isWeb
+                    onTextChanged: proxyChanged()
+                    EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                    EnterKey.onClicked: secretField.focus = true
                 }
 
                 TextField {

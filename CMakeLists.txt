@@ -124,6 +124,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     src/main.cpp
     src/voicenoterecorder.cpp
     src/mynotificationmanager.cpp
+    src/sailfishwebproxymanager.cpp
 )
 
 target_sources(yaqtlib PRIVATE
