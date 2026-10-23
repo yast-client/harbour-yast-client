@@ -14,5 +14,5 @@ X-Maemo-Method=io.yaqtlib.default.openUrl
 [X-Sailjail]
 OrganizationName=io.roundedrectangle
 ApplicationName=yast-client
-Permissions=@SAILJAIL_EXTRA_PERMISSIONS@Audio;Contacts;Internet;Location;MediaIndexing;Microphone;RemovableMedia;UserDirs
+Permissions=@SAILJAIL_EXTRA_PERMISSIONS@Audio;Contacts;Internet;Location;MediaIndexing;Microphone;RemovableMedia;UserDirs;WebView
 ExecDBus=harbour-yast-client -prestart

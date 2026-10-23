@@ -5,8 +5,9 @@ import QtQuick 2.0
 import Sailfish.WebView 1.0
 import "../js/debug.js" as Debug
 
-WebView {
+RawWebView {
     visible: false
+    enabled: false
 
     property int carrierId
     property url proxyUrl
@@ -18,12 +19,6 @@ WebView {
         sendAsyncMessage('toProxyMessage', {data: data})
     }
 
-    function checkUrl(url) {
-        url = '' + url
-        if (!url.indexOf(origin + pathPrefix) === 0 && !url.indexOf(origin + ':443' + pathPrefix) === 0)
-            stop()
-    }
-
     Component.onCompleted: {
         Debug.log("[WebProxyCarrier] Carrier created", carrierId)
         addMessageListener('fromProxyMessage')
@@ -32,14 +27,21 @@ WebView {
     }
     Component.onDestruction: Debug.log("[WebProxyCarrier] Carrier destroyed", carrierId)
 
-    onLinkClicked: checkUrl(url)
-    onLoadRedirect: checkUrl(url)
+    // TODO: block requests to wrong hosts from other placestoo (e.g. iframes, fetch() from JS and so on)
+    onUrlChanged: {
+        var strUrl = String(url)
+        if (!strUrl.indexOf(origin + pathPrefix) === 0 && !strUrl.indexOf(origin + ':443' + pathPrefix) === 0) {
+            stop()
+            Debug.warn("[WebProxyCarrier] Invalid URL opened")
+            tdLibWrapper.reportWebProxyCarrierError(carrierId, "Invalid URL opened")
+        }
+    }
 
     onRecvAsyncMessage:
         if (message === 'fromProxyMessage') {
             var proxyData = data.data
             if (proxyData[0] === 'f')
-                tdLibWrapper.reportWebProxyCarrierError(carrierId, "Error from WebView:" + proxyData.slice(1))
+                tdLibWrapper.reportWebProxyCarrierError(carrierId, "Error from WebView: " + proxyData.slice(1))
             else
                 tdLibWrapper.processWebProxyCarrierMessage(carrierId, proxyData[0] === 'b', proxyData.slice(1))
         }
