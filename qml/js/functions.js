@@ -230,15 +230,13 @@ function errorString(text) {
 }
 
 function getProxyPingDescription(ping) {
-    switch (ping) {
-    case -1:
-        return ''
-    case -2:
+    if (ping === -2)
         return errorString(qsTr("Unavailable", "Indicates that the proxy is unavailable"))
-    default:
-        return ping ? qsTr("Available (ping: %Ln ms)", "Indicates that the proxy is available", Math.round(ping * 1000))
-                    : qsTr("Available", "Indicates that the proxy is available")
-    }
+    else if (ping < 0)
+        return ''
+
+    return ping ? qsTr("Available (ping: %Ln ms)", "Indicates that the proxy is available", Math.round(ping * 1000))
+                : qsTr("Available", "Indicates that the proxy is available")
 }
 
 function getMuteButtonTitle(muted, settings, highlighted) {

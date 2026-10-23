@@ -98,9 +98,13 @@ Dialog {
 
         PullDownMenu {
             visible: canAccept
+            busy: ping == -3
             MenuItem {
                 text: qsTr("Check status", "Check proxy status when adding")
-                onClicked: tdLibWrapper.pingProxy(server, port, getTypeObject())
+                onClicked: {
+                    ping = -3
+                    tdLibWrapper.pingProxy(server, port, getTypeObject())
+                }
             }
         }
 
