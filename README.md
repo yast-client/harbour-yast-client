@@ -49,11 +49,13 @@ const char TDLIB_API_HASH[] = "1234567890abcdef1234567890abcdef";
 YAST Client depends on TDLib and WebRTC libraries, which are heavy. For your convenience, CMake will automatically download them. If you want to build (or download) them manually, see [here](doc/libraries.md).
 
 ### Harbour compatibility
-Some YAST features are not harbour-compatible. In the harbour version, they can be stripped out by changing the `HARBOUR_COMPLIANCE` value to `on` in the SPEC file. Currently, such features include:
+Jolla Store, otherwise known as Habrour, is the official app store from Jolla. Some YAST features are not compatible with it. In the harbour version, they can be stripped out by changing the `HARBOUR_COMPLIANCE` value to `on` in the SPEC file. Currently, such features include:
 
 1. Audio recording backend based on the GStreamer C API
 2. Calls (see [here](doc/libraries.md))
 3. Contact sync (see notes in [ContactSync.qml](qml/components/ContactSync.qml) for more info)
+
+Harbour-incompatible releases use the `custom` RPM release. Harbour-compatible releases use `1` instead, as per harbour rules. Note that they have `lite` in their file name, as well as in the app's UI, to make their purpose more clear.
 
 ### Github Action
 
