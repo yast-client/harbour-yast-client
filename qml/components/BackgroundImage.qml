@@ -13,6 +13,7 @@ Icon {
     height: sourceDimension
     opacity: 0.15
     source: Qt.resolvedUrl("../../images/background.svg")
+    color: Theme.primaryColor
     property int sourceDimension: Math.min(parent.width, parent.height) - Theme.paddingMedium
     anchors.centerIn: parent
     sourceSize {
