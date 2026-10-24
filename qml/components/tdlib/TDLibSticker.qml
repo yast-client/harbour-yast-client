@@ -20,6 +20,20 @@ TDLibStickerBase {
 
     readonly property bool loaded: file.isDownloadingCompleted && stickerLoader.status == Loader.Ready
 
+    function replayIfNeeded() {
+        if (stickerLoader.status != Loader.Ready) return
+
+        switch (stickerLoader.sourceComponent) {
+        case animatedComponent:
+            stickerLoader.item.replayIfNeeded()
+            break
+        case videoComponent:
+            if (stickerLoader.item.status === MediaPlayer.EndOfMedia)
+                stickerLoader.item.play()
+            break
+        }
+    }
+
     Loader {
         id: stickerLoader
         anchors.fill: parent

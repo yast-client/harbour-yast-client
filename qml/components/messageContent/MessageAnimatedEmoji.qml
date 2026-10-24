@@ -7,8 +7,12 @@ import Sailfish.Silica 1.0
 
 MessageSticker {
     stickerData: rawMessage.content.animated_emoji.sticker
-    fitzModifier: rawMessage.content.animated_emoji.fitzpatrick_type
     defaultWidth: Theme.itemSizeExtraLarge
-    loop: false
+    sticker {
+        fitzModifier: rawMessage.content.animated_emoji.fitzpatrick_type
+        loop: false
+    }
     extraContextMenuItems: []
+    openSetOnClick: false
+    onClicked: sticker.replayIfNeeded()
 }

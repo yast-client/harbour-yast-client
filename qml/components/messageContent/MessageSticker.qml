@@ -23,10 +23,10 @@ MessageContentBase {
         }
     ]
 
+    property alias sticker: sticker
     property var stickerData: rawMessage.content.sticker
     readonly property bool isOwnSticker: !!(messageListItem && messageListItem.isOwnMessage)
-    property alias fitzModifier: sticker.fitzModifier
-    property alias loop: sticker.loop
+    property bool openSetOnClick: !!stickerData.set_id
 
     property real defaultWidth: Theme.itemSizeLarge*3
     height: sticker.height
@@ -45,8 +45,9 @@ MessageContentBase {
         highlighted: stickerMessage.highlighted
     }
 
-    onClicked: {
-        stickerSetOverlayLoader.stickerSetId = stickerData.set_id
-        stickerSetOverlayLoader.active = true
-    }
+    onClicked:
+        if (openSetOnClick) {
+            stickerSetOverlayLoader.stickerSetId = stickerData.set_id
+            stickerSetOverlayLoader.active = true
+        }
 }
