@@ -173,7 +173,7 @@ Column {
         log("Preparing view")
         if (draftMessage) {
             if (draftMessage.content && draftMessage.content['@type'] === 'draftMessageContentText')
-                newMessageTextField.text = draftMessage.content.text.text
+                newMessageTextField.text = tdLibWrapper.getMarkdownText(draftMessage.content.text).text
             if (draftMessage.reply_to_message_id)
                 tdLibWrapper.getMessage(chatId, draftMessage.reply_to_message_id)
         }
