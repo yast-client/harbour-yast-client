@@ -4,6 +4,7 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import QtFeedback 5.0
 import '../tdlib'
 
 MessageSticker {
@@ -26,8 +27,14 @@ MessageSticker {
         onAnimatedEmojiMessageClicked:
             if (!bigAnimationLoader.stickerData && messageListItem.isInViewport() && chatId === chatPage.chatId && messageId === messageListItem.messageId) {
                 bigAnimationLoader.stickerData = sticker
+                clickEffect.play()
                 tdLibWrapper.sendChatAction(chatId, {'@type': 'chatActionWatchingAnimations', emoji: sticker.emoji}, topicId)
             }
+    }
+
+    ThemeEffect {
+        id: clickEffect
+        effect: ThemeEffect.PressStrong
     }
 
     TDLibSticker {
