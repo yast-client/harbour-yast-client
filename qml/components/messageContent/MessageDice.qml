@@ -41,7 +41,7 @@ MessageContentBase {
             verticalCenter: parent.verticalCenter
         }
 
-        stickerVisible: file.isDownloadingCompleted && loader.status == Loader.Ready
+        showBackgroundImage: !file.isDownloadingCompleted || loader.status != Loader.Ready
         stickerData: message.stickerData
 
         property size scaledSize: appSettings.downscaleAnimatedStickers

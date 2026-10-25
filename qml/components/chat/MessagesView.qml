@@ -864,7 +864,7 @@ Column {
             onTriggered: if (Qt.application.state === Qt.ApplicationActive)
                              tdLibWrapper.sendChatAction(chatId, action, topicId)
             onRunningChanged: if (!running)
-                                  tdLibWrapper.sendChatAction(chatId, topicId)
+                                  tdLibWrapper.sendChatAction(chatId, TDLibAPI.Cancel, topicId)
             function run(action) {
                 this.action = action
                 restart()

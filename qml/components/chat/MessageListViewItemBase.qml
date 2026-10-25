@@ -59,6 +59,12 @@ ListItem {
 
     signal clickedNormally(real x, real y)
 
+    // Don't make these readonly properties in the root delegate object so they wouldn't be (re)computed when unused
+    function isInViewport() {
+        return index <= topIndex || index <= bottomIndex
+    }
+    // more to be added here ...
+
     function openContextMenu() {
         if (menu && menu.isMessageListViewItemMainContextMenu)
             openMenu()

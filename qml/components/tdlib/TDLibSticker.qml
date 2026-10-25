@@ -12,32 +12,36 @@ import '../../js/twemoji.js' as Emoji
 TDLibStickerBase {
     id: sticker
 
-    readonly property bool animated: appSettings.animateStickers && stickerData.format["@type"] === "stickerFormatTgs"
+    readonly property bool animated: appSettings.animateStickers && !!stickerData && stickerData.format["@type"] === "stickerFormatTgs"
     property int fitzModifier
 
-    useThumbnail: !appSettings.videoStickers && stickerData.format['@type'] === 'stickerFormatWebm'
-    stickerVisible: !!(stickerLoader.item && stickerLoader.item.visible)
+    useThumbnail: !appSettings.videoStickers && !!stickerData && stickerData.format['@type'] === 'stickerFormatWebm'
+    showBackgroundImage: !stickerLoader.item || !stickerLoader.item.visible
 
     readonly property bool loaded: file.isDownloadingCompleted && stickerLoader.status == Loader.Ready
 
     function replayIfNeeded() {
-        if (stickerLoader.status != Loader.Ready) return
+        if (stickerLoader.status != Loader.Ready) return false
 
         switch (stickerLoader.sourceComponent) {
         case animatedComponent:
-            stickerLoader.item.replayIfNeeded()
-            break
+            return stickerLoader.item.replayIfNeeded()
         case videoComponent:
-            if (stickerLoader.item.status === MediaPlayer.EndOfMedia)
+            if (stickerLoader.item.status === MediaPlayer.EndOfMedia) {
                 stickerLoader.item.play()
+                return true
+            }
             break
         }
+        return false
     }
+    signal loopFinished
 
     Loader {
         id: stickerLoader
         anchors.fill: parent
         sourceComponent: {
+            if (!stickerData) return null
             if (useThumbnail || asEmoji) return staticComponent
 
             if (stickerData.format['@type'] === 'stickerFormatWebm')
@@ -84,6 +88,7 @@ TDLibStickerBase {
 
                 paused: !Qt.application.active
                 loop: sticker.loop
+                onLoopFinished: sticker.loopFinished()
                 layer.enabled: sticker.highlighted
                 layer.effect: PressEffect { source: animatedSticker }
             }
@@ -97,7 +102,11 @@ TDLibStickerBase {
 
                 source: file.path
                 autoPlay: true
-                onStopped: if (sticker.loop && status == MediaPlayer.EndOfMedia) play()
+                onStopped:
+                    if (status == MediaPlayer.EndOfMedia) {
+                        if (sticker.loop) play()
+                        else sticker.loopFinished()
+                    }
 
                 Connections {
                     target: Qt.application

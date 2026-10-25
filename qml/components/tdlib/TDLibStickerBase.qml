@@ -14,11 +14,11 @@ Item {
     property bool loop: true
 
     property bool asEmoji: appSettings.showStickersAsEmojis
-    property real aspectRatio: stickerData.height / stickerData.width
+    property real aspectRatio: stickerData ? (stickerData.height / stickerData.width) : 1
     property bool useThumbnail
-    property bool stickerVisible
+    property bool showBackgroundImage
 
-    implicitWidth: stickerData.width
+    implicitWidth: stickerData.width || Theme.itemSizeLarge
     implicitHeight: width * aspectRatio
 
     property alias file: file
@@ -36,7 +36,7 @@ Item {
         source: Qt.resolvedUrl('../BackgroundImage.qml')
 
         active: opacity > 0
-        opacity: !stickerVisible && !placeHolderDelayTimer.running ? 0.15 : 0
+        opacity: showBackgroundImage && !placeHolderDelayTimer.running ? 0.15 : 0
         Behavior on opacity { FadeAnimator {} }
 
         Timer {
