@@ -16,24 +16,24 @@
     <message>
         <location filename="../qml/pages/AboutPage.qml" line="42"/>
         <source>Translations</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tłumaczenia</translation>
     </message>
     <message>
         <location filename="../qml/pages/AboutPage.qml" line="45"/>
         <location filename="../qml/pages/AboutPage.qml" line="78"/>
         <source>Italian</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">włoski</translation>
     </message>
     <message>
         <location filename="../qml/pages/AboutPage.qml" line="49"/>
         <location filename="../qml/pages/AboutPage.qml" line="86"/>
         <source>Russian</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">rosyjski</translation>
     </message>
     <message>
         <location filename="../qml/pages/AboutPage.qml" line="53"/>
         <source>Czech</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">czeski</translation>
     </message>
     <message>
         <location filename="../qml/pages/AboutPage.qml" line="59"/>
@@ -43,42 +43,42 @@
     <message>
         <location filename="../qml/pages/AboutPage.qml" line="62"/>
         <source>Chinese</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">chiński</translation>
     </message>
     <message>
         <location filename="../qml/pages/AboutPage.qml" line="66"/>
         <source>Finnish</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">fiński</translation>
     </message>
     <message>
         <location filename="../qml/pages/AboutPage.qml" line="70"/>
         <source>French</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">francuski</translation>
     </message>
     <message>
         <location filename="../qml/pages/AboutPage.qml" line="74"/>
         <source>Hungarian</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">węgierski</translation>
     </message>
     <message>
         <location filename="../qml/pages/AboutPage.qml" line="82"/>
         <source>Polish</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">polski</translation>
     </message>
     <message>
         <location filename="../qml/pages/AboutPage.qml" line="90"/>
         <source>Slovak</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">slowacki</translation>
     </message>
     <message>
         <location filename="../qml/pages/AboutPage.qml" line="94"/>
         <source>Spanish</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">hiszpański</translation>
     </message>
     <message>
         <location filename="../qml/pages/AboutPage.qml" line="98"/>
         <source>Swedish</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">szwedzki</translation>
     </message>
     <message>
         <location filename="../qml/pages/AboutPage.qml" line="108"/>
@@ -138,7 +138,7 @@
     <message>
         <location filename="../qml/pages/AboutPage.qml" line="205"/>
         <source>News</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nowości</translation>
     </message>
     <message>
         <location filename="../qml/pages/AboutPage.qml" line="209"/>
@@ -281,103 +281,117 @@
 <context>
     <name>AddProxyDialog</name>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="91"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="103"/>
         <source>Check status</source>
         <comment>Check proxy status when adding</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="98"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="113"/>
         <source>Edit proxy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="98"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="113"/>
         <source>Add proxy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="99"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="114"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="99"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="114"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="128"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="143"/>
         <source>Server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="137"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="152"/>
         <source>Port</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="140"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="155"/>
         <source>TCP/UDP port number must be within the 0-65535 range</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="149"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="164"/>
         <source>Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="151"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="166"/>
         <source>MTPROTO</source>
+        <comment>proxy</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="152"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="167"/>
         <source>SOCKS5</source>
+        <comment>proxy</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="153"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="168"/>
         <source>HTTP</source>
+        <comment>proxy</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="160"/>
-        <source>Secret</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="170"/>
-        <source>Favorite</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="171"/>
-        <source>Favorite proxies are pinned to the top of the proxy list</source>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="169"/>
+        <source>WEB</source>
+        <comment>proxy</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/dialogs/AddProxyDialog.qml" line="176"/>
-        <source>Comment</source>
+        <source>Path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="184"/>
-        <source>Transparent TCP connection</source>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="185"/>
+        <source>Secret</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="191"/>
-        <source>Credentials (optional)</source>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="195"/>
+        <source>Favorite</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/dialogs/AddProxyDialog.qml" line="196"/>
+        <source>Favorite proxies are pinned to the top of the proxy list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="201"/>
+        <source>Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="209"/>
+        <source>Transparent TCP connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="216"/>
+        <source>Credentials (optional)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="221"/>
         <source>Username</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/dialogs/AddProxyDialog.qml" line="205"/>
+        <location filename="../qml/dialogs/AddProxyDialog.qml" line="230"/>
         <source>Password</source>
         <translation type="unfinished"></translation>
     </message>
@@ -589,7 +603,7 @@
 <context>
     <name>ChatBotSponsoredMessageItem</name>
     <message>
-        <location filename="../qml/components/chat/ChatBotSponsoredMessageItem.qml" line="34"/>
+        <location filename="../qml/components/chat/ChatBotSponsoredMessageItem.qml" line="38"/>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
@@ -680,76 +694,81 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="363"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="364"/>
+        <source>%1 uses an unofficial Telegram client. Messages to this user may be less secure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="375"/>
         <source>Chat Title</source>
         <comment>group title header</comment>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="376"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="388"/>
         <source>Enter 1-%Ln characters</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="383"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="395"/>
         <source>There is no information text available, yet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="384"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="396"/>
         <source>Info</source>
         <comment>group or user infotext header</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="394"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="406"/>
         <source>Phone Number</source>
         <comment>user phone number header</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="408"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="420"/>
         <source>Username</source>
         <comment>header</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="413"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="425"/>
         <source>Username has been copied to the clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="418"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="430"/>
         <source>Date of birth</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="432"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="444"/>
         <source>Note (only visible to you)</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="444"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="456"/>
         <source>Enter 0-%Ln characters</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="454"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="466"/>
         <source>Invite Link</source>
         <comment>header</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="472"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="484"/>
         <source>The Invite Link has been copied to the clipboard.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="491"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationPageContent.qml" line="503"/>
         <source>Community</source>
         <translation type="unfinished"></translation>
     </message>
@@ -817,76 +836,76 @@
 <context>
     <name>ChatInformationTabItemSettings</name>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemSettings.qml" line="58"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemSettings.qml" line="64"/>
         <source>New Members</source>
         <comment>what can new group members do</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemSettings.qml" line="61"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemSettings.qml" line="67"/>
         <source>New members can see older messages</source>
         <comment>member permission</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemSettings.qml" line="83"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemSettings.qml" line="89"/>
         <source>Broadcast Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemSettings.qml" line="86"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemSettings.qml" line="92"/>
         <source>Convert to Broadcast Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemSettings.qml" line="89"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemSettings.qml" line="95"/>
         <source>Converted to Broadcast Group</source>
         <comment>Remorse</comment>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemSettings.qml" line="100"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemSettings.qml" line="106"/>
         <source>Broadcast groups can have over %Ln member(s), but only admins can send messages in them. Members who are not admins will %1permanently%2 lose their right to send messages in the group. %3This action cannot be undone.%4</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemSettings.qml" line="117"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemSettings.qml" line="123"/>
         <source>Topics</source>
         <comment>group topics</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemSettings.qml" line="121"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemSettings.qml" line="127"/>
         <source>Enable Topics</source>
         <comment>group topics</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemSettings.qml" line="122"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemSettings.qml" line="128"/>
         <source>The group chat will be divided into topics created by admins or users.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemSettings.qml" line="123"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemSettings.qml" line="129"/>
         <source>Choose how topics appear for all members.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemSettings.qml" line="127"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemSettings.qml" line="133"/>
         <source>Off</source>
         <comment>topics</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemSettings.qml" line="132"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemSettings.qml" line="138"/>
         <source>List</source>
         <comment>topics</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemSettings.qml" line="137"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabItemSettings.qml" line="143"/>
         <source>Tabs</source>
         <comment>topics</comment>
         <translation type="unfinished"></translation>
@@ -917,79 +936,79 @@
 <context>
     <name>ChatInformationTabView</name>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="162"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="195"/>
         <source>Media</source>
         <comment>Button: Chat media (photos and videos)</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="171"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="204"/>
         <source>GIFs</source>
         <comment>Button: Chat GIFs</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="178"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="211"/>
         <source>Video Messages</source>
         <comment>Button: Chat video messages</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="185"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="218"/>
         <source>Files</source>
         <comment>Button: Chat files</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="192"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="225"/>
         <source>Audio</source>
         <comment>Button: Chat audio files</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="199"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="232"/>
         <source>Voice</source>
         <comment>Button: Chat voice messages (short)</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="206"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="239"/>
         <source>Links</source>
         <comment>Button: Chat shared links</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="212"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="245"/>
         <source>Subscribers</source>
         <comment>Button: channel subscribers</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="212"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="245"/>
         <source>Members</source>
         <comment>Button: Group Members</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="232"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="265"/>
         <source>Groups</source>
         <comment>Button: groups in common (short)</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="251"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="284"/>
         <source>Similar channels</source>
         <comment>Profile tab</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="257"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="290"/>
         <source>Similar bots</source>
         <comment>Profile tab</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="270"/>
+        <location filename="../qml/components/chatInformationPage/ChatInformationTabView.qml" line="303"/>
         <source>Settings</source>
         <comment>Button: Chat Settings</comment>
         <translation type="unfinished"></translation>
@@ -1111,79 +1130,79 @@
         </translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="276"/>
+        <location filename="../qml/pages/ChatPage.qml" line="290"/>
         <source>View as Messages</source>
         <comment>view a forum chat in full chat mode</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="276"/>
+        <location filename="../qml/pages/ChatPage.qml" line="290"/>
         <source>View as Topics</source>
         <comment>view a forum chat as topics</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="295"/>
+        <location filename="../qml/pages/ChatPage.qml" line="309"/>
         <source>Chat deleted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="297"/>
+        <location filename="../qml/pages/ChatPage.qml" line="311"/>
         <source>Delete chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="304"/>
+        <location filename="../qml/pages/ChatPage.qml" line="318"/>
         <source>Secret chat closed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="306"/>
+        <location filename="../qml/pages/ChatPage.qml" line="320"/>
         <source>Close secret chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="314"/>
+        <location filename="../qml/pages/ChatPage.qml" line="328"/>
         <source>Left the channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="314"/>
+        <location filename="../qml/pages/ChatPage.qml" line="328"/>
         <source>Left the group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="319"/>
+        <location filename="../qml/pages/ChatPage.qml" line="333"/>
         <source>Leave channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="319"/>
+        <location filename="../qml/pages/ChatPage.qml" line="333"/>
         <source>Leave group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="320"/>
+        <location filename="../qml/pages/ChatPage.qml" line="334"/>
         <source>Join channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="320"/>
+        <location filename="../qml/pages/ChatPage.qml" line="334"/>
         <source>Join group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="336"/>
+        <location filename="../qml/pages/ChatPage.qml" line="346"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="431"/>
+        <location filename="../qml/pages/ChatPage.qml" line="435"/>
         <source>Search in chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ChatPage.qml" line="506"/>
+        <location filename="../qml/pages/ChatPage.qml" line="510"/>
         <source>Double-tap on a message to choose a reaction</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1325,12 +1344,12 @@
 <context>
     <name>CommunityPage</name>
     <message>
-        <location filename="../qml/pages/CommunityPage.qml" line="48"/>
+        <location filename="../qml/pages/CommunityPage.qml" line="51"/>
         <source>Rename community</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../qml/pages/CommunityPage.qml" line="56"/>
+        <location filename="../qml/pages/CommunityPage.qml" line="59"/>
         <source>%Ln chats</source>
         <comment>Number of chats in a community</comment>
         <translation type="unfinished">
@@ -1338,7 +1357,7 @@
         </translation>
     </message>
     <message>
-        <location filename="../qml/pages/CommunityPage.qml" line="91"/>
+        <location filename="../qml/pages/CommunityPage.qml" line="94"/>
         <source>Community name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1414,6 +1433,74 @@ Please take a look at the %1Telegram FAQ%2: it has answers to most questions and
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="76"/>
         <source>Connected</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CrashReportDialog</name>
+    <message>
+        <location filename="../qml/dialogs/CrashReportDialog.qml" line="31"/>
+        <source>Report a Crash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/CrashReportDialog.qml" line="32"/>
+        <source>Report</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/CrashReportDialog.qml" line="37"/>
+        <source>Include my Telegram account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/CrashReportDialog.qml" line="38"/>
+        <source>If checked, you may later be contacted for more information regarding your report.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/CrashReportDialog.qml" line="44"/>
+        <source>Additional info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/CrashReportDialog.qml" line="45"/>
+        <source>Please describe the cause of the crash and what you did in the app before it happened.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/CrashReportDialog.qml" line="46"/>
+        <source>If possible, also include your contact information.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/CrashReportDialog.qml" line="51"/>
+        <source>Send Logs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/CrashReportDialog.qml" line="54"/>
+        <source>Logging is disabled in settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/CrashReportDialog.qml" line="55"/>
+        <source>Note that logs may include some sensitive info.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/CrashReportDialog.qml" line="60"/>
+        <source>Send TDLib Logs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/CrashReportDialog.qml" line="63"/>
+        <source>TDLib logging is disabled in settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/dialogs/CrashReportDialog.qml" line="63"/>
+        <source>Note that TDLib logs maay include some sensitive info.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1645,6 +1732,19 @@ Please take a look at the %1Telegram FAQ%2: it has answers to most questions and
     </message>
 </context>
 <context>
+    <name>ExternalUrlPage</name>
+    <message>
+        <location filename="../qml/modules/Opal/LinkHandler/private/ExternalUrlPage.qml" line="86"/>
+        <source>Swipe left to preview.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/modules/Opal/LinkHandler/private/ExternalUrlPage.qml" line="86"/>
+        <source>You are using a mobile data connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FullscreenHintDialog</name>
     <message>
         <location filename="../qml/dialogs/FullscreenHintDialog.qml" line="19"/>
@@ -1666,17 +1766,17 @@ Please take a look at the %1Telegram FAQ%2: it has answers to most questions and
 <context>
     <name>InReplyToRow</name>
     <message>
-        <location filename="../qml/components/chat/InReplyToRow.qml" line="25"/>
+        <location filename="../qml/components/chat/InReplyToRow.qml" line="52"/>
         <source>You</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chat/InReplyToRow.qml" line="32"/>
+        <location filename="../qml/components/chat/InReplyToRow.qml" line="52"/>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chat/InReplyToRow.qml" line="33"/>
+        <location filename="../qml/components/chat/InReplyToRow.qml" line="68"/>
         <source>This message was deleted</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1885,7 +1985,7 @@ Pull down to visit telegram.org</source>
 <context>
     <name>LicenseListPart</name>
     <message>
-        <location filename="../Opal/About/private/LicenseListPart.qml" line="178"/>
+        <location filename="../qml/modules/Opal/About/private/LicenseListPart.qml" line="119"/>
         <source>License text</source>
         <translation>Tekst licencji</translation>
     </message>
@@ -2079,23 +2179,28 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chat/MessageListViewItem.qml" line="472"/>
+        <location filename="../qml/components/chat/MessageListViewItem.qml" line="490"/>
         <source>Recommended Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chat/MessageListViewItem.qml" line="472"/>
+        <location filename="../qml/components/chat/MessageListViewItem.qml" line="490"/>
         <source>Sponsored Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chat/MessageListViewItem.qml" line="476"/>
+        <location filename="../qml/components/chat/MessageListViewItem.qml" line="494"/>
         <source>edited</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>MessageListViewItemSimple</name>
+    <message>
+        <location filename="../qml/components/chat/MessageListViewItemSimple.qml" line="46"/>
+        <source>You</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message numerus="yes">
         <location filename="../qml/components/chat/MessageListViewItemSimple.qml" line="81"/>
         <source>scored %Ln points in %2</source>
@@ -2232,12 +2337,12 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageableListItem.qml" line="28"/>
+        <location filename="../qml/components/MessageableListItem.qml" line="27"/>
         <source>You</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/MessageableListItem.qml" line="32"/>
+        <location filename="../qml/components/MessageableListItem.qml" line="31"/>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2506,7 +2611,7 @@ Pull down to visit telegram.org</source>
     <message>
         <location filename="../qml/dialogs/NewPollDialog.qml" line="111"/>
         <source>in %1</source>
-        <comment>After dialog header… New Poll in [group name]</comment>
+        <comment>After dialog header: [New Poll] in (group name)</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2847,104 +2952,104 @@ Pull down to visit telegram.org</source>
 <context>
     <name>Opal.About</name>
     <message>
-        <location filename="../Opal/About/AboutPageBase.qml" line="742"/>
+        <location filename="../qml/modules/Opal/About/AboutPageBase.qml" line="58"/>
         <source>About</source>
         <translation>O tej aplikacji</translation>
     </message>
     <message>
-        <location filename="../Opal/About/AboutPageBase.qml" line="789"/>
+        <location filename="../qml/modules/Opal/About/AboutPageBase.qml" line="87"/>
         <source>Version %1</source>
         <translation>Wersja %1</translation>
     </message>
     <message>
-        <location filename="../Opal/About/AboutPageBase.qml" line="813"/>
-        <location filename="../Opal/About/private/ContributorsPage.qml" line="41"/>
-        <location filename="../Opal/About/private/ContributorsPage.qml" line="62"/>
+        <location filename="../qml/modules/Opal/About/AboutPageBase.qml" line="103"/>
+        <location filename="../qml/modules/Opal/About/private/ContributorsPage.qml" line="24"/>
+        <location filename="../qml/modules/Opal/About/private/ContributorsPage.qml" line="33"/>
         <source>Development</source>
         <translation>Rozwój</translation>
     </message>
     <message>
-        <location filename="../Opal/About/AboutPageBase.qml" line="818"/>
+        <location filename="../qml/modules/Opal/About/AboutPageBase.qml" line="106"/>
         <source>show contributors</source>
         <translation>pokaż współtwórców</translation>
     </message>
     <message>
-        <location filename="../Opal/About/AboutPageBase.qml" line="832"/>
-        <location filename="../Opal/About/private/ContributorsAttributionRepeater.qml" line="44"/>
-        <location filename="../Opal/About/private/ContributorsAttributionRepeater.qml" line="68"/>
-        <location filename="../Opal/About/private/LicenseListPart.qml" line="68"/>
+        <location filename="../qml/modules/Opal/About/AboutPageBase.qml" line="108"/>
+        <location filename="../qml/modules/Opal/About/private/ContributorsAttributionRepeater.qml" line="18"/>
+        <location filename="../qml/modules/Opal/About/private/ContributorsAttributionRepeater.qml" line="24"/>
+        <location filename="../qml/modules/Opal/About/private/LicenseListPart.qml" line="47"/>
         <source>Homepage</source>
         <translation>Strona główna</translation>
     </message>
     <message>
-        <location filename="../Opal/About/AboutPageBase.qml" line="837"/>
-        <location filename="../Opal/About/private/ChangelogPage.qml" line="26"/>
+        <location filename="../qml/modules/Opal/About/AboutPageBase.qml" line="111"/>
+        <location filename="../qml/modules/Opal/About/private/ChangelogPage.qml" line="16"/>
         <source>Changelog</source>
         <translation>Dziennik zmian</translation>
     </message>
     <message>
-        <location filename="../Opal/About/AboutPageBase.qml" line="845"/>
+        <location filename="../qml/modules/Opal/About/AboutPageBase.qml" line="114"/>
         <source>Translations</source>
         <translation>Tłumaczenia</translation>
     </message>
     <message>
-        <location filename="../Opal/About/AboutPageBase.qml" line="850"/>
-        <location filename="../Opal/About/private/ContributorsAttributionRepeater.qml" line="42"/>
-        <location filename="../Opal/About/private/ContributorsAttributionRepeater.qml" line="71"/>
-        <location filename="../Opal/About/private/LicenseListPart.qml" line="74"/>
+        <location filename="../qml/modules/Opal/About/AboutPageBase.qml" line="117"/>
+        <location filename="../qml/modules/Opal/About/private/ContributorsAttributionRepeater.qml" line="17"/>
+        <location filename="../qml/modules/Opal/About/private/ContributorsAttributionRepeater.qml" line="25"/>
+        <location filename="../qml/modules/Opal/About/private/LicenseListPart.qml" line="50"/>
         <source>Source Code</source>
         <translation>Kod źródłowy</translation>
     </message>
     <message>
-        <location filename="../Opal/About/AboutPageBase.qml" line="867"/>
+        <location filename="../qml/modules/Opal/About/AboutPageBase.qml" line="126"/>
         <source>Donations</source>
         <translation>Darowizny</translation>
     </message>
     <message>
-        <location filename="../Opal/About/AboutPageBase.qml" line="877"/>
+        <location filename="../qml/modules/Opal/About/AboutPageBase.qml" line="132"/>
         <source>License</source>
         <translation>Licencja</translation>
     </message>
     <message numerus="yes">
-        <location filename="../Opal/About/AboutPageBase.qml" line="891"/>
+        <location filename="../qml/modules/Opal/About/AboutPageBase.qml" line="137"/>
         <source>show license(s)</source>
         <translation>
             <numerusform>pokaż licencję</numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../Opal/About/ChangelogNews.qml" line="214"/>
+        <location filename="../qml/modules/Opal/About/ChangelogNews.qml" line="61"/>
         <source>News</source>
         <translation>Nowości</translation>
     </message>
     <message>
-        <location filename="../Opal/About/ChangelogNews.qml" line="215"/>
+        <location filename="../qml/modules/Opal/About/ChangelogNews.qml" line="62"/>
         <source>Changes since version %1</source>
         <translation>Zmiany od wersji %1</translation>
     </message>
     <message>
-        <location filename="../Opal/About/InfoSection.qml" line="78"/>
+        <location filename="../qml/modules/Opal/About/InfoSection.qml" line="16"/>
         <source>show details</source>
         <translation>pokaż szczegóły</translation>
     </message>
     <message>
-        <location filename="../Opal/About/private/ContributorsAttributionRepeater.qml" line="21"/>
+        <location filename="../qml/modules/Opal/About/private/ContributorsAttributionRepeater.qml" line="11"/>
         <source>Thank you!</source>
         <translation>Dziękuję!</translation>
     </message>
     <message>
-        <location filename="../Opal/About/private/ContributorsAttributionRepeater.qml" line="36"/>
-        <location filename="../Opal/About/private/LicensePage.qml" line="92"/>
+        <location filename="../qml/modules/Opal/About/private/ContributorsAttributionRepeater.qml" line="15"/>
+        <location filename="../qml/modules/Opal/About/private/LicensePage.qml" line="45"/>
         <source>Details</source>
         <translation>Szczegóły</translation>
     </message>
     <message>
-        <location filename="../Opal/About/private/ContributorsPage.qml" line="38"/>
+        <location filename="../qml/modules/Opal/About/private/ContributorsPage.qml" line="23"/>
         <source>Contributors</source>
         <translation>Współtwórcy</translation>
     </message>
     <message>
-        <location filename="../Opal/About/private/ContributorsPage.qml" line="80"/>
+        <location filename="../qml/modules/Opal/About/private/ContributorsPage.qml" line="39"/>
         <source>Acknowledgements</source>
         <translation>Podziękowanie</translation>
     </message>
@@ -2956,12 +3061,12 @@ Pull down to visit telegram.org</source>
     <message>
         <location filename="../qml/modules/Opal/About/private/ExternalUrlPage.qml" line="32"/>
         <source>Open in browser</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Otwórz w przeglądarce</translation>
     </message>
     <message>
         <location filename="../qml/modules/Opal/About/private/ExternalUrlPage.qml" line="36"/>
         <source>Copied to clipboard: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skopiowano do schowka: %1</translation>
     </message>
     <message>
         <location filename="../qml/modules/Opal/About/private/ExternalUrlPage.qml" line="41"/>
@@ -2969,29 +3074,29 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Opal/About/private/LicenseListPart.qml" line="179"/>
+        <location filename="../qml/modules/Opal/About/private/LicenseListPart.qml" line="120"/>
         <source>Please refer to &lt;a href=&quot;%1&quot;&gt;%1&lt;/a&gt;</source>
         <translation>Zapoznaj się z &lt;a href=&quot;%1&quot;&gt;%1&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../Opal/About/private/LicensePage.qml" line="74"/>
+        <location filename="../qml/modules/Opal/About/private/LicensePage.qml" line="37"/>
         <source>Download license texts</source>
         <translation>Pobierz tekst licencji</translation>
     </message>
     <message numerus="yes">
-        <location filename="../Opal/About/private/LicensePage.qml" line="93"/>
+        <location filename="../qml/modules/Opal/About/private/LicensePage.qml" line="45"/>
         <source>License(s)</source>
         <translation>
             <numerusform>Licencja</numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../Opal/About/private/LicensePage.qml" line="107"/>
+        <location filename="../qml/modules/Opal/About/private/LicensePage.qml" line="55"/>
         <source>Note: please check the source code for most accurate information.</source>
         <translation>Uwaga: sprawdź kod źródłowy, aby uzyskać najdokładniejsze informacje.</translation>
     </message>
     <message>
-        <location filename="../Opal/About/private/LicensePage.qml" line="80"/>
+        <location filename="../qml/modules/Opal/About/private/LicensePage.qml" line="40"/>
         <source>You are using a mobile data connection.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2999,353 +3104,200 @@ Pull down to visit telegram.org</source>
 <context>
     <name>Opal.About.Common</name>
     <message>
-        <location filename="../Opal/About/private/DonationsGroup.qml" line="40"/>
+        <location filename="../qml/modules/Opal/About/private/DonationsGroup.qml" line="7"/>
         <source>If you want to support my work, you can buy me a cup of coffee.</source>
         <translation>Jeśli chcesz wesprzeć moją pracę, możesz postawić mi kawę.</translation>
     </message>
     <message>
-        <location filename="../Opal/About/private/DonationsGroup.qml" line="53"/>
+        <location filename="../qml/modules/Opal/About/private/DonationsGroup.qml" line="8"/>
         <source>You can support this project by contributing, or by donating using any of these services.</source>
         <translation>Możesz wesprzeć ten projekt, przekazując darowiznę lub korzystając z dowolnej z tych usług.</translation>
     </message>
     <message>
-        <location filename="../Opal/About/private/DonationsGroup.qml" line="65"/>
+        <location filename="../qml/modules/Opal/About/private/DonationsGroup.qml" line="9"/>
         <source>Your contributions to translations or code would be most welcome.</source>
         <translation>Twój wkład w tłumaczenia lub kod będzie bardzo mile widziany.</translation>
     </message>
+</context>
+<context>
+    <name>Opal.LinkHandler</name>
     <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="12"/>
-        <source>Author</source>
-        <translation>Autor</translation>
-    </message>
-    <message numerus="yes">
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="13"/>
-        <source>Author(s)</source>
-        <translation>
-            <numerusform>Autor</numerusform>
-        </translation>
+        <location filename="../qml/modules/Opal/LinkHandler/private/ExternalUrlPage.qml" line="36"/>
+        <source>Copied to clipboard: %1</source>
+        <translation>Skopiowano do schowka: %1</translation>
     </message>
     <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="14"/>
-        <source>Maintainer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message numerus="yes">
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="15"/>
-        <source>Maintainer(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="16"/>
-        <source>Programming</source>
-        <translation>Programowanie</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="17"/>
-        <source>Icon Design</source>
-        <translation>Projekt ikon</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="18"/>
-        <source>Third-party libraries</source>
-        <translation>Biblioteki stron trzecich</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="19"/>
-        <source>Data</source>
-        <translation>Dane</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="20"/>
-        <source>Data License</source>
-        <translation type="unfinished">Licencje danych</translation>
-    </message>
-    <message numerus="yes">
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="21"/>
-        <source>Data License(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="22"/>
-        <source>Terms of Use</source>
-        <translation>Warunki użytkowania</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="30"/>
-        <source>Belarusian</source>
+        <location filename="../qml/modules/Opal/LinkHandler/private/ExternalUrlPage.qml" line="47"/>
+        <source>Share link</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="31"/>
-        <source>Chinese</source>
-        <translation>chiński</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="32"/>
-        <source>Czech</source>
-        <translation>czeski</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="33"/>
-        <source>Dutch</source>
-        <translation>holenderski</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="34"/>
-        <source>English</source>
-        <translation>angielski</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="35"/>
-        <source>Estonian</source>
-        <translation>estoński</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="36"/>
-        <source>Finnish</source>
-        <translation>fiński</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="37"/>
-        <source>French</source>
-        <translation>francuski</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="38"/>
-        <source>German</source>
-        <translation>niemiecki</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="39"/>
-        <source>Greek</source>
-        <translation>grecki</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="40"/>
-        <source>Hungarian</source>
-        <translation>węgierski</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="41"/>
-        <source>Indonesian</source>
-        <translation>indonezyjski</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="42"/>
-        <source>Italian</source>
-        <translation>włoski</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="43"/>
-        <source>Lithuanian</source>
-        <translation>litewski</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="44"/>
-        <source>Norwegian Bokmål</source>
-        <translation>norweski Bokmål</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="45"/>
-        <source>Polish</source>
-        <translation>polski</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="46"/>
-        <source>Portuguese</source>
-        <translation>portugalski</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="47"/>
-        <source>Brazilian Portuguese</source>
+        <location filename="../qml/modules/Opal/LinkHandler/private/ExternalUrlPage.qml" line="51"/>
+        <source>Phone number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="48"/>
-        <source>Romanian</source>
-        <translation>rumuński</translation>
+        <location filename="../qml/modules/Opal/LinkHandler/private/ExternalUrlPage.qml" line="51"/>
+        <source>External link</source>
+        <translation>Link Zewnętrzny</translation>
     </message>
     <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="49"/>
-        <source>Russian</source>
-        <translation>rosyjski</translation>
+        <location filename="../qml/modules/Opal/LinkHandler/private/ExternalUrlPage.qml" line="73"/>
+        <source>Open in browser</source>
+        <translation>Otwórz w przeglądarce</translation>
     </message>
     <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="50"/>
-        <source>Serbian</source>
-        <translation>serbski</translation>
+        <location filename="../qml/modules/Opal/LinkHandler/private/ExternalUrlPage.qml" line="73"/>
+        <source>Open externally</source>
+        <translation>Otwórz za pomocą innej aplikacji</translation>
     </message>
     <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="51"/>
-        <source>Slovak</source>
-        <translation>slowacki</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="52"/>
-        <source>Spanish</source>
-        <translation>hiszpański</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="53"/>
-        <source>Swedish</source>
-        <translation>szwedzki</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="54"/>
-        <source>Tamil</source>
-        <translation>tamilski</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="55"/>
-        <source>Turkish</source>
-        <translation>turecki</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="56"/>
-        <source>Ukrainian</source>
-        <translation>ukraiński</translation>
-    </message>
-    <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="59"/>
-        <source>Norwegian Nynorsk</source>
+        <location filename="../qml/modules/Opal/LinkHandler/private/ExternalUrlPage.qml" line="76"/>
+        <source>Share</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="60"/>
-        <source>Latvian</source>
-        <translation>łotewski</translation>
+        <location filename="../qml/modules/Opal/LinkHandler/private/ExternalUrlPage.qml" line="81"/>
+        <source>Copy link</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../Opal/About/private/ExtraTranslations.qml" line="61"/>
-        <source>Dutch (Belgium)</source>
+        <location filename="../qml/modules/Opal/LinkHandler/private/ExternalUrlPage.qml" line="83"/>
+        <source>Copy text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/modules/Opal/LinkHandler/private/PreviewPage.qml" line="27"/>
+        <source>No preview available.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/modules/Opal/LinkHandler/private/PreviewPage.qml" line="28"/>
+        <source>The page is taking too long to load.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>OverviewPage</name>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="181"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="184"/>
         <source>Download of %1 successful.</source>
         <comment>in-app notification text</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="183"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="186"/>
         <source>Open</source>
         <comment>in-app notification button: open downloaded file</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="186"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="189"/>
         <source>Download failed</source>
         <comment>in-app notification text</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="189"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="192"/>
         <source>Unable to open link</source>
         <comment>in-app notification text</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="250"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="252"/>
         <source>You joined this channel</source>
         <comment>channel</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="250"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="252"/>
         <source>You joined this group</source>
         <comment>group</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="253"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="255"/>
         <source>Request to join sent</source>
         <comment>channel</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="253"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="255"/>
         <source>Request to join sent</source>
         <comment>group</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="256"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="258"/>
         <source>Your request to join the channel was declined</source>
         <comment>channel</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="256"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="258"/>
         <source>Your request to join the group was declined</source>
         <comment>group</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="260"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="262"/>
         <source>An approval from a guard bot is required to join the chat, but guard bots are not yet supported</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="266"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="268"/>
         <source>Link copied to clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="347"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="353"/>
         <source>Welcome to Telegram</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="348"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="354"/>
         <source>Pull down to search public chats or create a new chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="396"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="402"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="400"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="406"/>
         <source>Search</source>
         <comment>pulley menu option for opening search page</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="404"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="410"/>
         <source>New Chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="408"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="414"/>
         <source>Archive</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="433"/>
-        <location filename="../qml/pages/OverviewPage.qml" line="447"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="439"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="453"/>
         <source>Mark as read</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="460"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="466"/>
         <source>Logging out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="460"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="466"/>
         <source>Loading</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/OverviewPage.qml" line="466"/>
+        <location filename="../qml/pages/OverviewPage.qml" line="472"/>
         <source>Tap on the title bar to quickly open search</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3361,56 +3313,56 @@ Pull down to visit telegram.org</source>
 <context>
     <name>PinnedMessageItem</name>
     <message numerus="yes">
-        <location filename="../qml/components/chat/PinnedMessageItem.qml" line="58"/>
+        <location filename="../qml/components/chat/PinnedMessageItem.qml" line="59"/>
         <source>%Ln pinned messages</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../qml/components/chat/PinnedMessageItem.qml" line="80"/>
+        <location filename="../qml/components/chat/PinnedMessageItem.qml" line="81"/>
         <source>No pinned messages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chat/PinnedMessageItem.qml" line="85"/>
+        <location filename="../qml/components/chat/PinnedMessageItem.qml" line="86"/>
         <source>Unpin message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chat/PinnedMessageItem.qml" line="85"/>
+        <location filename="../qml/components/chat/PinnedMessageItem.qml" line="86"/>
         <source>Unpin all messages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chat/PinnedMessageItem.qml" line="88"/>
+        <location filename="../qml/components/chat/PinnedMessageItem.qml" line="89"/>
         <source>Messages unpinned</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chat/PinnedMessageItem.qml" line="137"/>
+        <location filename="../qml/components/chat/PinnedMessageItem.qml" line="138"/>
         <source>All pinned messages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chat/PinnedMessageItem.qml" line="280"/>
+        <location filename="../qml/components/chat/PinnedMessageItem.qml" line="281"/>
         <source>Pinned message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/chat/PinnedMessageItem.qml" line="282"/>
+        <location filename="../qml/components/chat/PinnedMessageItem.qml" line="283"/>
         <source>Previous message</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../qml/components/chat/PinnedMessageItem.qml" line="284"/>
+        <location filename="../qml/components/chat/PinnedMessageItem.qml" line="285"/>
         <source>Pinned message #%Ln</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../qml/components/chat/PinnedMessageItem.qml" line="316"/>
+        <location filename="../qml/components/chat/PinnedMessageItem.qml" line="324"/>
         <source>Message unpinned</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3475,6 +3427,59 @@ Pull down to visit telegram.org</source>
     </message>
 </context>
 <context>
+    <name>ProfileTabComboBox</name>
+    <message>
+        <location filename="../qml/components/chatInformationPage/ProfileTabComboBox.qml" line="8"/>
+        <source>Main profile tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/chatInformationPage/ProfileTabComboBox.qml" line="9"/>
+        <source>Choose the tab to appear first in the profile.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/chatInformationPage/ProfileTabComboBox.qml" line="19"/>
+        <source>Posts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/chatInformationPage/ProfileTabComboBox.qml" line="20"/>
+        <source>Gifts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/chatInformationPage/ProfileTabComboBox.qml" line="21"/>
+        <source>Media</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/chatInformationPage/ProfileTabComboBox.qml" line="22"/>
+        <source>Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/chatInformationPage/ProfileTabComboBox.qml" line="23"/>
+        <source>Music</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/chatInformationPage/ProfileTabComboBox.qml" line="24"/>
+        <source>Links</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/chatInformationPage/ProfileTabComboBox.qml" line="25"/>
+        <source>Voice</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/components/chatInformationPage/ProfileTabComboBox.qml" line="26"/>
+        <source>GIFs</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ProxiesPage</name>
     <message>
         <location filename="../qml/pages/ProxiesPage.qml" line="51"/>
@@ -3526,87 +3531,96 @@ Pull down to visit telegram.org</source>
     <message>
         <location filename="../qml/pages/ProxiesPage.qml" line="134"/>
         <source>MTPROTO</source>
+        <comment>proxy</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/ProxiesPage.qml" line="136"/>
         <source>SOCKS5</source>
+        <comment>proxy</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/ProxiesPage.qml" line="138"/>
         <source>HTTP</source>
+        <comment>proxy</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProxiesPage.qml" line="148"/>
+        <location filename="../qml/pages/ProxiesPage.qml" line="140"/>
+        <source>WEB</source>
+        <comment>proxy</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/ProxiesPage.qml" line="151"/>
         <source>Sort by Ping</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProxiesPage.qml" line="155"/>
+        <location filename="../qml/pages/ProxiesPage.qml" line="158"/>
         <source>Add proxy from clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProxiesPage.qml" line="166"/>
+        <location filename="../qml/pages/ProxiesPage.qml" line="169"/>
         <source>Copy Proxy List</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProxiesPage.qml" line="175"/>
+        <location filename="../qml/pages/ProxiesPage.qml" line="178"/>
         <source>Add proxy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProxiesPage.qml" line="184"/>
+        <location filename="../qml/pages/ProxiesPage.qml" line="188"/>
         <source>No proxies</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProxiesPage.qml" line="185"/>
+        <location filename="../qml/pages/ProxiesPage.qml" line="189"/>
         <source>Pull down to add a new proxy server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProxiesPage.qml" line="196"/>
+        <location filename="../qml/pages/ProxiesPage.qml" line="206"/>
         <source>Proxy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProxiesPage.qml" line="197"/>
+        <location filename="../qml/pages/ProxiesPage.qml" line="207"/>
         <source>Proxy servers may be helpful in accessing Telegram if there is no connection in a specific region.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProxiesPage.qml" line="202"/>
+        <location filename="../qml/pages/ProxiesPage.qml" line="212"/>
         <source>Try connecting through IPv6</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProxiesPage.qml" line="210"/>
+        <location filename="../qml/pages/ProxiesPage.qml" line="220"/>
         <source>Connections</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProxiesPage.qml" line="221"/>
+        <location filename="../qml/pages/ProxiesPage.qml" line="231"/>
         <source>Without Proxy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProxiesPage.qml" line="349"/>
+        <location filename="../qml/pages/ProxiesPage.qml" line="359"/>
         <source>Remove</source>
         <comment>proxy</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProxiesPage.qml" line="353"/>
+        <location filename="../qml/pages/ProxiesPage.qml" line="363"/>
         <source>Edit</source>
         <comment>proxy</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/ProxiesPage.qml" line="362"/>
+        <location filename="../qml/pages/ProxiesPage.qml" line="372"/>
         <source>Copy link</source>
         <comment>proxy</comment>
         <translation type="unfinished"></translation>
@@ -4446,81 +4460,81 @@ Pull down to visit telegram.org</source>
 <context>
     <name>SettingsUserProfile</name>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="16"/>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="17"/>
         <source>User Profile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="46"/>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="47"/>
         <source>First Name</source>
         <comment>first name of the logged-in profile - header</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="65"/>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="66"/>
         <source>Enter 1-64 characters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="76"/>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="77"/>
         <source>Last Name</source>
         <comment>last name of the logged-in profile - header</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="95"/>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="96"/>
         <source>Enter 0-64 characters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="106"/>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="107"/>
         <source>Username</source>
         <comment>user name of the logged-in profile - header</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="123"/>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="124"/>
         <source>Birthday</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="130"/>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="131"/>
         <source>Add</source>
         <comment>Add the birthday to your profile</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="152"/>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="169"/>
         <source>Sync contacts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="170"/>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="187"/>
         <source>Profile Pictures</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="207"/>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="224"/>
         <source>Add Picture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="227"/>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="244"/>
         <source>Uploading…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="253"/>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="270"/>
         <source>Phone number: +%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="263"/>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="280"/>
         <source>Log Out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="265"/>
+        <location filename="../qml/components/settingsPage/SettingsUserProfile.qml" line="282"/>
         <source>Logged out</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4602,7 +4616,7 @@ Pull down to visit telegram.org</source>
 <context>
     <name>TDLibMessageSender</name>
     <message>
-        <location filename="../qml/components/tdlib/TDLibMessageSender.qml" line="18"/>
+        <location filename="../qml/components/tdlib/TDLibMessageSender.qml" line="19"/>
         <source>Unknown</source>
         <comment>An unknown chat or user</comment>
         <translation type="unfinished"></translation>
@@ -4611,22 +4625,22 @@ Pull down to visit telegram.org</source>
 <context>
     <name>TDLibWrapper</name>
     <message>
-        <location filename="../yaqtlib/src/tdlib/tdlibwrapper.cpp" line="2362"/>
+        <location filename="../yaqtlib/src/tdlib/tdlibwrapper.cpp" line="2380"/>
         <source>Waiting for network…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/tdlib/tdlibwrapper.cpp" line="2364"/>
+        <location filename="../yaqtlib/src/tdlib/tdlibwrapper.cpp" line="2382"/>
         <source>Connecting to network…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/tdlib/tdlibwrapper.cpp" line="2366"/>
+        <location filename="../yaqtlib/src/tdlib/tdlibwrapper.cpp" line="2384"/>
         <source>Connecting to proxy…</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/tdlib/tdlibwrapper.cpp" line="2368"/>
+        <location filename="../yaqtlib/src/tdlib/tdlibwrapper.cpp" line="2386"/>
         <source>Updating content…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4775,61 +4789,61 @@ Pull down to visit telegram.org</source>
 <context>
     <name>Utilities</name>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="410"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="374"/>
         <source>Sticker</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="421"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="384"/>
         <source>Dart: throwing…</source>
         <comment>0</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="423"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="386"/>
         <source>Dart: missed!</source>
         <comment>1</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="425"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="388"/>
         <source>Dart thrown</source>
         <comment>2</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="427"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="390"/>
         <source>Dart thrown</source>
         <comment>3</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="429"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="392"/>
         <source>Dart thrown</source>
         <comment>4</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="431"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="394"/>
         <source>Dart: bullseye!</source>
         <comment>6</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="434"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="397"/>
         <source>Dart: almost there!</source>
         <comment>5</comment>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../yaqtlib/src/utilities.cpp" line="440"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="403"/>
         <source>Dice: %n</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="441"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="404"/>
         <source>Dice: rolling…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4844,43 +4858,43 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="460"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="457"/>
         <source>Video: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="461"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="458"/>
         <source>Video</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="464"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="413"/>
         <source>Video message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="469"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="461"/>
         <source>GIF: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="470"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="462"/>
         <source>GIF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="474"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="470"/>
         <source>%1: %2</source>
         <comment>Audio message. %1 is the audio file name, %2 is the caption</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="475"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="473"/>
         <source>Audio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="479"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="477"/>
         <source>%1: %2</source>
         <comment>A message with a file attached. %1 is the file name, %2 is the caption</comment>
         <translation type="unfinished"></translation>
@@ -4891,290 +4905,290 @@ Pull down to visit telegram.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="483"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="482"/>
         <source>Voice message: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="484"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="483"/>
         <source>Voice message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="487"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="415"/>
         <source>Location</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="491"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="419"/>
         <source>Venue: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="491"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="419"/>
         <source>Venue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="501"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="427"/>
         <source>Anonymous Quiz: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="501"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="427"/>
         <source>Anonymous Quiz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="502"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="428"/>
         <source>Quiz: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="502"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="428"/>
         <source>Quiz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="505"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="431"/>
         <source>Anonymous Poll: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="505"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="431"/>
         <source>Anonymous Poll</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="506"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="432"/>
         <source>Poll: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="506"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="432"/>
         <source>Poll</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="511"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="436"/>
         <source>Game: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="511"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="436"/>
         <source>Game</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="516"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="440"/>
         <source>Contact</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="516"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="440"/>
         <source>Contact: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="536"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="233"/>
         <source>has added %1 to the chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="541"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="238"/>
         <source>left this chat</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="541"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="238"/>
         <source>left this chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="544"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="241"/>
         <source>have removed %1 from the chat</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="544"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="241"/>
         <source>has removed %1 from the chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="548"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="245"/>
         <source>changed the chat title to %1</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="548"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="245"/>
         <source>changed the chat title to %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="550"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="247"/>
         <source>created this group</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="550"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="247"/>
         <source>created this group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="552"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="249"/>
         <source>changed the chat photo</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="552"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="249"/>
         <source>changed the chat photo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="554"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="251"/>
         <source>deleted the chat photo</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="554"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="251"/>
         <source>deleted the chat photo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="556"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="254"/>
         <source>disabled the self-destruct timer</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="556"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="254"/>
         <source>disabled the self-destruct timer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="521"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="218"/>
         <source>joined Telegram</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="521"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="218"/>
         <source>joined Telegram</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="523"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="220"/>
         <source>joined this chat</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="523"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="220"/>
         <source>joined this chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="526"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="223"/>
         <source>were added to this chat</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="526"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="223"/>
         <source>was added to this chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="536"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="233"/>
         <source>have added %1 to the chat</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="558"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="256"/>
         <source>upgraded this group to a supergroup</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="558"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="256"/>
         <source>upgraded this group to a supergroup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="563"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="261"/>
         <source>pinned a message</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="563"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="261"/>
         <source>pinned a message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="565"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="263"/>
         <source>sent a self-destructing photo that is expired</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="565"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="263"/>
         <source>sent a self-destructing photo that is expired</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="567"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="265"/>
         <source>sent a self-destructing video that is expired</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="567"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="265"/>
         <source>sent a self-destructing video that is expired</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="569"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="267"/>
         <source>sent a self-destructing voice message that is expired</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="569"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="267"/>
         <source>sent a self-destructing voice message that is expired</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="571"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="269"/>
         <source>sent a self-destructing video message that is expired</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="571"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="269"/>
         <source>sent a self-destructing video message that is expired</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="573"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="271"/>
         <source>created a screenshot in this chat</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="573"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="271"/>
         <source>created a screenshot in this chat</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../yaqtlib/src/utilities.cpp" line="576"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="274"/>
         <source>scored %Ln points</source>
         <comment>myself</comment>
         <translation type="unfinished">
@@ -5182,34 +5196,34 @@ Pull down to visit telegram.org</source>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../yaqtlib/src/utilities.cpp" line="576"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="274"/>
         <source>scored %Ln points</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="582"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="281"/>
         <source>you allowed this bot to message you when you added it to your attachment menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="584"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="283"/>
         <source>you allowed this bot to message you when you logged in on %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="586"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="285"/>
         <source>you allowed this bot to message you in its web-app</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="587"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="286"/>
         <source>you allowed this bot to message you</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../yaqtlib/src/utilities.cpp" line="590"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="289"/>
         <source>boosted this chat %Ln times</source>
         <comment>myself</comment>
         <translation type="unfinished">
@@ -5217,308 +5231,319 @@ Pull down to visit telegram.org</source>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../yaqtlib/src/utilities.cpp" line="591"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="290"/>
         <source>boosted this chat %Ln times</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="594"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="293"/>
         <source>sent a gift</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="594"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="293"/>
         <source>sent a gift</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="597"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="296"/>
         <source>started a giveaway</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="597"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="296"/>
         <source>started a giveaway</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="599"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="298"/>
         <source>a giveaway was completed</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="599"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="298"/>
         <source>a giveaway was completed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="604"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="303"/>
         <source>created this topic</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="604"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="303"/>
         <source>created this topic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="605"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="304"/>
         <source>created the topic &quot;%1&quot;</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="605"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="304"/>
         <source>created the topic &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="611"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="310"/>
         <source>renamed this topic to &quot;%1&quot;</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="611"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="310"/>
         <source>renamed this topic to &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="612"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="311"/>
         <source>renamed the topic &quot;%1&quot;</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="612"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="311"/>
         <source>renamed the topic &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="616"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="315"/>
         <source>changed this topic&apos;s icon</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="616"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="315"/>
         <source>changed this topic&apos;s icon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="617"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="316"/>
         <source>changed the icon of the topic &quot;%1&quot;</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="617"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="316"/>
         <source>changed the icon of the topic &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="623"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="321"/>
         <source>closed this topic</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="623"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="321"/>
         <source>closed this topic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="624"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="322"/>
         <source>closed the topic &quot;%1&quot;</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="624"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="322"/>
         <source>closed the topic &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="627"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="325"/>
         <source>reopened this topic</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="627"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="325"/>
         <source>reopened this topic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="628"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="326"/>
         <source>reopened the topic &quot;%1&quot;</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="628"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="326"/>
         <source>reopened the topic &quot;%1&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="633"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="331"/>
         <source>hid this topic</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="633"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="331"/>
         <source>hid this topic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="634"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="332"/>
         <source>hid the general topic</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="634"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="332"/>
         <source>hid the general topic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="637"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="335"/>
         <source>unhid this topic</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="637"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="335"/>
         <source>unhid this topic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="638"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="336"/>
         <source>unhid the general topic</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="638"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="336"/>
         <source>unhid the general topic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="642"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="340"/>
         <source>added &quot;%1&quot; to the poll</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="642"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="340"/>
         <source>added &quot;%1&quot; to the poll</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="644"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="342"/>
         <source>removed &quot;%1&quot; from the poll</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="644"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="342"/>
         <source>removed &quot;%1&quot; from the poll</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="647"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="345"/>
         <source>joined the chat from the &quot;%1&quot; community</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="647"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="345"/>
         <source>joined the chat from the &quot;%1&quot; community</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="650"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="348"/>
         <source>added the chat to the &quot;%1&quot; community</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="650"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="348"/>
         <source>added the chat to the &quot;%1&quot; community</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="653"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="351"/>
         <source>removed the chat from the community</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="653"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="351"/>
         <source>removed the chat from the community</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="655"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="354"/>
+        <source>used a QR code and can message this user for free</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../yaqtlib/src/utilities.cpp" line="354"/>
+        <source>used your QR code and can message you for free</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../yaqtlib/src/utilities.cpp" line="357"/>
         <source>sent an unsupported message</source>
         <comment>myself</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="655"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="357"/>
         <source>sent an unsupported message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="662"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="359"/>
         <source>sent an unsupported message: %1</source>
         <comment>myself; %1 is message type</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="663"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="360"/>
         <source>sent an unsupported message: %1</source>
         <comment>%1 is message type</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="799"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="624"/>
         <source>Deleted Account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="799"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="624"/>
         <source>Unknown</source>
         <comment>A user without a known name</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="823"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="648"/>
         <source>Unknown</source>
         <comment>A chat without a known name</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1043"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="858"/>
         <source>, </source>
         <comment>Separator for names</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1046"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="861"/>
         <source>%1 and %2</source>
         <comment>names</comment>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../yaqtlib/src/utilities.cpp" line="1049"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="864"/>
         <source>%1 and %Ln others</source>
         <comment>names</comment>
         <translation type="unfinished">
@@ -5526,231 +5551,231 @@ Pull down to visit telegram.org</source>
         </translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1099"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="914"/>
         <source>typing</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../yaqtlib/src/utilities.cpp" line="1099"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="914"/>
         <source>%1 is typing</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1102"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="917"/>
         <source>recording a video</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../yaqtlib/src/utilities.cpp" line="1102"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="917"/>
         <source>%1 is recording a video</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1105"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="920"/>
         <source>sending a video</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../yaqtlib/src/utilities.cpp" line="1105"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="920"/>
         <source>%1 is sending a video</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1108"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="923"/>
         <source>recording a voice message</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../yaqtlib/src/utilities.cpp" line="1108"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="923"/>
         <source>%1 is recording a voice message</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1111"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="926"/>
         <source>sending a voice message</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../yaqtlib/src/utilities.cpp" line="1111"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="926"/>
         <source>%1 is sending a voice message</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1114"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="929"/>
         <source>sending a photo</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../yaqtlib/src/utilities.cpp" line="1114"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="929"/>
         <source>%1 is sending a photo</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1117"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="932"/>
         <source>sending a file</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../yaqtlib/src/utilities.cpp" line="1117"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="932"/>
         <source>%1 is sending a file</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1120"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="935"/>
         <source>choosing a sticker</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../yaqtlib/src/utilities.cpp" line="1120"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="935"/>
         <source>%1 is choosing a sticker</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1123"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="938"/>
         <source>choosing location</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../yaqtlib/src/utilities.cpp" line="1123"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="938"/>
         <source>%1 is choosing location</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1126"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="941"/>
         <source>choosing a contact</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../yaqtlib/src/utilities.cpp" line="1126"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="941"/>
         <source>%1 is choosing a contact</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1129"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="944"/>
         <source>playing a game</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../yaqtlib/src/utilities.cpp" line="1129"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="944"/>
         <source>%1 is playing a game</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1132"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="947"/>
         <source>recording a video message</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../yaqtlib/src/utilities.cpp" line="1132"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="947"/>
         <source>%1 is recording a video message</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1135"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="950"/>
         <source>sending a video message</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../yaqtlib/src/utilities.cpp" line="1135"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="950"/>
         <source>%1 is sending a video message</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1139"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="954"/>
         <source>watching %1</source>
         <comment>The other party is watching an animation, %1 is the emoji describing the animation being watched</comment>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../yaqtlib/src/utilities.cpp" line="1140"/>
-        <source>%1 is watching %2</source>
-        <comment>%1 is watching an animation, %2 is the emoji describing the animation being watched</comment>
+        <location filename="../yaqtlib/src/utilities.cpp" line="955"/>
+        <source>%2 is watching %1</source>
+        <comment>%2 is watching an animation, %1 is the emoji describing the animation being watched</comment>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1173"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="988"/>
         <source>Canceled Video Call</source>
         <comment>outgoing</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1173"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="988"/>
         <source>Missed Video Call</source>
         <comment>incoming</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1174"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="989"/>
         <source>Outgoing Video Call</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1174"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="989"/>
         <source>Incoming Video Call</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1177"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="992"/>
         <source>Canceled Call</source>
         <comment>outgoing</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1177"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="992"/>
         <source>Missed Call</source>
         <comment>incoming</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1178"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="993"/>
         <source>Outgoing Call</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1178"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="993"/>
         <source>Incoming Call</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1183"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="998"/>
         <source>Outgoing Group Call</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1185"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="1000"/>
         <source>Missed Group Call</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../yaqtlib/src/utilities.cpp" line="1186"/>
+        <location filename="../yaqtlib/src/utilities.cpp" line="1001"/>
         <source>Incoming Group Call</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5862,150 +5887,150 @@ Pull down to visit telegram.org</source>
 <context>
     <name>functions</name>
     <message>
-        <location filename="../qml/js/functions.js" line="33"/>
+        <location filename="../qml/js/functions.js" line="29"/>
         <source>service notifications</source>
         <comment>used as a status for the service notifications chat</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/js/functions.js" line="34"/>
+        <location filename="../qml/js/functions.js" line="30"/>
         <source>support</source>
         <comment>used as a status for support chats, excluding the service notifications chat</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/js/functions.js" line="37"/>
+        <location filename="../qml/js/functions.js" line="33"/>
         <source>was never online</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/js/functions.js" line="39"/>
+        <location filename="../qml/js/functions.js" line="35"/>
         <source>last online: last month</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/js/functions.js" line="41"/>
+        <location filename="../qml/js/functions.js" line="37"/>
         <source>last online: last week</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/js/functions.js" line="43"/>
+        <location filename="../qml/js/functions.js" line="39"/>
         <source>last online: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/js/functions.js" line="45"/>
+        <location filename="../qml/js/functions.js" line="41"/>
         <source>online</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/js/functions.js" line="47"/>
+        <location filename="../qml/js/functions.js" line="43"/>
         <source>was recently online</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/js/functions.js" line="54"/>
+        <location filename="../qml/js/functions.js" line="50"/>
         <source>Closed</source>
         <comment>secret chat</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/js/functions.js" line="56"/>
+        <location filename="../qml/js/functions.js" line="52"/>
         <source>Pending acknowledgement</source>
         <comment>secret chat</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/js/functions.js" line="64"/>
+        <location filename="../qml/js/functions.js" line="60"/>
         <source>Admin</source>
         <comment>channel user role</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/js/functions.js" line="66"/>
+        <location filename="../qml/js/functions.js" line="62"/>
         <source>Banned</source>
         <comment>channel user role</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/js/functions.js" line="68"/>
+        <location filename="../qml/js/functions.js" line="64"/>
         <source>Owner</source>
         <comment>channel user role</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/js/functions.js" line="70"/>
+        <location filename="../qml/js/functions.js" line="66"/>
         <source>Restricted</source>
         <comment>channel user role</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/js/functions.js" line="84"/>
+        <location filename="../qml/js/functions.js" line="80"/>
         <source>%1, %2</source>
         <comment>combination of &apos;[x members], [y online]&apos;, which are separate translations</comment>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../qml/js/functions.js" line="85"/>
-        <location filename="../qml/js/functions.js" line="91"/>
+        <location filename="../qml/js/functions.js" line="81"/>
+        <location filename="../qml/js/functions.js" line="87"/>
         <source>%1 members</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="../qml/js/functions.js" line="87"/>
+        <location filename="../qml/js/functions.js" line="83"/>
         <source>%1 online</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../qml/js/functions.js" line="90"/>
+        <location filename="../qml/js/functions.js" line="86"/>
         <source>Channel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/js/functions.js" line="90"/>
+        <location filename="../qml/js/functions.js" line="86"/>
         <source>Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../qml/js/functions.js" line="91"/>
+        <location filename="../qml/js/functions.js" line="87"/>
         <source>%1 subscribers</source>
         <translation type="unfinished">
             <numerusform></numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../qml/js/functions.js" line="97"/>
+        <location filename="../qml/js/functions.js" line="93"/>
         <source>%1M</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/js/functions.js" line="99"/>
+        <location filename="../qml/js/functions.js" line="95"/>
         <source>%1K</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/js/functions.js" line="191"/>
+        <location filename="../qml/js/functions.js" line="181"/>
         <source>Unable to find user %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/js/functions.js" line="196"/>
-        <location filename="../qml/js/functions.js" line="203"/>
+        <location filename="../qml/js/functions.js" line="186"/>
+        <location filename="../qml/js/functions.js" line="193"/>
         <source>You are already a member of this chat.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/js/functions.js" line="247"/>
+        <location filename="../qml/js/functions.js" line="234"/>
         <source>Unavailable</source>
         <comment>Indicates that the proxy is unavailable</comment>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location filename="../qml/js/functions.js" line="249"/>
+        <location filename="../qml/js/functions.js" line="238"/>
         <source>Available (ping: %Ln ms)</source>
         <comment>Indicates that the proxy is available</comment>
         <translation type="unfinished">
@@ -6013,18 +6038,18 @@ Pull down to visit telegram.org</source>
         </translation>
     </message>
     <message>
-        <location filename="../qml/js/functions.js" line="250"/>
+        <location filename="../qml/js/functions.js" line="239"/>
         <source>Available</source>
         <comment>Indicates that the proxy is available</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/js/functions.js" line="256"/>
+        <location filename="../qml/js/functions.js" line="244"/>
         <source>Unmute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/js/functions.js" line="258"/>
+        <location filename="../qml/js/functions.js" line="246"/>
         <source>Mute notifications</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6040,77 +6065,6 @@ Pull down to visit telegram.org</source>
         <location filename="../qml/harbour-yast-client.qml" line="150"/>
         <source>TelegramTips</source>
         <comment>Username of the localized Telegram Tips channel. Keep unfinished or as-is if not available for your language</comment>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ExternalUrlPage</name>
-    <message>
-        <location filename="../Opal/LinkHandler/private/ExternalUrlPage.qml" line="218"/>
-        <source>Swipe left to preview.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Opal/LinkHandler/private/ExternalUrlPage.qml" line="219"/>
-        <source>You are using a mobile data connection.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>Opal.LinkHandler</name>
-    <message>
-        <location filename="../Opal/LinkHandler/private/ExternalUrlPage.qml" line="95"/>
-        <source>Copied to clipboard: %1</source>
-        <translation>Skopiowano do schowka: %1</translation>
-    </message>
-    <message>
-        <location filename="../Opal/LinkHandler/private/ExternalUrlPage.qml" line="122"/>
-        <source>Share link</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Opal/LinkHandler/private/ExternalUrlPage.qml" line="137"/>
-        <source>Phone number</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Opal/LinkHandler/private/ExternalUrlPage.qml" line="138"/>
-        <source>External link</source>
-        <translation>Link Zewnętrzny</translation>
-    </message>
-    <message>
-        <location filename="../Opal/LinkHandler/private/ExternalUrlPage.qml" line="180"/>
-        <source>Open in browser</source>
-        <translation>Otwórz w przeglądarce</translation>
-    </message>
-    <message>
-        <location filename="../Opal/LinkHandler/private/ExternalUrlPage.qml" line="181"/>
-        <source>Open externally</source>
-        <translation>Otwórz za pomocą innej aplikacji</translation>
-    </message>
-    <message>
-        <location filename="../Opal/LinkHandler/private/ExternalUrlPage.qml" line="189"/>
-        <source>Share</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Opal/LinkHandler/private/ExternalUrlPage.qml" line="206"/>
-        <source>Copy link</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Opal/LinkHandler/private/ExternalUrlPage.qml" line="211"/>
-        <source>Copy text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Opal/LinkHandler/private/PreviewPage.qml" line="58"/>
-        <source>No preview available.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../Opal/LinkHandler/private/PreviewPage.qml" line="59"/>
-        <source>The page is taking too long to load.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

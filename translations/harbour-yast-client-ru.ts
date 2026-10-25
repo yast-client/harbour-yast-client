@@ -261,18 +261,6 @@
         <translation>Тип</translation>
     </message>
     <message>
-        <source>MTPROTO</source>
-        <translation>MTPROTO</translation>
-    </message>
-    <message>
-        <source>SOCKS5</source>
-        <translation>SOCKS5</translation>
-    </message>
-    <message>
-        <source>HTTP</source>
-        <translation>HTTP</translation>
-    </message>
-    <message>
         <source>Secret</source>
         <translation>Ключ</translation>
     </message>
@@ -315,6 +303,30 @@
     <message>
         <source>Comment</source>
         <translation>Комментарий</translation>
+    </message>
+    <message>
+        <source>MTPROTO</source>
+        <comment>proxy</comment>
+        <translation type="unfinished">MTPROTO</translation>
+    </message>
+    <message>
+        <source>SOCKS5</source>
+        <comment>proxy</comment>
+        <translation type="unfinished">SOCKS5</translation>
+    </message>
+    <message>
+        <source>HTTP</source>
+        <comment>proxy</comment>
+        <translation type="unfinished">HTTP</translation>
+    </message>
+    <message>
+        <source>WEB</source>
+        <comment>proxy</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Path</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -627,6 +639,10 @@
         <source>Community</source>
         <translation>Сообщество</translation>
     </message>
+    <message>
+        <source>%1 uses an unofficial Telegram client. Messages to this user may be less secure</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChatInformationTabItemGroupsInCommon</name>
@@ -773,69 +789,69 @@
 <context>
     <name>ChatInformationTabView</name>
     <message>
-        <source>Groups</source>
-        <comment>Button: groups in common (short)</comment>
-        <translation>Группы</translation>
-    </message>
-    <message>
-        <source>Members</source>
-        <comment>Button: Group Members</comment>
-        <translation>Участники группы</translation>
-    </message>
-    <message>
-        <source>Settings</source>
-        <comment>Button: Chat Settings</comment>
-        <translation>Настройки</translation>
-    </message>
-    <message>
         <source>Media</source>
         <comment>Button: Chat media (photos and videos)</comment>
-        <translation>Медиа</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>GIFs</source>
         <comment>Button: Chat GIFs</comment>
-        <translation>GIF</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Video Messages</source>
         <comment>Button: Chat video messages</comment>
-        <translation>Видеосообщения</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Files</source>
         <comment>Button: Chat files</comment>
-        <translation>Файлы</translation>
-    </message>
-    <message>
-        <source>Subscribers</source>
-        <comment>Button: channel subscribers</comment>
-        <translation>Подписчики</translation>
-    </message>
-    <message>
-        <source>Similar channels</source>
-        <comment>Profile tab</comment>
-        <translation>Похожие каналы</translation>
-    </message>
-    <message>
-        <source>Similar bots</source>
-        <comment>Profile tab</comment>
-        <translation>Похожие боты</translation>
+        <translation type="unfinished">Файлы</translation>
     </message>
     <message>
         <source>Audio</source>
         <comment>Button: Chat audio files</comment>
-        <translation>Аудио</translation>
-    </message>
-    <message>
-        <source>Links</source>
-        <comment>Button: Chat shared links</comment>
-        <translation>Ссылки</translation>
+        <translation type="unfinished">Аудио</translation>
     </message>
     <message>
         <source>Voice</source>
         <comment>Button: Chat voice messages (short)</comment>
-        <translation>Голосовые</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Links</source>
+        <comment>Button: Chat shared links</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subscribers</source>
+        <comment>Button: channel subscribers</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Members</source>
+        <comment>Button: Group Members</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Groups</source>
+        <comment>Button: groups in common (short)</comment>
+        <translation type="unfinished">Группы</translation>
+    </message>
+    <message>
+        <source>Similar channels</source>
+        <comment>Profile tab</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Similar bots</source>
+        <comment>Profile tab</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <comment>Button: Chat Settings</comment>
+        <translation type="unfinished">Настройки</translation>
     </message>
 </context>
 <context>
@@ -1204,6 +1220,61 @@ Please take a look at the %1Telegram FAQ%2: it has answers to most questions and
             <numerusform>новых
 сообщений</numerusform>
         </translation>
+    </message>
+</context>
+<context>
+    <name>CrashReportDialog</name>
+    <message>
+        <source>Report a Crash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Report</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Include my Telegram account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If checked, you may later be contacted for more information regarding your report.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Additional info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please describe the cause of the crash and what you did in the app before it happened.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If possible, also include your contact information.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send Logs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Logging is disabled in settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Note that logs may include some sensitive info.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send TDLib Logs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TDLib logging is disabled in settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Note that TDLib logs maay include some sensitive info.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1801,6 +1872,10 @@ Pull down to visit telegram.org</source>
             <numerusform>набрал(а) %Ln очков в %2</numerusform>
         </translation>
     </message>
+    <message>
+        <source>You</source>
+        <translation type="unfinished">Вы</translation>
+    </message>
 </context>
 <context>
     <name>MessagePoll</name>
@@ -2137,7 +2212,7 @@ Pull down to visit telegram.org</source>
     </message>
     <message>
         <source>in %1</source>
-        <comment>After dialog header… New Poll in [group name]</comment>
+        <comment>After dialog header: [New Poll] in (group name)</comment>
         <translation>в %1</translation>
     </message>
     <message>
@@ -2824,19 +2899,50 @@ Pull down to visit telegram.org</source>
     </message>
 </context>
 <context>
+    <name>ProfileTabComboBox</name>
+    <message>
+        <source>Main profile tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose the tab to appear first in the profile.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Posts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gifts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Media</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Files</source>
+        <translation type="unfinished">Файлы</translation>
+    </message>
+    <message>
+        <source>Music</source>
+        <translation type="unfinished">Музыка</translation>
+    </message>
+    <message>
+        <source>Links</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Voice</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GIFs</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ProxiesPage</name>
-    <message>
-        <source>MTPROTO</source>
-        <translation>MTPROTO</translation>
-    </message>
-    <message>
-        <source>SOCKS5</source>
-        <translation>SOCKS5</translation>
-    </message>
-    <message>
-        <source>HTTP</source>
-        <translation>HTTP</translation>
-    </message>
     <message>
         <source>Add proxy</source>
         <translation>Добавить прокси</translation>
@@ -2943,6 +3049,26 @@ Pull down to visit telegram.org</source>
     <message>
         <source>Sort by Ping</source>
         <translation>Сортировка по пингу</translation>
+    </message>
+    <message>
+        <source>MTPROTO</source>
+        <comment>proxy</comment>
+        <translation type="unfinished">MTPROTO</translation>
+    </message>
+    <message>
+        <source>SOCKS5</source>
+        <comment>proxy</comment>
+        <translation type="unfinished">SOCKS5</translation>
+    </message>
+    <message>
+        <source>HTTP</source>
+        <comment>proxy</comment>
+        <translation type="unfinished">HTTP</translation>
+    </message>
+    <message>
+        <source>WEB</source>
+        <comment>proxy</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4591,8 +4717,8 @@ Pull down to visit telegram.org</source>
         <translation>смотрит на %1</translation>
     </message>
     <message numerus="yes">
-        <source>%1 is watching %2</source>
-        <comment>%1 is watching an animation, %2 is the emoji describing the animation being watched</comment>
+        <source>%2 is watching %1</source>
+        <comment>%2 is watching an animation, %1 is the emoji describing the animation being watched</comment>
         <translation>
             <numerusform>%1 смотрит на %2</numerusform>
             <numerusform>%1 смотрят на %2</numerusform>
@@ -4731,6 +4857,15 @@ Pull down to visit telegram.org</source>
         <source>have added %1 to the chat</source>
         <comment>myself</comment>
         <translation>добавили %1 в чат</translation>
+    </message>
+    <message>
+        <source>used a QR code and can message this user for free</source>
+        <comment>myself</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>used your QR code and can message you for free</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

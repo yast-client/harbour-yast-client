@@ -108,7 +108,7 @@ Dialog {
 
         color: palette.secondaryHighlightColor
         wrapMode: Text.Wrap
-        text: qsTr("in %1", "After dialog header… New Poll in [group name]").arg(Emoji.emojify(chatTitle, font.pixelSize))
+        text: qsTr("in %1", "After dialog header: [New Poll] in (group name)").arg(Emoji.emojify(chatTitle, font.pixelSize))
         font.pixelSize: Theme.fontSizeSmall
     }
 
