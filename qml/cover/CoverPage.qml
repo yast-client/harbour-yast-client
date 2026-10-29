@@ -87,7 +87,7 @@ CoverBackground {
         actions: {
             var result = []
             //if (unreadMessageCount > 0) result.push(readAction)
-            result.push(newChatAction)
+            result.push(searchAction)
             if (DebugLog.enabled) result.push(debugAction)
             return result
         }
@@ -101,11 +101,11 @@ CoverBackground {
         onTriggered: tdLibWrapper.readChatList()
     }*/
     CoverAction {
-        id: newChatAction
-        iconSource: "image://theme/icon-cover-new"
+        id: searchAction
+        iconSource: "image://theme/icon-cover-search"
         onTriggered: {
-            if (!pageStack.currentPage || pageStack.currentPage.objectName !== 'newChatPage')
-                pageStack.push(Qt.resolvedUrl("../pages/NewChatPage.qml"))
+            if (!pageStack.currentPage || pageStack.currentPage.objectName !== 'searchChatsPage')
+                pageStack.push(Qt.resolvedUrl("../pages/SearchChatsPage.qml"))
             appWindow.activate()
         }
     }

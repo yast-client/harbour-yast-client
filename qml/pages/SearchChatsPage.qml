@@ -7,6 +7,7 @@ import "../components"
 
 Page {
     id: page
+    objectName: 'searchChatsPage'
     allowedOrientations: Orientation.All
 
     property bool fromTitleBar
