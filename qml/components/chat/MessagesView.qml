@@ -65,6 +65,11 @@ Column {
 
     function sendMessage() {
         // TODO: in other places where we use TDLibWrapper send message functions, correctly specify topic ID
+
+        // FIXME: this shouldn't generally needed here, but it seems like some custom keyboards might (still?) fail without this
+        // this was not tested, but it shouldn't make things worse, so let's keep it here (for now)
+        Qt.inputMethod.commit()
+
         if (newMessageColumn.editMessageId !== "0")
             (newMessageColumn.editIsCaption ? tdLibWrapper.editMessageCaption : tdLibWrapper.editMessageText)
                     (chatId, newMessageColumn.editMessageId, newMessageTextField.text)
