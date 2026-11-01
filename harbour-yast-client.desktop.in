@@ -4,6 +4,7 @@ X-Nemo-Application-Type=silica-qt5
 Icon=harbour-yast-client
 Exec=harbour-yast-client
 Name=YAST
+Categories=Network
 
 X-DBusActivatable=true
 MimeType=x-url-handler/t.me;x-scheme-handler/tg
