@@ -18,7 +18,7 @@ Item {
     property Item remorseParent: parent
 
     signal resetFocus
-    onResetFocus: searchField.focus = true
+    onResetFocus: searchField.focus = false
 
     property bool openOnSelected: true
     signal chatSelected(var chatId)
