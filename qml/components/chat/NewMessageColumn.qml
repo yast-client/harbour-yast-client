@@ -645,6 +645,11 @@ Column {
                     textReplacementTimer.restart()
                     tdLibWrapper.sendChatAction(chatInformation.id, text ? TDLibAPI.Typing : TDLibAPI.Cancel, topicId)
                 }
+
+                function commitIfNeeded() {
+                    if (text || inputMethodComposing)
+                        Qt.inputMethod.commit()
+                }
             }
 
             IconButton {
