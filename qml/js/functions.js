@@ -317,3 +317,21 @@ function getRgbColor(value) {
         1.0
     )
 }
+
+function getWordBoundaries(text, cursorPosition) {
+    var wordBoundaries = { beginIndex : 0, endIndex : text.length}
+    var currentIndex = 0
+    for (currentIndex = (cursorPosition - 1); currentIndex > 0; currentIndex--) {
+        if (text.charAt(currentIndex) === ' ') {
+            wordBoundaries.beginIndex = currentIndex + 1
+            break
+        }
+    }
+    for (currentIndex = cursorPosition; currentIndex < text.length; currentIndex++) {
+        if (text.charAt(currentIndex) === ' ') {
+            wordBoundaries.endIndex = currentIndex
+            break
+        }
+    }
+    return wordBoundaries
+}

@@ -9,6 +9,7 @@ import io.yaqtlib 1.0
 import ".."
 
 import "../../js/debug.js" as Debug
+import "../../js/functions.js" as Functions
 import "../../js/twemoji.js" as Emoji
 
 Column {
@@ -17,7 +18,7 @@ Column {
     topPadding: Theme.paddingSmall + inlineQuery.buttonPadding
     anchors.horizontalCenter: parent.horizontalCenter
     visible: height > 0
-    width: parent.width - ( 2 * Theme.horizontalPageMargin )
+    width: parent.width - 2*Theme.horizontalPageMargin
     height: show ? implicitHeight : 0
 
     property int allowedOrientations
@@ -27,6 +28,7 @@ Column {
     property bool editIsCaption
 
     property var emojiProposals
+    property var hashtagSuggestions
 
     property alias newMessageInReplyToRow: newMessageInReplyToRow
     property alias knownUsersRepeater: knownUsersRepeater
@@ -34,26 +36,17 @@ Column {
     property alias newMessageTextField: newMessageTextField
     property alias attachmentOptionsFlickable: attachmentOptionsFlickable
 
-    function getWordBoundaries(text, cursorPosition) {
-        var wordBoundaries = { beginIndex : 0, endIndex : text.length}
-        var currentIndex = 0
-        for (currentIndex = (cursorPosition - 1); currentIndex > 0; currentIndex--) {
-            if (text.charAt(currentIndex) === ' ') {
-                wordBoundaries.beginIndex = currentIndex + 1
-                break
-            }
-        }
-        for (currentIndex = cursorPosition; currentIndex < text.length; currentIndex++) {
-            if (text.charAt(currentIndex) === ' ') {
-                wordBoundaries.endIndex = currentIndex
-                break
-            }
-        }
-        return wordBoundaries
+    function getWordBoundaries() {
+        return Functions.getWordBoundaries(newMessageTextField.text, newMessageTextField.cursorPosition)
+    }
+    function getCurrentWord() {
+        var wordBoundaries = getWordBoundaries()
+        return newMessageTextField.text.slice(wordBoundaries.beginIndex, wordBoundaries.endIndex)
     }
 
-    function replaceMessageText(text, cursorPosition, newText) {
-        var wordBoundaries = getWordBoundaries(text, cursorPosition)
+    function replaceMessageText(newText) {
+        var wordBoundaries = getWordBoundaries()
+        var text = newMessageTextField.text
         var newCompleteText = text.substring(0, wordBoundaries.beginIndex) + newText + " " + text.substring(wordBoundaries.endIndex)
         var newIndex = wordBoundaries.beginIndex + newText.length + 1
         newMessageTextField.text = newCompleteText
@@ -61,20 +54,25 @@ Column {
         lostFocusTimer.start()
     }
 
-    function handleMessageTextReplacement(text, cursorPosition) {
-        if(!newMessageTextField.focus) return
+    function handleMessageTextReplacement() {
+        if (!newMessageTextField.focus) return
 
-        var wordBoundaries = getWordBoundaries(text, cursorPosition)
+        var currentWord = getCurrentWord()
 
-        var currentWord = text.substring(wordBoundaries.beginIndex, wordBoundaries.endIndex)
-        if (currentWord.length > 1 && currentWord.charAt(0) === ':')
-            tdLibWrapper.searchEmojis(currentWord.substring(1))
+        if (currentWord[0] === ':')
+            tdLibWrapper.searchEmojis(currentWord.slice(1))
         else
             emojiProposals = null
 
-        if (currentWord.length > 1 && currentWord.charAt(0) === '@') {
+        if (utilities.isHashtagBeginning(currentWord))
+            tdLibWrapper.searchHashtags(currentWord, 'newMessageSuggestions')
+        else
+            hashtagSuggestions = null
+
+        if (currentWord[0] === '@') {
+            // TODO: remove knownUsersProxyModel and make it search group members, inline bots, guest bots or contacts instead
             knownUsersRepeater.model = knownUsersProxyModel
-            knownUsersProxyModel.setFilterWildcard("*" + currentWord.substring(1) + "*")
+            knownUsersProxyModel.setFilterWildcard("*" + currentWord.slice(1) + "*")
         } else
             knownUsersRepeater.model = undefined
     }
@@ -88,6 +86,12 @@ Column {
                 uploadingProgressBar.value = fileInformation.remote.uploaded_size
             }
         }
+        onEmojiKeywordsReceived: emojiProposals = emojis
+        onHashtagsReceived:
+            if (extra === 'newMessageSuggestions') hashtagSuggestions = hashtags
+        onHashtagsChanged:
+            if (hashtagSuggestions && hashtagSuggestions.length)
+                tdLibWrapper.searchHashtags(getCurrentWord(), 'newMessageSuggestions')
     }
 
     Timer {
@@ -95,15 +99,7 @@ Column {
         interval: 600
         running: false
         repeat: false
-        onTriggered:
-            handleMessageTextReplacement(newMessageTextField.text, newMessageTextField.cursorPosition)
-    }
-
-    Connections {
-        target: tdLibWrapper
-        onEmojiKeywordsReceived: {
-            emojiProposals = emojis
-        }
+        onTriggered: handleMessageTextReplacement()
     }
 
     InReplyToRow {
@@ -445,42 +441,34 @@ Column {
 
     }
 
-    Column {
-        id: emojiColumn
+    Flickable {
         width: parent.width
-        anchors.horizontalCenter: parent.horizontalCenter
-        visible: opacity > 0
+        height: emojiResultRow.height + Theme.paddingSmall
         opacity: emojiProposals && emojiProposals.length > 0 ? 1 : 0
-        Behavior on opacity { NumberAnimation {} }
-        spacing: Theme.paddingMedium
+        Behavior on opacity { FadeAnimator {} }
+        visible: opacity > 0
+        contentWidth: emojiResultRow.width
+        clip: true
+        Row {
+            id: emojiResultRow
+            spacing: Theme.paddingMedium
+            Repeater {
+                model: emojiProposals
+                Image {
+                    id: emojiPicture
+                    source: Emoji.getEmojiPath(modelData)
+                    width: Theme.fontSizeLarge
+                    height: Theme.fontSizeLarge
 
-        Flickable {
-            width: parent.width
-            height: emojiResultRow.height + Theme.paddingSmall
-            anchors.horizontalCenter: parent.horizontalCenter
-            contentWidth: emojiResultRow.width
-            clip: true
-            Row {
-                id: emojiResultRow
-                spacing: Theme.paddingMedium
-                Repeater {
-                    model: emojiProposals
-                    Image {
-                        id: emojiPicture
-                        source: Emoji.getEmojiPath(modelData)
-                        width: Theme.fontSizeLarge
-                        height: Theme.fontSizeLarge
-
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                replaceMessageText(newMessageTextField.text, newMessageTextField.cursorPosition, modelData)
-                                emojiProposals = null
-                            }
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            replaceMessageText(modelData)
+                            emojiProposals = null
                         }
                     }
-
                 }
+
             }
         }
     }
@@ -488,7 +476,6 @@ Column {
     Column {
         id: atMentionColumn
         width: parent.width
-        anchors.horizontalCenter: parent.horizontalCenter
         visible: opacity > 0
         opacity: knownUsersRepeater.count > 0 ? 1 : 0
         Behavior on opacity { NumberAnimation {} }
@@ -554,12 +541,71 @@ Column {
                         MouseArea {
                             anchors.fill: parent
                             onClicked: {
-                                replaceMessageText(newMessageTextField.text, newMessageTextField.cursorPosition, knownUserItem.atMentionText)
+                                replaceMessageText(knownUserItem.atMentionText)
                                 knownUsersRepeater.model = undefined
                             }
                         }
                     }
 
+                }
+            }
+        }
+    }
+
+    AnimatedLoader {
+        x: -Theme.horizontalPageMargin
+        width: parent.parent.width
+        show: !!hashtagSuggestions && hashtagSuggestions.length > 0
+        activeHeight: Theme.itemSizeSmall
+        animationDuration: 100
+        sourceComponent: Component {
+            SilicaListView {
+                // ideally, SuggestionsHelper should be used here, but it replaces all text, and workarounding that is too hacky
+                id: hashtagsListView
+                width: parent.width
+                height: Theme.itemSizeSmall
+                model: hashtagSuggestions
+                orientation: ListView.Horizontal
+                clip: true
+
+                property bool removing
+
+                delegate: BackgroundItem {
+                    width: hashtagLabel.width + Theme.paddingLarge + (hashtagsListView.removing ? Theme.itemSizeExtraSmall : Theme.paddingLarge)
+                    Behavior on width { NumberAnimation { duration: 100 } }
+                    height: parent.height
+                    property string hashtag: '#' + modelData
+
+                    Label {
+                        id: hashtagLabel
+                        x: Theme.paddingLarge
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: hashtag
+                        font.pixelSize: Theme.fontSizeSmall
+                    }
+
+                    IconButton {
+                        anchors {
+                            left: hashtagLabel.right
+                            verticalCenter: parent.verticalCenter
+                        }
+                        icon.source: "image://theme/icon-m-input-remove"
+                        opacity: hashtagsListView.removing ? 1 : 0
+                        visible: opacity > 0
+                        enabled: hashtagsListView.removing
+                        Behavior on opacity { FadeAnimator { duration: 100 } }
+
+                        onClicked: {
+                            tdLibWrapper.removeRecentHashtag(modelData)
+                            hashtagsListView.removing = false
+                        }
+                    }
+
+                    onClicked: {
+                        replaceMessageText(hashtag)
+                        hashtagSuggestions = null
+                    }
+                    onPressAndHold: hashtagsListView.removing = true
                 }
             }
         }
@@ -625,8 +671,7 @@ Column {
                     return qsTr("Message", "placeholder for sending a message")
                 }
                 labelVisible: false
-                textLeftMargin: 0
-                textTopMargin: 0
+                textMargin: 0
                 enabled: !attachmentPreviewRow.isLocation
                 focus: appSettings.focusTextAreaOnChatOpen
                 EnterKey.onClicked: if (appSettings.sendByEnter) {

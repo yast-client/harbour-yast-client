@@ -5,10 +5,7 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 Loader {
-    // this has nothing to do with Silica.private.AnimatedLoader
-    // I don't fully understand the purpose of the Silica's version so can't say what that is for,
-    // but this was created with no inspiration from that whatsoever
-
+    // NOTE: this is not related to Silica.private.AnimatedLoader
     id: loader
 
     // using implicitHeight here uses item's implicitHeight
@@ -16,6 +13,7 @@ Loader {
     property real activeHeight: implicitHeight
     property bool show: true
     property bool hidden
+    property int animationDuration: 200
 
     height: 0
     opacity: 0
@@ -35,7 +33,7 @@ Loader {
     transitions: Transition {
         id: transition
         FadeAnimator {}
-        NumberAnimation { properties: 'height'; duration: 200 }
+        NumberAnimation { properties: 'height'; duration: animationDuration }
     }
 
     active: show || transition.running
