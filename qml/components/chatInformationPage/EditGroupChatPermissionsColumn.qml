@@ -108,6 +108,7 @@ Column {
             model: [
                 ['can_invite_users', qsTr("Add members", "member permission")],
                 ['can_pin_messages', qsTr("Pin messages", "member permission")],
+                ['can_edit_tag', qsTr("Edit own tags", "member permission")],
                 ['can_change_info', qsTr("Change group info", "member permission")],
             ]
             delegate: permissionSwitch
@@ -122,6 +123,4 @@ Column {
             sourceComponent: permissionSwitch
         }
     }
-
-
 }
