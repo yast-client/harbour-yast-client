@@ -5,6 +5,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import io.yaqtlib 1.0
+import App.Logic 1.0
 import "../components"
 import "../components/chat"
 import "../js/debug.js" as Debug
@@ -434,13 +435,50 @@ Page {
                         width: visible ? parent.width : 0
                         placeholderText: qsTr("Search in chat")
                         active: searchInChatItem.visible
-                        canHide: text === ""
+                        canHide: !text
 
-                        onTextChanged: searchInChatTimer.restart()
+                        function searchHashtags() {
+                            // getSearchedForTags only returns tags which were searched
+                            // using searchPublicMessagesByTag or searchPublicStoriesByTag,
+                            // which doesn't suit us when searching through a single chat's history,
+                            // so we use normal searchHashtags (populated using messages from all chats) here instead
+                            if (utilities.isHashtagOrCashtagBeginning(text))
+                                tdLibWrapper.searchHashtags(text, 'chatSearch')
+                            else suggestionsHelperLoader.hashtags = []
+                        }
+
+                        onTextChanged: {
+                            searchInChatTimer.restart()
+                            searchHashtags()
+                        }
                         onHideClicked: resetFocus()
 
                         EnterKey.iconSource: "image://theme/icon-m-enter-close"
                         EnterKey.onClicked: resetFocus()
+
+                        Loader {
+                            id: suggestionsHelperLoader
+                            property var hashtags
+                            active: !!(hashtags && hashtags.length)
+                            sourceComponent: Component {
+                                SuggestionsHelper {
+                                    id: hashtagSuggestions
+                                    autoFilter: false
+                                    suggestions: suggestionsHelperLoader.hashtags
+                                    onSuggestionRemoved: tdLibWrapper.removeRecentHashtag(suggestion)
+                                }
+                            }
+                        }
+
+                        Connections {
+                            target: tdLibWrapper
+                            onHashtagsReceived:
+                                if (extra == 'chatSearch' && utilities.isHashtagOrCashtagBeginning(searchInChatField.text)) {
+                                    var marker = searchInChatField.text.slice(1) // # or $
+                                    suggestionsHelperLoader.hashtags = hashtags.map(function (tag) { return marker + tag })
+                                }
+                            onHashtagsChanged: searchInChatField.searchHashtags()
+                        }
                     }
                 }
             }

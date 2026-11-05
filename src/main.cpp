@@ -27,6 +27,7 @@
 #include "voicenoterecorder.h"
 #include "mynotificationmanager.h"
 #include "sailfishwebproxymanager.h"
+#include "suggestionshelper.h"
 
 #include "lottieqt/src/tgsplugin.h"
 #include "lottieqt/src/lottieitem.h"
@@ -76,6 +77,7 @@ int main(int argc, char *argv[]) {
     qmlRegisterUncreatableType<VoiceNoteRecorder>(uri, 1, 0, "VoiceNoteRecorder", QString());
 
     qmlRegisterType<LottieItem>(uri, 1, 0, "LottieItem");
+    qmlRegisterType<SuggestionsHelper>(uri, 1, 0, "SuggestionsHelper");
 
     view->rootContext()->setContextProperty("APP_VERSION", QString(APP_VERSION));
     view->rootContext()->setContextProperty("APP_RELEASE", QString(APP_RELEASE));
