@@ -64,7 +64,7 @@ Column {
         else
             emojiProposals = null
 
-        if (utilities.isHashtagBeginning(currentWord))
+        if (currentWord[0] === '#' && utilities.isHashtagBeginning(currentWord))
             tdLibWrapper.searchHashtags(currentWord, 'newMessageSuggestions')
         else
             hashtagSuggestions = null
@@ -569,9 +569,10 @@ Column {
                 clip: true
 
                 property bool removing
+                property real itemPadding: Theme.paddingLarge + (hashtagsListView.removing ? Theme.itemSizeExtraSmall : Theme.paddingLarge)
 
                 delegate: BackgroundItem {
-                    width: hashtagLabel.width + Theme.paddingLarge + (hashtagsListView.removing ? Theme.itemSizeExtraSmall : Theme.paddingLarge)
+                    width: Math.min(hashtagLabel.implicitWidth + hashtagsListView.itemPadding, hashtagsListView.width)
                     Behavior on width { NumberAnimation { duration: 100 } }
                     height: parent.height
                     property string hashtag: '#' + modelData
@@ -579,9 +580,11 @@ Column {
                     Label {
                         id: hashtagLabel
                         x: Theme.paddingLarge
+                        width: parent.width - hashtagsListView.itemPadding
                         anchors.verticalCenter: parent.verticalCenter
                         text: hashtag
                         font.pixelSize: Theme.fontSizeSmall
+                        truncationMode: TruncationMode.Fade
                     }
 
                     IconButton {
