@@ -27,6 +27,7 @@ BuildRequires:  pkgconfig(openssl) < 3.0
 BuildRequires:  pkgconfig(gstreamer-1.0)
 BuildRequires:  pkgconfig(gstreamer-pbutils-1.0)
 BuildRequires:  pkgconfig(glib-2.0)
+BuildRequires:  pkgconfig(python3)
 BuildRequires:  curl
 BuildRequires:  gperf
 BuildRequires:  rust
