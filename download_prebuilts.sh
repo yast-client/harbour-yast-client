@@ -62,8 +62,9 @@ LAST_TDLIB_VERSION_FILE=tdlib/.last_downloaded_version
 touch $LAST_TDLIB_VERSION_FILE
 
 if ! grep -Fxq "$TDLIB_TAG $SUFFIX" $LAST_TDLIB_VERSION_FILE || [ ! -f tdlib/$ARCH/lib/libtdjson.so.${TDLIB_VERSION} ]; then
-    echo "Downloading TDLib"
-    curl -o tdlib.zip -L https://github.com/yast-client/td/releases/download/$TDLIB_TAG/tdlib${SUFFIX}.zip
+    TDLIB_URL=https://github.com/yast-client/td/releases/download/$TDLIB_TAG/tdlib${SUFFIX}.zip
+    echo "Downloading TDLib from $TDLIB_URL"
+    curl -o tdlib.zip -L "$TDLIB_URL"
 
     # FIXME?
     rm -r tdlib/aarch64
@@ -87,8 +88,9 @@ else
     touch $LAST_WEBRTC_VERSION_FILE
 
     if ! grep -Fxq "$WEBRTC_TAG $SUFFIX" $LAST_WEBRTC_VERSION_FILE || [ ! -d tg_owt/$ARCH ]; then
-        echo "Downloading WebRTC"
-        curl -o tg_owt.zip -L https://github.com/yast-client/tg_owt/releases/download/$WEBRTC_TAG/tg_owt${SUFFIX}.zip
+        WEBRTC_URL=https://github.com/yast-client/tg_owt/releases/download/$WEBRTC_TAG/tg_owt${SUFFIX}.zip
+        echo "Downloading WebRTC from $WEBRTC_URL"
+        curl -o tg_owt.zip -L "$WEBRTC_URL"
         unzip -qq -o tg_owt.zip -d ./tg_owt
         rm tg_owt.zip
         rm tg_owt/include -r
