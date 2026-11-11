@@ -18,8 +18,10 @@ endif()
 
 if("${OS_VERSION}" MATCHES "^5\.0\.")
     set(DEFAULT_PREBUILT_LIBRARIES_SUFFIX ".1")
+    set(SAILFISHOS_5_0 true)
 else()
     set(DEFAULT_PREBUILT_LIBRARIES_SUFFIX ".2")
+    set(SAILFISHOS_5_0 false)
 endif()
 
 option(HARBOUR_COMPLIANCE "Harbour compliance" OFF)
@@ -27,7 +29,7 @@ set(TDLIB_TAG "v1.8.70-2" STRING "The TDLib Git tag to use when downloading")
 set(TG_OWT_TAG "v4" STRING "The Git tag to use when downloading WebRTC")
 set(PREBUILT_LIBRARIES_SUFFIX "${DEFAULT_PREBUILT_LIBRARIES_SUFFIX}" STRING "Suffix to use when downloading assets for prebuilt libraries")
 
-message(STATUS "Building ${CMAKE_PROJECT_NAME} for ${EDITION}")
+message(STATUS "Building ${CMAKE_PROJECT_NAME} for ${TARGET_ARCHITECTURE}")
 
 find_package(Qt5 COMPONENTS Core Network DBus Multimedia Positioning Qml Gui Quick LinguistTools REQUIRED)
 
@@ -194,13 +196,16 @@ if(NOT HARBOUR_COMPLIANCE)
     )
     target_link_libraries(${CMAKE_PROJECT_NAME} libtg_owt)
 
-    target_sources(${CMAKE_PROJECT_NAME} PRIVATE
-        src/gstaudiorecorder.cpp
-        src/gstaudiorecorder.h
-    )
-    pkg_check_modules(GSTREAMER REQUIRED gstreamer-1.0 gstreamer-pbutils-1.0 glib-2.0)
-    target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${GSTREAMER_INCLUDE_DIRS})
-    target_link_libraries(${CMAKE_PROJECT_NAME} ${GSTREAMER_LIBRARIES})
+    if(SAILFISHOS_5_0)
+        target_sources(${CMAKE_PROJECT_NAME} PRIVATE
+            src/gstaudiorecorder.cpp
+            src/gstaudiorecorder.h
+        )
+        pkg_check_modules(GSTREAMER REQUIRED gstreamer-1.0 gstreamer-pbutils-1.0 glib-2.0)
+        target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE ${GSTREAMER_INCLUDE_DIRS})
+        target_link_libraries(${CMAKE_PROJECT_NAME} ${GSTREAMER_LIBRARIES})
+        add_definitions(-DUSE_GST_AUDIO_RECORDER)
+    endif()
 
     # Workaround accessing contacts (see ContactSync.qml for more info)
     set(SAILJAIL_EXTRA_PERMISSIONS "Privileged;")

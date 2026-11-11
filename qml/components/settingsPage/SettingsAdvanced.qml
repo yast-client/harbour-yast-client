@@ -79,7 +79,7 @@ AccordionItem {
                 text: qsTr("Force QtMultimedia-based audio recorder")
                 automaticCheck: false
                 onClicked: appSettings.forceQtAudioRecorder = !checked
-                visible: NO_HARBOUR_COMPLIANCE
+                visible: voiceNoteRecorder.gstAudioRecorderSupported
             }
 
             TextSwitch {

@@ -25,7 +25,7 @@ namespace {
 void VoiceNoteRecorder::setupAudioRecorder() {
     LOG("Initializing audio recorder...");
 
-#ifdef NO_HARBOUR_COMPLIANCE
+#ifdef USE_GST_AUDIO_RECORDER
     this->gstAudioRecorder = nullptr;
 #endif
 
@@ -33,7 +33,7 @@ void VoiceNoteRecorder::setupAudioRecorder() {
     const bool opusSupportedByQt = qAudioRecorder->supportedAudioCodecs().contains(AUDIO_CODEC_OPUS);
     bool needSetupQt = true;
 
-#ifdef NO_HARBOUR_COMPLIANCE
+#ifdef USE_GST_AUDIO_RECORDER
     if (!opusSupportedByQt && !forceQtAudioRecorder) {
         LOG("Opus codec not provided by QtMultimedia, trying to setup custom GStreamer backend");
         bool error = false;
@@ -113,7 +113,7 @@ void VoiceNoteRecorder::setVolume(qreal value) {
         emit volumeChanged();
         LOG("Volume set" << volume);
 
-#ifdef NO_HARBOUR_COMPLIANCE
+#ifdef USE_GST_AUDIO_RECORDER
         if (gstAudioRecorder)
             this->gstAudioRecorder->setVolume(this->volume);
         else
@@ -126,7 +126,7 @@ void VoiceNoteRecorder::setVolume(qreal value) {
 void VoiceNoteRecorder::startRecordingVoiceNote() {
     LOG("Start recording voice note...");
     const QString location = this->getTemporaryDirectoryPath() + "/voicenote-" + QDateTime::currentDateTime().toString("yyyy-MM-dd-HH-mm-ss") + ".ogg";
-#ifdef NO_HARBOUR_COMPLIANCE
+#ifdef USE_GST_AUDIO_RECORDER
     if (gstAudioRecorder)
         gstAudioRecorder->record(location);
     else
@@ -139,7 +139,7 @@ void VoiceNoteRecorder::startRecordingVoiceNote() {
 
 void VoiceNoteRecorder::stopRecordingVoiceNote() {
     LOG("Stop recording voice note...");
-#ifdef NO_HARBOUR_COMPLIANCE
+#ifdef USE_GST_AUDIO_RECORDER
     if (gstAudioRecorder)
         gstAudioRecorder->stop();
     else
@@ -149,7 +149,7 @@ void VoiceNoteRecorder::stopRecordingVoiceNote() {
 }
 
 VoiceNoteRecorder::VoiceNoteRecordingState VoiceNoteRecorder::getVoiceNoteRecordingState() const {
-#ifdef NO_HARBOUR_COMPLIANCE
+#ifdef USE_GST_AUDIO_RECORDER
     if (gstAudioRecorder) {
         switch(this->gstAudioRecorder->getState()) {
         case GstAudioRecorder::Ready:
@@ -186,7 +186,7 @@ VoiceNoteRecorder::VoiceNoteRecordingState VoiceNoteRecorder::getVoiceNoteRecord
 }
 
 QString VoiceNoteRecorder::getVoiceNotePath() const {
-#ifdef NO_HARBOUR_COMPLIANCE
+#ifdef USE_GST_AUDIO_RECORDER
     if (gstAudioRecorder) return gstAudioRecorder->getLocation();
 #endif
     if (qAudioRecorder) return qAudioRecorder->outputLocation().toString();
@@ -194,7 +194,7 @@ QString VoiceNoteRecorder::getVoiceNotePath() const {
 }
 
 qlonglong VoiceNoteRecorder::getVoiceNoteDuration() const {
-#ifdef NO_HARBOUR_COMPLIANCE
+#ifdef USE_GST_AUDIO_RECORDER
     if (gstAudioRecorder) return gstAudioRecorder->getDuration();
 #endif
     if (qAudioRecorder) return qAudioRecorder->duration();

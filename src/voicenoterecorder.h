@@ -9,13 +9,14 @@
 
 #include "settings.h"
 
-#ifdef NO_HARBOUR_COMPLIANCE
+#ifdef USE_GST_AUDIO_RECORDER
 #include "gstaudiorecorder.h"
 #endif
 
 class VoiceNoteRecorder : public QObject {
     Q_OBJECT
 
+    Q_PROPERTY(bool gstAudioRecorderSupported READ gstAudioRecorderSupported CONSTANT)
     Q_PROPERTY(bool forceQtAudioRecorder MEMBER forceQtAudioRecorder WRITE setForceQtAudioRecorder NOTIFY forceQtAudioRecorderChanged)
     Q_PROPERTY(qreal volume MEMBER volume WRITE setVolume NOTIFY volumeChanged)
 
@@ -35,6 +36,13 @@ public:
     };
     Q_ENUM(VoiceNoteRecordingState)
 
+    inline bool gstAudioRecorderSupported() {
+#ifdef USE_GST_AUDIO_RECORDER
+        return true;
+#else
+        return false;
+#endif
+    }
     void setForceQtAudioRecorder(bool value);
     void setVolume(qreal value);
 
@@ -62,7 +70,7 @@ private:
     int argc;
     char **argv;
 
-#ifdef NO_HARBOUR_COMPLIANCE
+#ifdef USE_GST_AUDIO_RECORDER
     GstAudioRecorder *gstAudioRecorder;
 #endif
     QAudioRecorder *qAudioRecorder;

@@ -51,7 +51,7 @@ YAST Client depends on TDLib and WebRTC libraries, which are heavy. For your con
 ### Harbour compatibility
 Jolla Store, otherwise known as Habrour, is the official app store from Jolla. Some YAST features are not compatible with it. In the harbour version, they can be stripped out by changing the `HARBOUR_COMPLIANCE` value to `on` in the SPEC file. Currently, such features include:
 
-1. Audio recording backend based on the GStreamer C API
+1. Audio recording backend based on the GStreamer C API (for SailfishOS 5.0 and older)
 2. Calls (see [here](doc/libraries.md))
 3. Contact sync (see notes in [ContactSync.qml](qml/components/ContactSync.qml) for more info)
 
