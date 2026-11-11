@@ -29,7 +29,7 @@ TDLIB_TAG=v1.8.70-2
 WEBRTC_TAG=v4
 SUFFIX=".2"
 
-while getopts "hja:t:w:" OPTION
+while getopts "hja:v:t:w:s:" OPTION
 do
   case $OPTION in
     h)
