@@ -9,7 +9,7 @@ OPTIONS:
     -j                Enable Harbour compatibility. Currently, only skips WebRTC.
     -v TDLIB_VERSION  The TDLib version to use. Defaults to TDLIB_TAG,
                       with leading 'v' and everything after the dash symbol (-) removed.
-    -t TDLIB_TAG      The TDLib Git tag to download. Defaults to 'v' + TDLIB_VERSION.
+    -t TDLIB_TAG      The TDLib Git tag to download. If explicitly set empty, defaults to 'v' + TDLIB_VERSION.
     -w WEBRTC_TAG     The Git tag to use for downloading WebRTC.
     -s SUFFIX         The suffix to use when downloading library archives. Defaults to ".2".
     -h                Show this message and exit.
@@ -52,7 +52,7 @@ do
   esac
 done
 
-TDLIB_VERSION="${TDLIB_VERSION:-$TDLIB_TAG#v%%-*}"
+TDLIB_VERSION="${TDLIB_VERSION:-$(echo "$TDLIB_TAG" | sed -E 's/^v|-.*//g')}"
 TDLIB_TAG="${TDLIB_TAG:-v$TDLIB_VERSION}"
 
 echo "Downloading for $ARCH"
@@ -96,7 +96,7 @@ else
         echo "WebRTC for $ARCH already downloaded"
     fi
 
-    echo "$WEBRTC_TAG $SUFFIX" > $LAST_TDLIB_VERSION_FILE
+    echo "$WEBRTC_TAG $SUFFIX" > $LAST_WEBRTC_VERSION_FILE
 fi
 
 # Add anything else here later if needed
