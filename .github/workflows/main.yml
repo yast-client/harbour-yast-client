@@ -27,7 +27,7 @@ jobs:
         arch: [aarch64, armv7hl, i486]
         build: [
           {release: 5.0.0.43, rel: 1, harbour: true},
-          {release: 5.0.0.43, rel: custom-5.0},
+          {release: 5.0.0.43, rel: custom_sfos5},
           {release: 5.1.0.11, rel: custom}]
     steps:
     - name: Checkout
