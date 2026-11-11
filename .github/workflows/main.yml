@@ -1,8 +1,5 @@
 name: Build and Release
 
-env:
-  RELEASE: 5.0.0.43
-
 on:
   push:
     tags:
@@ -28,7 +25,10 @@ jobs:
     strategy:
       matrix:
         arch: [aarch64, armv7hl, i486]
-        variant: [harbour, custom]
+        build: [
+          {release: 5.0.0.43, rel: 1, harbour: true},
+          {release: 5.0.0.43, rel: custom-5.0},
+          {release: 5.1.0.11, rel: custom}]
     steps:
     - name: Checkout
       uses: actions/checkout@v6
@@ -37,8 +37,8 @@ jobs:
 
     - name: Prepare build variant
       run: |
-        if [ "${{ matrix.variant }}" = "harbour" ]; then
-          sed -i 's/^Release:.*$/Release: 1/' rpm/harbour-yast-client.spec || true
+        sed -i 's/^Release:.*$/Release: ${{ matrix.build.rel }}/' rpm/harbour-yast-client.spec || true
+        if [ "${{ matrix.build.harbour }}" = "true" ]; then
           sed -i 's/-DHARBOUR_COMPLIANCE=.*$/-DHARBOUR_COMPLIANCE=on/' rpm/harbour-yast-client.spec || true
         fi
 
@@ -52,10 +52,10 @@ jobs:
           const char TDLIB_API_HASH[] = "${{secrets.TDLIB_API_HASH}}";
         write-mode: overwrite
 
-    - name: Build ${{ matrix.arch }} on ${{ env.RELEASE }}
+    - name: Build ${{ matrix.arch }} on ${{ matrix.build.release }}
       uses: coderus/github-sfos-build@master
       with:
-        release: ${{ env.RELEASE }}
+        release: ${{ matrix.build.release }}
         arch: ${{ matrix.arch }}
 
     - name: Fix confusing release types

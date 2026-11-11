@@ -9,14 +9,16 @@ OPTIONS:
     -j                Enable Harbour compatibility. Currently, only skips WebRTC.
     -t TDLIB_VERSION  The TDLib version to download.
     -w WEBRTC_TAG     The Git tag to use for downloading WebRTC.
+    -s SUFFIX         The suffix to use when downloading library archives.
     -h                Show this message and exit.
 EOF
 }
 
 ARCH=aarch64
 HARBOUR=false
-TDLIB_VERSION=1.8.69
-WEBRTC_TAG=v3
+TDLIB_VERSION=1.8.70-2
+WEBRTC_TAG=v4
+SUFFIX=
 
 while getopts "hja:t:w:" OPTION
 do
@@ -31,6 +33,8 @@ do
     t) TDLIB_VERSION=$OPTARG ;;
     w) WEBRTC_TAG=$OPTARG ;;
 
+    s) SUFFIX=$OPTARG ;;
+
     ?)
       usage
       exit
@@ -43,7 +47,7 @@ echo "Downloading for $ARCH"
 # TDLib
 if [ ! -f tdlib/$ARCH/lib/libtdjson.so.$TDLIB_VERSION ]; then
     echo "Downloading TDLib"
-    curl -OL https://github.com/yast-client/td/releases/download/v$TDLIB_VERSION/tdlib.zip
+    curl -o tdlib.zip -L https://github.com/yast-client/td/releases/download/v$TDLIB_VERSION/tdlib${SUFFIX}.zip
 
     # FIXME?
     rm -r tdlib/aarch64
@@ -62,7 +66,7 @@ if [[ $HARBOUR == true ]]; then
     echo "Skipping WebRTC download for harbour build"
 elif [ ! -d tg_owt/$ARCH ]; then
     echo "Downloading WebRTC"
-    curl -OL https://github.com/yast-client/tg_owt/releases/download/$WEBRTC_TAG/tg_owt.zip
+    curl -o tg_owt.zip -L https://github.com/yast-client/tg_owt/releases/download/$WEBRTC_TAG/tg_owt${SUFFIX}.zip
     unzip -qq -o tg_owt.zip -d ./tg_owt
     rm tg_owt.zip
     rm tg_owt/include -r

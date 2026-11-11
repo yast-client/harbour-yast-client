@@ -6,7 +6,7 @@ CMake automatically downloads prebuilt TDLib and WebRTC for your convenience. If
 
 You need to have a compiled version of [TDLib](https://github.com/tdlib/td) in the sub-directory `tdlib`. This sub-directory must contain another sub-directory that fits to the target device architecture (e.g. aarch64, armv7hl or i486). Within this directory, there needs to be a folder called `lib` that contains at least `libtdjson.so.<version>`. For armv7hl the relative path would consequently be `tdlib/armv7hl/lib`.
 
-You can simply download [tdlib.zip from the YAST fork](https://github.com/yast-client/td/releases). To use it, you need to extract it into your local `tdlib/` folder as described above.
+You can simply download [tdlib.zip from the YAST fork](https://github.com/yast-client/td/releases). For SailfishOS 5.0, use `tdlib.1.zip`; for 5.1 and newer, use `tdlib.2.zip`. To use it, you need to extract it into your local `tdlib/` folder as described above.
 
 In case you want to use the same codebase which was used to compile the library that is shipped with YAST, please [check out the fork](https://github.com/roundedrectangle/td) and run the following commands:
 
@@ -22,18 +22,18 @@ In case you want to use the same codebase which was used to compile the library 
   - in case of compilation issues, try removing the flag `-DTD_ENABLE_LTO=ON`
 - `sfdk build-shell cmake --build . --target install`
 
-In case of errors try to remove `CMakeCache.txt` file from the build directory.
+In case of errors, try to remove `CMakeCache.txt` file from the build directory.
 
 You'll find the compiled library in the directory `td/tdlib`. You might also need to copy the `td/tdlib/include` folder to the `tdlib/` folder in the root of this project
 
 ## WebRTC (tg_owt)
 
-YAST supports calls. They are implemented through tgcalls - the Telegram Calls Library. Telegram calls rely on WebRTC, specifically [tg_owt](https://github.com/desktop-app/tg_owt). You can skip building it by downloading a prebuilt version from [here](https://github.com/yast-client/tg_owt/releases/latest) and extracting the archive to tg_owt/ (`include` directory can be omitted). If you'd like to compile it manually, keep reading.
+YAST supports calls. They are implemented through tgcalls - the Telegram Calls Library. Telegram calls rely on WebRTC, specifically [tg_owt](https://github.com/desktop-app/tg_owt). You can skip building it by downloading a prebuilt version from [here](https://github.com/yast-client/tg_owt/releases/latest) and extracting the archive to tg_owt/ (`include` directory can be omitted). For SailfishOS 5.0, use `tg_owt.1.zip`; for 5.1 and newer, use `tg_owt.2.zip`. If you'd like to compile it manually, keep reading.
 
 We will need to use a slightly [patched version](https://github.com/yast-client/tg_owt) with support for packaged openh264 as well as some other libraries.
 
 ```bash
-sfdk config target=SailfishOS-5.0.0.62-aarch64 # Adjust the target if needed
+sfdk config target=SailfishOS-5.1.0.11-aarch64 # Adjust the target if needed
 
 git clone https://github.com/yast-client/tg_owt --recursive
 cd tg_owt
