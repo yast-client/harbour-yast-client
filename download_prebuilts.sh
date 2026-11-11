@@ -1,6 +1,6 @@
 usage() {
 cat << EOF 
-usage: $0 [-a ARCH] [-v TDLIB_VERSION] [-t TDLIB_TAG] [-w WEBRTC_TAG] [-s SUFFIX] [-h] [-j] [-c]
+usage: $0 [-a ARCH] [-v TDLIB_VERSION] [-t TDLIB_TAG] [-w WEBRTC_TAG] [-s SUFFIX] [-h] [-j]
 
 Download prebuilt libraries for YAST Client.
 

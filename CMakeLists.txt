@@ -25,15 +25,9 @@ else()
 endif()
 
 option(HARBOUR_COMPLIANCE "Harbour compliance" OFF)
-set(TDLIB_TAG "v1.8.70-2" STRING "The TDLib Git tag to use when downloading")
-set(TG_OWT_TAG "v4" STRING "The Git tag to use when downloading WebRTC")
-set(PREBUILT_LIBRARIES_SUFFIX "${DEFAULT_PREBUILT_LIBRARIES_SUFFIX}" STRING "Suffix to use when downloading assets for prebuilt libraries")
-
-message(STATUS "Building ${CMAKE_PROJECT_NAME} for ${TARGET_ARCHITECTURE}")
-
-find_package(Qt5 COMPONENTS Core Network DBus Multimedia Positioning Qml Gui Quick LinguistTools REQUIRED)
-
-include(FindPkgConfig)
+set(TDLIB_TAG "v1.8.70-2" CACHE STRING "The TDLib Git tag to use when downloading" FORCE)
+set(TG_OWT_TAG "v4" CACHE STRING "The Git tag to use when downloading WebRTC" FORCE)
+set(PREBUILT_LIBRARIES_SUFFIX "${DEFAULT_PREBUILT_LIBRARIES_SUFFIX}" CACHE STRING "Suffix to use when downloading assets for prebuilt libraries" FORCE)
 
 if (CMAKE_SYSTEM_PROCESSOR STREQUAL aarch64)
     set(TARGET_ARCHITECTURE aarch64)
@@ -44,6 +38,12 @@ elseif (CMAKE_SYSTEM_PROCESSOR STREQUAL i486)
 else()
     message(FATAL_ERROR "Unsupported architecture: ${CMAKE_SYSTEM_PROCESSOR}")
 endif()
+
+message(STATUS "Building ${CMAKE_PROJECT_NAME} for ${TARGET_ARCHITECTURE}")
+
+find_package(Qt5 COMPONENTS Core Network DBus Multimedia Positioning Qml Gui Quick LinguistTools REQUIRED)
+
+include(FindPkgConfig)
 
 pkg_search_module(SAILFISH sailfishapp REQUIRED)
 
