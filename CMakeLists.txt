@@ -23,7 +23,7 @@ else()
 endif()
 
 option(HARBOUR_COMPLIANCE "Harbour compliance" OFF)
-set(TDLIB_VERSION "1.8.70-2" STRING "The TDLib version to use")
+set(TDLIB_TAG "v1.8.70-2" STRING "The TDLib Git tag to use when downloading")
 set(TG_OWT_TAG "v4" STRING "The Git tag to use when downloading WebRTC")
 set(PREBUILT_LIBRARIES_SUFFIX "${DEFAULT_PREBUILT_LIBRARIES_SUFFIX}" STRING "Suffix to use when downloading assets for prebuilt libraries")
 
@@ -71,7 +71,7 @@ endif()
 
 # Download prebuilt libraries if needed
 set(DOWNLOAD_PREBUILTS_ARGS "${CMAKE_CURRENT_SOURCE_DIR}/download_prebuilts.sh" "-a" "${TARGET_ARCHITECTURE}")
-list(APPEND DOWNLOAD_PREBUILTS_ARGS "-t" "${TDLIB_VERSION}")
+list(APPEND DOWNLOAD_PREBUILTS_ARGS "-t" "${TDLIB_TAG}")
 list(APPEND DOWNLOAD_PREBUILTS_ARGS "-w" "${TG_OWT_TAG}")
 list(APPEND DOWNLOAD_PREBUILTS_ARGS "-s" "${PREBUILT_LIBRARIES_SUFFIX}")
 if (HARBOUR_COMPLIANCE)

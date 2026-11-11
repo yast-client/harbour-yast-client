@@ -51,10 +51,10 @@ compile_commands.json
 # QtCreator local machine specific files for imported projects
 *creator.user*
 
-# Other IDE specific files
+# Other IDE-specific files
 .vscode/*
 
-# TDLib API Secrets
+# Telegram API secrets
 tdlibsecrets.h
 
 # Opal docs and translations
@@ -63,3 +63,4 @@ libs/opal-docs
 
 # TDLib and other prebuilts
 /*.zip
+.last_downloaded_version
