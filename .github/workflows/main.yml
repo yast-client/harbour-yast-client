@@ -26,7 +26,7 @@ jobs:
       matrix:
         arch: [aarch64, armv7hl, i486]
         build: [
-          {release: 5.0.0.43, rel: 1, harbour: true},
+          {release: 5.0.0.43, rel: 1},
           {release: 5.0.0.43, rel: custom_sfos5_0},
           {release: 5.1.0.11, rel: custom}]
     steps:
@@ -38,9 +38,6 @@ jobs:
     - name: Prepare build variant
       run: |
         sed -i 's/^Release:.*$/Release: ${{ matrix.build.rel }}/' rpm/harbour-yast-client.spec || true
-        if [ "${{ matrix.build.harbour }}" = "true" ]; then
-          sed -i 's/-DHARBOUR_COMPLIANCE=.*$/-DHARBOUR_COMPLIANCE=on/' rpm/harbour-yast-client.spec || true
-        fi
 
     - name: Set Secrets
       uses: DamianReeves/write-file-action@master

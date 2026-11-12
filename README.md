@@ -48,6 +48,17 @@ const char TDLIB_API_HASH[] = "1234567890abcdef1234567890abcdef";
 
 YAST Client depends on TDLib and WebRTC libraries, which are heavy. For your convenience, CMake will automatically download them. If you want to build (or download) them manually, see [here](doc/libraries.md).
 
+### Troubleshooting
+
+Some issues can be fixed by right clicking on the project in the Projects panel and select the Clean (and/or Rebuild) option.
+
+- If you see an error about OpenSSL 3.0 requirement (when building for SailfishOS 5.1 and newer), try to clean/rebuild (see above). If that doesn't work, run the following from the project build directory:
+```shell
+sfdk config target=SailfishOS-5.1.0.11-armv7hl # Adjust the build target if needed
+sfdk build-shell --maintain zypper in "pkgconfig(openssl) >= 3.0"
+```
+This is needed because older versions of YAST required OpenSSL 1.1 for compatibility with older SailfishOS versions, and unfortunately removing the old OpenSSL version from the build target cannot be done automatically.
+
 ### Harbour compatibility
 Jolla Store, otherwise known as Habrour, is the official app store from Jolla. Some YAST features are not compatible with it. In the harbour version, they can be stripped out by changing the `HARBOUR_COMPLIANCE` value to `on` in the SPEC file. Currently, such features include:
 
