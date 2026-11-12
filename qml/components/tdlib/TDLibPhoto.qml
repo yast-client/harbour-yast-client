@@ -17,7 +17,6 @@ Item {
     property alias minithumbnailItem: minithumbnailLoader.item
     property alias minithumbnail: minithumbnailLoader.minithumbnail
     property bool loadBackgroundImage: !tdLibImage.visible && !minithumbnailReady
-    property bool showEmpty
 
     onWidthChanged: setImageFile()
     onPhotoChanged: setImageFile()
@@ -49,7 +48,6 @@ Item {
         height: parent.height
         cache: false
         highlighted: parent.highlighted
-        file.clearWithInvalidFileInfo: showEmpty
     }
 
     Component.onCompleted: setImageFile()
