@@ -65,6 +65,12 @@ Item {
         }
     }
 
+    Binding {
+        target: chatManager.topicsModel
+        property: 'refreshTimerEnabled'
+        value: !appSettings.compactChatList
+    }
+
     Loader {
         id: forwardHeaderLoader
         width: parent.width
