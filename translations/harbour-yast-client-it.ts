@@ -1205,61 +1205,6 @@ Per favore dai uno sguardo alla %1FAQ di Telegram%2: contiene risposte per la ma
     </message>
 </context>
 <context>
-    <name>CrashReportDialog</name>
-    <message>
-        <source>Report a Crash</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Report</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Include my Telegram account</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If checked, you may later be contacted for more information regarding your report.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Additional info</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please describe the cause of the crash and what you did in the app before it happened.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>If possible, also include your contact information.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Send Logs</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Logging is disabled in settings.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Note that logs may include some sensitive info.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Send TDLib Logs</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>TDLib logging is disabled in settings.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Note that TDLib logs maay include some sensitive info.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>CustomizeNotificationsPage</name>
     <message>
         <source>Notifications</source>
@@ -1428,6 +1373,11 @@ Per favore dai uno sguardo alla %1FAQ di Telegram%2: contiene risposte per la ma
         <source>Create topics</source>
         <comment>member permission</comment>
         <translation>Crea topic</translation>
+    </message>
+    <message>
+        <source>Edit own tags</source>
+        <comment>member permission</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
