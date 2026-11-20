@@ -22,7 +22,7 @@ AboutPageBase {
     _iconItem.sourceSize.width: _iconItem.width
     _iconItem.sourceSize.height: _iconItem.height
     description: qsTr("A Telegram client for Sailfish OS")
-    sourcesUrl: "https://github.com/roundedrectangle/harbour-yast-client"
+    sourcesUrl: "https://github.com/yast-client/harbour-yast-client"
     autoAddOpalAttributions: true
     licenses: License { spdxId: 'GPL-3.0-only' }
 
