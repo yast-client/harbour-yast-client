@@ -255,6 +255,26 @@ AccordionItem {
                 text: qsTr("Clear payment and shipping info")
                 onClicked: pageStack.push(Qt.resolvedUrl("../../dialogs/ClearPaymentInfoDialog.qml"))
             }
+
+            SectionHeader { text: qsTr("Links") }
+
+            TextSwitch {
+                text: qsTr("Ping proxies from links automatically")
+                checked: appSettings.autoCheckProxyPing
+                automaticCheck: false
+                onClicked: appSettings.autoCheckProxyPing = !checked
+            }
+
+            SectionHeader { text: qsTr("Secret chats"); visible: false }
+
+            TextSwitch {
+                visible: false // TODO
+                text: qsTr("Link Previews")
+                description: qsTr("Link previews will be generated on Telegram servers. We do not store any data about the links you send.")
+                checked: appSettings.secretLinkPreviews
+                automaticCheck: false
+                onClicked: appSettings.secretLinkPreviews = !checked
+            }
         }
     }
 }

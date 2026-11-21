@@ -110,6 +110,7 @@ ApplicationWindow {
             // Privacy
             property bool sendInlineLocation: true
             property bool secretLinkPreviews: true // TODO
+            property bool autoCheckProxyPing
 
             // Appearance
             property bool showStickersAsEmojis

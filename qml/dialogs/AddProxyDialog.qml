@@ -11,6 +11,7 @@ Dialog {
 
     property int editProxyId: -1
     property bool openAfterAdding
+    property bool pingOnStart
 
     property alias server: serverField.text
     property alias port: portField.text
@@ -26,7 +27,7 @@ Dialog {
     property double ping: -1
 
     Component.onCompleted:
-        if (proxyType)
+        if (proxyType) {
             switch (proxyType['@type']) {
             case 'proxyTypeMtproto':
                 proxyTypeId = 0
@@ -46,6 +47,8 @@ Dialog {
                     transparentConnectionSwitch.checked = !proxyType.http_only
                 break
             }
+            if (pingOnStart) checkPing()
+        }
 
     function getTypeObject() {
         var type = {}
@@ -69,6 +72,11 @@ Dialog {
             break
         }
         return type
+    }
+
+    function checkPing() {
+        ping = -3
+        tdLibWrapper.pingProxy(server, port, getTypeObject())
     }
 
     signal proxyChanged
@@ -101,10 +109,7 @@ Dialog {
             busy: ping == -3
             MenuItem {
                 text: qsTr("Check status", "Check proxy status when adding")
-                onClicked: {
-                    ping = -3
-                    tdLibWrapper.pingProxy(server, port, getTypeObject())
-                }
+                onClicked: checkPing()
             }
         }
 

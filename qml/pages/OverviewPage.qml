@@ -79,7 +79,10 @@ Page {
                 // Proxy links are the only deep links with a separate page which can be viewed from login page (as of now)
                 case 'addProxyDialog':
                     deepLinkPagePath = Qt.resolvedUrl('../dialogs/AddProxyDialog.qml')
-                    deepLinkPageData = {server: page.server, port: page.port, proxyType: page.getTypeObject(), openAfterAdding: true}
+                    deepLinkPageData = {
+                        server: page.server, port: page.port, proxyType: page.getTypeObject(),
+                        openAfterAdding: true, pingOnStart: appSettings.autoCheckProxyPing
+                    }
                     break
                 }
 
@@ -200,7 +203,10 @@ Page {
             else
                 pageStack.push(Qt.resolvedUrl("../dialogs/ChatJoinDialog.qml"), {link: link, invite: info})
         onInternalLinkTypeProxyReceived:
-            pageStack.push(Qt.resolvedUrl("../dialogs/AddProxyDialog.qml"), {server: server, port: port, proxyType: type, openAfterAdding: true})
+            pageStack.push(Qt.resolvedUrl("../dialogs/AddProxyDialog.qml"), {
+                server: server, port: port, proxyType: type,
+                openAfterAdding: true, pingOnStart: appSettings.autoCheckProxyPing
+            })
         onInternalLinkTypeSettingsReceived: {
             pageStack.completeAnimation()
             if (section == 'settingsSectionDataAndStorage' && subsection.indexOf('proxy') == 0) {
