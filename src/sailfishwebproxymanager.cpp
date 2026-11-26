@@ -6,6 +6,7 @@
 
 #include <QQmlComponent>
 #include <QQuickItem>
+#include <QTimer>
 
 #define DEBUG_ROOT_MODULE "yast-client"
 #define DEBUG_MODULE SailfishWebProxyManager
@@ -40,14 +41,22 @@ SailfishWebProxyCarrier::SailfishWebProxyCarrier(int id, const QString &url, con
 }
 
 SailfishWebProxyCarrier::~SailfishWebProxyCarrier() {
-    webView->deleteLater();
+    if (!webView) return;
+    if (dataEverProcessed && sendWebViewData(CLOSE_DATA))
+        QTimer::singleShot(200, webView, &QObject::deleteLater);
+    else
+        webView->deleteLater();
+}
+
+bool SailfishWebProxyCarrier::sendWebViewData(const QString &data) {
+    return QMetaObject::invokeMethod(webView, "postMessage", Q_ARG(QVariant, data));
 }
 
 void SailfishWebProxyCarrier::processData(const QString &data) {
-    auto fail = [this]() { qobject_cast<SailfishWebProxyManager*>(parent())->tdLibWrapper->reportWebProxyCarrierError(id); };
-    if (!webView) return fail();
-    bool ok = QMetaObject::invokeMethod(webView, "postMessage", Q_ARG(QVariant, data));
-    if (!ok) fail();
+    if (webView && sendWebViewData(data))
+        dataEverProcessed = true;
+    else
+        qobject_cast<SailfishWebProxyManager*>(parent())->tdLibWrapper->reportWebProxyCarrierError(id);
 }
 
 SailfishWebProxyManager::SailfishWebProxyManager(QSharedPointer<QQuickView> view, TDLibWrapper *tdLibWrapper, QObject *parent)

@@ -16,8 +16,11 @@ public:
     virtual void processData(const QString &data) override;
 
 private:
+    bool sendWebViewData(const QString &data);
+
     int id;
     QObject *webView;
+    bool dataEverProcessed = false;
 };
 
 class SailfishWebProxyManager : public WebProxyManager {
