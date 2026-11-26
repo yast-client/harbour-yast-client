@@ -76,8 +76,8 @@ Item {
 
     property bool publicLoading
     property bool localLoading: true
-    readonly property bool haveNoLocalResults: localSearchListView.count == 0 && recentlyFoundSearchListView.count == 0
-    readonly property bool isLoading: (publicLoading || localLoading) && haveNoLocalResults && topChatUsersViewLoader.count == 0
+    readonly property bool haveNoLocalResults: localSearchListView.count == 0 && recentlyFoundSearchListView.count == 0 && topChatUsersViewLoader.count == 0
+    readonly property bool isLoading: (publicLoading || localLoading) && haveNoLocalResults
     property var recentlyFoundChatsFound: []
     property var localChatsFound: []
     property var publicChatsFound: []
@@ -473,7 +473,7 @@ Item {
 
             ViewPlaceholder {
                 y: Theme.paddingLarge
-                enabled: publicSearchListView.count == 0 && haveNoLocalResults
+                enabled: !isLoading && publicSearchListView.count == 0 && haveNoLocalResults
                 text: searchField.text ? qsTr("No Results") : qsTr("No recent searches")
                 hintText: searchField.text ? qsTr('There were no results for "%1". Try another search.').arg(searchField.text) : qsTr("Recent search results will appear here.")
             }
