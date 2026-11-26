@@ -33,7 +33,7 @@ Page {
             }
             MenuItem {
                 text: "Reopen TDLib instance"
-                onClicked: tdLibWrapper.close()
+                onClicked: tdLibWrapper.reopenInstance()
             }
         }
 
