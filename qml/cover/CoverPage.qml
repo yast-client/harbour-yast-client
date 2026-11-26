@@ -84,6 +84,7 @@ CoverBackground {
 
     CoverActionList {
         enabled: authenticated
+        iconBackground: true
         actions: {
             var result = []
             //if (unreadMessageCount > 0) result.push(readAction)
