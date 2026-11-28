@@ -27,7 +27,7 @@ else()
 endif()
 
 option(HARBOUR_COMPLIANCE "Harbour compliance" OFF)
-set(TDLIB_TAG "v1.8.71" CACHE STRING "The TDLib Git tag to use when downloading" FORCE)
+set(TDLIB_TAG "v1.8.71-2" CACHE STRING "The TDLib Git tag to use when downloading" FORCE)
 set(TG_OWT_TAG "v4" CACHE STRING "The Git tag to use when downloading WebRTC" FORCE)
 set(PREBUILT_LIBRARIES_SUFFIX "${DEFAULT_PREBUILT_LIBRARIES_SUFFIX}" CACHE STRING "Suffix to use when downloading assets for prebuilt libraries" FORCE)
 
