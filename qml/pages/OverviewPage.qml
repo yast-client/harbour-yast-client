@@ -163,8 +163,6 @@ Page {
             chatListCreatedTimer.stop()
             updateSecondaryContentTimer.stop()
             break
-        default:
-            // Nothing ;)
         }
     }
 

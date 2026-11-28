@@ -23,7 +23,7 @@ Dialog {
 
     canAccept: nameField.acceptableInput && lastNameField.acceptableInput && (!phoneField.visible || phoneField.acceptableInput) && noteField.acceptableInput
     onAccepted: {
-        var noteObject = utilities.newFormattedText(note)
+        var noteObject = {text: note}
         if (userId)
             tdLibWrapper.addContact(userId, name, lastName, phone, noteObject, needPhoneNumberPrivacyException && sharePhoneNumberField.checked)
         else

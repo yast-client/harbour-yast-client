@@ -75,7 +75,7 @@ Column {
             if (attachmentPreviewRow.visible) {
                 function sendFile(contentType, content) {
                     content['@type'] = contentType
-                    content.caption = utilities.newFormattedText(newMessageTextField.text)
+                    content.caption = {text: newMessageTextField.text}
 
                     tdLibWrapper.sendMessage(chatId, newMessageColumn.replyToMessageId, topicId, content)
                 }

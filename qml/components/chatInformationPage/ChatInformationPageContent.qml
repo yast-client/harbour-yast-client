@@ -446,7 +446,7 @@ SilicaFlickable {
                     multiLine: true
                     editText: utilities.enhanceMessageText(tdLibWrapper.getMarkdownText(userFullInformation.note), true, false)
                     onSaveButtonClicked:
-                        tdLibWrapper.setUserNote(userInformation.id, utilities.newFormattedText(textValue))
+                        tdLibWrapper.setUserNote(userInformation.id, {text: textValue})
                     onTextEdited: {
                         var maxLength = tdData.options.user_note_text_length_max
                         if (textValue.length <= maxLength) {

@@ -49,7 +49,7 @@ QtObject {
                 }
 
                 contacts.push(utilities.makeImportedContact(
-                    person.firstName, person.lastName, person.phoneNumbers[j], utilities.newFormattedText(note)))
+                    person.firstName, person.lastName, person.phoneNumbers[j], {text: note}))
             }
         }
         tdLibWrapper.importContacts(contacts, 'contacts')

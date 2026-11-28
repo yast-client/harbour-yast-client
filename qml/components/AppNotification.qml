@@ -6,6 +6,7 @@ import Sailfish.Silica 1.0
 import "../js/debug.js" as Debug
 import "../js/twemoji.js" as Emoji
 
+// This and not Silica notices are used for 1. text wrapping and 2. buttons
 Rectangle {
     id: notification
     anchors.centerIn: parent
